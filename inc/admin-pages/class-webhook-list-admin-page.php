@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Webhook Admin Page.
+ * Multisite Ultimate Webhook Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Webhook Admin Page.
+ * Multisite Ultimate Webhook Admin Page.
  */
 class Webhook_List_Admin_Page extends List_Admin_Page {
 
@@ -64,16 +64,17 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 
 		parent::register_scripts();
 
-		wp_register_script('wu-webhook-page', wu_get_asset('webhook-page.js', 'js'), ['jquery', 'wu-sweet-alert']);
+		wp_register_script('wu-webhook-page', wu_get_asset('webhook-page.js', 'js'), ['jquery', 'wu-sweet-alert'], \WP_Ultimo::VERSION, true);
 
 		wp_localize_script(
 			'wu-webhook-page',
 			'wu_webhook_page',
 			[
-				'i18n' => [
-					'error_title'   => __('Webhook Test', 'wp-multisite-waas'),
-					'error_message' => __('An error occurred when sending the test webhook, please try again.', 'wp-multisite-waas'),
-					'copied'        => __('Copied!', 'wp-multisite-waas'),
+				'nonce' => wp_create_nonce('wu_webhook_send_test'),
+				'i18n'  => [
+					'error_title'   => __('Webhook Test', 'multisite-ultimate'),
+					'error_message' => __('An error occurred when sending the test webhook, please try again.', 'multisite-ultimate'),
+					'copied'        => __('Copied!', 'multisite-ultimate'),
 				],
 			]
 		);
@@ -120,25 +121,25 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'name'          => [
 				'type'        => 'text',
-				'title'       => __('Webhook Name', 'wp-multisite-waas'),
-				'desc'        => __('A name to easily identify your webhook.', 'wp-multisite-waas'),
-				'placeholder' => __('E.g. Zapier Integration', 'wp-multisite-waas'),
+				'title'       => __('Webhook Name', 'multisite-ultimate'),
+				'desc'        => __('A name to easily identify your webhook.', 'multisite-ultimate'),
+				'placeholder' => __('E.g. Zapier Integration', 'multisite-ultimate'),
 			],
 			'event'         => [
-				'title'   => __('Event', 'wp-multisite-waas'),
+				'title'   => __('Event', 'multisite-ultimate'),
 				'type'    => 'select',
-				'desc'    => __('The event that will trigger the webhook.', 'wp-multisite-waas'),
+				'desc'    => __('The event that will trigger the webhook.', 'multisite-ultimate'),
 				'options' => $event_options,
 			],
 			'webhook_url'   => [
 				'type'        => 'url',
-				'title'       => __('Webhook Url', 'wp-multisite-waas'),
-				'desc'        => __('The url of your webhook.', 'wp-multisite-waas'),
-				'placeholder' => __('E.g. https://example.com/', 'wp-multisite-waas'),
+				'title'       => __('Webhook Url', 'multisite-ultimate'),
+				'desc'        => __('The url of your webhook.', 'multisite-ultimate'),
+				'placeholder' => __('E.g. https://example.com/', 'multisite-ultimate'),
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Add New Webhook', 'wp-multisite-waas'),
+				'title'           => __('Add New Webhook', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -177,7 +178,8 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function handle_add_new_webhook_modal(): void {
 
-		$status = wu_create_webhook($_POST);
+		// Nonce check handled in calling method.
+		$status = wu_create_webhook($_POST); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		if (is_wp_error($status)) {
 			wp_send_json_error($status);
@@ -212,8 +214,8 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Webhook removed successfully.', 'wp-multisite-waas'),
-			'search_label'    => __('Search Webhook', 'wp-multisite-waas'),
+			'deleted_message' => __('Webhook removed successfully.', 'multisite-ultimate'),
+			'search_label'    => __('Search Webhook', 'multisite-ultimate'),
 		];
 	}
 
@@ -225,7 +227,7 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Webhooks', 'wp-multisite-waas');
+		return __('Webhooks', 'multisite-ultimate');
 	}
 
 	/**
@@ -236,7 +238,7 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Webhooks', 'wp-multisite-waas');
+		return __('Webhooks', 'multisite-ultimate');
 	}
 
 	/**
@@ -247,7 +249,7 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Webhooks', 'wp-multisite-waas');
+		return __('Webhooks', 'multisite-ultimate');
 	}
 
 	/**
@@ -260,7 +262,7 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 
 		return [
 			[
-				'label'   => __('Add New Webhook', 'wp-multisite-waas'),
+				'label'   => __('Add New Webhook', 'multisite-ultimate'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('add_new_webhook_modal'),

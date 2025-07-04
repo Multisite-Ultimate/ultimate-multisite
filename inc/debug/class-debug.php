@@ -13,7 +13,7 @@ use WP_Ultimo\Faker;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
-
+// phpcs:disable WordPress.DB.DirectDatabaseQuery
 /**
  * Debugger Tools for developers.
  *
@@ -24,7 +24,7 @@ class Debug {
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
-	 * The registry of WP Multisite WaaS admin pages.
+	 * The registry of Multisite Ultimate admin pages.
 	 *
 	 * @since 2.0.0
 	 * @var array
@@ -72,37 +72,37 @@ class Debug {
 			<a  
 				href="<?php wu_network_admin_url('wp-ultimo-debug-pages'); ?>" 
 				class="wu-ml-2 wu-no-underline wu-text-gray-600"
-				title="<?php esc_html_e('Pages', 'wp-multisite-waas'); ?>"
+				title="<?php esc_html_e('Pages', 'multisite-ultimate'); ?>"
 			>
 				<span class="dashicons-wu-documents"></span>
-				<?php esc_html_e('Pages', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Pages', 'multisite-ultimate'); ?>
 			</a>
 
 			<a  
 				href="<?php echo wu_get_form_url('add_debug_generator_form'); ?>" 
 				class="wubox wu-ml-2 wu-no-underline wu-relative wu-text-gray-600"
-				title="<?php esc_html_e('Generator', 'wp-multisite-waas'); ?>"
+				title="<?php esc_html_e('Generator', 'multisite-ultimate'); ?>"
 			>
 				<span class="dashicons-wu-rocket"></span>
-				<?php esc_html_e('Generator', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Generator', 'multisite-ultimate'); ?>
 			</a>
 
 			<a  
 				href="<?php echo wu_get_form_url('add_debug_reset_database_form'); ?>" 
 				class="wubox wu-ml-2 wu-no-underline wu-text-gray-600"
-				title="<?php esc_html_e('Reset Database', 'wp-multisite-waas'); ?>"
+				title="<?php esc_html_e('Reset Database', 'multisite-ultimate'); ?>"
 			>
 				<span class="dashicons-wu-back-in-time"></span>
-				<?php esc_html_e('Reset Database', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Reset Database', 'multisite-ultimate'); ?>
 			</a>
 
 			<a  
 				href="<?php echo wu_get_form_url('add_debug_drop_database_form'); ?>" 
 				class="wubox wu-ml-2 wu-no-underline wu-text-gray-600"
-				title="<?php esc_html_e('Drop Database', 'wp-multisite-waas'); ?>"
+				title="<?php esc_html_e('Drop Database', 'multisite-ultimate'); ?>"
 			>
 				<span class="dashicons-wu-database"></span>
-				<?php esc_html_e('Drop Database', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Drop Database', 'multisite-ultimate'); ?>
 			</a>
 
 		<?php
@@ -162,15 +162,15 @@ class Debug {
 
 		$fields = [
 			'customers'             => [
-				'title'     => __('Customers', 'wp-multisite-waas'),
-				'desc'      => __('Toggle to generate customers.', 'wp-multisite-waas'),
+				'title'     => __('Customers', 'multisite-ultimate'),
+				'desc'      => __('Toggle to generate customers.', 'multisite-ultimate'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'customers',
 				],
 			],
 			'customers_number'      => [
-				'title'             => __('Number of Customers', 'wp-multisite-waas'),
+				'title'             => __('Number of Customers', 'multisite-ultimate'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -179,15 +179,15 @@ class Debug {
 				],
 			],
 			'products'              => [
-				'title'     => __('Products', 'wp-multisite-waas'),
-				'desc'      => __('Toggle to generate products.', 'wp-multisite-waas'),
+				'title'     => __('Products', 'multisite-ultimate'),
+				'desc'      => __('Toggle to generate products.', 'multisite-ultimate'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'products',
 				],
 			],
 			'products_number'       => [
-				'title'             => __('Number of Products', 'wp-multisite-waas'),
+				'title'             => __('Number of Products', 'multisite-ultimate'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -196,15 +196,15 @@ class Debug {
 				],
 			],
 			'memberships'           => [
-				'title'     => __('Memberships', 'wp-multisite-waas'),
-				'desc'      => __('Toggle to generate memberships.', 'wp-multisite-waas'),
+				'title'     => __('Memberships', 'multisite-ultimate'),
+				'desc'      => __('Toggle to generate memberships.', 'multisite-ultimate'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'memberships',
 				],
 			],
 			'memberships_number'    => [
-				'title'             => __('Number of Memberships', 'wp-multisite-waas'),
+				'title'             => __('Number of Memberships', 'multisite-ultimate'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -213,15 +213,15 @@ class Debug {
 				],
 			],
 			'sites'                 => [
-				'title'     => __('Sites', 'wp-multisite-waas'),
-				'desc'      => __('Toggle to generate sites.', 'wp-multisite-waas'),
+				'title'     => __('Sites', 'multisite-ultimate'),
+				'desc'      => __('Toggle to generate sites.', 'multisite-ultimate'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'sites',
 				],
 			],
 			'sites_number'          => [
-				'title'             => __('Number of Sites', 'wp-multisite-waas'),
+				'title'             => __('Number of Sites', 'multisite-ultimate'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -230,15 +230,15 @@ class Debug {
 				],
 			],
 			'domains'               => [
-				'title'     => __('Domains', 'wp-multisite-waas'),
-				'desc'      => __('Toggle to generate domains.', 'wp-multisite-waas'),
+				'title'     => __('Domains', 'multisite-ultimate'),
+				'desc'      => __('Toggle to generate domains.', 'multisite-ultimate'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'domains',
 				],
 			],
 			'domains_number'        => [
-				'title'             => __('Number of Domains', 'wp-multisite-waas'),
+				'title'             => __('Number of Domains', 'multisite-ultimate'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -247,15 +247,15 @@ class Debug {
 				],
 			],
 			'discount_codes'        => [
-				'title'     => __('Discount Codes', 'wp-multisite-waas'),
-				'desc'      => __('Toggle to generate discount codes.', 'wp-multisite-waas'),
+				'title'     => __('Discount Codes', 'multisite-ultimate'),
+				'desc'      => __('Toggle to generate discount codes.', 'multisite-ultimate'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'discount_codes',
 				],
 			],
 			'discount_codes_number' => [
-				'title'             => __('Number of Discount Codes', 'wp-multisite-waas'),
+				'title'             => __('Number of Discount Codes', 'multisite-ultimate'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -264,15 +264,15 @@ class Debug {
 				],
 			],
 			'payments'              => [
-				'title'     => __('Payments', 'wp-multisite-waas'),
-				'desc'      => __('Toggle to generate payments.', 'wp-multisite-waas'),
+				'title'     => __('Payments', 'multisite-ultimate'),
+				'desc'      => __('Toggle to generate payments.', 'multisite-ultimate'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'payments',
 				],
 			],
 			'payments_number'       => [
-				'title'             => __('Number of Payments', 'wp-multisite-waas'),
+				'title'             => __('Number of Payments', 'multisite-ultimate'),
 				'type'              => 'number',
 				'value'             => 30,
 				'wrapper_html_attr' => [
@@ -281,7 +281,7 @@ class Debug {
 				],
 			],
 			'submit_button'         => [
-				'title'           => __('Generate Data &rarr;', 'wp-multisite-waas'),
+				'title'           => __('Generate Data &rarr;', 'multisite-ultimate'),
 				'type'            => 'submit',
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
@@ -333,7 +333,7 @@ class Debug {
 
 		$faker = new Faker();
 
-		$wpdb->query('START TRANSACTION');
+		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		try {
 			if (wu_request('customers')) {
@@ -364,7 +364,7 @@ class Debug {
 				$faker->generate_fake_payment(wu_request('payments_number', 0));
 			}
 		} catch (\Throwable $e) {
-			$wpdb->query('ROLLBACK');
+			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			$error = new \WP_Error($e->getCode(), $e->getMessage());
 
@@ -385,7 +385,7 @@ class Debug {
 
 		wu_save_option('debug_faker', $fake_ids_generated);
 
-		$wpdb->query('COMMIT');
+		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		wp_send_json_success(
 			[
@@ -404,8 +404,8 @@ class Debug {
 
 		$fields = [
 			'reset_only_fake_data' => [
-				'title'     => __('Only reset generated data.', 'wp-multisite-waas'),
-				'desc'      => __('Toggle this option to only remove data that was added by the generator previously. Untoggling this option will reset ALL data in WP Multisite WaaS tables.', 'wp-multisite-waas'),
+				'title'     => __('Only reset generated data.', 'multisite-ultimate'),
+				'desc'      => __('Toggle this option to only remove data that was added by the generator previously. Untoggling this option will reset ALL data in Multisite Ultimate tables.', 'multisite-ultimate'),
 				'type'      => 'toggle',
 				'value'     => true,
 				'html_attr' => [
@@ -413,7 +413,7 @@ class Debug {
 				],
 			],
 			'submit_button'        => [
-				'title'           => __('Reset Database &rarr;', 'wp-multisite-waas'),
+				'title'           => __('Reset Database &rarr;', 'multisite-ultimate'),
 				'type'            => 'submit',
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
@@ -452,7 +452,7 @@ class Debug {
 
 		global $wpdb;
 
-		$wpdb->query('START TRANSACTION');
+		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		try {
 			if (wu_request('reset_only')) {
@@ -461,14 +461,14 @@ class Debug {
 				$this->reset_all_data();
 			}
 		} catch (Exception $e) {
-			$wpdb->query('ROLLBACK');
+			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			$error = new \WP_Error($e->getCode(), $e->getMessage());
 
 			wp_send_json_error($error);
 		}
 
-		$wpdb->query('COMMIT');
+		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		wu_delete_option('debug_faker');
 
@@ -490,10 +490,10 @@ class Debug {
 		$fields = [
 			'reset_note'    => [
 				'type' => 'note',
-				'desc' => __('This action will drop the WP Multisite WaaS database tables and is irreversable.', 'wp-multisite-waas'),
+				'desc' => __('This action will drop the Multisite Ultimate database tables and is irreversable.', 'multisite-ultimate'),
 			],
 			'submit_button' => [
-				'title'           => __('Drop Database Tables &rarr;', 'wp-multisite-waas'),
+				'title'           => __('Drop Database Tables &rarr;', 'multisite-ultimate'),
 				'type'            => 'submit',
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
@@ -585,7 +585,7 @@ class Debug {
 	}
 
 	/**
-	 * Add a WP Multisite WaaS page to the registry.
+	 * Add a Multisite Ultimate page to the registry.
 	 *
 	 * @since 2.0.0
 	 *
@@ -709,17 +709,17 @@ class Debug {
 
 				$id_placeholders = implode(', ', array_fill(0, count($ids), '%d'));
 
-				$result = $wpdb->query(
-					$wpdb->prepare("DELETE FROM $table WHERE $field IN ($id_placeholders)", $ids) // phpcs:ignore
+				$result = $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+					$wpdb->prepare("DELETE FROM %i WHERE %i IN ($id_placeholders)", [$table, $field, ...$ids]) // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 				);
 			} else {
-				$result = $wpdb->query(
-					"DELETE FROM $table" // phpcs:ignore
+				$result = $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+					$wpdb->prepare('DELETE FROM %i', $table)
 				);
 			}
 
 			if (false === $result) {
-				throw new \Exception("Error $table");
+				throw new \Exception(esc_html("Error $table"));
 			}
 		}
 	}
@@ -950,7 +950,7 @@ class Debug {
 		$the_prefix = 'wp-ultimo_';
 
 		/*
-		 * List of WP Multisite WaaS options.
+		 * List of Multisite Ultimate options.
 		 * Format: $option_name => $should_use_prefix
 		 */
 		$options = [
@@ -975,3 +975,4 @@ class Debug {
 		}
 	}
 }
+// phpcs:enable WordPress.DB.DirectDatabaseQuery

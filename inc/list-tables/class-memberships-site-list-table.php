@@ -62,14 +62,14 @@ class Memberships_Site_List_Table extends Customers_Site_List_Table {
 			[
 				'link'      => [
 					'icon'  => 'dashicons-wu-link1 wu-align-middle wu-mr-1',
-					'label' => __('Visit Site', 'wp-multisite-waas'),
-					'value' => __('Homepage', 'wp-multisite-waas'),
+					'label' => __('Visit Site', 'multisite-ultimate'),
+					'value' => __('Homepage', 'multisite-ultimate'),
 					'url'   => $item->get_active_site_url(),
 				],
 				'dashboard' => [
 					'icon'  => 'dashicons-wu-browser wu-align-middle wu-mr-1',
-					'label' => __('Go to the Dashboard', 'wp-multisite-waas'),
-					'value' => __('Dashboard', 'wp-multisite-waas'),
+					'label' => __('Go to the Dashboard', 'multisite-ultimate'),
+					'value' => __('Dashboard', 'multisite-ultimate'),
 					'url'   => get_admin_url($item->get_id()),
 				],
 			],
@@ -77,7 +77,10 @@ class Memberships_Site_List_Table extends Customers_Site_List_Table {
 				'date_created' => [
 					'icon'  => 'dashicons-wu-calendar1 wu-align-middle wu-mr-1',
 					'label' => '',
-					'value' => $item->get_type() === 'pending' ? __('Not Available', 'wp-multisite-waas') : sprintf(__('Created %s', 'wp-multisite-waas'), wu_human_time_diff(strtotime((string) $item->get_date_registered()))),
+					'value' => $item->get_type() === 'pending' ?
+						__('Not Available', 'multisite-ultimate') :
+						// translators: %s is a placeholder for the human-readable time difference, e.g., "2 hours ago"
+						sprintf(__('Created %s', 'multisite-ultimate'), wu_human_time_diff(strtotime((string) $item->get_date_registered()))),
 				],
 			]
 		);

@@ -20,7 +20,7 @@
 
 		<span class="wu-block">{{ display_name }} (#{{ ID }})</span>
 
-		<small>{{ typeof user_email !== 'undefined' ? user_email : '<?php _e('Undefined'); ?>' }}</small>
+		<small>{{ typeof user_email !== 'undefined' ? user_email : '<?php esc_html_e('Undefined'); ?>' }}</small>
 
 	</div>
 
@@ -44,7 +44,7 @@
 
 		<span class="wu-block">{{ display_name }} (#{{ id }})</span>
 
-		<small>{{ typeof user_email !== 'undefined' ? user_email : '<?php _e('Undefined'); ?>' }}</small>
+		<small>{{ typeof user_email !== 'undefined' ? user_email : '<?php esc_html_e('Undefined'); ?>' }}</small>
 
 	</div>
 
@@ -180,7 +180,7 @@
 
 		<span class="wu-block">{{ text }}</span>
 
-		<small><?php esc_html_e('Network Admin', 'wp-multisite-waas'); ?> &rarr; {{ group }}</small>
+		<small><?php esc_html_e('Network Admin', 'multisite-ultimate'); ?> &rarr; {{ group }}</small>
 
 	</div>
 
@@ -216,7 +216,7 @@
 
 		<span class="wu-block">{{ domain }}</span>
 
-		<small><?php esc_html_e('Mapped Domain', 'wp-multisite-waas'); ?></small>
+		<small><?php esc_html_e('Mapped Domain', 'multisite-ultimate'); ?></small>
 
 	</div>
 
@@ -324,7 +324,7 @@
 
 	<div class="wu-p-4 wu-block wu-flex wu-items-center">
 
-	<?php esc_html_e('Nothing Found...', 'wp-multisite-waas'); ?>
+	<?php esc_html_e('Nothing Found...', 'multisite-ultimate'); ?>
 
 	</div>
 

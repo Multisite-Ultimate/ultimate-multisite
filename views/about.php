@@ -22,7 +22,7 @@
 </style>
 
 <a class="wu-fixed wu-inline-block wu-bottom-0 wu-left-1/2 wu-transform wu--translate-x-1/2 wu-bg-white wu-p-4 wu-rounded-full wu-shadow wu-m-4 wu-no-underline wu-z-10 wu-border-gray-300 wu-border-solid wu-border" href="<?php echo esc_attr(network_admin_url()); ?>">
-	<?php esc_html_e('← Back to the Dashboard', 'wp-multisite-waas'); ?>
+	<?php esc_html_e('← Back to the Dashboard', 'multisite-ultimate'); ?>
 </a>
 
 <div id="wp-ultimo-wrap" class="wrap wu-about-content">

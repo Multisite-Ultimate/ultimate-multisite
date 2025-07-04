@@ -14,29 +14,29 @@
 		<div>
 
 		<strong class="wu-text-gray-800 wu-text-base">
-			<?php echo $signups; ?>
+			<?php echo esc_html($signups); ?>
 		</strong>
 
 		</div>
 
 		<div class="wu-text-md wu-text-gray-600">
-		<span class="wu-block"><?php esc_html_e('Signups today', 'wp-multisite-waas'); ?></span>
+		<span class="wu-block"><?php esc_html_e('Signups today', 'multisite-ultimate'); ?></span>
 		</div>
 
 	</li>
 
-	<li class="wu-p-2 wu-w-full md:wu-w-4/12 wu-relative" <?php echo wu_tooltip_text(__('MRR stands for Monthly Recurring Revenue', 'wp-multisite-waas')); ?>>
+	<li class="wu-p-2 wu-w-full md:wu-w-4/12 wu-relative" <?php echo wu_tooltip_text(__('MRR stands for Monthly Recurring Revenue', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 
 		<div>
 
 		<strong class="wu-text-gray-800 wu-text-base">
-			<?php echo wu_format_currency($mrr); ?>
+			<?php echo esc_html(wu_format_currency($mrr)); ?>
 		</strong>
 
 		</div>
 
 		<div class="wu-text-md wu-text-gray-600">
-		<span class="wu-block"><?php esc_html_e('MRR', 'wp-multisite-waas'); ?></span>
+		<span class="wu-block"><?php esc_html_e('MRR', 'multisite-ultimate'); ?></span>
 		</div>
 
 	</li>
@@ -46,13 +46,13 @@
 		<div>
 
 		<strong class="wu-text-gray-800 wu-text-base">
-			<?php echo wu_format_currency($gross_revenue); ?>
+			<?php echo esc_html(wu_format_currency($gross_revenue)); ?>
 		</strong>
 
 		</div>
 
 		<div class="wu-text-md wu-text-gray-600">
-		<span class="wu-block"><?php _e('Today\'s gross revenue', 'wp-multisite-waas'); ?></span>
+		<span class="wu-block"><?php esc_html_e('Today\'s gross revenue', 'multisite-ultimate'); ?></span>
 		</div>
 
 	</li>

@@ -12,7 +12,7 @@
 
 		<tr>
 			<td colspan="2" class="wu-px-4 wu-py-2">
-				<?php esc_html_e('No items found.', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('No items found.', 'multisite-ultimate'); ?>
 			</td>
 		</tr>
 

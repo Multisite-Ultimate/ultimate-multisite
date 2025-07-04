@@ -145,7 +145,7 @@ class Plugin_Limits {
 					<span class="dashicons-wu-flash wu-align-text-bottom"></span>%s
 				</span>
 			</span>',
-				__('Always Loaded', 'wp-multisite-waas')
+				__('Always Loaded', 'multisite-ultimate')
 			);
 		}
 
@@ -160,8 +160,8 @@ class Plugin_Limits {
 						'type'   => $plugin_file,
 					]
 				),
-				__('Upgrade to unlock', 'wp-multisite-waas'),
-				__('Upgrade to unlock', 'wp-multisite-waas')
+				__('Upgrade to unlock', 'multisite-ultimate'),
+				__('Upgrade to unlock', 'multisite-ultimate')
 			);
 
 			$actions['upgrade'] = $upgrade;
@@ -196,7 +196,7 @@ class Plugin_Limits {
 				unset($plugins[ $plugin_slug ]);
 			}
 
-			if (str_starts_with($plugin_slug, 'wp-multisite-waas')) {
+			if (str_starts_with($plugin_slug, 'multisite-ultimate')) {
 				unset($plugins[ $plugin_slug ]);
 			}
 
@@ -236,7 +236,7 @@ class Plugin_Limits {
 		$plugin_limits = wu_get_current_site()->get_limitations()->plugins;
 
 		foreach ($plugins as $plugin_slug => $timestamp) {
-			if (str_contains($plugin_slug, 'wp-multisite-waas')) {
+			if (str_contains($plugin_slug, 'multisite-ultimate')) {
 				continue;
 			}
 
@@ -289,7 +289,7 @@ class Plugin_Limits {
 		$plugin_limits = wu_get_current_site()->get_limitations()->plugins;
 
 		foreach ($plugins as $plugin_slug) {
-			if (str_contains((string) $plugin_slug, 'wp-multisite-waas')) {
+			if (str_contains((string) $plugin_slug, 'multisite-ultimate')) {
 				continue;
 			}
 

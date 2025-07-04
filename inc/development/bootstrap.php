@@ -2,7 +2,7 @@
 /**
  * Development Bootstrap File
  *
- * This file loads some of the tooling we use to develop WP Multisite WaaS.
+ * This file loads some of the tooling we use to develop Multisite Ultimate.
  * It is not part of the final zip file we ship, so there's no need to worry
  * about things added in here.
  *
@@ -18,7 +18,7 @@ return;
  * Give an option to disable whoops automatically via a get query string (whoops-disable)
  * or by setting the constant we used to have on previous versions.
  */
-if (isset($_GET['whoops-disable']) || (defined('WP_ULTIMO_DISABLE_WHOOPS') && WP_ULTIMO_DISABLE_WHOOPS)) {
+if (isset($_GET['whoops-disable']) || (defined('WP_ULTIMO_DISABLE_WHOOPS') && WP_ULTIMO_DISABLE_WHOOPS)) { // phpcs:ignore WordPress.Security.NonceVerification
 	return;
 }
 

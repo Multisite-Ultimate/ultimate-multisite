@@ -1,4 +1,4 @@
-# Re-ordering the WP Multisite WaaS country list
+# Re-ordering the Multisite Ultimate country list
 
 The dropdown to select a country is ordered alphabetically based on the English variants of the country names. This might mean that, sometimes, the home country of your company and/or most of your customers is buried in the middle of a huge country name list.
 

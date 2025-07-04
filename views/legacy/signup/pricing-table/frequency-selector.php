@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/pricing-table/frequency-selector.php.
  *
- * HOWEVER, on occasion WP Multisite WaaS will need to update template files and you
+ * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -28,9 +28,9 @@ if ( ! defined('ABSPATH')) {
 	<?php
 
 	$prices = [
-		1  => __('Monthly', 'wp-multisite-waas'),
-		3  => __('Quarterly', 'wp-multisite-waas'),
-		12 => __('Yearly', 'wp-multisite-waas'),
+		1  => __('Monthly', 'multisite-ultimate'),
+		3  => __('Quarterly', 'multisite-ultimate'),
+		12 => __('Yearly', 'multisite-ultimate'),
 	];
 
 	$first = true;
@@ -43,8 +43,8 @@ if ( ! defined('ABSPATH')) {
 		?>
 
 	<li>
-	<a class="<?php echo $first ? 'active first' : ''; ?>" data-frequency-selector="<?php echo $type; ?>" href="#">
-		<?php echo $name; ?>
+	<a class="<?php echo $first ? 'active first' : ''; ?>" data-frequency-selector="<?php echo esc_attr($type); ?>" href="#">
+		<?php echo esc_html($name); ?>
 	</a>
 	</li>
 

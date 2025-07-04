@@ -64,7 +64,7 @@ class Legacy_Period_Selection_Field_Template extends Base_Field_Template {
 	 */
 	public function get_title() {
 
-		return __('Legacy', 'wp-multisite-waas');
+		return __('Legacy', 'multisite-ultimate');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Legacy_Period_Selection_Field_Template extends Base_Field_Template {
 	 */
 	public function get_description() {
 
-		return __('Implementation of the layout that shipped with WP Multisite WaaS < 1.10.X.', 'wp-multisite-waas');
+		return __('Implementation of the layout that shipped with Multisite Ultimate < 1.10.X.', 'multisite-ultimate');
 	}
 
 	/**

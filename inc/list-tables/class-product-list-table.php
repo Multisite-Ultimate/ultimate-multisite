@@ -36,8 +36,8 @@ class Product_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Product', 'wp-multisite-waas'),  // singular name of the listed records
-				'plural'   => __('Products', 'wp-multisite-waas'), // plural name of the listed records
+				'singular' => __('Product', 'multisite-ultimate'),  // singular name of the listed records
+				'plural'   => __('Products', 'multisite-ultimate'), // plural name of the listed records
 				'ajax'     => true,                        // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_network_admin_url('wp-ultimo-edit-product'),
@@ -68,7 +68,7 @@ class Product_List_Table extends Base_List_Table {
 		$title = "<strong>$title</strong>";
 
 		$actions = [
-			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-product', $url_atts), __('Edit', 'wp-multisite-waas')),
+			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-product', $url_atts), __('Edit', 'multisite-ultimate')),
 			'duplicate' => sprintf(
 				'<a href="%s">%s</a>',
 				wu_network_admin_url(
@@ -78,9 +78,9 @@ class Product_List_Table extends Base_List_Table {
 						'id'     => $item->get_id(),
 					]
 				),
-				__('Duplicate', 'wp-multisite-waas')
+				__('Duplicate', 'multisite-ultimate')
 			),
-			'delete'    => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'wp-multisite-waas'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'wp-multisite-waas')),
+			'delete'    => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'multisite-ultimate'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'multisite-ultimate')),
 		];
 
 		return $title . $this->row_actions($actions);
@@ -129,11 +129,11 @@ class Product_List_Table extends Base_List_Table {
 	public function column_amount($item) {
 
 		if ($item->get_pricing_type() === 'contact_us') {
-			return __('None', 'wp-multisite-waas') . sprintf('<br><small>%s</small>', __('Requires contact', 'wp-multisite-waas'));
+			return __('None', 'multisite-ultimate') . sprintf('<br><small>%s</small>', __('Requires contact', 'multisite-ultimate'));
 		}
 
 		if (empty($item->get_amount())) {
-			return __('Free', 'wp-multisite-waas');
+			return __('Free', 'multisite-ultimate');
 		}
 
 		$amount = wu_format_currency($item->get_amount(), $item->get_currency());
@@ -142,8 +142,8 @@ class Product_List_Table extends Base_List_Table {
 			$duration = $item->get_duration();
 
 			$message = sprintf(
-				// translators: %1$s is the formatted price, %2$s the duration, and %3$s the duration unit (day, week, month, etc)
-				_n('every %2$s', 'every %1$s %2$s', $duration, 'wp-multisite-waas'), // phpcs:ignore
+				// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
+				_n('every %2$s', 'every %1$s %2$s', $duration, 'multisite-ultimate'), // phpcs:ignore
 				$duration,
 				$item->get_duration_unit()
 			);
@@ -151,14 +151,14 @@ class Product_List_Table extends Base_List_Table {
 			if ( ! $item->is_forever_recurring()) {
 				$billing_cycles_message = sprintf(
 					// translators: %s is the number of billing cycles.
-					_n('for %s cycle', 'for %s cycles', $item->get_billing_cycles(), 'wp-multisite-waas'),
+					_n('for %s cycle', 'for %s cycles', $item->get_billing_cycles(), 'multisite-ultimate'),
 					$item->get_billing_cycles()
 				);
 
 				$message .= ' ' . $billing_cycles_message;
 			}
 		} else {
-			$message = __('one time payment', 'wp-multisite-waas');
+			$message = __('one time payment', 'multisite-ultimate');
 		}
 
 		return sprintf('%s<br><small>%s</small>', $amount, $message);
@@ -175,11 +175,11 @@ class Product_List_Table extends Base_List_Table {
 	public function column_setup_fee($item) {
 
 		if ($item->get_pricing_type() === 'contact_us') {
-			return __('None', 'wp-multisite-waas') . sprintf('<br><small>%s</small>', __('Requires contact', 'wp-multisite-waas'));
+			return __('None', 'multisite-ultimate') . sprintf('<br><small>%s</small>', __('Requires contact', 'multisite-ultimate'));
 		}
 
 		if ( ! $item->has_setup_fee()) {
-			return __('No Setup Fee', 'wp-multisite-waas');
+			return __('No Setup Fee', 'multisite-ultimate');
 		}
 
 		return wu_format_currency($item->get_setup_fee(), $item->get_currency());
@@ -201,7 +201,7 @@ class Product_List_Table extends Base_List_Table {
 			$product = wu_get_product($product);
 
 			if ( ! $product) {
-				WP_Ultimo()->notices->add(__('Product not found.', 'wp-multisite-waas'), 'error', 'network-admin');
+				WP_Ultimo()->notices->add(__('Product not found.', 'multisite-ultimate'), 'error', 'network-admin');
 
 				return;
 			}
@@ -209,7 +209,7 @@ class Product_List_Table extends Base_List_Table {
 			$new_product = $product->duplicate();
 
 			// translators: the %s is the thing copied.
-			$new_name = sprintf(__('Copy of %s', 'wp-multisite-waas'), $product->get_name());
+			$new_name = sprintf(__('Copy of %s', 'multisite-ultimate'), $product->get_name());
 
 			$new_product->set_name($new_name);
 
@@ -250,12 +250,12 @@ class Product_List_Table extends Base_List_Table {
 		$columns = [
 			'cb'                => '<input type="checkbox" />',
 			'featured_image_id' => '<span class="dashicons-wu-image"></span>',
-			'name'              => __('Name', 'wp-multisite-waas'),
-			'type'              => __('Type', 'wp-multisite-waas'),
-			'slug'              => __('Slug', 'wp-multisite-waas'),
-			'amount'            => __('Price', 'wp-multisite-waas'),
-			'setup_fee'         => __('Setup Fee', 'wp-multisite-waas'),
-			'id'                => __('ID', 'wp-multisite-waas'),
+			'name'              => __('Name', 'multisite-ultimate'),
+			'type'              => __('Type', 'multisite-ultimate'),
+			'slug'              => __('Slug', 'multisite-ultimate'),
+			'amount'            => __('Price', 'multisite-ultimate'),
+			'setup_fee'         => __('Setup Fee', 'multisite-ultimate'),
+			'id'                => __('ID', 'multisite-ultimate'),
 		];
 
 		return $columns;
@@ -304,25 +304,25 @@ class Product_List_Table extends Base_List_Table {
 			'all'     => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'all'),
-				'label' => __('All Products', 'wp-multisite-waas'),
+				'label' => __('All Products', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			'plan'    => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'plan'),
-				'label' => __('Plans', 'wp-multisite-waas'),
+				'label' => __('Plans', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			'package' => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'package'),
-				'label' => __('Packages', 'wp-multisite-waas'),
+				'label' => __('Packages', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			'service' => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'service'),
-				'label' => __('Services', 'wp-multisite-waas'),
+				'label' => __('Services', 'multisite-ultimate'),
 				'count' => 0,
 			],
 		];

@@ -299,7 +299,7 @@ abstract class Limit implements \JsonSerializable {
 	 */
 	public function handle_enabled() {
 
-		$module = wu_get_isset($_POST['modules'], $this->id, []);
+		$module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification
 
 		return (bool) wu_get_isset($module, 'enabled', false);
 	}
@@ -325,7 +325,7 @@ abstract class Limit implements \JsonSerializable {
 	 */
 	public function handle_limit() {
 
-		$module = wu_get_isset($_POST['modules'], $this->id, []);
+		$module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification
 
 		return wu_get_isset($module, 'limit', null);
 	}

@@ -1,16 +1,16 @@
 # Touring the Admin Panel
 
-## The WP Multisite WaaS Grand Tour
+## The Multisite Ultimate Grand Tour
 
 The Ultimate WaaS Solution.
 
-WP Multisite WaaS aims to be as simple and self-explanatory as possible, but when you have a tool that does as much as ours do, it might be overwhelming to learn how to navigate the plugin options and admin pages on your own.
+Multisite Ultimate aims to be as simple and self-explanatory as possible, but when you have a tool that does as much as ours do, it might be overwhelming to learn how to navigate the plugin options and admin pages on your own.
 
-In this lesson, we'll have a tour of the WP Multisite WaaS admin pages to help you get situated. We'll also cover particular pages of interest when getting started and teach you how to use _The Jumper_ to get around faster.
+In this lesson, we'll have a tour of the Multisite Ultimate admin pages to help you get situated. We'll also cover particular pages of interest when getting started and teach you how to use _The Jumper_ to get around faster.
 
 ## Dashboard
 
-WP Multisite WaaS _Dashboard_ will show you some basic reports and analytics. This includes revenues, site activities like which product is selling, how many new memberships your site is getting, the number of site visitors, and its location.
+Multisite Ultimate _Dashboard_ will show you some basic reports and analytics. This includes revenues, site activities like which product is selling, how many new memberships your site is getting, the number of site visitors, and its location.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-mldvqu9moz0orfcbqmqhqlnss8zz)
 
@@ -70,13 +70,13 @@ _Broadcasts_ is a useful tool for super admin in rolling out announcements or se
 
 ## Settings
 
-The _Settings_ page is where you go to configure WP Multisite WaaS. You can edit things such as registration settings, payments, API and webhooks, domain mapping and other integrations. You can also access and install WP Multisite WaaS add-ons from here.
+The _Settings_ page is where you go to configure Multisite Ultimate. You can edit things such as registration settings, payments, API and webhooks, domain mapping and other integrations. You can also access and install Multisite Ultimate add-ons from here.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-vrrdyuda503g18ttuhducdae88mj)
 
-### Installing WP Multisite WaaS Add-ons
+### Installing Multisite Ultimate Add-ons
 
-To install WP Multisite WaaS add-ons go to the _Add-ons_ block on the right side of the _Settings_ page and click the _Check our Add-ons_ button. This will redirect you to the list of WP Multisite WaaS add-ons, where you can download and install them.
+To install Multisite Ultimate add-ons go to the _Add-ons_ block on the right side of the _Settings_ page and click the _Check our Add-ons_ button. This will redirect you to the list of Multisite Ultimate add-ons, where you can download and install them.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-olpc08ovkkd2ler5x3p6rpmsdbi1)
 
@@ -90,6 +90,6 @@ The _Events_ page keeps a record of all the events and logs happening within you
 
 ## Webhooks
 
-This section is for advanced users as webhooks are commonly used to deliver data to another application. This is useful should you need to send data from WP Multisite WaaS to another platform like Zapier.
+This section is for advanced users as webhooks are commonly used to deliver data to another application. This is useful should you need to send data from Multisite Ultimate to another platform like Zapier.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-aqmmcl8jds5wroiya7jv2yqyhgg0)

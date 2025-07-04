@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Switch Template Admin Page.
+ * Multisite Ultimate Switch Template Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages\Customer_Panel;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Switch Template Admin Page.
+ * Multisite Ultimate Switch Template Admin Page.
  */
 class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer_Facing_Admin_Page {
 
@@ -103,7 +103,7 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 	 */
 	public function get_title() {
 
-		return __('Switch Template', 'wp-multisite-waas');
+		return __('Switch Template', 'multisite-ultimate');
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 	 */
 	public function get_menu_title() {
 
-		return __('Switch Template', 'wp-multisite-waas');
+		return __('Switch Template', 'multisite-ultimate');
 	}
 
 	/**
@@ -158,7 +158,7 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 				'page'    => $this,
 				'content' => '',
 				'labels'  => [
-					'updated_message' => __('Template switched successfully!', 'wp-multisite-waas'),
+					'updated_message' => __('Template switched successfully!', 'multisite-ultimate'),
 				],
 			]
 		);

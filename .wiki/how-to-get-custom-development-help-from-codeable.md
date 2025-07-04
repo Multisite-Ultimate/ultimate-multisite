@@ -1,6 +1,6 @@
 # How to Get Custom Development Help from Codeable?
 
-Sometimes, we really need some awesome customization to make our network flows exactly the way we want. If that's what you are looking for, we recommend [Codeable](https://codeable.io/partners/wpultimo/?ref=7wHwE), a place where you can find experienced developers with WP Multisite WaaS expertise.
+Sometimes, we really need some awesome customization to make our network flows exactly the way we want. If that's what you are looking for, we recommend [Codeable](https://codeable.io/partners/wpultimo/?ref=7wHwE), a place where you can find experienced developers with Multisite Ultimate expertise.
 
 [Codeable](https://codeable.io/partners/wpultimo/?ref=7wHwE) is a platform connecting customers with qualified WordPress freelance developers, able to work on projects of any size. They have a meticulous application process to ensure you are matched with experts specifically qualified for the task you have in mind.
 
@@ -40,7 +40,7 @@ After that, if you don't have a [Codeable](https://codeable.io/partners/wpultimo
 
 Once you have published your [Codeable](https://codeable.io/partners/wpultimo/?ref=7wHwE) project, the platform will connect you with developers who match the skill set required for your project.
 
-This process will help to find the right person for your job, who has experience with WordPress and WP Multisite WaaS!
+This process will help to find the right person for your job, who has experience with WordPress and Multisite Ultimate!
 
 Codeable's minimum rate is $70–$120 USD per hour. Estimates will change according to the scope of work, complexity, and urgency of a project.
 

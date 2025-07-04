@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS My_Account Admin Page.
+ * Multisite Ultimate My_Account Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Admin_Pages\Base_Customer_Facing_Admin_Page;
 
 /**
- * WP Multisite WaaS My_Account Admin Page.
+ * Multisite Ultimate My_Account Admin Page.
  */
 class Account_Admin_Page extends Base_Customer_Facing_Admin_Page {
 
@@ -138,7 +138,7 @@ class Account_Admin_Page extends Base_Customer_Facing_Admin_Page {
 			return;
 		}
 
-		$update_message = apply_filters('wu_account_update_message', __('Your account was successfully updated.', 'wp-multisite-waas'), $update_type);
+		$update_message = apply_filters('wu_account_update_message', __('Your account was successfully updated.', 'multisite-ultimate'), $update_type);
 
 		WP_Ultimo()->notices->add($update_message);
 	}
@@ -197,7 +197,7 @@ class Account_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Account', 'wp-multisite-waas');
+		return __('Account', 'multisite-ultimate');
 	}
 
 	/**
@@ -208,7 +208,7 @@ class Account_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Account', 'wp-multisite-waas');
+		return __('Account', 'multisite-ultimate');
 	}
 
 	/**
@@ -219,7 +219,7 @@ class Account_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Account', 'wp-multisite-waas');
+		return __('Account', 'multisite-ultimate');
 	}
 
 	/**

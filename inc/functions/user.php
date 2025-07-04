@@ -25,7 +25,7 @@ function wu_get_roles_as_options($add_default_option = false) {
 	$roles = [];
 
 	if ($add_default_option) {
-		$roles['default'] = __('Use WP Multisite WaaS default', 'wp-multisite-waas');
+		$roles['default'] = __('Use Multisite Ultimate default', 'multisite-ultimate');
 	}
 
 	$editable_roles = get_editable_roles();

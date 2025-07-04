@@ -620,11 +620,11 @@ class Product extends Base_Model {
 	public function get_formatted_amount($key = 'amount') {
 
 		if ($this->is_free()) {
-			return __('Free!', 'wp-multisite-waas');
+			return __('Free!', 'multisite-ultimate');
 		}
 
 		if ($this->get_pricing_type() === 'contact_us') {
-			return $this->get_contact_us_label() ?: __('Contact Us', 'wp-multisite-waas');
+			return $this->get_contact_us_label() ?: __('Contact Us', 'multisite-ultimate');
 		}
 
 		return wu_format_currency($this->get_amount(), $this->get_currency());
@@ -697,11 +697,11 @@ class Product extends Base_Model {
 		$pricing = [];
 
 		if ($this->get_pricing_type() === 'contact_us') {
-			return __('Contact us', 'wp-multisite-waas');
+			return __('Contact us', 'multisite-ultimate');
 		}
 
 		if ($this->is_free()) {
-			return __('Free!', 'wp-multisite-waas');
+			return __('Free!', 'multisite-ultimate');
 		}
 
 		if ($this->is_recurring()) {
@@ -709,7 +709,7 @@ class Product extends Base_Model {
 
 			$message = sprintf(
 				// translators: %1$s is the formatted price, %2$s the duration, and %3$s the duration unit (day, week, month, etc)
-				_n('%1$s every %3$s', '%1$s every %2$s %3$s', $duration, 'wp-multisite-waas'), // phpcs:ignore
+				_n('%1$s every %3$s', '%1$s every %2$s %3$s', $duration, 'multisite-ultimate'), // phpcs:ignore
 				wu_format_currency($this->get_amount(), $this->get_currency()),
 				$duration,
 				wu_get_translatable_string($duration <= 1 ? $this->get_duration_unit() : $this->get_duration_unit() . 's')
@@ -720,7 +720,7 @@ class Product extends Base_Model {
 			if ( ! $this->is_forever_recurring()) {
 				$billing_cycles_message = sprintf(
 					// translators: %s is the number of billing cycles.
-					_n('for %s cycle', 'for %s cycles', $this->get_billing_cycles(), 'wp-multisite-waas'),
+					_n('for %s cycle', 'for %s cycles', $this->get_billing_cycles(), 'multisite-ultimate'),
 					$this->get_billing_cycles()
 				);
 
@@ -729,7 +729,7 @@ class Product extends Base_Model {
 		} else {
 			$pricing['subscription'] = sprintf(
 				// translators: %1$s is the formatted price of the product
-				__('%1$s one time payment', 'wp-multisite-waas'),
+				__('%1$s one time payment', 'multisite-ultimate'),
 				wu_format_currency($this->get_amount(), $this->get_currency())
 			);
 		}
@@ -737,7 +737,7 @@ class Product extends Base_Model {
 		if ($this->has_setup_fee() && $include_fees) {
 			$pricing['fee'] = sprintf(
 				// translators: %1$s is the formatted price of the setup fee
-				__('Setup Fee of %1$s', 'wp-multisite-waas'),
+				__('Setup Fee of %1$s', 'multisite-ultimate'),
 				wu_format_currency($this->get_setup_fee(), $this->get_currency())
 			);
 		}
@@ -758,12 +758,12 @@ class Product extends Base_Model {
 		}
 
 		if ( ! $this->is_recurring()) {
-			return __('one-time payment', 'wp-multisite-waas');
+			return __('one-time payment', 'multisite-ultimate');
 		}
 
 		$description = sprintf(
 			// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
-			_n('every %2$s', 'every %1$s %2$s', $this->get_duration(), 'wp-multisite-waas'), // phpcs:ignore
+			_n('every %2$s', 'every %1$s %2$s', $this->get_duration(), 'multisite-ultimate'), // phpcs:ignore
 			$this->get_duration(),
 			wu_get_translatable_string($this->get_duration() <= 1 ? $this->get_duration_unit() : $this->get_duration_unit() . 's')
 		);

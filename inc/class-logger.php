@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Logger
+ * Multisite Ultimate Logger
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -18,7 +18,7 @@ use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
 
 /**
- * WP Multisite WaaS Logger
+ * Multisite Ultimate Logger
  *
  * @since 2.0.0
  */
@@ -79,7 +79,6 @@ class Logger extends AbstractLogger {
 				E_USER_ERROR        => LogLevel::ERROR,
 				E_USER_WARNING      => LogLevel::WARNING,
 				E_USER_NOTICE       => LogLevel::NOTICE,
-				E_STRICT            => LogLevel::DEBUG,
 				E_RECOVERABLE_ERROR => LogLevel::ERROR,
 				E_DEPRECATED        => LogLevel::NOTICE,
 				E_USER_DEPRECATED   => LogLevel::NOTICE,
@@ -181,7 +180,7 @@ class Logger extends AbstractLogger {
 		$time_elapsed = microtime(true) - $start;
 
 		// translators: the placeholder %s will be replaced by the time in seconds (float).
-		$message .= ' - ' . sprintf(__('This action took %s seconds.', 'wp-multisite-waas'), $time_elapsed);
+		$message .= ' - ' . sprintf(__('This action took %s seconds.', 'multisite-ultimate'), $time_elapsed);
 
 		self::add($handle, $message);
 

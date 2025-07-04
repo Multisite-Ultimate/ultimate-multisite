@@ -1,20 +1,20 @@
-# How to Export and Import a Site with WP Multisite WaaS Site Exporter
+# How to Export and Import a Site with Multisite Ultimate Site Exporter
 
-With WP Multisite WaaS you can export a site from your network or import a site to your multisite or single-site installation.
+With Multisite Ultimate you can export a site from your network or import a site to your multisite or single-site installation.
 
-To start the process, go to our add-ons page and install the WP Multisite WaaS: Site Exporter & Importer add-on.![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-Lqw9doe4z7gj8zUEL9fr6rLILFhIzxlBcvuGXbQEzvFaaF23mTxT0eUoZF9U2-vriFmtQ0S7GApzZfTHmtX2Y30WT0ZOLaNyJz9NJXgulN-m6lxDLnTj8ZkUbB4pjFsuwg=s0)
+To start the process, go to our add-ons page and install the Multisite Ultimate: Site Exporter & Importer add-on.![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-Lqw9doe4z7gj8zUEL9fr6rLILFhIzxlBcvuGXbQEzvFaaF23mTxT0eUoZF9U2-vriFmtQ0S7GApzZfTHmtX2Y30WT0ZOLaNyJz9NJXgulN-m6lxDLnTj8ZkUbB4pjFsuwg=s0)
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-bQLLuSYRc8EV0847ClF4-NtydKOK_dfZB9R2LU83zsk5tcVg5ssefeic2salk71aODh0pPc29Mx2NW_0SdU0oFbim7_Doo6_YWma1g--w-8Bf3h5jE_k8jH8uTmpRdxiCA=s0)
 
 Go to your Plugins page and click to **Network Activate** the add-on you have just installed.![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-maSntBZbvUO_73Pg41Pwo6oIOp88zQoLbIMvCHKWHTeKnRrOMqdn-XkO6nipjyw2HvmPWoasBt1kQ9iLfbaHUmcYVTalI9UnvMl2EscziwRtMn8Lf0_lvdOcZS7NiPZmwQ=s0)
 
-The **Export & Import** option can be found on the WP Multisite WaaS menu, on the left.
+The **Export & Import** option can be found on the Multisite Ultimate menu, on the left.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-eo66Pk838Qi8EC294OJ51-Y_CtPbARuPgV7Sq2gkGfRDr7mUJOg7yGtaAmWGTruq7IO3PAzAtC-MXADReu6jCW-cnauv9fab9WEfv4BBrgYgwWBsMZ1owvrULgNrxNJH4A=s0)
 
 ## How to export a site
 
-To export a site from your network, go to **Export & Import** on the WP Multisite WaaS menu and, on the **Export Sites** tab, click to **Generate new Site Export**.
+To export a site from your network, go to **Export & Import** on the Multisite Ultimate menu and, on the **Export Sites** tab, click to **Generate new Site Export**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-_bBztobh1xIFoj0Zo3zo7bx842u3XFMgpc2b8kiHmGmBU6RjuxlSOSY4ZNzaWTPOJrb0TIW_Q0Dv9WvT0yD-WwOkZ7bR36Ij5aJa_l19cDTfuj9DADQqI5dGy3eIeUmoQA=s0)
 

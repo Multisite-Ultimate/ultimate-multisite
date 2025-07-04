@@ -42,7 +42,7 @@
 
 			<span class="wu-mt-2 wu-block wu-text-xs">
 
-				<?php echo ! $site_template->get_categories() ? esc_html__('No categories', 'wp-multisite-waas') : esc_html(implode(', ', $site_template->get_categories())); ?>
+				<?php echo ! $site_template->get_categories() ? esc_html__('No categories', 'multisite-ultimate') : esc_html(implode(', ', $site_template->get_categories())); ?>
 
 			</span>
 
@@ -52,7 +52,7 @@
 
 			<h3 class="wu-my-1 wu-text-2xs wu-uppercase wu-text-gray-600">
 
-				<?php esc_html_e('Behavior', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Behavior', 'multisite-ultimate'); ?>
 
 			</h3>
 
@@ -61,9 +61,9 @@
 				name="modules[site_templates][limit][<?php echo esc_attr($site_template->get_id()); ?>][behavior]"
 				class="wu-w-full"
 			>
-				<option <?php selected('available' === $template_settings->behavior); ?> value="available"><?php esc_html_e('Available', 'wp-multisite-waas'); ?></option>
-				<option <?php selected('not_available' === $template_settings->behavior); ?> value="not_available"><?php esc_html_e('Not Available', 'wp-multisite-waas'); ?></option>
-				<option :disabled="pre_selected_template !== '' && pre_selected_template !== false && pre_selected_template != '<?php echo esc_attr($site_template->get_id()); ?>'" <?php selected('pre_selected' === $template_settings->behavior); ?> value="pre_selected"><?php esc_html_e('Pre-Selected', 'wp-multisite-waas'); ?></option>
+				<option <?php selected('available' === $template_settings->behavior); ?> value="available"><?php esc_html_e('Available', 'multisite-ultimate'); ?></option>
+				<option <?php selected('not_available' === $template_settings->behavior); ?> value="not_available"><?php esc_html_e('Not Available', 'multisite-ultimate'); ?></option>
+				<option :disabled="pre_selected_template !== '' && pre_selected_template !== false && pre_selected_template != '<?php echo esc_attr($site_template->get_id()); ?>'" <?php selected('pre_selected' === $template_settings->behavior); ?> value="pre_selected"><?php esc_html_e('Pre-Selected', 'multisite-ultimate'); ?></option>
 			</select>
 
 			</div>
@@ -73,7 +73,7 @@
 			<div class="wu-toggle wu-mt-1">
 
 				<input 
-				<?php checked($site_template->get_id() == $product->get_limitations()->site_templates->get_pre_selected_site_template()); ?>  
+				<?php checked((int) $site_template->get_id() === (int) $product->get_limitations()->site_templates->get_pre_selected_site_template()); ?>
 				class="wu-tgl wu-tgl-ios" 
 				value="pre_selected" 
 				id="wu-tg-<?php echo esc_attr($site_template->get_id()); ?>" 

@@ -50,7 +50,7 @@ class Event extends Base_Model {
 	/**
 	 * Initiator of this event.
 	 *
-	 * Events can be run by WP Multisite WaaS, saved as 'system', or
+	 * Events can be run by Multisite Ultimate, saved as 'system', or
 	 * by people (admins, customers), saved as 'manual'.
 	 *
 	 * @since 2.0.0
@@ -156,14 +156,14 @@ class Event extends Base_Model {
 	public function get_severity_label() {
 
 		$labels = [
-			self::SEVERITY_SUCCESS => __('Success', 'wp-multisite-waas'),
-			self::SEVERITY_NEUTRAL => __('Neutral', 'wp-multisite-waas'),
-			self::SEVERITY_INFO    => __('Info', 'wp-multisite-waas'),
-			self::SEVERITY_WARNING => __('Warning', 'wp-multisite-waas'),
-			self::SEVERITY_FATAL   => __('Fatal', 'wp-multisite-waas'),
+			self::SEVERITY_SUCCESS => __('Success', 'multisite-ultimate'),
+			self::SEVERITY_NEUTRAL => __('Neutral', 'multisite-ultimate'),
+			self::SEVERITY_INFO    => __('Info', 'multisite-ultimate'),
+			self::SEVERITY_WARNING => __('Warning', 'multisite-ultimate'),
+			self::SEVERITY_FATAL   => __('Fatal', 'multisite-ultimate'),
 		];
 
-		return $labels[ $this->get_severity() ] ?? __('Note', 'wp-multisite-waas');
+		return $labels[ $this->get_severity() ] ?? __('Note', 'multisite-ultimate');
 	}
 
 	/**
@@ -303,12 +303,12 @@ class Event extends Base_Model {
 
 		$default_messages = [];
 
-		$default_messages['changed'] = __('The <strong>{{model}}</strong> #{{object_id}} was changed: {{payload}}', 'wp-multisite-waas');
-		$default_messages['created'] = __('The <strong>{{model}}</strong> #{{object_id}} was created.', 'wp-multisite-waas');
+		$default_messages['changed'] = __('The <strong>{{model}}</strong> #{{object_id}} was changed: {{payload}}', 'multisite-ultimate');
+		$default_messages['created'] = __('The <strong>{{model}}</strong> #{{object_id}} was created.', 'multisite-ultimate');
 
 		$default_messages = apply_filters('wu_get_default_system_messages', $default_messages);
 
-		return wu_get_isset($default_messages, $slug, __('No Message', 'wp-multisite-waas'));
+		return wu_get_isset($default_messages, $slug, __('No Message', 'multisite-ultimate'));
 	}
 
 

@@ -5,7 +5,7 @@
  * To see what methods are available on the product variable, @see inc/models/class-products.php.
  *
  * This template can also be overridden using template overrides.
- * See more here: https://help.wpultimo.com/article/335-template-overrides.
+ * See more here: https://github.com/superdav42/wp-multisite-waas/wiki/Template-Overrides.
  *
  * @since 2.0.0
  * @package     WP_Ultimo/Views
@@ -30,7 +30,7 @@ $sites = array_map('wu_get_site', $sites ?? []);
 
 $categories ??= [];
 
-$customer_sites_category = __('Your Sites', 'wp_ultimo');
+$customer_sites_category = __('Your Sites', 'multisite-ultimate');
 
 $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) : [];
 
@@ -47,7 +47,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 					:class="$parent.template_category === '' ? 'current wu-font-semibold' : ''"
 					v-on:click.prevent="$parent.template_category = ''"
 			>
-				<?php esc_html_e('All', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('All', 'multisite-ultimate'); ?>
 			</a>
 		</li>
 
@@ -88,10 +88,11 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 	<div id="wu-site-template-container-grid" class="wu-grid wu-grid-cols-1 sm:wu-grid-cols-2 md:wu-grid-cols-<?php echo esc_attr($cols ?? '3'); ?> wu-gap-4">
 
 		<?php foreach ($sites as $site_template) : ?>
-
+			<?php /** @var WP_Ultimo\Models\Site $site_template */ ?>
 			<?php
 			if ($site_template->get_type() !== 'site_template' && ! in_array($site_template->get_id(), $customer_sites, true)) {
-				continue; }
+				continue;
+			}
 			?>
 
 			<?php $is_template = $site_template->get_type() === 'site_template'; ?>
@@ -99,22 +100,20 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 			<?php $categories = array_merge($site_template->get_categories(), ! $is_template ? [$customer_sites_category] : []); ?>
 
 			<div
-					id="wu-site-template-<?php echo esc_attr($site_template->get_id()); ?>"
-					class="wu-bg-white wu-border-solid wu-border wu-border-gray-300 wu-shadow-sm wu-p-4 wu-rounded wu-relative"
-
-					v-show="!$parent.template_category || <?php echo esc_attr(wp_json_encode($categories)); ?>.join(',').indexOf($parent.template_category) > -1"
-					v-cloak
+				id="wu-site-template-<?php echo esc_attr($site_template->get_id()); ?>"
+				class="wu-bg-white wu-border-solid wu-border wu-border-gray-300 wu-shadow-sm wu-p-4 wu-rounded wu-relative"
+				v-show="!$parent.template_category || <?php echo esc_attr(wp_json_encode($categories)); ?>.join(',').indexOf($parent.template_category) > -1"
+				v-cloak
 			>
 
 				<div class="wu-site-template-image-container wu-relative">
 
-			<a
-			title="<?php esc_attr_e('View Template Preview', 'wp-multisite-waas'); ?>"
-			class="wu-site-template-selector wu-cursor-pointer wu-no-underline"
-			<?php echo $is_template ? $site_template->get_preview_url_attrs() : sprintf('href="%s" target="_blank"', $site_template->get_active_site_url()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-			>
-
-
+					<a
+					title="<?php esc_attr_e('View Template Preview', 'multisite-ultimate'); ?>"
+					class="wu-site-template-selector wu-cursor-pointer wu-no-underline"
+					<?php echo $is_template ? $site_template->get_preview_url_attrs() : sprintf('href="%s" target="_blank"', $site_template->get_active_site_url()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					>
+						<img class="wu-site-template-image wu-w-full wu-border-solid wu-border wu-border-gray-300 wu-mb-4 wu-bg-white" src="<?php echo esc_attr($site_template->get_featured_image()); ?>" alt="<?php echo esc_attr($site_template->get_title()); ?>">
 					</a>
 
 				</div>
@@ -137,9 +136,9 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 					<button v-on:click.prevent="$parent.template_id = <?php echo esc_attr($site_template->get_id()); ?>" type="button" class="wu-site-template-selector button btn button-primary btn-primary wu-w-full wu-text-center wu-cursor-pointer">
 
-						<span v-if="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?>"><?php esc_html_e('Selected', 'wp-multisite-waas'); ?></span>
+						<span v-if="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?>"><?php esc_html_e('Selected', 'multisite-ultimate'); ?></span>
 
-						<span v-else><?php esc_html_e('Select', 'wp-multisite-waas'); ?></span>
+						<span v-else><?php esc_html_e('Select', 'multisite-ultimate'); ?></span>
 
 					</button>
 

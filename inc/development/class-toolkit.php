@@ -346,7 +346,7 @@ class Toolkit {
 	}
 
 	/**
-	 * Manually enqueues query monitor and WP Multisite WaaS styles.
+	 * Manually enqueues query monitor and Multisite Ultimate styles.
 	 *
 	 * @since 2.0.11
 	 *
@@ -355,7 +355,7 @@ class Toolkit {
 	 */
 	protected function enqueue_scripts($dispatcher) {
 
-		printf('<link rel="stylesheet" id="toolkit" href="%s" type="text/css" media="all">', wu_url('inc/development/assets/development.css'));
+		printf('<link rel="stylesheet" id="toolkit" href="%s" type="text/css" media="all">', esc_attr(wu_url('inc/development/assets/development.css')));
 
 		wp_print_styles(
 			[

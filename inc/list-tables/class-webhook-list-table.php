@@ -36,8 +36,8 @@ class Webhook_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Webhook', 'wp-multisite-waas'),  // singular name of the listed records
-				'plural'   => __('Webhooks', 'wp-multisite-waas'), // plural name of the listed records
+				'singular' => __('Webhook', 'multisite-ultimate'),  // singular name of the listed records
+				'plural'   => __('Webhooks', 'multisite-ultimate'), // plural name of the listed records
 				'ajax'     => true,                        // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_get_form_url('add_new_webhook_modal'),
@@ -52,7 +52,7 @@ class Webhook_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Webhook $item Webhook object.
+	 * @param \WP_Ultimo\Models\Webhook $item Webhook object.
 	 */
 	public function column_name($item): string {
 
@@ -67,20 +67,20 @@ class Webhook_List_Table extends Base_List_Table {
 			wu_network_admin_url('wp-ultimo-edit-webhook', $url_atts),
 			$item->get_name(),
 			$item->get_id(),
-			__('Sending Test..', 'wp-multisite-waas')
+			__('Sending Test..', 'multisite-ultimate')
 		);
 
 		$actions = [
-			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-webhook', $url_atts), __('Edit', 'wp-multisite-waas')),
-			'test'   => sprintf('<a id="action_button" data-title="' . $item->get_name() . '" data-page="list" data-action="wu_send_test_event" data-event="' . $item->get_event() . '" data-object="' . $item->get_id() . '" data-url="%s" href="">%s</a>', $item->get_webhook_url(), __('Send Test', 'wp-multisite-waas')),
+			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-webhook', $url_atts), __('Edit', 'multisite-ultimate')),
+			'test'   => sprintf('<a id="action_button" data-title="' . $item->get_name() . '" data-page="list" data-action="wu_send_test_event" data-event="' . $item->get_event() . '" data-object="' . $item->get_id() . '" data-url="%s" href="">%s</a>', $item->get_webhook_url(), __('Send Test', 'multisite-ultimate')),
 			'delete' => sprintf(
 				'<a title="%s" class="wubox" href="%s">%s</a>',
-				__('Delete', 'wp-multisite-waas'),
+				__('Delete', 'multisite-ultimate'),
 				wu_get_form_url(
 					'delete_modal',
 					$url_atts
 				),
-				__('Delete', 'wp-multisite-waas')
+				__('Delete', 'multisite-ultimate')
 			),
 		];
 
@@ -92,7 +92,7 @@ class Webhook_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Webhook $item Webhook object.
+	 * @param \WP_Ultimo\Models\Webhook $item Webhook object.
 	 * @return string
 	 */
 	public function column_webhook_url($item) {
@@ -107,7 +107,7 @@ class Webhook_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Webhook $item Webhook object.
+	 * @param \WP_Ultimo\Models\Webhook $item Webhook object.
 	 * @return string
 	 */
 	public function column_event($item) {
@@ -122,14 +122,14 @@ class Webhook_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Webhook $item Webhook object.
+	 * @param \WP_Ultimo\Models\Webhook $item Webhook object.
 	 */
 	public function column_count($item): string {
 
 		$count = $item->get_count();
 
 		$actions = [
-			'edit' => sprintf('<a href="%s">%s</a>', '', __('See Events', 'wp-multisite-waas')),
+			'edit' => sprintf('<a href="%s">%s</a>', '', __('See Events', 'multisite-ultimate')),
 		];
 
 		return $count . $this->row_actions($actions);
@@ -140,7 +140,7 @@ class Webhook_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Webhook $item Webhook object.
+	 * @param \WP_Ultimo\Models\Webhook $item Webhook object.
 	 */
 	public function column_integration($item): string {
 
@@ -152,12 +152,12 @@ class Webhook_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Webhook $item Webhook object.
+	 * @param \WP_Ultimo\Models\Webhook $item Webhook object.
 	 * @return string
 	 */
 	public function column_active($item) {
 
-		return $item->is_active() ? __('Yes', 'wp-multisite-waas') : __('No', 'wp-multisite-waas');
+		return $item->is_active() ? __('Yes', 'multisite-ultimate') : __('No', 'multisite-ultimate');
 	}
 
 	/**
@@ -170,13 +170,13 @@ class Webhook_List_Table extends Base_List_Table {
 
 		$columns = [
 			'cb'          => '<input type="checkbox" />',
-			'name'        => __('Name', 'wp-multisite-waas'),
-			'webhook_url' => __('Target URL', 'wp-multisite-waas'),
-			'event'       => __('Trigger Event', 'wp-multisite-waas'),
-			'event_count' => __('Count', 'wp-multisite-waas'),
-			'integration' => __('Integration', 'wp-multisite-waas'),
-			'active'      => __('Active', 'wp-multisite-waas'),
-			'id'          => __('ID', 'wp-multisite-waas'),
+			'name'        => __('Name', 'multisite-ultimate'),
+			'webhook_url' => __('Target URL', 'multisite-ultimate'),
+			'event'       => __('Trigger Event', 'multisite-ultimate'),
+			'event_count' => __('Count', 'multisite-ultimate'),
+			'integration' => __('Integration', 'multisite-ultimate'),
+			'active'      => __('Active', 'multisite-ultimate'),
+			'id'          => __('ID', 'multisite-ultimate'),
 		];
 
 		return $columns;

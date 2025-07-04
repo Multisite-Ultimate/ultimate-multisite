@@ -97,7 +97,7 @@ class Memory_Trap {
 	 */
 	public function memory_limit_error_handler($error): void { // phpcs:ignore
 
-		$message = sprintf(__('Your server\'s PHP and WordPress memory limits are too low to perform this check. You might need to contact your host provider and ask the PHP memory limit in particular to be raised.', 'wp-multisite-waas'));
+		$message = sprintf(__('Your server\'s PHP and WordPress memory limits are too low to perform this check. You might need to contact your host provider and ask the PHP memory limit in particular to be raised.', 'multisite-ultimate'));
 
 		if ('json' === $this->return_type) {
 			wp_send_json_error(
@@ -108,7 +108,7 @@ class Memory_Trap {
 
 			die;
 		} else {
-			echo $message;
+			echo esc_html($message);
 		}
 
 		exit;

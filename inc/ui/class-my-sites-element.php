@@ -85,14 +85,14 @@ class My_Sites_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('My Sites', 'wp-multisite-waas');
+		return __('My Sites', 'multisite-ultimate');
 	}
 
 	/**
@@ -101,14 +101,14 @@ class My_Sites_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a block to display the sites owned by the current customer.', 'wp-multisite-waas');
+		return __('Adds a block to display the sites owned by the current customer.', 'multisite-ultimate');
 	}
 
 	/**
@@ -133,33 +133,33 @@ class My_Sites_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['site_manage_type'] = [
 			'type'    => 'select',
-			'title'   => __('Site Manage Type', 'wp-multisite-waas'),
-			'desc'    => __('The page to manage a site.', 'wp-multisite-waas'),
+			'title'   => __('Site Manage Type', 'multisite-ultimate'),
+			'desc'    => __('The page to manage a site.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'default' => 'default',
 			'options' => [
-				'default'     => __('Same Page', 'wp-multisite-waas'),
-				'wp_admin'    => __('WP Admin', 'wp-multisite-waas'),
-				'custom_page' => __('Custom Page', 'wp-multisite-waas'),
+				'default'     => __('Same Page', 'multisite-ultimate'),
+				'wp_admin'    => __('WP Admin', 'multisite-ultimate'),
+				'custom_page' => __('Custom Page', 'multisite-ultimate'),
 			],
 		];
 
 		$fields['site_show'] = [
 			'type'    => 'select',
-			'title'   => __('Which sites to show?', 'wp-multisite-waas'),
-			'desc'    => __('Select which sites should be listed for user.', 'wp-multisite-waas'),
+			'title'   => __('Which sites to show?', 'multisite-ultimate'),
+			'desc'    => __('Select which sites should be listed for user.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'default' => 'all',
 			'options' => [
-				'all'   => __('All', 'wp-multisite-waas'),
-				'owned' => __('Owned', 'wp-multisite-waas'),
+				'all'   => __('All', 'multisite-ultimate'),
+				'owned' => __('Owned', 'multisite-ultimate'),
 			],
 		];
 
@@ -171,7 +171,7 @@ class My_Sites_Element extends Base_Element {
 
 		$pages = $pages ?: [];
 
-		$pages_list = [0 => __('Current Page', 'wp-multisite-waas')];
+		$pages_list = [0 => __('Current Page', 'multisite-ultimate')];
 
 		foreach ($pages as $page) {
 			$pages_list[ $page->ID ] = $page->post_title;
@@ -179,9 +179,9 @@ class My_Sites_Element extends Base_Element {
 
 		$fields['custom_manage_page'] = [
 			'type'     => 'select',
-			'title'    => __('Manage Redirect Page', 'wp-multisite-waas'),
+			'title'    => __('Manage Redirect Page', 'multisite-ultimate'),
 			'value'    => 0,
-			'desc'     => __('The page to redirect user after select a site.', 'wp-multisite-waas'),
+			'desc'     => __('The page to redirect user after select a site.', 'multisite-ultimate'),
 			'tooltip'  => '',
 			'required' => [
 				'site_manage_type' => 'custom_page',
@@ -191,8 +191,8 @@ class My_Sites_Element extends Base_Element {
 
 		$fields['columns'] = [
 			'type'    => 'number',
-			'title'   => __('Columns', 'wp-multisite-waas'),
-			'desc'    => __('How many columns to use.', 'wp-multisite-waas'),
+			'title'   => __('Columns', 'multisite-ultimate'),
+			'desc'    => __('How many columns to use.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 4,
 			'min'     => 1,
@@ -201,8 +201,8 @@ class My_Sites_Element extends Base_Element {
 
 		$fields['display_images'] = [
 			'type'    => 'toggle',
-			'title'   => __('Display Site Screenshot?', 'wp-multisite-waas'),
-			'desc'    => __('Toggle to show/hide the site screenshots on the element.', 'wp-multisite-waas'),
+			'title'   => __('Display Site Screenshot?', 'multisite-ultimate'),
+			'desc'    => __('Toggle to show/hide the site screenshots on the element.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
@@ -218,7 +218,7 @@ class My_Sites_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Site',
 	 *  'Form',
 	 *  'Cart',
@@ -231,7 +231,7 @@ class My_Sites_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Site',
 			'Form',
 			'Cart',

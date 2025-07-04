@@ -24,6 +24,7 @@ use Jasny\SSO\Broker\NotAttachedException;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Psr16Cache;
+use WP_Ultimo\SSO\Exception\SSO_Exception;
 
 /**
  * Handles Sign-sign on.
@@ -382,7 +383,7 @@ class SSO {
 		$_SERVER['REQUEST_URI'] = str_replace(
 			'https://a.com/',
 			'',
-			remove_query_arg('sso', 'https://a.com/' . $_SERVER['REQUEST_URI'])
+			remove_query_arg('sso', 'https://a.com/' . sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'] ?? '')))
 		);
 	}
 
@@ -465,7 +466,7 @@ class SSO {
 
 			$response_code = 200; // phpcs:ignore
 
-			echo "wu.sso($data, $response_code);";
+			echo "wu.sso($data, $response_code);"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			status_header($response_code);
 
@@ -479,7 +480,7 @@ class SSO {
 				$args['sso_error'] = $error['message'];
 			}
 
-			$return_url = remove_query_arg('sso_verify', $_GET['return_url']);
+			$return_url = remove_query_arg('sso_verify', sanitize_text_field(wp_unslash($_GET['return_url'] ?? ''))); // phpcs:ignore WordPress.Security.NonceVerification
 
 			$url = add_query_arg($args, $return_url);
 
@@ -722,9 +723,9 @@ class SSO {
 			return;
 		}
 
-		wp_register_script('wu-detect-incognito', wu_get_asset('detectincognito.js', 'js/lib'), false, wu_get_version());
+		wp_register_script('wu-detect-incognito', wu_get_asset('detectincognito.js', 'js/lib'), false, wu_get_version(), true);
 
-		wp_register_script('wu-sso', wu_get_asset('sso.js', 'js'), ['wu-cookie-helpers', 'wu-detect-incognito'], wu_get_version());
+		wp_register_script('wu-sso', wu_get_asset('sso.js', 'js'), ['wu-cookie-helpers', 'wu-detect-incognito'], wu_get_version(), true);
 
 		$sso_path = $this->get_url_path();
 
@@ -946,7 +947,7 @@ class SSO {
 		try {
 			$int_version = (int) \DateTime::createFromFormat('Y-m-d H:i:s', $date, $tz)->format('mdisY');
 		} catch (\Throwable $exception) {
-			throw new Exception\SSO_Exception(__('SSO secret creation failed.', 'wp-multisite-waas'), 500);
+			throw new SSO_Exception(esc_html__('SSO secret creation failed.', 'multisite-ultimate'), 500);
 		}
 
 		return wp_hash($int_version);

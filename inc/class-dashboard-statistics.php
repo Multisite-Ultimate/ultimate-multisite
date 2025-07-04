@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Dashboard Statistics.
+ * Multisite Ultimate Dashboard Statistics.
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -19,7 +19,7 @@ use WP_Ultimo\Database\Payments\Payment_Status;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Dashboard Statistics
+ * Multisite Ultimate Dashboard Statistics
  *
  * @since 2.0.0
  */

@@ -49,11 +49,46 @@ class Limit_Post_Types extends Limit_Subtype {
 		 * Allow plugin developers to filter the return value
 		 *
 		 * @since 1.7.0
-		 * @param bool If the post type is disabled or not
-		 * @param WU_Plan Plan of the current user
-		 * @param int User id
+		 * @param bool $value If the post type is disabled or not
 		 */
 		return apply_filters('wu_limits_is_post_above_limit', $quota > 0 && $post_count >= $quota);
+	}
+
+	/**
+	 * Checks if any post types are currently over the limit.
+	 *
+	 * @return array
+	 */
+	public function check_all_post_types() {
+		$overlimits = [];
+		if ( empty($this->limit)) {
+			return $overlimits;
+		}
+		foreach ($this->limit as $post_type => $limit) {
+
+			// We don't reuse is_post_above_limit because we want to see it checks with >= and we only want to use >.
+			$post_count = $this->get_post_count($post_type);
+
+			// Get the allowed quota
+			$quota = $limit['number'];
+
+			/**
+			 * Checks if a given post type is allowed on this plan
+			 * Allow plugin developers to filter the return value
+			 *
+			 * @since 1.7.0
+			 * @param bool $value If the post type is disabled or not
+			 */
+			$is_above_limit = apply_filters('wu_limits_is_post_above_limit', $quota > 0 && ($post_count) > $quota);
+
+			if ($is_above_limit) {
+				$overlimits[ $post_type ] = [
+					'current' => $post_count,
+					'limit'   => (int) $limit['number'],
+				];
+			}
+		}
+		return $overlimits;
 	}
 
 	/**

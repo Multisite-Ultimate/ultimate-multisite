@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS About Admin Page.
+ * Multisite Ultimate About Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS About Admin Page.
+ * Multisite Ultimate About Admin Page.
  */
 class About_Admin_Page extends Base_Admin_Page {
 
@@ -86,7 +86,7 @@ class About_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('About', 'wp-multisite-waas');
+		return __('About', 'multisite-ultimate');
 	}
 
 	/**
@@ -97,7 +97,7 @@ class About_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Multisite WaaS', 'wp-multisite-waas');
+		return __('Multisite WaaS', 'multisite-ultimate');
 	}
 
 	/**
@@ -108,7 +108,7 @@ class About_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('About', 'wp-multisite-waas');
+		return __('About', 'multisite-ultimate');
 	}
 
 	/**

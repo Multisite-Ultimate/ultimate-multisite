@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Shortcodes Admin Page.
+ * Multisite Ultimate Shortcodes Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\UI\Base_Element;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Shortcodes Admin Page.
+ * Multisite Ultimate Shortcodes Admin Page.
  */
 class Shortcodes_Admin_Page extends Base_Admin_Page {
 
@@ -73,17 +73,6 @@ class Shortcodes_Admin_Page extends Base_Admin_Page {
 	];
 
 	/**
-	 * Allow child classes to add further initializations.
-	 *
-	 * @since 1.8.2
-	 * @return void
-	 */
-	public function init(): void {
-
-		parent::init();
-	}
-
-	/**
 	 * Returns the title of the page.
 	 *
 	 * @since 2.0.0
@@ -91,7 +80,7 @@ class Shortcodes_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Available Shortcodes', 'wp-multisite-waas');
+		return __('Available Shortcodes', 'multisite-ultimate');
 	}
 
 	/**
@@ -102,7 +91,7 @@ class Shortcodes_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Available Shortcodes', 'wp-multisite-waas');
+		return __('Available Shortcodes', 'multisite-ultimate');
 	}
 
 	/**
@@ -113,7 +102,7 @@ class Shortcodes_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Dashboard', 'wp-multisite-waas');
+		return __('Dashboard', 'multisite-ultimate');
 	}
 
 	/**
@@ -165,16 +154,16 @@ class Shortcodes_Admin_Page extends Base_Admin_Page {
 						$params[ $key ]['options'] = implode(' | ', array_keys(wu_get_isset($value, 'options', [])));
 						break;
 					case 'int':
-						$params[ $key ]['options'] = __('integer', 'wp-multisite-waas');
+						$params[ $key ]['options'] = __('integer', 'multisite-ultimate');
 						break;
 					case 'number':
-						$params[ $key ]['options'] = __('number', 'wp-multisite-waas');
+						$params[ $key ]['options'] = __('number', 'multisite-ultimate');
 						break;
 					case 'text':
-						$params[ $key ]['options'] = __('text', 'wp-multisite-waas');
+						$params[ $key ]['options'] = __('text', 'multisite-ultimate');
 						break;
 					case 'textarea':
-						$params[ $key ]['options'] = __('text', 'wp-multisite-waas');
+						$params[ $key ]['options'] = __('text', 'multisite-ultimate');
 						break;
 					default:
 						$params[ $key ]['options'] = $value['type'];

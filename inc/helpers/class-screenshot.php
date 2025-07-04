@@ -58,7 +58,7 @@ class Screenshot {
 	public static function save_image_from_url($url) {
 
 		// translators: %s is the API URL.
-		$log_prefix = sprintf(__('Downloading image from "%s":'), $url) . ' ';
+		$log_prefix = sprintf(__('Downloading image from "%s":', 'multisite-ultimate'), $url) . ' ';
 
 		$response = wp_remote_get(
 			$url,
@@ -83,7 +83,7 @@ class Screenshot {
 		 * Check if the results contain a PNG header.
 		 */
 		if (! str_starts_with($response['body'], "\x89\x50\x4e\x47\x0d\x0a\x1a\x0a")) {
-			wu_log_add('screenshot-generator', $log_prefix . __('Result is not a PNG file.', 'wp-multisite-waas'), LogLevel::ERROR);
+			wu_log_add('screenshot-generator', $log_prefix . __('Result is not a PNG file.', 'multisite-ultimate'), LogLevel::ERROR);
 
 			return false;
 		}
@@ -122,7 +122,7 @@ class Screenshot {
 		// Assign metadata to attachment
 		wp_update_attachment_metadata($attach_id, $attach_data);
 
-		wu_log_add('screenshot-generator', $log_prefix . __('Success!', 'wp-multisite-waas'));
+		wu_log_add('screenshot-generator', $log_prefix . __('Success!', 'multisite-ultimate'));
 
 		return $attach_id;
 	}

@@ -150,7 +150,7 @@
       site_url: wu_checkout.site_url,
       site_domain: wu_checkout.site_domain,
       is_subdomain: wu_checkout.is_subdomain,
-      discount_code: '',
+      discount_code: wu_checkout.discount_code,
       toggle_discount_code: 0,
       payment_method: '',
       username: '',

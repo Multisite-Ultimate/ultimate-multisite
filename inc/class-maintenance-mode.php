@@ -84,11 +84,11 @@ class Maintenance_Mode {
 			$args = [
 				'id'     => 'wu-maintenance-mode',
 				'parent' => 'top-secondary',
-				'title'  => __('Maintenance Mode - Active', 'wp-multisite-waas'),
+				'title'  => __('Maintenance Mode - Active', 'multisite-ultimate'),
 				'href'   => '#wp-ultimo-site-maintenance-element',
 				'meta'   => [
 					'class' => 'wu-maintenance-mode ' . (self::check_maintenance_mode() ? '' : 'hidden'),
-					'title' => __('This means that your site is not available for visitors at the moment. Only you and other logged users have access to it. Click here to toggle this option.', 'wp-multisite-waas'),
+					'title' => __('This means that your site is not available for visitors at the moment. Only you and other logged users have access to it. Click here to toggle this option.', 'multisite-ultimate'),
 				],
 			];
 
@@ -110,12 +110,12 @@ class Maintenance_Mode {
 
 		$text = apply_filters(
 			'wu_maintenance_mode_text',
-			__('Website under planned maintenance. Please check back later.', 'wp-multisite-waas')
+			__('Website under planned maintenance. Please check back later.', 'multisite-ultimate')
 		);
 
 		$title = apply_filters(
 			'wu_maintenance_mode_title',
-			__('Under Maintenance', 'wp-multisite-waas')
+			__('Under Maintenance', 'multisite-ultimate')
 		);
 
 		wp_die(esc_html($text), esc_html($title), 503);
@@ -143,7 +143,7 @@ class Maintenance_Mode {
 		if ( ! check_ajax_referer('wu_toggle_maintenance_mode', '_wpnonce', false)) {
 			wp_send_json_error(
 				[
-					'message' => __('Request failed, please refresh and try again.', 'wp-multisite-waas'),
+					'message' => __('Request failed, please refresh and try again.', 'multisite-ultimate'),
 					'value'   => false,
 				]
 			);
@@ -154,7 +154,7 @@ class Maintenance_Mode {
 		if ( ! current_user_can_for_site($site_id, 'manage_options')) {
 			wp_send_json_error(
 				[
-					'message' => __('You do not have the necessary permissions to perform this option.', 'wp-multisite-waas'),
+					'message' => __('You do not have the necessary permissions to perform this option.', 'multisite-ultimate'),
 					'value'   => false,
 				]
 			);
@@ -167,7 +167,7 @@ class Maintenance_Mode {
 		update_site_meta($site_id, 'wu_maintenance_mode', $value);
 
 		$return = [
-			'message' => __('New maintenance settings saved.', 'wp-multisite-waas'),
+			'message' => __('New maintenance settings saved.', 'multisite-ultimate'),
 			'value'   => $value,
 		];
 
@@ -178,7 +178,7 @@ class Maintenance_Mode {
 	}
 
 	/**
-	 * Filter the WP Multisite WaaS settings to add Jumper options
+	 * Filter the Multisite Ultimate settings to add Jumper options
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -189,8 +189,8 @@ class Maintenance_Mode {
 			'sites',
 			'maintenance_mode',
 			[
-				'title'   => __('Site Maintenance Mode', 'wp-multisite-waas'),
-				'desc'    => __('Allow your customers and super admins to quickly take sites offline via a toggle on the site dashboard.', 'wp-multisite-waas'),
+				'title'   => __('Site Maintenance Mode', 'multisite-ultimate'),
+				'desc'    => __('Allow your customers and super admins to quickly take sites offline via a toggle on the site dashboard.', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 0,
 				'order'   => 23,

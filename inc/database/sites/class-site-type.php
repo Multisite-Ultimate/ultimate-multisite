@@ -65,11 +65,11 @@ class Site_Type extends Enum {
 	protected function labels() {
 
 		return [
-			static::REGULAR        => __('Regular Site', 'wp-multisite-waas'),
-			static::SITE_TEMPLATE  => __('Site Template', 'wp-multisite-waas'),
-			static::CUSTOMER_OWNED => __('Customer-Owned', 'wp-multisite-waas'),
-			static::PENDING        => __('Pending', 'wp-multisite-waas'),
-			static::MAIN           => __('Main Site', 'wp-multisite-waas'),
+			static::REGULAR        => __('Regular Site', 'multisite-ultimate'),
+			static::SITE_TEMPLATE  => __('Site Template', 'multisite-ultimate'),
+			static::CUSTOMER_OWNED => __('Customer-Owned', 'multisite-ultimate'),
+			static::PENDING        => __('Pending', 'multisite-ultimate'),
+			static::MAIN           => __('Main Site', 'multisite-ultimate'),
 		];
 	}
 }

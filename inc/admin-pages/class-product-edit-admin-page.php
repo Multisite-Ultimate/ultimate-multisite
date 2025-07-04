@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Product Edit/Add New Admin Page.
+ * Multisite Ultimate Product Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -16,7 +16,7 @@ use WP_Ultimo\Models\Product;
 use WP_Ultimo\Database\Products\Product_Type;
 
 /**
- * WP Multisite WaaS Product Edit/Add New Admin Page.
+ * Multisite Ultimate Product Edit/Add New Admin Page.
  */
 class Product_Edit_Admin_Page extends Edit_Admin_Page {
 
@@ -116,16 +116,16 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 				[
 					[
 						'id'       => 'new-product-warning',
-						'title'    => __('On adding a new product...', 'wp-multisite-waas'),
+						'title'    => __('On adding a new product...', 'multisite-ultimate'),
 						'text'     => [
-							__("You just successfully added a new product to your WP Multisite WaaS network and that's awesome!", 'wp-multisite-waas'),
-							__('Keep in mind that newly created products do not appear automatically in your checkout forms.', 'wp-multisite-waas'),
-							__('To make a product available on registration, you will need to manually add it to the pricing table field of your checkout forms.', 'wp-multisite-waas'),
+							__("You just successfully added a new product to your Multisite Ultimate network and that's awesome!", 'multisite-ultimate'),
+							__('Keep in mind that newly created products do not appear automatically in your checkout forms.', 'multisite-ultimate'),
+							__('To make a product available on registration, you will need to manually add it to the pricing table field of your checkout forms.', 'multisite-ultimate'),
 						],
 						'buttons'  => [
 							[
 								'classes' => 'button wu-text-xs sm:wu-normal-case wu-float-left',
-								'text'    => __('Go to Checkout Forms', 'wp-multisite-waas'),
+								'text'    => __('Go to Checkout Forms', 'multisite-ultimate'),
 								'url'     => wu_network_admin_url('wp-ultimo-checkout-forms'),
 							],
 						],
@@ -153,9 +153,9 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		$custom_fields = [
 			're_assignment_product_id' => [
 				'type'        => 'model',
-				'title'       => __('Re-assign Memberships to', 'wp-multisite-waas'),
-				'placeholder' => __('Select Product...', 'wp-multisite-waas'),
-				'tooltip'     => __('The product you select here will be assigned to all the memberships attached to the product you are deleting.', 'wp-multisite-waas'),
+				'title'       => __('Re-assign Memberships to', 'multisite-ultimate'),
+				'placeholder' => __('Select Product...', 'multisite-ultimate'),
+				'tooltip'     => __('The product you select here will be assigned to all the memberships attached to the product you are deleting.', 'multisite-ultimate'),
 				'html_attr'   => [
 					'data-model'        => 'product',
 					'data-value-field'  => 'id',
@@ -225,14 +225,14 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'description',
 			[
-				'title'    => __('Description', 'wp-multisite-waas'),
+				'title'    => __('Description', 'multisite-ultimate'),
 				'position' => 'normal',
 				'fields'   => [
 					'description' => [
 						'type'        => 'textarea',
-						'title'       => __('Product Description', 'wp-multisite-waas'),
-						'placeholder' => __('Tell your customers what this product is about.', 'wp-multisite-waas'),
-						'tooltip'     => __('This description is made available for layouts and can be shown to end customers.', 'wp-multisite-waas'),
+						'title'       => __('Product Description', 'multisite-ultimate'),
+						'placeholder' => __('Tell your customers what this product is about.', 'multisite-ultimate'),
+						'tooltip'     => __('This description is made available for layouts and can be shown to end customers.', 'multisite-ultimate'),
 						'value'       => $this->get_object()->get_description(),
 						'html_attr'   => [
 							'rows' => 3,
@@ -245,7 +245,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_tabs_widget(
 			'product_options',
 			[
-				'title'    => __('Product Options', 'wp-multisite-waas'),
+				'title'    => __('Product Options', 'multisite-ultimate'),
 				'position' => 'normal',
 				'sections' => $this->get_product_option_sections(),
 			]
@@ -259,7 +259,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'events',
 			[
-				'title'        => __('Events', 'wp-multisite-waas'),
+				'title'        => __('Events', 'multisite-ultimate'),
 				'table'        => new \WP_Ultimo\List_Tables\Inside_Events_List_Table(),
 				'query_filter' => [$this, 'query_filter'],
 			]
@@ -287,15 +287,15 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					// Fields for price
 					'pricing_type'     => [
 						'type'              => 'select',
-						'title'             => __('Pricing Type', 'wp-multisite-waas'),
-						'placeholder'       => __('Select Pricing Type', 'wp-multisite-waas'),
-						'desc'              => __('Products can be free, paid, or require further contact for pricing.', 'wp-multisite-waas'),
+						'title'             => __('Pricing Type', 'multisite-ultimate'),
+						'placeholder'       => __('Select Pricing Type', 'multisite-ultimate'),
+						'desc'              => __('Products can be free, paid, or require further contact for pricing.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->get_pricing_type(),
 						'tooltip'           => '',
 						'options'           => [
-							'paid'       => __('Paid', 'wp-multisite-waas'),
-							'free'       => __('Free', 'wp-multisite-waas'),
-							'contact_us' => __('Contact Us', 'wp-multisite-waas'),
+							'paid'       => __('Paid', 'multisite-ultimate'),
+							'free'       => __('Free', 'multisite-ultimate'),
+							'contact_us' => __('Contact Us', 'multisite-ultimate'),
 						],
 						'wrapper_html_attr' => [
 							'v-cloak' => '1',
@@ -306,9 +306,9 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'contact_us_label' => [
 						'type'              => 'text',
-						'title'             => __('Button Label', 'wp-multisite-waas'),
-						'placeholder'       => __('E.g. Contact us', 'wp-multisite-waas'),
-						'desc'              => __('This will be used on the pricing table CTA button, as the label.', 'wp-multisite-waas'),
+						'title'             => __('Button Label', 'multisite-ultimate'),
+						'placeholder'       => __('E.g. Contact us', 'multisite-ultimate'),
+						'desc'              => __('This will be used on the pricing table CTA button, as the label.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->get_contact_us_label(),
 						'wrapper_html_attr' => [
 							'v-show'  => "pricing_type == 'contact_us'",
@@ -317,9 +317,9 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'contact_us_link'  => [
 						'type'              => 'url',
-						'title'             => __('Button Link', 'wp-multisite-waas'),
-						'placeholder'       => __('E.g. https://contactus.page.com', 'wp-multisite-waas'),
-						'desc'              => __('This will be used on the pricing table CTA button.', 'wp-multisite-waas'),
+						'title'             => __('Button Link', 'multisite-ultimate'),
+						'placeholder'       => __('E.g. https://contactus.page.com', 'multisite-ultimate'),
+						'desc'              => __('This will be used on the pricing table CTA button.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->get_contact_us_link(),
 						'wrapper_html_attr' => [
 							'v-show'  => "pricing_type == 'contact_us'",
@@ -328,8 +328,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'recurring'        => [
 						'type'              => 'toggle',
-						'title'             => __('Is Recurring?', 'wp-multisite-waas'),
-						'desc'              => __('Check this if this product has a recurring charge.', 'wp-multisite-waas'),
+						'title'             => __('Is Recurring?', 'multisite-ultimate'),
+						'desc'              => __('Check this if this product has a recurring charge.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->is_recurring(),
 						'wrapper_html_attr' => [
 							'v-show'  => "pricing_type == 'paid'",
@@ -347,8 +347,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'_amount'          => [
 						'type'              => 'text',
-						'title'             => __('Price', 'wp-multisite-waas'),
-						'placeholder'       => __('Price', 'wp-multisite-waas'),
+						'title'             => __('Price', 'multisite-ultimate'),
+						'placeholder'       => __('Price', 'multisite-ultimate'),
 						'value'             => $this->get_object()->get_formatted_amount(),
 						'tooltip'           => '',
 						'money'             => true,
@@ -363,9 +363,9 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'amount_group'     => [
 						'type'              => 'group',
-						'title'             => __('Price', 'wp-multisite-waas'),
+						'title'             => __('Price', 'multisite-ultimate'),
 						// translators: placeholder %1$s is the amount, %2$s is the duration (such as 1, 2, 3), and %3$s is the unit (such as month, year, week)
-						'desc'              => sprintf(__('The customer will be charged %1$s every %2$s %3$s(s).', 'wp-multisite-waas'), '{{ wu_format_money(amount) }}', '{{ duration }}', '{{ duration_unit }}'),
+						'desc'              => sprintf(__('The customer will be charged %1$s every %2$s %3$s(s).', 'multisite-ultimate'), '{{ wu_format_money(amount) }}', '{{ duration }}', '{{ duration_unit }}'),
 						'tooltip'           => '',
 						'wrapper_html_attr' => [
 							'v-show'  => "is_recurring && pricing_type == 'paid'",
@@ -403,19 +403,19 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 									'v-model' => 'duration_unit',
 								],
 								'options'         => [
-									'day'   => __('Days', 'wp-multisite-waas'),
-									'week'  => __('Weeks', 'wp-multisite-waas'),
-									'month' => __('Months', 'wp-multisite-waas'),
-									'year'  => __('Years', 'wp-multisite-waas'),
+									'day'   => __('Days', 'multisite-ultimate'),
+									'week'  => __('Weeks', 'multisite-ultimate'),
+									'month' => __('Months', 'multisite-ultimate'),
+									'year'  => __('Years', 'multisite-ultimate'),
 								],
 							],
 						],
 					],
 					'billing_cycles'   => [
 						'type'              => 'number',
-						'title'             => __('Billing Cycles', 'wp-multisite-waas'),
-						'placeholder'       => __('E.g. 1', 'wp-multisite-waas'),
-						'desc'              => __('How many times should we bill this customer. Leave 0 to charge until cancelled.', 'wp-multisite-waas'),
+						'title'             => __('Billing Cycles', 'multisite-ultimate'),
+						'placeholder'       => __('E.g. 1', 'multisite-ultimate'),
+						'desc'              => __('How many times should we bill this customer. Leave 0 to charge until cancelled.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->get_billing_cycles(),
 						'tooltip'           => '',
 						'wrapper_html_attr' => [
@@ -425,8 +425,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'has_trial'        => [
 						'type'              => 'toggle',
-						'title'             => __('Offer Trial', 'wp-multisite-waas'),
-						'desc'              => __('Check if you want to add a trial period to this product.', 'wp-multisite-waas'),
+						'title'             => __('Offer Trial', 'multisite-ultimate'),
+						'desc'              => __('Check if you want to add a trial period to this product.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->has_trial(),
 						'wrapper_html_attr' => [
 							'v-show'  => "pricing_type == 'paid'",
@@ -438,7 +438,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'trial_group'      => [
 						'type'              => 'group',
-						'title'             => __('Trial', 'wp-multisite-waas'),
+						'title'             => __('Trial', 'multisite-ultimate'),
 						'tooltip'           => '',
 						'wrapper_html_attr' => [
 							'v-show'  => "has_trial && pricing_type == 'paid'",
@@ -457,18 +457,18 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 								'placeholder'     => '',
 								'wrapper_classes' => 'wu-w-2/3',
 								'options'         => [
-									'day'   => __('Days', 'wp-multisite-waas'),
-									'week'  => __('Weeks', 'wp-multisite-waas'),
-									'month' => __('Months', 'wp-multisite-waas'),
-									'year'  => __('Years', 'wp-multisite-waas'),
+									'day'   => __('Days', 'multisite-ultimate'),
+									'week'  => __('Weeks', 'multisite-ultimate'),
+									'month' => __('Months', 'multisite-ultimate'),
+									'year'  => __('Years', 'multisite-ultimate'),
 								],
 							],
 						],
 					],
 					'has_setup_fee'    => [
 						'type'              => 'toggle',
-						'title'             => __('Add Setup Fee?', 'wp-multisite-waas'),
-						'desc'              => __('Check if you want to add a setup fee.', 'wp-multisite-waas'),
+						'title'             => __('Add Setup Fee?', 'multisite-ultimate'),
+						'desc'              => __('Check if you want to add a setup fee.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->has_setup_fee(),
 						'wrapper_html_attr' => [
 							'v-show'  => "pricing_type == 'paid'",
@@ -487,10 +487,10 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					'_setup_fee'       => [
 						'type'              => 'text',
 						'money'             => true,
-						'title'             => __('Setup Fee', 'wp-multisite-waas'),
-						'desc'              => __('The setup fee will be added to the first charge, in addition to the regular price of the product.', 'wp-multisite-waas'),
+						'title'             => __('Setup Fee', 'multisite-ultimate'),
+						'desc'              => __('The setup fee will be added to the first charge, in addition to the regular price of the product.', 'multisite-ultimate'),
 						// translators: %s is a price placeholder value.
-						'placeholder'       => sprintf(__('E.g. %s', 'wp-multisite-waas'), wu_format_currency(199)),
+						'placeholder'       => sprintf(__('E.g. %s', 'multisite-ultimate'), wu_format_currency(199)),
 						'value'             => $this->get_object()->get_formatted_amount('setup_fee'),
 						'wrapper_html_attr' => [
 							'v-show'  => "has_setup_fee && pricing_type == 'paid'",
@@ -510,12 +510,12 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'active',
 			[
-				'title'  => __('Active', 'wp-multisite-waas'),
+				'title'  => __('Active', 'multisite-ultimate'),
 				'fields' => [
 					'active' => [
 						'type'  => 'toggle',
-						'title' => __('Active', 'wp-multisite-waas'),
-						'desc'  => __('Use this option to manually enable or disable this product for new sign-ups.', 'wp-multisite-waas'),
+						'title' => __('Active', 'multisite-ultimate'),
+						'desc'  => __('Use this option to manually enable or disable this product for new sign-ups.', 'multisite-ultimate'),
 						'value' => $this->get_object()->is_active(),
 					],
 				],
@@ -525,13 +525,13 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'image',
 			[
-				'title'  => __('Product Image', 'wp-multisite-waas'),
+				'title'  => __('Product Image', 'multisite-ultimate'),
 				'fields' => [
 					'featured_image_id' => [
 						'type'    => 'image',
 						'stacked' => true,
-						'title'   => __('Product Image', 'wp-multisite-waas'),
-						'desc'    => __('This image is used on product list tables and other places.', 'wp-multisite-waas'),
+						'title'   => __('Product Image', 'multisite-ultimate'),
+						'desc'    => __('This image is used on product list tables and other places.', 'multisite-ultimate'),
 						'value'   => $this->get_object()->get_featured_image_id(),
 						'img'     => $this->get_object()->get_featured_image(),
 					],
@@ -570,9 +570,9 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = [
 			'heading' => [
 				'type'  => 'header',
-				'title' => __('Legacy Options', 'wp-multisite-waas'),
+				'title' => __('Legacy Options', 'multisite-ultimate'),
 				// translators: %s is the comma-separated list of legacy add-ons.
-				'desc'  => sprintf(__('Options for %s, and others.', 'wp-multisite-waas'), implode(', ', $tabs)),
+				'desc'  => sprintf(__('Options for %s, and others.', 'multisite-ultimate'), implode(', ', $tabs)),
 			],
 		];
 
@@ -592,7 +592,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'legacy-options',
 			[
-				'title'                 => __('Legacy Options', 'wp-multisite-waas'),
+				'title'                 => __('Legacy Options', 'multisite-ultimate'),
 				'position'              => 'normal',
 				'fields'                => $fields,
 				'classes'               => 'wu-legacy-options-panel',
@@ -618,8 +618,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 
 		$sections = [
 			'general' => [
-				'title'  => __('General', 'wp-multisite-waas'),
-				'desc'   => __('General product options such as product slug, type, etc.', 'wp-multisite-waas'),
+				'title'  => __('General', 'multisite-ultimate'),
+				'desc'   => __('General product options such as product slug, type, etc.', 'multisite-ultimate'),
 				'icon'   => 'dashicons-wu-globe',
 				'state'  => [
 					'slug'         => $this->get_object()->get_slug(),
@@ -628,11 +628,11 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 				'fields' => [
 					'slug'                               => [
 						'type'        => 'text',
-						'title'       => __('Product Slug', 'wp-multisite-waas'),
-						'placeholder' => __('e.g. premium', 'wp-multisite-waas'),
-						'desc'        => __('This serves as a id to the product in a number of different contexts.', 'wp-multisite-waas'),
+						'title'       => __('Product Slug', 'multisite-ultimate'),
+						'placeholder' => __('e.g. premium', 'multisite-ultimate'),
+						'desc'        => __('This serves as a id to the product in a number of different contexts.', 'multisite-ultimate'),
 						'value'       => $this->get_object()->get_slug(),
-						'tooltip'     => __('Lowercase alpha-numeric characters with dashes or underlines. No spaces allowed.', 'wp-multisite-waas'),
+						'tooltip'     => __('Lowercase alpha-numeric characters with dashes or underlines. No spaces allowed.', 'multisite-ultimate'),
 						'html_attr'   => [
 							'v-on:input'   => 'slug = $event.target.value.toLowerCase().replace(/[^a-z0-9-_]+/g, "")',
 							'v-bind:value' => 'slug',
@@ -641,9 +641,9 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					// Fields for price
 					'type'                               => [
 						'type'        => 'select',
-						'title'       => __('Product Type', 'wp-multisite-waas'),
-						'placeholder' => __('Product Type', 'wp-multisite-waas'),
-						'desc'        => __('Different product types have different options.', 'wp-multisite-waas'),
+						'title'       => __('Product Type', 'multisite-ultimate'),
+						'placeholder' => __('Product Type', 'multisite-ultimate'),
+						'desc'        => __('Different product types have different options.', 'multisite-ultimate'),
 						'value'       => $this->get_object()->get_type(),
 						'tooltip'     => '',
 						'options'     => Product_Type::to_array(),
@@ -652,8 +652,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 						],
 					],
 					'modules[customer_user_role][limit]' => [
-						'title'             => __('Customer Role', 'wp-multisite-waas'),
-						'desc'              => __('Select the role WP Multisite WaaS should use when adding the user to their newly created site.', 'wp-multisite-waas'),
+						'title'             => __('Customer Role', 'multisite-ultimate'),
+						'desc'              => __('Select the role Multisite Ultimate should use when adding the user to their newly created site.', 'multisite-ultimate'),
 						'type'              => 'select',
 						'value'             => $this->get_object()->get_customer_role(),
 						'default'           => 'administrator',
@@ -668,36 +668,36 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		];
 
 		$sections['ups-and-downs'] = [
-			'title'  => __('Up & Downgrades', 'wp-multisite-waas'),
-			'desc'   => __('Settings related to upgrade and downgrade flows.', 'wp-multisite-waas'),
+			'title'  => __('Up & Downgrades', 'multisite-ultimate'),
+			'desc'   => __('Settings related to upgrade and downgrade flows.', 'multisite-ultimate'),
 			'icon'   => 'dashicons-wu-shop',
 			'v-show' => 'product_type === "plan"',
 			'state'  => [],
 			'fields' => [
 				'group'            => [
-					'title'       => __('Plan Group', 'wp-multisite-waas'),
-					'desc'        => __('Add related plans to the same group to have them show up as upgrade/downgrade paths.', 'wp-multisite-waas'),
-					'placeholder' => __('Type and press enter to search and/or add.', 'wp-multisite-waas'),
+					'title'       => __('Plan Group', 'multisite-ultimate'),
+					'desc'        => __('Add related plans to the same group to have them show up as upgrade/downgrade paths.', 'multisite-ultimate'),
+					'placeholder' => __('Type and press enter to search and/or add.', 'multisite-ultimate'),
 					'type'        => 'select',
 					'value'       => $this->get_object()->get_group(),
-					'options'     => array_merge(['' => __('Select Group', 'wp-multisite-waas')], wu_get_product_groups()),
+					'options'     => array_merge(['' => __('Select Group', 'multisite-ultimate')], wu_get_product_groups()),
 					'html_attr'   => [
 						'data-selectize-categories' => 999,
 						'data-max-items'            => 1,
 					],
 				],
 				'list_order'       => [
-					'title'       => __('Product Order', 'wp-multisite-waas'),
-					'desc'        => __('Plans are shown in the order determined by this parameter, from the lowest to the highest.', 'wp-multisite-waas'),
-					'placeholder' => __('Type and press enter to search and/or add.', 'wp-multisite-waas'),
+					'title'       => __('Product Order', 'multisite-ultimate'),
+					'desc'        => __('Plans are shown in the order determined by this parameter, from the lowest to the highest.', 'multisite-ultimate'),
+					'placeholder' => __('Type and press enter to search and/or add.', 'multisite-ultimate'),
 					'type'        => 'number',
 					'value'       => $this->get_object()->get_list_order(),
 				],
 				'available_addons' => [
 					'type'        => 'model',
-					'title'       => __('Offer Add-ons', 'wp-multisite-waas'),
-					'placeholder' => __('Search for a package or service', 'wp-multisite-waas'),
-					'desc'        => __('This products will be offered inside upgrade/downgrade forms as order bumps.', 'wp-multisite-waas'),
+					'title'       => __('Offer Add-ons', 'multisite-ultimate'),
+					'placeholder' => __('Search for a package or service', 'multisite-ultimate'),
+					'desc'        => __('This products will be offered inside upgrade/downgrade forms as order bumps.', 'multisite-ultimate'),
 					'html_attr'   => [
 						'data-exclude'      => implode(',', array_keys(wu_get_plans_as_options())),
 						'data-model'        => 'product',
@@ -719,8 +719,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		];
 
 		$sections['price-variations'] = [
-			'title'  => __('Price Variations', 'wp-multisite-waas'),
-			'desc'   => __('Discounts for longer membership commitments.', 'wp-multisite-waas'),
+			'title'  => __('Price Variations', 'multisite-ultimate'),
+			'desc'   => __('Discounts for longer membership commitments.', 'multisite-ultimate'),
 			'icon'   => 'dashicons-wu-price-tag',
 			'state'  => [
 				'enable_price_variations' => ! empty($this->get_object()->get_price_variations()),
@@ -729,8 +729,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 			'fields' => [
 				'enable_price_variations' => [
 					'type'      => 'toggle',
-					'title'     => __('Enable Price Variations', 'wp-multisite-waas'),
-					'desc'      => __('Price Variations are an easy way to offer discounted prices for longer subscription commitments.', 'wp-multisite-waas'),
+					'title'     => __('Enable Price Variations', 'multisite-ultimate'),
+					'desc'      => __('Price Variations are an easy way to offer discounted prices for longer subscription commitments.', 'multisite-ultimate'),
 					'value'     => false,
 					'html_attr' => [
 						'v-model' => 'enable_price_variations',
@@ -739,7 +739,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 				'price_variations'        => [
 					'type'              => 'group',
 					// translators: 1 is the price, 2 is the duration and 3 the duration unit
-					'desc'              => sprintf(__('A discounted price of %1$s will be used when memberships are created with the recurrence of %2$s %3$s(s) instead of the regular period.', 'wp-multisite-waas'), '{{ wu_format_money(price_variation.amount) }}', '{{ price_variation.duration }}', '{{ price_variation.duration_unit }}'),
+					'desc'              => sprintf(__('A discounted price of %1$s will be used when memberships are created with the recurrence of %2$s %3$s(s) instead of the regular period.', 'multisite-ultimate'), '{{ wu_format_money(price_variation.amount) }}', '{{ price_variation.duration }}', '{{ price_variation.duration_unit }}'),
 					'tooltip'           => '',
 					'wrapper_classes'   => 'wu-relative',
 					'wrapper_html_attr' => [
@@ -750,12 +750,12 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					'fields'            => [
 						'price_variations_remove'        => [
 							'type'            => 'note',
-							'desc'            => sprintf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => price_variations.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', esc_html__('Remove', 'wp-multisite-waas')),
+							'desc'            => sprintf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => price_variations.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', esc_html__('Remove', 'multisite-ultimate')),
 							'wrapper_classes' => 'wu-absolute wu-top-0 wu-right-0',
 						],
 						'price_variations_duration'      => [
 							'type'            => 'number',
-							'title'           => __('Duration', 'wp-multisite-waas'),
+							'title'           => __('Duration', 'multisite-ultimate'),
 							'placeholder'     => '',
 							'wrapper_classes' => 'wu-w-1/3',
 							'min'             => 1,
@@ -767,7 +767,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 						],
 						'price_variations_duration_unit' => [
 							'type'            => 'select',
-							'title'           => __('Period', 'wp-multisite-waas'),
+							'title'           => __('Period', 'multisite-ultimate'),
 							'placeholder'     => '',
 							'wrapper_classes' => 'wu-w-1/3 wu-mx-2',
 							'html_attr'       => [
@@ -775,10 +775,10 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 								'v-bind:name' => '"price_variations[" + index + "][duration_unit]"',
 							],
 							'options'         => [
-								'day'   => __('Days', 'wp-multisite-waas'),
-								'week'  => __('Weeks', 'wp-multisite-waas'),
-								'month' => __('Months', 'wp-multisite-waas'),
-								'year'  => __('Years', 'wp-multisite-waas'),
+								'day'   => __('Days', 'multisite-ultimate'),
+								'week'  => __('Weeks', 'multisite-ultimate'),
+								'month' => __('Months', 'multisite-ultimate'),
+								'year'  => __('Years', 'multisite-ultimate'),
 							],
 						],
 						// Bind the amount of the price variation to another field so we don't send the formatted value to the server.
@@ -791,7 +791,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 						],
 						'_price_variations_amount'       => [
 							'type'            => 'text',
-							'title'           => __('New Price', 'wp-multisite-waas'),
+							'title'           => __('New Price', 'multisite-ultimate'),
 							'placeholder'     => wu_format_currency('99'),
 							'wrapper_classes' => 'wu-w-1/3',
 							'money'           => true,
@@ -804,7 +804,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 				],
 				'repeat'                  => [
 					'type'              => 'submit',
-					'title'             => __('Add new Price Variation', 'wp-multisite-waas'),
+					'title'             => __('Add new Price Variation', 'multisite-ultimate'),
 					'classes'           => 'button wu-self-end',
 					'wrapper_classes'   => 'wu-bg-whiten wu-items-end',
 					'wrapper_html_attr' => [
@@ -823,8 +823,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		];
 
 		$sections['taxes'] = [
-			'title'  => __('Taxes', 'wp-multisite-waas'),
-			'desc'   => __('Tax settings for your products.', 'wp-multisite-waas'),
+			'title'  => __('Taxes', 'multisite-ultimate'),
+			'desc'   => __('Tax settings for your products.', 'multisite-ultimate'),
 			'icon'   => 'dashicons-wu-credit',
 			'state'  => [
 				'taxable' => $this->get_object()->is_taxable(),
@@ -832,8 +832,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 			'fields' => [
 				'taxable'      => [
 					'type'      => 'toggle',
-					'title'     => __('Is Taxable?', 'wp-multisite-waas'),
-					'desc'      => __('Enable this if you plan to collect taxes for this product.', 'wp-multisite-waas'),
+					'title'     => __('Is Taxable?', 'multisite-ultimate'),
+					'desc'      => __('Enable this if you plan to collect taxes for this product.', 'multisite-ultimate'),
 					'value'     => $this->get_object()->is_taxable(),
 					'html_attr' => [
 						'v-model' => 'taxable',
@@ -841,8 +841,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 				],
 				'tax_category' => [
 					'type'              => 'select',
-					'title'             => __('Tax Category', 'wp-multisite-waas'),
-					'desc'              => __('Select the product tax category.', 'wp-multisite-waas'),
+					'title'             => __('Tax Category', 'multisite-ultimate'),
+					'desc'              => __('Select the product tax category.', 'multisite-ultimate'),
 					'value'             => $this->get_object()->get_tax_category(),
 					'options'           => 'wu_get_tax_categories_as_options',
 					'wrapper_html_attr' => [
@@ -854,8 +854,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		];
 
 		$sections['allowed_templates'] = [
-			'title'  => __('Site Templates', 'wp-multisite-waas'),
-			'desc'   => __('Limit which site templates are available for this particular template.', 'wp-multisite-waas'),
+			'title'  => __('Site Templates', 'multisite-ultimate'),
+			'desc'   => __('Limit which site templates are available for this particular template.', 'multisite-ultimate'),
 			'icon'   => 'dashicons-wu-grid1 wu-align-text-bottom',
 			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
 			'state'  => [
@@ -866,8 +866,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 			'fields' => [
 				'modules[site_templates][enabled]' => [
 					'type'              => 'toggle',
-					'title'             => __('Allow Site Templates', 'wp-multisite-waas'),
-					'desc'              => __('Toggle this option on to allow this plan to use Site Templates. If this option is disabled, sign-ups on this plan will get a default WordPress site.', 'wp-multisite-waas'),
+					'title'             => __('Allow Site Templates', 'multisite-ultimate'),
+					'desc'              => __('Toggle this option on to allow this plan to use Site Templates. If this option is disabled, sign-ups on this plan will get a default WordPress site.', 'multisite-ultimate'),
 					'wrapper_html_attr' => [
 						'v-cloak' => '1',
 					],
@@ -877,15 +877,15 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 				],
 				'modules[site_templates][mode]'    => [
 					'type'              => 'select',
-					'title'             => __('Site Template Selection Mode', 'wp-multisite-waas'),
-					'placeholder'       => __('Site Template Selection Mode', 'wp-multisite-waas'),
-					'desc'              => __('Select the type of limitation you want to apply.', 'wp-multisite-waas'),
-					'tooltip'           => __('"Default" will follow the settings of the checkout form: if you have a template selection field in there, all the templates selected will show up. If no field is present, then a default WordPress site will be created. <br><br>"Assign Site Template" forces new accounts with this plan to use a particular template site (this option removes the template selection field from the signup, if one exists). <br><br>Finally, "Choose Available Site Templates", overrides the templates selected on the checkout form with the templates selected here, while also giving you the chance of pre-select a template to be used as default.', 'wp-multisite-waas'),
+					'title'             => __('Site Template Selection Mode', 'multisite-ultimate'),
+					'placeholder'       => __('Site Template Selection Mode', 'multisite-ultimate'),
+					'desc'              => __('Select the type of limitation you want to apply.', 'multisite-ultimate'),
+					'tooltip'           => __('"Default" will follow the settings of the checkout form: if you have a template selection field in there, all the templates selected will show up. If no field is present, then a default WordPress site will be created. <br><br>"Assign Site Template" forces new accounts with this plan to use a particular template site (this option removes the template selection field from the signup, if one exists). <br><br>Finally, "Choose Available Site Templates", overrides the templates selected on the checkout form with the templates selected here, while also giving you the chance of pre-select a template to be used as default.', 'multisite-ultimate'),
 					'value'             => 'default',
 					'options'           => [
-						'default'                    => __('Default', 'wp-multisite-waas'),
-						'assign_template'            => __('Assign Site Template', 'wp-multisite-waas'),
-						'choose_available_templates' => __('Choose Available Site Templates', 'wp-multisite-waas'),
+						'default'                    => __('Default', 'multisite-ultimate'),
+						'assign_template'            => __('Assign Site Template', 'multisite-ultimate'),
+						'choose_available_templates' => __('Choose Available Site Templates', 'multisite-ultimate'),
 					],
 					'html_attr'         => [
 						'v-model' => 'site_template_selection_mode',
@@ -897,8 +897,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 				],
 				'templates'                        => [
 					'type'              => 'html',
-					'title'             => __('Site Templates', 'wp-multisite-waas'),
-					'desc'              => esc_attr(sprintf('{{ site_template_selection_mode === "assign_template" ? "%s" : "%s" }}', __('Select the Site Template to assign.', 'wp-multisite-waas'), __('Customize the access level of each Site Template below.', 'wp-multisite-waas'))),
+					'title'             => __('Site Templates', 'multisite-ultimate'),
+					'desc'              => esc_attr(sprintf('{{ site_template_selection_mode === "assign_template" ? "%s" : "%s" }}', __('Select the Site Template to assign.', 'multisite-ultimate'), __('Customize the access level of each Site Template below.', 'multisite-ultimate'))),
 					'wrapper_html_attr' => [
 						'v-cloak' => '1',
 						'v-show'  => "allow_site_templates && site_template_selection_mode !== 'default'",
@@ -940,7 +940,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Product', 'wp-multisite-waas') : __('Add new Product', 'wp-multisite-waas');
+		return $this->edit ? __('Edit Product', 'multisite-ultimate') : __('Add new Product', 'multisite-ultimate');
 	}
 
 	/**
@@ -951,7 +951,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Product', 'wp-multisite-waas');
+		return __('Edit Product', 'multisite-ultimate');
 	}
 
 	/**
@@ -969,7 +969,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 
 			$actions[] = [
 				'url'     => '#',
-				'label'   => __('Click to copy Shareable Link', 'wp-multisite-waas'),
+				'label'   => __('Click to copy Shareable Link', 'multisite-ultimate'),
 				'icon'    => 'wu-attachment',
 				'classes' => 'wu-copy',
 				'attrs'   => 'data-clipboard-text="' . esc_attr($shareable_link) . '"',
@@ -988,15 +988,15 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Product', 'wp-multisite-waas'),
-			'add_new_label'       => __('Add new Product', 'wp-multisite-waas'),
-			'updated_message'     => __('Product updated with success!', 'wp-multisite-waas'),
-			'title_placeholder'   => __('Enter Product Name', 'wp-multisite-waas'),
-			'title_description'   => __('This name will be used on pricing tables, invoices, and more.', 'wp-multisite-waas'),
-			'save_button_label'   => __('Save Product', 'wp-multisite-waas'),
+			'edit_label'          => __('Edit Product', 'multisite-ultimate'),
+			'add_new_label'       => __('Add new Product', 'multisite-ultimate'),
+			'updated_message'     => __('Product updated with success!', 'multisite-ultimate'),
+			'title_placeholder'   => __('Enter Product Name', 'multisite-ultimate'),
+			'title_description'   => __('This name will be used on pricing tables, invoices, and more.', 'multisite-ultimate'),
+			'save_button_label'   => __('Save Product', 'multisite-ultimate'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Product', 'wp-multisite-waas'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'wp-multisite-waas'),
+			'delete_button_label' => __('Delete Product', 'multisite-ultimate'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
 		];
 	}
 
@@ -1030,10 +1030,10 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 			return $this->object;
 		}
 
-		if (isset($_GET['id'])) {
+		if (isset($_GET['id'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$query = new \WP_Ultimo\Database\Products\Product_Query();
 
-			$item = $query->get_item_by('id', $_GET['id']);
+			$item = $query->get_item_by('id', (int) $_GET['id']); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			if ( ! $item) {
 				wp_safe_redirect(wu_network_admin_url('wp-ultimo-products'));

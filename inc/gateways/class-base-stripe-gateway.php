@@ -12,12 +12,11 @@
 namespace WP_Ultimo\Gateways;
 
 use Psr\Log\LogLevel;
-use WP_Ultimo\Gateways\Base_Gateway;
-use WP_Ultimo\Gateways\Ignorable_Exception;
 use Stripe;
+use Stripe\StripeClient;
+use Stripe\WebhookEndpoint;
 use WP_Ultimo\Models\Membership;
 use WP_Ultimo\Database\Payments\Payment_Status;
-use WP_Ultimo\Checkout\Cart;
 use WP_Ultimo\Checkout\Line_Item;
 use WP_Ultimo\Models\Site;
 
@@ -83,22 +82,39 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	protected $test_mode;
 
 	/**
-	 * The webhook event id.
-	 *
-	 * @since 2.2.0
-	 * @var string
-	 */
-	protected $webhook_event_id;
-
-	/**
-	 * Declares support to recurring payments.
+	 * Holds the Stripe client instance.
 	 *
 	 * @since 2.0.0
-	 * @return true
+	 * @var StripeClient
 	 */
-	public function supports_recurring(): bool {
+	protected StripeClient $stripe_client;
 
-		return true;
+	/**
+	 * Gets or creates the Stripe client instance.
+	 *
+	 * @return StripeClient
+	 */
+	protected function get_stripe_client(): StripeClient {
+		if (! isset($this->stripe_client)) {
+			$this->stripe_client = new StripeClient(
+				[
+					'api_key' => $this->secret_key,
+				]
+			);
+		}
+
+		return $this->stripe_client;
+	}
+
+
+	/**
+	 * Sets a mock Stripe client for testing purposes.
+	 *
+	 * @param StripeClient $mock_client Mock Stripe client.
+	 * @return void
+	 */
+	public function set_stripe_client(StripeClient $mock_client): void {
+		$this->stripe_client = $mock_client;
 	}
 
 	/**
@@ -133,8 +149,8 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		$this->setup_api_keys($id);
 
-		if (method_exists('Stripe', 'setAppInfo')) {
-			Stripe\Stripe::setAppInfo('WordPress WP Multisite WaaS', wu_get_version(), esc_url(site_url()));
+		if (method_exists(Stripe\Stripe::class, 'setAppInfo')) {
+			Stripe\Stripe::setAppInfo('WordPress Multisite Ultimate', wu_get_version(), esc_url(site_url()));
 		}
 	}
 
@@ -199,7 +215,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 * @param Membership $membership The current membership object.
 	 * @return array
 	 */
-	function add_site_actions($actions, $atts, $site, $membership) {
+	public function add_site_actions($actions, $atts, $site, $membership) {
 
 		$gateway_id = wu_replace_dashes($this->id);
 
@@ -214,7 +230,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			if ( ! empty($s_subscription_id)) {
 				$actions['change_payment_method'] = [
-					'label'        => __('Change Payment Method', 'wp-multisite-waas'),
+					'label'        => __('Change Payment Method', 'multisite-ultimate'),
 					'icon_classes' => 'dashicons-wu-edit wu-align-middle',
 					'href'         => add_query_arg(
 						[
@@ -250,7 +266,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$customer = wu_get_current_customer();
 
 		if ( ! is_super_admin() && (! $customer || $customer->get_id() !== $membership->get_customer_id())) {
-			wp_die(__('You are not allowed to modify this membership.', 'wp-multisite-waas'));
+			wp_die(esc_html__('You are not allowed to modify this membership.', 'multisite-ultimate'));
 		}
 
 		$gateway_id = $membership->get_gateway();
@@ -281,14 +297,14 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				'customer'                   => $s_customer_id,
 			];
 
-			$session       = Stripe\Checkout\Session::create($subscription_data);
-			$s_customer_id = $session->subscript_ion_data['customer'];
+			$session       = $this->get_stripe_client()->checkout->sessions->create($subscription_data);
+			$s_customer_id = $session->customer;
 		}
 
 		$portal_config_id = get_site_option('wu_stripe_portal_config_id');
 
 		if ( ! $portal_config_id) {
-			$portal_config = Stripe\BillingPortal\Configuration::create(
+			$portal_config = $this->get_stripe_client()->billingPortal->configurations->create(
 				[
 					'features'         => [
 						'invoice_history'       => [
@@ -315,7 +331,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 						],
 					],
 					'business_profile' => [
-						'headline' => __('Manage your membership payment methods.', 'wp-multisite-waas'),
+						'headline' => __('Manage your membership payment methods.', 'multisite-ultimate'),
 					],
 				]
 			);
@@ -331,7 +347,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			'configuration' => $portal_config_id,
 		];
 
-		$session = Stripe\BillingPortal\Session::create($subscription_data);
+		$session = $this->get_stripe_client()->billingPortal->sessions->create($subscription_data);
 
 		wp_redirect($session->url);
 		exit;
@@ -348,7 +364,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		$gateway_id = wu_replace_dashes($this->id);
 
-		return wu_get_setting("{$gateway_id}_public_title", __('Credit Card', 'wp-multisite-waas'));
+		return wu_get_setting("{$gateway_id}_public_title", __('Credit Card', 'multisite-ultimate'));
 	}
 
 	/**
@@ -365,7 +381,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			'payment-gateways',
 			"{$gateway_id}_enable_portal",
 			[
-				'title'      => __('Use Stripe Billing Portal', 'wp-multisite-waas'),
+				'title'      => __('Use Stripe Billing Portal', 'multisite-ultimate'),
 				'desc'       => 'Add a link to the Billing Portal in the site actions widget so your customer can change the payment method used in Stripe (additional charges from Stripe could be applied).',
 				'type'       => 'toggle',
 				'default'    => 0,
@@ -390,7 +406,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			$this->setup_api_keys();
 
-			$search_webhook = Stripe\WebhookEndpoint::all(
+			$search_webhook = $this->get_stripe_client()->webhookEndpoints->all(
 				[
 					'limit' => 100,
 				]
@@ -514,7 +530,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				 *  The secret key is invalid;
 				 */
 				$t = "{$id}_{$stripe_mode}_sk_key_status";
-				wu_save_setting("{$id}_{$stripe_mode}_sk_key_status", __('Invalid API Key provided', 'wp-multisite-waas'));
+				wu_save_setting("{$id}_{$stripe_mode}_sk_key_status", __('Invalid API Key provided', 'multisite-ultimate'));
 			}
 		}
 
@@ -538,7 +554,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				/**
 				 *  The public key is invalid;
 				 */
-				wu_save_setting("{$id}_{$stripe_mode}_pk_key_status", __('Invalid API Key provided', 'wp-multisite-waas'));
+				wu_save_setting("{$id}_{$stripe_mode}_pk_key_status", __('Invalid API Key provided', 'multisite-ultimate'));
 			}
 		}
 	}
@@ -546,7 +562,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	/**
 	 * Installs webhook urls onto Stripe.
 	 *
-	 * WP Multisite WaaS will call this whenever settings for this api changes.
+	 * Multisite Ultimate will call this whenever settings for this api changes.
 	 * That being said, it might be a good idea to check if the webhook already exists
 	 * before trying to re-create it.
 	 *
@@ -609,7 +625,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			 */
 			if ($existing_webhook) {
 				if ('disabled' === $existing_webhook->status) {
-					$status = Stripe\WebhookEndpoint::update(
+					$status = $this->get_stripe_client()->webhookEndpoints->update(
 						$existing_webhook->id,
 						[
 							'status' => 'enabled',
@@ -623,11 +639,11 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			/*
 			 * Otherwise, create it.
 			 */
-			Stripe\WebhookEndpoint::create(
+			$this->get_stripe_client()->webhookEndpoints->create(
 				[
 					'enabled_events' => ['*'],
 					'url'            => $webhook_url,
-					'description'    => 'Added by WP Multisite WaaS. Required to correctly handle changes in subscription status.',
+					'description'    => 'Added by Multisite Ultimate. Required to correctly handle changes in subscription status.',
 				]
 			);
 
@@ -664,13 +680,13 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$gateway_subscription_id = $membership->get_gateway_subscription_id();
 
 		if (empty($gateway_subscription_id)) {
-			return new \WP_Error('wu_stripe_no_subscription_id', __('Error: No gateway subscription ID found for this membership.', 'wp-multisite-waas'));
+			return new \WP_Error('wu_stripe_no_subscription_id', __('Error: No gateway subscription ID found for this membership.', 'multisite-ultimate'));
 		}
 
 		$this->setup_api_keys();
 
 		try {
-			$subscription = Stripe\Subscription::retrieve($gateway_subscription_id);
+			$subscription = $this->get_stripe_client()->subscriptions->retrieve($gateway_subscription_id);
 
 			/**
 			 * Generate a temporary wu payment so we can get the correct line items and amounts.
@@ -748,7 +764,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				if (count($credits) > 1) {
 					$credit = [
 						'amount'      => array_sum(wp_list_pluck($credits, 'amount')),
-						'description' => __('Amount adjustment based on custom deal.', 'wp-multisite-waas'),
+						'description' => __('Amount adjustment based on custom deal.', 'multisite-ultimate'),
 					];
 				} else {
 					$credit = $credits[0];
@@ -785,11 +801,10 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				'coupon'             => $s_coupon,
 			];
 
-			$subscription = Stripe\Subscription::update($gateway_subscription_id, $update_data);
+			$subscription = $this->get_stripe_client()->subscriptions->update($gateway_subscription_id, $update_data);
 
 			if (empty($s_coupon) && ! empty($subscription->discount)) {
-				$stripe = new Stripe\StripeClient($this->secret_key);
-				$stripe->subscriptions->deleteDiscount($gateway_subscription_id);
+				$this->get_stripe_client()->subscriptions->deleteDiscount($gateway_subscription_id);
 			}
 		} catch (\Throwable $e) {
 			return new \WP_Error('wu_stripe_update_error', $e->getMessage());
@@ -823,7 +838,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param integer $customer_id WP Multisite WaaS customer ID.
+	 * @param integer $customer_id Multisite Ultimate customer ID.
 	 * @param integer $user_id The WordPress user ID.
 	 * @param integer $stripe_customer_id The Stripe Customer ID.
 	 * @return \Stripe\Customer|\WP_Error
@@ -836,7 +851,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$customer_exists = false;
 
 		/*
-		 * Use the WP Multisite WaaS customer ID to search on the
+		 * Use the Multisite Ultimate customer ID to search on the
 		 * database for an existing Stripe customer id.
 		 */
 		if (empty($stripe_customer_id)) {
@@ -856,13 +871,13 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		 */
 		if ($stripe_customer_id) {
 			try {
-				$stripe_customer = Stripe\Customer::retrieve($stripe_customer_id);
+				$stripe_customer = $this->get_stripe_client()->customers->retrieve($stripe_customer_id);
 
 				/*
 				 * If the customer was deleted, we
 				 * cannot use it again...
 				 */
-				if ( ! isset($stripe_customer->deleted) || ! $stripe_customer->deleted) {
+				if ( $stripe_customer && (! isset($stripe_customer->deleted) || ! $stripe_customer->deleted)) {
 					$customer_exists = true;
 				}
 			} catch (\Exception $e) {
@@ -897,7 +912,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				/*
 				 * Finally, try to create it.
 				 */
-				$stripe_customer = Stripe\Customer::create($customer_args);
+				$stripe_customer = $this->get_stripe_client()->customers->create($customer_args);
 			} catch (\Exception $e) {
 				$error_code = $e->getCode();
 
@@ -922,7 +937,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 *
 	 * @since 2.0.11
 	 *
-	 * @param \WP_Ultimo\Objects\Billing_Address $billing_address The WP Multisite WaaS billing address.
+	 * @param \WP_Ultimo\Objects\Billing_Address $billing_address The Multisite Ultimate billing address.
 	 * @return array
 	 */
 	public function convert_to_stripe_address($billing_address) {
@@ -1019,7 +1034,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		 * return a WP_Error object.
 		 */
 		if (is_object($stripe_cart) && is_wp_error($stripe_cart)) {
-			throw new \Exception($stripe_cart->get_error_message());
+			throw new \Exception(esc_html($stripe_cart->get_error_message()));
 		}
 
 		// Otherwise, use the calculated expiration date of the membership, modified to current time instead of 23:59.
@@ -1033,16 +1048,17 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$start_date = $datetime->getTimestamp() - HOUR_IN_SECONDS; // Reduce by 60 seconds to account for inaccurate server times.
 
 		if (empty($payment_method)) {
-			throw new \Exception(__('Invalid payment method', 'wp-multisite-waas'));
+			throw new \Exception(esc_html__('Invalid payment method', 'multisite-ultimate'));
 		}
 
 		/*
 		 * Subscription arguments for Stripe
 		 */
 		$sub_args = [
+			'customer'               => $s_customer->id,
 			'items'                  => array_values($stripe_cart),
 			'default_payment_method' => $payment_method->id,
-			'prorate'                => false,
+			'proration_behavior'     => 'none',
 			'metadata'               => $this->get_customer_metadata(),
 		];
 
@@ -1080,7 +1096,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			$s_coupon = $this->get_credit_coupon($cart);
 
 			if ($s_coupon) {
-				$sub_args['coupon'] = $s_coupon;
+				$sub_args['discounts'] = [['coupon' => $s_coupon]];
 			}
 		}
 
@@ -1127,7 +1143,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			 * Tries to create the subscription
 			 * on Stripe!
 			 */
-			$subscription = $s_customer->subscriptions->create($sub_args, $sub_options);
+			$subscription = $this->get_stripe_client()->subscriptions->create($sub_args, $sub_options);
 		} catch (Stripe\Exception\IdempotencyException $exception) {
 			/**
 			 * In this case, the subscription is being created by another call.
@@ -1194,7 +1210,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				];
 
 				try {
-					$subscription = Stripe\Subscription::update($subscription->id, $options, $sub_options);
+					$subscription = $this->get_stripe_client()->subscriptions->update($subscription->id, $options, $sub_options);
 				} catch (Stripe\Exception\IdempotencyException $exception) {
 					/**
 					 * In this case, the subscription is being updated by another call.
@@ -1238,7 +1254,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		$coupon_data = [
 			'id'         => sprintf('%s-%s-%s', $s_amount, $currency, 'once'),
-			'name'       => __('Account credit and other discounts', 'wp-multisite-waas'),
+			'name'       => __('Account credit and other discounts', 'multisite-ultimate'),
 			'amount_off' => $s_amount,
 			'duration'   => 'once',
 			'currency'   => $currency,
@@ -1260,9 +1276,9 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// First check to see if a coupon exists with this ID. If so, return that.
 		try {
-			$coupon = Stripe\Coupon::retrieve($coupon_data['id']);
+			$coupon = $this->get_stripe_client()->coupons->retrieve($coupon_data['id']);
 
-			Stripe\Coupon::update(
+			$this->get_stripe_client()->coupons->update(
 				$coupon->id,
 				[
 					'name' => $coupon_data['name'],
@@ -1277,7 +1293,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// Otherwise, create a new plan.
 		try {
-			$coupon = Stripe\Coupon::create($coupon_data);
+			$coupon = $this->get_stripe_client()->coupons->create($coupon_data);
 
 			return $coupon->id;
 		} catch (\Exception $e) {
@@ -1362,12 +1378,12 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	}
 
 	/**
-	 * Converts the WP Multisite WaaS cart into Stripe Sub arguments.
+	 * Converts the Multisite Ultimate cart into Stripe Sub arguments.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @param \WP_Ultimo\Checkout\Cart $cart The cart object.
-	 * @return array
+	 * @return array|\WP_Error
 	 */
 	protected function build_stripe_cart($cart) {
 		/*
@@ -1432,7 +1448,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			} catch (\Exception $e) {
 				$error_message = sprintf('Failed to create subscription for membership #%d. Message: %s', $this->membership->get_id(), $e->getMessage());
 
-				return new \WP_Error('plan-creation-failed', $error_message);
+				return new \WP_Error('plan-creation-failed', esc_html($error_message));
 			}
 
 			/*
@@ -1459,7 +1475,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	}
 
 	/**
-	 * Converts the Stripe invoice line items into WP Multisite WaaS line items.
+	 * Converts the Stripe invoice line items into Multisite Ultimate line items.
 	 *
 	 * @since 2.0.19
 	 *
@@ -1530,16 +1546,16 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param  Stripe\Payment_Intent $payment_intent The payment intent.
-	 * @param  Stripe\Customer       $s_customer The stripe customer.
-	 * @return Stripe\Payment_Method
+	 * @param  \Stripe\PaymentIntent $payment_intent The payment intent.
+	 * @param  \Stripe\Customer      $s_customer The stripe customer.
+	 * @return \Stripe\PaymentMethod
 	 */
 	protected function save_payment_method($payment_intent, $s_customer) {
 
 		$payment_method = false;
 
 		try {
-			$payment_method = Stripe\PaymentMethod::retrieve($payment_intent->payment_method);
+			$payment_method = $this->get_stripe_client()->paymentMethods->retrieve($payment_intent->payment_method);
 
 			if (empty($payment_method->customer)) {
 				$payment_method->attach(
@@ -1552,7 +1568,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			/*
 			 * Update remote payment methods.
 			 */
-			Stripe\Customer::update(
+			$this->get_stripe_client()->customers->update(
 				$s_customer->id,
 				[
 					'invoice_settings' => [
@@ -1571,7 +1587,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			 * has each payment method listed once. Hopefully Stripe will handle this automatically
 			 * in the future.
 			 */
-			$customer_payment_methods = Stripe\PaymentMethod::all(
+			$customer_payment_methods = $this->get_stripe_client()->paymentMethods->all(
 				[
 					'customer' => $s_customer->id,
 					'type'     => 'card',
@@ -1623,7 +1639,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				if ( ! empty($subscription->metadata) ) {
 					$customer_id = (int) $subscription->metadata['customer_id'];
 
-					// Legacy WP Multisite WaaS uses user_id
+					// Legacy Multisite Ultimate uses user_id
 					$user_id = (int) $subscription->metadata['user_id'];
 
 					if (0 === $customer_id && 0 === $user_id) {
@@ -1707,7 +1723,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$gateway_payment_id = $payment->get_gateway_payment_id();
 
 		if (empty($gateway_payment_id)) {
-			throw new \Exception(__('Gateway payment ID not found. Cannot process refund automatically.', 'wp-multisite-waas'));
+			throw new \Exception(esc_html__('Gateway payment ID not found. Cannot process refund automatically.', 'multisite-ultimate'));
 		}
 
 		/**
@@ -1722,11 +1738,11 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		if (str_starts_with((string) $gateway_payment_id, 'ch_')) {
 			$charge_id = $gateway_payment_id;
 		} elseif (str_starts_with((string) $gateway_payment_id, 'in_')) {
-			$invoice = Stripe\Invoice::retrieve($gateway_payment_id);
+			$invoice = $this->get_stripe_client()->invoices->retrieve($gateway_payment_id);
 
 			$gateway_payment_id = $invoice->charge;
 		} else {
-			throw new Exception(__('Gateway payment ID not valid.', 'wp-multisite-waas'));
+			throw new \Exception(esc_html__('Gateway payment ID not valid.', 'multisite-ultimate'));
 		}
 
 		/*
@@ -1736,7 +1752,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		 */
 		$normalize_amount = $amount * wu_stripe_get_currency_multiplier();
 
-		Stripe\Refund::create(
+		$this->get_stripe_client()->refunds->create(
 			[
 				'charge' => $charge_id,
 				'amount' => $normalize_amount,
@@ -1777,7 +1793,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			$this->setup_api_keys();
 
 			try {
-				$subscription = Stripe\Subscription::retrieve($subscription_id);
+				$subscription = $this->get_stripe_client()->subscriptions->retrieve($subscription_id);
 
 				if ('canceled' !== $subscription->status) {
 					$subscription->cancel();
@@ -1800,13 +1816,13 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 *                              `now`, but can be overridden for help in unit tests.
 	 *
 	 * @since 2.0.0
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function get_stripe_max_billing_cycle_anchor($interval, $interval_unit, $signup_date = 'now') {
 
 		try {
 			$signup_date = new \DateTimeImmutable($signup_date);
-		} catch (Exception $exception) {
+		} catch (\Exception $exception) {
 			$signup_date = new \DateTimeImmutable();
 		}
 
@@ -1844,7 +1860,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 *
 	 * This converts the exception into a WP_Error object with a localized error message.
 	 *
-	 * @param Error\Base $e The stripe error object.
+	 * @param \Stripe\Exception\ExceptionInterface $e The stripe error object.
 	 *
 	 * @since 2.0.0
 	 * @return \WP_Error
@@ -1859,7 +1875,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			$wp_error->add($error['code'], $this->get_localized_error_message($error['code'], $e->getMessage()));
 		} else {
-			$wp_error->add('unknown_error', __('An unknown error has occurred.', 'wp-multisite-waas'));
+			$wp_error->add('unknown_error', __('An unknown error has occurred.', 'multisite-ultimate'));
 		}
 
 		return $wp_error;
@@ -1879,15 +1895,10 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 */
 	protected function get_localized_error_message($error_code, $error_message = '') {
 
-		$errors = wu_stripe_get_localized_error_messages();
+		// TODO: Fetch a translated message from an error_code => error_message map.
 
-		if ( ! empty($errors[ $error_code ])) {
-			return $errors[ $error_code ];
-		} else {
-
-			// translators: 1 is the error code and 2 the message.
-			return sprintf(__('An error has occurred (code: %1$s; message: %2$s).', 'wp-multisite-waas'), $error_code, $error_message);
-		}
+		// translators: 1 is the error code and 2 the message.
+		return sprintf(__('An error has occurred (code: %1$s; message: %2$s).', 'multisite-ultimate'), $error_code, $error_message);
 	}
 
 	/**
@@ -1914,7 +1925,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 * Process webhooks
 	 *
 	 * @since 2.0.0
-	 *
+	 * @throws Ignorable_Exception|Stripe\Exception\ApiErrorException
 	 * @return bool
 	 */
 	public function process_webhooks() {
@@ -1928,7 +1939,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// for extra security, retrieve from the Stripe API
 		if ( ! isset($received_event->id)) {
-			throw new \Exception(__('Event ID not found.', 'wp-multisite-waas'));
+			throw new \Exception(esc_html__('Event ID not found.', 'multisite-ultimate'));
 		}
 
 		// Set the right mode for this request
@@ -1943,7 +1954,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		$event_id = $received_event->id;
 
-		$event         = Stripe\Event::retrieve($event_id);
+		$event         = $this->get_stripe_client()->events->retrieve($event_id);
 		$payment_event = $event->data->object;
 
 		$membership   = false;
@@ -1965,14 +1976,14 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		if ( ! empty($payment_event->object) && 'invoice' === $payment_event->object) {
 			$invoice = $payment_event;
 		} elseif ( ! empty($payment_event->invoice)) {
-			$invoice = Stripe\Invoice::retrieve($payment_event->invoice);
+			$invoice = $this->get_stripe_client()->invoices->retrieve($payment_event->invoice);
 		}
 
 		/*
 		 * Now try to get a subscription from the invoice object.
 		 */
 		if ( ! empty($invoice->subscription)) {
-			$subscription = Stripe\Subscription::retrieve($invoice->subscription);
+			$subscription = $this->get_stripe_client()->subscriptions->retrieve($invoice->subscription);
 		}
 
 		/*
@@ -1980,7 +1991,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		 * object ID in some circumstances.
 		 */
 		if (empty($subscription) && str_contains((string) $payment_event->id, 'sub_')) {
-			$subscription = Stripe\Subscription::retrieve($payment_event->id);
+			$subscription = $this->get_stripe_client()->subscriptions->retrieve($payment_event->id);
 		}
 
 		/*
@@ -2031,11 +2042,11 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		if ($this->get_id() !== $membership->get_gateway()) {
 
 			// translators: %s is the customer ID.
-			throw new Ignorable_Exception(sprintf(__('Exiting Stripe webhook - This call must be handled by %s webhook', 'wp-multisite-waas'), $membership->get_gateway()));
+			throw new Ignorable_Exception(esc_html(sprintf(__('Exiting Stripe webhook - This call must be handled by %s webhook', 'multisite-ultimate'), $membership->get_gateway())));
 		}
 
 		/*
-		 * Set the WP Multisite WaaS customer.
+		 * Set the Multisite Ultimate customer.
 		 */
 		$customer = $membership->get_customer();
 
@@ -2257,8 +2268,8 @@ class Base_Stripe_Gateway extends Base_Gateway {
 					$is_setup_intent = str_starts_with($payment_intent_id, 'seti_');
 
 					if ($cart && $cart->should_auto_renew() && $cart->has_recurring() && ! $is_setup_intent) {
-						$s_customer     = Stripe\Customer::retrieve($payment_event->customer);
-						$payment_method = Stripe\PaymentMethod::retrieve($payment_event->payment_method);
+						$s_customer     = $this->get_stripe_client()->customers->retrieve($payment_event->customer);
+						$payment_method = $this->get_stripe_client()->paymentMethods->retrieve($payment_event->payment_method);
 
 						$subscription = $this->create_recurring_payment($membership, $cart, $payment_method, $s_customer);
 
@@ -2309,7 +2320,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				 * Throws to inform that
 				 * we have a duplicate payment.
 				 */
-				throw new Ignorable_Exception(__('Duplicate payment.', 'wp-multisite-waas'));
+				throw new Ignorable_Exception(esc_html__('Duplicate payment.', 'multisite-ultimate'));
 			}
 		}
 
@@ -2326,13 +2337,13 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			$payment = wu_get_payment($payment_id);
 
 			if (empty($payment)) {
-				throw new Ignorable_Exception(__('Payment not found on refund webhook call.', 'wp-multisite-waas'));
+				throw new Ignorable_Exception(esc_html__('Payment not found on refund webhook call.', 'multisite-ultimate'));
 			}
 
 			$is_refundable = in_array($payment->get_status(), wu_get_refundable_payment_types(), true);
 
 			if ( ! $is_refundable) {
-				throw new Ignorable_Exception(__('Payment is not refundable.', 'wp-multisite-waas'));
+				throw new Ignorable_Exception(esc_html__('Payment is not refundable.', 'multisite-ultimate'));
 			}
 
 			/*
@@ -2383,7 +2394,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				if ($membership->is_active()) {
 					$membership->cancel();
 
-					$membership->add_note(__('Membership cancelled via Stripe webhook.', 'wp-multisite-waas'));
+					$membership->add_note(['text' => __('Membership cancelled via Stripe webhook.', 'multisite-ultimate')]);
 				} else {
 					wu_log_add('stripe', sprintf('Membership #%d is not active - not cancelling account.', $membership->get_id()));
 				}
@@ -2416,7 +2427,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		foreach ($saved_payment_methods as $saved_payment_method) {
 			$options[ $saved_payment_method->id ] = sprintf(
 				// translators: 1 is the card brand (e.g. VISA), and 2 is the last 4 digits.
-				__('%1$s ending in %2$s', 'wp-multisite-waas'),
+				__('%1$s ending in %2$s', 'multisite-ultimate'),
 				strtoupper((string) $saved_payment_method->card->brand),
 				$saved_payment_method->card->last4
 			);
@@ -2446,7 +2457,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			<fieldset id="wu-card-name-wrapper" class="wu_card_fieldset">
 				<p id="wu_card_name_wrap">
-					<label for="wu-update-card-name"><?php esc_html_e('Name on Card', 'wp-multisite-waas'); ?></label>
+					<label for="wu-update-card-name"><?php esc_html_e('Name on Card', 'multisite-ultimate'); ?></label>
 					<input type="text" size="20" id="wu-update-card-name" name="wu_card_name" class="wu_card_name card-name" />
 				</p>
 			</fieldset>
@@ -2478,7 +2489,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			return;
 		}
 
-		wp_register_script('wu-stripe-sdk', 'https://js.stripe.com/v3/', false, 'v3');
+		wp_register_script('wu-stripe-sdk', 'https://js.stripe.com/v3/', false, 'v3', true);
 
 		wp_register_script("wu-{$this->get_id()}", wu_get_asset("gateways/{$this->get_id()}.js", 'js'), ['wu-checkout', 'wu-stripe-sdk'], wu_get_version(), true);
 
@@ -2522,7 +2533,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			return wu_get_isset($cache, $slug);
 		}
 
-		$stripe_tax_rates = Stripe\TaxRate::all();
+		$stripe_tax_rates = $this->get_stripe_client()->taxRates->all();
 
 		foreach ($stripe_tax_rates as $stripe_tax_rate) {
 			if (isset($stripe_tax_rate->metadata->tax_rate_id) && $stripe_tax_rate->metadata->tax_rate_id === $slug) {
@@ -2544,10 +2555,10 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		];
 
 		try {
-			$tax_rate = Stripe\TaxRate::create($args);
+			$tax_rate = $this->get_stripe_client()->taxRates->create($args);
 
 			return $tax_rate->id;
-		} catch (Exception $exception) {
+		} catch (\Exception $exception) {
 
 			// Silence is golden.
 			return '';
@@ -2592,7 +2603,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// Name and price are required.
 		if (empty($args['name']) || empty($args['price'])) {
-			return new \WP_Error('missing_name_price', __('Missing plan name or price.', 'wp-multisite-waas'));
+			return new \WP_Error('missing_name_price', __('Missing plan name or price.', 'multisite-ultimate'));
 		}
 
 		/*
@@ -2613,7 +2624,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		}
 
 		if (empty($plan_id)) {
-			return new \WP_Error('empty_plan_id', __('Empty plan ID.', 'wp-multisite-waas'));
+			return new \WP_Error('empty_plan_id', __('Empty plan ID.', 'multisite-ultimate'));
 		}
 
 		// Convert price to Stripe format.
@@ -2632,7 +2643,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			 */
 			$existing_plan_id = apply_filters('wu_stripe_existing_plan_id', $plan_id, $membership_level);
 
-			$plan = Stripe\Plan::retrieve($existing_plan_id);
+			$plan = $this->get_stripe_client()->plans->retrieve($existing_plan_id);
 
 			return $plan->id;
 		} catch (\Exception $e) {
@@ -2642,14 +2653,14 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// Otherwise, create a new plan.
 		try {
-			$product = Stripe\Product::create(
+			$product = $this->get_stripe_client()->products->create(
 				[
 					'name' => $args['name'] . ' - ' . $args['currency'],
 					'type' => 'service',
 				]
 			);
 
-			$plan = Stripe\Plan::create(
+			$plan = $this->get_stripe_client()->plans->create(
 				[
 					'amount'         => $price,
 					'interval'       => $args['interval'],
@@ -2694,7 +2705,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// Name are required.
 		if (empty($name)) {
-			return new \WP_Error('missing_name', __('Missing product name.', 'wp-multisite-waas'));
+			return new \WP_Error('missing_name', __('Missing product name.', 'multisite-ultimate'));
 		}
 
 		if (empty($id)) {
@@ -2706,7 +2717,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		}
 
 		if (empty($product_id)) {
-			return new \WP_Error('empty_product_id', __('Empty product ID.', 'wp-multisite-waas'));
+			return new \WP_Error('empty_product_id', __('Empty product ID.', 'multisite-ultimate'));
 		}
 
 		// First check to see if a product exists with this ID. If so, return that.
@@ -2720,7 +2731,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			 */
 			$existing_product_id = apply_filters('wu_stripe_existing_product_id', $product_id, $name);
 
-			$product = Stripe\Product::retrieve($existing_product_id);
+			$product = $this->get_stripe_client()->products->retrieve($existing_product_id);
 
 			return $product->id;
 		} catch (\Exception $e) {
@@ -2730,7 +2741,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// Otherwise, create a new product.
 		try {
-			$product = Stripe\Product::create(
+			$product = $this->get_stripe_client()->products->create(
 				[
 					'id'   => $product_id,
 					'name' => $name,
@@ -2771,7 +2782,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 * @param string $tax_behavior  Tax behavior.
 	 * @return string|\WP_Error Price ID on success or WP_Error on failure.
 	 */
-	function maybe_create_price($title, $amount, $currency, $quantity = 1, $duration = false, $duration_unit = false, $tax_behavior = '') {
+	public function maybe_create_price($title, $amount, $currency, $quantity = 1, $duration = false, $duration_unit = false, $tax_behavior = '') {
 
 		$name = 1 === $quantity ? $title : "x$quantity $title";
 
@@ -2802,7 +2813,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		}
 
 		// check if price already exists
-		$existing = Stripe\Price::all(
+		$existing = $this->get_stripe_client()->prices->all(
 			[
 				'lookup_keys' => [$s_price_data['lookup_key']],
 				'limit'       => 1,
@@ -2813,7 +2824,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			return $existing->data[0]->id;
 		}
 
-		$s_price = Stripe\Price::create($s_price_data);
+		$s_price = $this->get_stripe_client()->prices->create($s_price_data);
 
 		return $s_price->id;
 	}
@@ -2848,7 +2859,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 *
 	 * @throws \Exception, When info is wrong.
 	 * @throws \Exception When info is wrong 2.
-	 * @return PaymentMethod[]|array
+	 * @return \Stripe\PaymentMethod[]|array
 	 */
 	public function get_user_saved_payment_methods() {
 
@@ -2887,7 +2898,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			$stripe_customer_id = current(array_column($stripe_customer_id, 'gateway_customer_id'));
 
-			$payment_methods = Stripe\PaymentMethod::all(
+			$payment_methods = $this->get_stripe_client()->paymentMethods->all(
 				[
 					'customer' => $stripe_customer_id,
 					'type'     => 'card',

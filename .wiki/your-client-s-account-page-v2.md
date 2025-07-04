@@ -1,6 +1,6 @@
 # Your Client's Account Page (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
 
 When customers subscribe to a plan on your network, they get access to a website and its dashboard with important information regarding their payments, memberships, domains, plan limitations, etc...
 
@@ -24,7 +24,7 @@ The first block right below your customers' website name shows an overview of th
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-XNTPsXaqzp.png)
 
-Right below this block, your customers can see the **About This Site** and the **Site Limits** blocks. These blocks show them all the limitations that comes to their plan: disk space, posts, pages, visits, etc... These limits can be configured on each plan page on **WP Multisite WaaS > Products**.
+Right below this block, your customers can see the **About This Site** and the **Site Limits** blocks. These blocks show them all the limitations that comes to their plan: disk space, posts, pages, visits, etc... These limits can be configured on each plan page on **Multisite Ultimate > Products**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-6kVmMDoiCU.png)
 
@@ -46,9 +46,9 @@ A new window will appear to your customer. All he need to do is to fill in the n
 
 ### Changing the Site Template:
 
-To allow your customers to change their site templates, you need to go to **WP Multisite WaaS > Settings > Sites** and toggle on the option **Allow Template Switching**.
+To allow your customers to change their site templates, you need to go to **Multisite Ultimate > Settings > Sites** and toggle on the option **Allow Template Switching**.
 
-Also, on **WP Multisite WaaS > Products**, select your plans and go to the **Site Templates** tab. Make sure the option **Allow Site Templates** is toggled on and on **Site Template Selection Mode** , the option **Choose Available Site Templates** is selected.
+Also, on **Multisite Ultimate > Products**, select your plans and go to the **Site Templates** tab. Make sure the option **Allow Site Templates** is toggled on and on **Site Template Selection Mode** , the option **Choose Available Site Templates** is selected.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-rjixD7iShD.png)
 
@@ -69,13 +69,13 @@ After toggling on the confirmation and clicking to **Process Switch** , the new 
 
 ### Adding Custom Domains:
 
-Your customers will also have the option to add a custom domain for this plan on their account page. To allow your customers to use custom domains, go to **WP Multisite WaaS > Settings >** [Domain Mapping](https://help.wpultimo.com/article/365-domain-mapping-101).
+Your customers will also have the option to add a custom domain for this plan on their account page. To allow your customers to use custom domains, go to **Multisite Ultimate > Settings >** [Domain Mapping](https://help.wpultimo.com/article/365-domain-mapping-101).
 
 Toggle on the option **Enable Domain Mapping**. This will allow your customers to use custom domains on a network level.
 
 Don't forget to also check if the domain mapping is enabled on a product basis - because you can limit a product to not allow your customers to use custom domains.
 
-Go to **WP Multisite WaaS > Products**. Select the plan of your choice and go to the **Custom Domains** tab. Toggle on the option **Allow Custom Domains**.
+Go to **Multisite Ultimate > Products**. Select the plan of your choice and go to the **Custom Domains** tab. Toggle on the option **Allow Custom Domains**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-J7mrCTfet6.png)
 
@@ -87,7 +87,7 @@ The first window that opens will show your customers a message instructing them 
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-emhM26Abhn.png)
 
-This message can be edited (by you) on **WP Multisite WaaS > Settings > Domain Mapping > Add New Domain Instructions**.
+This message can be edited (by you) on **Multisite Ultimate > Settings > Domain Mapping > Add New Domain Instructions**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-6ZjI8Fk6Gw.png)
 

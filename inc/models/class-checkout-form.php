@@ -537,12 +537,12 @@ class Checkout_Form extends Base_Model {
 		$steps = [
 			[
 				'id'     => 'checkout',
-				'name'   => __('Checkout', 'wp-multisite-waas'),
+				'name'   => __('Checkout', 'multisite-ultimate'),
 				'desc'   => '',
 				'fields' => [
 					[
 						'step'                   => 'checkout',
-						'name'                   => __('Plans', 'wp-multisite-waas'),
+						'name'                   => __('Plans', 'multisite-ultimate'),
 						'type'                   => 'pricing_table',
 						'id'                     => 'pricing_table',
 						'required'               => true,
@@ -551,7 +551,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step'        => 'checkout',
-						'name'        => __('Email', 'wp-multisite-waas'),
+						'name'        => __('Email', 'multisite-ultimate'),
 						'type'        => 'email',
 						'id'          => 'email_address',
 						'required'    => true,
@@ -560,7 +560,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step'          => 'checkout',
-						'name'          => __('Username', 'wp-multisite-waas'),
+						'name'          => __('Username', 'multisite-ultimate'),
 						'type'          => 'username',
 						'id'            => 'username',
 						'required'      => true,
@@ -570,7 +570,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step'                    => 'checkout',
-						'name'                    => __('Password', 'wp-multisite-waas'),
+						'name'                    => __('Password', 'multisite-ultimate'),
 						'type'                    => 'password',
 						'id'                      => 'password',
 						'required'                => true,
@@ -581,7 +581,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step'          => 'checkout',
-						'name'          => __('Site Title', 'wp-multisite-waas'),
+						'name'          => __('Site Title', 'multisite-ultimate'),
 						'type'          => 'site_title',
 						'id'            => 'site_title',
 						'required'      => true,
@@ -591,7 +591,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step'                => 'checkout',
-						'name'                => __('Site URL', 'wp-multisite-waas'),
+						'name'                => __('Site URL', 'multisite-ultimate'),
 						'type'                => 'site_url',
 						'id'                  => 'site_url',
 						'placeholder'         => '',
@@ -602,7 +602,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step'                   => 'checkout',
-						'name'                   => __('Your Order', 'wp-multisite-waas'),
+						'name'                   => __('Your Order', 'multisite-ultimate'),
 						'type'                   => 'order_summary',
 						'id'                     => 'order_summary',
 						'order_summary_template' => 'clean',
@@ -610,13 +610,13 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step' => 'checkout',
-						'name' => __('Payment Method', 'wp-multisite-waas'),
+						'name' => __('Payment Method', 'multisite-ultimate'),
 						'type' => 'payment',
 						'id'   => 'payment',
 					],
 					[
 						'step'            => 'checkout',
-						'name'            => __('Billing Address', 'wp-multisite-waas'),
+						'name'            => __('Billing Address', 'multisite-ultimate'),
 						'type'            => 'billing_address',
 						'id'              => 'billing_address',
 						'required'        => true,
@@ -624,7 +624,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step' => 'checkout',
-						'name' => __('Checkout', 'wp-multisite-waas'),
+						'name' => __('Checkout', 'multisite-ultimate'),
 						'type' => 'submit_button',
 						'id'   => 'checkout',
 					],
@@ -646,7 +646,7 @@ class Checkout_Form extends Base_Model {
 		$steps = [
 			[
 				'id'     => 'checkout',
-				'name'   => __('Checkout', 'wp-multisite-waas'),
+				'name'   => __('Checkout', 'multisite-ultimate'),
 				'desc'   => '',
 				'fields' => [
 					[
@@ -660,7 +660,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step' => 'checkout',
-						'name' => __('Next Step', 'wp-multisite-waas'),
+						'name' => __('Next Step', 'multisite-ultimate'),
 						'type' => 'submit_button',
 						'id'   => 'next_step',
 					],
@@ -668,12 +668,12 @@ class Checkout_Form extends Base_Model {
 			],
 			[
 				'id'     => 'site',
-				'name'   => __('Site Info', 'wp-multisite-waas'),
+				'name'   => __('Site Info', 'multisite-ultimate'),
 				'desc'   => '',
 				'fields' => [
 					[
 						'step'          => 'checkout',
-						'name'          => __('Site Title', 'wp-multisite-waas'),
+						'name'          => __('Site Title', 'multisite-ultimate'),
 						'type'          => 'site_title',
 						'id'            => 'site_title',
 						'required'      => true,
@@ -683,7 +683,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step'                => 'checkout',
-						'name'                => __('Site URL', 'wp-multisite-waas'),
+						'name'                => __('Site URL', 'multisite-ultimate'),
 						'type'                => 'site_url',
 						'id'                  => 'site_url',
 						'required'            => true,
@@ -694,7 +694,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step' => 'site',
-						'name' => __('Next Step', 'wp-multisite-waas'),
+						'name' => __('Next Step', 'multisite-ultimate'),
 						'type' => 'submit_button',
 						'id'   => 'next_step_site',
 					],
@@ -702,13 +702,13 @@ class Checkout_Form extends Base_Model {
 			],
 			[
 				'id'     => 'user',
-				'name'   => __('User Info', 'wp-multisite-waas'),
+				'name'   => __('User Info', 'multisite-ultimate'),
 				'logged' => 'guests_only',
 				'desc'   => '',
 				'fields' => [
 					[
 						'step'        => 'checkout',
-						'name'        => __('Email', 'wp-multisite-waas'),
+						'name'        => __('Email', 'multisite-ultimate'),
 						'type'        => 'email',
 						'id'          => 'email_address',
 						'required'    => true,
@@ -717,7 +717,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step'          => 'checkout',
-						'name'          => __('Username', 'wp-multisite-waas'),
+						'name'          => __('Username', 'multisite-ultimate'),
 						'type'          => 'username',
 						'id'            => 'username',
 						'required'      => true,
@@ -727,7 +727,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step'                    => 'checkout',
-						'name'                    => __('Password', 'wp-multisite-waas'),
+						'name'                    => __('Password', 'multisite-ultimate'),
 						'type'                    => 'password',
 						'id'                      => 'password',
 						'required'                => true,
@@ -738,7 +738,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step' => 'user',
-						'name' => __('Next Step', 'wp-multisite-waas'),
+						'name' => __('Next Step', 'multisite-ultimate'),
 						'type' => 'submit_button',
 						'id'   => 'next_step_user',
 					],
@@ -746,12 +746,12 @@ class Checkout_Form extends Base_Model {
 			],
 			[
 				'id'     => 'payment',
-				'name'   => __('Payment', 'wp-multisite-waas'),
+				'name'   => __('Payment', 'multisite-ultimate'),
 				'desc'   => '',
 				'fields' => [
 					[
 						'step'                   => 'checkout',
-						'name'                   => __('Your Order', 'wp-multisite-waas'),
+						'name'                   => __('Your Order', 'multisite-ultimate'),
 						'type'                   => 'order_summary',
 						'id'                     => 'order_summary',
 						'order_summary_template' => 'clean',
@@ -759,13 +759,13 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step' => 'checkout',
-						'name' => __('Payment Method', 'wp-multisite-waas'),
+						'name' => __('Payment Method', 'multisite-ultimate'),
 						'type' => 'payment',
 						'id'   => 'payment',
 					],
 					[
 						'step'            => 'checkout',
-						'name'            => __('Billing Address', 'wp-multisite-waas'),
+						'name'            => __('Billing Address', 'multisite-ultimate'),
 						'type'            => 'billing_address',
 						'id'              => 'billing_address',
 						'required'        => true,
@@ -773,7 +773,7 @@ class Checkout_Form extends Base_Model {
 					],
 					[
 						'step' => 'checkout',
-						'name' => __('Checkout', 'wp-multisite-waas'),
+						'name' => __('Checkout', 'multisite-ultimate'),
 						'type' => 'submit_button',
 						'id'   => 'checkout',
 					],
@@ -785,7 +785,7 @@ class Checkout_Form extends Base_Model {
 	}
 
 	/**
-	 * Converts the steps from classic WP Multisite WaaS 1.X to the 2.0 format.
+	 * Converts the steps from classic Multisite Ultimate 1.X to the 2.0 format.
 	 *
 	 * @since 2.0.0
 	 *
@@ -832,17 +832,17 @@ class Checkout_Form extends Base_Model {
 					'enable_price_1'  => [
 						'duration'      => '1',
 						'duration_unit' => 'month',
-						'label'         => __('Monthly', 'wp-multisite-waas'),
+						'label'         => __('Monthly', 'multisite-ultimate'),
 					],
 					'enable_price_3'  => [
 						'duration'      => '3',
 						'duration_unit' => 'month',
-						'label'         => __('Quarterly', 'wp-multisite-waas'),
+						'label'         => __('Quarterly', 'multisite-ultimate'),
 					],
 					'enable_price_12' => [
 						'duration'      => '1',
 						'duration_unit' => 'year',
-						'label'         => __('Yearly', 'wp-multisite-waas'),
+						'label'         => __('Yearly', 'multisite-ultimate'),
 					],
 				];
 
@@ -867,7 +867,7 @@ class Checkout_Form extends Base_Model {
 				}
 
 				$step['fields']['pricing_table'] = [
-					'name'                   => __('Pricing Tables', 'wp-multisite-waas'),
+					'name'                   => __('Pricing Tables', 'multisite-ultimate'),
 					'id'                     => 'pricing_table',
 					'type'                   => 'pricing_table',
 					'pricing_table_template' => 'legacy',
@@ -893,7 +893,7 @@ class Checkout_Form extends Base_Model {
 
 				$step['fields'] = [
 					'template_selection' => [
-						'name'                        => __('Template Selection', 'wp-multisite-waas'),
+						'name'                        => __('Template Selection', 'multisite-ultimate'),
 						'id'                          => 'template_selection',
 						'type'                        => 'template_selection',
 						'template_selection_template' => 'legacy',
@@ -940,7 +940,7 @@ class Checkout_Form extends Base_Model {
 						$field['id']                      = 'password';
 						$field['password_strength_meter'] = false;
 						$field['password_confirm_field']  = true;
-						$field['password_confirm_label']  = wu_get_isset($step['fields']['user_pass_conf'], 'name', __('Confirm Password', 'wp-multisite-waas'));
+						$field['password_confirm_label']  = wu_get_isset($step['fields']['user_pass_conf'], 'name', __('Confirm Password', 'multisite-ultimate'));
 						break;
 
 					case 'user_email':
@@ -971,7 +971,7 @@ class Checkout_Form extends Base_Model {
 						$field['id']   = 'submit_button';
 
 						if ('account' === $step_id) {
-							$field['name'] = __('Continue to the Next Step', 'wp-multisite-waas');
+							$field['name'] = __('Continue to the Next Step', 'multisite-ultimate');
 						}
 
 						break;
@@ -992,17 +992,17 @@ class Checkout_Form extends Base_Model {
 		 */
 		$new_format[] = [
 			'id'     => 'payment',
-			'name'   => __('Checkout', 'wp-multisite-waas'),
+			'name'   => __('Checkout', 'multisite-ultimate'),
 			'fields' => [
 				[
-					'name'                   => __('Order Summary', 'wp-multisite-waas'),
+					'name'                   => __('Order Summary', 'multisite-ultimate'),
 					'type'                   => 'order_summary',
 					'id'                     => 'order_summary',
 					'order_summary_template' => 'clean',
 					'table_columns'          => 'simple',
 				],
 				[
-					'name'            => __('Billing Address', 'wp-multisite-waas'),
+					'name'            => __('Billing Address', 'multisite-ultimate'),
 					'type'            => 'billing_address',
 					'id'              => 'billing_address',
 					'zip_and_country' => true,
@@ -1010,19 +1010,19 @@ class Checkout_Form extends Base_Model {
 				[
 					'type'             => 'discount_code',
 					'id'               => 'discount_code',
-					'name'             => __('Coupon Code', 'wp-multisite-waas'),
-					'tooltip'          => __('Coupon Code', 'wp-multisite-waas'),
+					'name'             => __('Coupon Code', 'multisite-ultimate'),
+					'tooltip'          => __('Coupon Code', 'multisite-ultimate'),
 					'display_checkbox' => true,
 				],
 				[
-					'name' => __('Payment Methods', 'wp-multisite-waas'),
+					'name' => __('Payment Methods', 'multisite-ultimate'),
 					'type' => 'payment',
 					'id'   => 'payment',
 				],
 				[
 					'type' => 'submit_button',
 					'id'   => 'submit_button',
-					'name' => __('Pay & Create Account', 'wp-multisite-waas'),
+					'name' => __('Pay & Create Account', 'multisite-ultimate'),
 				],
 			],
 		];
@@ -1212,7 +1212,7 @@ class Checkout_Form extends Base_Model {
 		$fields = [
 			[
 				'step'                   => 'checkout',
-				'name'                   => __('Your Order', 'wp-multisite-waas'),
+				'name'                   => __('Your Order', 'multisite-ultimate'),
 				'type'                   => 'order_summary',
 				'id'                     => 'order_summary',
 				'order_summary_template' => 'clean',
@@ -1220,13 +1220,13 @@ class Checkout_Form extends Base_Model {
 			],
 			[
 				'step' => 'checkout',
-				'name' => __('Payment Method', 'wp-multisite-waas'),
+				'name' => __('Payment Method', 'multisite-ultimate'),
 				'type' => 'payment',
 				'id'   => 'payment',
 			],
 			[
 				'step'  => 'checkout',
-				'name'  => __('Finish Payment', 'wp-multisite-waas'),
+				'name'  => __('Finish Payment', 'multisite-ultimate'),
 				'type'  => 'submit_button',
 				'id'    => 'checkout',
 				'order' => 0,
@@ -1236,7 +1236,7 @@ class Checkout_Form extends Base_Model {
 		$steps = [
 			[
 				'id'     => 'checkout',
-				'name'   => __('Checkout', 'wp-multisite-waas'),
+				'name'   => __('Checkout', 'multisite-ultimate'),
 				'desc'   => '',
 				'fields' => $fields,
 			],
@@ -1304,15 +1304,15 @@ class Checkout_Form extends Base_Model {
 			$should_use_period_selector = false;
 
 			/**
-			 * Lets see if we need a period selector
-			 * and witch selectors we need
+			 * Let's see if we need a period selector
+			 * and which selectors we need
 			 */
 			foreach ($products as $product) {
-				$days_in_cycle = wu_get_days_in_cycle($product->get_duration_unit(), $product->get_duration());
+				$days_in_cycle = (int) wu_get_days_in_cycle($product->get_duration_unit(), $product->get_duration());
 
 				$label = sprintf(
 					// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
-					_n('%2$s', '%1$s %2$s', $product->get_duration(), 'wp-multisite-waas'), // phpcs:ignore
+					_n('%2$s', '%1$s %2$s', $product->get_duration(), 'multisite-ultimate'), // phpcs:ignore
 					$product->get_duration(),
 					wu_get_translatable_string($product->get_duration() <= 1 ? $product->get_duration_unit() : $product->get_duration_unit() . 's')
 				);
@@ -1339,11 +1339,11 @@ class Checkout_Form extends Base_Model {
 					/**
 					 * Get variations for selector
 					 */
-					$days_in_cycle = wu_get_days_in_cycle($variation['duration_unit'], $variation['duration']);
+					$days_in_cycle = (int) wu_get_days_in_cycle($variation['duration_unit'], $variation['duration']);
 
 					$label = sprintf(
 						// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
-						_n('%2$s', '%1$s %2$s', $variation['duration'], 'wp-multisite-waas'), // phpcs:ignore
+						_n('%2$s', '%1$s %2$s', $variation['duration'], 'multisite-ultimate'), // phpcs:ignore
 						$variation['duration'],
 						wu_get_translatable_string($variation['duration'] <= 1 ? $variation['duration_unit'] : $variation['duration_unit'] . 's')
 					);
@@ -1371,7 +1371,7 @@ class Checkout_Form extends Base_Model {
 
 			$fields[] = [
 				'step'                      => 'checkout',
-				'name'                      => __('Plans', 'wp-multisite-waas'),
+				'name'                      => __('Plans', 'multisite-ultimate'),
 				'type'                      => 'pricing_table',
 				'id'                        => 'pricing_table',
 				'required'                  => true,
@@ -1406,7 +1406,7 @@ class Checkout_Form extends Base_Model {
 		$end_fields = [
 			[
 				'step'                   => 'checkout',
-				'name'                   => __('Your Order', 'wp-multisite-waas'),
+				'name'                   => __('Your Order', 'multisite-ultimate'),
 				'type'                   => 'order_summary',
 				'id'                     => 'order_summary',
 				'order_summary_template' => 'clean',
@@ -1414,13 +1414,13 @@ class Checkout_Form extends Base_Model {
 			],
 			[
 				'step' => 'checkout',
-				'name' => __('Payment Method', 'wp-multisite-waas'),
+				'name' => __('Payment Method', 'multisite-ultimate'),
 				'type' => 'payment',
 				'id'   => 'payment',
 			],
 			[
 				'step'  => 'checkout',
-				'name'  => __('Complete Checkout', 'wp-multisite-waas'),
+				'name'  => __('Complete Checkout', 'multisite-ultimate'),
 				'type'  => 'submit_button',
 				'id'    => 'checkout',
 				'order' => 0,
@@ -1432,7 +1432,7 @@ class Checkout_Form extends Base_Model {
 		$steps = [
 			[
 				'id'     => 'checkout',
-				'name'   => __('Checkout', 'wp-multisite-waas'),
+				'name'   => __('Checkout', 'multisite-ultimate'),
 				'desc'   => '',
 				'fields' => $fields,
 			],
@@ -1468,7 +1468,7 @@ class Checkout_Form extends Base_Model {
 			$template_selection_fields = [
 				[
 					'step'                        => 'template',
-					'name'                        => __('Template Selection', 'wp-multisite-waas'),
+					'name'                        => __('Template Selection', 'multisite-ultimate'),
 					'type'                        => 'template_selection',
 					'id'                          => 'template_selection',
 					'cols'                        => 4,
@@ -1485,7 +1485,7 @@ class Checkout_Form extends Base_Model {
 
 			$steps[] = [
 				'id'     => 'template',
-				'name'   => __('Template Selection', 'wp-multisite-waas'),
+				'name'   => __('Template Selection', 'multisite-ultimate'),
 				'desc'   => '',
 				'fields' => $template_selection_fields,
 			];
@@ -1521,7 +1521,7 @@ class Checkout_Form extends Base_Model {
 		$final_fields[] = [
 			'step'        => 'create',
 			'id'          => 'site_title',
-			'name'        => __('Site Title', 'wp-multisite-waas'),
+			'name'        => __('Site Title', 'multisite-ultimate'),
 			'tooltip'     => '',
 			'placeholder' => '',
 			'type'        => 'site_title',
@@ -1532,7 +1532,7 @@ class Checkout_Form extends Base_Model {
 		$final_fields[] = [
 			'step'                      => 'create',
 			'id'                        => 'site_url',
-			'name'                      => __('Site URL', 'wp-multisite-waas'),
+			'name'                      => __('Site URL', 'multisite-ultimate'),
 			'tooltip'                   => '',
 			'placeholder'               => '',
 			'display_field_attachments' => false,
@@ -1543,7 +1543,7 @@ class Checkout_Form extends Base_Model {
 
 		$final_fields[] = [
 			'step'  => 'create',
-			'name'  => __('Create Site', 'wp-multisite-waas'),
+			'name'  => __('Create Site', 'multisite-ultimate'),
 			'type'  => 'submit_button',
 			'id'    => 'checkout',
 			'order' => 0,
@@ -1551,7 +1551,7 @@ class Checkout_Form extends Base_Model {
 
 		$steps[] = [
 			'id'      => 'create',
-			'name'    => __('Create Site', 'wp-multisite-waas'),
+			'name'    => __('Create Site', 'multisite-ultimate'),
 			'desc'    => '',
 			'classes' => 'wu-max-w-sm',
 			'fields'  => $final_fields,

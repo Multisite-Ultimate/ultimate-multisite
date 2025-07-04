@@ -36,7 +36,7 @@ function wu_should_load_sunrise() {
 function wu_get_setting_early($setting, $default_value = false) {
 
 	if (did_action('wp_ultimo_load')) {
-		_doing_it_wrong('wu_get_setting_early', esc_html__('Regular setting APIs are already available. You should use wu_get_setting() instead.', 'wp-multisite-waas'), '2.0.0');
+		_doing_it_wrong('wu_get_setting_early', esc_html__('Regular setting APIs are already available. You should use wu_get_setting() instead.', 'multisite-ultimate'), '2.0.0');
 	}
 
 	$settings_key = \WP_Ultimo\Settings::KEY;
@@ -59,7 +59,7 @@ function wu_get_setting_early($setting, $default_value = false) {
 function wu_save_setting_early($key, $value) {
 
 	if (did_action('wp_ultimo_load')) {
-		_doing_it_wrong('wu_save_setting_early', esc_html__('Regular setting APIs are already available. You should use wu_save_setting() instead.', 'wp-multisite-waas'), '2.0.20');
+		_doing_it_wrong('wu_save_setting_early', esc_html__('Regular setting APIs are already available. You should use wu_save_setting() instead.', 'multisite-ultimate'), '2.0.20');
 	}
 
 	$settings_key = \WP_Ultimo\Settings::KEY;

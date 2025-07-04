@@ -38,8 +38,8 @@ class Payment_List_Table_Widget extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Payment', 'wp-multisite-waas'),  // singular name of the listed records
-				'plural'   => __('Payments', 'wp-multisite-waas'), // plural name of the listed records
+				'singular' => __('Payment', 'multisite-ultimate'),  // singular name of the listed records
+				'plural'   => __('Payments', 'multisite-ultimate'), // plural name of the listed records
 				'ajax'     => true,                         // does this table support ajax?
 			]
 		);
@@ -112,8 +112,8 @@ class Payment_List_Table_Widget extends Base_List_Table {
 		$code = sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-payment', $url_atts), $item->get_hash());
 
 		$actions = [
-			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-payment', $url_atts), __('Edit', 'wp-multisite-waas')),
-			'delete' => sprintf('<a href="%s">%s</a>', '', __('Delete', 'wp-multisite-waas')),
+			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-payment', $url_atts), __('Edit', 'multisite-ultimate')),
+			'delete' => sprintf('<a href="%s">%s</a>', '', __('Delete', 'multisite-ultimate')),
 		];
 
 		$html = "<span class='wu-font-mono'><strong>{$code}</strong></span>";
@@ -152,7 +152,7 @@ class Payment_List_Table_Widget extends Base_List_Table {
 		$customer = $item->get_customer();
 
 		if ( ! $customer) {
-			$not_found = __('No customer found', 'wp-multisite-waas');
+			$not_found = __('No customer found', 'multisite-ultimate');
 
 			return "<div class='wu-py-1 wu-px-2 wu-flex wu-flex-grow wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-bg-gray-100 wu-relative wu-overflow-hidden'>
 				<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
@@ -216,10 +216,10 @@ class Payment_List_Table_Widget extends Base_List_Table {
 	public function get_columns() {
 
 		$columns = [
-			'hash'         => __('Ref.', 'wp-multisite-waas'),
-			'customer'     => __('Customer', 'wp-multisite-waas'),
-			'total'        => __('Total', 'wp-multisite-waas'),
-			'date_created' => __('Created at', 'wp-multisite-waas'),
+			'hash'         => __('Ref.', 'multisite-ultimate'),
+			'customer'     => __('Customer', 'multisite-ultimate'),
+			'total'        => __('Total', 'multisite-ultimate'),
+			'date_created' => __('Created at', 'multisite-ultimate'),
 		];
 
 		return $columns;
@@ -234,7 +234,7 @@ class Payment_List_Table_Widget extends Base_List_Table {
 	public function get_filters() {}
 
 	/**
-	 * Overrides the parent method to include the custom ajax functionality for WP Multisite WaaS.
+	 * Overrides the parent method to include the custom ajax functionality for Multisite Ultimate.
 	 *
 	 * @since 2.0.0
 	 * @return void

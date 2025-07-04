@@ -166,7 +166,7 @@ trait Rest_Api {
 		$item = $this->model_class::get_by_id($request['id']);
 
 		if (empty($item)) {
-			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'wp-multisite-waas'), ['status' => 404]);
+			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'multisite-ultimate'), ['status' => 404]);
 		}
 
 		return rest_ensure_response($item);
@@ -218,7 +218,7 @@ trait Rest_Api {
 		}
 
 		if ( ! $saved) {
-			return new \WP_Error("wu_rest_{$this->slug}", __('Something went wrong (Code 1).', 'wp-multisite-waas'), ['status' => 400]);
+			return new \WP_Error("wu_rest_{$this->slug}", __('Something went wrong (Code 1).', 'multisite-ultimate'), ['status' => 400]);
 		}
 
 		return rest_ensure_response($item);
@@ -239,7 +239,7 @@ trait Rest_Api {
 		$item = $this->model_class::get_by_id($id);
 
 		if (empty($item)) {
-			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'wp-multisite-waas'), ['status' => 404]);
+			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'multisite-ultimate'), ['status' => 404]);
 		}
 
 		$params = array_filter(
@@ -258,7 +258,7 @@ trait Rest_Api {
 			} else {
 				$error_message = sprintf(
 					/* translators: 1. Object class name; 2. Set method name */
-					__('The %1$s object does not have a %2$s method', 'wp-multisite-waas'),
+					__('The %1$s object does not have a %2$s method', 'multisite-ultimate'),
 					get_class($item),
 					$set_method
 				);
@@ -278,7 +278,7 @@ trait Rest_Api {
 		}
 
 		if ( ! $saved) {
-			return new \WP_Error("wu_rest_{$this->slug}", __('Something went wrong (Code 2).', 'wp-multisite-waas'));
+			return new \WP_Error("wu_rest_{$this->slug}", __('Something went wrong (Code 2).', 'multisite-ultimate'));
 		}
 
 		return rest_ensure_response($item);
@@ -297,7 +297,7 @@ trait Rest_Api {
 		$item = $this->model_class::get_by_id($request['id']);
 
 		if (empty($item)) {
-			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'wp-multisite-waas'), ['status' => 404]);
+			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'multisite-ultimate'), ['status' => 404]);
 		}
 
 		$result = $item->delete();

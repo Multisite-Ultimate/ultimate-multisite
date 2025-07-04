@@ -1,6 +1,6 @@
 <?php
 /**
- * grid item view.
+ * Grid item view.
  *
  * @since 2.0.0
  */
@@ -49,22 +49,22 @@
 
 			<label>
 				<input class="wu-rounded-none" type="checkbox" name="bulk-delete[]" value="<?php echo esc_attr($item->get_membership_id()); ?>" />
-				<?php esc_html_e('Select Site', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Select Site', 'multisite-ultimate'); ?>
 			</label>
 
-			<a title="<?php echo esc_attr(__('Publish pending site', 'wp-multisite-waas')); ?>" href="<?php echo esc_attr(wu_get_form_url('publish_pending_site', ['membership_id' => $item->get_membership_id()])); ?>" class="wubox button button-primary">
-				<?php esc_html_e('Publish Site', 'wp-multisite-waas'); ?>
+			<a title="<?php echo esc_attr(__('Publish pending site', 'multisite-ultimate')); ?>" href="<?php echo esc_attr(wu_get_form_url('publish_pending_site', ['membership_id' => $item->get_membership_id()])); ?>" class="wubox button button-primary">
+				<?php esc_html_e('Publish Site', 'multisite-ultimate'); ?>
 			</a>
 
 			<?php else : ?>
 
 			<label>
 				<input class="wu-rounded-none" type="checkbox" name="bulk-delete[]" value="<?php echo esc_attr($item->get_id()); ?>" />
-				<?php esc_html_e('Select Site', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Select Site', 'multisite-ultimate'); ?>
 			</label>
 
 			<a href="<?php echo esc_attr(wu_network_admin_url('wp-ultimo-edit-site', ['id' => $item->get_id()])); ?>" class="button button-primary">
-				<?php esc_html_e('Manage', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Manage', 'multisite-ultimate'); ?>
 			</a>
 
 			<?php endif; ?>
@@ -74,7 +74,7 @@
 			<span>&nbsp;</span>
 
 			<a href="<?php echo esc_attr(wu_network_admin_url('wp-ultimo-edit-site', ['id' => $item->get_id()])); ?>" class="button button-primary">
-			<?php esc_html_e('See Main Site', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('See Main Site', 'multisite-ultimate'); ?>
 			</a>
 
 		<?php endif; ?>

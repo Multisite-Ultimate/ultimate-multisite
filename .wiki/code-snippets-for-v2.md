@@ -2,7 +2,7 @@
 
 Basically, code snippets for **WordPress** are used to do certain actions that might otherwise require a dedicated smaller plugin. Such code snippets are placed in one of the WordPress core or theme files (generally the functions.php file of your theme) or they can be used as a MU plugin.
 
-In this article we will show you three code snippets that can be used with **WP Multisite WaaS v2** :
+In this article we will show you three code snippets that can be used with **Multisite Ultimate v2** :
 
   * [**Changing the position of the Account menu item**](1677127282-code-snippets-for-v2.html#changing)
 
@@ -20,7 +20,7 @@ add_filter('wu_my_account_menu_position', function() { return 10; // Tweak this 
 
 As a network admin, you may need to create custom functions that will perform basic actions or make a service/feature available to a selected group of subscribers or end-users, based on the status of their subscription and the plan they are subscribed under.
 
-These WP Multisite WaaS native functions will help you with that.
+These Multisite Ultimate native functions will help you with that.
 
 To check if the user is a member of a given plan, you can use the function:
 
@@ -36,7 +36,7 @@ $user_id = get_current_user_id();$plan_id = 50;if (wu_has_plan($user_id, $plan_i
 
 Note that _**wu_has_plan**_ requires a "Plan ID" in order for it to function.
 
-To get the ID of a plan, you can go to **WP Multisite WaaS > Products**. The ID of each product will be shown on the right of the table.
+To get the ID of a plan, you can go to **Multisite Ultimate > Products**. The ID of each product will be shown on the right of the table.
 
 Note that users can only be subscribed to a **Plan** , not a Package or Service, as they are only add-ons for a **Plan**.
 

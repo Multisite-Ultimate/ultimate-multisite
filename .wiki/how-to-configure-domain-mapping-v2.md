@@ -1,26 +1,26 @@
 # How to Configure Domain Mapping (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x. If you're using v1, see**_ [_**this article**_](1696869830-how-to-configure-domain-mapping.html) _**.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x. If you're using v1, see**_ [_**this article**_](1696869830-how-to-configure-domain-mapping.html) _**.**_
 
-One of the most powerful features of a premium network is the ability to offer our clients a chance to attach a top-level domain to their sites. After all, which looks more professional: [_**joesbikeshop.yournetwork.com**_](http://joesbikeshop.yournetwork.com) or [_**joesbikeshop.com**_](http://joesbikeshop.com)? That’s why WP Multisite WaaS offers that feature baked-in, without the need to use third-party plugins.
+One of the most powerful features of a premium network is the ability to offer our clients a chance to attach a top-level domain to their sites. After all, which looks more professional: [_**joesbikeshop.yournetwork.com**_](http://joesbikeshop.yournetwork.com) or [_**joesbikeshop.com**_](http://joesbikeshop.com)? That’s why Multisite Ultimate offers that feature baked-in, without the need to use third-party plugins.
 
 ## What’s domain mapping?
 
-As the name suggests, domain mapping is the ability offered by WP Multisite WaaS to take in a request for a custom domain and map that request to the corresponding site in the network with that particular domain attached.
+As the name suggests, domain mapping is the ability offered by Multisite Ultimate to take in a request for a custom domain and map that request to the corresponding site in the network with that particular domain attached.
 
-### How to setup domain mapping on your WP Multisite WaaS Network
+### How to setup domain mapping on your Multisite Ultimate Network
 
-Domain mapping requires some setting up on your part to work. Thankfully, WP Multisite WaaS automates the hard work for you so you can easily meet the requirements.
+Domain mapping requires some setting up on your part to work. Thankfully, Multisite Ultimate automates the hard work for you so you can easily meet the requirements.
 
-During WP Multisite WaaS installation, the wizard will automatically copy and install the **sunrise.php** to the designated folder. **The wizard won't allow you to proceed until this step is completed**.
+During Multisite Ultimate installation, the wizard will automatically copy and install the **sunrise.php** to the designated folder. **The wizard won't allow you to proceed until this step is completed**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-zrBdFs13Dy.png)
 
-This means that once the WP Multisite WaaS installation wizard has completed setting up your network, you can start mapping the custom domain right away.
+This means that once the Multisite Ultimate installation wizard has completed setting up your network, you can start mapping the custom domain right away.
 
-Note that domain mapping in WP Multisite WaaS is not mandatory. You have an option to use WordPress Multisite native domain mapping function or any other domain mapping solution.
+Note that domain mapping in Multisite Ultimate is not mandatory. You have an option to use WordPress Multisite native domain mapping function or any other domain mapping solution.
 
-Should you need to disable WP Multisite WaaS domain mapping to give way to other domain mapping solutions, you can disable this feature under **WP Multisite WaaS > Settings > Domain Mapping**.
+Should you need to disable Multisite Ultimate domain mapping to give way to other domain mapping solutions, you can disable this feature under **Multisite Ultimate > Settings > Domain Mapping**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-bbrC47pTcX.png)
 
@@ -42,7 +42,7 @@ But before you start mapping the custom domain to one of the subsites in your ne
 
 ### Making sure the domain DNS settings are properly configured
 
-For a mapping to work, you need to make sure the domain you are planning to map is pointing to your Network’s IP address. Note that you need the Network IP address - the IP address of the domain where WP Multisite WaaS is installed - not the IP address of the custom domain you want to map. To search for the IP address of a specific domain, we suggest going to [Site24x7](https://www.site24x7.com/find-ip-address-of-web-site.html), for example.
+For a mapping to work, you need to make sure the domain you are planning to map is pointing to your Network’s IP address. Note that you need the Network IP address - the IP address of the domain where Multisite Ultimate is installed - not the IP address of the custom domain you want to map. To search for the IP address of a specific domain, we suggest going to [Site24x7](https://www.site24x7.com/find-ip-address-of-web-site.html), for example.
 
 To correctly map the domain, you need to add an **A RECORD** on your **DNS** configuration pointing to that **IP address**. DNS management varies greatly between different domain registrars, but there’s plenty of tutorials online covering that if you search for “ _Creating A Record on XXXX_ ” where XXXX is your domain registrar (ex.: " _Creating A Record on_ _GoDaddy_ ”).
 
@@ -52,7 +52,7 @@ If you plan to allow your clients to map their own domains, they will have to do
 
 ### Mapping custom domain name as Super Admin
 
-When you are logged in as super admin on your network, you can easily add and manage custom domain names by going under **WP Multisite WaaS > Domains**.
+When you are logged in as super admin on your network, you can easily add and manage custom domain names by going under **Multisite Ultimate > Domains**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-5XxtXP622s.png)
 
@@ -74,7 +74,7 @@ If you click on the domain name, you will be able to see some options inside it.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-5tCiNUIKih.png)
 
-**Stage:** This is the stage that the domain is at. When you first add the domain, it will probably be on the **Checking DNS** stage. The process will check for the DNS entries and confirm they are correct. Then, the domain will be put at the **Checking SSL** stage. WP Multisite WaaS will check if the domain has SSL or not and will categorize your domain as **Ready** or **Ready (without SSL)**.
+**Stage:** This is the stage that the domain is at. When you first add the domain, it will probably be on the **Checking DNS** stage. The process will check for the DNS entries and confirm they are correct. Then, the domain will be put at the **Checking SSL** stage. Multisite Ultimate will check if the domain has SSL or not and will categorize your domain as **Ready** or **Ready (without SSL)**.
 
 **Site:** The subdomain that is associated with this domain. The mapped domain will show the content of this specific site.
 
@@ -82,7 +82,7 @@ If you click on the domain name, you will be able to see some options inside it.
 
 **Is Primary Domain?:** Your customers can have more than one mapped domain for each site. Use this option to select if this is the primary domain for the specific site.
 
-**Is Secure?:** Even though WP Multisite WaaS checks if the domain has a SSL certificate or not before enabling it, you can manually select to load the domain with or without a SSL certificate. Note that if the website does not have a SSL certificate and you try to force load it with SSL, it may give you errors.
+**Is Secure?:** Even though Multisite Ultimate checks if the domain has a SSL certificate or not before enabling it, you can manually select to load the domain with or without a SSL certificate. Note that if the website does not have a SSL certificate and you try to force load it with SSL, it may give you errors.
 
 ### Mapping custom domain name as Subsite user
 
@@ -92,7 +92,7 @@ First, you need to make sure that you enable this option under the **Domain mapp
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-M3MO6RKBWe.png)
 
-You can also set or configure this option under the **Plan** level or product options on **WP Multisite WaaS > Products**.
+You can also set or configure this option under the **Plan** level or product options on **Multisite Ultimate > Products**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-JRqx7Uhqsa.png)
 
@@ -112,11 +112,11 @@ The user can then click **Next Step** and proceed to add the custom domain name.
 
 ### About Domain Syncing
 
-Domain Syncing is a process where WP Multisite WaaS adds the custom domain name to your hosting account as an add-on domain **for the domain mapping to work**.
+Domain Syncing is a process where Multisite Ultimate adds the custom domain name to your hosting account as an add-on domain **for the domain mapping to work**.
 
-Domain syncing automatically happens if your hosting provider has integration with the WP Multisite WaaS domain mapping feature. Currently, these hosting providers are _Runcloud, Closte, WP Engine, Gridpane, WPMU Dev, Cloudways,_ and _Cpanel._
+Domain syncing automatically happens if your hosting provider has integration with the Multisite Ultimate domain mapping feature. Currently, these hosting providers are _Runcloud, Closte, WP Engine, Gridpane, WPMU Dev, Cloudways,_ and _Cpanel._
 
-You will need to activate this integration on WP Multisite WaaS settings under the **Integration** tab.
+You will need to activate this integration on Multisite Ultimate settings under the **Integration** tab.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-k6i46r4x2yddii0op4x343jizq20)
 

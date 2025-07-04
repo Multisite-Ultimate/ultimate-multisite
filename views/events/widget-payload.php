@@ -31,7 +31,7 @@
 
 	<span>
 	<button type="button" data-clipboard-action="copy" data-clipboard-target="#hidden_textarea" class="btn-clipboard button">
-		<?php esc_html_e('Copy to the Clipboard', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Copy to the Clipboard', 'multisite-ultimate'); ?>
 	</button>
 	</span>
 

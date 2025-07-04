@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Checkout Form Admin Page.
+ * Multisite Ultimate Checkout Form Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Models\Checkout_Form;
 
 /**
- * WP Multisite WaaS Checkout Form Admin Page.
+ * Multisite Ultimate Checkout Form Admin Page.
  */
 class Checkout_Form_List_Admin_Page extends List_Admin_Page {
 
@@ -69,17 +69,17 @@ class Checkout_Form_List_Admin_Page extends List_Admin_Page {
 			[
 				[
 					'id'    => 'checkout-form-list',
-					'title' => __('Checkout Forms', 'wp-multisite-waas'),
+					'title' => __('Checkout Forms', 'multisite-ultimate'),
 					'text'  => [
-						__('Checkout Forms are an easy and flexible way to experiment with different approaches when trying to convert new customers.', 'wp-multisite-waas'),
+						__('Checkout Forms are an easy and flexible way to experiment with different approaches when trying to convert new customers.', 'multisite-ultimate'),
 					],
 				],
 				[
 					'id'       => 'default-form',
-					'title'    => __('Experiment!', 'wp-multisite-waas'),
+					'title'    => __('Experiment!', 'multisite-ultimate'),
 					'text'     => [
-						__('You can create as many checkout forms as you want, with different fields, products on offer, etc.', 'wp-multisite-waas'),
-						__('Planning on running some sort of promotion? Why not create a custom landing page with a tailor-maid checkout form to go with? The possibilities are endless.', 'wp-multisite-waas'),
+						__('You can create as many checkout forms as you want, with different fields, products on offer, etc.', 'multisite-ultimate'),
+						__('Planning on running some sort of promotion? Why not create a custom landing page with a tailor-maid checkout form to go with? The possibilities are endless.', 'multisite-ultimate'),
 					],
 					'attachTo' => [
 						'element' => '#wp-ultimo-wrap > h1 > a:first-child',
@@ -121,8 +121,8 @@ class Checkout_Form_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'template'      => [
 				'type'        => 'select-icon',
-				'title'       => __('Checkout Form Template', 'wp-multisite-waas'),
-				'desc'        => __('Select a starting point for a new Checkout Form.', 'wp-multisite-waas'),
+				'title'       => __('Checkout Form Template', 'multisite-ultimate'),
+				'desc'        => __('Select a starting point for a new Checkout Form.', 'multisite-ultimate'),
 				'placeholder' => '',
 				'tooltip'     => '',
 				'value'       => '',
@@ -132,22 +132,22 @@ class Checkout_Form_List_Admin_Page extends List_Admin_Page {
 				],
 				'options'     => [
 					'single-step' => [
-						'title' => __('Single Step', 'wp-multisite-waas'),
+						'title' => __('Single Step', 'multisite-ultimate'),
 						'icon'  => 'dashicons-before dashicons-list-view',
 					],
 					'multi-step'  => [
-						'title' => __('Multi-Step', 'wp-multisite-waas'),
+						'title' => __('Multi-Step', 'multisite-ultimate'),
 						'icon'  => 'dashicons-before dashicons-excerpt-view',
 					],
 					'blank'       => [
-						'title' => __('Blank', 'wp-multisite-waas'),
+						'title' => __('Blank', 'multisite-ultimate'),
 						'icon'  => 'dashicons-before dashicons-admin-page',
 					],
 				],
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Go to the Editor &rarr;', 'wp-multisite-waas'),
+				'title'           => __('Go to the Editor &rarr;', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -189,7 +189,7 @@ class Checkout_Form_List_Admin_Page extends List_Admin_Page {
 
 		$checkout_form->use_template($template);
 
-		$checkout_form->set_name(__('Draft Checkout Form', 'wp-multisite-waas'));
+		$checkout_form->set_name(__('Draft Checkout Form', 'multisite-ultimate'));
 
 		$checkout_form->set_slug(uniqid());
 
@@ -222,8 +222,8 @@ class Checkout_Form_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Checkout Form removed successfully.', 'wp-multisite-waas'),
-			'search_label'    => __('Search Checkout Form', 'wp-multisite-waas'),
+			'deleted_message' => __('Checkout Form removed successfully.', 'multisite-ultimate'),
+			'search_label'    => __('Search Checkout Form', 'multisite-ultimate'),
 		];
 	}
 
@@ -235,7 +235,7 @@ class Checkout_Form_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Checkout Forms', 'wp-multisite-waas');
+		return __('Checkout Forms', 'multisite-ultimate');
 	}
 
 	/**
@@ -246,7 +246,7 @@ class Checkout_Form_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Checkout Forms', 'wp-multisite-waas');
+		return __('Checkout Forms', 'multisite-ultimate');
 	}
 
 	/**
@@ -257,7 +257,7 @@ class Checkout_Form_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Checkout Forms', 'wp-multisite-waas');
+		return __('Checkout Forms', 'multisite-ultimate');
 	}
 
 	/**
@@ -270,7 +270,7 @@ class Checkout_Form_List_Admin_Page extends List_Admin_Page {
 
 		return [
 			[
-				'label'   => __('Add Checkout Form'),
+				'label'   => __('Add Checkout Form', 'multisite-ultimate'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('add_new_checkout_form'),

@@ -16,7 +16,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Adds a lighter ajax option to WP Multisite WaaS.
+ * Adds a lighter ajax option to Multisite Ultimate.
  *
  * @since 1.9.14
  */

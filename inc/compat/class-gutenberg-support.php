@@ -2,7 +2,7 @@
 /**
  * Gutenberg Support
  *
- * Allows WP Multisite WaaS to filter Gutenberg thingys.
+ * Allows Multisite Ultimate to filter Gutenberg thingys.
  *
  * @since       1.9.14
  * @author      Arindo Duque
@@ -65,7 +65,7 @@ class Gutenberg_Support {
 		wp_register_script('wu-gutenberg-support', wu_get_asset('gutenberg-support.js', 'js'), ['jquery'], wu_get_version(), true);
 
 		// translators: the placeholder is replaced with the network name.
-		$preview_message = apply_filters('wu_gutenberg_support_preview_message', sprintf(__('<strong>%s</strong> is generating the preview...', 'wp-multisite-waas'), get_network_option(null, 'site_name')));
+		$preview_message = apply_filters('wu_gutenberg_support_preview_message', sprintf(__('<strong>%s</strong> is generating the preview...', 'multisite-ultimate'), get_network_option(null, 'site_name')));
 
 		wp_localize_script(
 			'wu-gutenberg-support',

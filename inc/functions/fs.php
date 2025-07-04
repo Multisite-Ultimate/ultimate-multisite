@@ -33,7 +33,7 @@ function wu_get_main_site_upload_dir() {
 }
 
 /**
- * Creates a WP Multisite WaaS folder inside the uploads folder - if needed - and return its path.
+ * Creates a Multisite Ultimate folder inside the uploads folder - if needed - and return its path.
  *
  * @since 2.0.11
  *
@@ -59,7 +59,7 @@ function wu_maybe_create_folder($folder, ...$path) {
 		$htaccess = $folder_path . '.htaccess';
 
 		if ( ! file_exists($htaccess)) {
-			$fp = @fopen($htaccess, 'w');
+			$fp = @fopen($htaccess, 'w'); // phpcs:ignore
 
 			@fwrite($fp, 'deny from all'); // phpcs:ignore
 
@@ -70,7 +70,7 @@ function wu_maybe_create_folder($folder, ...$path) {
 		$index = $folder_path . 'index.html';
 
 		if ( ! file_exists($index)) {
-			$fp = @fopen($index, 'w');
+			$fp = @fopen($index, 'w'); // phpcs:ignore
 
 			@fwrite($fp, ''); // phpcs:ignore
 

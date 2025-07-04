@@ -79,17 +79,6 @@ class Thank_You_Element extends Base_Element {
 	}
 
 	/**
-	 * Overload the init to add site-related forms.
-	 *
-	 * @since 2.0.0
-	 * @return void
-	 */
-	public function init(): void {
-
-		parent::init();
-	}
-
-	/**
 	 * Replace the register page title with the Thank you title.
 	 *
 	 * @since 2.0.0
@@ -135,7 +124,7 @@ class Thank_You_Element extends Base_Element {
 		$has_pending_site = $this->membership ? (bool) $this->membership->get_pending_site() : false;
 		$is_publishing    = $has_pending_site ? $this->membership->get_pending_site()->is_publishing() : false;
 
-		wp_register_script('wu-thank-you', wu_get_asset('thank-you.js', 'js'), [], wu_get_version());
+		wp_register_script('wu-thank-you', wu_get_asset('thank-you.js', 'js'), [], wu_get_version(), true);
 
 		wp_localize_script(
 			'wu-thank-you',
@@ -148,8 +137,8 @@ class Thank_You_Element extends Base_Element {
 				'resend_verification_email_nonce' => wp_create_nonce('wu_resend_verification_email_nonce'),
 				'membership_hash'                 => $this->membership ? $this->membership->get_hash() : false,
 				'i18n'                            => [
-					'resending_verification_email' => __('Resending verification email...', 'wp-multisite-waas'),
-					'email_sent'                   => __('Verification email sent!', 'wp-multisite-waas'),
+					'resending_verification_email' => __('Resending verification email...', 'multisite-ultimate'),
+					'email_sent'                   => __('Verification email sent!', 'multisite-ultimate'),
 				],
 			]
 		);
@@ -162,14 +151,14 @@ class Thank_You_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Thank You', 'wp-multisite-waas');
+		return __('Thank You', 'multisite-ultimate');
 	}
 
 	/**
@@ -178,14 +167,14 @@ class Thank_You_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'wp-multisite-waas');
+		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
 	}
 
 	/**
@@ -210,24 +199,24 @@ class Thank_You_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Title', 'wp-multisite-waas'),
-			'value'   => __('Thank You', 'wp-multisite-waas'),
-			'desc'    => __('Leave blank to hide the title completely.', 'wp-multisite-waas'),
+			'title'   => __('Title', 'multisite-ultimate'),
+			'value'   => __('Thank You', 'multisite-ultimate'),
+			'desc'    => __('Leave blank to hide the title completely.', 'multisite-ultimate'),
 			'tooltip' => '',
 		];
 
 		$fields['thank_you_message'] = [
 			'type'      => 'textarea',
-			'title'     => __('Thank You Message', 'wp-multisite-waas'),
-			'desc'      => __('Shortcodes are supported.', 'wp-multisite-waas'),
-			'value'     => __('Thank you for your payment! Your transaction has been completed and a receipt for your purchase has been emailed to you.', 'wp-multisite-waas'),
+			'title'     => __('Thank You Message', 'multisite-ultimate'),
+			'desc'      => __('Shortcodes are supported.', 'multisite-ultimate'),
+			'value'     => __('Thank you for your payment! Your transaction has been completed and a receipt for your purchase has been emailed to you.', 'multisite-ultimate'),
 			'tooltip'   => '',
 			'html_attr' => [
 				'rows' => 4,
@@ -236,17 +225,17 @@ class Thank_You_Element extends Base_Element {
 
 		$fields['title_pending'] = [
 			'type'    => 'text',
-			'title'   => __('Title (Pending)', 'wp-multisite-waas'),
-			'value'   => __('Thank You', 'wp-multisite-waas'),
-			'desc'    => __('Leave blank to hide the title completely. This title is used when the payment was not yet confirmed.', 'wp-multisite-waas'),
+			'title'   => __('Title (Pending)', 'multisite-ultimate'),
+			'value'   => __('Thank You', 'multisite-ultimate'),
+			'desc'    => __('Leave blank to hide the title completely. This title is used when the payment was not yet confirmed.', 'multisite-ultimate'),
 			'tooltip' => '',
 		];
 
 		$fields['thank_you_message_pending'] = [
 			'type'      => 'textarea',
-			'title'     => __('Thank You Message (Pending)', 'wp-multisite-waas'),
-			'desc'      => __('This content is used when the payment was not yet confirmed. Shortcodes are supported.', 'wp-multisite-waas'),
-			'value'     => __('Thank you for your order! We are waiting on the payment processor to confirm your payment, which can take up to 5 minutes. We will notify you via email when your site is ready.', 'wp-multisite-waas'),
+			'title'     => __('Thank You Message (Pending)', 'multisite-ultimate'),
+			'desc'      => __('This content is used when the payment was not yet confirmed. Shortcodes are supported.', 'multisite-ultimate'),
+			'value'     => __('Thank you for your order! We are waiting on the payment processor to confirm your payment, which can take up to 5 minutes. We will notify you via email when your site is ready.', 'multisite-ultimate'),
 			'tooltip'   => '',
 			'html_attr' => [
 				'rows' => 4,
@@ -255,9 +244,9 @@ class Thank_You_Element extends Base_Element {
 
 		$fields['no_sites_message'] = [
 			'type'      => 'textarea',
-			'title'     => __('No Sites Message', 'wp-multisite-waas'),
-			'desc'      => __('A message to show if membership has no sites. Shortcodes are supported.', 'wp-multisite-waas'),
-			'value'     => __('No sites found', 'wp-multisite-waas'),
+			'title'     => __('No Sites Message', 'multisite-ultimate'),
+			'desc'      => __('A message to show if membership has no sites. Shortcodes are supported.', 'multisite-ultimate'),
+			'value'     => __('No sites found', 'multisite-ultimate'),
 			'tooltip'   => '',
 			'html_attr' => [
 				'rows' => 4,
@@ -275,7 +264,7 @@ class Thank_You_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Billing Information',
 	 *  'Form',
 	 *  'Cart',
@@ -288,7 +277,7 @@ class Thank_You_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Thank You',
 			'Form',
 			'Cart',
@@ -312,11 +301,11 @@ class Thank_You_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'title'                     => __('Thank You', 'wp-multisite-waas'),
-			'thank_you_message'         => __('Thank you for your payment! Your transaction has been completed and a receipt for your purchase has been emailed to you.', 'wp-multisite-waas'),
-			'title_pending'             => __('Thank You', 'wp-multisite-waas'),
-			'thank_you_message_pending' => __('Thank you for your order! We are waiting on the payment processor to confirm your payment, which can take up to 5 minutes. We will notify you via email when your site is ready.', 'wp-multisite-waas'),
-			'no_sites_message'          => __('No sites found', 'wp-multisite-waas'),
+			'title'                     => __('Thank You', 'multisite-ultimate'),
+			'thank_you_message'         => __('Thank you for your payment! Your transaction has been completed and a receipt for your purchase has been emailed to you.', 'multisite-ultimate'),
+			'title_pending'             => __('Thank You', 'multisite-ultimate'),
+			'thank_you_message_pending' => __('Thank you for your order! We are waiting on the payment processor to confirm your payment, which can take up to 5 minutes. We will notify you via email when your site is ready.', 'multisite-ultimate'),
+			'no_sites_message'          => __('No sites found', 'multisite-ultimate'),
 		];
 	}
 
@@ -426,7 +415,7 @@ class Thank_You_Element extends Base_Element {
 				'wp_print_footer_scripts',
 				function () use ($conversion_snippets) {
 
-					echo $conversion_snippets;
+					echo $conversion_snippets; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 			);
 		}

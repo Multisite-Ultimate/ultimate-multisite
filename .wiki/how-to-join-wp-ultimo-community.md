@@ -1,6 +1,6 @@
-# How to join WP Multisite WaaS Community
+# How to join Multisite Ultimate Community
 
-WP Multisite WaaS Community is a space where you can get in touch with other WP Multisite WaaS users and share tips, experiences and more. To access WP Multisite WaaS Community go to <https://community.wpultimo.com/home>.
+Multisite Ultimate Community is a space where you can get in touch with other Multisite Ultimate users and share tips, experiences and more. To access Multisite Ultimate Community go to <https://community.wpultimo.com/home>.
 
 On the welcome page go to the “**creating your account here** ” link.
 
@@ -22,11 +22,11 @@ Channels on the Lounge section and the “Dev Logs” channel are open to everyo
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-h2Ybqs4sD2JxYu6ceMlrJLZKgWCkO9LMNR8c09jQf_yzTQJda7zb0eic7auD7zAjP9cTOdEOCTev9EpetxTNM8vvI7Jp9s6i3fkjrd-tXhzJiALAfD4mLRiCW57d6PgevRsRUsfs)
 
-This access will be granted once you provide us with your active WP Multisite WaaS license key. To do it click on any private channel link and then click the **Unlock** button.
+This access will be granted once you provide us with your active Multisite Ultimate license key. To do it click on any private channel link and then click the **Unlock** button.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-Q73mIIR_XXf63IK9-B7CJ54JSBp9T-O9k7RBUthwaIdlFUoak1q6TZe--Ul6BUtDKphEyBuO4nxYTq2cFstYGRImf4B-9V6vsQqvNjtDj7qBXaUdbkbZ5R9wnWAYwDyoRO29lIUC)
 
-You will be redirected to our unlock access page. Enter your WP Multisite WaaS license key and click the Unlock Access button:
+You will be redirected to our unlock access page. Enter your Multisite Ultimate license key and click the Unlock Access button:
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-LFwxVXeXZ-DI-FVxgZEKBRsb2SrTNwj4rRApgnpHPMBcCP6kLGzuOH7cbbVu5zqK4QUVeI9-VsvhT7g898JWESYtIirLhjBfOXTTk9x_NEVLySSsu6IWllulx4DSf7AOU2hRguZq)
 

@@ -96,14 +96,14 @@ class Site_Actions_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Actions', 'wp-multisite-waas');
+		return __('Actions', 'multisite-ultimate');
 	}
 
 	/**
@@ -112,14 +112,14 @@ class Site_Actions_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'wp-multisite-waas');
+		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
 	}
 
 	/**
@@ -144,31 +144,31 @@ class Site_Actions_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['show_change_password'] = [
 			'type'    => 'toggle',
-			'title'   => __('Show Change Password', 'wp-multisite-waas'),
-			'desc'    => __('Toggle to show/hide the password link.', 'wp-multisite-waas'),
+			'title'   => __('Show Change Password', 'multisite-ultimate'),
+			'desc'    => __('Toggle to show/hide the password link.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
 
 		$fields['show_change_default_site'] = [
 			'type'    => 'toggle',
-			'title'   => __('Show Change Default Site', 'wp-multisite-waas'),
-			'desc'    => __('Toggle to show/hide the change default site link.', 'wp-multisite-waas'),
+			'title'   => __('Show Change Default Site', 'multisite-ultimate'),
+			'desc'    => __('Toggle to show/hide the change default site link.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
 
 		$fields['show_change_payment_method'] = [
 			'type'    => 'toggle',
-			'title'   => __('Show Change Payment Method', 'wp-multisite-waas'),
-			'desc'    => __('Toggle to show/hide the option to cancel the current payment method.', 'wp-multisite-waas'),
+			'title'   => __('Show Change Payment Method', 'multisite-ultimate'),
+			'desc'    => __('Toggle to show/hide the option to cancel the current payment method.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
@@ -181,7 +181,7 @@ class Site_Actions_Element extends Base_Element {
 
 		$pages = $pages ?: [];
 
-		$pages_list = [0 => __('Default', 'wp-multisite-waas')];
+		$pages_list = [0 => __('Default', 'multisite-ultimate')];
 
 		foreach ($pages as $page) {
 			$pages_list[ $page->ID ] = $page->post_title;
@@ -189,9 +189,9 @@ class Site_Actions_Element extends Base_Element {
 
 		$fields['redirect_after_delete'] = [
 			'type'    => 'select',
-			'title'   => __('Redirect After Delete', 'wp-multisite-waas'),
+			'title'   => __('Redirect After Delete', 'multisite-ultimate'),
 			'value'   => 0,
-			'desc'    => __('The page to redirect user after delete current site.', 'wp-multisite-waas'),
+			'desc'    => __('The page to redirect user after delete current site.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'options' => $pages_list,
 		];
@@ -207,7 +207,7 @@ class Site_Actions_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Actions',
 	 *  'Form',
 	 *  'Cart',
@@ -220,7 +220,7 @@ class Site_Actions_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Actions',
 			'Form',
 			'Cart',
@@ -371,7 +371,7 @@ class Site_Actions_Element extends Base_Element {
 
 		if ($is_template_switching_enabled && $this->site) {
 			$actions['template_switching'] = [
-				'label'        => __('Change Site Template', 'wp-multisite-waas'),
+				'label'        => __('Change Site Template', 'multisite-ultimate'),
 				'icon_classes' => 'dashicons-wu-edit wu-align-middle',
 				'href'         => add_query_arg(
 					[
@@ -384,7 +384,7 @@ class Site_Actions_Element extends Base_Element {
 
 		if (count($all_blogs) > 1 && wu_get_isset($atts, 'show_change_default_site')) {
 			$actions['default_site'] = [
-				'label'        => __('Change Default Site', 'wp-multisite-waas'),
+				'label'        => __('Change Default Site', 'multisite-ultimate'),
 				'icon_classes' => 'dashicons-wu-edit wu-align-middle',
 				'classes'      => 'wubox',
 				'href'         => wu_get_form_url('change_default_site'),
@@ -393,7 +393,7 @@ class Site_Actions_Element extends Base_Element {
 
 		if (wu_get_isset($atts, 'show_change_password')) {
 			$actions['change_password'] = [
-				'label'        => __('Change Password', 'wp-multisite-waas'),
+				'label'        => __('Change Password', 'multisite-ultimate'),
 				'icon_classes' => 'dashicons-wu-edit wu-align-middle',
 				'classes'      => 'wubox',
 				'href'         => wu_get_form_url('change_password'),
@@ -404,7 +404,7 @@ class Site_Actions_Element extends Base_Element {
 
 		if (wu_get_isset($atts, 'show_change_payment_method') && $payment_gateway) {
 			$actions['cancel_payment_method'] = [
-				'label'        => __('Cancel Current Payment Method', 'wp-multisite-waas'),
+				'label'        => __('Cancel Current Payment Method', 'multisite-ultimate'),
 				'icon_classes' => 'dashicons-wu-edit wu-align-middle',
 				'classes'      => 'wubox',
 				'href'         => wu_get_form_url(
@@ -435,7 +435,7 @@ class Site_Actions_Element extends Base_Element {
 			$actions = array_merge(
 				[
 					'delete_site' => [
-						'label'        => __('Delete Site', 'wp-multisite-waas'),
+						'label'        => __('Delete Site', 'multisite-ultimate'),
 						'icon_classes' => 'dashicons-wu-edit wu-align-middle',
 						'classes'      => 'wubox wu-text-red-500',
 						'href'         => wu_get_form_url(
@@ -455,7 +455,7 @@ class Site_Actions_Element extends Base_Element {
 			$actions = array_merge(
 				[
 					'cancel_membership' => [
-						'label'        => __('Cancel Membership', 'wp-multisite-waas'),
+						'label'        => __('Cancel Membership', 'multisite-ultimate'),
 						'icon_classes' => 'dashicons-wu-edit wu-align-middle',
 						'classes'      => 'wubox wu-text-red-500',
 						'href'         => wu_get_form_url(
@@ -487,13 +487,13 @@ class Site_Actions_Element extends Base_Element {
 		$error = '';
 
 		if ( ! $site) {
-			$error = __('Site not selected.', 'wp-multisite-waas');
+			$error = __('Site not selected.', 'multisite-ultimate');
 		}
 
 		$customer = wu_get_current_customer();
 
 		if ( ! $customer || $customer->get_id() !== $site->get_customer_id()) {
-			$error = __('You are not allowed to do this.', 'wp-multisite-waas');
+			$error = __('You are not allowed to do this.', 'multisite-ultimate');
 		}
 
 		if ( ! empty($error)) {
@@ -530,16 +530,16 @@ class Site_Actions_Element extends Base_Element {
 			],
 			'confirm'       => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Site Deletion', 'wp-multisite-waas'),
-				'desc'      => __('This action can not be undone.', 'wp-multisite-waas'),
+				'title'     => __('Confirm Site Deletion', 'multisite-ultimate'),
+				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Delete Site', 'wp-multisite-waas'),
-				'placeholder'     => __('Delete Site', 'wp-multisite-waas'),
+				'title'           => __('Delete Site', 'multisite-ultimate'),
+				'placeholder'     => __('Delete Site', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -584,13 +584,13 @@ class Site_Actions_Element extends Base_Element {
 		$site = wu_get_site_by_hash(wu_request('site'));
 
 		if ( ! $site || ! $site->is_customer_allowed()) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'wp-multisite-waas'));
+			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
 		}
 
 		$customer = wu_get_current_customer();
 
 		if ( ! $customer || $customer->get_id() !== $site->get_customer_id()) {
-			return new \WP_Error('error', __('You are not allowed to do this.', 'wp-multisite-waas'));
+			return new \WP_Error('error', __('You are not allowed to do this.', 'multisite-ultimate'));
 		}
 
 		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -636,23 +636,23 @@ class Site_Actions_Element extends Base_Element {
 		$fields = [
 			'password'          => [
 				'type'        => 'password',
-				'title'       => __('Current Password', 'wp-multisite-waas'),
-				'placeholder' => __('******', 'wp-multisite-waas'),
+				'title'       => __('Current Password', 'multisite-ultimate'),
+				'placeholder' => __('******', 'multisite-ultimate'),
 			],
 			'new_password'      => [
 				'type'        => 'password',
-				'title'       => __('New Password', 'wp-multisite-waas'),
-				'placeholder' => __('******', 'wp-multisite-waas'),
+				'title'       => __('New Password', 'multisite-ultimate'),
+				'placeholder' => __('******', 'multisite-ultimate'),
 				'meter'       => true,
 			],
 			'new_password_conf' => [
 				'type'        => 'password',
-				'placeholder' => __('******', 'wp-multisite-waas'),
-				'title'       => __('Confirm New Password', 'wp-multisite-waas'),
+				'placeholder' => __('******', 'multisite-ultimate'),
+				'title'       => __('Confirm New Password', 'multisite-ultimate'),
 			],
 			'submit_button'     => [
 				'type'            => 'submit',
-				'title'           => __('Reset Password', 'wp-multisite-waas'),
+				'title'           => __('Reset Password', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -688,7 +688,7 @@ class Site_Actions_Element extends Base_Element {
 		$user = wp_get_current_user();
 
 		if ( ! $user) {
-			$error = new \WP_Error('user-dont-exist', __('Something went wrong.', 'wp-multisite-waas'));
+			$error = new \WP_Error('user-dont-exist', __('Something went wrong.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -696,7 +696,7 @@ class Site_Actions_Element extends Base_Element {
 		$current_password = wu_request('password');
 
 		if ( ! wp_check_password($current_password, $user->user_pass, $user->ID)) {
-			$error = new \WP_Error('wrong-password', __('Your current password is wrong.', 'wp-multisite-waas'));
+			$error = new \WP_Error('wrong-password', __('Your current password is wrong.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -705,13 +705,13 @@ class Site_Actions_Element extends Base_Element {
 		$new_password_conf = wu_request('new_password_conf');
 
 		if ( ! $new_password || strlen((string) $new_password) < 6) {
-			$error = new \WP_Error('password-min-length', __('The new password must be at least 6 characters long.', 'wp-multisite-waas'));
+			$error = new \WP_Error('password-min-length', __('The new password must be at least 6 characters long.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
 
 		if ($new_password !== $new_password_conf) {
-			$error = new \WP_Error('passwords-dont-match', __('New passwords do not match.', 'wp-multisite-waas'));
+			$error = new \WP_Error('passwords-dont-match', __('New passwords do not match.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -722,10 +722,11 @@ class Site_Actions_Element extends Base_Element {
 		wp_set_auth_cookie($user->ID);
 		wp_set_current_user($user->ID);
 		do_action('wp_login', $user->user_login, $user); // PHPCS:ignore WordPress.NamingConventions
+		$referer = isset($_SERVER['HTTP_REFERER']) ? sanitize_url(wp_unslash($_SERVER['HTTP_REFERER'])) : '';
 
 		wp_send_json_success(
 			[
-				'redirect_url' => add_query_arg('updated', 1, $_SERVER['HTTP_REFERER']), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				'redirect_url' => add_query_arg('updated', 1, $referer),
 			]
 		);
 	}
@@ -751,8 +752,8 @@ class Site_Actions_Element extends Base_Element {
 		$fields = [
 			'new_primary_site' => [
 				'type'      => 'select',
-				'title'     => __('Primary Site', 'wp-multisite-waas'),
-				'desc'      => __('Change the primary site of your network.', 'wp-multisite-waas'),
+				'title'     => __('Primary Site', 'multisite-ultimate'),
+				'desc'      => __('Change the primary site of your network.', 'multisite-ultimate'),
 				'options'   => $option_blogs,
 				'value'     => $primary_blog,
 				'html_attr' => [
@@ -761,7 +762,7 @@ class Site_Actions_Element extends Base_Element {
 			],
 			'submit_button'    => [
 				'type'            => 'submit',
-				'title'           => __('Change Default Site', 'wp-multisite-waas'),
+				'title'           => __('Change Default Site', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -804,15 +805,16 @@ class Site_Actions_Element extends Base_Element {
 
 		if ($new_primary_site) {
 			update_user_meta(get_current_user_id(), 'primary_blog', $new_primary_site);
+			$referer = isset($_SERVER['HTTP_REFERER']) ? sanitize_url(wp_unslash($_SERVER['HTTP_REFERER'])) : '';
 
 			wp_send_json_success(
 				[
-					'redirect_url' => add_query_arg('updated', 1, $_SERVER['HTTP_REFERER']), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+					'redirect_url' => add_query_arg('updated', 1, $referer),
 				]
 			);
 		}
 
-		$error = new \WP_Error('no-site-selected', __('You need to select a new primary site.', 'wp-multisite-waas'));
+		$error = new \WP_Error('no-site-selected', __('You need to select a new primary site.', 'multisite-ultimate'));
 
 		wp_send_json_error($error);
 	}
@@ -830,13 +832,13 @@ class Site_Actions_Element extends Base_Element {
 		$error = '';
 
 		if ( ! $membership) {
-			$error = __('Membership not selected.', 'wp-multisite-waas');
+			$error = __('Membership not selected.', 'multisite-ultimate');
 		}
 
 		$customer = wu_get_current_customer();
 
 		if ( ! is_super_admin() && (! $customer || $customer->get_id() !== $membership->get_customer_id())) {
-			$error = __('You are not allowed to do this.', 'wp-multisite-waas');
+			$error = __('You are not allowed to do this.', 'multisite-ultimate');
 		}
 
 		if ( ! empty($error)) {
@@ -873,16 +875,16 @@ class Site_Actions_Element extends Base_Element {
 			],
 			'confirm'       => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Payment Method Cancellation', 'wp-multisite-waas'),
-				'desc'      => __('This action can not be undone.', 'wp-multisite-waas'),
+				'title'     => __('Confirm Payment Method Cancellation', 'multisite-ultimate'),
+				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Cancel Payment Method', 'wp-multisite-waas'),
-				'placeholder'     => __('Cancel Payment Method', 'wp-multisite-waas'),
+				'title'           => __('Cancel Payment Method', 'multisite-ultimate'),
+				'placeholder'     => __('Cancel Payment Method', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -924,7 +926,7 @@ class Site_Actions_Element extends Base_Element {
 		$membership = wu_get_membership_by_hash(wu_request('membership'));
 
 		if ( ! $membership) {
-			$error = new \WP_Error('error', __('An unexpected error happened.', 'wp-multisite-waas'));
+			$error = new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 
@@ -934,7 +936,7 @@ class Site_Actions_Element extends Base_Element {
 		$customer = wu_get_current_customer();
 
 		if ( ! is_super_admin() && (! $customer || $customer->get_id() !== $membership->get_customer_id())) {
-			$error = new \WP_Error('error', __('You are not allowed to do this.', 'wp-multisite-waas'));
+			$error = new \WP_Error('error', __('You are not allowed to do this.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 
@@ -977,13 +979,13 @@ class Site_Actions_Element extends Base_Element {
 		$error = '';
 
 		if ( ! $membership) {
-			$error = __('Membership not selected.', 'wp-multisite-waas');
+			$error = __('Membership not selected.', 'multisite-ultimate');
 		}
 
 		$customer = wu_get_current_customer();
 
 		if ( ! is_super_admin() && (! $customer || $customer->get_id() !== $membership->get_customer_id())) {
-			$error = __('You are not allowed to do this.', 'wp-multisite-waas');
+			$error = __('You are not allowed to do this.', 'multisite-ultimate');
 		}
 
 		if ( ! empty($error)) {
@@ -1020,33 +1022,33 @@ class Site_Actions_Element extends Base_Element {
 			],
 			'cancellation_reason'      => [
 				'type'      => 'select',
-				'title'     => __('Please tell us why you are cancelling.', 'wp-multisite-waas'),
-				'desc'      => __('We would love your feedback.', 'wp-multisite-waas'),
+				'title'     => __('Please tell us why you are cancelling.', 'multisite-ultimate'),
+				'desc'      => __('We would love your feedback.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'cancellation_reason',
 				],
 				'default'   => '',
 				'options'   => [
-					''                 => __('Select a reason', 'wp-multisite-waas'),
-					'unused'           => __('I no longer need it', 'wp-multisite-waas'),
-					'too_expensive'    => __('It\'s too expensive', 'wp-multisite-waas'),
-					'missing_features' => __('I need more features', 'wp-multisite-waas'),
-					'switched_service' => __('Switched to another service', 'wp-multisite-waas'),
-					'customer_service' => __('Customer support is less than expected', 'wp-multisite-waas'),
-					'too_complex'      => __('Too complex', 'wp-multisite-waas'),
-					'other'            => __('Other', 'wp-multisite-waas'),
+					''                 => __('Select a reason', 'multisite-ultimate'),
+					'unused'           => __('I no longer need it', 'multisite-ultimate'),
+					'too_expensive'    => __('It\'s too expensive', 'multisite-ultimate'),
+					'missing_features' => __('I need more features', 'multisite-ultimate'),
+					'switched_service' => __('Switched to another service', 'multisite-ultimate'),
+					'customer_service' => __('Customer support is less than expected', 'multisite-ultimate'),
+					'too_complex'      => __('Too complex', 'multisite-ultimate'),
+					'other'            => __('Other', 'multisite-ultimate'),
 				],
 			],
 			'cancellation_explanation' => [
 				'type'              => 'textarea',
-				'title'             => __('Please provide additional details.', 'wp-multisite-waas'),
+				'title'             => __('Please provide additional details.', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-show' => 'cancellation_reason === "other"',
 				],
 			],
 			'confirm'                  => [
 				'type'      => 'text',
-				'title'     => __('Type <code class="wu-text-red-600">CANCEL</code> to confirm this membership cancellation.', 'wp-multisite-waas'),
+				'title'     => __('Type <code class="wu-text-red-600">CANCEL</code> to confirm this membership cancellation.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'confirmation',
 				],
@@ -1063,19 +1065,19 @@ class Site_Actions_Element extends Base_Element {
 			$fields['next_charge'] = [
 				'type' => 'note',
 				// translators: %s: Next charge date.
-				'desc' => sprintf(__('Your sites will stay working until %s.', 'wp-multisite-waas'), date_i18n(get_option('date_format'), $next_charge)),
+				'desc' => sprintf(__('Your sites will stay working until %s.', 'multisite-ultimate'), date_i18n(get_option('date_format'), $next_charge)),
 			];
 		}
 
 		$fields['submit_button'] = [
 			'type'            => 'submit',
-			'title'           => __('Cancel Membership', 'wp-multisite-waas'),
-			'placeholder'     => __('Cancel Membership', 'wp-multisite-waas'),
+			'title'           => __('Cancel Membership', 'multisite-ultimate'),
+			'placeholder'     => __('Cancel Membership', 'multisite-ultimate'),
 			'value'           => 'save',
 			'classes'         => 'button button-primary wu-w-full',
 			'wrapper_classes' => 'wu-items-end',
 			'html_attr'       => [
-				'v-bind:disabled' => 'confirmation !== "' . __('CANCEL', 'wp-multisite-waas') . '" || cancellation_reason === ""',
+				'v-bind:disabled' => 'confirmation !== "' . __('CANCEL', 'multisite-ultimate') . '" || cancellation_reason === ""',
 			],
 		];
 
@@ -1112,7 +1114,7 @@ class Site_Actions_Element extends Base_Element {
 		$membership = wu_get_membership_by_hash(wu_request('membership'));
 
 		if ( ! $membership) {
-			$error = new \WP_Error('error', __('An unexpected error happened.', 'wp-multisite-waas'));
+			$error = new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 
@@ -1122,7 +1124,7 @@ class Site_Actions_Element extends Base_Element {
 		$customer = wu_get_current_customer();
 
 		if ( ! is_super_admin() && (! $customer || $customer->get_id() !== $membership->get_customer_id())) {
-			$error = new \WP_Error('error', __('You are not allowed to do this.', 'wp-multisite-waas'));
+			$error = new \WP_Error('error', __('You are not allowed to do this.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 
@@ -1130,18 +1132,26 @@ class Site_Actions_Element extends Base_Element {
 		}
 
 		$cancellation_options = [
-			'unused'           => __('I no longer need it', 'wp-multisite-waas'),
-			'too_expensive'    => __('It\'s too expensive', 'wp-multisite-waas'),
-			'missing_features' => __('I need more features', 'wp-multisite-waas'),
-			'switched_service' => __('Switched to another service', 'wp-multisite-waas'),
-			'customer_service' => __('Customer support is less than expected', 'wp-multisite-waas'),
-			'too_complex'      => __('Too complex', 'wp-multisite-waas'),
+			'unused'           => __('I no longer need it', 'multisite-ultimate'),
+			'too_expensive'    => __('It\'s too expensive', 'multisite-ultimate'),
+			'missing_features' => __('I need more features', 'multisite-ultimate'),
+			'switched_service' => __('Switched to another service', 'multisite-ultimate'),
+			'customer_service' => __('Customer support is less than expected', 'multisite-ultimate'),
+			'too_complex'      => __('Too complex', 'multisite-ultimate'),
 			'other'            => wu_request('cancellation_explanation'),
 		];
 
 		$reason = wu_get_isset($cancellation_options, wu_request('cancellation_reason'), '');
-
-		$membership->cancel($reason);
+		try {
+			$membership->cancel($reason);
+		} catch (\Exception $e) {
+			wp_send_json_error(
+				array(
+					'code'    => 'error',
+					'message' => $e->getMessage(),
+				)
+			);
+		}
 
 		$redirect_url = wu_request('redirect_url');
 

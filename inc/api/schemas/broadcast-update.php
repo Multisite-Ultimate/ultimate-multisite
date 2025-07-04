@@ -20,12 +20,12 @@ defined('ABSPATH') || exit;
  */
 return [
 	'migrated_from_id' => [
-		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'wp-multisite-waas'),
+		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'notice_type'      => [
-		'description' => __('Can be info, success, warning or error.', 'wp-multisite-waas'),
+		'description' => __('Can be info, success, warning or error.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -36,57 +36,57 @@ return [
 		],
 	],
 	'name'             => [
-		'description' => __('This broadcast name, which is used as broadcast title as well.', 'wp-multisite-waas'),
+		'description' => __('This broadcast name, which is used as broadcast title as well.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'type'             => [
-		'description' => __('The type being set.', 'wp-multisite-waas'),
+		'description' => __('The type being set.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'status'           => [
-		'description' => __('The status being set.', 'wp-multisite-waas'),
+		'description' => __('The status being set.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'author_id'        => [
-		'description' => __('The author ID.', 'wp-multisite-waas'),
+		'description' => __('The author ID.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'title'            => [
-		'description' => __('Post title.', 'wp-multisite-waas'),
+		'description' => __('Post title.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'content'          => [
-		'description' => __('Post content.', 'wp-multisite-waas'),
+		'description' => __('Post content.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'excerpt'          => [
-		'description' => __('Post excerpt.', 'wp-multisite-waas'),
+		'description' => __('Post excerpt.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_created'     => [
-		'description' => __('Post creation date.', 'wp-multisite-waas'),
+		'description' => __('Post creation date.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_modified'    => [
-		'description' => __('Post last modification date.', 'wp-multisite-waas'),
+		'description' => __('Post last modification date.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'slug'             => [
-		'description' => __('The slug.', 'wp-multisite-waas'),
+		'description' => __('The slug.', 'multisite-ultimate'),
 		'type'        => 'mixed',
 		'required'    => false,
 	],
 	'skip_validation'  => [
-		'description' => __('Set true to have field information validation bypassed when saving this event.', 'wp-multisite-waas'),
+		'description' => __('Set true to have field information validation bypassed when saving this event.', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],

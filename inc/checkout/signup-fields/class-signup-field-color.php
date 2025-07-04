@@ -55,7 +55,7 @@ class Signup_Field_Color extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Color', 'wp-multisite-waas');
+		return __('Color', 'multisite-ultimate');
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Signup_Field_Color extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a color picker field.', 'wp-multisite-waas');
+		return __('Adds a color picker field.', 'multisite-ultimate');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Signup_Field_Color extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a color picker field.', 'wp-multisite-waas');
+		return __('Adds a color picker field.', 'multisite-ultimate');
 	}
 
 	/**
@@ -154,8 +154,8 @@ class Signup_Field_Color extends Base_Signup_Field {
 			'default_value' => [
 				'type'  => 'color-picker',
 				'order' => 12,
-				'title' => __('Default Color', 'wp-multisite-waas'),
-				'desc'  => __('Set the default value for this color field.', 'wp-multisite-waas'),
+				'title' => __('Default Color', 'multisite-ultimate'),
+				'desc'  => __('Set the default value for this color field.', 'multisite-ultimate'),
 			],
 		];
 	}

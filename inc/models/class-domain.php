@@ -532,7 +532,7 @@ class Domain extends Base_Model {
 		 */
 		wu_log_clear("domain-{$this->get_domain()}");
 
-		wu_log_add("domain-{$this->get_domain()}", __('Domain deleted and logs cleared...', 'wp-multisite-waas'));
+		wu_log_add("domain-{$this->get_domain()}", __('Domain deleted and logs cleared...', 'multisite-ultimate'));
 
 		return $results;
 	}

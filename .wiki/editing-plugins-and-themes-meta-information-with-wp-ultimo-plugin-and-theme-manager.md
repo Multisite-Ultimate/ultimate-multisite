@@ -1,6 +1,6 @@
-# Editing Plugins and Themes Meta Information with WP Multisite WaaS: Plugin and Theme Manager
+# Editing Plugins and Themes Meta Information with Multisite Ultimate: Plugin and Theme Manager
 
-WP Multisite WaaS: Plugin and Theme Manager is a powerful **premium** WP Multisite WaaS add-on that gives you full control over the way your network users see and interact with the plugin and theme options on your network.
+Multisite Ultimate: Plugin and Theme Manager is a powerful **premium** Multisite Ultimate add-on that gives you full control over the way your network users see and interact with the plugin and theme options on your network.
 
 This add-on serves three purposes:
 
@@ -10,11 +10,11 @@ This add-on serves three purposes:
 
   3. It gives you the option to replace the old, boring plugins page with a new themes-like page with sorting by categories.
 
-After downloading and installing it, a new tab - _Add-on Settings_ \- will show on WP Multisite WaaS Settings page.
+After downloading and installing it, a new tab - _Add-on Settings_ \- will show on Multisite Ultimate Settings page.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-4zDOF0uomh.png)
 
-_Here you'll find the global options added by WP Multisite WaaS: Plugin and Theme Manager_
+_Here you'll find the global options added by Multisite Ultimate: Plugin and Theme Manager_
 
 On your network _Plugins_ page you will now be able to edit all the plugins' meta information, such as name, author, and even the plugin's thumbnail.
 

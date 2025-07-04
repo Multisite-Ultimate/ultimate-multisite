@@ -73,7 +73,7 @@ class Site_List_Table extends Parent_Site_List_Table {
 			'all' => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'all'),
-				'label' => __('Your Sites', 'wp-multisite-waas'),
+				'label' => __('Your Sites', 'multisite-ultimate'),
 				'count' => 0,
 			],
 		];
@@ -98,7 +98,7 @@ class Site_List_Table extends Parent_Site_List_Table {
 		$fields = parent::get_extra_fields();
 
 		$fields = [
-			'meta_query' => [
+			'meta_query' => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				'customer_id' => [
 					'key'   => 'wu_customer_id',
 					'value' => $customer->get_id(),

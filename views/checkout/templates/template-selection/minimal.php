@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/pricing-table/frequency-selector.php.
  *
- * HOWEVER, on occasion WP Multisite WaaS will need to update template files and you
+ * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -25,7 +25,7 @@ $sites = array_map('wu_get_site', $sites ?? []);
 
 $categories ??= [];
 
-$customer_sites_category = __('Your Sites', 'wp_ultimo');
+$customer_sites_category = __('Your Sites', 'multisite-ultimate');
 
 $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) : [];
 
@@ -41,7 +41,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 				:class="$parent.template_category === '' ? 'current wu-font-semibold' : ''"
 				v-on:click.prevent="$parent.template_category = ''"
 			>
-				<?php esc_html_e('All', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('All', 'multisite-ultimate'); ?>
 			</a>
 		</li>
 
@@ -111,7 +111,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 				<div class="wu-site-template-preview-block">
 
 					<a class="wu-site-template-selector" <?php echo $site_template->get_preview_url_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-						<?php esc_html_e('View Template Preview', 'wp-multisite-waas'); ?>
+						<?php esc_html_e('View Template Preview', 'multisite-ultimate'); ?>
 					</a>
 
 				</div>
@@ -122,7 +122,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 					<a class="wu-site-template-selector" @click.prevent="" href="#">
 
-						<?php esc_html_e('Select this Template', 'wp-multisite-waas'); ?>
+						<?php esc_html_e('Select this Template', 'multisite-ultimate'); ?>
 
 					</a>
 

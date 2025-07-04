@@ -64,7 +64,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Email', 'wp-multisite-waas');
+		return __('Email', 'multisite-ultimate');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a email address field. This email address will be used to create the WordPress user.', 'wp-multisite-waas');
+		return __('Adds a email address field. This email address will be used to create the WordPress user.', 'multisite-ultimate');
 	}
 
 	/**
@@ -90,7 +90,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a email address field. This email address will be used to create the WordPress user.', 'wp-multisite-waas');
+		return __('Adds a email address field. This email address will be used to create the WordPress user.', 'multisite-ultimate');
 	}
 	/**
 	 * Returns the icon to be used on the selector.
@@ -160,8 +160,8 @@ class Signup_Field_Email extends Base_Signup_Field {
 		return [
 			'display_notices' => [
 				'type'      => 'toggle',
-				'title'     => __('Display Notices', 'wp-multisite-waas'),
-				'desc'      => __('When the customer is already logged in, a box with the customer\'s username and a link to logout is displayed instead of the email field. Disable this option if you do not want that box to show up.', 'wp-multisite-waas'),
+				'title'     => __('Display Notices', 'multisite-ultimate'),
+				'desc'      => __('When the customer is already logged in, a box with the customer\'s username and a link to logout is displayed instead of the email field. Disable this option if you do not want that box to show up.', 'multisite-ultimate'),
 				'tooltip'   => '',
 				'value'     => 1,
 				'html_attr' => [
@@ -187,7 +187,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 			if ($attributes['display_notices']) {
 				$checkout_fields['login_note'] = [
 					'type'              => 'note',
-					'title'             => __('Not you?', 'wp-multisite-waas'),
+					'title'             => __('Not you?', 'multisite-ultimate'),
 					'desc'              => [$this, 'render_not_you_customer_message'],
 					'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
 					'wrapper_html_attr' => [
@@ -199,7 +199,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 			if ($attributes['display_notices']) {
 				$checkout_fields['login_note'] = [
 					'type'              => 'note',
-					'title'             => __('Existing customer?', 'wp-multisite-waas'),
+					'title'             => __('Existing customer?', 'multisite-ultimate'),
 					'desc'              => [$this, 'render_existing_customer_message'],
 					'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
 					'wrapper_html_attr' => [
@@ -244,7 +244,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 			<?php // phpcs:disable
 
 			// translators: %s is the login URL.
-			printf(__('<a href="%s">Log in</a> to renew or change an existing membership.', 'wp-multisite-waas'), $login_url);
+			printf(__('<a href="%s">Log in</a> to renew or change an existing membership.', 'multisite-ultimate'), $login_url);
 
 			?>
 
@@ -273,7 +273,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 		<?php
 
 		// translators: 1$s is the display name of the user currently logged in.
-		printf(__('Not %1$s? <a href="%2$s">Log in</a> using your account.', 'wp-multisite-waas'), wp_get_current_user()->display_name, $login_url);
+		printf(wp_kses_post(__('Not %1$s? <a href="%2$s">Log in</a> using your account.', 'multisite-ultimate')), esc_html(wp_get_current_user()->display_name), esc_attr($login_url));
 
 		?>
 		</p>

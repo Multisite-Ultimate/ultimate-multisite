@@ -8,7 +8,7 @@
 
 <?php if ($field->desc) : ?>
 
-	<?php echo $field->desc; ?>
+	<?php echo wp_kses($field->desc, wu_kses_allowed_html()); ?>
 
 	<?php
 endif;

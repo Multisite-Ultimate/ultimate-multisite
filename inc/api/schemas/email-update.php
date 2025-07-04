@@ -20,7 +20,7 @@ defined('ABSPATH') || exit;
  */
 return [
 	'style'               => [
-		'description' => __("The email style. Can be 'html' or 'plain-text'.", 'wp-multisite-waas'),
+		'description' => __("The email style. Can be 'html' or 'plain-text'.", 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -29,32 +29,32 @@ return [
 		],
 	],
 	'schedule'            => [
-		'description' => __('Whether or not this is a scheduled email.', 'wp-multisite-waas'),
+		'description' => __('Whether or not this is a scheduled email.', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'type'                => [
-		'description' => __('The type being set.', 'wp-multisite-waas'),
+		'description' => __('The type being set.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'event'               => [
-		'description' => __('The event that needs to be fired for this email to be sent.', 'wp-multisite-waas'),
+		'description' => __('The event that needs to be fired for this email to be sent.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'send_hours'          => [
-		'description' => __('The amount of hours that the email will wait before is sent.', 'wp-multisite-waas'),
+		'description' => __('The amount of hours that the email will wait before is sent.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'send_days'           => [
-		'description' => __('The amount of days that the email will wait before is sent.', 'wp-multisite-waas'),
+		'description' => __('The amount of days that the email will wait before is sent.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'schedule_type'       => [
-		'description' => __("The type of schedule. Can be 'days' or 'hours'.", 'wp-multisite-waas'),
+		'description' => __("The type of schedule. Can be 'days' or 'hours'.", 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -63,27 +63,27 @@ return [
 		],
 	],
 	'name'                => [
-		'description' => __('The name being set as title.', 'wp-multisite-waas'),
+		'description' => __('The name being set as title.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'custom_sender'       => [
-		'description' => __('If has a custom sender.', 'wp-multisite-waas'),
+		'description' => __('If has a custom sender.', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'custom_sender_name'  => [
-		'description' => __('The name of the custom sender. E.g. From: John Doe.', 'wp-multisite-waas'),
+		'description' => __('The name of the custom sender. E.g. From: John Doe.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'custom_sender_email' => [
-		'description' => __('The email of the custom sender. E.g. From: johndoe@gmail.com.', 'wp-multisite-waas'),
+		'description' => __('The email of the custom sender. E.g. From: johndoe@gmail.com.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'target'              => [
-		'description' => __("If we should send this to a customer or to the network admin. Can be 'customer' or 'admin'.", 'wp-multisite-waas'),
+		'description' => __("If we should send this to a customer or to the network admin. Can be 'customer' or 'admin'.", 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -92,52 +92,52 @@ return [
 		],
 	],
 	'send_copy_to_admin'  => [
-		'description' => __('Checks if we should send a copy of the email to the admin.', 'wp-multisite-waas'),
+		'description' => __('Checks if we should send a copy of the email to the admin.', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'active'              => [
-		'description' => __('Set this email as active (true), which means available will fire when the event occur, or inactive (false).', 'wp-multisite-waas'),
+		'description' => __('Set this email as active (true), which means available will fire when the event occur, or inactive (false).', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'legacy'              => [
-		'description' => __('Whether or not this is a legacy email.', 'wp-multisite-waas'),
+		'description' => __('Whether or not this is a legacy email.', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'title'               => [
-		'description' => __('Post title.', 'wp-multisite-waas'),
+		'description' => __('Post title.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'content'             => [
-		'description' => __('Post content.', 'wp-multisite-waas'),
+		'description' => __('Post content.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'excerpt'             => [
-		'description' => __('Post excerpt.', 'wp-multisite-waas'),
+		'description' => __('Post excerpt.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_created'        => [
-		'description' => __('Post creation date.', 'wp-multisite-waas'),
+		'description' => __('Post creation date.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_modified'       => [
-		'description' => __('Post last modification date.', 'wp-multisite-waas'),
+		'description' => __('Post last modification date.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'migrated_from_id'    => [
-		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'wp-multisite-waas'),
+		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'skip_validation'     => [
-		'description' => __('Set true to have field information validation bypassed when saving this event.', 'wp-multisite-waas'),
+		'description' => __('Set true to have field information validation bypassed when saving this event.', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],

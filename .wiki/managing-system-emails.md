@@ -2,7 +2,7 @@
 
 # Reseting & Importing system emails
 
-New WP Multisite WaaS versions, as well as add-ons, can and will register new emails from time to time.
+New Multisite Ultimate versions, as well as add-ons, can and will register new emails from time to time.
 
 To prevent conflicts and other issues, we won't add the new email templates as System Emails on your install automatically, unless they are crucial to the correct functioning of a given feature.
 
@@ -10,7 +10,7 @@ However, super admins and agents can import this newly registered emails via the
 
 ## How to import system emails
 
-Go to your WP Multisite WaaS Settings page and head to the Emails tab.
+Go to your Multisite Ultimate Settings page and head to the Emails tab.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-yIQvxZcJqk.png)
 

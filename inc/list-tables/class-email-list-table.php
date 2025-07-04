@@ -36,8 +36,8 @@ class Email_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Email', 'wp-multisite-waas'),  // singular name of the listed records
-				'plural'   => __('Emails', 'wp-multisite-waas'), // plural name of the listed records
+				'singular' => __('Email', 'multisite-ultimate'),  // singular name of the listed records
+				'plural'   => __('Emails', 'multisite-ultimate'), // plural name of the listed records
 				'ajax'     => true,                         // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_network_admin_url('wp-ultimo-edit-email'),
@@ -74,7 +74,7 @@ class Email_List_Table extends Base_List_Table {
 		$target = wu_request('target');
 
 		if ($target && 'all' !== $target) {
-			$query['meta_query'] = [
+			$query['meta_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				'type' => [
 					'key'   => 'wu_target',
 					'value' => $target,
@@ -110,9 +110,9 @@ class Email_List_Table extends Base_List_Table {
 		$content = wp_trim_words(wp_strip_all_tags($item->get_content()), 6);
 
 		$actions = [
-			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-email', $url_atts), __('Edit', 'wp-multisite-waas')),
-			'duplicate' => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-email', $url_atts), __('Duplicate', 'wp-multisite-waas')),
-			'send-test' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Send Test Email', 'wp-multisite-waas'), wu_get_form_url('send_new_test', $url_atts), __('Send Test Email', 'wp-multisite-waas')),
+			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-email', $url_atts), __('Edit', 'multisite-ultimate')),
+			'duplicate' => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-email', $url_atts), __('Duplicate', 'multisite-ultimate')),
+			'send-test' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Send Test Email', 'multisite-ultimate'), wu_get_form_url('send_new_test', $url_atts), __('Send Test Email', 'multisite-ultimate')),
 		];
 
 		$slug = $item->get_slug();
@@ -120,10 +120,10 @@ class Email_List_Table extends Base_List_Table {
 		$default_system_emails = wu_get_default_system_emails();
 
 		if (isset($default_system_emails[ $slug ])) {
-			$actions['reset'] = sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Reset', 'wp-multisite-waas'), wu_get_form_url('reset_confirmation', $url_atts), __('Reset', 'wp-multisite-waas'));
+			$actions['reset'] = sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Reset', 'multisite-ultimate'), wu_get_form_url('reset_confirmation', $url_atts), __('Reset', 'multisite-ultimate'));
 		}
 
-		$actions['delete'] = sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'wp-multisite-waas'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'wp-multisite-waas'));
+		$actions['delete'] = sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'multisite-ultimate'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'multisite-ultimate'));
 
 		return $title . $content . $this->row_actions($actions);
 	}
@@ -171,13 +171,14 @@ class Email_List_Table extends Base_List_Table {
 		if ($item->has_schedule()) {
 			if ($item->get_schedule_type() === 'hours') {
 				$time = explode(':', (string) $item->get_send_hours());
-
-				$text = sprintf(__('%1$s hour(s) and %2$s minute(s) after the event.', 'wp-multisite-waas'), $time[0], $time[1]);
+				// translators: %1$s is the number of hours, %2$s is the number of minutes.
+				$text = sprintf(__('%1$s hour(s) and %2$s minute(s) after the event.', 'multisite-ultimate'), $time[0], $time[1]);
 			} elseif ($item->get_schedule_type() === 'days') {
-				$text = sprintf(__('%s day(s) after the event.', 'wp-multisite-waas'), $item->get_send_days());
+				// translators: %s is the number of days.
+				$text = sprintf(__('%s day(s) after the event.', 'multisite-ultimate'), $item->get_send_days());
 			}
 		} else {
-			$text = __('Sent immediately after the event.', 'wp-multisite-waas');
+			$text = __('Sent immediately after the event.', 'multisite-ultimate');
 		}
 
 		return $text;
@@ -193,11 +194,11 @@ class Email_List_Table extends Base_List_Table {
 
 		$columns = [
 			'cb'       => '<input type="checkbox" />',
-			'title'    => __('Content', 'wp-multisite-waas'),
-			'slug'     => __('Event', 'wp-multisite-waas'),
-			'event'    => __('slug', 'wp-multisite-waas'),
-			'schedule' => __('When', 'wp-multisite-waas'),
-			'id'       => __('ID', 'wp-multisite-waas'),
+			'title'    => __('Content', 'multisite-ultimate'),
+			'slug'     => __('Event', 'multisite-ultimate'),
+			'event'    => __('slug', 'multisite-ultimate'),
+			'schedule' => __('When', 'multisite-ultimate'),
+			'id'       => __('ID', 'multisite-ultimate'),
 		];
 
 		return $columns;
@@ -219,14 +220,14 @@ class Email_List_Table extends Base_List_Table {
 			$email = wu_get_email($email_id);
 
 			if ( ! $email) {
-				WP_Ultimo()->notices->add(__('Email not found.', 'wp-multisite-waas'), 'error', 'network-admin');
+				WP_Ultimo()->notices->add(__('Email not found.', 'multisite-ultimate'), 'error', 'network-admin');
 
 				return;
 			}
 
 			$new_email = $email->duplicate();
 			// translators: the %s is the thing copied.
-			$new_name = sprintf(__('Copy of %s', 'wp-multisite-waas'), $email->get_name());
+			$new_name = sprintf(__('Copy of %s', 'multisite-ultimate'), $email->get_name());
 
 			$new_email->set_name($new_name);
 
@@ -292,16 +293,16 @@ class Email_List_Table extends Base_List_Table {
 		return [
 			'filters'      => [
 				'type' => [
-					'label'   => __('Email Type', 'wp-multisite-waas'),
+					'label'   => __('Email Type', 'multisite-ultimate'),
 					'options' => [
-						'email_email'     => __('Email', 'wp-multisite-waas'),
-						'broadcast_email' => __('Notices', 'wp-multisite-waas'),
+						'email_email'     => __('Email', 'multisite-ultimate'),
+						'broadcast_email' => __('Notices', 'multisite-ultimate'),
 					],
 				],
 			],
 			'date_filters' => [
 				'date_created' => [
-					'label'   => __('Date', 'wp-multisite-waas'),
+					'label'   => __('Date', 'multisite-ultimate'),
 					'options' => $this->get_default_date_filter_options(),
 				],
 			],
@@ -320,19 +321,19 @@ class Email_List_Table extends Base_List_Table {
 			'all'      => [
 				'field' => 'target',
 				'url'   => add_query_arg('target', 'all'),
-				'label' => __('All Emails', 'wp-multisite-waas'),
+				'label' => __('All Emails', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			'admin'    => [
 				'field' => 'target',
 				'url'   => add_query_arg('target', 'admin'),
-				'label' => __('Admin Emails', 'wp-multisite-waas'),
+				'label' => __('Admin Emails', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			'customer' => [
 				'field' => 'target',
 				'url'   => add_query_arg('target', 'customer'),
-				'label' => __('Customer Emails', 'wp-multisite-waas'),
+				'label' => __('Customer Emails', 'multisite-ultimate'),
 				'count' => 0,
 			],
 		];

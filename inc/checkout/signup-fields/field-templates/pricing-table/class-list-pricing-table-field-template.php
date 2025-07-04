@@ -42,7 +42,7 @@ class List_Pricing_Table_Field_Template extends Base_Field_Template {
 	 */
 	public function get_title() {
 
-		return __('Simple List', 'wp-multisite-waas');
+		return __('Simple List', 'multisite-ultimate');
 	}
 
 	/**
@@ -55,7 +55,7 @@ class List_Pricing_Table_Field_Template extends Base_Field_Template {
 	 */
 	public function get_description() {
 
-		return __('Simple stylized list with price, recurrence, and the plan description.', 'wp-multisite-waas');
+		return __('Simple stylized list with price, recurrence, and the plan description.', 'multisite-ultimate');
 	}
 
 	/**

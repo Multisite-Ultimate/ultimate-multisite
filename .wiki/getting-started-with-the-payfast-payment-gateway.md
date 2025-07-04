@@ -1,12 +1,12 @@
 # Getting Started with the PayFast Payment Gateway
 
-PayFast is a leading online payment processor for businesses in South Africa. It’s dedicated to helping online merchants grow by making transactions seamless and secure. As per WP Multisite WaaS user's request, we decided to create an addon that will make integration with PayFast possible. This article with show how to set up PayFast as your payment gateway to receive payment in your WP Multisite WaaS network.
+PayFast is a leading online payment processor for businesses in South Africa. It’s dedicated to helping online merchants grow by making transactions seamless and secure. As per Multisite Ultimate user's request, we decided to create an addon that will make integration with PayFast possible. This article with show how to set up PayFast as your payment gateway to receive payment in your Multisite Ultimate network.
 
 The first step is to install the add on.
 
 # How to install the Payfast add-on:
 
-Go to the add-ons page and select the WP Multisite WaaS: Payfast Gateway add-on.
+Go to the add-ons page and select the Multisite Ultimate: Payfast Gateway add-on.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-BmLWqj4yjt.png)
 
@@ -20,9 +20,9 @@ After the installation is done, you will be redirected to the plugins page. Here
 
 # Setting Up PayFast
 
-After installing the add-on, you can now go to WP Multisite WaaS settings and start to configure PayFast.
+After installing the add-on, you can now go to Multisite Ultimate settings and start to configure PayFast.
 
-Under **WP Multisite WaaS settings** page, you can find the "Payments" tab. Under this tab, you should "**Payfast** " along with a toggle button to enable or disable this payment gateway.
+Under **Multisite Ultimate settings** page, you can find the "Payments" tab. Under this tab, you should "**Payfast** " along with a toggle button to enable or disable this payment gateway.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-07bPkaGJka.png)Go ahead and click the toggle button to enable it. It will then expand the box to show different fields that you need to populate such as **Mechant ID, Merchant Key and PassPhrase.** You can get this information from your **Payfast** account
 
@@ -32,7 +32,7 @@ The next step is to login to your PayFast account to get the information you nee
 
 Upon logging in, you can immediately see the credentials you need from your **Payfast** account dashboard.
 
-![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-KW0WnsxHIW.png)You can simply copy and paste the credential and populate the details on your WP Multisite WaaS settings. Then click the **"Save settings** " button to save the changes.
+![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-KW0WnsxHIW.png)You can simply copy and paste the credential and populate the details on your Multisite Ultimate settings. Then click the **"Save settings** " button to save the changes.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-5MIrG21r3e.png)
 

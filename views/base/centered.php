@@ -45,7 +45,7 @@
 		 * Allow plugin developers to add additional buttons to list pages
 		 *
 		 * @since 1.8.2
-		 * @param WU_Page $page WP Multisite WaaS Page instance
+		 * @param WU_Page $page Multisite Ultimate Page instance
 		 */
 		do_action('wu_page_centered_after_title', $page);
 		?>
@@ -98,7 +98,7 @@
 
 						<h3 class="wu-m-0 wu-widget-title">
 
-							<?php esc_html_e('Change Membership', 'wp-multisite-waas'); ?>
+							<?php esc_html_e('Change Membership', 'multisite-ultimate'); ?>
 
 						</h3>
 
@@ -142,7 +142,7 @@
 					 * Allow plugin developers to add additional buttons to list pages
 					 *
 					 * @since 1.8.2
-					 * @param WU_Page $page WP Multisite WaaS Page instance
+					 * @param WU_Page $page Multisite Ultimate Page instance
 					 */
 					do_action('wu_centered_content', $page);
 
@@ -159,7 +159,7 @@
 					 * Allow plugin developers to add additional buttons to list pages
 					 *
 					 * @since 1.8.2
-					 * @param WU_Page $page WP Multisite WaaS Page instance
+					 * @param WU_Page $page Multisite Ultimate Page instance
 					 */
 					do_action('wu_centered_right', $page);
 

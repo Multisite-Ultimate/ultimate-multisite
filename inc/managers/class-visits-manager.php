@@ -69,7 +69,7 @@ class Visits_Manager {
 		}
 
 		if ($site->has_limitations() && $site->get_visits_count() > $site->get_limitations()->visits->get_limit()) {
-			wp_die(__('This site is not available at this time.', 'wp-multisite-waas'), __('Not available', 'wp-multisite-waas'), 404);
+			wp_die(esc_html__('This site is not available at this time.', 'multisite-ultimate'), esc_html__('Not available', 'multisite-ultimate'), 404);
 		}
 	}
 
@@ -133,7 +133,7 @@ class Visits_Manager {
 
 		}
 
-		wp_register_script('wu-visits-counter', wu_get_asset('visits-counter.js', 'js'), [], wu_get_version());
+		wp_register_script('wu-visits-counter', wu_get_asset('visits-counter.js', 'js'), [], wu_get_version(), true);
 
 		wp_localize_script(
 			'wu-visits-counter',

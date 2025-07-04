@@ -117,7 +117,7 @@ class Register_Endpoint {
 			return $validation_errors;
 		}
 
-		$wpdb->query('START TRANSACTION');
+		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 		try {
 			$customer = $this->maybe_create_customer($params);
@@ -130,7 +130,7 @@ class Register_Endpoint {
 
 			$customer->add_note(
 				[
-					'text'      => __('Created via REST API', 'wp-multisite-waas'),
+					'text'      => __('Created via REST API', 'multisite-ultimate'),
 					'author_id' => $customer->get_user_id(),
 				]
 			);
@@ -168,7 +168,7 @@ class Register_Endpoint {
 			if ($cart->is_valid() && count($cart->get_line_items()) === 0) {
 				return new \WP_Error(
 					'invalid_cart',
-					__('Products are required.', 'wp-multisite-waas'),
+					__('Products are required.', 'multisite-ultimate'),
 					array_merge(
 						(array) $cart->done(),
 						[
@@ -215,7 +215,7 @@ class Register_Endpoint {
 
 			$membership->add_note(
 				[
-					'text'      => __('Created via REST API', 'wp-multisite-waas'),
+					'text'      => __('Created via REST API', 'multisite-ultimate'),
 					'author_id' => $customer->get_user_id(),
 				]
 			);
@@ -253,7 +253,7 @@ class Register_Endpoint {
 
 			$payment->add_note(
 				[
-					'text'      => __('Created via REST API', 'wp-multisite-waas'),
+					'text'      => __('Created via REST API', 'multisite-ultimate'),
 					'author_id' => $customer->get_user_id(),
 				]
 			);
@@ -299,12 +299,12 @@ class Register_Endpoint {
 				$payment->save();
 			}
 		} catch (\Throwable $e) {
-			$wpdb->query('ROLLBACK');
+			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 			return new \WP_Error('registration_error', $e->getMessage(), ['status' => 500]);
 		}
 
-		$wpdb->query('COMMIT');
+		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 		/*
 		 * We have everything we need now.
@@ -333,29 +333,29 @@ class Register_Endpoint {
 
 		$customer_args = [
 			'customer_id' => [
-				'description' => __('The customer ID, if the customer already exists. If you also need to create a customer/wp user, use the "customer" property.', 'wp-multisite-waas'),
+				'description' => __('The customer ID, if the customer already exists. If you also need to create a customer/wp user, use the "customer" property.', 'multisite-ultimate'),
 				'type'        => 'integer',
 			],
 			'customer'    => [
-				'description' => __('Customer data. Needs to be present when customer id is not.', 'wp-multisite-waas'),
+				'description' => __('Customer data. Needs to be present when customer id is not.', 'multisite-ultimate'),
 				'type'        => 'object',
 				'properties'  => [
 					'user_id'         => [
-						'description' => __('Existing WordPress user id to attach this customer to. If you also need to create a WordPress user, pass the properties "username", "password", and "email".', 'wp-multisite-waas'),
+						'description' => __('Existing WordPress user id to attach this customer to. If you also need to create a WordPress user, pass the properties "username", "password", and "email".', 'multisite-ultimate'),
 						'type'        => 'integer',
 					],
 					'username'        => [
-						'description' => __('The customer username. This is used to create the WordPress user.', 'wp-multisite-waas'),
+						'description' => __('The customer username. This is used to create the WordPress user.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'minLength'   => 4,
 					],
 					'password'        => [
-						'description' => __('The customer password. This is used to create the WordPress user. Note that no validation is performed here to enforce strength.', 'wp-multisite-waas'),
+						'description' => __('The customer password. This is used to create the WordPress user. Note that no validation is performed here to enforce strength.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'minLength'   => 6,
 					],
 					'email'           => [
-						'description' => __('The customer email address. This is used to create the WordPress user.', 'wp-multisite-waas'),
+						'description' => __('The customer email address. This is used to create the WordPress user.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'format'      => 'email',
 					],
@@ -369,42 +369,42 @@ class Register_Endpoint {
 
 		$membership_args = [
 			'membership' => [
-				'description' => __('The membership data is automatically generated based on the cart info passed (e.g. products) but can be overridden with this property.', 'wp-multisite-waas'),
+				'description' => __('The membership data is automatically generated based on the cart info passed (e.g. products) but can be overridden with this property.', 'multisite-ultimate'),
 				'type'        => 'object',
 				'properties'  => [
 					'status'                      => [
-						'description' => __('The membership status.', 'wp-multisite-waas'),
+						'description' => __('The membership status.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'enum'        => array_values(Membership_Status::get_allowed_list()),
 						'default'     => Membership_Status::PENDING,
 					],
 					'date_expiration'             => [
-						'description' => __('The membership expiration date. Must be a valid PHP date format.', 'wp-multisite-waas'),
+						'description' => __('The membership expiration date. Must be a valid PHP date format.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'format'      => 'date-time',
 					],
 					'date_trial_end'              => [
-						'description' => __('The membership trial end date. Must be a valid PHP date format.', 'wp-multisite-waas'),
+						'description' => __('The membership trial end date. Must be a valid PHP date format.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'format'      => 'date-time',
 					],
 					'date_activated'              => [
-						'description' => __('The membership activation date. Must be a valid PHP date format.', 'wp-multisite-waas'),
+						'description' => __('The membership activation date. Must be a valid PHP date format.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'format'      => 'date-time',
 					],
 					'date_renewed'                => [
-						'description' => __('The membership last renewed date. Must be a valid PHP date format.', 'wp-multisite-waas'),
+						'description' => __('The membership last renewed date. Must be a valid PHP date format.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'format'      => 'date-time',
 					],
 					'date_cancellation'           => [
-						'description' => __('The membership cancellation date. Must be a valid PHP date format.', 'wp-multisite-waas'),
+						'description' => __('The membership cancellation date. Must be a valid PHP date format.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'format'      => 'date-time',
 					],
 					'date_payment_plan_completed' => [
-						'description' => __('The membership completion date. Used when the membership is limited to a limited number of billing cycles. Must be a valid PHP date format.', 'wp-multisite-waas'),
+						'description' => __('The membership completion date. Used when the membership is limited to a limited number of billing cycles. Must be a valid PHP date format.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'format'      => 'date-time',
 					],
@@ -414,11 +414,11 @@ class Register_Endpoint {
 
 		$payment_args = [
 			'payment'        => [
-				'description' => __('The payment data is automatically generated based on the cart info passed (e.g. products) but can be overridden with this property.', 'wp-multisite-waas'),
+				'description' => __('The payment data is automatically generated based on the cart info passed (e.g. products) but can be overridden with this property.', 'multisite-ultimate'),
 				'type'        => 'object',
 				'properties'  => [
 					'status' => [
-						'description' => __('The payment status.', 'wp-multisite-waas'),
+						'description' => __('The payment status.', 'multisite-ultimate'),
 						'type'        => 'string',
 						'enum'        => array_values(Payment_Status::get_allowed_list()),
 						'default'     => Payment_Status::PENDING,
@@ -426,23 +426,23 @@ class Register_Endpoint {
 				],
 			],
 			'payment_method' => [
-				'description' => __('Payment method information. Useful when using the REST API to integrate other payment methods.', 'wp-multisite-waas'),
+				'description' => __('Payment method information. Useful when using the REST API to integrate other payment methods.', 'multisite-ultimate'),
 				'type'        => 'object',
 				'properties'  => [
 					'gateway'                 => [
-						'description' => __('The gateway name. E.g. stripe.', 'wp-multisite-waas'),
+						'description' => __('The gateway name. E.g. stripe.', 'multisite-ultimate'),
 						'type'        => 'string',
 					],
 					'gateway_customer_id'     => [
-						'description' => __('The customer ID on the gateway system.', 'wp-multisite-waas'),
+						'description' => __('The customer ID on the gateway system.', 'multisite-ultimate'),
 						'type'        => 'string',
 					],
 					'gateway_subscription_id' => [
-						'description' => __('The subscription ID on the gateway system.', 'wp-multisite-waas'),
+						'description' => __('The subscription ID on the gateway system.', 'multisite-ultimate'),
 						'type'        => 'string',
 					],
 					'gateway_payment_id'      => [
-						'description' => __('The payment ID on the gateway system.', 'wp-multisite-waas'),
+						'description' => __('The payment ID on the gateway system.', 'multisite-ultimate'),
 						'type'        => 'string',
 					],
 				],
@@ -455,31 +455,31 @@ class Register_Endpoint {
 				'properties' => [
 					'site_url'    => [
 						'type'        => 'string',
-						'description' => __('The site subdomain or subdirectory (depending on your Multisite install). This would be "test" in "test.your-network.com".', 'wp-multisite-waas'),
+						'description' => __('The site subdomain or subdirectory (depending on your Multisite install). This would be "test" in "test.your-network.com".', 'multisite-ultimate'),
 						'minLength'   => 4,
 						'required'    => true,
 					],
 					'site_title'  => [
 						'type'        => 'string',
-						'description' => __('The site title. E.g. My Amazing Site', 'wp-multisite-waas'),
+						'description' => __('The site title. E.g. My Amazing Site', 'multisite-ultimate'),
 						'minLength'   => 4,
 						'required'    => true,
 					],
 					'publish'     => [
-						'description' => __('If we should publish this site regardless of membership/payment status. Sites are created as pending by default, and are only published when a payment is received or the status of the membership changes to "active". This flag allows you to bypass the pending state.', 'wp-multisite-waas'),
+						'description' => __('If we should publish this site regardless of membership/payment status. Sites are created as pending by default, and are only published when a payment is received or the status of the membership changes to "active". This flag allows you to bypass the pending state.', 'multisite-ultimate'),
 						'type'        => 'boolean',
 						'default'     => false,
 					],
 					'template_id' => [
-						'description' => __('The template ID we should copy when creating this site. If left empty, the value dictated by the products will be used.', 'wp-multisite-waas'),
+						'description' => __('The template ID we should copy when creating this site. If left empty, the value dictated by the products will be used.', 'multisite-ultimate'),
 						'type'        => 'integer',
 					],
 					'site_meta'   => [
-						'description' => __('An associative array of key values to be saved as site_meta.', 'wp-multisite-waas'),
+						'description' => __('An associative array of key values to be saved as site_meta.', 'multisite-ultimate'),
 						'type'        => 'object',
 					],
 					'site_option' => [
-						'description' => __('An associative array of key values to be saved as site_options. Useful for changing plugin settings and other site configurations.', 'wp-multisite-waas'),
+						'description' => __('An associative array of key values to be saved as site_options. Useful for changing plugin settings and other site configurations.', 'multisite-ultimate'),
 						'type'        => 'object',
 					],
 				],
@@ -488,17 +488,17 @@ class Register_Endpoint {
 
 		$cart_args = [
 			'products'      => [
-				'description' => __('The products to be added to this membership. Takes an array of product ids or slugs.', 'wp-multisite-waas'),
+				'description' => __('The products to be added to this membership. Takes an array of product ids or slugs.', 'multisite-ultimate'),
 				'uniqueItems' => true,
 				'type'        => 'array',
 			],
 			'duration'      => [
-				'description' => __('The membership duration.', 'wp-multisite-waas'),
+				'description' => __('The membership duration.', 'multisite-ultimate'),
 				'type'        => 'integer',
 				'required'    => false,
 			],
 			'duration_unit' => [
-				'description' => __('The membership duration unit.', 'wp-multisite-waas'),
+				'description' => __('The membership duration unit.', 'multisite-ultimate'),
 				'type'        => 'string',
 				'default'     => 'month',
 				'enum'        => [
@@ -509,22 +509,22 @@ class Register_Endpoint {
 				],
 			],
 			'discount_code' => [
-				'description' => __('A discount code. E.g. PROMO10.', 'wp-multisite-waas'),
+				'description' => __('A discount code. E.g. PROMO10.', 'multisite-ultimate'),
 				'type'        => 'string',
 			],
 			'auto_renew'    => [
-				'description' => __('The membership auto-renew status. Useful when integrating with other payment options via this REST API.', 'wp-multisite-waas'),
+				'description' => __('The membership auto-renew status. Useful when integrating with other payment options via this REST API.', 'multisite-ultimate'),
 				'type'        => 'boolean',
 				'default'     => false,
 				'required'    => true,
 			],
 			'country'       => [
-				'description' => __('The customer country. Used to calculate taxes and check if registration is allowed for that country.', 'wp-multisite-waas'),
+				'description' => __('The customer country. Used to calculate taxes and check if registration is allowed for that country.', 'multisite-ultimate'),
 				'type'        => 'string',
 				'default'     => '',
 			],
 			'currency'      => [
-				'description' => __('The currency to be used.', 'wp-multisite-waas'),
+				'description' => __('The currency to be used.', 'multisite-ultimate'),
 				'type'        => 'string',
 			],
 		];
@@ -550,7 +550,7 @@ class Register_Endpoint {
 			$customer = wu_get_customer($customer_id);
 
 			if ( ! $customer) {
-				return new \WP_Error('customer_not_found', __('The customer id sent does not correspond to a valid customer.', 'wp-multisite-waas'));
+				return new \WP_Error('customer_not_found', __('The customer id sent does not correspond to a valid customer.', 'multisite-ultimate'));
 			}
 		} else {
 			$customer = wu_create_customer($p['customer']);
@@ -709,7 +709,7 @@ class Register_Endpoint {
 
 		global $wpdb;
 
-		$wpdb->query('ROLLBACK');
+		$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 		return $error;
 	}

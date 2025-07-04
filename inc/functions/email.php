@@ -53,7 +53,7 @@ function wu_get_emails($query = []) {
 	$query['type__in'] = ['system_email'];
 
 	if (wu_get_isset($query, 'event')) {
-		$query['meta_query'] = [
+		$query['meta_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			'event_query' => [
 				'key'   => 'wu_system_email_event',
 				'value' => wu_get_isset($query, 'event'),

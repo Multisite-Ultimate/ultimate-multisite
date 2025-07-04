@@ -120,14 +120,15 @@ class Broadcast_Manager extends Base_Manager {
 	 */
 	public function handle_broadcast(): void {
 
-		$args = $_POST;
+		// Nonce check happens in Form_Manager::handle_form()
+		$args = $_POST; // phpcs:ignore WordPress.Security.NonceVerification
 
 		$target_customers = wu_request('target_customers', '');
 
 		$target_products = wu_request('target_products', '');
 
 		if ( ! $target_customers && ! $target_products) {
-			wp_send_json_error(new \WP_Error('error', __('No product or customer target was selected.', 'wp-multisite-waas')));
+			wp_send_json_error(new \WP_Error('error', __('No product or customer target was selected.', 'multisite-ultimate')));
 		}
 
 		$broadcast_type = wu_request('type', 'broadcast_notice');
@@ -248,7 +249,7 @@ class Broadcast_Manager extends Base_Manager {
 			}
 		}
 
-		$error = new \WP_Error('mail-error', __('Something wrong happened.', 'wp-multisite-waas'));
+		$error = new \WP_Error('mail-error', __('Something wrong happened.', 'multisite-ultimate'));
 
 		wp_send_json_error($error);
 	}

@@ -100,14 +100,14 @@ class Account_Summary_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Account Summary', 'wp-multisite-waas');
+		return __('Account Summary', 'multisite-ultimate');
 	}
 
 	/**
@@ -116,14 +116,14 @@ class Account_Summary_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a account summary block to the page.', 'wp-multisite-waas');
+		return __('Adds a account summary block to the page.', 'multisite-ultimate');
 	}
 
 	/**
@@ -148,16 +148,16 @@ class Account_Summary_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Title', 'wp-multisite-waas'),
-			'value'   => __('About this Site', 'wp-multisite-waas'),
-			'desc'    => __('Leave blank to hide the title completely.', 'wp-multisite-waas'),
+			'title'   => __('Title', 'multisite-ultimate'),
+			'value'   => __('About this Site', 'multisite-ultimate'),
+			'desc'    => __('Leave blank to hide the title completely.', 'multisite-ultimate'),
 			'tooltip' => '',
 		];
 
@@ -172,7 +172,7 @@ class Account_Summary_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Checkout',
 	 *  'Form',
 	 *  'Cart',
@@ -187,7 +187,7 @@ class Account_Summary_Element extends Base_Element {
 			'WP Ultimo',
 			'Account',
 			'Summary',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 		];
 	}
 
@@ -208,7 +208,7 @@ class Account_Summary_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'title' => __('About this Site', 'wp-multisite-waas'),
+			'title' => __('About this Site', 'multisite-ultimate'),
 		];
 	}
 

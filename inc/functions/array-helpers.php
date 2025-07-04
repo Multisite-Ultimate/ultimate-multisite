@@ -115,8 +115,6 @@ function wu_array_recursive_diff($array1, $array2, $to_keep = []) {
 					$arr_return[ $key ] = $array_recursive_diff;
 				}
 			} elseif ((! is_null($value) && $array2[ $key ] != $value) || ($value && $array2[ $key ] && in_array($key, $to_keep, true))) {
-				// phpcs:ignore
-
 					$arr_return[ $key ] = $value;
 			}
 		} else {

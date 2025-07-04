@@ -44,7 +44,7 @@ $active_gateways = wu_get_active_gateway_as_options();
 			<label class="wu-block" for="field-<?php echo esc_attr($field->id); ?>-<?php echo esc_attr($option_value); ?>">
 
 				<input
-						id="field-gateway-<?php echo esc_attr($option_value); ?>"
+						id="field-<?php echo esc_attr($field->id); ?>-<?php echo esc_attr($option_value); ?>"
 						type="radio"
 						name="gateway"
 						value="<?php echo esc_attr($option_value); ?>"

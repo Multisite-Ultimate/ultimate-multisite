@@ -21,7 +21,7 @@ if ( ! class_exists('WP_List_Table')) {
 /**
  * Base List Table class. Extends WP_List_Table.
  *
- * All of WP Multisite WaaS's list tables should extend this class.
+ * All of Multisite Ultimate's list tables should extend this class.
  * It provides ajax-filtering and pagination out-of-the-box among other cool features.
  *
  * @since 2.0.0
@@ -171,7 +171,7 @@ class Base_List_Table extends \WP_List_Table {
 		if ('grid' === $this->current_mode) {
 			printf(
 				'<button id="cb-select-all-grid" v-on:click.prevent="select_all" class="button">%s</button>',
-				esc_html__('Select All', 'wp-multisite-waas')
+				esc_html__('Select All', 'multisite-ultimate')
 			);
 		}
 	}
@@ -192,8 +192,8 @@ class Base_List_Table extends \WP_List_Table {
 
 		$list_table_name = $this->id;
 
-		if ( ! empty($_REQUEST['mode']) && in_array($_REQUEST['mode'], array_keys($this->modes), true)) {
-			$mode = $_REQUEST['mode'];
+		if ( ! empty($_REQUEST['mode']) && in_array($_REQUEST['mode'], array_keys($this->modes), true)) { // phpcs:ignore WordPress.Security.NonceVerification
+			$mode = sanitize_text_field(wp_unslash($_REQUEST['mode'])); // phpcs:ignore WordPress.Security.NonceVerification
 			set_user_setting("{$list_table_name}_list_mode", $mode);
 		} else {
 			$mode = get_user_setting("{$list_table_name}_list_mode", current(array_keys($this->modes)));
@@ -400,7 +400,7 @@ class Base_List_Table extends \WP_List_Table {
 				'base_url' => wu_get_form_url('bulk_actions'),
 				'model'    => strstr($this->get_table_id(), '_', true),
 				'i18n'     => [
-					'confirm' => __('Confirm Action', 'wp-multisite-waas'),
+					'confirm' => __('Confirm Action', 'multisite-ultimate'),
 				],
 			]
 		);
@@ -499,10 +499,11 @@ class Base_List_Table extends \WP_List_Table {
 		if ( ! $this->has_items() && 'page' === $this->context) {
 			echo wu_render_empty_state( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				[
-					'message'      => sprintf(__("You don't have any %s yet.", 'wp-multisite-waas'), $this->labels['plural']),
-					'sub_message'  => $this->_args['add_new'] ? __('How about we create a new one?', 'wp-multisite-waas') : __('...but you will see them here once they get created.', 'wp-multisite-waas'),
+					// translators: %s name of items in list.
+					'message'      => sprintf(__("You don't have any %s yet.", 'multisite-ultimate'), $this->labels['plural']),
+					'sub_message'  => $this->_args['add_new'] ? __('How about we create a new one?', 'multisite-ultimate') : __('...but you will see them here once they get created.', 'multisite-ultimate'),
 					// translators: %s is the singular value of the model, such as Product, or Payment.
-					'link_label'   => sprintf(__('Create a new %s', 'wp-multisite-waas'), $this->labels['singular']),
+					'link_label'   => sprintf(__('Create a new %s', 'multisite-ultimate'), $this->labels['singular']),
 					'link_url'     => wu_get_isset($this->_args['add_new'], 'url', ''),
 					'link_classes' => wu_get_isset($this->_args['add_new'], 'classes', ''),
 					'link_icon'    => 'dashicons-wu-circle-with-plus',
@@ -589,7 +590,7 @@ class Base_List_Table extends \WP_List_Table {
 			'<div class="wu-py-6 wu-text-gray-600 wu-text-sm wu-text-center">
 			<span class="">%s</span>
 		</div>',
-			esc_html__('No items found', 'wp-multisite-waas')
+			esc_html__('No items found', 'multisite-ultimate')
 		);
 	}
 
@@ -601,7 +602,7 @@ class Base_List_Table extends \WP_List_Table {
 	public function get_bulk_actions() {
 
 		$default_bulk_actions = [
-			'delete' => __('Delete', 'wp-multisite-waas'),
+			'delete' => __('Delete', 'multisite-ultimate'),
 		];
 
 		$has_active = $this->get_schema_columns(
@@ -611,8 +612,8 @@ class Base_List_Table extends \WP_List_Table {
 		);
 
 		if ($has_active) {
-			$default_bulk_actions['activate']   = __('Activate', 'wp-multisite-waas');
-			$default_bulk_actions['deactivate'] = __('Deactivate', 'wp-multisite-waas');
+			$default_bulk_actions['activate']   = __('Activate', 'multisite-ultimate');
+			$default_bulk_actions['deactivate'] = __('Deactivate', 'multisite-ultimate');
 		}
 
 		return apply_filters('wu_bulk_actions', $default_bulk_actions, $this->id);
@@ -653,7 +654,7 @@ class Base_List_Table extends \WP_List_Table {
 		$func_name = $prefix . $model;
 
 		if ( ! function_exists($func_name)) {
-			return new \WP_Error('func-not-exists', __('Something went wrong.', 'wp-multisite-waas'));
+			return new \WP_Error('func-not-exists', __('Something went wrong.', 'multisite-ultimate'));
 		}
 
 		switch ($bulk_action) {
@@ -820,14 +821,14 @@ class Base_List_Table extends \WP_List_Table {
 	public function _column_datetime($date) {
 
 		if ( ! wu_validate_date($date)) {
-			return __('--', 'wp-multisite-waas');
+			return __('--', 'multisite-ultimate');
 		}
 
 		$time = strtotime(get_date_from_gmt((string) $date));
 
 		$formatted_value = date_i18n(get_option('date_format'), $time);
 
-		$placeholder = wu_get_current_time('timestamp') > $time ? __('%s ago', 'wp-multisite-waas') : __('In %s', 'wp-multisite-waas'); // phpcs:ignore
+		$placeholder = wu_get_current_time('timestamp') > $time ? __('%s ago', 'multisite-ultimate') : __('In %s', 'multisite-ultimate'); // phpcs:ignore
 
 		$text = $formatted_value . sprintf('<br><small>%s</small>', sprintf($placeholder, human_time_diff($time)));
 
@@ -847,7 +848,7 @@ class Base_List_Table extends \WP_List_Table {
 		$membership = $item->get_membership();
 
 		if ( ! $membership) {
-			$not_found = __('No membership found', 'wp-multisite-waas');
+			$not_found = __('No membership found', 'multisite-ultimate');
 
 			return "<div class='wu-table-card  wu-text-gray-700 wu-py-1 wu-px-2 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
 				<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
@@ -895,7 +896,7 @@ class Base_List_Table extends \WP_List_Table {
 		$payment = $item->get_payment();
 
 		if ( ! $payment) {
-			$not_found = __('No payment found', 'wp-multisite-waas');
+			$not_found = __('No payment found', 'multisite-ultimate');
 
 			return "<div class='wu-table-card  wu-text-gray-700 wu-py-1 wu-px-2 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
 				<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
@@ -914,8 +915,8 @@ class Base_List_Table extends \WP_List_Table {
 		$id = $payment->get_id();
 
 		$reference = $payment->get_hash();
-
-		$description = sprintf(__('Total %s', 'wp-multisite-waas'), wu_format_currency($payment->get_total(), $payment->get_currency()));
+		// translators: %s the payment total.
+		$description = sprintf(__('Total %s', 'multisite-ultimate'), wu_format_currency($payment->get_total(), $payment->get_currency()));
 
 		$payment_link = wu_network_admin_url('wp-ultimo-edit-payment', $url_atts);
 
@@ -943,7 +944,7 @@ class Base_List_Table extends \WP_List_Table {
 		$customer = $item->get_customer();
 
 		if ( ! $customer) {
-			$not_found = __('No customer found', 'wp-multisite-waas');
+			$not_found = __('No customer found', 'multisite-ultimate');
 
 			return "<div class='wu-table-card  wu-text-gray-700 wu-py-1 wu-px-2 wu-flex wu-flex-grow wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
 				<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
@@ -1000,7 +1001,7 @@ class Base_List_Table extends \WP_List_Table {
 		$product = $item->get_plan();
 
 		if ( ! $product) {
-			$not_found = __('No product found', 'wp-multisite-waas');
+			$not_found = __('No product found', 'multisite-ultimate');
 
 			return "<div class='wu-table-card wu-text-gray-700 wu-py-1 wu-px-2 wu-flex wu-flex-grow wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
 				<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
@@ -1053,7 +1054,7 @@ class Base_List_Table extends \WP_List_Table {
 		$site = $item->get_site();
 
 		if ( ! $site) {
-			$not_found = __('No site found', 'wp-multisite-waas');
+			$not_found = __('No site found', 'multisite-ultimate');
 
 			return "<div class='wu-table-card  wu-text-gray-700 wu-py-0 wu-px-2 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
 				<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
@@ -1134,7 +1135,7 @@ class Base_List_Table extends \WP_List_Table {
 	}
 
 	/**
-	 * Overrides the parent method to include the custom ajax functionality for WP Multisite WaaS.
+	 * Overrides the parent method to include the custom ajax functionality for Multisite Ultimate.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -1174,36 +1175,6 @@ class Base_List_Table extends \WP_List_Table {
 	}
 
 	/**
-	 * Fills the filter array with values returned from the current request.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $name Filter name.
-	 * @return mixed
-	 */
-	public function fill_normal_type($name) {
-
-		return isset($_REQUEST[ $name ]) ? ((array) $_REQUEST[ $name ]) : [];
-	}
-
-	/**
-	 * Fills the data filter array with values returned from the current request.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $name Filter name.
-	 * @return mixed
-	 */
-	public function fill_date_type($name) {
-
-		return (object) [
-			'after'  => $_REQUEST[ $name ]['after'] ?? 'all',
-			'before' => $_REQUEST[ $name ]['before'] ?? 'all',
-			'type'   => $_REQUEST[ 'filter_' . $name ] ?? 'all',
-		];
-	}
-
-	/**
 	 * Get the default date filter options.
 	 *
 	 * @since 2.0.0
@@ -1213,47 +1184,47 @@ class Base_List_Table extends \WP_List_Table {
 
 		return [
 			'all'           => [
-				'label'  => __('All', 'wp-multisite-waas'),
+				'label'  => __('All', 'multisite-ultimate'),
 				'after'  => null,
 				'before' => null,
 			],
 			'today'         => [
-				'label'  => __('Today', 'wp-multisite-waas'),
+				'label'  => __('Today', 'multisite-ultimate'),
 				'after'  => date_i18n('Y-m-d 00:00:00', strtotime('today')),
 				'before' => date_i18n('Y-m-d 23:59:59', strtotime('today')),
 			],
 			'yesterday'     => [
-				'label'  => __('Yesterday', 'wp-multisite-waas'),
+				'label'  => __('Yesterday', 'multisite-ultimate'),
 				'after'  => date_i18n('Y-m-d 00:00:00', strtotime('yesterday')),
 				'before' => date_i18n('Y-m-d 23:59:59', strtotime('yesterday')),
 			],
 			'last_week'     => [
-				'label'  => __('Last 7 Days', 'wp-multisite-waas'),
+				'label'  => __('Last 7 Days', 'multisite-ultimate'),
 				'after'  => date_i18n('Y-m-d 00:00:00', strtotime('last week')),
 				'before' => date_i18n('Y-m-d 23:59:59', strtotime('today')),
 			],
 			'last_month'    => [
-				'label'  => __('Last 30 Days', 'wp-multisite-waas'),
+				'label'  => __('Last 30 Days', 'multisite-ultimate'),
 				'after'  => date_i18n('Y-m-d 00:00:00', strtotime('last month')),
 				'before' => date_i18n('Y-m-d 23:59:59', strtotime('today')),
 			],
 			'current_month' => [
-				'label'  => __('Current Month', 'wp-multisite-waas'),
+				'label'  => __('Current Month', 'multisite-ultimate'),
 				'after'  => date_i18n('Y-m-d 00:00:00', strtotime('first day of this month')),
 				'before' => date_i18n('Y-m-d 23:59:59', strtotime('today')),
 			],
 			'last_year'     => [
-				'label'  => __('Last 12 Months', 'wp-multisite-waas'),
+				'label'  => __('Last 12 Months', 'multisite-ultimate'),
 				'after'  => date_i18n('Y-m-d 00:00:00', strtotime('last year')),
 				'before' => date_i18n('Y-m-d 23:59:59', strtotime('today')),
 			],
 			'year_to_date'  => [
-				'label'  => __('Year to Date', 'wp-multisite-waas'),
+				'label'  => __('Year to Date', 'multisite-ultimate'),
 				'after'  => date_i18n('Y-m-d 00:00:00', strtotime('first day of january this year')),
 				'before' => date_i18n('Y-m-d 23:59:59', strtotime('today')),
 			],
 			'custom'        => [
-				'label'  => __('Custom', 'wp-multisite-waas'),
+				'label'  => __('Custom', 'multisite-ultimate'),
 				'after'  => null,
 				'before' => null,
 			],
@@ -1344,11 +1315,11 @@ class Base_List_Table extends \WP_List_Table {
 
 		if (isset($filters['date_filters'])) {
 			foreach ($filters['date_filters'] as $field_name => $field) {
-				if ( ! isset($_REQUEST[ $field_name ])) {
+				if ( ! isset($_REQUEST[ $field_name ])) { // phpcs:ignore WordPress.Security.NonceVerification
 					continue;
 				}
 
-				if (isset($_REQUEST[ $field_name ]['before']) && isset($_REQUEST[ $field_name ]['after']) && '' === $_REQUEST[ $field_name ]['before'] && '' === $_REQUEST[ $field_name ]['after']) {
+				if (isset($_REQUEST[ $field_name ]['before']) && isset($_REQUEST[ $field_name ]['after']) && '' === $_REQUEST[ $field_name ]['before'] && '' === $_REQUEST[ $field_name ]['after']) { // phpcs:ignore WordPress.Security.NonceVerification
 					continue;
 				}
 
@@ -1403,7 +1374,7 @@ class Base_List_Table extends \WP_List_Table {
 				'field' => 'type',
 				'url'   => '#',
 				// translators: %s will be replaced with a plural label
-				'label' => sprintf(__('All %s', 'wp-multisite-waas'), $this->get_label('plural')),
+				'label' => sprintf(__('All %s', 'multisite-ultimate'), $this->get_label('plural')),
 				'count' => 0,
 			],
 		];

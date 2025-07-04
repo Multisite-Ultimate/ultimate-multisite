@@ -2,7 +2,7 @@
 
 Sites or Subsites are basically the bread and butter of your business. In this article, we will discuss how to manage and distinguish each type of site as well as what information is linked or connected to it.
 
-WP Multisite WaaS has 3 types of sites: **Customer-owned** which are sites under specific customers; **Site templates** which are your pre-defined sites that customers select as boilerplate; and **Regular WP sites** which are plain regular subsites in your multisite installation.
+Multisite Ultimate has 3 types of sites: **Customer-owned** which are sites under specific customers; **Site templates** which are your pre-defined sites that customers select as boilerplate; and **Regular WP sites** which are plain regular subsites in your multisite installation.
 
 ## How to add a new site
 
@@ -18,7 +18,7 @@ Make sure that the **Copy Media on Duplication** option is enabled then click th
 
 ## How to manage existing sites
 
-To manage the Sites, you can go to WP Multisite WaaS menu and find the **Sites** option. This will bring up the Sites page which will show the list of subsites within your network. Notice that each site is labeled based on its type.
+To manage the Sites, you can go to Multisite Ultimate menu and find the **Sites** option. This will bring up the Sites page which will show the list of subsites within your network. Notice that each site is labeled based on its type.
 
 ![sites page](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-va1CHZcPCa.png)
 

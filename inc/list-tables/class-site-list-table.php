@@ -41,8 +41,8 @@ class Site_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Site', 'wp-multisite-waas'),  // singular name of the listed records
-				'plural'   => __('Sites', 'wp-multisite-waas'), // plural name of the listed records
+				'singular' => __('Site', 'multisite-ultimate'),  // singular name of the listed records
+				'plural'   => __('Sites', 'multisite-ultimate'), // plural name of the listed records
 				'ajax'     => true,                     // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_get_form_url('add_new_site'),
@@ -80,7 +80,7 @@ class Site_List_Table extends Base_List_Table {
 		];
 
 		if ($type && 'all' !== $type) {
-			$query['meta_query'] = [
+			$query['meta_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				'type' => [
 					'key'   => 'wu_type',
 					'value' => $type,
@@ -129,24 +129,24 @@ class Site_List_Table extends Base_List_Table {
 		$title = "<strong>$title</strong>";
 
 		$actions = [
-			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-site', $url_atts), __('Edit', 'wp-multisite-waas')),
+			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-site', $url_atts), __('Edit', 'multisite-ultimate')),
 			'duplicate' => sprintf(
 				'<a title="%s" class="wubox" href="%s">%s</a>',
-				__('Duplicate Site', 'wp-multisite-waas'),
+				__('Duplicate Site', 'multisite-ultimate'),
 				wu_get_form_url(
 					'add_new_site',
 					$url_atts
 				),
-				__('Duplicate', 'wp-multisite-waas')
+				__('Duplicate', 'multisite-ultimate')
 			),
 			'delete'    => sprintf(
 				'<a title="%s" class="wubox" href="%s">%s</a>',
-				__('Delete', 'wp-multisite-waas'),
+				__('Delete', 'multisite-ultimate'),
 				wu_get_form_url(
 					'delete_modal',
 					$url_atts
 				),
-				__('Delete', 'wp-multisite-waas')
+				__('Delete', 'multisite-ultimate')
 			),
 		];
 
@@ -154,16 +154,16 @@ class Site_List_Table extends Base_List_Table {
 			$actions = [
 				'duplicate' => sprintf(
 					'<a title="%s" class="wubox" href="%s">%s</a>',
-					__('Publish Site', 'wp-multisite-waas'),
+					__('Publish Site', 'multisite-ultimate'),
 					wu_get_form_url(
 						'publish_pending_site',
 						['membership_id' => $item->get_membership_id()]
 					),
-					__('Publish', 'wp-multisite-waas')
+					__('Publish', 'multisite-ultimate')
 				),
 				'delete'    => sprintf(
 					'<a title="%s" class="wubox" href="%s">%s</a>',
-					__('Delete', 'wp-multisite-waas'),
+					__('Delete', 'multisite-ultimate'),
 					wu_get_form_url(
 						'delete_modal',
 						[
@@ -180,7 +180,7 @@ class Site_List_Table extends Base_List_Table {
 							),
 						]
 					),
-					__('Delete', 'wp-multisite-waas')
+					__('Delete', 'multisite-ultimate')
 				),
 			];
 		}
@@ -253,7 +253,7 @@ class Site_List_Table extends Base_List_Table {
 		];
 
 		$actions = [
-			'view' => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-domains', $url_atts), __('View', 'wp-multisite-waas')),
+			'view' => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-domains', $url_atts), __('View', 'multisite-ultimate')),
 		];
 
 		return $domain . $this->row_actions($actions);
@@ -270,12 +270,12 @@ class Site_List_Table extends Base_List_Table {
 		$columns = [
 			'cb'                => '<input type="checkbox" />',
 			'featured_image_id' => '<span class="dashicons-wu-image"></span>',
-			'path'              => __('URL', 'wp-multisite-waas'),
-			'type'              => __('Type', 'wp-multisite-waas'),
-			'customer'          => __('Customer', 'wp-multisite-waas'),
-			'membership'        => __('Membership', 'wp-multisite-waas'),
-			'domains'           => __('Domains', 'wp-multisite-waas'),
-			'blog_id'           => __('ID', 'wp-multisite-waas'),
+			'path'              => __('URL', 'multisite-ultimate'),
+			'type'              => __('Type', 'multisite-ultimate'),
+			'customer'          => __('Customer', 'multisite-ultimate'),
+			'membership'        => __('Membership', 'multisite-ultimate'),
+			'domains'           => __('Domains', 'multisite-ultimate'),
+			'blog_id'           => __('ID', 'multisite-ultimate'),
 		];
 
 		return $columns;
@@ -310,20 +310,20 @@ class Site_List_Table extends Base_List_Table {
 		return [
 			'filters'      => [
 				'vip' => [
-					'label'   => __('VIP Status', 'wp-multisite-waas'),
+					'label'   => __('VIP Status', 'multisite-ultimate'),
 					'options' => [
-						'0' => __('Regular Sites', 'wp-multisite-waas'),
-						'1' => __('VIP Sites', 'wp-multisite-waas'),
+						'0' => __('Regular Sites', 'multisite-ultimate'),
+						'1' => __('VIP Sites', 'multisite-ultimate'),
 					],
 				],
 			],
 			'date_filters' => [
 				'last_login'      => [
-					'label'   => __('Last Login', 'wp-multisite-waas'),
+					'label'   => __('Last Login', 'multisite-ultimate'),
 					'options' => $this->get_default_date_filter_options(),
 				],
 				'date_registered' => [
-					'label'   => __('Site Since', 'wp-multisite-waas'),
+					'label'   => __('Site Since', 'multisite-ultimate'),
 					'options' => $this->get_default_date_filter_options(),
 				],
 			],
@@ -342,25 +342,25 @@ class Site_List_Table extends Base_List_Table {
 			'all'            => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'all'),
-				'label' => __('All Sites', 'wp-multisite-waas'),
+				'label' => __('All Sites', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			'customer_owned' => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'customer_owned'),
-				'label' => __('Customer-Owned', 'wp-multisite-waas'),
+				'label' => __('Customer-Owned', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			'site_template'  => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'site_template'),
-				'label' => __('Templates', 'wp-multisite-waas'),
+				'label' => __('Templates', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			'pending'        => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'pending'),
-				'label' => __('Pending', 'wp-multisite-waas'),
+				'label' => __('Pending', 'multisite-ultimate'),
 				'count' => 0,
 			],
 		];
@@ -374,10 +374,10 @@ class Site_List_Table extends Base_List_Table {
 	public function get_bulk_actions() {
 
 		$actions = [
-			'screenshot' => __('Take Screenshot', 'wp-multisite-waas'),
+			'screenshot' => __('Take Screenshot', 'multisite-ultimate'),
 		];
 
-		$actions[ wu_request('type', 'all') === 'pending' ? 'delete-pending' : 'delete' ] = __('Delete', 'wp-multisite-waas');
+		$actions[ wu_request('type', 'all') === 'pending' ? 'delete-pending' : 'delete' ] = __('Delete', 'multisite-ultimate');
 
 		return $actions;
 	}
@@ -398,7 +398,7 @@ class Site_List_Table extends Base_List_Table {
 			$site = wu_get_site($site_id);
 
 			if ( ! $site) {
-				WP_Ultimo()->notices->add(__('Site not found.', 'wp-multisite-waas'), 'error', 'network-admin');
+				WP_Ultimo()->notices->add(__('Site not found.', 'multisite-ultimate'), 'error', 'network-admin');
 
 				return;
 			}

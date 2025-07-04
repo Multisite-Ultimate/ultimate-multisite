@@ -40,7 +40,7 @@ function wu_errors() {
  */
 function wu_stripe_generate_idempotency_key($args, $context = 'new') {
 
-	$idempotency_key = md5(json_encode($args));
+	$idempotency_key = md5(wp_json_encode($args));
 
 	/**
 	 * Filters the idempotency_key value sent with the Stripe charge options.
@@ -215,11 +215,9 @@ function wu_multiple_memberships_enabled() {
  * @param string $duration_unit Unit: day, month, or year.
  * @param int    $duration Cycle duration.
  *
- * @return int
+ * @return float
  */
 function wu_get_days_in_cycle($duration_unit, $duration) {
-
-	$days_in_cycle = 0;
 
 	switch ($duration_unit) {
 		case 'day':
@@ -235,7 +233,7 @@ function wu_get_days_in_cycle($duration_unit, $duration) {
 			$days_in_cycle = $duration * 365.25;
 			break;
 		default:
-			$days_in_cycle = $days_in_cycle;
+			$days_in_cycle = 0;
 			break;
 	}
 
@@ -246,9 +244,9 @@ function wu_get_days_in_cycle($duration_unit, $duration) {
  * Register a new field type.
  *
  * Field types are types of field (duh!) that can be
- * added to the checkout flow and other forms inside WP Multisite WaaS.
+ * added to the checkout flow and other forms inside Multisite Ultimate.
  *
- * @see https://help.wpultimo.com/article/344-add-custom-field-types-to-wp-ultimo
+ * @see https://github.com/superdav42/wp-multisite-waas/wiki/Add-Custom-Field-Types
  *
  * @since 2.0.0
  *
@@ -273,10 +271,10 @@ function wu_register_field_type($field_type_id, $field_type_class_name) {
  * Register a new field template for a field type.
  *
  * Field templates are different layouts that can be added to
- * WP Multisite WaaS to be used as the final representation of a given
+ * Multisite Ultimate to be used as the final representation of a given
  * checkout field.
  *
- * @see https://help.wpultimo.com/article/343-customize-your-checkout-flow-using-field-templates
+ * @see https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow
  *
  * @since 2.0.0
  *

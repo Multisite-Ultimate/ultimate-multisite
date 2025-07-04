@@ -1,6 +1,6 @@
 <?php
 /**
- * Errors field partial view.
+ *      Errors field partial view.
  *
  * @since 2.0.0
  */

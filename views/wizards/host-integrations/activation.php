@@ -6,7 +6,8 @@
  */
 ?>
 <h1>
-	<?php printf(esc_html__('Activate %s Integration', 'wp-multisite-waas'), esc_html($integration->get_title())); ?>
+	<?php // translators: %s is the integration name ?>
+	<?php printf(esc_html__('Activate %s Integration', 'multisite-ultimate'), esc_html($integration->get_title())); ?>
 </h1>
 
 <p class="wu-text-lg wu-text-gray-600 wu-my-4">
@@ -32,7 +33,7 @@
 	<div>
 
 	<span class="wu-text-sm wu-text-gray-800 wu-inline-block wu-py-4">
-		<?php esc_html_e('This integration will:', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('This integration will:', 'multisite-ultimate'); ?>
 	</span>
 
 	<ul class="wu--mx-5 wu-my-0 wu-border-t wu-border-solid wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300">
@@ -54,7 +55,7 @@
 	<div>
 
 		<span class="wu-text-sm wu-text-gray-800 wu-inline-block wu-py-4">
-		<?php echo wp_kses(__('This integration will <strong>not</strong>:', 'wp-multisite-waas'), ['strong' => []]); ?>
+		<?php echo wp_kses(__('This integration will <strong>not</strong>:', 'multisite-ultimate'), ['strong' => []]); ?>
 		</span>
 
 		<ul class="wu--mx-5 wu-my-0 wu-border-t wu-border-solid wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300">
@@ -79,27 +80,27 @@
 <!-- Submit Box -->
 <div class="wu-flex wu-justify-between wu-bg-gray-100 wu--m-in wu-mt-4 wu-p-4 wu-overflow-hidden wu-border-t wu-border-solid wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300">
 
-	<a href="<?php echo esc_url(wu_network_admin_url('wp-ultimo-settings&tab=integrations')); ?>" class="wu-self-center button button-large wu-float-left"><?php esc_html_e('&larr; Cancel', 'wp-multisite-waas'); ?></a>
+	<a href="<?php echo esc_url(wu_network_admin_url('wp-ultimo-settings&tab=integrations')); ?>" class="wu-self-center button button-large wu-float-left"><?php esc_html_e('&larr; Cancel', 'multisite-ultimate'); ?></a>
 
 	<span class="wu-self-center wu-content-center wu-flex">
 
 	<?php if ($integration->is_enabled()) : ?>
 
 		<span class="wu-self-center wu-text-green-800 wu-mr-4">
-		<?php esc_html_e('Integration already activated.', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Integration already activated.', 'multisite-ultimate'); ?>
 		</span>
 
 	<?php endif; ?>
 
 	<button name="submit" value="1" class="button button-primary button-large">
-		<?php echo esc_html($integration->is_enabled() ? __('Deactivate', 'wp-multisite-waas') : __('Activate', 'wp-multisite-waas')); ?>
+		<?php echo esc_html($integration->is_enabled() ? __('Deactivate', 'multisite-ultimate') : __('Activate', 'multisite-ultimate')); ?>
 	</button>
 
 	&nbsp;
 
 	<?php if ($integration->is_enabled()) : ?>
 		<a href="<?php echo esc_attr($page->get_next_section_link()); ?>" class="button button-large">
-		<?php esc_html_e('Continue', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Continue', 'multisite-ultimate'); ?>
 		</a>
 	<?php endif; ?>
 

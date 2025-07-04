@@ -15,8 +15,8 @@
 $data    = [];
 $slug    = 'most_visited_sites';
 $headers = [
-	__('Site', 'wp-multisite-waas'),
-	__('Visits', 'wp-multisite-waas'),
+	__('Site', 'multisite-ultimate'),
+	__('Visits', 'multisite-ultimate'),
 ];
 
 foreach ($sites as $site_visits) {
@@ -52,8 +52,8 @@ $page->render_csv_button(
 
 		<thead>
 		<tr>
-			<th class="wu-w-8/12"><?php esc_html_e('Site', 'wp-multisite-waas'); ?></th>
-			<th class="wu-text-right"><?php esc_html_e('Visits', 'wp-multisite-waas'); ?></th>
+			<th class="wu-w-8/12"><?php esc_html_e('Site', 'multisite-ultimate'); ?></th>
+			<th class="wu-text-right"><?php esc_html_e('Visits', 'multisite-ultimate'); ?></th>
 		</tr>
 		</thead>
 
@@ -69,24 +69,25 @@ $page->render_csv_button(
 
 				<div class="sm:wu-flex">          
 
-				<a title="<?php esc_html_e('Homepage', 'wp-multisite-waas'); ?>" href="<?php echo esc_attr(get_home_url($site_visits->site->get_id())); ?>" class="wu-no-underline wu-flex wu-items-center wu-text-xs wp-ui-text-highlight">
+				<a title="<?php esc_html_e('Homepage', 'multisite-ultimate'); ?>" href="<?php echo esc_attr(get_home_url($site_visits->site->get_id())); ?>" class="wu-no-underline wu-flex wu-items-center wu-text-xs wp-ui-text-highlight">
 
 					<span class="dashicons-wu-link1 wu-align-middle wu-mr-1"></span>
-					<?php esc_html_e('Homepage', 'wp-multisite-waas'); ?>
+					<?php esc_html_e('Homepage', 'multisite-ultimate'); ?>
 
 				</a>
 
-				<a title="<?php esc_html_e('Dashboard', 'wp-multisite-waas'); ?>" href="<?php echo esc_attr(get_admin_url($site_visits->site->get_id())); ?>" class="wu-no-underline wu-flex wu-items-center wu-text-xs wp-ui-text-highlight sm:wu-mt-0 sm:wu-ml-6">
+				<a title="<?php esc_html_e('Dashboard', 'multisite-ultimate'); ?>" href="<?php echo esc_attr(get_admin_url($site_visits->site->get_id())); ?>" class="wu-no-underline wu-flex wu-items-center wu-text-xs wp-ui-text-highlight sm:wu-mt-0 sm:wu-ml-6">
 
 					<span class="dashicons-wu-browser wu-align-middle wu-mr-1"></span>
-					<?php esc_html_e('Dashboard', 'wp-multisite-waas'); ?>
+					<?php esc_html_e('Dashboard', 'multisite-ultimate'); ?>
 
 				</a>
 
 				</div>
 			</td>
 			<td class="wu-align-middle wu-text-right">
-				<?php printf(_n('%d visit', '%d visits', $site_visits->count, 'wp-multisite-waas'), $site_visits->count); ?>
+				<?php // translators: %s number of visitors. ?>
+				<?php printf(esc_html(_n('%d visit', '%d visits', $site_visits->count, 'multisite-ultimate')), esc_html($site_visits->count)); ?>
 			</td>
 			</tr>
 
@@ -102,7 +103,7 @@ $page->render_csv_button(
 
 	<div class="wu-bg-gray-100 wu-p-4 wu-rounded wu-mt-6">
 
-	<?php esc_html_e('No visits registered in this period.', 'wp-multisite-waas'); ?>
+	<?php esc_html_e('No visits registered in this period.', 'multisite-ultimate'); ?>
 
 	</div>
 

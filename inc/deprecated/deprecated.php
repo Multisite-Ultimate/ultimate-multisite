@@ -171,8 +171,8 @@ class WU_Page extends \WP_Ultimo\Admin_Pages\Base_Admin_Page {
 				'parent'        => 'wp-ultimo',
 				'capability'    => 'manage_network',
 				'menu_icon'     => 'dashicons-menu',
-				'title'         => __('Admin Page', 'wp-multisite-waas'),
-				'menu_title'    => __('Admin Page', 'wp-multisite-waas'),
+				'title'         => __('Admin Page', 'multisite-ultimate'),
+				'menu_title'    => __('Admin Page', 'multisite-ultimate'),
 			]
 		);
 
@@ -425,7 +425,7 @@ class WU_Multi_Network {
  * There is plans to re-add something like this in the future.
  * For now, this is deprecated and declaring it have no side-effects.
  * This class is here to prevent fatal errors when plugin developers
- * used it on their WP Multisite WaaS extensions.
+ * used it on their Multisite Ultimate extensions.
  *
  * @deprecated 2.0.0
  */
@@ -528,7 +528,7 @@ class WU_Util {
 
 		_deprecated_function(__METHOD__, '2.0.0', 'wp_die()');
 
-		wp_die($message, $title, $args);
+		wp_die(esc_html($message), esc_html($title), (array) $args);
 	}
 
 	/**
@@ -663,7 +663,7 @@ class WU_Logger {
 			$alternative = 'wu_log_clear';
 		}
 
-		_deprecated_function(self::class . "::$method_name()", '2.0.0', "$alternative()");
+		_deprecated_function(self::class . esc_html("::$method_name()"), '2.0.0', esc_html("$alternative()"));
 
 		return call_user_func_array($alternative, $args);
 	}
@@ -847,7 +847,7 @@ class WU_Coupon extends \WP_Ultimo\Models\Discount_Code {
 	 */
 	public function __construct($object_model = null) {
 
-		_deprecated_function(self::class, '2.0.0', \WP_Ultimo\Models\Discount_Code::class);
+		_deprecated_function(self::class, '2.0.0', esc_html(\WP_Ultimo\Models\Discount_Code::class));
 
 		if (is_numeric($object_model) ) {
 			$object_model = wu_get_discount_code($object_model);
@@ -1034,7 +1034,7 @@ class WU_Signup extends \WP_Ultimo\Checkout\Legacy_Checkout {
 	 */
 	public function __construct() {
 
-		_deprecated_function(self::class, '2.0.0', \WP_Ultimo\Checkout\Legacy_Checkout::class);
+		_deprecated_function(self::class, '2.0.0', esc_html(\WP_Ultimo\Checkout\Legacy_Checkout::class));
 	}
 }
 

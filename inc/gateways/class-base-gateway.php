@@ -45,7 +45,7 @@ abstract class Base_Gateway {
 	 * that share the same base code, or that have code that is applicable
 	 * to other gateways.
 	 *
-	 * A classical example is the way Stripe is setup on WP Multisite WaaS now:
+	 * A classical example is the way Stripe is setup on Multisite Ultimate now:
 	 * - We have two stripe gateways - stripe and stripe-checkout;
 	 * - Both of those gateways inherit from class-base-stripe-gateway.php,
 	 *   which deals with appending the remote gateway links to the admin panel,
@@ -308,7 +308,7 @@ abstract class Base_Gateway {
 	 * Adds Settings.
 	 *
 	 * This method allows developers to use
-	 * WP Multisite WaaS apis to add settings to the settings
+	 * Multisite Ultimate apis to add settings to the settings
 	 * page.
 	 *
 	 * Gateways can use wu_register_settings_field
@@ -358,11 +358,11 @@ abstract class Base_Gateway {
 	/**
 	 * Declares support for free trials.
 	 *
-	 * WP Multisite WaaS offers to ways of dealing with free trials:
+	 * Multisite Ultimate offers to ways of dealing with free trials:
 	 * (1) By asking for a payment method upfront; or
 	 * (2) By not asking for a payment method until the trial is over.
 	 *
-	 * If you go the second route, WP Multisite WaaS uses
+	 * If you go the second route, Multisite Ultimate uses
 	 * the free gateway to deal with the first payment (which will be 0)
 	 *
 	 * If you go the first route, though, the payment gateway
@@ -614,18 +614,18 @@ abstract class Base_Gateway {
 	public function get_amount_update_message($to_customer = false) {
 
 		if ( ! $this->supports_amount_update()) {
-			$message = __('The current payment integration will be cancelled.', 'wp-multisite-waas');
+			$message = __('The current payment integration will be cancelled.', 'multisite-ultimate');
 
 			if ($to_customer) {
-				$message .= ' ' . __('You will receive a new invoice on the next billing cycle.', 'wp-multisite-waas');
+				$message .= ' ' . __('You will receive a new invoice on the next billing cycle.', 'multisite-ultimate');
 			} else {
-				$message .= ' ' . __('The customer will receive a new invoice on the next billing cycle.', 'wp-multisite-waas');
+				$message .= ' ' . __('The customer will receive a new invoice on the next billing cycle.', 'multisite-ultimate');
 			}
 
 			return $message;
 		}
 
-		return __('The current payment integration will be updated.', 'wp-multisite-waas');
+		return __('The current payment integration will be updated.', 'multisite-ultimate');
 	}
 
 	/**
@@ -676,8 +676,8 @@ abstract class Base_Gateway {
 		 *
 		 * @param string                    $return_url the URL to redirect after process.
 		 * @param self                      $gateway the gateway instance.
-		 * @param \WP_Ultimo\Models\Payment $payment the WP Multisite WaaS payment instance.
-		 * @param \WP_Ultimo\Checkout\Cart  $cart the current WP Multisite WaaS cart order.
+		 * @param \WP_Ultimo\Models\Payment $payment the Multisite Ultimate payment instance.
+		 * @param \WP_Ultimo\Checkout\Cart  $cart the current Multisite Ultimate cart order.
 		 * @return string
 		 */
 		return apply_filters('wu_return_url', $return_url, $this, $this->payment, $this->order);
@@ -765,7 +765,7 @@ abstract class Base_Gateway {
 	 * Set the customer.
 	 *
 	 * @since 2.0.0
-	 * @param \WP_Ultimo\Models\Payment $customer The customer.
+	 * @param \WP_Ultimo\Models\Customer $customer The customer.
 	 * @return void
 	 */
 	public function set_customer($customer): void {

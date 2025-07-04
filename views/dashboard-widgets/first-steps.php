@@ -12,11 +12,11 @@
 	<div class="wu-w-full sm:wu-w-8/12">
 
 		<span class="wu-block wu-my-1 wu-text-base wu-font-semibold wu-text-gray-700">
-		<?php esc_html_e('Your network is taking shape!', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Your network is taking shape!', 'multisite-ultimate'); ?>
 		</span>
 
 		<span class="wu-block wu-my-1 wu-text-gray-600">
-		<?php esc_html_e('Here are the next steps to keep you on that streak!', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Here are the next steps to keep you on that streak!', 'multisite-ultimate'); ?>
 		</span>
 
 	</div>
@@ -24,7 +24,7 @@
 	<div class="wu-w-4/12 wu-text-right wu-hidden sm:wu-inline-block">
 
 		<span class="wu-inline-block wu-bg-green-100 wu-text-center wu-align-middle wu-p-2 wu-font-mono wu-px-3 wu-border wu-border-green-300 wu-text-green-700 wu-border-solid wu-rounded">
-		<?php echo esc_html($percentage) . '% ' . esc_html__('done', 'wp-multisite-waas'); ?>
+		<?php echo esc_html($percentage) . '% ' . esc_html__('done', 'multisite-ultimate'); ?>
 		</span>
 
 	</div>
@@ -67,7 +67,7 @@
 
 			<div class="wu-block sm:wu-hidden wu-h-2">&nbsp;</div>
 
-			<a href="<?php echo $step['action_link']; ?>" class="button wu-w-full sm:wu-w-auto wu-text-center">
+			<a href="<?php echo esc_attr($step['action_link']); ?>" class="button wu-w-full sm:wu-w-auto wu-text-center">
 			<?php echo esc_html($step['action_label']); ?>
 			</a>
 
@@ -92,7 +92,7 @@ endforeach;
 		class="button wu-text-center hide-postbox-tog"
 		id="wp-ultimo-setup-hide"
 		>
-		<?php esc_html_e('Dismiss', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Dismiss', 'multisite-ultimate'); ?>
 		</button>
 
 	</div>

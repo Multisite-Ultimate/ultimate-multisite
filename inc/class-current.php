@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS class to hold current objects
+ * Multisite Ultimate class to hold current objects
  *
  * @package WP_Ultimo
  * @subpackage Current
@@ -13,7 +13,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS class to hold current objects
+ * Multisite Ultimate class to hold current objects
  *
  * @since 2.0.0
  */

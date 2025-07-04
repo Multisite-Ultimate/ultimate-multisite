@@ -1,6 +1,6 @@
 # Managing Shareable Links for Plans
 
-WP Multisite WaaS offers you the option to share plan links directly with your clients. In order to do this, go to any of your plans' edit pages and click the _Click to copy the Shareable Link_ button.
+Multisite Ultimate offers you the option to share plan links directly with your clients. In order to do this, go to any of your plans' edit pages and click the _Click to copy the Shareable Link_ button.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-2DJoMvapXh.png)
 

@@ -9,7 +9,7 @@
 
 	<div v-show="!order" class="wu-bg-gray-100 wu-p-4 wu-text-center wu-border wu-border-solid wu-border-gray-300">
 
-	<?php esc_html_e('Generating Order Summary...', 'wp-multisite-waas'); ?>
+	<?php esc_html_e('Generating Order Summary...', 'multisite-ultimate'); ?>
 
 	</div>
 
@@ -22,31 +22,31 @@
 		<tr class="">
 
 			<th class="col-description">
-			<?php esc_html_e('Description', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('Description', 'multisite-ultimate'); ?>
 			</th>
 
 			<?php if ('simple' === $table_columns) : ?>
 
 			<th class="col-total-gross">
-				<?php esc_html_e('Subtotal', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Subtotal', 'multisite-ultimate'); ?>
 			</th>
 
 			<?php else : ?>
 
 			<th class="col-total-net">
-				<?php esc_html_e('Net Total', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Net Total', 'multisite-ultimate'); ?>
 			</th>
 
 			<th class="col-total-vat-percentage">
-				<?php esc_html_e('Discounts', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Discounts', 'multisite-ultimate'); ?>
 			</th>
 
 			<th class="col-total-tax">
-				<?php esc_html_e('Tax', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Tax', 'multisite-ultimate'); ?>
 			</th>
 
 			<th class="col-total-gross">
-				<?php esc_html_e('Gross Total', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Gross Total', 'multisite-ultimate'); ?>
 			</th>
 
 			<?php endif; ?>
@@ -61,7 +61,7 @@
 
 			<td class="" colspan="<?php echo esc_attr('simple' === $table_columns) ? 2 : 5; ?>" class="col-description">
 
-			<?php esc_html_e('No products in shopping cart.', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('No products in shopping cart.', 'multisite-ultimate'); ?>
 
 			</td>
 
@@ -70,14 +70,14 @@
 		<tr v-for="line_item in order.line_items">
 
 			<td class="wu-py-2 col-description" v-show="line_item.recurring">
-
-			<?php printf(esc_html__('Subscription - %s', 'wp-multisite-waas'), '{{ line_item.title }}'); ?>
+			<?php // translators: %s: name of the subscription ?>
+			<?php printf(esc_html__('Subscription - %s', 'multisite-ultimate'), '{{ line_item.title }}'); ?>
 
 			<small v-if="line_item.type == 'product'" class="wu-ml-3 wu-text-xs">
 
 				<a href="#" class="wu-no-underline" v-on:click.prevent="remove_product(line_item.product_id, line_item.product_slug)">
 
-				<?php esc_html_e('Remove', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Remove', 'multisite-ultimate'); ?>
 
 				</a>
 
@@ -93,7 +93,7 @@
 
 				<a href="#" class="wu-no-underline" v-on:click.prevent="remove_product(line_item.product_id, line_item.product_slug)">
 
-				<?php esc_html_e('Remove', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Remove', 'multisite-ultimate'); ?>
 
 				</a>
 
@@ -167,7 +167,7 @@
 
 			<td>
 
-				<?php esc_html_e('Discounts', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Discounts', 'multisite-ultimate'); ?>
 
 			</td>
 
@@ -183,7 +183,7 @@
 
 			<td>
 
-				<?php esc_html_e('Taxes', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Taxes', 'multisite-ultimate'); ?>
 
 			</td>
 
@@ -201,7 +201,7 @@
 
 			<td class="" colspan="<?php echo esc_attr('simple' === $table_columns) ? 1 : 4; ?>">
 
-			<strong><?php esc_html_e("Today's Grand Total", 'wp-multisite-waas'); ?></strong>
+			<strong><?php esc_html_e("Today's Grand Total", 'multisite-ultimate'); ?></strong>
 
 			</td>
 
@@ -224,7 +224,8 @@
 			<td class="" colspan="<?php echo esc_attr('simple' === $table_columns) ? 1 : 4; ?>">
 
 			<small>
-				<?php printf(esc_html__('Total in %1$s - end of trial period.', 'wp-multisite-waas'), '{{ $moment.unix(order.dates.date_trial_end).format(`LL`) }}'); ?>
+				<?php // translators: %1$s relative date string ?>
+				<?php printf(wp_kses_post(__('Total in %1$s - end of trial period.', 'multisite-ultimate')), '{{ $moment.unix(order.dates.date_trial_end).format(`LL`) }}'); ?>
 			</small>
 
 			</td>
@@ -244,8 +245,8 @@
 	<ul class="wu-p-0 wu-m-0 wu-mt-2 wu-list-none wu-order-summary-additional-info wu-text-sm">
 
 		<li v-if="!order.has_trial && order.has_recurring">
-
-		<?php printf(esc_html__('Next fee of %1$s will be billed in %2$s.', 'wp-multisite-waas'), '{{ wu_format_money(order.totals.recurring.total) }}', '{{ $moment.unix(order.dates.date_next_charge).format(`LL`) }}'); ?>
+		<?php // translators: %1$s order total, %2$s relative date string. ?>
+		<?php printf(esc_html__('Next fee of %1$s will be billed in %2$s.', 'multisite-ultimate'), '{{ wu_format_money(order.totals.recurring.total) }}', '{{ $moment.unix(order.dates.date_next_charge).format(`LL`) }}'); ?>
 
 		</li>
 
@@ -253,12 +254,12 @@
 
 		<?php
 		// translators: 1 is the discount name (e.g. Launch Promo). 2 is the coupon code (e.g PROMO10), 3 is the coupon amount and 4 is the discount total.
-		printf(esc_html__('Discount applied: %1$s - %2$s (%3$s) %4$s', 'wp-multisite-waas'), '{{ order.discount_code.name }}', '{{ order.discount_code.code }}', '{{ order.discount_code.discount_description }}', '{{ wu_format_money(-order.totals.total_discounts) }}');
+		printf(esc_html__('Discount applied: %1$s - %2$s (%3$s) %4$s', 'multisite-ultimate'), '{{ order.discount_code.name }}', '{{ order.discount_code.code }}', '{{ order.discount_code.discount_description }}', '{{ wu_format_money(-order.totals.total_discounts) }}');
 		?>
 
 		<a class="wu-no-underline wu-ml-2" href="#" v-on:click.prevent="discount_code = ''">
 
-			<?php esc_html_e('Remove', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('Remove', 'multisite-ultimate'); ?>
 
 		</a>
 

@@ -47,12 +47,12 @@ class Inside_Events_List_Table extends Event_List_Table {
 		$first_row = [
 			'id'   => [
 				'icon'  => 'dashicons-wu-hash wu-align-middle wu-mr-1',
-				'label' => __('Event ID', 'wp-multisite-waas'),
+				'label' => __('Event ID', 'multisite-ultimate'),
 				'value' => $item->get_id(),
 			],
 			'slug' => [
 				'icon'  => 'dashicons-wu-bookmark1 wu-align-middle wu-mr-1',
-				'label' => __('Event Type', 'wp-multisite-waas'),
+				'label' => __('Event Type', 'multisite-ultimate'),
 				'value' => wu_slug_to_name($item->get_slug()),
 			],
 		];
@@ -60,7 +60,7 @@ class Inside_Events_List_Table extends Event_List_Table {
 		$object_initiator = $item->get_initiator();
 
 		if ('system' === $object_initiator) {
-			$value = sprintf('<span class="dashicons-wu-wp-ultimo wu-align-middle wu-mr-1 wu-text-lg"></span><span class="wu-text-gray-600">%s</span>', __('Automatically processed by WP Multisite WaaS', 'wp-multisite-waas'));
+			$value = sprintf('<span class="dashicons-wu-wp-ultimo wu-align-middle wu-mr-1 wu-text-lg"></span><span class="wu-text-gray-600">%s</span>', __('Automatically processed by Multisite Ultimate', 'multisite-ultimate'));
 		} elseif ('manual' === $object_initiator) {
 			$avatar = get_avatar(
 				$item->get_author_id(),
@@ -78,7 +78,7 @@ class Inside_Events_List_Table extends Event_List_Table {
 			$value = sprintf('<span class="wu-text-gray-600">%s%s</span>', $avatar, $display_name);
 		}
 
-		echo wu_responsive_table_row(
+		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			[
 				'id'     => '',
 				'title'  => sprintf('<span class="wu-font-normal">%s</span>', wp_trim_words($item->get_message(), 15)),
@@ -95,7 +95,8 @@ class Inside_Events_List_Table extends Event_List_Table {
 				'date_created' => [
 					'icon'  => 'dashicons-wu-calendar1 wu-align-middle wu-mr-1',
 					'label' => '',
-					'value' => sprintf(__('Processed %s', 'wp-multisite-waas'), wu_human_time_diff($item->get_date_created(), '-1 day')),
+					// translators: %s is a placeholder for the human-readable time difference, e.g., "2 hours ago"
+					'value' => sprintf(__('Processed %s', 'multisite-ultimate'), wu_human_time_diff($item->get_date_created(), '-1 day')),
 				],
 			]
 		);

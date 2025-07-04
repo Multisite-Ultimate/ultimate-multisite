@@ -172,7 +172,7 @@ class Block_Editor_Widget_Manager {
 	}
 
 	/**
-	 * Registers the block so WP Multisite WaaS can add it on the JS side.
+	 * Registers the block so Multisite Ultimate can add it on the JS side.
 	 *
 	 * @since 2.0.0
 	 *

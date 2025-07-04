@@ -1,6 +1,6 @@
-# Creating Custom Admin Pages and Sub-pages using WP Multisite WaaS: Admin Page Creator
+# Creating Custom Admin Pages and Sub-pages using Multisite Ultimate: Admin Page Creator
 
-While WordPress makes it really easy to add content to the front end of sites, creating pages and sub-pages on the admin side requires some basic coding skills. WP Multisite WaaS: Admin Page Creator aims to bring that same ease of use of the front end to the back end of your network sites.
+While WordPress makes it really easy to add content to the front end of sites, creating pages and sub-pages on the admin side requires some basic coding skills. Multisite Ultimate: Admin Page Creator aims to bring that same ease of use of the front end to the back end of your network sites.
 
 ## Why use Admin Page Creator?
 
@@ -16,7 +16,7 @@ _Here’s the final result on the user’s Dashboard Panel_
 
 ## Creating your first Custom Admin Page
 
-After installing and activating WP Multisite WaaS: Admin Page Creator, head to your network admin menu and go to Admin Pages.
+After installing and activating Multisite Ultimate: Admin Page Creator, head to your network admin menu and go to Admin Pages.
 
 [![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-60212627fb34b55df443e4a5-Aml1wdfXt-69C790DA-7E3F-4DDD-A381-7F6633D91B2A.png)](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-60212627fb34b55df443e4a5-Aml1wdfXt-69C790DA-7E3F-4DDD-A381-7F6633D91B2A.png)
 
@@ -38,7 +38,7 @@ _Enter a Page Title_
 
 ### Content Type Selector
 
-WP Multisite WaaS: Admin Page Creator gives you two options when it comes to the content of the page: you can either use the default WordPress WYSIWYG editor or switch to an HTML editor.
+Multisite Ultimate: Admin Page Creator gives you two options when it comes to the content of the page: you can either use the default WordPress WYSIWYG editor or switch to an HTML editor.
 
 If you are not familiar with HTML, stick to the default WordPress editor. You’ll be able to edit the contents of the page just like you would with a normal Post or Page.
 

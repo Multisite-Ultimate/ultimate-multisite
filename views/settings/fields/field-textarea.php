@@ -25,9 +25,9 @@
 
 		<?php if ($field->desc) : ?>
 
-		<p class="description" id="<?php echo $field->id; ?>-desc">
+		<p class="description" id="<?php echo esc_attr($field->id); ?>-desc">
 
-			<?php echo $field->desc; ?>
+			<?php echo esc_html($field->desc); ?>
 
 		</p>
 

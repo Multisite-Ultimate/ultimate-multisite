@@ -69,7 +69,7 @@ class Cron {
 	}
 
 	/**
-	 * Creates the recurring schedules for WP Multisite WaaS.
+	 * Creates the recurring schedules for Multisite Ultimate.
 	 *
 	 * By default, we create a hourly, daily, and monthly schedules.
 	 *

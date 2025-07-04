@@ -59,12 +59,12 @@ class Customers_Payment_List_Table extends Payment_List_Table {
 			[
 				'total'   => [
 					'icon'  => 'dashicons-wu-shopping-bag1 wu-align-middle wu-mr-1',
-					'label' => __('Payment Total', 'wp-multisite-waas'),
+					'label' => __('Payment Total', 'multisite-ultimate'),
 					'value' => wu_format_currency($item->get_total()),
 				],
 				'gateway' => [
 					'icon'  => 'dashicons-wu-credit-card2 wu-align-middle wu-mr-1',
-					'label' => __('Gateway', 'wp-multisite-waas'),
+					'label' => __('Gateway', 'multisite-ultimate'),
 					'value' => wu_slug_to_name($item->get_gateway()),
 				],
 			],
@@ -72,7 +72,8 @@ class Customers_Payment_List_Table extends Payment_List_Table {
 				'date_created' => [
 					'icon'  => 'dashicons-wu-calendar1 wu-align-middle wu-mr-1',
 					'label' => '',
-					'value' => sprintf(__('Created %s', 'wp-multisite-waas'), wu_human_time_diff(strtotime((string) $item->get_date_created()))),
+					// translators: %s is a placeholder for the human-readable time difference, e.g., "2 hours ago"
+					'value' => sprintf(__('Created %s', 'multisite-ultimate'), wu_human_time_diff(strtotime((string) $item->get_date_created()))),
 				],
 			]
 		);

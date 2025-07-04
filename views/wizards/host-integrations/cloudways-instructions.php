@@ -22,7 +22,7 @@
 	<p class="intercom-align-center"><i>The same thing happens here: the URL takes the form of </i><i>https://platform.cloudways.com/apps/</i><i></i><b><i>YOUR_APP_ID_HERE</i></b><i>/access_detail</i></p>
 
 	<h1 id="since-161--additional-step--extra-domains" class="intercom-align-left" data-post-processed="true">Additional Step – Extra Domains</h1>
-	<p class="intercom-align-left">The Cloudways API is a bit strange in that it doesn’t offer a way to add or remove just one domain, only a way to update the whole domain list. That means that WP Multisite WaaS <b>will replace all domains</b> you might have there with the list of mapped domains of the network every time a new domain is added.</p>
+	<p class="intercom-align-left">The Cloudways API is a bit strange in that it doesn’t offer a way to add or remove just one domain, only a way to update the whole domain list. That means that Multisite Ultimate <b>will replace all domains</b> you might have there with the list of mapped domains of the network every time a new domain is added.</p>
 	<p class="intercom-align-left">If there are domains you want to keep on the list, use the <b>WU_CLOUDWAYS_EXTRA_DOMAINS</b> as demonstrated below, with a comma-separated list of the domains you wanna keep (this is useful if you need a wildcard setting, for example, that needs to be on that list at all times).</p>
 	<pre class="wu-overflow-auto wu-p-4 wu-m-0 wu-mt-2 wu-rounded wu-content-center wu-bg-gray-800 wu-text-white wu-font-mono wu-border wu-border-solid wu-border-gray-300 wu-max-h-screen wu-overflow-y-auto">define('WU_CLOUDWAYS_EXTRA_DOMAINS', '*.yourdomain.com,extradomain1.com,extradomain2.com');</pre>
 	<p class="intercom-align-left">Here’s how it should look on your wp-config.php (fake values used below):</p>

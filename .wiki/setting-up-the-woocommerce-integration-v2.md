@@ -1,20 +1,20 @@
 # Setting Up The WooCommerce Integration (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
 
-_**ATTENTION:** WP Multisite WaaS: WooCommerce Integration requires WooCommerce to be activated at least on your main site._
+_**ATTENTION:** Multisite Ultimate: WooCommerce Integration requires WooCommerce to be activated at least on your main site._
 
-We understand that _Stripe_ and _PayPal_ are not available in some countries which limit or hinders WP Multisite WaaS users from effectively using our plugin. So we created an **add-on to integrate _WooCommerce_**.
+We understand that _Stripe_ and _PayPal_ are not available in some countries which limit or hinders Multisite Ultimate users from effectively using our plugin. So we created an **add-on to integrate _WooCommerce_**.
 
-_WooCommerce_ is a very popular eCommerce plugin. Developers around the world created add-ons to integrate different payment gateways to it. We took advantage of this to extend the payments gateways you can use in the WP Multisite WaaS billing system.
+_WooCommerce_ is a very popular eCommerce plugin. Developers around the world created add-ons to integrate different payment gateways to it. We took advantage of this to extend the payments gateways you can use in the Multisite Ultimate billing system.
 
 ## Setting It Up
 
-First, you need to install the WooCommerce Integration add-on which is **free for licensed users**. To install it, click on WP Multisite WaaS on your super admin dashboard and select **Add-ons**.
+First, you need to install the WooCommerce Integration add-on which is **free for licensed users**. To install it, click on Multisite Ultimate on your super admin dashboard and select **Add-ons**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-RRyV5DYA9v.png)
 
-Here you can find all WP Multisite WaaS add-ons. Click on the **WP Multisite WaaS: WooCommerce Integration** add-on.
+Here you can find all Multisite Ultimate add-ons. Click on the **Multisite Ultimate: WooCommerce Integration** add-on.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-4AiiRzTKme.png)
 
@@ -30,7 +30,7 @@ After activating it, if you still don't have the WooCommerce plugin installed an
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-1U4DaZPAiR.png)
 
-Once installed, you will see an additional option under the WP Multisite WaaS payments settings. You can then **enable** the _WooCommerce_ option from there.
+Once installed, you will see an additional option under the Multisite Ultimate payments settings. You can then **enable** the _WooCommerce_ option from there.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-HDQ1SG1pYO.png)
 
@@ -44,19 +44,19 @@ The WooCommerce Integration works in a very similar way to the way our [Manual G
 
   * Users then receive an invoice in their email, with a link to perform the payment (the link also appears on their billing history from their subsite dashboard). That link redirects the user to the _**WooCommerce**_ **checkout** , where users will be able to select one of the **available _WooCommerce_ gateways** in order to process their payment.
 
-  * Once the payment is received, the membership is **renewed** , the payment is logged on WP Multisite WaaS and the order is set to complete.
+  * Once the payment is received, the membership is **renewed** , the payment is logged on Multisite Ultimate and the order is set to complete.
 
 ### Some Important Notes:
 
-  * The default functionality of WP Multisite WaaS still works with this integration form. For example, **issuing refunds** from the **Subscription Management** screen will communicate with WooCommerce to issue the refund using the selected payment form.
+  * The default functionality of Multisite Ultimate still works with this integration form. For example, **issuing refunds** from the **Subscription Management** screen will communicate with WooCommerce to issue the refund using the selected payment form.
 
-  * WP Multisite WaaS: WooCommerce Integration relies on WP-Cron to work. This works very well most times, but if the site has low traffic then the cron is not prompted to check for scheduled events and the event is missed, which can cause execution delays.
+  * Multisite Ultimate: WooCommerce Integration relies on WP-Cron to work. This works very well most times, but if the site has low traffic then the cron is not prompted to check for scheduled events and the event is missed, which can cause execution delays.
 
 ## Woocommerce Subscriptions Plugin
 
 Manually initiating a payment each month is not ideal for end-users to do as a subscription is expected to automatically recur every billing cycle. So we designed the WooCommerce Integration addon to **support the WooCommerce Subscriptions plugin**. This will automate the payment to make the transaction easier for your end-users.
 
-All you need to do is **install** the [Woocommerce Subscriptions plugin](https://woocommerce.com/products/woocommerce-subscriptions/) and have it **activated on your main site**. Then go back to WP Multisite WaaS payments settings and **enable the integration**.
+All you need to do is **install** the [Woocommerce Subscriptions plugin](https://woocommerce.com/products/woocommerce-subscriptions/) and have it **activated on your main site**. Then go back to Multisite Ultimate payments settings and **enable the integration**.
 
 And that is it. Your end-users will no longer need to manually make a payment at the end of their billing cycle.
 

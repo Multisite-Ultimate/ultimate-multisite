@@ -478,7 +478,7 @@ class Membership extends Base_Model {
 
 		$plan = wu_get_product($this->get_plan_id());
 
-		// Get the correct ariation if exists
+		// Get the correct variation if exists
 		if ($plan && ($plan->get_duration() !== $this->get_duration() || $plan->get_duration_unit() !== $this->get_duration_unit())) {
 			$variation = $plan->get_as_variation($this->get_duration(), $this->get_duration_unit());
 
@@ -665,12 +665,12 @@ class Membership extends Base_Model {
 	 * @since 2.0.0
 	 *
 	 * @param Cart $order The cart object.
-	 * @return \WP_Ultimo\Models\Membership
+	 * @return \WP_Ultimo\Models\Membership|\WP_Error
 	 */
 	public function swap($order) {
 
 		if ( ! is_a($order, Cart::class)) {
-			return new \WP_Error('invalid-date', __('Swap Cart is invalid.', 'wp-multisite-waas'));
+			return new \WP_Error('invalid-date', __('Swap Cart is invalid.', 'multisite-ultimate'));
 		}
 
 		// clear the current addons.
@@ -743,11 +743,11 @@ class Membership extends Base_Model {
 		}
 
 		if ( ! wu_validate_date($schedule_date)) {
-			return new \WP_Error('invalid-date', __('Schedule date is invalid.', 'wp-multisite-waas'));
+			return new \WP_Error('invalid-date', __('Schedule date is invalid.', 'multisite-ultimate'));
 		}
 
 		if ( ! is_a($order, Cart::class)) {
-			return new \WP_Error('invalid-date', __('Swap Cart is invalid.', 'wp-multisite-waas'));
+			return new \WP_Error('invalid-date', __('Swap Cart is invalid.', 'multisite-ultimate'));
 		}
 
 		$date_instance = wu_date($schedule_date);
@@ -831,7 +831,7 @@ class Membership extends Base_Model {
 
 		$description = sprintf(
 			// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
-			_n('every %2$s', 'every %1$s %2$s', $this->get_duration(), 'wp-multisite-waas'), // phpcs:ignore
+			_n('every %2$s', 'every %1$s %2$s', $this->get_duration(), 'multisite-ultimate'), // phpcs:ignore
 			$this->get_duration(),
 			wu_get_translatable_string(($this->get_duration() <= 1 ? $this->get_duration_unit() : $this->get_duration_unit() . 's'))
 		);
@@ -847,12 +847,12 @@ class Membership extends Base_Model {
 	public function get_times_billed_description(): string {
 
 		// translators: times billed / subscription duration in cycles. e.g. 1/12 cycles
-		$description = __('%1$s / %2$s cycles', 'wp-multisite-waas');
+		$description = __('%1$s / %2$s cycles', 'multisite-ultimate');
 
 		if ($this->is_forever_recurring()) {
 
 			// translators: the place holder is the number of times the membership was billed.
-			$description = __('%1$s / until cancelled', 'wp-multisite-waas');
+			$description = __('%1$s / until cancelled', 'multisite-ultimate');
 		}
 
 		return sprintf($description, $this->get_times_billed(), $this->get_billing_cycles());
@@ -872,7 +872,7 @@ class Membership extends Base_Model {
 
 			$message = sprintf(
 				// translators: %1$s is the formatted price, %2$s the duration, and %3$s the duration unit (day, week, month, etc)
-				_n('%1$s every %3$s', '%1$s every %2$s %3$s', $duration, 'wp-multisite-waas'), // phpcs:ignore
+				_n('%1$s every %3$s', '%1$s every %2$s %3$s', $duration, 'multisite-ultimate'), // phpcs:ignore
 				wu_format_currency($this->get_amount(), $this->get_currency()),
 				$duration,
 				wu_get_translatable_string($duration <= 1 ? $this->get_duration_unit() : $this->get_duration_unit() . 's')
@@ -883,7 +883,7 @@ class Membership extends Base_Model {
 			if ( ! $this->is_forever_recurring()) {
 				$billing_cycles_message = sprintf(
 					// translators: %s is the number of billing cycles.
-					_n('for %s cycle', 'for %s cycles', $this->get_billing_cycles(), 'wp-multisite-waas'),
+					_n('for %s cycle', 'for %s cycles', $this->get_billing_cycles(), 'multisite-ultimate'),
 					$this->get_billing_cycles()
 				);
 
@@ -892,13 +892,13 @@ class Membership extends Base_Model {
 		} else {
 			$pricing['subscription'] = sprintf(
 				// translators: %1$s is the formatted price of the product
-				__('%1$s one time payment', 'wp-multisite-waas'),
+				__('%1$s one time payment', 'multisite-ultimate'),
 				wu_format_currency($this->get_initial_amount(), $this->get_currency())
 			);
 		}
 
 		if ($this->is_free()) {
-			$pricing['subscription'] = __('Free!', 'wp-multisite-waas');
+			$pricing['subscription'] = __('Free!', 'multisite-ultimate');
 		}
 
 		return implode(' + ', $pricing);
@@ -1113,7 +1113,7 @@ class Membership extends Base_Model {
 	 * Set the value of date_renewed.
 	 *
 	 * @since 2.0.0
-	 * @param string $date_renewed Date when the membership was cancelled.
+	 * @param string $date_renewed Date when the membership was renewed.
 	 * @return void
 	 */
 	public function set_date_renewed($date_renewed): void {
@@ -1243,7 +1243,7 @@ class Membership extends Base_Model {
 				$month = gmdate('n', $expire_timestamp);
 
 				if ($month < 12) {
-					$month += 1;
+					++$month;
 
 					$year = gmdate('Y', $expire_timestamp);
 				} else {
@@ -1377,7 +1377,7 @@ class Membership extends Base_Model {
 	 * Set the value of discount_code.
 	 *
 	 * @since 2.0.20
-	 * @param string|WP_Ultimo\Models\Discount_Code $discount_code Discount code object.
+	 * @param string|\WP_Ultimo\Models\Discount_Code $discount_code Discount code object.
 	 * @return void
 	 */
 	public function set_discount_code($discount_code): void {
@@ -1793,7 +1793,7 @@ class Membership extends Base_Model {
 
 		$sites = Site::query(
 			[
-				'meta_query' => [
+				'meta_query' => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 					'customer_id' => [
 						'key'   => 'wu_membership_id',
 						'value' => $this->get_id(),
@@ -1816,7 +1816,7 @@ class Membership extends Base_Model {
 
 		$sites = Site::query(
 			[
-				'meta_query' => [
+				'meta_query' => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 					'customer_id' => [
 						'key'   => 'wu_membership_id',
 						'value' => $this->get_id(),
@@ -1915,7 +1915,7 @@ class Membership extends Base_Model {
 		);
 
 		if ( function_exists('fastcgi_finish_request') && version_compare(phpversion(), '7.0.16', '>=') ) {
-			// The server supports fastcgi, so we use this to guaranty that the function started before abort connection
+			// The server supports fastcgi, so we use this to guarantee that the function started before abort connection
 
 			wp_remote_request(
 				$rest_path,
@@ -2064,7 +2064,7 @@ class Membership extends Base_Model {
 		static $sum;
 
 		if (null === $sum) {
-			$sum = $wpdb->get_var(
+			$sum = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prepare(
 					"SELECT SUM(total) FROM {$wpdb->base_prefix}wu_payments WHERE parent_id = 0 AND membership_id = %d",
 					$this->get_id()

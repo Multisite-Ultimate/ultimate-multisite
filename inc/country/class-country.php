@@ -104,7 +104,7 @@ abstract class Country {
 			$division_name = $this->get_administrative_division_name();
 
 			// translators: %s is the name of the administrative division (state, province, etc).
-			$placeholder_option[''] = '' !== $placeholder ? $placeholder : sprintf(__('Select your %s', 'wp-multisite-waas'), $division_name);
+			$placeholder_option[''] = '' !== $placeholder ? $placeholder : sprintf(__('Select your %s', 'multisite-ultimate'), $division_name);
 		}
 
 		return array_merge($placeholder_option, $options);
@@ -162,7 +162,7 @@ abstract class Country {
 		$placeholder_option = [];
 
 		if (false !== $placeholder && $options) {
-			$placeholder_option[''] = '' !== $placeholder ? $placeholder : __('Select your city', 'wp-multisite-waas');
+			$placeholder_option[''] = '' !== $placeholder ? $placeholder : __('Select your city', 'multisite-ultimate');
 		}
 
 		$options = array_combine($options, $options);
@@ -195,7 +195,7 @@ abstract class Country {
 	 */
 	public function get_municipality_name($state_code = null, $ucwords = false) {
 
-		$name = __('city', 'wp-multisite-waas');
+		$name = __('city', 'multisite-ultimate');
 
 		$name = $ucwords ? ucwords($name) : $name;
 
@@ -217,18 +217,18 @@ abstract class Country {
 	public function get_administrative_division_name($state_code = null, $ucwords = false) {
 
 		$denominations = [
-			'province'             => __('province', 'wp-multisite-waas'),
-			'state'                => __('state', 'wp-multisite-waas'),
-			'territory'            => __('territory', 'wp-multisite-waas'),
-			'region'               => __('region', 'wp-multisite-waas'),
-			'department'           => __('department', 'wp-multisite-waas'),
-			'district'             => __('district', 'wp-multisite-waas'),
-			'prefecture'           => __('prefecture', 'wp-multisite-waas'),
-			'autonomous_community' => __('autonomous community', 'wp-multisite-waas'),
-			'parish'               => __('parish', 'wp-multisite-waas'),
-			'county'               => __('county', 'wp-multisite-waas'),
-			'division'             => __('division', 'wp-multisite-waas'),
-			'unknown'              => __('state / province', 'wp-multisite-waas'),
+			'province'             => __('province', 'multisite-ultimate'),
+			'state'                => __('state', 'multisite-ultimate'),
+			'territory'            => __('territory', 'multisite-ultimate'),
+			'region'               => __('region', 'multisite-ultimate'),
+			'department'           => __('department', 'multisite-ultimate'),
+			'district'             => __('district', 'multisite-ultimate'),
+			'prefecture'           => __('prefecture', 'multisite-ultimate'),
+			'autonomous_community' => __('autonomous community', 'multisite-ultimate'),
+			'parish'               => __('parish', 'multisite-ultimate'),
+			'county'               => __('county', 'multisite-ultimate'),
+			'division'             => __('division', 'multisite-ultimate'),
+			'unknown'              => __('state / province', 'multisite-ultimate'),
 		];
 
 		$name = wu_get_isset($denominations, $this->state_type, $denominations['unknown']);

@@ -69,7 +69,7 @@ class Signup_Field_Billing_Address extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Address', 'wp-multisite-waas');
+		return __('Address', 'multisite-ultimate');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Signup_Field_Billing_Address extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds billing address fields such as country, zip code.', 'wp-multisite-waas');
+		return __('Adds billing address fields such as country, zip code.', 'multisite-ultimate');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Signup_Field_Billing_Address extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds billing address fields such as country, zip code.', 'wp-multisite-waas');
+		return __('Adds billing address fields such as country, zip code.', 'multisite-ultimate');
 	}
 
 	/**
@@ -165,8 +165,8 @@ class Signup_Field_Billing_Address extends Base_Signup_Field {
 		return [
 			'zip_and_country' => [
 				'type'  => 'toggle',
-				'title' => __('Display only ZIP and Country?', 'wp-multisite-waas'),
-				'desc'  => __('Checking this option will only add the ZIP and country fields, instead of all the normal billing address fields.', 'wp-multisite-waas'),
+				'title' => __('Display only ZIP and Country?', 'multisite-ultimate'),
+				'desc'  => __('Checking this option will only add the ZIP and country fields, instead of all the normal billing address fields.', 'multisite-ultimate'),
 				'value' => true,
 			],
 		];
@@ -200,7 +200,6 @@ class Signup_Field_Billing_Address extends Base_Signup_Field {
 		$field['options']                   = [];
 		$field['required']                  = true;
 		$field['wrapper_html_attr']['v-if'] = "{$data_key_name}.length";
-		$field['html_attr']['required']     = 'required';
 		$field['html_attr']['required']     = 'required';
 		$field['html_attr']['v-bind:name']  = "'billing_" . str_replace('_list', '', $data_key_name) . "'";
 		$field['title']                     = sprintf('<span v-html="%s">%s</span>', "labels.$label_key_field", $field['title']);

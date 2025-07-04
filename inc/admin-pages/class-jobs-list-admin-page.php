@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Jobs Admin Page.
+ * Multisite Ultimate Jobs Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Jobs Admin Page.
+ * Multisite Ultimate Jobs Admin Page.
  */
 class Jobs_List_Admin_Page extends Base_Admin_Page {
 
@@ -108,7 +108,7 @@ class Jobs_List_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Jobs', 'wp-multisite-waas');
+		return __('Jobs', 'multisite-ultimate');
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Jobs_List_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Jobs', 'wp-multisite-waas');
+		return __('Jobs', 'multisite-ultimate');
 	}
 
 	/**
@@ -130,7 +130,7 @@ class Jobs_List_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Jobs', 'wp-multisite-waas');
+		return __('Jobs', 'multisite-ultimate');
 	}
 
 	/**

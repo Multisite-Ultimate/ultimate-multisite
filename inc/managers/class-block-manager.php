@@ -56,7 +56,7 @@ class Block_Manager extends Base_Manager {
 			[
 				[
 					'slug'  => 'wp-ultimo',
-					'title' => __('Multisite WaaS', 'wp-multisite-waas'),
+					'title' => __('Multisite WaaS', 'multisite-ultimate'),
 				],
 			]
 		);

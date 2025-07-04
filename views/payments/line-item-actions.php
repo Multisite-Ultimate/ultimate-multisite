@@ -41,7 +41,7 @@
 
 		<span class="wu-text-xs wu-font-bold wu-uppercase wu-text-gray-600">
 
-		<?php esc_html_e('Refunds:', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Refunds:', 'multisite-ultimate'); ?>
 
 		</span>
 
@@ -57,7 +57,7 @@
 
 		<span class="wu-text-xs wu-font-bold wu-uppercase wu-text-gray-700">
 
-		<?php esc_html_e('Total:', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Total:', 'multisite-ultimate'); ?>
 
 		</span>
 

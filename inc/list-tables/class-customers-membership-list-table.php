@@ -50,9 +50,10 @@ class Customers_Membership_List_Table extends Membership_List_Table {
 
 		$product_count = 1 + count($item->get_addon_ids());
 
-		$products_list = $p ? sprintf(_n('Contains %s', 'Contains %1$s and %2$s other product(s)', $product_count, 'wp-multisite-waas'), $p->get_name(), count($item->get_addon_ids())) : ''; // phpcs:ignore
+		// translators: %s is the product name, %2$s is the count of other products.
+		$products_list = $p ? sprintf(_n('Contains %1$s', 'Contains %1$s and %2$s other product(s)', $product_count, 'multisite-ultimate'), $p->get_name(), count($item->get_addon_ids())) : ''; // phpcs:ignore
 
-		echo wu_responsive_table_row(
+		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			[
 				'id'     => $item->get_id(),
 				'title'  => $item->get_hash(),
@@ -67,30 +68,32 @@ class Customers_Membership_List_Table extends Membership_List_Table {
 			[
 				'total'    => [
 					'icon'  => 'dashicons-wu-shopping-bag1 wu-align-middle wu-mr-1',
-					'label' => __('Payment Total', 'wp-multisite-waas'),
+					'label' => __('Payment Total', 'multisite-ultimate'),
 					'value' => $item->get_price_description(),
 				],
 				'products' => [
 					'icon'  => 'dashicons-wu-package wu-align-middle wu-mr-1',
-					'label' => __('Products', 'wp-multisite-waas'),
+					'label' => __('Products', 'multisite-ultimate'),
 					'value' => $products_list,
 				],
 				'gateway'  => [
 					'icon'  => 'dashicons-wu-credit-card2 wu-align-middle wu-mr-1',
-					'label' => __('Gateway', 'wp-multisite-waas'),
+					'label' => __('Gateway', 'multisite-ultimate'),
 					'value' => wu_slug_to_name($item->get_gateway()),
 				],
 			],
 			[
 				'date_expiration' => [
 					'icon'  => 'dashicons-wu-calendar1 wu-align-middle wu-mr-1',
-					'label' => __('Expires', 'wp-multisite-waas'),
-					'value' => sprintf($expired ? __('Expired %s', 'wp-multisite-waas') : __('Expiring %s', 'wp-multisite-waas'), wu_human_time_diff(strtotime((string) $item->get_date_expiration()))),
+					'label' => __('Expires', 'multisite-ultimate'),
+					// translators: %s is a placeholder for the human-readable time difference, e.g., "2 hours ago"
+					'value' => sprintf($expired ? __('Expired %s', 'multisite-ultimate') : __('Expiring %s', 'multisite-ultimate'), wu_human_time_diff(strtotime((string) $item->get_date_expiration()))),
 				],
 				'date_created'    => [
 					'icon'  => 'dashicons-wu-calendar1 wu-align-middle wu-mr-1',
-					'label' => __('Created at', 'wp-multisite-waas'),
-					'value' => sprintf(__('Created %s', 'wp-multisite-waas'), wu_human_time_diff(strtotime((string) $item->get_date_created()))),
+					'label' => __('Created at', 'multisite-ultimate'),
+					// translators: %s is a placeholder for the human-readable time difference, e.g., "2 hours ago"
+					'value' => sprintf(__('Created %s', 'multisite-ultimate'), wu_human_time_diff(strtotime((string) $item->get_date_created()))),
 				],
 			]
 		);

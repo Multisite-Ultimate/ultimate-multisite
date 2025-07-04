@@ -28,7 +28,7 @@
 
 	<select class="wu_select_icon" name="<?php echo esc_attr($field->id); ?>">
 
-		<option value=""><?php echo esc_html__('No Icon', 'wp-multisite-waas'); ?></option>
+		<option value=""><?php echo esc_html__('No Icon', 'multisite-ultimate'); ?></option>
 
 		<?php foreach (wu_get_icons_list() as $category_label => $category_array) : ?>
 

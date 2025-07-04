@@ -1,12 +1,12 @@
 # Customizing your Registration Form
 
-To make your network look unique from all the other SaaS built on WordPress platform, WP Multisite WaaS allows you to customize your registration and login pages with our **Checkout Forms** feature.
+To make your network look unique from all the other SaaS built on WordPress platform, Multisite Ultimate allows you to customize your registration and login pages with our **Checkout Forms** feature.
 
 Although they are an easy and flexible way to experiment with different approaches when trying to convert new customers, they are mostly use to create personalized registration forms. This article aims to show you how you can do it.
 
 ## Login and registration pages:
 
-Upon WP Multisite WaaS installation, it automatically creates custom login and registration pages on your main site. You can change these default pages any time by going under your **WP Multisite WaaS > Settings > Login & Registration** page.
+Upon Multisite Ultimate installation, it automatically creates custom login and registration pages on your main site. You can change these default pages any time by going under your **Multisite Ultimate > Settings > Login & Registration** page.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-K3a5Ol4prD.png)
 
@@ -20,7 +20,7 @@ Let's take a look at each one of the options you can customize on the **Login & 
 
   * **Use custom login page:** This option allows you to use a customized login page, other than the default wp-login.php page. If this option is toggled on, you can select which page will be used for login on the **Default login page** option (right below).
 
-  * **Obfuscate the original login url (wp-login.php)** : If you want to hide the original login URL, you can toggle this option on. This is useful to prevent brute-force attacks. If this option is enabled, WP Multisite WaaS will display a 404 error when a user tries to access the original wp-login.php link
+  * **Obfuscate the original login url (wp-login.php)** : If you want to hide the original login URL, you can toggle this option on. This is useful to prevent brute-force attacks. If this option is enabled, Multisite Ultimate will display a 404 error when a user tries to access the original wp-login.php link
 
   * **Force synchronous site publication:** After a customer subscribe to a product on a network, the new pending site needs to be converted into a real network site. The publishing process happens via Job Queue, asynchronously. Enable this option to force the publication to happen in the same request as the signup.
 
@@ -36,7 +36,7 @@ And that's all the options related to login and registration that you can custom
 
 ## Using multiple registration forms:
 
-WP Multisite WaaS 2.0 offers a checkout form editor that allows you to create as many forms as you want, with different fields, products on offer, etc.
+Multisite Ultimate 2.0 offers a checkout form editor that allows you to create as many forms as you want, with different fields, products on offer, etc.
 
 Both the login and registration pages are embedded with shortcodes: **[wu_login_form]** on the login page and**[wu_checkout]** for the registration page. You can further customize the registration page by building or creating checkout forms.
 
@@ -124,7 +124,7 @@ If you want to create customized pricing tables for your products and pre-select
 
 ### **For plans:**
 
-Go to **WP Multisite WaaS > Products > Select a plan**. You should see the **Click to copy Shareable Link** button at the the top of the page. This is the link you can use to pre-select this specific plan on your checkout form.
+Go to **Multisite Ultimate > Products > Select a plan**. You should see the **Click to copy Shareable Link** button at the the top of the page. This is the link you can use to pre-select this specific plan on your checkout form.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-bUyOlBEfNj.png)
 
@@ -132,7 +132,7 @@ Note that this shareable link is only valid for **Plans**. You cannot use sharea
 
 ### For templates:
 
-If you want to pre-select site templates on your checkout form, you can use the parameter: **?template_id=X** on your registration page URL. The "X" needs to be replaced by the **site template ID number**. To get this number, go to **WP Multisite WaaS > Sites**.
+If you want to pre-select site templates on your checkout form, you can use the parameter: **?template_id=X** on your registration page URL. The "X" needs to be replaced by the **site template ID number**. To get this number, go to **Multisite Ultimate > Sites**.
 
 Click on **Manage** right below the site template you want to use. You will see the SITE ID number. Just use this number for this specific site template to be pre selected on your checkout form. In our case here, the URL parameter would be **?template_id=2**.
 

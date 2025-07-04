@@ -113,7 +113,7 @@ function wu_handle_site_domain($domain) {
 		$domain = "https://{$domain}";
 	}
 
-	$parsed = parse_url($domain);
+	$parsed = wp_parse_url($domain);
 
 	return (object) $parsed;
 }

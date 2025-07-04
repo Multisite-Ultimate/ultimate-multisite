@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Dashboard Admin Page.
+ * Multisite Ultimate Dashboard Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Dashboard Admin Page.
+ * Multisite Ultimate Dashboard Admin Page.
  */
 class Customer_List_Admin_Page extends List_Admin_Page {
 
@@ -66,7 +66,7 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 		}
 
 		if ( ! wp_verify_nonce(wu_request('nonce'), 'wu_export_customers')) {
-			wp_die(__('You do not have permissions to access this file.', 'wp-multisite-waas'));
+			wp_die(esc_html__('You do not have permissions to access this file.', 'multisite-ultimate'));
 		}
 
 		$customer_data = array_map(
@@ -183,14 +183,14 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 					'v-model' => 'type',
 				],
 				'options'   => [
-					'existing' => __('Existing User', 'wp-multisite-waas'),
-					'new'      => __('Invite New', 'wp-multisite-waas'),
+					'existing' => __('Existing User', 'multisite-ultimate'),
+					'new'      => __('Invite New', 'multisite-ultimate'),
 				],
 			],
 			'user_id'       => [
 				'type'              => 'model',
-				'title'             => __('Existing User', 'wp-multisite-waas'),
-				'placeholder'       => __('Search WordPress user...', 'wp-multisite-waas'),
+				'title'             => __('Existing User', 'multisite-ultimate'),
+				'placeholder'       => __('Search WordPress user...', 'multisite-ultimate'),
 				'tooltip'           => '',
 				'min'               => 1,
 				'wrapper_html_attr' => [
@@ -206,24 +206,24 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 			],
 			'username'      => [
 				'type'              => 'text',
-				'title'             => __('Username', 'wp-multisite-waas'),
-				'placeholder'       => __('E.g. johnsmith', 'wp-multisite-waas'),
+				'title'             => __('Username', 'multisite-ultimate'),
+				'placeholder'       => __('E.g. johnsmith', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-show' => "require('type', 'new')",
 				],
 			],
 			'email_address' => [
 				'type'              => 'email',
-				'title'             => __('Email Address', 'wp-multisite-waas'),
-				'placeholder'       => __('E.g. customer@wpultimo.dev', 'wp-multisite-waas'),
+				'title'             => __('Email Address', 'multisite-ultimate'),
+				'placeholder'       => __('E.g. customer@wpultimo.dev', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-show' => "require('type', 'new')",
 				],
 			],
 			'set_password'  => [
 				'type'              => 'toggle',
-				'title'             => __('Set Password', 'wp-multisite-waas'),
-				'desc'              => __('If not set, the user will be asked to set a password after accepting the invite.', 'wp-multisite-waas'),
+				'title'             => __('Set Password', 'multisite-ultimate'),
+				'desc'              => __('If not set, the user will be asked to set a password after accepting the invite.', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-show' => "require('type', 'new')",
 				],
@@ -233,15 +233,15 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 			],
 			'password'      => [
 				'type'              => 'password',
-				'title'             => __('Password', 'wp-multisite-waas'),
-				'placeholder'       => __('E.g. p@$$w0rd', 'wp-multisite-waas'),
+				'title'             => __('Password', 'multisite-ultimate'),
+				'placeholder'       => __('E.g. p@$$w0rd', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-show' => "require('type', 'new') && require('set_password', true)",
 				],
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Create Customer', 'wp-multisite-waas'),
+				'title'           => __('Create Customer', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -332,8 +332,8 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Customer removed successfully.', 'wp-multisite-waas'),
-			'search_label'    => __('Search Customer', 'wp-multisite-waas'),
+			'deleted_message' => __('Customer removed successfully.', 'multisite-ultimate'),
+			'search_label'    => __('Search Customer', 'multisite-ultimate'),
 		];
 	}
 
@@ -345,7 +345,7 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Customers', 'wp-multisite-waas');
+		return __('Customers', 'multisite-ultimate');
 	}
 
 	/**
@@ -356,7 +356,7 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Customers', 'wp-multisite-waas');
+		return __('Customers', 'multisite-ultimate');
 	}
 
 	/**
@@ -367,7 +367,7 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Customers', 'wp-multisite-waas');
+		return __('Customers', 'multisite-ultimate');
 	}
 
 	/**
@@ -380,13 +380,13 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 
 		return [
 			[
-				'label'   => __('Add Customer', 'wp-multisite-waas'),
+				'label'   => __('Add Customer', 'multisite-ultimate'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('add_new_customer'),
 			],
 			[
-				'label' => __('Export as CSV', 'wp-multisite-waas'),
+				'label' => __('Export as CSV', 'multisite-ultimate'),
 				'icon'  => 'wu-export',
 				'url'   => add_query_arg(
 					[

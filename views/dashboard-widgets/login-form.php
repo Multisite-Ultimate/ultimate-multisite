@@ -11,12 +11,12 @@
 
 	<!-- Already Logged Block -->
 
-	<div class="wu-p-4 wu-bg-yellow-200 wu-rounded <?php echo wu_env_picker('wu-mb-4', 'wu-mt-2 wu-shadow-sm'); ?>">
+	<div class="wu-p-4 wu-bg-yellow-200 wu-rounded <?php echo esc_attr(wu_env_picker('wu-mb-4', 'wu-mt-2 wu-shadow-sm')); ?>">
 
 		<?php
 
 		// translators: 1$s is the display name of the user currently logged in.
-		printf(wp_kses_post(__('Not %1$s? <a href="%2$s" class="wu-no-underline">Log in</a> using your account.', 'wp-multisite-waas')), esc_html(wp_get_current_user()->display_name), esc_url($login_url));
+		printf(wp_kses_post(__('Not %1$s? <a href="%2$s" class="wu-no-underline">Log in</a> using your account.', 'multisite-ultimate')), esc_html(wp_get_current_user()->display_name), esc_url($login_url));
 
 		?>
 
@@ -31,7 +31,7 @@
 
 		<?php if ($display_title) : ?>
 
-		<h2 class="wu-m-0 <?php echo wu_env_picker('', 'wu-widget-title'); ?>">
+		<h2 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
 			<?php echo esc_html($title); ?>
 
@@ -44,12 +44,12 @@
 		<div class="wu-ml-auto">
 
 			<a
-			title="<?php esc_attr_e('Update Billing Address', 'wp-multisite-waas'); ?>"
+			title="<?php esc_attr_e('Update Billing Address', 'multisite-ultimate'); ?>"
 			class="wu-text-sm wu-no-underline button"
-			href="<?php echo wu_get_registration_url(); ?>"
+			href="<?php echo esc_attr(wu_get_registration_url()); ?>"
 			>
 
-			<?php esc_html_e('Create an Account', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('Create an Account', 'multisite-ultimate'); ?>
 
 			</a>
 

@@ -65,7 +65,7 @@ function wu_has_product($product_slug, $blocking = false, $site_id = '') {
 	$site = wu_get_site($site_id);
 
 	if (empty($site)) {
-		return new \WP_Error('site-not-found', __('Invalid site ID', 'wp-multisite-waas'));
+		return new \WP_Error('site-not-found', __('Invalid site ID', 'multisite-ultimate'));
 	}
 
 	$membership = $site->get_membership();
@@ -104,7 +104,7 @@ function wu_is_membership_active($site_id = '') {
 	$site = wu_get_site($site_id);
 
 	if (empty($site)) {
-		return new \WP_Error('site-not-found', __('Invalid site ID', 'wp-multisite-waas'));
+		return new \WP_Error('site-not-found', __('Invalid site ID', 'multisite-ultimate'));
 	}
 
 	$membership = $site->get_membership();

@@ -74,7 +74,7 @@
 
 					<?php echo esc_html($post_count); ?>
 					/
-					<?php echo empty($post_type_limits->{$post_type_slug}->number) ? esc_html__('Unlimited', 'wp-multisite-waas') : esc_html($post_type_limits->{$post_type_slug}->number); ?>
+					<?php echo empty($post_type_limits->{$post_type_slug}->number) ? esc_html__('Unlimited', 'multisite-ultimate') : esc_html($post_type_limits->{$post_type_slug}->number); ?>
 
 				</div>
 
@@ -113,9 +113,9 @@ endforeach;
 
 			<div class="">
 
-			<?php esc_html_e('Unique Visits', 'wp-multisite-waas'); ?>
-
-			<?php echo wu_tooltip(sprintf(esc_html__('Next Reset: %s', 'wp-multisite-waas'), date_i18n(get_option('date_format', 'd/m/Y'), strtotime('last day of this month')))); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php esc_html_e('Unique Visits', 'multisite-ultimate'); ?>
+			<?php // translators: %s is the next reset date ?>
+			<?php echo wu_tooltip(sprintf(esc_html__('Next Reset: %s', 'multisite-ultimate'), date_i18n(get_option('date_format', 'd/m/Y'), strtotime('last day of this month')))); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
 			</div>
 
@@ -129,7 +129,7 @@ endforeach;
 
 			<?php echo number_format($visits_count); ?>
 			/
-			<?php echo $visit_limitations->get_limit() == 0 ? esc_html__('Unlimited', 'wp-multisite-waas') : esc_html(number_format((int) $visit_limitations->get_limit())); ?>
+			<?php echo $visit_limitations->get_limit() == 0 ? esc_html__('Unlimited', 'multisite-ultimate') : esc_html(number_format((int) $visit_limitations->get_limit())); ?>
 
 			</div>
 

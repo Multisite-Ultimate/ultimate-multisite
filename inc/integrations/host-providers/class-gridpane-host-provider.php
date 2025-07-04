@@ -43,7 +43,7 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $tutorial_link = '';
+	protected $tutorial_link = 'https://github.com/superdav42/wp-multisite-waas/wiki/GridPane-Integration';
 
 	/**
 	 * Array containing the features this integration supports.
@@ -208,7 +208,7 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 		if (wu_get_isset($results, 'message') === 'This action is unauthorized.') {
 			wp_send_json_error(
 				[
-					'error' => __('We were not able to successfully establish a connection.', 'wp-multisite-waas'),
+					'error' => __('We were not able to successfully establish a connection.', 'multisite-ultimate'),
 				]
 			);
 		}
@@ -216,14 +216,14 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 		if (is_wp_error($results)) {
 			wp_send_json_error(
 				[
-					'error' => __('We were not able to successfully establish a connection.', 'wp-multisite-waas'),
+					'error' => __('We were not able to successfully establish a connection.', 'multisite-ultimate'),
 				]
 			);
 		}
 
 		wp_send_json_success(
 			[
-				'success' => __('Connection successfully established.', 'wp-multisite-waas'),
+				'success' => __('Connection successfully established.', 'multisite-ultimate'),
 			]
 		);
 	}
@@ -247,7 +247,7 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __("GridPane is the world's first hosting control panel built exclusively for serious WordPress professionals.", 'wp-multisite-waas');
+		return __("GridPane is the world's first hosting control panel built exclusively for serious WordPress professionals.", 'multisite-ultimate');
 	}
 
 	/**

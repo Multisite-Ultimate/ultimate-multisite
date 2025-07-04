@@ -1,27 +1,27 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background: #f1f1f1;
-  padding-top: 100px;
-  padding-left: 20%;
-  padding-right: 20%;
-  font-size: 0.85rem; }
-  body::before {
-    width: 200px;
-    content: " ";
-    position: absolute;
-    top: 30px;
-    background: url("../../../assets/img/logo.webp");
-    background-size: contain;
-    height: 40px;
-    background-position: left center;
-    background-repeat: no-repeat; }
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+	background: #f1f1f1;
+	padding-top: 100px;
+	padding-left: 20%;
+	padding-right: 20%;
+	font-size: 0.85rem; }
+	body::before {
+	width: 200px;
+	content: " ";
+	position: absolute;
+	top: 30px;
+	background: url("../../../assets/img/logo.webp");
+	background-size: contain;
+	height: 40px;
+	background-position: left center;
+	background-repeat: no-repeat; }
 
 #listeners {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-  #listeners a {
-    color: #333;
-    text-decoration: none;
-    padding: 5px 0;
-    display: inline-block; }
+	list-style: none;
+	margin: 0;
+	padding: 0; }
+	#listeners a {
+	color: #333;
+	text-decoration: none;
+	padding: 5px 0;
+	display: inline-block; }

@@ -39,7 +39,7 @@ trait WP_Ultimo_Site_Deprecated {
 		 *
 		 * @since 2.0.0
 		 */
-		_doing_it_wrong($key, __('Product keys should not be accessed directly', 'wp-multisite-waas'), '2.0.0');
+		_doing_it_wrong(esc_html($key), esc_html__('Product keys should not be accessed directly', 'multisite-ultimate'), '2.0.0');
 
 		return $value;
 	}

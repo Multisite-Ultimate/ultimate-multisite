@@ -10,12 +10,12 @@
 defined('ABSPATH') || exit;
 
 return [
-	'day'    => __('day', 'wp-multisite-waas'),
-	'days'   => __('days', 'wp-multisite-waas'),
-	'week'   => __('week', 'wp-multisite-waas'),
-	'weeks'  => __('weeks', 'wp-multisite-waas'),
-	'month'  => __('month', 'wp-multisite-waas'),
-	'months' => __('months', 'wp-multisite-waas'),
-	'year'   => __('year', 'wp-multisite-waas'),
-	'years'  => __('years', 'wp-multisite-waas'),
+	'day'    => __('day', 'multisite-ultimate'),
+	'days'   => __('days', 'multisite-ultimate'),
+	'week'   => __('week', 'multisite-ultimate'),
+	'weeks'  => __('weeks', 'multisite-ultimate'),
+	'month'  => __('month', 'multisite-ultimate'),
+	'months' => __('months', 'multisite-ultimate'),
+	'year'   => __('year', 'multisite-ultimate'),
+	'years'  => __('years', 'multisite-ultimate'),
 ];

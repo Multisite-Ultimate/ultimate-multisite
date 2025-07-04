@@ -42,7 +42,6 @@
 		<?php foreach ($field->options as $option_value => $option) : ?>
 
 			<?php
-
 			/*
 			* Set the default keys.
 			*/

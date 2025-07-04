@@ -2,7 +2,7 @@
 /**
  * Discount Code Compatibility Layer
  *
- * Handles discount code compatibility back-ports to WP Multisite WaaS 1.X builds.
+ * Handles discount code compatibility back-ports to Multisite Ultimate 1.X builds.
  *
  * @package WP_Ultimo
  * @subpackage Compat/Discount_Code_Compat
@@ -15,7 +15,7 @@ namespace WP_Ultimo\Compat;
 defined('ABSPATH') || exit;
 
 /**
- * Handles discount code compatibility back-ports to WP Multisite WaaS 1.X builds.
+ * Handles discount code compatibility back-ports to Multisite Ultimate 1.X builds.
  *
  * @since 2.0.0
  */

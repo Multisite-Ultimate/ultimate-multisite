@@ -12,6 +12,7 @@
 namespace WP_Ultimo\Managers;
 
 use Psr\Log\LogLevel;
+use WP_Ultimo\Gateways\Base_Gateway;
 use WP_Ultimo\Gateways\Ignorable_Exception;
 
 use WP_Ultimo\Gateways\Free_Gateway;
@@ -105,12 +106,12 @@ class Gateway_Manager extends Base_Manager {
 		/*
 		 * Waits for webhook signals and deal with them.
 		 */
-		add_action('init', [$this, 'maybe_process_webhooks'], 1);
+		add_action('init', [$this, 'maybe_process_webhooks'], 21);
 
 		/*
 		 * Waits for webhook signals and deal with them.
 		 */
-		add_action('admin_init', [$this, 'maybe_process_v1_webhooks'], 1);
+		add_action('admin_init', [$this, 'maybe_process_v1_webhooks'], 21);
 	}
 
 	/**
@@ -277,11 +278,11 @@ class Gateway_Manager extends Base_Manager {
 		$gateway = wu_get_gateway($gateway_id);
 
 		if ( ! $gateway) {
-			$error = new \WP_Error('missing_gateway', esc_html__('Missing gateway parameter.', 'wp-multisite-waas'));
+			$error = new \WP_Error('missing_gateway', esc_html__('Missing gateway parameter.', 'multisite-ultimate'));
 
 			wp_die(
 				$error, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				esc_html__('Error', 'wp-multisite-waas'),
+				esc_html__('Error', 'multisite-ultimate'),
 				[
 					'back_link' => true,
 					'response'  => '200',
@@ -310,7 +311,7 @@ class Gateway_Manager extends Base_Manager {
 			if (is_wp_error($results)) {
 				wp_die(
 					$results, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					esc_html__('Error', 'wp-multisite-waas'),
+					esc_html__('Error', 'multisite-ultimate'),
 					[
 						'back_link' => true,
 						'response'  => '200',
@@ -322,7 +323,7 @@ class Gateway_Manager extends Base_Manager {
 
 			wp_die(
 				$error, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				esc_html__('Error', 'wp-multisite-waas'),
+				esc_html__('Error', 'multisite-ultimate'),
 				[
 					'back_link' => true,
 					'response'  => '200',
@@ -361,8 +362,8 @@ class Gateway_Manager extends Base_Manager {
 			'payment-gateways',
 			'active_gateways',
 			[
-				'title'   => __('Active Payment Gateways', 'wp-multisite-waas'),
-				'desc'    => __('Payment gateways are what your customers will use to pay.', 'wp-multisite-waas'),
+				'title'   => __('Active Payment Gateways', 'multisite-ultimate'),
+				'desc'    => __('Payment gateways are what your customers will use to pay.', 'multisite-ultimate'),
 				'type'    => 'multiselect',
 				'columns' => 2,
 				'options' => [$this, 'get_gateways_as_options'],
@@ -400,31 +401,31 @@ class Gateway_Manager extends Base_Manager {
 		/*
 		 * Free Payments
 		 */
-		wu_register_gateway('free', __('Free', 'wp-multisite-waas'), '', Free_Gateway::class, true);
+		wu_register_gateway('free', __('Free', 'multisite-ultimate'), '', Free_Gateway::class, true);
 
 		/*
 		 * Stripe Payments
 		 */
-		$stripe_desc = __('Stripe is a suite of payment APIs that powers commerce for businesses of all sizes, including subscription management.', 'wp-multisite-waas');
-		wu_register_gateway('stripe', __('Stripe', 'wp-multisite-waas'), $stripe_desc, Stripe_Gateway::class);
+		$stripe_desc = __('Stripe is a suite of payment APIs that powers commerce for businesses of all sizes, including subscription management.', 'multisite-ultimate');
+		wu_register_gateway('stripe', __('Stripe', 'multisite-ultimate'), $stripe_desc, Stripe_Gateway::class);
 
 		/*
 		 * Stripe Checkout Payments
 		 */
-		$stripe_checkout_desc = __('Stripe Checkout is the hosted solution for checkouts using Stripe.', 'wp-multisite-waas');
-		wu_register_gateway('stripe-checkout', __('Stripe Checkout', 'wp-multisite-waas'), $stripe_checkout_desc, Stripe_Checkout_Gateway::class);
+		$stripe_checkout_desc = __('Stripe Checkout is the hosted solution for checkouts using Stripe.', 'multisite-ultimate');
+		wu_register_gateway('stripe-checkout', __('Stripe Checkout', 'multisite-ultimate'), $stripe_checkout_desc, Stripe_Checkout_Gateway::class);
 
 		/*
 		 * PayPal Payments
 		 */
-		$paypal_desc = __('PayPal is the leading provider in checkout solutions and it is the easier way to get your network subscriptions going.', 'wp-multisite-waas');
-		wu_register_gateway('paypal', __('PayPal', 'wp-multisite-waas'), $paypal_desc, PayPal_Gateway::class);
+		$paypal_desc = __('PayPal is the leading provider in checkout solutions and it is the easier way to get your network subscriptions going.', 'multisite-ultimate');
+		wu_register_gateway('paypal', __('PayPal', 'multisite-ultimate'), $paypal_desc, PayPal_Gateway::class);
 
 		/*
 		 * Manual Payments
 		 */
-		$manual_desc = __('Use the Manual Gateway to allow users to pay you directly via bank transfers, checks, or other channels.', 'wp-multisite-waas');
-		wu_register_gateway('manual', __('Manual', 'wp-multisite-waas'), $manual_desc, Manual_Gateway::class);
+		$manual_desc = __('Use the Manual Gateway to allow users to pay you directly via bank transfers, checks, or other channels.', 'multisite-ultimate');
+		wu_register_gateway('manual', __('Manual', 'multisite-ultimate'), $manual_desc, Manual_Gateway::class);
 	}
 
 	/**
@@ -510,6 +511,7 @@ class Gateway_Manager extends Base_Manager {
 	 */
 	public function install_hooks($class_name): void {
 
+		/** @var Base_Gateway $gateway */
 		$gateway = new $class_name();
 
 		$gateway_id = $gateway->get_id();

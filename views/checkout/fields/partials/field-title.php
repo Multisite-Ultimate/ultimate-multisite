@@ -10,7 +10,7 @@
 
 	<label class="wu-block" for="field-<?php echo esc_attr($field->id); ?>">
 
-	<?php echo $field->title; ?>
+	<?php echo wp_kses($field->title, wu_kses_allowed_html()); ?>
 
 	<?php if ($field->required) : ?>
 
@@ -18,7 +18,7 @@
 
 	<?php endif; ?>
 
-	<?php echo wu_tooltip($field->tooltip); ?>
+	<?php echo wu_tooltip($field->tooltip); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
 	</label>
 

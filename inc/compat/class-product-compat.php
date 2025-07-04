@@ -2,7 +2,7 @@
 /**
  * Products Compatibility Layer
  *
- * Handles product compatibility back-ports to WP Multisite WaaS 1.X builds.
+ * Handles product compatibility back-ports to Multisite Ultimate 1.X builds.
  *
  * @package WP_Ultimo
  * @subpackage Compat/Product_Compat
@@ -15,7 +15,7 @@ namespace WP_Ultimo\Compat;
 defined('ABSPATH') || exit;
 
 /**
- * Handles product compatibility back-ports to WP Multisite WaaS 1.X builds.
+ * Handles product compatibility back-ports to Multisite Ultimate 1.X builds.
  *
  * @since 2.0.0
  */
@@ -94,8 +94,8 @@ class Product_Compat {
 	public function add_legacy_section($sections, $object) {
 
 		$sections['legacy_options_core'] = [
-			'title'  => __('Legacy Options', 'wp-multisite-waas'),
-			'desc'   => __('Options used by old 1.X versions. ', 'wp-multisite-waas'),
+			'title'  => __('Legacy Options', 'multisite-ultimate'),
+			'desc'   => __('Options used by old 1.X versions. ', 'multisite-ultimate'),
 			'icon'   => 'dashicons-wu-spreadsheet',
 			'state'  => [
 				'legacy_options' => $object->get_legacy_options(),
@@ -104,8 +104,8 @@ class Product_Compat {
 				'legacy_options' => [
 					'type'      => 'toggle',
 					'value'     => $object->get_legacy_options(),
-					'title'     => __('Toggle Legacy Options', 'wp-multisite-waas'),
-					'desc'      => __('Toggle this option to edit legacy options.', 'wp-multisite-waas'),
+					'title'     => __('Toggle Legacy Options', 'multisite-ultimate'),
+					'desc'      => __('Toggle this option to edit legacy options.', 'multisite-ultimate'),
 					'html_attr' => [
 						'v-model' => 'legacy_options',
 					],
@@ -113,17 +113,17 @@ class Product_Compat {
 				'featured_plan'  => [
 					'type'              => 'toggle',
 					'value'             => $object->is_featured_plan(),
-					'title'             => __('Featured Plan', 'wp-multisite-waas'),
-					'desc'              => __('Toggle this option to mark this product as featured on the legacy pricing tables.', 'wp-multisite-waas'),
+					'title'             => __('Featured Plan', 'multisite-ultimate'),
+					'desc'              => __('Toggle this option to mark this product as featured on the legacy pricing tables.', 'multisite-ultimate'),
 					'wrapper_html_attr' => [
 						'v-show' => 'legacy_options',
 					],
 				],
 				'feature_list'   => [
 					'type'              => 'textarea',
-					'title'             => __('Features List', 'wp-multisite-waas'),
-					'placeholder'       => __('E.g. Feature 1', 'wp-multisite-waas') . PHP_EOL . __('Feature 2', 'wp-multisite-waas'),
-					'desc'              => __('Add a feature per line. These will be shown on the pricing tables.', 'wp-multisite-waas'),
+					'title'             => __('Features List', 'multisite-ultimate'),
+					'placeholder'       => __('E.g. Feature 1', 'multisite-ultimate') . PHP_EOL . __('Feature 2', 'multisite-ultimate'),
+					'desc'              => __('Add a feature per line. These will be shown on the pricing tables.', 'multisite-ultimate'),
 					'value'             => $object->get_feature_list(),
 					'wrapper_html_attr' => [
 						'v-show' => 'legacy_options',

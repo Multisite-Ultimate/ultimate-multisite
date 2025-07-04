@@ -78,7 +78,7 @@ class Base_Field_Template {
 	 */
 	public function get_title() {
 
-		return __('Field Template', 'wp-multisite-waas');
+		return __('Field Template', 'multisite-ultimate');
 	}
 
 	/**
@@ -91,7 +91,7 @@ class Base_Field_Template {
 	 */
 	public function get_description() {
 
-		return __('Description', 'wp-multisite-waas');
+		return __('Description', 'multisite-ultimate');
 	}
 
 	/**

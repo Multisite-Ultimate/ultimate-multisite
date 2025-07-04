@@ -374,14 +374,14 @@ function wu_get_membership_new_cart($membership) {
 	$difference = $membership->get_amount() - $cart->get_recurring_total();
 
 	if (round(abs($difference), wu_currency_decimal_filter()) > 0) {
-		$type_translate = $difference < 0 ? __('credit', 'wp-multisite-waas') : __('debit', 'wp-multisite-waas');
+		$type_translate = $difference < 0 ? __('credit', 'multisite-ultimate') : __('debit', 'multisite-ultimate');
 
 		$line_item_params = [
 			'hash'          => 'ADJUSTMENT',
 			'type'          => $difference < 0 ? 'credit' : 'fee',
 			// translators: %s is the type of adjustment (credit or debit).
-			'title'         => sprintf(__('Adjustment %s', 'wp-multisite-waas'), $type_translate),
-			'description'   => __('Amount adjustment based on previous deal.', 'wp-multisite-waas'),
+			'title'         => sprintf(__('Adjustment %s', 'multisite-ultimate'), $type_translate),
+			'description'   => __('Amount adjustment based on previous deal.', 'multisite-ultimate'),
 			'unit_price'    => $difference,
 			'discountable'  => false,
 			'taxable'       => false,
@@ -401,14 +401,14 @@ function wu_get_membership_new_cart($membership) {
 		$y = $cart->get_total();
 
 		$difference     = $membership->get_initial_amount() - $cart->get_total();
-		$type_translate = $difference < 0 ? __('credit', 'wp-multisite-waas') : __('debit', 'wp-multisite-waas');
+		$type_translate = $difference < 0 ? __('credit', 'multisite-ultimate') : __('debit', 'multisite-ultimate');
 
 		$line_item_params = [
 			'hash'         => 'INITADJUSTMENT',
 			'type'         => $difference < 0 ? 'credit' : 'fee',
 			// translators: %s is the type of adjustment (credit or debit).
-			'title'        => sprintf(__('Adjustment %s', 'wp-multisite-waas'), $type_translate),
-			'description'  => __('Initial amount adjustment based on previous deal.', 'wp-multisite-waas'),
+			'title'        => sprintf(__('Adjustment %s', 'multisite-ultimate'), $type_translate),
+			'description'  => __('Initial amount adjustment based on previous deal.', 'multisite-ultimate'),
 			'unit_price'   => $difference,
 			'discountable' => false,
 			'taxable'      => false,

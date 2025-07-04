@@ -41,6 +41,7 @@
 				method: 'post',
 				url: ajaxurl,
 				data: {
+					nonce: wu_webhook_page.nonce,
 					action: $(this).data('action'),
 					webhook_id: $(this).data('object'),
 					webhook_url,

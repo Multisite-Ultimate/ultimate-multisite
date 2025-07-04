@@ -41,7 +41,7 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $tutorial_link = 'https://help.wpultimo.com/article/294-configuring-automatic-domain-syncing-with-cloudways';
+	protected $tutorial_link = 'https://github.com/superdav42/wp-multisite-waas/wiki/Cloudways-Integration';
 
 	/**
 	 * Array containing the features this integration supports.
@@ -142,30 +142,30 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 
 		return [
 			'WU_CLOUDWAYS_EMAIL'         => [
-				'title'       => __('Cloudways Account Email', 'wp-multisite-waas'),
-				'desc'        => __('Your Cloudways account email address.', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. me@gmail.com', 'wp-multisite-waas'),
+				'title'       => __('Cloudways Account Email', 'multisite-ultimate'),
+				'desc'        => __('Your Cloudways account email address.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. me@gmail.com', 'multisite-ultimate'),
 			],
 			'WU_CLOUDWAYS_API_KEY'       => [
-				'title'       => __('Cloudways API Key', 'wp-multisite-waas'),
-				'desc'        => __('The API Key retrieved in the previous step.', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. eYP0Jo3Fzzm5SOZCi5nLR0Mki2lbYZ', 'wp-multisite-waas'),
+				'title'       => __('Cloudways API Key', 'multisite-ultimate'),
+				'desc'        => __('The API Key retrieved in the previous step.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. eYP0Jo3Fzzm5SOZCi5nLR0Mki2lbYZ', 'multisite-ultimate'),
 			],
 			'WU_CLOUDWAYS_SERVER_ID'     => [
-				'title'       => __('Cloudways Server ID', 'wp-multisite-waas'),
-				'desc'        => __('The Server ID retrieved in the previous step.', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. 11667', 'wp-multisite-waas'),
+				'title'       => __('Cloudways Server ID', 'multisite-ultimate'),
+				'desc'        => __('The Server ID retrieved in the previous step.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. 11667', 'multisite-ultimate'),
 			],
 			'WU_CLOUDWAYS_APP_ID'        => [
-				'title'       => __('Cloudways App ID', 'wp-multisite-waas'),
-				'desc'        => __('The App ID retrieved in the previous step.', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. 940288', 'wp-multisite-waas'),
+				'title'       => __('Cloudways App ID', 'multisite-ultimate'),
+				'desc'        => __('The App ID retrieved in the previous step.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. 940288', 'multisite-ultimate'),
 			],
 			'WU_CLOUDWAYS_EXTRA_DOMAINS' => [
-				'title'       => __('Cloudways Extra Domains', 'wp-multisite-waas'),
-				'tooltip'     => __('The Cloudways API is a bit strange in that it doesn’t offer a way to add or remove just one domain, only a way to update the whole domain list. That means that WP Multisite WaaS will replace all domains you might have there with the list of mapped domains of the network every time a new domain is added.', 'wp-multisite-waas'),
-				'desc'        => __('Comma-separated list of additional domains to add to Cloudways.', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. *.test.com, test.com', 'wp-multisite-waas'),
+				'title'       => __('Cloudways Extra Domains', 'multisite-ultimate'),
+				'tooltip'     => __('The Cloudways API is a bit strange in that it doesn’t offer a way to add or remove just one domain, only a way to update the whole domain list. That means that Multisite Ultimate will replace all domains you might have there with the list of mapped domains of the network every time a new domain is added.', 'multisite-ultimate'),
+				'desc'        => __('Comma-separated list of additional domains to add to Cloudways.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. *.test.com, test.com', 'multisite-ultimate'),
 			],
 		];
 	}
@@ -526,7 +526,7 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('Focus on your business and avoid all the web hosting hassles. Our managed hosting guarantees unmatched performance, reliability and choice with 24/7 support that acts as your extended team, making Cloudways an ultimate choice for growing agencies and e-commerce businesses.', 'wp-multisite-waas');
+		return __('Focus on your business and avoid all the web hosting hassles. Our managed hosting guarantees unmatched performance, reliability and choice with 24/7 support that acts as your extended team, making Cloudways an ultimate choice for growing agencies and e-commerce businesses.', 'multisite-ultimate');
 	}
 
 	/**

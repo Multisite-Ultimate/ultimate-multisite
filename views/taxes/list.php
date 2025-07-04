@@ -8,11 +8,11 @@
 <div id="wu-tax-rates" class="<?php wu_wrap_use_container(); ?> wrap wp-ultimo">
 
 	<h1 class="wp-heading-inline">
-		<?php esc_html_e('Tax Rates', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Tax Rates', 'multisite-ultimate'); ?>
 	</h1>
 
 	<a href="<?php echo esc_url(network_admin_url('admin.php?page=wp-ultimo-settings&tab=taxes')); ?>" class="page-title-action">
-		<?php esc_html_e('Go to the Tax Settings Page', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Go to the Tax Settings Page', 'multisite-ultimate'); ?>
 	</a>
 
 	<!-- <p class="description"></p> -->
@@ -27,14 +27,14 @@
 
 		<div v-show="creating">
 
-			<input type="text" style="background: white !important;" class="button wu-bg-white" v-model="create_name" placeholder="<?php esc_html_e('Tax Category Name', 'wp-multisite-waas'); ?>">
+			<input type="text" style="background: white !important;" class="button wu-bg-white" v-model="create_name" placeholder="<?php esc_html_e('Tax Category Name', 'multisite-ultimate'); ?>">
 
 			<button class="button button-primary" v-on:click.prevent="add_tax_category" v-bind:disabled="create_name.length <= 3">
-			<?php esc_html_e('Create', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('Create', 'multisite-ultimate'); ?>
 			</button>
 
 			<button class="button action" v-on:click.prevent="creating = false">
-			<?php esc_html_e('&larr; Back', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('&larr; Back', 'multisite-ultimate'); ?>
 			</button>
 
 		</div>
@@ -42,7 +42,7 @@
 		<div v-show="switching">
 
 			<button class="button action" v-on:click.prevent="switching = false">
-			<?php esc_html_e('&larr; Back', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('&larr; Back', 'multisite-ultimate'); ?>
 			</button>
 
 			<select v-model="tax_category" class="wu-bg-white">
@@ -58,17 +58,17 @@
 			<input type="text" style="background: white !important;" class="button wu-bg-white" v-model="data[tax_category].name">
 
 			<button class="button action" v-on:click.prevent="switching = true">
-			<?php esc_html_e('Switch', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('Switch', 'multisite-ultimate'); ?>
 			</button>
 
 			<button class="button action" v-on:click.prevent="delete_tax_category">
-			<?php esc_html_e('Delete', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('Delete', 'multisite-ultimate'); ?>
 			</button>
 
 			&nbsp;
 
 			<button class="button action wu-ml-3" v-on:click.prevent="creating = true">
-			<?php esc_html_e('Add new Tax Category', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('Add new Tax Category', 'multisite-ultimate'); ?>
 			</button>
 
 		</div>
@@ -79,7 +79,7 @@
 
 		<span class="displaying-num">
 
-			{{data[tax_category].rates.length}} <?php esc_html_e('item(s)', 'wp-multisite-waas'); ?>
+			{{data[tax_category].rates.length}} <?php esc_html_e('item(s)', 'multisite-ultimate'); ?>
 
 		</span>
 
@@ -126,7 +126,7 @@
 
 			<div class="wu-p-4">
 
-				<?php esc_html_e('Loading Tax Rates...', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Loading Tax Rates...', 'multisite-ultimate'); ?>
 
 			</div>
 
@@ -140,7 +140,7 @@
 
 			<div class="wu-p-4">
 
-				<?php esc_html_e('No items to display', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('No items to display', 'multisite-ultimate'); ?>
 
 			</div>
 
@@ -240,7 +240,7 @@
 				:options="item.state_options" 
 				model="state" 
 				style="width: 100%;"
-				placeholder="<?php esc_attr_e('Leave blank to apply to all', 'wp-multisite-waas'); ?>"
+				placeholder="<?php esc_attr_e('Leave blank to apply to all', 'multisite-ultimate'); ?>"
 				></selectizer>
 
 						<?php
@@ -255,7 +255,7 @@
 				:country="item.country" 
 				model="city" 
 				style="width: 100%;"
-				placeholder="<?php esc_attr_e('Leave blank to apply to all', 'wp-multisite-waas'); ?>"
+				placeholder="<?php esc_attr_e('Leave blank to apply to all', 'multisite-ultimate'); ?>"
 				v-cloak
 				></selectizer>
 
@@ -338,13 +338,13 @@
 
 		<button v-on:click.prevent="add_row" class="button">
 
-		<?php esc_html_e('Add new Row', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Add new Row', 'multisite-ultimate'); ?>
 
 		</button>
 
 		<button v-on:click.prevent="delete_rows" class="button">
 
-		<?php esc_html_e('Delete Selected Rows', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Delete Selected Rows', 'multisite-ultimate'); ?>
 
 		</button>
 
@@ -370,11 +370,11 @@
 
 		<span v-if="changed && !saveMessage && !saving" class="description"
 		style="display: inline-block; line-height: 28px; margin-right: 10px;">
-		<?php esc_html_e('Save your changes!', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Save your changes!', 'multisite-ultimate'); ?>
 		</span>
 
 		<span v-if="saving" class="description" style="display: inline-block; line-height: 28px; margin-right: 10px;">
-		<?php esc_html_e('Saving...', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Saving...', 'multisite-ultimate'); ?>
 		</span>
 
 		<span v-if="saveMessage" class="description"

@@ -55,7 +55,7 @@ class Signup_Field_Discount_Code extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Coupon Code', 'wp-multisite-waas');
+		return __('Coupon Code', 'multisite-ultimate');
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Signup_Field_Discount_Code extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds an additional field to apply a discount code.', 'wp-multisite-waas');
+		return __('Adds an additional field to apply a discount code.', 'multisite-ultimate');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Signup_Field_Discount_Code extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds an additional field to apply a discount code.', 'wp-multisite-waas');
+		return __('Adds an additional field to apply a discount code.', 'multisite-ultimate');
 	}
 
 	/**
@@ -168,7 +168,7 @@ class Signup_Field_Discount_Code extends Base_Signup_Field {
 		$checkout_fields['discount_code_checkbox'] = [
 			'id'        => 'discount_code',
 			'type'      => 'toggle',
-			'name'      => __('Have a coupon code?', 'wp-multisite-waas'),
+			'name'      => __('Have a coupon code?', 'multisite-ultimate'),
 			'class'     => 'wu-w-auto',
 			'html_attr' => [
 				'v-model' => 'toggle_discount_code',

@@ -66,7 +66,7 @@ class Payment_Manager extends Base_Manager {
 			function () {
 				Event_Manager::register_model_events(
 					'payment',
-					__('Payment', 'wp-multisite-waas'),
+					__('Payment', 'multisite-ultimate'),
 					['created', 'updated']
 				);
 			}
@@ -169,7 +169,7 @@ class Payment_Manager extends Base_Manager {
 		wp_enqueue_style('wu-admin');
 		add_wubox();
 
-		$form_title = __('Pending Payments', 'wp-multisite-waas');
+		$form_title = __('Pending Payments', 'multisite-ultimate');
 		$form_url   = wu_get_form_url('pending_payments');
 
 		wp_add_inline_script('wubox', "document.addEventListener('DOMContentLoaded', function(){wubox.show('$form_title', '$form_url');});");
@@ -225,7 +225,7 @@ class Payment_Manager extends Base_Manager {
 			}
 		}
 
-		$message = ! empty($pending_payments) ? __('You have pending payments on your account!', 'wp-multisite-waas') : __('You do not have pending payments on your account!', 'wp-multisite-waas');
+		$message = ! empty($pending_payments) ? __('You have pending payments on your account!', 'multisite-ultimate') : __('You do not have pending payments on your account!', 'multisite-ultimate');
 
 		/**
 		 * Allow user to change the message about the pending payments.
@@ -252,7 +252,7 @@ class Payment_Manager extends Base_Manager {
 
 			$url = $payment->get_payment_url();
 
-			$html = sprintf('<a href="%s" class="button-primary">%s</a>', $url, __('Pay Now', 'wp-multisite-waas'));
+			$html = sprintf('<a href="%s" class="button-primary">%s</a>', $url, __('Pay Now', 'multisite-ultimate'));
 
 			$title = $slug;
 
@@ -290,14 +290,13 @@ class Payment_Manager extends Base_Manager {
 			 * Validates nonce.
 			 */
 			if ( ! wp_verify_nonce(wu_request('key'), 'see_invoice')) {
-
-				// wp_die(__('You do not have permissions to access this file.', 'wp-multisite-waas'));
+				wp_die(esc_html__('You do not have permissions to access this file.', 'multisite-ultimate'));
 			}
 
 			$payment = wu_get_payment_by_hash(wu_request('reference'));
 
 			if ( ! $payment) {
-				wp_die(__('This invoice does not exist.', 'wp-multisite-waas'));
+				wp_die(esc_html__('This invoice does not exist.', 'multisite-ultimate'));
 			}
 
 			$invoice = new Invoice($payment);
@@ -329,10 +328,10 @@ class Payment_Manager extends Base_Manager {
 		$target_customer = wu_get_customer($target_customer_id);
 
 		if ( ! $payment || ! $target_customer || $payment->get_customer_id() === $target_customer->get_id()) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'wp-multisite-waas'));
+			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
 		}
 
-		$wpdb->query('START TRANSACTION');
+		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 		try {
 
@@ -344,17 +343,17 @@ class Payment_Manager extends Base_Manager {
 			$saved = $payment->save();
 
 			if (is_wp_error($saved)) {
-				$wpdb->query('ROLLBACK');
+				$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 				return $saved;
 			}
 		} catch (\Throwable $e) {
-			$wpdb->query('ROLLBACK');
+			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 			return new \WP_Error('exception', $e->getMessage());
 		}
 
-		$wpdb->query('COMMIT');
+		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 		return true;
 	}
@@ -374,10 +373,10 @@ class Payment_Manager extends Base_Manager {
 		$payment = wu_get_payment($payment_id);
 
 		if ( ! $payment) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'wp-multisite-waas'));
+			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
 		}
 
-		$wpdb->query('START TRANSACTION');
+		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 		try {
 
@@ -387,17 +386,17 @@ class Payment_Manager extends Base_Manager {
 			$saved = $payment->delete();
 
 			if (is_wp_error($saved)) {
-				$wpdb->query('ROLLBACK');
+				$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 				return $saved;
 			}
 		} catch (\Throwable $e) {
-			$wpdb->query('ROLLBACK');
+			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 			return new \WP_Error('exception', $e->getMessage());
 		}
 
-		$wpdb->query('COMMIT');
+		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 		return true;
 	}
@@ -434,6 +433,6 @@ class Payment_Manager extends Base_Manager {
 
 		$payment->save();
 
-		return wu_save_setting('next_invoice_number', $current_invoice_number + 1);
+		wu_save_setting('next_invoice_number', $current_invoice_number + 1);
 	}
 }

@@ -53,7 +53,7 @@ class Legacy_Template_Selection_Field_Template extends Base_Field_Template {
 	 */
 	public function get_title() {
 
-		return __('Legacy', 'wp-multisite-waas');
+		return __('Legacy', 'multisite-ultimate');
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Legacy_Template_Selection_Field_Template extends Base_Field_Template {
 	 */
 	public function get_description() {
 
-		return __('Implementation of the layout that shipped with WP Ultimo < 1.10.X.', 'wp-multisite-waas');
+		return __('Implementation of the layout that shipped with WP Ultimo < 1.10.X.', 'multisite-ultimate');
 	}
 
 	/**

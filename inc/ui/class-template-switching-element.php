@@ -82,7 +82,7 @@ class Template_Switching_Element extends Base_Element {
 	 */
 	public function get_title() {
 
-		return __('Template Switching', 'wp-multisite-waas');
+		return __('Template Switching', 'multisite-ultimate');
 	}
 
 	/**
@@ -93,7 +93,7 @@ class Template_Switching_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds the template switching form to this page.', 'wp-multisite-waas');
+		return __('Adds the template switching form to this page.', 'multisite-ultimate');
 	}
 
 	/**
@@ -118,7 +118,7 @@ class Template_Switching_Element extends Base_Element {
 	 */
 	public function register_scripts(): void {
 
-		wp_register_script('wu-template-switching', wu_get_asset('template-switching.js', 'js'), ['jquery', 'wu-vue-apps', 'wu-selectizer', 'wp-hooks', 'wu-cookie-helpers']);
+		wp_register_script('wu-template-switching', wu_get_asset('template-switching.js', 'js'), ['jquery', 'wu-vue-apps', 'wu-selectizer', 'wp-hooks', 'wu-cookie-helpers'], \WP_Ultimo::VERSION, true);
 
 		wp_localize_script(
 			'wu-template-switching',
@@ -142,8 +142,8 @@ class Template_Switching_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('Layout', 'wp-multisite-waas'),
-			'desc'  => __('Layout', 'wp-multisite-waas'),
+			'title' => __('Layout', 'multisite-ultimate'),
+			'desc'  => __('Layout', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
@@ -153,8 +153,8 @@ class Template_Switching_Element extends Base_Element {
 			'fields' => [
 				'template_selection_template' => [
 					'type'            => 'select',
-					'title'           => __('Template Selector Layout', 'wp-multisite-waas'),
-					'placeholder'     => __('Select your Layout', 'wp-multisite-waas'),
+					'title'           => __('Template Selector Layout', 'multisite-ultimate'),
+					'placeholder'     => __('Select your Layout', 'multisite-ultimate'),
 					'default'         => 'clean',
 					'options'         => [$this, 'get_template_selection_templates'],
 					'wrapper_classes' => 'wu-flex-grow',
@@ -170,7 +170,7 @@ class Template_Switching_Element extends Base_Element {
 			'order'           => 99,
 			'wrapper_classes' => 'sm:wu-p-0 sm:wu-block',
 			'classes'         => '',
-			'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized template selection templates?<br><a target="_blank" class="wu-no-underline" href="https://help.wpultimo.com/article/343-customize-your-checkout-flow-using-field-templates">See how you can do that here</a>.', 'wp-multisite-waas')),
+			'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized template selection templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'multisite-ultimate')),
 		];
 
 		return $fields;
@@ -187,7 +187,7 @@ class Template_Switching_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Template',
 			'Template Switching',
 		];
@@ -275,7 +275,7 @@ class Template_Switching_Element extends Base_Element {
 		$template_id = wu_request('template_id', '');
 
 		if ( ! $template_id) {
-			return new \WP_Error('template_id_required', __('You need to provide a valid template to duplicate.', 'wp-multisite-waas'));
+			return new \WP_Error('template_id_required', __('You need to provide a valid template to duplicate.', 'multisite-ultimate'));
 		}
 
 		$switch = \WP_Ultimo\Helpers\Site_Duplicator::override_site($template_id, $this->site->get_id());
@@ -288,6 +288,7 @@ class Template_Switching_Element extends Base_Element {
 		 * @return void
 		 */
 		do_action('wu_after_switch_template', $this->site->get_id());
+		$referer = isset($_SERVER['HTTP_REFERER']) ? sanitize_url(wp_unslash($_SERVER['HTTP_REFERER'])) : '';
 
 		if ($switch) {
 			wp_send_json_success(
@@ -296,7 +297,7 @@ class Template_Switching_Element extends Base_Element {
 						[
 							'updated' => 1,
 						],
-						$_SERVER['HTTP_REFERER']
+						$referer
 					),
 				]
 			);
@@ -349,12 +350,12 @@ class Template_Switching_Element extends Base_Element {
 
 			$template_class = Field_Templates_Manager::get_instance()->get_template_class('template_selection', $atts['template_selection_template']);
 
-			$content = $template_class ? $template_class->render_container($template_attributes, $reducer_class) : __('Template does not exist.', 'wp-multisite-waas');
+			$content = $template_class ? $template_class->render_container($template_attributes, $reducer_class) : __('Template does not exist.', 'multisite-ultimate');
 
 			$checkout_fields['back_to_template_selection'] = [
 				'type'              => 'note',
 				'order'             => 0,
-				'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-on:click.prevent="template_id = original_template_id; confirm_switch = false">%s</a>', __('&larr; Back to Template Selection', 'wp-multisite-waas')),
+				'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-on:click.prevent="template_id = original_template_id; confirm_switch = false">%s</a>', __('&larr; Back to Template Selection', 'multisite-ultimate')),
 				'wrapper_html_attr' => [
 					'v-init:original_template_id' => $this->site->get_template_id(),
 					'v-show'                      => 'template_id != original_template_id',
@@ -375,8 +376,8 @@ class Template_Switching_Element extends Base_Element {
 
 			$checkout_fields['confirm_switch'] = [
 				'type'              => 'toggle',
-				'title'             => __('Confirm template switch?', 'wp-multisite-waas'),
-				'desc'              => __('Switching your current template completely overwrites the content of your site with the contents of the newly chosen template. All customizations will be lost. This action cannot be undone.', 'wp-multisite-waas'),
+				'title'             => __('Confirm template switch?', 'multisite-ultimate'),
+				'desc'              => __('Switching your current template completely overwrites the content of your site with the contents of the newly chosen template. All customizations will be lost. This action cannot be undone.', 'multisite-ultimate'),
 				'tooltip'           => '',
 				'wrapper_classes'   => '',
 				'value'             => 0,
@@ -391,7 +392,7 @@ class Template_Switching_Element extends Base_Element {
 
 			$checkout_fields['submit_switch'] = [
 				'type'              => 'link',
-				'display_value'     => __('Process Switch', 'wp-multisite-waas'),
+				'display_value'     => __('Process Switch', 'multisite-ultimate'),
 				'wrapper_classes'   => 'wu-text-right wu-bg-gray-100',
 				'classes'           => 'button button-primary',
 				'wrapper_html_attr' => [

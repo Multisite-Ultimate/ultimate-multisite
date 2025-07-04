@@ -73,7 +73,7 @@ class Helper {
 	 */
 	public static function get_local_network_ip() {
 
-		return $_SERVER['SERVER_ADDR'] ?? false;
+		return sanitize_text_field(wp_unslash($_SERVER['SERVER_ADDR'] ?? false));
 	}
 
 	/**
@@ -170,7 +170,7 @@ class Helper {
 
 			// Open a stream to the domain over SSL.
 			$stream = @stream_socket_client(
-				'ssl://' . parse_url($domain, PHP_URL_HOST) . ':443',
+				'ssl://' . wp_parse_url($domain, PHP_URL_HOST) . ':443',
 				$errno,
 				$errstr,
 				10,
@@ -197,7 +197,7 @@ class Helper {
 
 					// Check if the certificate is currently valid.
 					if ($current_time >= $valid_from && $current_time <= $valid_to) {
-						$host = parse_url($domain, PHP_URL_HOST);
+						$host = wp_parse_url($domain, PHP_URL_HOST);
 
 						// Check that the domain matches the certificate.
 						$common_name = $cert['subject']['CN'] ?? ''; // Common Name (CN)
@@ -230,7 +230,8 @@ class Helper {
 			// Log the error message.
 			wu_log_add(
 				'domain-ssl-checks',
-				sprintf(__('Certificate Invalid: %s', 'wp-multisite-waas'), $e->getMessage()),
+				// translators: % error message
+				sprintf(__('Certificate Invalid: %s', 'multisite-ultimate'), $e->getMessage()),
 				LogLevel::ERROR
 			);
 		}

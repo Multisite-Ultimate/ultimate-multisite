@@ -1,8 +1,8 @@
 # Site Templates (v2)
 
-_**NOTE: This article refers to WP Multisite WaaS version 2.x. If you are using version 1.x,**_ [see this article](https://help.wpultimo.com/article/404-site-templates) _**.**_
+_**NOTE: This article refers to Multisite Ultimate version 2.x. If you are using version 1.x,**_ [see this article](https://help.wpultimo.com/article/404-site-templates) _**.**_
 
-Our goal when creating a premium network with WP Multisite WaaS is to automate as many processes as possible while giving our clients flexibility and different options to choose from when creating their websites. One easy way to achieve this balance is to make use of the WP Multisite WaaS Site Templates feature.
+Our goal when creating a premium network with Multisite Ultimate is to automate as many processes as possible while giving our clients flexibility and different options to choose from when creating their websites. One easy way to achieve this balance is to make use of the Multisite Ultimate Site Templates feature.
 
 ## What is a Site Template?
 
@@ -14,7 +14,7 @@ That sounds awesome, but how do I create a new site template? It is as simple as
 
 ## Creating and Editing a new Site Template
 
-Site Templates are just normal sites on your network. To create a new template you can simply go to **Network Admin > WP Multisite WaaS > Sites > Add Site.**
+Site Templates are just normal sites on your network. To create a new template you can simply go to **Network Admin > Multisite Ultimate > Sites > Add Site.**
 
 **![add site template](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-D1F8SOUTYU.png)**
 
@@ -52,7 +52,7 @@ Basically, there are two approaches you can use now (not simultaneously):
 
 In this mode, your clients won’t be able to choose a template when they create an account, but rather you will define which template should be used on each of your Plans.
 
-To do that, you’ll need to go to **WP Multisite WaaS > Products > Edit**.
+To do that, you’ll need to go to **Multisite Ultimate > Products > Edit**.
 
 ![Assign site template](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-t7UjzQEG5g.png)
 
@@ -70,7 +70,7 @@ On the **Edit Product** page. Under the **Product Options** section, find the **
 
 ### Default Mode: Site template selection on the Checkout form
 
-If you wish all your site templates to be available during the registration, or maybe do not prefer doing extra work of assigning or specifying site templates under each product you create. Then you can simply set the site template selection under your **Checkout Form**. To do this, you just need to go to **WP Multisite WaaS > Checkout Forms**. Then click **Edit** under the form you wish to configure.
+If you wish all your site templates to be available during the registration, or maybe do not prefer doing extra work of assigning or specifying site templates under each product you create. Then you can simply set the site template selection under your **Checkout Form**. To do this, you just need to go to **Multisite Ultimate > Checkout Forms**. Then click **Edit** under the form you wish to configure.
 
 ![Assign site template](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-FaXifuzMu3.png)
 
@@ -84,7 +84,7 @@ A modal window will appear. Under the **Template Sites** field you can select an
 
 ### Site Template Options
 
-There are other site templates functions available that you can turn on or off under WP Multisite WaaS settings.
+There are other site templates functions available that you can turn on or off under Multisite Ultimate settings.
 
 ![Site template option](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-wrwT3rqFEf.png)
 
@@ -106,7 +106,7 @@ Site templates as discussed in this article are boilerplate but still part of yo
 
 ## Pre-populating Site Templates with auto search-and-replace
 
-One of the most powerful features of WP Multisite WaaS is the ability to add arbitrary text, color, and select fields onto the registration form. Once we have that data captured, we can use it to pre-populate the content in certain parts of the site template selected. Then, when the new site is being published, WP Multisite WaaS will replace the placeholders with the actual information entered during registration.
+One of the most powerful features of Multisite Ultimate is the ability to add arbitrary text, color, and select fields onto the registration form. Once we have that data captured, we can use it to pre-populate the content in certain parts of the site template selected. Then, when the new site is being published, Multisite Ultimate will replace the placeholders with the actual information entered during registration.
 
 For example, if you wish to get your end-user's company name during registration and automatically put the company name on the home page. On your template site home page you need to add the placeholders, like in the image below (placeholders should be added surrounded by double curly braces - {{placeholder_name}}).
 
@@ -122,7 +122,7 @@ Your customer will then be able to fill that field during the registration.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-preview)
 
-WP Multisite WaaS will then replace the placeholders with the data provided by the customer automatically.
+Multisite Ultimate will then replace the placeholders with the data provided by the customer automatically.
 
 ![replace placeholder](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-chL5wf7wmY.png)
 
@@ -132,7 +132,7 @@ All of that is great, but we do run into an ugly problem: now our site templates
 
 To solve that, we offer the option of setting fake values for the placeholders, and we use those values to search and replace their contents on the template sites while your customers are visiting.
 
-You can have access to the template placeholders editor by heading to **WP Multisite WaaS > Settings > Sites**, and then, on the sidebar, clicking the **Edit Placeholders** link.
+You can have access to the template placeholders editor by heading to **Multisite Ultimate > Settings > Sites**, and then, on the sidebar, clicking the **Edit Placeholders** link.
 
 ![placeholder settings](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-ztZnAexNEZ.png)
 

@@ -161,7 +161,7 @@ class Template_Placeholders {
 			wp_send_json(
 				[
 					'code'    => 'not-enough-permissions',
-					'message' => __('You don\'t have permission to alter placeholders.', 'wp-multisite-waas'),
+					'message' => __('You don\'t have permission to alter placeholders.', 'multisite-ultimate'),
 				]
 			);
 		}
@@ -180,7 +180,7 @@ class Template_Placeholders {
 		wp_send_json(
 			[
 				'code'    => 'success',
-				'message' => __('Placeholders successfully updated!', 'wp-multisite-waas'),
+				'message' => __('Placeholders successfully updated!', 'multisite-ultimate'),
 			]
 		);
 	}

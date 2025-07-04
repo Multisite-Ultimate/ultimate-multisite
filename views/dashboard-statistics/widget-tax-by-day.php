@@ -14,11 +14,11 @@
 	$data    = [];
 	$slug    = 'taxes_by_day';
 	$headers = [
-		__('Day', 'wp-multisite-waas'),
-		__('Orders', 'wp-multisite-waas'),
-		__('Total Sales', 'wp-multisite-waas'),
-		__('Tax Total', 'wp-multisite-waas'),
-		__('Net Profit', 'wp-multisite-waas'),
+		__('Day', 'multisite-ultimate'),
+		__('Orders', 'multisite-ultimate'),
+		__('Total Sales', 'multisite-ultimate'),
+		__('Tax Total', 'multisite-ultimate'),
+		__('Net Profit', 'multisite-ultimate'),
 	];
 
 	foreach ($taxes_by_day as $day => $tax_line) {
@@ -47,11 +47,11 @@
 
 		<thead>
 			<tr>
-			<th class="wu-w-1/3"><?php esc_html_e('Day', 'wp-multisite-waas'); ?></th>
-			<th><?php esc_html_e('Orders', 'wp-multisite-waas'); ?></th>
-			<th><?php esc_html_e('Total Sales', 'wp-multisite-waas'); ?></th>
-			<th><?php esc_html_e('Tax Total', 'wp-multisite-waas'); ?></th>
-			<th><?php esc_html_e('Net Profit', 'wp-multisite-waas'); ?></th>
+			<th class="wu-w-1/3"><?php esc_html_e('Day', 'multisite-ultimate'); ?></th>
+			<th><?php esc_html_e('Orders', 'multisite-ultimate'); ?></th>
+			<th><?php esc_html_e('Total Sales', 'multisite-ultimate'); ?></th>
+			<th><?php esc_html_e('Tax Total', 'multisite-ultimate'); ?></th>
+			<th><?php esc_html_e('Net Profit', 'multisite-ultimate'); ?></th>
 			</tr>
 		</thead>
 
@@ -75,7 +75,7 @@
 
 				<tr>
 				<td colspan="4">
-					<?php esc_html_e('No Taxes found.', 'wp-multisite-waas'); ?>
+					<?php esc_html_e('No Taxes found.', 'multisite-ultimate'); ?>
 				</td>
 				</tr>
 

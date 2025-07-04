@@ -153,13 +153,13 @@ class CPanel_API {
 				fopen($this->cookie_file, 'w');
 			} catch (\Exception $ex) {
 				if ( ! file_exists($this->cookie_file)) {
-					$this->log($ex . __('Cookie file missing.', 'wp-multisite-waas'));
+					$this->log($ex . __('Cookie file missing.', 'multisite-ultimate'));
 
 					return false;
 				}
 			}
 		} elseif ( ! is_writable($this->cookie_file)) {
-			$this->log(__('Cookie file not writable', 'wp-multisite-waas'));
+			$this->log(__('Cookie file not writable', 'multisite-ultimate'));
 
 			return false;
 		}
@@ -203,7 +203,7 @@ class CPanel_API {
 		if (curl_error($ch)) {
 
 			// translators: %s is the cURL error.
-			$this->log(sprintf(__('cPanel API Error: %s', 'wp-multisite-waas'), curl_error($ch)));
+			$this->log(sprintf(__('cPanel API Error: %s', 'multisite-ultimate'), curl_error($ch)));
 
 			return false;
 		}
@@ -247,7 +247,7 @@ class CPanel_API {
 			$this->homepage = $this->get_base_url() . $reply['redirect'];
 			$this->ex_page  = $this->get_base_url() . "/{$this->cpsess}/execute/";
 		} else {
-			$this->log(__('Cannot connect to your cPanel server : Invalid Credentials', 'wp-multisite-waas'));
+			$this->log(__('Cannot connect to your cPanel server : Invalid Credentials', 'multisite-ultimate'));
 		}
 	}
 

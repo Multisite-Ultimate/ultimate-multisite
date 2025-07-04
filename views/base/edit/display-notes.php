@@ -9,10 +9,10 @@
 <?php if (empty($notes)) : ?>
 
 	<?php
-	echo wu_render_empty_state(
+	echo wu_render_empty_state( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		[
-			'message'                  => __('No notes yet.', 'wp-multisite-waas'),
-			'sub_message'              => __('Use the "Add new Note" to create the first one.', 'wp-multisite-waas'),
+			'message'                  => __('No notes yet.', 'multisite-ultimate'),
+			'sub_message'              => __('Use the "Add new Note" to create the first one.', 'multisite-ultimate'),
 			'link_url'                 => false,
 			'display_background_image' => false,
 		]
@@ -27,7 +27,7 @@
 
 			<div class="wu-m-0 wu-p-3 wu-rounded wu-bg-gray-200 wu-text-right" id="wu-text-note">
 
-				<?php echo wu_remove_empty_p($note->text); ?>
+				<?php echo wp_kses(wu_remove_empty_p($note->text), wu_kses_allowed_html()); ?>
 
 			</div>
 
@@ -77,7 +77,7 @@
 						<span class="wu-ml-2">
 
 							<a class="dashicons-wu-trash wu-p-0 wu-border-none wu-text-red-600 wu-button-delete wu-no-underline wubox" href="<?php echo esc_url(wu_get_form_url('delete_note', $modal_atts)); ?>"
-							title="<?php echo esc_attr__('Clear Note', 'wp-multisite-waas'); ?>"></a>
+							title="<?php echo esc_attr__('Clear Note', 'multisite-ultimate'); ?>"></a>
 
 						</span>
 

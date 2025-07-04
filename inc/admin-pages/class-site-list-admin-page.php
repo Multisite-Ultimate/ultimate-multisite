@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Sites Admin Page.
+ * Multisite Ultimate Sites Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Sites Admin Page.
+ * Multisite Ultimate Sites Admin Page.
  */
 class Site_List_Admin_Page extends List_Admin_Page {
 
@@ -130,16 +130,16 @@ class Site_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'confirm'       => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Publication', 'wp-multisite-waas'),
-				'desc'      => __('This action can not be undone.', 'wp-multisite-waas'),
+				'title'     => __('Confirm Publication', 'multisite-ultimate'),
+				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Publish', 'wp-multisite-waas'),
-				'placeholder'     => __('Publish', 'wp-multisite-waas'),
+				'title'           => __('Publish', 'multisite-ultimate'),
+				'placeholder'     => __('Publish', 'multisite-ultimate'),
 				'value'           => 'publish',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -189,13 +189,13 @@ class Site_List_Admin_Page extends List_Admin_Page {
 		$membership = wu_get_membership(wu_request('membership_id'));
 
 		if ( ! $membership) {
-			wp_send_json_error(new \WP_Error('not-found', __('Pending site not found.', 'wp-multisite-waas')));
+			wp_send_json_error(new \WP_Error('not-found', __('Pending site not found.', 'multisite-ultimate')));
 		}
 
 		$pending_site = $membership->get_pending_site();
 
 		if ( ! is_a($pending_site, '\\WP_Ultimo\\Models\\Site')) {
-			wp_send_json_error(new \WP_Error('not-found', __('Pending site not found.', 'wp-multisite-waas')));
+			wp_send_json_error(new \WP_Error('not-found', __('Pending site not found.', 'multisite-ultimate')));
 		}
 
 		$pending_site->set_type('customer_owned');
@@ -267,7 +267,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 		}
 
 		if ($site->get_blog_id() === false) {
-			$error = new \WP_Error('error', __('Something wrong happened.', 'wp-multisite-waas'));
+			$error = new \WP_Error('error', __('Something wrong happened.', 'multisite-ultimate'));
 
 			return wp_send_json_error($error);
 		}
@@ -314,19 +314,19 @@ class Site_List_Admin_Page extends List_Admin_Page {
 		if ($duplicate_id && $site) {
 
 			// translators: the %s is the thing copied.
-			$title         = sprintf(__('Copy of %s', 'wp-multisite-waas'), $site->get_title());
+			$title         = sprintf(__('Copy of %s', 'multisite-ultimate'), $site->get_title());
 			$path          = sprintf('%s%s', trim($site->get_path(), '/'), 'copy');
 			$type          = $site->get_type();
 			$template_id   = $duplicate_id;
 			$membership_id = $site->get_membership_id();
 		}
 
-		$save_label = $duplicate_id ? __('Duplicate Site', 'wp-multisite-waas') : __('Add new Site', 'wp-multisite-waas');
+		$save_label = $duplicate_id ? __('Duplicate Site', 'multisite-ultimate') : __('Add new Site', 'multisite-ultimate');
 
 		$options = [
-			'sub-domain'    => __('Subdomain', 'wp-multisite-waas'),
-			'sub-directory' => __('Subdirectory', 'wp-multisite-waas'),
-			'domain'        => __('Domain', 'wp-multisite-waas'),
+			'sub-domain'    => __('Subdomain', 'multisite-ultimate'),
+			'sub-directory' => __('Subdirectory', 'multisite-ultimate'),
+			'domain'        => __('Domain', 'multisite-ultimate'),
 		];
 
 		/*
@@ -351,19 +351,19 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'title'         => [
 				'type'        => 'text',
-				'title'       => __('Site Title', 'wp-multisite-waas'),
-				'placeholder' => __('New Network Site', 'wp-multisite-waas'),
+				'title'       => __('Site Title', 'multisite-ultimate'),
+				'placeholder' => __('New Network Site', 'multisite-ultimate'),
 				'value'       => $title,
 			],
 			'domain_group'  => [
 				'type'   => 'group',
 				// translators: the %s is the site preview url.
-				'desc'   => sprintf(__('The site URL will be: %s', 'wp-multisite-waas'), '<span class="wu-font-mono">{{ tab === "domain" ? domain : ( tab === "sub-directory" ? scheme + base_url + domain : scheme + domain + "." + base_url ) }}</span>'),
+				'desc'   => sprintf(__('The site URL will be: %s', 'multisite-ultimate'), '<span class="wu-font-mono">{{ tab === "domain" ? domain : ( tab === "sub-directory" ? scheme + base_url + domain : scheme + domain + "." + base_url ) }}</span>'),
 				'fields' => [
 					'domain' => [
 						'type'            => 'text',
-						'title'           => __('Site Domain/Path', 'wp-multisite-waas'),
-						'tooltip'         => __('Enter the complete domain for the site', 'wp-multisite-waas'),
+						'title'           => __('Site Domain/Path', 'multisite-ultimate'),
+						'tooltip'         => __('Enter the complete domain for the site', 'multisite-ultimate'),
 						'wrapper_classes' => 'wu-w-full',
 						'html_attr'       => [
 							'v-bind:placeholder' => 'tab === "domain" ? "mysite.com" : "mysite"',
@@ -375,13 +375,13 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'type'          => [
 				'type'        => 'select',
-				'title'       => __('Site Type', 'wp-multisite-waas'),
+				'title'       => __('Site Type', 'multisite-ultimate'),
 				'value'       => $type,
 				'placeholder' => '',
 				'options'     => [
-					'default'        => __('Regular WP Site', 'wp-multisite-waas'),
-					'site_template'  => __('Site Template', 'wp-multisite-waas'),
-					'customer_owned' => __('Customer-Owned', 'wp-multisite-waas'),
+					'default'        => __('Regular WP Site', 'multisite-ultimate'),
+					'site_template'  => __('Site Template', 'multisite-ultimate'),
+					'customer_owned' => __('Customer-Owned', 'multisite-ultimate'),
 				],
 				'html_attr'   => [
 					'v-model' => 'type',
@@ -389,8 +389,8 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'membership_id' => [
 				'type'              => 'model',
-				'title'             => __('Associated Membership', 'wp-multisite-waas'),
-				'placeholder'       => __('Search Membership...', 'wp-multisite-waas'),
+				'title'             => __('Associated Membership', 'multisite-ultimate'),
+				'placeholder'       => __('Search Membership...', 'multisite-ultimate'),
 				'value'             => '',
 				'tooltip'           => '',
 				'wrapper_html_attr' => [
@@ -406,17 +406,17 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'copy'          => [
 				'type'      => 'toggle',
-				'title'     => __('Copy Site', 'wp-multisite-waas'),
-				'desc'      => __('Select an existing site to use as a starting point.', 'wp-multisite-waas'),
+				'title'     => __('Copy Site', 'multisite-ultimate'),
+				'desc'      => __('Select an existing site to use as a starting point.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'copy',
 				],
 			],
 			'template_site' => [
 				'type'              => 'model',
-				'title'             => __('Template Site', 'wp-multisite-waas'),
-				'placeholder'       => __('Search Sites...', 'wp-multisite-waas'),
-				'desc'              => __('The site selected will be copied and used as a starting point.', 'wp-multisite-waas'),
+				'title'             => __('Template Site', 'multisite-ultimate'),
+				'placeholder'       => __('Search Sites...', 'multisite-ultimate'),
+				'desc'              => __('The site selected will be copied and used as a starting point.', 'multisite-ultimate'),
 				'value'             => $template_id,
 				'html_attr'         => [
 					'data-model'        => 'site',
@@ -432,8 +432,8 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'copy_media'    => [
 				'type'              => 'toggle',
-				'title'             => __('Copy Media on Duplication', 'wp-multisite-waas'),
-				'desc'              => __('Copy media files from the template site on duplication. Disabling this can lead to broken images on the new site.', 'wp-multisite-waas'),
+				'title'             => __('Copy Media on Duplication', 'multisite-ultimate'),
+				'desc'              => __('Copy media files from the template site on duplication. Disabling this can lead to broken images on the new site.', 'multisite-ultimate'),
 				'value'             => true,
 				'wrapper_html_attr' => [
 					'v-show' => 'copy',
@@ -503,8 +503,8 @@ class Site_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Site removed successfully.', 'wp-multisite-waas'),
-			'search_label'    => __('Search Site', 'wp-multisite-waas'),
+			'deleted_message' => __('Site removed successfully.', 'multisite-ultimate'),
+			'search_label'    => __('Search Site', 'multisite-ultimate'),
 		];
 	}
 
@@ -516,7 +516,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Sites', 'wp-multisite-waas');
+		return __('Sites', 'multisite-ultimate');
 	}
 
 	/**
@@ -527,7 +527,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Sites', 'wp-multisite-waas');
+		return __('Sites', 'multisite-ultimate');
 	}
 
 	/**
@@ -538,7 +538,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Sites', 'wp-multisite-waas');
+		return __('Sites', 'multisite-ultimate');
 	}
 
 	/**
@@ -551,7 +551,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 
 		return [
 			[
-				'label'   => __('Add Site'),
+				'label'   => __('Add Site', 'multisite-ultimate'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('add_new_site'),

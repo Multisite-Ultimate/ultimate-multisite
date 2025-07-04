@@ -38,8 +38,8 @@ class Payment_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Payment', 'wp-multisite-waas'),
-				'plural'   => __('Payments', 'wp-multisite-waas'),
+				'singular' => __('Payment', 'multisite-ultimate'),
+				'plural'   => __('Payments', 'multisite-ultimate'),
 				'ajax'     => true,
 				'add_new'  => [
 					'url'     => wu_get_form_url('add_new_payment'),
@@ -82,10 +82,10 @@ class Payment_List_Table extends Base_List_Table {
 		$code = sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-payment', $url_atts), $item->get_hash());
 
 		$actions = [
-			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-payment', $url_atts), __('Edit', 'wp-multisite-waas')),
+			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-payment', $url_atts), __('Edit', 'multisite-ultimate')),
 			'delete' => sprintf(
 				'<a title="%s" class="wubox" href="%s">%s</a>',
-				__('Delete', 'wp-multisite-waas'),
+				__('Delete', 'multisite-ultimate'),
 				wu_get_form_url(
 					'delete_modal',
 					[
@@ -93,7 +93,7 @@ class Payment_List_Table extends Base_List_Table {
 						'id'    => $item->get_id(),
 					]
 				),
-				__('Delete', 'wp-multisite-waas')
+				__('Delete', 'multisite-ultimate')
 			),
 		];
 
@@ -132,7 +132,7 @@ class Payment_List_Table extends Base_List_Table {
 		$product = $item->get_product();
 
 		if ( ! $product) {
-			return __('No product found', 'wp-multisite-waas');
+			return __('No product found', 'multisite-ultimate');
 		}
 
 		$url_atts = [
@@ -140,7 +140,7 @@ class Payment_List_Table extends Base_List_Table {
 		];
 
 		$actions = [
-			'view' => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-product', $url_atts), __('View', 'wp-multisite-waas')),
+			'view' => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-product', $url_atts), __('View', 'multisite-ultimate')),
 		];
 
 		$html = $product->get_name();
@@ -173,13 +173,13 @@ class Payment_List_Table extends Base_List_Table {
 
 		$columns = [
 			'cb'           => '<input type="checkbox" />',
-			'hash'         => wu_tooltip(__('Reference Code', 'wp-multisite-waas'), 'dashicons-wu-hash wu-text-xs'),
-			'status'       => __('Status', 'wp-multisite-waas'),
-			'customer'     => __('Customer', 'wp-multisite-waas'),
-			'membership'   => __('Membership', 'wp-multisite-waas'),
-			'total'        => __('Total', 'wp-multisite-waas'),
-			'date_created' => __('Created at', 'wp-multisite-waas'),
-			'id'           => __('ID', 'wp-multisite-waas'),
+			'hash'         => wu_tooltip(__('Reference Code', 'multisite-ultimate'), 'dashicons-wu-hash wu-text-xs'),
+			'status'       => __('Status', 'multisite-ultimate'),
+			'customer'     => __('Customer', 'multisite-ultimate'),
+			'membership'   => __('Membership', 'multisite-ultimate'),
+			'total'        => __('Total', 'multisite-ultimate'),
+			'date_created' => __('Created at', 'multisite-ultimate'),
+			'id'           => __('ID', 'multisite-ultimate'),
 		];
 
 		return $columns;
@@ -199,13 +199,13 @@ class Payment_List_Table extends Base_List_Table {
 				 * Status
 				 */
 				'status'  => [
-					'label'   => __('Status', 'wp-multisite-waas'),
+					'label'   => __('Status', 'multisite-ultimate'),
 					'options' => [
-						'pending'   => __('Pending', 'wp-multisite-waas'),
-						'completed' => __('Completed', 'wp-multisite-waas'),
-						'refund'    => __('Refund', 'wp-multisite-waas'),
-						'partial'   => __('Partial', 'wp-multisite-waas'),
-						'failed'    => __('Failed', 'wp-multisite-waas'),
+						'pending'   => __('Pending', 'multisite-ultimate'),
+						'completed' => __('Completed', 'multisite-ultimate'),
+						'refund'    => __('Refund', 'multisite-ultimate'),
+						'partial'   => __('Partial', 'multisite-ultimate'),
+						'failed'    => __('Failed', 'multisite-ultimate'),
 					],
 				],
 
@@ -213,12 +213,12 @@ class Payment_List_Table extends Base_List_Table {
 				 * Gateway
 				 */
 				'gateway' => [
-					'label'   => __('Gateway', 'wp-multisite-waas'),
+					'label'   => __('Gateway', 'multisite-ultimate'),
 					'options' => [
-						'free'   => __('Free', 'wp-multisite-waas'),
-						'manual' => __('Manual', 'wp-multisite-waas'),
-						'paypal' => __('Paypal', 'wp-multisite-waas'),
-						'stripe' => __('Stripe', 'wp-multisite-waas'),
+						'free'   => __('Free', 'multisite-ultimate'),
+						'manual' => __('Manual', 'multisite-ultimate'),
+						'paypal' => __('Paypal', 'multisite-ultimate'),
+						'stripe' => __('Stripe', 'multisite-ultimate'),
 					],
 				],
 			],
@@ -228,7 +228,7 @@ class Payment_List_Table extends Base_List_Table {
 				 * Created At
 				 */
 				'date_created' => [
-					'label'   => __('Created At', 'wp-multisite-waas'),
+					'label'   => __('Created At', 'multisite-ultimate'),
 					'options' => $this->get_default_date_filter_options(),
 				],
 			],
@@ -247,37 +247,37 @@ class Payment_List_Table extends Base_List_Table {
 			'all'                          => [
 				'field' => 'status',
 				'url'   => add_query_arg('status', 'all'),
-				'label' => __('All Payments', 'wp-multisite-waas'),
+				'label' => __('All Payments', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			Payment_Status::COMPLETED      => [
 				'field' => 'status',
 				'url'   => add_query_arg('status', Payment_Status::COMPLETED),
-				'label' => __('Completed', 'wp-multisite-waas'),
+				'label' => __('Completed', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			Payment_Status::PENDING        => [
 				'field' => 'status',
 				'url'   => add_query_arg('status', Payment_Status::PENDING),
-				'label' => __('Pending', 'wp-multisite-waas'),
+				'label' => __('Pending', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			Payment_Status::PARTIAL_REFUND => [
 				'field' => 'status',
 				'url'   => add_query_arg('status', Payment_Status::PARTIAL_REFUND),
-				'label' => __('Partially Refunded', 'wp-multisite-waas'),
+				'label' => __('Partially Refunded', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			Payment_Status::REFUND         => [
 				'field' => 'status',
 				'url'   => add_query_arg('status', Payment_Status::REFUND),
-				'label' => __('Refunded', 'wp-multisite-waas'),
+				'label' => __('Refunded', 'multisite-ultimate'),
 				'count' => 0,
 			],
 			Payment_Status::FAILED         => [
 				'field' => 'status',
 				'url'   => add_query_arg('status', Payment_Status::FAILED),
-				'label' => __('Failed', 'wp-multisite-waas'),
+				'label' => __('Failed', 'multisite-ultimate'),
 				'count' => 0,
 			],
 		];

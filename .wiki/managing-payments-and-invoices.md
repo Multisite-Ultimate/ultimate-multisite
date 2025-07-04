@@ -1,10 +1,10 @@
 # Managing Payments and Invoices
 
-Manage payments in WP Multisite WaaS is as easy as it gets. You can set the auto-renew, allow trials and configure invoices. In version 2.0 you can set different payment gateways to fulfill your customers needs. Currently, you can enable payments via Stripe, Stripe Checkout, PayPal or receive manually.
+Manage payments in Multisite Ultimate is as easy as it gets. You can set the auto-renew, allow trials and configure invoices. In version 2.0 you can set different payment gateways to fulfill your customers needs. Currently, you can enable payments via Stripe, Stripe Checkout, PayPal or receive manually.
 
 ## General Payment Settings
 
-To access your payment settings go to your WP Multisite WaaS Settings page and navigate to the Payments tab.
+To access your payment settings go to your Multisite Ultimate Settings page and navigate to the Payments tab.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-FMFCBQ03jj.png)
 
@@ -72,7 +72,7 @@ You can also generate the payment's invoice by clicking on the button on the top
 
 ### Customizing Invoices
 
-WP Multisite WaaS allows you to customize the invoices you send to your customers.
+Multisite Ultimate allows you to customize the invoices you send to your customers.
 
 To do it, navigate to Payments page. On the right column, on the Invoices box, click to Go to Customizer.
 

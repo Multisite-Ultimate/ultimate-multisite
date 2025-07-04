@@ -95,17 +95,4 @@ class Webhook_Query extends Query {
 	 * @var bool
 	 */
 	protected $global_cache = true;
-
-	/**
-	 * Sets up the customer query, based on the query vars passed.
-	 *
-	 * @since  2.0.0
-	 * @access public
-	 *
-	 * @param string|array $query Array of query arguments.
-	 */
-	public function __construct($query = []) {
-
-		parent::__construct($query);
-	}
 }

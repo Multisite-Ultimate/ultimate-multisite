@@ -13,7 +13,7 @@
 
 		<span class="wu-self-center wu-blinking-animation wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">
 
-		<?php esc_html_e('Loading Preview...', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Loading Preview...', 'multisite-ultimate'); ?>
 
 		</span>
 
@@ -31,7 +31,7 @@
 
 			<span class="wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">
 
-			<?php echo esc_html__('Template Preview', 'wp-multisite-waas'); ?>
+			<?php echo esc_html__('Template Preview', 'multisite-ultimate'); ?>
 
 			</span>
 

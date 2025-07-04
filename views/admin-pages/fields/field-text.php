@@ -41,7 +41,7 @@
 				target="_blank"
 				class="button"
 				v-show='<?php echo esc_js(wu_get_isset($field->html_attr, 'v-model')); ?>'
-				<?php echo wu_tooltip_text(__('View', 'wp-multisite-waas')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo wu_tooltip_text(__('View', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			>
 				<span class="dashicons-wu-popup wu-m-0 wu-p-0"></span>
 			</a>

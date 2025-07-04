@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bundle name="WP Multisite WaaS">
+<bundle name="Multisite Ultimate">
   <domain name="wp-multisite-waas">
-    <project name="WP Multisite WaaS" slug="wp-multisite-waas">
+    <project name="Multisite Ultimate" slug="wp-multisite-waas">
       <source>
         <directory>.</directory>
       </source>

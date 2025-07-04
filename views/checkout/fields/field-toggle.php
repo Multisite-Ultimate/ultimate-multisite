@@ -9,6 +9,8 @@
 
 	<label class="wu-block wu-my-4" for="field-<?php echo esc_attr($field->id); ?>">
 
+		<input id="field-<?php echo esc_attr($field->id); ?>" type="checkbox" name="<?php echo esc_attr($field->id); ?>" value="1" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php checked($field->value); ?>>
+
 		<?php echo $field->title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
 		<?php echo wu_tooltip($field->tooltip); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

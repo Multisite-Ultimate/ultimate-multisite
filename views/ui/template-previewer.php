@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/steps/step-template-previewer.php.
  *
- * HOWEVER, on occasion WP Multisite WaaS will need to update template files and you
+ * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -51,7 +51,7 @@ do_action('wu_template_previewer_before');
 
 			<div class="logo">
 
-				<a title="<?php echo get_network_option(null, 'site_name'); ?>" href="<?php echo network_home_url(); ?>" target="_blank">
+				<a title="<?php echo esc_attr(get_network_option(null, 'site_name')); ?>" href="<?php echo esc_attr(network_home_url()); ?>" target="_blank">
 
 					<?php if ($use_custom_logo && $custom_logo) : ?>
 
@@ -59,7 +59,7 @@ do_action('wu_template_previewer_before');
 
 					<?php else : ?>
 
-					<img src="<?php echo $logo_url; ?>" alt="<?php echo get_network_option(null, 'site_name'); ?>">
+					<img src="<?php echo esc_attr($logo_url); ?>" alt="<?php echo esc_attr(get_network_option(null, 'site_name')); ?>">
 
 					<?php endif; ?>
 
@@ -75,7 +75,7 @@ do_action('wu_template_previewer_before');
 
 						<a id="template_selector" href="#">
 
-										<?php echo $selected_template->get_title(); ?>
+										<?php echo esc_html($selected_template->get_title()); ?>
 
 							<span style="float: right; margin-top:  -3px" class="dashicons dashicons-arrow-down-alt2"></span>
 
@@ -85,7 +85,7 @@ do_action('wu_template_previewer_before');
 
 						<a id="template_selector" href="#">
 
-									<?php esc_html_e('Select template...', 'wp-multisite-waas'); ?>
+									<?php esc_html_e('Select template...', 'multisite-ultimate'); ?>
 
 							<span style="float: right; margin-top:  -3px" class="dashicons dashicons-arrow-down-alt2"></span>
 
@@ -100,17 +100,17 @@ do_action('wu_template_previewer_before');
 							<li>
 
 								<a
-								href="<?php echo $tp->get_preview_url($template->get_id()); ?>"
-								data-frame="<?php echo $template->get_active_site_url(); ?>"
-								data-title="<?php echo $template->get_title(); ?>"
-								data-id="<?php echo $template->get_id(); ?>"
+								href="<?php echo esc_attr($tp->get_preview_url($template->get_id())); ?>"
+								data-frame="<?php echo esc_attr(add_query_arg('wu-preview', '1', $template->get_active_site_url())); ?>"
+								data-title="<?php echo esc_attr($template->get_title()); ?>"
+								data-id="<?php echo esc_attr($template->get_id()); ?>"
 								>
 
-												<?php echo $template->get_title(); ?>
+												<?php echo esc_html($template->get_title()); ?>
 
 								</a>
 
-								<img alt="" class="preview" src="<?php echo $template->get_featured_image(); ?>">
+								<img alt="" class="preview" src="<?php echo esc_attr($template->get_featured_image()); ?>">
 
 							</li>
 
@@ -126,15 +126,15 @@ do_action('wu_template_previewer_before');
 
 				<div class="responsive">
 
-					<a href="#" class="desktop active dashicons-before dashicons-desktop" title="<?php esc_attr_e('View Desktop Version', 'wp-multisite-waas'); ?>"></a>
+					<a href="#" class="desktop active dashicons-before dashicons-desktop" title="<?php esc_attr_e('View Desktop Version', 'multisite-ultimate'); ?>"></a>
 
-					<a href="#" class="tabletlandscape dashicons-before dashicons-tablet" title="<?php esc_attr_e('View Tablet Landscape (1024x768)', 'wp-multisite-waas'); ?>"></a>
+					<a href="#" class="tabletlandscape dashicons-before dashicons-tablet" title="<?php esc_attr_e('View Tablet Landscape (1024x768)', 'multisite-ultimate'); ?>"></a>
 
-					<a href="#" class="tabletportrait dashicons-before dashicons-tablet" title="<?php esc_attr_e('View Tablet Portrait (768x1024)', 'wp-multisite-waas'); ?>"></a>
+					<a href="#" class="tabletportrait dashicons-before dashicons-tablet" title="<?php esc_attr_e('View Tablet Portrait (768x1024)', 'multisite-ultimate'); ?>"></a>
 
-					<a href="#" class="mobilelandscape dashicons-before dashicons-smartphone" title="<?php esc_attr_e('View Mobile Landscape (480x320)', 'wp-multisite-waas'); ?>"></a>
+					<a href="#" class="mobilelandscape dashicons-before dashicons-smartphone" title="<?php esc_attr_e('View Mobile Landscape (480x320)', 'multisite-ultimate'); ?>"></a>
 
-					<a href="#" class="mobileportrait dashicons-before dashicons-smartphone" title="<?php esc_attr_e('View Mobile Portrait (320x480)', 'wp-multisite-waas'); ?>"></a>
+					<a href="#" class="mobileportrait dashicons-before dashicons-smartphone" title="<?php esc_attr_e('View Mobile Portrait (320x480)', 'multisite-ultimate'); ?>"></a>
 
 				</div>
 
@@ -142,7 +142,7 @@ do_action('wu_template_previewer_before');
 
 		</div>
 
-		<?php if ( ! isset($_GET['switching'])) : ?>
+		<?php if ( ! isset($_GET['switching'])) : // phpcs:ignore WordPress.Security.NonceVerification ?>
 
 		<ul class="links">
 
@@ -150,7 +150,7 @@ do_action('wu_template_previewer_before');
 
 				<li class="select-template">
 
-					<a id="action-select" href="#"><?php echo $button_text; ?> &rarr;</a>
+					<a id="action-select" href="#"><?php echo esc_html($button_text); ?> &rarr;</a>
 
 				</li>
 
@@ -158,7 +158,7 @@ do_action('wu_template_previewer_before');
 
 				<li class="select-template">
 
-					<a id="action-select-link" href="<?php echo wu_get_registration_url('?template_selection=' . $selected_template->get_id()); ?>"><?php echo $button_text; ?> &rarr;</a>
+					<a id="action-select-link" href="<?php echo esc_attr(wu_get_registration_url('?template_selection=' . $selected_template->get_id())); ?>"><?php echo esc_html($button_text); ?> &rarr;</a>
 
 				</li>
 
@@ -168,21 +168,21 @@ do_action('wu_template_previewer_before');
 
 		<?php endif; ?>
 
-		<input type="hidden" id="template-selector" value="<?php echo esc_attr($_GET['template-preview']); ?>" />
+		<input type="hidden" id="template-selector" value="<?php echo esc_attr((int) $_GET['template-preview'] ?? 0); // phpcs:ignore WordPress.Security.NonceVerification ?>" />
 
 	</div>
 
-	<?php if ( ! isset($_GET['switching'])) : ?>
+	<?php if ( ! isset($_GET['switching'])) : // phpcs:ignore WordPress.Security.NonceVerification ?>
 
 		<div class="mobile-selector">
 
 				<?php if (wu_request('open')) : ?>
 
-				<a id="action-select2" href="#"><?php echo $button_text; ?> &rarr;</a>
+				<a id="action-select2" href="#"><?php echo esc_html($button_text); ?> &rarr;</a>
 
 			<?php else : ?>
 
-				<a id="action-select-link" href="<?php echo wu_get_registration_url('?template_id=' . $selected_template->get_id()); ?>"><?php echo $button_text; ?> &rarr;</a>
+				<a id="action-select-link" href="<?php echo esc_attr(wu_get_registration_url('?template_id=' . $selected_template->get_id())); ?>"><?php echo esc_html($button_text); ?> &rarr;</a>
 
 			<?php endif; ?>
 
@@ -192,7 +192,7 @@ do_action('wu_template_previewer_before');
 
 	<?php if ( ! wu_request('customizer')) : ?>
 
-		<iframe id="iframe" src="<?php echo set_url_scheme(add_query_arg('wu-preview', '1', get_home_url($selected_template->get_id()))); ?>" width="100%" height="100%"></iframe>
+		<iframe id="iframe" src="<?php echo esc_attr(set_url_scheme(add_query_arg('wu-preview', '1', get_home_url($selected_template->get_id())))); ?>" width="100%" height="100%"></iframe>
 
 	<?php else : ?>
 
@@ -202,7 +202,7 @@ do_action('wu_template_previewer_before');
 
 			<div class="wu-text-xl wu-rounded wu-font-bold wu-uppercase wu-inline-block wu-p-8 wu-opacity-50" style="margin-top: 62px; background-color: #000; color: #666;">
 
-				<?php esc_html_e('Site Template Preview will go here!', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Site Template Preview will go here!', 'multisite-ultimate'); ?>
 
 			</div>
 

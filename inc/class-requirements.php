@@ -1,6 +1,6 @@
 <?php
 /**
- * Check if all the pre-requisites to run WP Multisite WaaS are in place.
+ * Check if all the pre-requisites to run Multisite Ultimate are in place.
  *
  * @package WP_Ultimo
  * @subpackage Requirements
@@ -16,7 +16,7 @@ use WP_Ultimo\Installers\Core_Installer;
 defined('ABSPATH') || exit;
 
 /**
- * Check if all the pre-requisites to run WP Multisite WaaS are in place.
+ * Check if all the pre-requisites to run Multisite Ultimate are in place.
  *
  * @since 2.0.0
  */
@@ -31,7 +31,7 @@ class Requirements {
 	public static $met;
 
 	/**
-	 * Minimum PHP version required to run WP Multisite WaaS.
+	 * Minimum PHP version required to run Multisite Ultimate.
 	 *
 	 * @since 2.0.0
 	 * @var string
@@ -47,7 +47,7 @@ class Requirements {
 	public static $php_recommended_version = '8.2.27';
 
 	/**
-	 * Minimum WordPress version required to run WP Multisite WaaS.
+	 * Minimum WordPress version required to run Multisite Ultimate.
 	 *
 	 * @since 2.0.0
 	 * @var string
@@ -68,12 +68,12 @@ class Requirements {
 	private function __construct() {}
 
 	/**
-	 * Check if the minimum pre-requisites to run WP Multisite WaaS are present.
+	 * Check if the minimum pre-requisites to run Multisite Ultimate are present.
 	 *
 	 * - Check if the PHP version requirements are met;
 	 * - Check if the WordPress version requirements are met;
 	 * - Check if the install is a Multisite install;
-	 * - Check if WP Multisite WaaS is network active.
+	 * - Check if Multisite Ultimate is network active.
 	 *
 	 * @since 2.0.0
 	 * @return boolean
@@ -237,7 +237,7 @@ class Requirements {
 	}
 
 	/**
-	 * Check if WP Multisite WaaS is network active.
+	 * Check if Multisite Ultimate is network active.
 	 *
 	 * @since 2.0.0
 	 */
@@ -285,8 +285,8 @@ class Requirements {
 			sprintf(
 				// translators: the %1$s placeholder is the required PHP version, while the %2$s is the current PHP version, and %3$s is the recommended PHP version.
 				esc_html__(
-					'WP Multisite WaaS requires at least PHP version %1$s to run. Your current PHP version is %2$s. Please, contact your hosting company support to upgrade your PHP version. If you want maximum performance consider upgrading your PHP to version %3$s or later.',
-					'wp-multisite-waas'
+					'Multisite Ultimate requires at least PHP version %1$s to run. Your current PHP version is %2$s. Please, contact your hosting company support to upgrade your PHP version. If you want maximum performance consider upgrading your PHP to version %3$s or later.',
+					'multisite-ultimate'
 				),
 				esc_html(self::$php_version),
 				'<strong>' . esc_html(phpversion()) . '</strong>',
@@ -310,8 +310,8 @@ class Requirements {
 			sprintf(
 				// translators: the %1$s placeholder is the required WP version, while the %2$s is the current WP version.
 				esc_html__(
-					'WP Multisite WaaS requires at least WordPress version %1$s to run. Your current WordPress version is %2$s.',
-					'wp-multisite-waas'
+					'Multisite Ultimate requires at least WordPress version %1$s to run. Your current WordPress version is %2$s.',
+					'multisite-ultimate'
 				),
 				esc_html(self::$wp_version),
 				'<strong>' . esc_html($wp_version) . '</strong>'
@@ -327,11 +327,11 @@ class Requirements {
 	 */
 	public static function notice_not_multisite(): void {
 
-		printf('<div class="notice notice-error"><p>%s <a href="https://wordpress.org/support/article/create-a-network/">%s &rarr;</a></p></div>', esc_html__('WP Multisite WaaS requires a multisite install to run properly. To know more about WordPress Networks, visit this link:', 'wp-multisite-waas'), esc_html__('Create a Network', 'wp-multisite-waas'));
+		printf('<div class="notice notice-error"><p>%s <a href="https://wordpress.org/support/article/create-a-network/">%s &rarr;</a></p></div>', esc_html__('Multisite Ultimate requires a multisite install to run properly. To know more about WordPress Networks, visit this link:', 'multisite-ultimate'), esc_html__('Create a Network', 'multisite-ultimate'));
 	}
 
 	/**
-	 * Adds a network admin notice about the WP Multisite WaaS not being network-active
+	 * Adds a network admin notice about the Multisite Ultimate not being network-active
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -342,8 +342,8 @@ class Requirements {
 			'<div class="notice notice-error"><p>%s</p></div>',
 			sprintf(
 				// translators: %s is a placeholder for the Network Admin plugins page URL with link text.
-				esc_html__('WP Multisite WaaS needs to be network active to run properly. You can "Network Activate" it %s', 'wp-multisite-waas'),
-				'<a href="' . esc_attr(network_admin_url('plugins.php')) . '">' . esc_html__('here', 'wp-multisite-waas') . '</a>'
+				esc_html__('Multisite Ultimate needs to be network active to run properly. You can "Network Activate" it %s', 'multisite-ultimate'),
+				'<a href="' . esc_attr(network_admin_url('plugins.php')) . '">' . esc_html__('here', 'multisite-ultimate') . '</a>'
 			)
 		);
 	}

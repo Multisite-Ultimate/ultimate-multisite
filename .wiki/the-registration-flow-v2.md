@@ -1,6 +1,6 @@
 # The Registration Flow (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
 
 Users can register in different ways to your network. They can use your registration form or a shareable link to a pre-selected plan. Here we will show you how your customers can register on your network using the available paths and what happens after they register on your network.
 
@@ -8,7 +8,7 @@ Users can register in different ways to your network. They can use your registra
 
 This is the standard registration process. You create a registration page with a [checkout form](https://help.wpultimo.com/article/406-customizing-your-registration-form) and this will be where your customers will go to register on your network and subscribe to a plan. You can have multiple registration pages, each one with a different registration form if you want.
 
-The default page for registration is [_**yourdomain.com/register**_](http://yourdomain.com/register), but you can change this at any time on **WP Multisite WaaS > Settings > Login & Registration > Default Registration Page**.
+The default page for registration is [_**yourdomain.com/register**_](http://yourdomain.com/register), but you can change this at any time on **Multisite Ultimate > Settings > Login & Registration > Default Registration Page**.
 
 After a user get to your registration page (usually clicking on a **Sign in** or **Buy now** button), they will se your registration form there.
 
@@ -34,7 +34,7 @@ The registration process will be the same: they will need to fill their name, us
 
 ### Registering Using Manual Payments:
 
-If you do not want to use PayPal, Stripe or any other payment gateway offered by WP Multisite WaaS or its add-on integrations, you can use manual payments for your customers. This way, you can generate an invoice for them to pay on your preferred payment processor after they register on your network.
+If you do not want to use PayPal, Stripe or any other payment gateway offered by Multisite Ultimate or its add-on integrations, you can use manual payments for your customers. This way, you can generate an invoice for them to pay on your preferred payment processor after they register on your network.
 
 The registration process will be exactly the same as above, but on the registration page your customers will see a message stating that they will receive an email with further instructions to complete the payment.
 
@@ -44,13 +44,13 @@ And after the registration is completed, they will see the payment instructions 
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-hX0GPWYfEA.png)
 
-The payment instructions can be changed on **WP Multisite WaaS > Settings > Payments** after toggling on the **Manual** payment option:
+The payment instructions can be changed on **Multisite Ultimate > Settings > Payments** after toggling on the **Manual** payment option:
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-RpPGDd0BZo.png)
 
 After your customers complete the manual payment and send you the confirmation, you need to **manually confirm the payment** to activate the customer membership and website.
 
-To do this, go to **WP Multisite WaaS > Payments** and find the customer payment. It should still show a **Pending** status.
+To do this, go to **Multisite Ultimate > Payments** and find the customer payment. It should still show a **Pending** status.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-2rW0tFemEP.png)
 

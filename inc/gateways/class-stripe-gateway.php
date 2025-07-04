@@ -11,6 +11,7 @@
 
 namespace WP_Ultimo\Gateways;
 
+use Stripe\PaymentMethod;
 use WP_Ultimo\Database\Payments\Payment_Status;
 use WP_Ultimo\Database\Memberships\Membership_Status;
 use WP_Ultimo\Gateways\Base_Stripe_Gateway;
@@ -73,8 +74,8 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_header',
 			[
-				'title'           => __('Stripe', 'wp-multisite-waas'),
-				'desc'            => __('Use the settings section below to configure Stripe as a payment method.', 'wp-multisite-waas'),
+				'title'           => __('Stripe', 'multisite-ultimate'),
+				'desc'            => __('Use the settings section below to configure Stripe as a payment method.', 'multisite-ultimate'),
 				'type'            => 'header',
 				'show_as_submenu' => true,
 				'require'         => [
@@ -87,10 +88,10 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_public_title',
 			[
-				'title'   => __('Stripe Public Name', 'wp-multisite-waas'),
-				'tooltip' => __('The name to display on the payment method selection field. By default, "Credit Card" is used.', 'wp-multisite-waas'),
+				'title'   => __('Stripe Public Name', 'multisite-ultimate'),
+				'tooltip' => __('The name to display on the payment method selection field. By default, "Credit Card" is used.', 'multisite-ultimate'),
 				'type'    => 'text',
-				'default' => __('Credit Card', 'wp-multisite-waas'),
+				'default' => __('Credit Card', 'multisite-ultimate'),
 				'require' => [
 					'active_gateways' => 'stripe',
 				],
@@ -101,8 +102,8 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_sandbox_mode',
 			[
-				'title'     => __('Stripe Sandbox Mode', 'wp-multisite-waas'),
-				'desc'      => __('Toggle this to put Stripe on sandbox mode. This is useful for testing and making sure Stripe is correctly setup to handle your payments.', 'wp-multisite-waas'),
+				'title'     => __('Stripe Sandbox Mode', 'multisite-ultimate'),
+				'desc'      => __('Toggle this to put Stripe on sandbox mode. This is useful for testing and making sure Stripe is correctly setup to handle your payments.', 'multisite-ultimate'),
 				'type'      => 'toggle',
 				'default'   => 1,
 				'html_attr' => [
@@ -120,10 +121,10 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_test_pk_key',
 			[
-				'title'       => __('Stripe Test Publishable Key', 'wp-multisite-waas'),
+				'title'       => __('Stripe Test Publishable Key', 'multisite-ultimate'),
 				'desc'        => ! empty($pk_test_status) ? sprintf($error_message_wrap, $pk_test_status) : '',
-				'tooltip'     => __('Make sure you are placing the TEST keys, not the live ones.', 'wp-multisite-waas'),
-				'placeholder' => __('pk_test_***********', 'wp-multisite-waas'),
+				'tooltip'     => __('Make sure you are placing the TEST keys, not the live ones.', 'multisite-ultimate'),
+				'placeholder' => __('pk_test_***********', 'multisite-ultimate'),
 				'type'        => 'text',
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
@@ -140,10 +141,10 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_test_sk_key',
 			[
-				'title'       => __('Stripe Test Secret Key', 'wp-multisite-waas'),
+				'title'       => __('Stripe Test Secret Key', 'multisite-ultimate'),
 				'desc'        => ! empty($sk_test_status) ? sprintf($error_message_wrap, $sk_test_status) : '',
-				'tooltip'     => __('Make sure you are placing the TEST keys, not the live ones.', 'wp-multisite-waas'),
-				'placeholder' => __('sk_test_***********', 'wp-multisite-waas'),
+				'tooltip'     => __('Make sure you are placing the TEST keys, not the live ones.', 'multisite-ultimate'),
+				'placeholder' => __('sk_test_***********', 'multisite-ultimate'),
 				'type'        => 'text',
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
@@ -160,10 +161,10 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_live_pk_key',
 			[
-				'title'       => __('Stripe Live Publishable Key', 'wp-multisite-waas'),
+				'title'       => __('Stripe Live Publishable Key', 'multisite-ultimate'),
 				'desc'        => ! empty($pk_status) ? sprintf($error_message_wrap, $pk_status) : '',
-				'tooltip'     => __('Make sure you are placing the LIVE keys, not the test ones.', 'wp-multisite-waas'),
-				'placeholder' => __('pk_live_***********', 'wp-multisite-waas'),
+				'tooltip'     => __('Make sure you are placing the LIVE keys, not the test ones.', 'multisite-ultimate'),
+				'placeholder' => __('pk_live_***********', 'multisite-ultimate'),
 				'type'        => 'text',
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
@@ -180,10 +181,10 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_live_sk_key',
 			[
-				'title'       => __('Stripe Live Secret Key', 'wp-multisite-waas'),
+				'title'       => __('Stripe Live Secret Key', 'multisite-ultimate'),
 				'desc'        => ! empty($sk_status) ? sprintf($error_message_wrap, $sk_status) : '',
-				'tooltip'     => __('Make sure you are placing the LIVE keys, not the test ones.', 'wp-multisite-waas'),
-				'placeholder' => __('sk_live_***********', 'wp-multisite-waas'),
+				'tooltip'     => __('Make sure you are placing the LIVE keys, not the test ones.', 'multisite-ultimate'),
+				'placeholder' => __('sk_live_***********', 'multisite-ultimate'),
 				'type'        => 'text',
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
@@ -194,15 +195,15 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			]
 		);
 
-		$webhook_message = sprintf('<span class="wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded wu-mt-3 wu-mb-0 wu-block wu-text-xs">%s</span>', __('Whenever you change your Stripe settings, WP Multisite WaaS will automatically check the webhook URLs on your Stripe account to make sure we get notified about changes in subscriptions and payments.', 'wp-multisite-waas'));
+		$webhook_message = sprintf('<span class="wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded wu-mt-3 wu-mb-0 wu-block wu-text-xs">%s</span>', __('Whenever you change your Stripe settings, Multisite Ultimate will automatically check the webhook URLs on your Stripe account to make sure we get notified about changes in subscriptions and payments.', 'multisite-ultimate'));
 
 		wu_register_settings_field(
 			'payment-gateways',
 			'stripe_webhook_listener_explanation',
 			[
-				'title'           => __('Webhook Listener URL', 'wp-multisite-waas'),
+				'title'           => __('Webhook Listener URL', 'multisite-ultimate'),
 				'desc'            => $webhook_message,
-				'tooltip'         => __('This is the URL Stripe should send webhook calls to.', 'wp-multisite-waas'),
+				'tooltip'         => __('This is the URL Stripe should send webhook calls to.', 'multisite-ultimate'),
 				'type'            => 'text-display',
 				'copy'            => true,
 				'default'         => $this->get_webhook_listener_url(),
@@ -233,7 +234,7 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 	 * streamlined.
 	 *
 	 * @since 2.0.0
-	 * @return void|array
+	 * @return array|\WP_Error
 	 */
 	public function run_preflight() {
 		/*
@@ -257,7 +258,7 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		if (is_wp_error($s_customer)) {
 
 			// translators: %s is the error message.
-			return new \WP_Error($s_customer->get_error_code(), sprintf(__('Error creating Stripe customer: %s', 'wp-multisite-waas'), $s_customer->get_error_message()));
+			return new \WP_Error($s_customer->get_error_code(), sprintf(__('Error creating Stripe customer: %s', 'multisite-ultimate'), $s_customer->get_error_message()));
 		}
 
 		$this->membership->set_gateway_customer_id($s_customer->id);
@@ -266,9 +267,9 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		$type = $this->order->get_cart_type();
 
 		/*
-		 * Lets deal with upgrades, downgrades and addons
+		 * Let's deal with upgrades, downgrades and addons.
 		 *
-		 * Here, we just need to make sure we process
+		 * Here we just need to make sure we process
 		 * a membership swap.
 		 */
 		if ('upgrade' === $type || 'addon' === $type) {
@@ -296,7 +297,7 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		 * Let's start with the intent options.
 		 *
 		 * We'll append the extra options as we go.
-		 * This should also be filterable, to allow support
+		 * This should also be filterable to allow support
 		 * for Stripe Connect in the future.
 		 */
 		$intent_options = [];
@@ -316,17 +317,17 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		/*
 		 * Tries to retrieve an intent on Stripe.
 		 *
-		 * If we success, we update it, if we fail,
+		 * If we succeed, we update it, if we fail,
 		 * we try to create a new one.
 		 */
 		try {
 			/*
 			 * Payment intents are used when we have an initial
-			 * payment attached to the membership. Those start with a pi_
+			 * payment attached to the membership. These start with a pi_
 			 * id.
 			 */
 			if ( ! empty($payment_intent_id) && str_starts_with((string) $payment_intent_id, 'pi_')) {
-				$existing_intent = Stripe\PaymentIntent::retrieve($payment_intent_id);
+				$existing_intent = $this->get_stripe_client()->paymentIntents->retrieve($payment_intent_id);
 
 				/*
 				* Setup intents are created with the intent
@@ -335,11 +336,11 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 				* initial amount.
 				*/
 			} elseif ( ! empty($payment_intent_id) && str_starts_with((string) $payment_intent_id, 'seti_')) {
-				$existing_intent = Stripe\SetupIntent::retrieve($payment_intent_id);
+				$existing_intent = $this->get_stripe_client()->setupIntents->retrieve($payment_intent_id);
 			}
 
 			/*
-			 * We can't use cancelled intents
+			 * We can't use canceled intents
 			 * for obvious reasons...
 			 */
 			if ( ! empty($existing_intent) && 'canceled' === $existing_intent->status) {
@@ -401,11 +402,11 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 					/*
 					 * Tries to update the payment intent.
 					 */
-					$intent = Stripe\PaymentIntent::update($existing_intent->id, $intent_args, $intent_options);
+					$intent = $this->get_stripe_client()->paymentIntents->update($existing_intent->id, $intent_args, $intent_options);
 				} else {
 					$intent_options['idempotency_key'] = wu_stripe_generate_idempotency_key($intent_args);
 
-					$intent = Stripe\PaymentIntent::create($intent_args, $intent_options);
+					$intent = $this->get_stripe_client()->paymentIntents->create($intent_args, $intent_options);
 				}
 			} else {
 				/*
@@ -424,10 +425,12 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 					/*
 					 * Tries to create in Stripe.
 					 */
-					$intent = Stripe\SetupIntent::create($intent_args, $intent_options);
+					$intent = $this->get_stripe_client()->setupIntents->create($intent_args, $intent_options);
+				} else {
+					$intent = $existing_intent;
 				}
 			}
-		} catch (Stripe\Stripe\Error\Base $e) {
+		} catch (\Stripe\Exception\ExceptionInterface $e) {
 			return $this->get_stripe_error($e);
 		} catch (\Exception $e) {
 			$error_code = $e->getCode();
@@ -502,14 +505,14 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		 *
 		 * For sanity reasons, stripe variants of data type
 		 * such as a Stripe\Customer instance, will be
-		 * hold by variables stating with s_ (e.g. s_customer)
+		 * held by variables stating with s_ (e.g. s_customer)
 		 *
 		 * First, we need to check for a valid payment intent.
 		 */
 		$payment_intent_id = $payment->get_meta('stripe_payment_intent_id');
 
 		if (empty($payment_intent_id)) {
-			throw new \Exception(__('Missing Stripe payment intent, please try again or contact support if the issue persists.', 'wp-multisite-waas'), 'missing_stripe_payment_intent');
+			throw new \Exception(esc_html__('Missing Stripe payment intent, please try again or contact support if the issue persists.', 'multisite-ultimate'));
 		}
 
 		/**
@@ -532,9 +535,9 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		if (str_starts_with((string) $payment_intent_id, 'seti_')) {
 			$is_setup_intent = true;
 
-			$payment_intent = Stripe\SetupIntent::retrieve($payment_intent_id);
+			$payment_intent = $this->get_stripe_client()->setupIntents->retrieve($payment_intent_id);
 		} else {
-			$payment_intent = Stripe\PaymentIntent::retrieve($payment_intent_id);
+			$payment_intent = $this->get_stripe_client()->paymentIntents->retrieve($payment_intent_id);
 		}
 
 		/*
@@ -544,7 +547,7 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		$s_customer = $this->get_or_create_customer($customer->get_id(), $customer->get_user_id(), $payment_intent->customer);
 
 		// translators: first is the customer id, then the customer email.
-		$description = sprintf(__('Customer ID: %1$d - User Email: %2$s', 'wp-multisite-waas'), $customer->get_id(), $customer->get_email_address());
+		$description = sprintf(__('Customer ID: %1$d - User Email: %2$s', 'multisite-ultimate'), $customer->get_id(), $customer->get_email_address());
 
 		if (strlen($description) > 350) {
 			$description = substr($description, 0, 350);
@@ -555,7 +558,7 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		 * to make sure it always has the most
 		 * up-to-date info.
 		 */
-		Stripe\Customer::update(
+		$this->get_stripe_client()->customers->update(
 			$s_customer->id,
 			[
 				'address'     => $this->convert_to_stripe_address($customer->get_billing_address()),
@@ -609,7 +612,6 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			$membership->set_gateway_customer_id($s_customer->id);
 			$membership->set_gateway_subscription_id($subscription->id);
 			$membership->add_to_times_billed(1);
-			$membership->should_auto_renew();
 
 			if ('downgrade' !== $type) {
 				$membership_status = $cart->has_trial() ? Membership_Status::TRIALING : Membership_Status::ACTIVE;
@@ -646,12 +648,12 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		$card_options = $this->get_saved_card_options();
 
 		if ($card_options) {
-			$card_options['add-new'] = __('Add new card', 'wp-multisite-waas');
+			$card_options['add-new'] = __('Add new card', 'multisite-ultimate');
 
 			$fields = [
 				'payment_method' => [
 					'type'      => 'radio',
-					'title'     => __('Saved Payment Methods', 'wp-multisite-waas'),
+					'title'     => __('Saved Payment Methods', 'multisite-ultimate'),
 					'value'     => wu_request('payment_method'),
 					'options'   => $card_options,
 					'html_attr' => [
@@ -721,7 +723,7 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 				$fields = [
 					"payment_method_{$payment_method}" => [
 						'type'          => 'text-display',
-						'title'         => __('Saved Cards', 'wp-multisite-waas'),
+						'title'         => __('Saved Cards', 'multisite-ultimate'),
 						'display_value' => $card,
 					],
 				];
@@ -777,7 +779,7 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			 */
 			$this->setup_api_keys();
 
-			$payment_methods = Stripe\PaymentMethod::all(
+			$payment_methods = $this->get_stripe_client()->paymentMethods->all(
 				[
 					'customer' => $stripe_customer_id,
 					'type'     => 'card',

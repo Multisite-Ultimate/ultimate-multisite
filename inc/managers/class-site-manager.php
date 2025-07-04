@@ -131,7 +131,7 @@ class Site_Manager extends Base_Manager {
 			}
 
 			if (preg_match('/[^a-z0-9-]+/', (string) $result['blogname'])) {
-				$result['errors']->add('blogname', __('Site names can only contain lowercase letters (a-z), numbers, and hyphens.', 'wp-multisite-waas'));
+				$result['errors']->add('blogname', __('Site names can only contain lowercase letters (a-z), numbers, and hyphens.', 'multisite-ultimate'));
 			}
 		}
 
@@ -164,7 +164,7 @@ class Site_Manager extends Base_Manager {
 				$customer = wu_get_current_customer();
 
 				if ( ! $customer || ! $membership || $customer->get_id() !== $membership->get_customer_id()) {
-					$errors->add('not-owner', __('You do not have the necessary permissions to create a site to this membership', 'wp-multisite-waas'));
+					$errors->add('not-owner', __('You do not have the necessary permissions to create a site to this membership', 'multisite-ultimate'));
 				}
 
 				if ($errors->has_errors() === false) {
@@ -204,7 +204,7 @@ class Site_Manager extends Base_Manager {
 					wp_send_json_error($validation);
 				}
 
-				$wpdb->query('COMMIT');
+				$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 				wp_send_json_success([]);
 			}
@@ -314,9 +314,10 @@ class Site_Manager extends Base_Manager {
 			wp_die(
 				new \WP_Error( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					'not-available',
-					sprintf(__('This site is not available at the moment.<br><small>If you are the site admin, click <a href="%s">here</a> to login.</small>', 'wp-multisite-waas'), wp_login_url()), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					// translators: %s: link to the login page
+					sprintf(__('This site is not available at the moment.<br><small>If you are the site admin, click <a href="%s">here</a> to login.</small>', 'multisite-ultimate'), wp_login_url()), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					[
-						'title' => esc_html__('Site not available', 'wp-multisite-waas'),
+						'title' => esc_html__('Site not available', 'multisite-ultimate'),
 					]
 				),
 				'',
@@ -368,7 +369,7 @@ class Site_Manager extends Base_Manager {
 
 		if ( ! $site) {
 			wp_send_json_error(
-				new \WP_Error('missing-site', __('Site not found.', 'wp-multisite-waas'))
+				new \WP_Error('missing-site', __('Site not found.', 'multisite-ultimate'))
 			);
 		}
 
@@ -378,7 +379,7 @@ class Site_Manager extends Base_Manager {
 
 		if ( ! $attachment_id) {
 			wp_send_json_error(
-				new \WP_Error('error', __('We were not able to fetch the screenshot.', 'wp-multisite-waas'))
+				new \WP_Error('error', __('We were not able to fetch the screenshot.', 'multisite-ultimate'))
 			);
 		}
 
@@ -393,7 +394,7 @@ class Site_Manager extends Base_Manager {
 	}
 
 	/**
-	 * Add the additional sizes required by WP Multisite WaaS.
+	 * Add the additional sizes required by Multisite Ultimate.
 	 *
 	 * Add for the main site only.
 	 *
@@ -417,7 +418,7 @@ class Site_Manager extends Base_Manager {
 	public function add_no_index_warning(): void {
 
 		if (wu_get_setting('stop_template_indexing', false)) {
-			add_meta_box('wu-warnings', __('WP Multisite WaaS - Search Engines', 'wp-multisite-waas'), [$this, 'render_no_index_warning'], 'dashboard-network', 'normal', 'high');
+			add_meta_box('wu-warnings', __('Multisite Ultimate - Search Engines', 'multisite-ultimate'), [$this, 'render_no_index_warning'], 'dashboard-network', 'normal', 'high');
 		}
 	}
 
@@ -434,9 +435,10 @@ class Site_Manager extends Base_Manager {
 
 			<div class="wu-border-l-4 wu-border-yellow-500 wu-border-solid wu-border-0 wu-px-4 wu-py-2 wu--m-3">
 
-				<p><?php echo wp_kses_post(__('Your WP Multisite WaaS settings are configured to <strong>prevent search engines such as Google from indexing your template sites</strong>.', 'wp-multisite-waas')); ?></p>
+				<p><?php echo wp_kses_post(__('Your Multisite Ultimate settings are configured to <strong>prevent search engines such as Google from indexing your template sites</strong>.', 'multisite-ultimate')); ?></p>
 
-				<p><?php echo wp_kses_post(sprintf(__('If you are experiencing negative SEO impacts on other sites in your network, consider disabling this setting <a href="%s">here</a>.', 'wp-multisite-waas'), wu_network_admin_url('wp-ultimo-settings', ['tab' => 'sites']))); ?></p>
+				<?php // translators: %s: link to the settings page ?>
+				<p><?php echo wp_kses_post(sprintf(__('If you are experiencing negative SEO impacts on other sites in your network, consider disabling this setting <a href="%s">here</a>.', 'multisite-ultimate'), wu_network_admin_url('wp-ultimo-settings', ['tab' => 'sites']))); ?></p>
 
 			</div>
 
@@ -530,14 +532,14 @@ class Site_Manager extends Base_Manager {
 	}
 
 	/**
-	 * Add notices to default site page, recommending the WP Multisite WaaS option.
+	 * Add notices to default site page, recommending the Multisite Ultimate option.
 	 *
 	 * @since 2.0.0
 	 * @return void
 	 */
 	public function add_notices_to_default_site_page(): void {
 
-		$notice = __('Hey there! We highly recommend managing your network sites using the WP Multisite WaaS &rarr; Sites page. <br>If you want to avoid confusion, you can also hide this page from the admin panel completely on the WP Multisite WaaS &rarr; Settings &rarr; Whitelabel options.', 'wp-multisite-waas');
+		$notice = __('Hey there! We highly recommend managing your network sites using the Multisite Ultimate &rarr; Sites page. <br>If you want to avoid confusion, you can also hide this page from the admin panel completely on the Multisite Ultimate &rarr; Settings &rarr; Whitelabel options.', 'multisite-ultimate');
 
 		WP_Ultimo()->notices->add(
 			$notice,
@@ -546,11 +548,11 @@ class Site_Manager extends Base_Manager {
 			'wu-sites-use-wp-ultimo',
 			[
 				[
-					'title' => __('Go to the WP Multisite WaaS Sites page &rarr;', 'wp-multisite-waas'),
+					'title' => __('Go to the Multisite Ultimate Sites page &rarr;', 'multisite-ultimate'),
 					'url'   => wu_network_admin_url('wp-ultimo-sites'),
 				],
 				[
-					'title' => __('Go to the Whitelabel Settings &rarr;', 'wp-multisite-waas'),
+					'title' => __('Go to the Whitelabel Settings &rarr;', 'multisite-ultimate'),
 					'url'   => wu_network_admin_url(
 						'wp-ultimo-settings',
 						[

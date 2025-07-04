@@ -55,7 +55,7 @@ class Signup_Field_Text extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Text', 'wp-multisite-waas');
+		return __('Text', 'multisite-ultimate');
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Signup_Field_Text extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a text field that the customer can fill with arbitrary data.', 'wp-multisite-waas');
+		return __('Adds a text field that the customer can fill with arbitrary data.', 'multisite-ultimate');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Signup_Field_Text extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a text field that the customer can fill with arbitrary data.', 'wp-multisite-waas');
+		return __('Adds a text field that the customer can fill with arbitrary data.', 'multisite-ultimate');
 	}
 
 	/**

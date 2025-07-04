@@ -11,7 +11,7 @@
 
 	<span class="wu-blinking-animation">
 
-		<?php esc_html_e('Loading...', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Loading...', 'multisite-ultimate'); ?>
 
 	</span>
 

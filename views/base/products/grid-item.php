@@ -46,11 +46,11 @@
 
 		<div>
 		<span class="wu-font-semibold"><?php echo esc_html($item->get_name()); ?></span>
-		<!-- <small><?php echo $item->get_price_description(); ?></small> -->
+		<!-- <small><?php echo esc_html($item->get_price_description()); ?></small> -->
 		</div>
 
 		<div class="wu-text-xs wu-my-1">
-		<?php echo $item->get_price_description(); ?>
+		<?php echo esc_html($item->get_price_description()); ?>
 		</div>
 
 	</div>
@@ -60,12 +60,12 @@
 	<div class="wu-flex wu-justify-between wu-items-center wu--mb-8 wu-p-4 wu-bg-gray-100 wu-border wu-border-solid wu-border-gray-300 wu-border-l-0 wu-border-r-0 wu-border-b-0">
 
 		<!-- <label>
-			<input class="wu-rounded-none" type="checkbox" name="bulk-delete[]" value="<?php echo $item->get_id(); ?>" />
-			<?php esc_html_e('Select Site', 'wp-multisite-waas'); ?>
+			<input class="wu-rounded-none" type="checkbox" name="bulk-delete[]" value="<?php echo esc_attr($item->get_id()); ?>" />
+			<?php esc_html_e('Select Site', 'multisite-ultimate'); ?>
 		</label> -->
 
-		<a href="<?php echo wu_network_admin_url('wp-ultimo-edit-product', ['id' => $item->get_id()]); ?>" class="button button-primary">
-			<?php esc_html_e('Read More', 'wp-multisite-waas'); ?>
+		<a href="<?php echo esc_attr(wu_network_admin_url('wp-ultimo-edit-product', ['id' => $item->get_id()])); ?>" class="button button-primary">
+			<?php esc_html_e('Read More', 'multisite-ultimate'); ?>
 		</a>
 
 	</div>

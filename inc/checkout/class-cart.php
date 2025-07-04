@@ -9,7 +9,6 @@
 
 namespace WP_Ultimo\Checkout;
 
-use WP_Ultimo\Checkout\Line_Item;
 use WP_Ultimo\Database\Memberships\Membership_Status;
 use Arrch\Arrch as Array_Search;
 
@@ -388,7 +387,7 @@ class Cart implements \JsonSerializable {
 		do_action('wu_cart_after_setup', $this); // @phpstan-ignore-line
 	}
 
-	/**
+	/**Null
 	 * Get additional parameters set by integrations and add-ons.
 	 *
 	 * @param string  $key The parameter key.
@@ -556,7 +555,7 @@ class Cart implements \JsonSerializable {
 		$payment = wu_get_payment($payment_id);
 
 		if ( ! $payment) {
-			$this->errors->add('payment_not_found', __('The payment in question was not found.', 'wp-multisite-waas'));
+			$this->errors->add('payment_not_found', __('The payment in question was not found.', 'multisite-ultimate'));
 
 			return true;
 		}
@@ -569,10 +568,10 @@ class Cart implements \JsonSerializable {
 		/*
 		 * Adds the country to calculate taxes.
 		 */
-		$this->country = ($this->country ?: $this->customer) ? $this->customer->get_country() : '';
+		$this->country = $this->country ?: ($this->customer ? $this->customer->get_country() : '');
 
 		/*
-		 * Set the currency in cart
+		 * Set the currency in the cart
 		 */
 		$this->set_currency($payment->get_currency());
 
@@ -583,7 +582,7 @@ class Cart implements \JsonSerializable {
 		 * a payment can pay it. Let's check for that.
 		 */
 		if (empty($this->customer) || $this->customer->get_id() !== $payment->get_customer_id()) {
-			$this->errors->add('lacks_permission', __('You are not allowed to modify this payment.', 'wp-multisite-waas'));
+			$this->errors->add('lacks_permission', __('You are not allowed to modify this payment.', 'multisite-ultimate'));
 
 			return true;
 		}
@@ -594,7 +593,7 @@ class Cart implements \JsonSerializable {
 		$membership = $payment->get_membership();
 
 		if ( ! $membership) {
-			$this->errors->add('membership_not_found', __('The membership in question was not found.', 'wp-multisite-waas'));
+			$this->errors->add('membership_not_found', __('The membership in question was not found.', 'multisite-ultimate'));
 
 			return true;
 		}
@@ -683,7 +682,7 @@ class Cart implements \JsonSerializable {
 		);
 
 		if ( ! in_array($payment->get_status(), $allowed_status, true)) {
-			$this->errors->add('invalid_status', __('The payment in question has an invalid status.', 'wp-multisite-waas'));
+			$this->errors->add('invalid_status', __('The payment in question has an invalid status.', 'multisite-ultimate'));
 
 			return true;
 		}
@@ -742,7 +741,7 @@ class Cart implements \JsonSerializable {
 		$membership = wu_get_membership($membership_id);
 
 		if ( ! $membership) {
-			$this->errors->add('membership_not_found', __('The membership in question was not found.', 'wp-multisite-waas'));
+			$this->errors->add('membership_not_found', __('The membership in question was not found.', 'multisite-ultimate'));
 
 			return true;
 		}
@@ -762,7 +761,7 @@ class Cart implements \JsonSerializable {
 		 * Only the customer that owns a membership can change it.
 		 */
 		if (empty($this->customer) || $this->customer->get_id() !== $membership->get_customer_id()) {
-			$this->errors->add('lacks_permission', __('You are not allowed to modify this membership.', 'wp-multisite-waas'));
+			$this->errors->add('lacks_permission', __('You are not allowed to modify this membership.', 'multisite-ultimate'));
 
 			return true;
 		}
@@ -794,7 +793,7 @@ class Cart implements \JsonSerializable {
 				return false;
 			}
 
-			$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'wp-multisite-waas'));
+			$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'multisite-ultimate'));
 
 			return true;
 		}
@@ -816,7 +815,7 @@ class Cart implements \JsonSerializable {
 		 */
 		if (empty($this->plan_id)) {
 			if (count($this->products) === 0) {
-				$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'wp-multisite-waas'));
+				$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'multisite-ultimate'));
 
 				return true;
 			}
@@ -938,9 +937,61 @@ class Cart implements \JsonSerializable {
 			$this->products   = [];
 			$this->line_items = [];
 
-			$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'wp-multisite-waas'));
+			$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'multisite-ultimate'));
 
 			return true;
+		} else {
+			$new_plan        = $this->get_plan();
+			$new_limitations = $new_plan->get_limitations();
+			$sites           = $this->get_membership()->get_sites(false);
+			foreach ($sites as $site) {
+				switch_to_blog($site->get_id());
+
+				if ( class_exists('\TUTOR\Tutor') ) {
+					// TODO: move code to later in WordPress init timing.
+					// This code in needed because the post type check happens before Tutor can register it's post types.
+					\Closure::bind(
+						function () {
+							$tutor                 = \TUTOR\Tutor::instance();
+							$GLOBALS['wp_rewrite'] = new \WP_Rewrite();
+
+							$tutor->post_types->register_course_post_types();
+							$tutor->post_types->register_lesson_post_types();
+							$tutor->post_types->register_quiz_post_types();
+							$tutor->post_types->register_topic_post_types();
+							$tutor->post_types->register_assignments_post_types();
+						},
+						null,
+						\TUTOR\Tutor::class
+					)();
+				}
+
+				$overlimits = $new_limitations->post_types->check_all_post_types();
+
+				if ( $overlimits ) {
+					foreach ( $overlimits as $post_type_slug => $limit ) {
+						$post_type = get_post_type_object($post_type_slug);
+
+						$this->errors->add(
+							'overlimits',
+							sprintf(
+							// translators: %1$d: current number of posts, %2$s: post type name, %3$d: posts quota, %4$s: post type name, %5$d: number of posts to be deleted, %6$s: post type name.
+								esc_html__('You site currently has %1$d %2$s but the new plan is limited to %3$d %4$s. You must trash %5$d %6$s before you can downgrade your plan.', 'multisite-ultimate'),
+								$limit['current'],
+								$limit['current'] > 1 ? $post_type->labels->name : $post_type->labels->singular_name,
+								$limit['limit'],
+								$limit['limit'] > 1 ? $post_type->labels->name : $post_type->labels->singular_name,
+								$limit['current'] - $limit['limit'],
+								$limit['current'] - $limit['limit'] > 1 ? $post_type->labels->name : $post_type->labels->singular_name
+							)
+						);
+					}
+					restore_current_blog();
+
+					return true;
+				}
+				restore_current_blog();
+			}
 		}
 
 		/*
@@ -999,14 +1050,13 @@ class Cart implements \JsonSerializable {
 			$this->line_items = [];
 
 			$description = sprintf(
-				// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
-				_n('%2$s', '%1$s %2$s', $membership->get_duration(), 'wp-multisite-waas'), // phpcs:ignore
+				1 === $membership->get_duration() ? '%2$s' : '%1$s %2$s',
 				$membership->get_duration(),
 				wu_get_translatable_string(($membership->get_duration() <= 1 ? $membership->get_duration_unit() : $membership->get_duration_unit() . 's'))
 			);
 
 			// Translators: Placeholder receives the recurring period description
-			$message = sprintf(__('You already have an active %s agreement.', 'wp-multisite-waas'), $description);
+			$message = sprintf(__('You already have an active %s agreement.', 'multisite-ultimate'), $description);
 
 			$this->errors->add('no_changes', $message);
 
@@ -1027,8 +1077,8 @@ class Cart implements \JsonSerializable {
 					'wu_checkout_credit_line_item_params',
 					[
 						'type'         => 'credit',
-						'title'        => __('Scheduled Swap Credit', 'wp-multisite-waas'),
-						'description'  => __('Swap scheduled to next billing cycle.', 'wp-multisite-waas'),
+						'title'        => __('Scheduled Swap Credit', 'multisite-ultimate'),
+						'description'  => __('Swap scheduled to next billing cycle.', 'multisite-ultimate'),
 						'discountable' => false,
 						'taxable'      => false,
 						'quantity'     => 1,
@@ -1145,6 +1195,12 @@ class Cart implements \JsonSerializable {
 
 			$old_price_per_day = $days_in_old_cycle > 0 ? $this->membership->get_amount() / $days_in_old_cycle : $this->membership->get_amount();
 
+			if (($this->membership->get_date_created() && wu_date($this->membership->get_date_created())->format('Y-m-d') === wu_date()->format('Y-m-d')) ||
+				($this->membership->get_date_renewed() && wu_date($this->membership->get_date_renewed())->format('Y-m-d') === wu_date()->format('Y-m-d'))) {
+				// If the membership was created today, We'll use the average days in the cycle to prevent some odd numbers.
+				$days_unused = $days_in_old_cycle;
+			}
+
 			$credit = $days_unused * $old_price_per_day;
 
 			if ($credit > $this->membership->get_amount()) {
@@ -1222,8 +1278,8 @@ class Cart implements \JsonSerializable {
 			'wu_checkout_credit_line_item_params',
 			[
 				'type'         => 'credit',
-				'title'        => __('Credit', 'wp-multisite-waas'),
-				'description'  => __('Prorated amount based on the previous membership.', 'wp-multisite-waas'),
+				'title'        => __('Credit', 'multisite-ultimate'),
+				'description'  => __('Prorated amount based on the previous membership.', 'multisite-ultimate'),
 				'discountable' => false,
 				'taxable'      => false,
 				'quantity'     => 1,
@@ -1259,7 +1315,7 @@ class Cart implements \JsonSerializable {
 		if (empty($discount_code)) {
 
 			// translators: %s is the coupon code being used, all-caps. e.g. PROMO10OFF
-			$this->errors->add('discount_code', sprintf(__('The code %s do not exist or is no longer valid.', 'wp-multisite-waas'), $code));
+			$this->errors->add('discount_code', sprintf(__('The code %s do not exist or is no longer valid.', 'multisite-ultimate'), $code));
 
 			return false;
 		}
@@ -1340,7 +1396,7 @@ class Cart implements \JsonSerializable {
 
 			if ($line_item_interval !== $interval) {
 				// translators: two intervals
-				$this->errors->add('wrong', sprintf(__('Interval %1$s and %2$s do not match.', 'wp-multisite-waas'), $line_item_interval, $interval));
+				$this->errors->add('wrong', sprintf(__('Interval %1$s and %2$s do not match.', 'multisite-ultimate'), $line_item_interval, $interval));
 
 				return false;
 			}
@@ -1503,7 +1559,7 @@ class Cart implements \JsonSerializable {
 		$product = is_numeric($product_id_or_slug) ? wu_get_product($product_id_or_slug) : wu_get_product_by_slug($product_id_or_slug);
 
 		if ( ! $product) {
-			$message = __('The product you are trying to add does not exist.', 'wp-multisite-waas');
+			$message = __('The product you are trying to add does not exist.', 'multisite-ultimate');
 
 			$this->errors->add('missing-product', $message);
 
@@ -1515,7 +1571,7 @@ class Cart implements \JsonSerializable {
 			$product = $product->get_as_variation($this->duration, $this->duration_unit);
 
 			if ( ! $product) {
-				$message = __('The product you are trying to add does not exist for the selected duration.', 'wp-multisite-waas');
+				$message = __('The product you are trying to add does not exist for the selected duration.', 'multisite-ultimate');
 
 				$this->errors->add('missing-price-variations', $message);
 
@@ -1529,7 +1585,7 @@ class Cart implements \JsonSerializable {
 			 * another one. Bail.
 			 */
 			if ( ! empty($this->plan_id)) {
-				$message = __('Theres already a plan in this membership.', 'wp-multisite-waas');
+				$message = __('Theres already a plan in this membership.', 'multisite-ultimate');
 
 				$this->errors->add('plan-already-added', $message);
 
@@ -1591,7 +1647,7 @@ class Cart implements \JsonSerializable {
 					 * price variation. We need to add an error.
 					 */
 					// translators: respectively, product name, duration, and duration unit.
-					$message = sprintf(__('%1$s does not have a valid price variation for that billing period (every %2$s %3$s(s)) and was not added to the cart.', 'wp-multisite-waas'), $product->get_name(), $this->duration, $this->duration_unit);
+					$message = sprintf(__('%1$s does not have a valid price variation for that billing period (every %2$s %3$s(s)) and was not added to the cart.', 'multisite-ultimate'), $product->get_name(), $this->duration, $this->duration_unit);
 
 					$this->errors->add('missing-price-variations', $message);
 
@@ -1655,7 +1711,7 @@ class Cart implements \JsonSerializable {
 		}
 
 		// translators: placeholder is the product name.
-		$description = ($product->get_setup_fee() > 0) ? __('Signup Fee for %s', 'wp-multisite-waas') : __('Signup Credit for %s', 'wp-multisite-waas');
+		$description = ($product->get_setup_fee() > 0) ? __('Signup Fee for %s', 'multisite-ultimate') : __('Signup Credit for %s', 'multisite-ultimate');
 
 		$description = sprintf($description, $product->get_name());
 

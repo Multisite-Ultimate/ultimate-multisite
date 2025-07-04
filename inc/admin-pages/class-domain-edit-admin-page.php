@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Domain Edit/Add New Admin Page.
+ * Multisite Ultimate Domain Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Database\Domains\Domain_Stage;
 
 /**
- * WP Multisite WaaS Domain Edit/Add New Admin Page.
+ * Multisite Ultimate Domain Edit/Add New Admin Page.
  */
 class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 
@@ -109,7 +109,6 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 			['jquery', 'wu-vue'],
 			\WP_Ultimo::VERSION,
 			[
-				'async'     => true,
 				'in_footer' => true,
 			]
 		);
@@ -139,7 +138,7 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 		$custom_fields = [
 			'set_domain_as_primary' => [
 				'type'              => 'model',
-				'title'             => __('Set another domain as primary', 'wp-multisite-waas'),
+				'title'             => __('Set another domain as primary', 'multisite-ultimate'),
 				'html_attr'         => [
 					'data-model'        => 'domain',
 					'data-value-field'  => 'id',
@@ -155,16 +154,16 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'confirm'               => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Deletion', 'wp-multisite-waas'),
-				'desc'      => __('This action can not be undone.', 'wp-multisite-waas'),
+				'title'     => __('Confirm Deletion', 'multisite-ultimate'),
+				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_button'         => [
 				'type'            => 'submit',
-				'title'           => __('Delete', 'wp-multisite-waas'),
-				'placeholder'     => __('Delete', 'wp-multisite-waas'),
+				'title'           => __('Delete', 'multisite-ultimate'),
+				'placeholder'     => __('Delete', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -216,14 +215,14 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'domain-url',
 			[
-				'title'    => __('Domain URL', 'wp-multisite-waas'),
+				'title'    => __('Domain URL', 'multisite-ultimate'),
 				'position' => 'normal',
 				'after'    => [$this, 'render_dns_widget'],
 				'fields'   => [
 					'domain' => [
 						'type'          => 'text-display',
-						'title'         => __('Domain', 'wp-multisite-waas'),
-						'tooltip'       => __('Editing an existing domain is not possible. If you want to make changes to this domain, first delete it, and then re-add the right domain.', 'wp-multisite-waas'),
+						'title'         => __('Domain', 'multisite-ultimate'),
+						'tooltip'       => __('Editing an existing domain is not possible. If you want to make changes to this domain, first delete it, and then re-add the right domain.', 'multisite-ultimate'),
 						'display_value' => '<span class="wu-text-sm wu-uppercase wu-font-mono">' . $this->get_object()->get_domain() . '</span> <a target="_blank" class="wu-no-underline" href="' . esc_url($this->get_object()->get_url()) . '"><span class="dashicons-wu-link1	"></span></a>',
 					],
 				],
@@ -233,12 +232,12 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_tabs_widget(
 			'options',
 			[
-				'title'    => __('Domain Options', 'wp-multisite-waas'),
+				'title'    => __('Domain Options', 'multisite-ultimate'),
 				'position' => 'normal',
 				'sections' => [
 					'general' => [
-						'title'  => __('General', 'wp-multisite-waas'),
-						'desc'   => __('General options for the domain.', 'wp-multisite-waas'),
+						'title'  => __('General', 'multisite-ultimate'),
+						'desc'   => __('General options for the domain.', 'multisite-ultimate'),
 						'icon'   => 'dashicons-wu-globe',
 						'state'  => [
 							'primary_domain' => $this->get_object()->is_primary_domain(),
@@ -246,9 +245,9 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 						'fields' => [
 							'primary_domain' => [
 								'type'      => 'toggle',
-								'title'     => __('Is Primary Domain?', 'wp-multisite-waas'),
-								'desc'      => __('Set as the primary domain.', 'wp-multisite-waas'),
-								'tooltip'   => __('Setting this as the primary domain will remove any other domain mapping marked as the primary domain for this site.', 'wp-multisite-waas'),
+								'title'     => __('Is Primary Domain?', 'multisite-ultimate'),
+								'desc'      => __('Set as the primary domain.', 'multisite-ultimate'),
+								'tooltip'   => __('Setting this as the primary domain will remove any other domain mapping marked as the primary domain for this site.', 'multisite-ultimate'),
 								'value'     => $this->get_object()->is_primary_domain(),
 								'html_attr' => [
 									'v-model' => 'primary_domain',
@@ -256,15 +255,15 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 							],
 							'primary_note'   => [
 								'type'              => 'note',
-								'desc'              => __('By making this the primary domain, we will convert the previous primary domain for this site, if one exists, into an alias domain.', 'wp-multisite-waas'),
+								'desc'              => __('By making this the primary domain, we will convert the previous primary domain for this site, if one exists, into an alias domain.', 'multisite-ultimate'),
 								'wrapper_html_attr' => [
 									'v-if' => "require('primary_domain', true)",
 								],
 							],
 							'secure'         => [
 								'type'  => 'toggle',
-								'title' => __('Is Secure?', 'wp-multisite-waas'),
-								'desc'  => __('Force the load using HTTPS.', 'wp-multisite-waas'),
+								'title' => __('Is Secure?', 'multisite-ultimate'),
+								'desc'  => __('Force the load using HTTPS.', 'multisite-ultimate'),
 								'value' => $this->get_object()->is_secure(),
 							],
 						],
@@ -276,18 +275,18 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'sites',
 			[
-				'title'        => __('Linked Site', 'wp-multisite-waas'),
+				'title'        => __('Linked Site', 'multisite-ultimate'),
 				'table'        => new \WP_Ultimo\List_Tables\Memberships_Site_List_Table(),
 				'query_filter' => [$this, 'sites_query_filter'],
 			]
 		);
 
-		add_meta_box('wp-ultimo-domain-log', __('Domain Test Log', 'wp-multisite-waas'), [$this, 'render_log_widget'], get_current_screen()->id, 'normal', null);
+		add_meta_box('wp-ultimo-domain-log', __('Domain Test Log', 'multisite-ultimate'), [$this, 'render_log_widget'], get_current_screen()->id, 'normal', null);
 
 		$this->add_list_table_widget(
 			'events',
 			[
-				'title'        => __('Events', 'wp-multisite-waas'),
+				'title'        => __('Events', 'multisite-ultimate'),
 				'table'        => new \WP_Ultimo\List_Tables\Inside_Events_List_Table(),
 				'query_filter' => [$this, 'query_filter'],
 			]
@@ -307,9 +306,9 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 				'fields'    => [
 					'stage'   => [
 						'type'              => 'select',
-						'title'             => __('Stage', 'wp-multisite-waas'),
-						'placeholder'       => __('Select Stage', 'wp-multisite-waas'),
-						'desc'              => __('The stage in the checking lifecycle of this domain.', 'wp-multisite-waas'),
+						'title'             => __('Stage', 'multisite-ultimate'),
+						'placeholder'       => __('Select Stage', 'multisite-ultimate'),
+						'desc'              => __('The stage in the checking lifecycle of this domain.', 'multisite-ultimate'),
 						'options'           => Domain_Stage::to_array(),
 						'value'             => $this->get_object()->get_stage(),
 						'wrapper_html_attr' => [
@@ -322,9 +321,9 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'blog_id' => [
 						'type'              => 'model',
-						'title'             => __('Site', 'wp-multisite-waas'),
-						'placeholder'       => __('Search Site...', 'wp-multisite-waas'),
-						'desc'              => __('The target site of this domain.', 'wp-multisite-waas'),
+						'title'             => __('Site', 'multisite-ultimate'),
+						'placeholder'       => __('Search Site...', 'multisite-ultimate'),
+						'desc'              => __('The target site of this domain.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->get_blog_id(),
 						'tooltip'           => '',
 						'html_attr'         => [
@@ -348,7 +347,7 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'basic',
 			[
-				'title'     => __('Active', 'wp-multisite-waas'),
+				'title'     => __('Active', 'multisite-ultimate'),
 				'html_attr' => [
 					'data-wu-app' => 'basic',
 					'data-state'  => wu_convert_to_state(
@@ -360,8 +359,8 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 				'fields'    => [
 					'active' => [
 						'type'              => 'toggle',
-						'title'             => __('Active', 'wp-multisite-waas'),
-						'desc'              => __('Use this option to manually enable or disable this domain.', 'wp-multisite-waas'),
+						'title'             => __('Active', 'multisite-ultimate'),
+						'desc'              => __('Use this option to manually enable or disable this domain.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->is_active(),
 						'html_attr'         => [
 							'v-cloak'         => '1',
@@ -374,7 +373,7 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'note'   => [
 						'type'              => 'note',
-						'desc'              => __('This domain has a domain stage that forces it to be inactive. Change the status to Ready or Ready (without SSL) to be able to control the active status directly.', 'wp-multisite-waas'),
+						'desc'              => __('This domain has a domain stage that forces it to be inactive. Change the status to Ready or Ready (without SSL) to be able to control the active status directly.', 'multisite-ultimate'),
 						'classes'           => 'wu-p-2 wu-bg-red-100 wu-text-red-600 wu-rounded wu-w-full',
 						'wrapper_html_attr' => [
 							'v-show'  => $check_for_active_string,
@@ -427,7 +426,7 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Domain', 'wp-multisite-waas') : __('Add new Domain', 'wp-multisite-waas');
+		return $this->edit ? __('Edit Domain', 'multisite-ultimate') : __('Add new Domain', 'multisite-ultimate');
 	}
 
 	/**
@@ -438,7 +437,7 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Domain', 'wp-multisite-waas');
+		return __('Edit Domain', 'multisite-ultimate');
 	}
 
 	/**
@@ -461,15 +460,15 @@ class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Domain', 'wp-multisite-waas'),
-			'add_new_label'       => __('Add new Domain', 'wp-multisite-waas'),
-			'updated_message'     => __('Domain updated with success!', 'wp-multisite-waas'),
-			'title_placeholder'   => __('Enter Domain', 'wp-multisite-waas'),
+			'edit_label'          => __('Edit Domain', 'multisite-ultimate'),
+			'add_new_label'       => __('Add new Domain', 'multisite-ultimate'),
+			'updated_message'     => __('Domain updated with success!', 'multisite-ultimate'),
+			'title_placeholder'   => __('Enter Domain', 'multisite-ultimate'),
 			'title_description'   => '',
-			'save_button_label'   => __('Save Domain', 'wp-multisite-waas'),
+			'save_button_label'   => __('Save Domain', 'multisite-ultimate'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Domain', 'wp-multisite-waas'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'wp-multisite-waas'),
+			'delete_button_label' => __('Delete Domain', 'multisite-ultimate'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
 		];
 	}
 

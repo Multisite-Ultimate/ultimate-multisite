@@ -57,18 +57,6 @@ final class Payments_Table extends Table {
 	];
 
 	/**
-	 * Payments constructor.
-	 *
-	 * @access public
-	 * @since  2.0.0
-	 * @return void
-	 */
-	public function __construct() {
-
-		parent::__construct();
-	}
-
-	/**
 	 * Setup the database schema.
 	 *
 	 * @access protected

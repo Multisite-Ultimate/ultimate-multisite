@@ -2,7 +2,7 @@
 
 Often when doing client work we get the need to provide our clients with a custom experience in the admin dashboard of WordPress. If you are searching for a more professional look and feel, PRO Theme might help you.
 
-PRO Theme is an admin theme developed to help you when customizing your clients’ Dashboard. And it’s also part of WP Multisite WaaS’s premium plugins core.
+PRO Theme is an admin theme developed to help you when customizing your clients’ Dashboard. And it’s also part of Multisite Ultimate’s premium plugins core.
 
 After installing it, go to your _Plugins_ page and click to activate it on your Network.
 

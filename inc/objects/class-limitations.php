@@ -417,7 +417,7 @@ class Limitations {
 		$results = $wpdb->get_var($sql); // phpcs:ignore
 
 		if ( ! empty($results)) {
-			$limitations = unserialize($results);
+			$limitations = maybe_unserialize($results);
 		}
 
 		/*

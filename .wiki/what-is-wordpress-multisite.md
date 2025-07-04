@@ -56,7 +56,7 @@ Once you convert your single-site WordPress installation into multisite, the ori
 
 Plugins and themes can only be installed or uninstalled from the network admin panel by super admins. Subsite admins can then choose to activate or deactivate those plugins or themes unless the super admin network activates a plugin, which forces it to be active for all subsites all the time.
 
-_Note: as you can see, inviting someone to your network and granting them super admin status gives this user total control over your network. As an example, other super admins can even remove your super admin status, effectively locking you out of your own network admin panel. In order to allow WP Multisite WaaS customers to have granular control over what additional super admins can do, we have an add-on called Support Agents. This add-on allows you to create yet another kind of user – an agent – with only the permissions they might need to perform their tasks on the network._
+_Note: as you can see, inviting someone to your network and granting them super admin status gives this user total control over your network. As an example, other super admins can even remove your super admin status, effectively locking you out of your own network admin panel. In order to allow Multisite Ultimate customers to have granular control over what additional super admins can do, we have an add-on called Support Agents. This add-on allows you to create yet another kind of user – an agent – with only the permissions they might need to perform their tasks on the network._
 
 ## What is shared among subsites and what is not
 
@@ -90,7 +90,7 @@ One day, John needs to buy a new pair of shoes and he finds the perfect ones in 
 
 What happened here is that John’s user is shared across the entire network so when he tries to create an account to checkout on Alice’s site, WordPress will detect that a user with the same email address already exists and throw an error.
 
-_Note: We realize how bad that can be depending on your use-case, so WP Multisite WaaS has an option that bypasses the regular checks for an existing user, allowing multiple accounts to be created using the same email address. Each account is bound to a subsite, so the risk of collision is kept to a minimal. In the example above, John would not get an error message and would be able to buy those shoes without an issue. This option is called Enable Multiple Accounts, and can be activate on WP Multisite WaaS → Settings → Login & Registration._
+_Note: We realize how bad that can be depending on your use-case, so Multisite Ultimate has an option that bypasses the regular checks for an existing user, allowing multiple accounts to be created using the same email address. Each account is bound to a subsite, so the risk of collision is kept to a minimal. In the example above, John would not get an error message and would be able to buy those shoes without an issue. This option is called Enable Multiple Accounts, and can be activate on Multisite Ultimate → Settings → Login & Registration._
 
 Even though the user table is shared, users can be added to and removed from subsites by the subsite admins or the super admin, and they can even have different user roles on different subsites.
 

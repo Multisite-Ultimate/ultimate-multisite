@@ -8,9 +8,7 @@
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
-
 // phpcs:disable
-
 /**
  * Return the instance of the function
  */
@@ -52,7 +50,7 @@ if (!function_exists('validate_user_form')) {
  * Builds HTML attributes from a PHP array
  *
  * @param array $attributes
- * @return void
+ * @return string
  */
 function wu_create_html_attributes_from_array($attributes = []) {
 
@@ -102,9 +100,9 @@ function wu_print_signup_field_options($options, $field = []) {
 
 			echo sprintf('<optgroup label="%s">', $option_value);
 
-			foreach ($option_label as $option_value => $option_label) {
+			foreach ($option_label as $inner_option_value => $inner_option_label) {
 
-				wu_print_signup_field_option($option_value, $option_label, $field);
+				wu_print_signup_field_option($inner_option_value, $inner_option_label, $field);
 
 			}
 
@@ -184,7 +182,7 @@ function wu_print_signup_field($field_slug, $field, $results) {
 
           });
 
-          if (conditions_met == conditions_count) {
+          if (conditions_met === conditions_count) {
 
             target_field.slideDown(velocity);
 
@@ -336,7 +334,7 @@ function wu_print_signup_field($field_slug, $field, $results) {
       <input name="signup_form_id" type="hidden" value="1">
 
       <button id="wp-submit" <?php echo $attributes; ?> type="submit" class="button button-primary button-large button-next" value="1" name="save_step">
-			<?php esc_attr_e($field['name'], 'wp-multisite-waas'); ?>
+			<?php esc_attr_e($field['name'], 'multisite-ultimate'); ?>
       </button>
 
 			<?php wp_nonce_field('signup_form_1', '_signup_form'); ?>
@@ -412,7 +410,7 @@ function wu_print_signup_field($field_slug, $field, $results) {
 
 }
 /**
- * Alias function to allow creation of users for WP Multisite WaaS.
+ * Alias function to allow creation of users for Multisite Ultimate.
  *
  * User Data should contain: user_login, user_email, user_pass;
  * Plan Data should contain: plan_id, plan_freq;
@@ -430,7 +428,7 @@ function wu_create_user(array $user_data, array $plan_data, array $user_meta = [
 }
 
 /**
- * Alias function to allow creation of sites for WP Multisite WaaS.
+ * Alias function to allow creation of sites for Multisite Ultimate.
  *
  * Site Data should contain: blog_title, blogname, and role;
  * Site Meta is an associative array containing key => value pairs to be saved as meta fields on that site.

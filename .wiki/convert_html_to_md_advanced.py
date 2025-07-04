@@ -93,8 +93,8 @@ def process_html_files(categories):
     """Process HTML files and convert them to Markdown."""
     # Create a Home.md file for the wiki
     with open(os.path.join(OUTPUT_DIR, 'Home.md'), 'w', encoding='utf-8') as home_file:
-        home_file.write("# WP Multisite WaaS Documentation\n\n")
-        home_file.write("Welcome to the WP Multisite WaaS documentation. This wiki contains all the information you need to get started with WP Multisite WaaS.\n\n")
+        home_file.write("# Multisite Ultimate Documentation\n\n")
+        home_file.write("Welcome to the Multisite Ultimate documentation. This wiki contains all the information you need to get started with Multisite Ultimate.\n\n")
         home_file.write("## Categories\n\n")
         
         # Add categories to the home page

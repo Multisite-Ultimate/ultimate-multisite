@@ -1,18 +1,18 @@
 # Understanding your Dashboard (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
 
-WP Multisite WaaS v2 has a dedicated **Dashboard** under the WP Multisite WaaS menu, but it also adds some sections to the Network Dashboard. This article will explain the sections you will see both on the Network and the WP Multisite WaaS Dashboards.
+Multisite Ultimate v2 has a dedicated **Dashboard** under the Multisite Ultimate menu, but it also adds some sections to the Network Dashboard. This article will explain the sections you will see both on the Network and the Multisite Ultimate Dashboards.
 
 ## The Network Dashboard:
 
-WP Multisite WaaS injects a few useful widgets into the network-level dashboard. This dashboard is found by navigating to **My Sites > Network Admin > Dashboard**. The widgets are designed to provide easy access to information and common operations for the network administrator. This is how the network dashboard should look:
+Multisite Ultimate injects a few useful widgets into the network-level dashboard. This dashboard is found by navigating to **My Sites > Network Admin > Dashboard**. The widgets are designed to provide easy access to information and common operations for the network administrator. This is how the network dashboard should look:
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-pwJc0Mgd3l.png)
 
 Now, let's take a look at each widget of the network dashboard:
 
-**First Steps:** This widget predominantly appears on a fresh installation of WP Multisite WaaS such as ours and reminds the network administrator to complete additional tasks, like configuring a payment method and create a test account.
+**First Steps:** This widget predominantly appears on a fresh installation of Multisite Ultimate such as ours and reminds the network administrator to complete additional tasks, like configuring a payment method and create a test account.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-Jtiq6tiSGk.png)
 
@@ -20,7 +20,7 @@ Now, let's take a look at each widget of the network dashboard:
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-169qHa0DyY.png)
 
-**Activity Stream:** This widget reports on events across WP Multisite WaaS for which there is a variety to report on. Events could include aspects such as signups, cancellations, creations, and deletions of sites and other activities.
+**Activity Stream:** This widget reports on events across Multisite Ultimate for which there is a variety to report on. Events could include aspects such as signups, cancellations, creations, and deletions of sites and other activities.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-VauK7uGvG4.png)
 
@@ -28,23 +28,23 @@ Now, let's take a look at each widget of the network dashboard:
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-hDfVORWUys.png)
 
-**News & Discussions:** This widget fetches and displays the latest WP Multisite WaaS news. It is advantageous to keep an eye on this widget for information about updates, critical bugs, and security fixes.
+**News & Discussions:** This widget fetches and displays the latest Multisite Ultimate news. It is advantageous to keep an eye on this widget for information about updates, critical bugs, and security fixes.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-vywHpdIdHj.png)
 
-## **The WP Multisite WaaS Dashboard:**
+## **The Multisite Ultimate Dashboard:**
 
-While the network dashboard presents holistic information about the network, the WP Multisite WaaS dashboard located at the top-level of the WP Multisite WaaS menu presents information about the service.
+While the network dashboard presents holistic information about the network, the Multisite Ultimate dashboard located at the top-level of the Multisite Ultimate menu presents information about the service.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-7dcQ9MDkoZ.png)
 
 #### Welcome Tour:
 
-On a fresh installation of WP Multisite WaaS v2 a brief welcome tour is displayed familiarizing the network administrator with the dashboard and its new functions.
+On a fresh installation of Multisite Ultimate v2 a brief welcome tour is displayed familiarizing the network administrator with the dashboard and its new functions.
 
-**Documentation:** At the top of the dashboard lies the **Documentation** link. The documentation (this documentation) contains a wealth of information regarding the installation, operation, support, and maintenance of WP Multisite WaaS as well as ancillary information designed to be helpful to the network administrator.
+**Documentation:** At the top of the dashboard lies the **Documentation** link. The documentation (this documentation) contains a wealth of information regarding the installation, operation, support, and maintenance of Multisite Ultimate as well as ancillary information designed to be helpful to the network administrator.
 
-The documentation link is prevalent on most WP Multisite WaaS pages providing contextual help when called upon. Thus when working with sites, for example, the documentation link will provide help related to the creation and management of network sites.
+The documentation link is prevalent on most Multisite Ultimate pages providing contextual help when called upon. Thus when working with sites, for example, the documentation link will provide help related to the creation and management of network sites.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-AvuWqzBqqU.png)
 
@@ -68,4 +68,4 @@ The date range governs the period of the information displayed by the widgets di
 
 **Signups by Forms:** On this section you can see how many customers signed up to your network using your main checkout form - and any other checkout form that you have - and how many were added by the super admin(s) of the network.
 
-**Most Visited Sites:** The most visited websites of your network. To make this function work, you need to enable the visit counting function at **WP Multisite WaaS > Settings > Sites > Enable Visits Limitation and Counting**.
+**Most Visited Sites:** The most visited websites of your network. To make this function work, you need to enable the visit counting function at **Multisite Ultimate > Settings > Sites > Enable Visits Limitation and Counting**.

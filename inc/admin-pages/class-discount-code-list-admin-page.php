@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Discount Code Admin Page.
+ * Multisite Ultimate Discount Code Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Discount Code Admin Page.
+ * Multisite Ultimate Discount Code Admin Page.
  */
 class Discount_Code_List_Admin_Page extends List_Admin_Page {
 
@@ -71,8 +71,8 @@ class Discount_Code_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Discount Code removed successfully.', 'wp-multisite-waas'),
-			'search_label'    => __('Search Discount Code', 'wp-multisite-waas'),
+			'deleted_message' => __('Discount Code removed successfully.', 'multisite-ultimate'),
+			'search_label'    => __('Search Discount Code', 'multisite-ultimate'),
 		];
 	}
 
@@ -84,7 +84,7 @@ class Discount_Code_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Discount Codes', 'wp-multisite-waas');
+		return __('Discount Codes', 'multisite-ultimate');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Discount_Code_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Discount Codes', 'wp-multisite-waas');
+		return __('Discount Codes', 'multisite-ultimate');
 	}
 
 	/**
@@ -106,7 +106,7 @@ class Discount_Code_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Discount Codes', 'wp-multisite-waas');
+		return __('Discount Codes', 'multisite-ultimate');
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Discount_Code_List_Admin_Page extends List_Admin_Page {
 		return [
 			[
 				'url'   => wu_network_admin_url('wp-ultimo-edit-discount-code'),
-				'label' => __('Add Discount Code'),
+				'label' => __('Add Discount Code', 'multisite-ultimate'),
 				'icon'  => 'wu-circle-with-plus',
 			],
 		];

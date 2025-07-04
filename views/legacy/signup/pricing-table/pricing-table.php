@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/princing-table/princing-table.php.
  *
- * HOWEVER, on occasion WP Multisite WaaS will need to update template files and you
+ * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -35,17 +35,17 @@ $accent_color_2 = wu_color($accent_color->darken(4));
 <style>
 
 	.wu-content-plan .plan-tier h4 {
-	background-color: #<?php echo $primary_color->getHex(); ?>;
+	background-color: #<?php echo esc_html($primary_color->getHex()); ?>;
 	color: <?php echo $primary_color->isDark() ? 'white' : '#333'; ?> !important;
 	}
 
 	.wu-content-plan .plan-tier.callout h6 {
-	background-color: #<?php echo $accent_color->getHex(); ?>;
+	background-color: #<?php echo esc_html($accent_color->getHex()); ?>;
 	color: <?php echo $accent_color->isDark() ? '#f9f9f9' : 'rgba(39,65,90,.5)'; ?> !important;
 	}
 
 	.wu-content-plan .plan-tier.callout h4 {
-	background-color: #<?php echo $accent_color_2->getHex(); ?>;
+	background-color: #<?php echo esc_html($accent_color_2->getHex()); ?>;
 	color: <?php echo $accent_color->isDark() ? 'white' : '#333'; ?> !important;
 	}
 
@@ -91,7 +91,7 @@ if (empty($plans)) {
 		 */
 
 		$count   = count($plans);
-		$columns = 5 == $count ? '2-4' : 12 / $count;
+		$columns = 5 === $count ? '2-4' : 12 / $count;
 
 		foreach ($plans as $plan) {
 			wu_get_template(
@@ -127,7 +127,7 @@ if (empty($plans)) {
 		* Select the default pricing option
 		*/
 		setTimeout(function() {
-		$('[data-frequency-selector="<?php echo wu_get_setting('default_pricing_option', 1); ?>"]').click();
+		$('[data-frequency-selector="<?php echo esc_attr(wu_get_setting('default_pricing_option', 1)); ?>"]').click();
 		}, 100);
 
 	});

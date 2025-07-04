@@ -10,7 +10,7 @@
 defined('ABSPATH') || exit;
 
 /**
- * Get all the currencies we use in WP Multisite WaaS
+ * Get all the currencies we use in Multisite Ultimate
  *
  * @return array Return the currencies array.
  */
@@ -19,55 +19,55 @@ function wu_get_currencies(): array {
 	$currencies = apply_filters(
 		'wu_currencies',
 		[
-			'AED' => __('United Arab Emirates Dirham', 'wp-multisite-waas'),
-			'ARS' => __('Argentine Peso', 'wp-multisite-waas'),
-			'AUD' => __('Australian Dollars', 'wp-multisite-waas'),
-			'BDT' => __('Bangladeshi Taka', 'wp-multisite-waas'),
-			'BRL' => __('Brazilian Real', 'wp-multisite-waas'),
-			'BGN' => __('Bulgarian Lev', 'wp-multisite-waas'),
-			'CAD' => __('Canadian Dollars', 'wp-multisite-waas'),
-			'CLP' => __('Chilean Peso', 'wp-multisite-waas'),
-			'CNY' => __('Chinese Yuan', 'wp-multisite-waas'),
-			'COP' => __('Colombian Peso', 'wp-multisite-waas'),
-			'CZK' => __('Czech Koruna', 'wp-multisite-waas'),
-			'DKK' => __('Danish Krone', 'wp-multisite-waas'),
-			'DOP' => __('Dominican Peso', 'wp-multisite-waas'),
-			'EUR' => __('Euros', 'wp-multisite-waas'),
-			'HKD' => __('Hong Kong Dollar', 'wp-multisite-waas'),
-			'HRK' => __('Croatia kuna', 'wp-multisite-waas'),
-			'HUF' => __('Hungarian Forint', 'wp-multisite-waas'),
-			'ISK' => __('Icelandic krona', 'wp-multisite-waas'),
-			'IDR' => __('Indonesia Rupiah', 'wp-multisite-waas'),
-			'INR' => __('Indian Rupee', 'wp-multisite-waas'),
-			'NPR' => __('Nepali Rupee', 'wp-multisite-waas'),
-			'ILS' => __('Israeli Shekel', 'wp-multisite-waas'),
-			'JPY' => __('Japanese Yen', 'wp-multisite-waas'),
-			'KES' => __('Kenyan Shilling', 'wp-multisite-waas'),
-			'KIP' => __('Lao Kip', 'wp-multisite-waas'),
-			'KRW' => __('South Korean Won', 'wp-multisite-waas'),
-			'MYR' => __('Malaysian Ringgits', 'wp-multisite-waas'),
-			'MXN' => __('Mexican Peso', 'wp-multisite-waas'),
-			'NGN' => __('Nigerian Naira', 'wp-multisite-waas'),
-			'NOK' => __('Norwegian Krone', 'wp-multisite-waas'),
-			'NZD' => __('New Zealand Dollar', 'wp-multisite-waas'),
-			'PYG' => __('Paraguayan Guaraní', 'wp-multisite-waas'),
-			'PHP' => __('Philippine Pesos', 'wp-multisite-waas'),
-			'PLN' => __('Polish Zloty', 'wp-multisite-waas'),
-			'GBP' => __('Pounds Sterling', 'wp-multisite-waas'),
-			'RON' => __('Romanian Leu', 'wp-multisite-waas'),
-			'RUB' => __('Russian Ruble', 'wp-multisite-waas'),
-			'SGD' => __('Singapore Dollar', 'wp-multisite-waas'),
-			'ZAR' => __('South African rand', 'wp-multisite-waas'),
-			'SAR' => __('Saudi Riyal', 'wp-multisite-waas'),
-			'SEK' => __('Swedish Krona', 'wp-multisite-waas'),
-			'CHF' => __('Swiss Franc', 'wp-multisite-waas'),
-			'TWD' => __('Taiwan New Dollars', 'wp-multisite-waas'),
-			'THB' => __('Thai Baht', 'wp-multisite-waas'),
-			'TRY' => __('Turkish Lira', 'wp-multisite-waas'),
-			'UAH' => __('Ukrainian Hryvnia', 'wp-multisite-waas'),
-			'USD' => __('US Dollars', 'wp-multisite-waas'),
-			'VND' => __('Vietnamese Dong', 'wp-multisite-waas'),
-			'EGP' => __('Egyptian Pound', 'wp-multisite-waas'),
+			'AED' => __('United Arab Emirates Dirham', 'multisite-ultimate'),
+			'ARS' => __('Argentine Peso', 'multisite-ultimate'),
+			'AUD' => __('Australian Dollars', 'multisite-ultimate'),
+			'BDT' => __('Bangladeshi Taka', 'multisite-ultimate'),
+			'BRL' => __('Brazilian Real', 'multisite-ultimate'),
+			'BGN' => __('Bulgarian Lev', 'multisite-ultimate'),
+			'CAD' => __('Canadian Dollars', 'multisite-ultimate'),
+			'CLP' => __('Chilean Peso', 'multisite-ultimate'),
+			'CNY' => __('Chinese Yuan', 'multisite-ultimate'),
+			'COP' => __('Colombian Peso', 'multisite-ultimate'),
+			'CZK' => __('Czech Koruna', 'multisite-ultimate'),
+			'DKK' => __('Danish Krone', 'multisite-ultimate'),
+			'DOP' => __('Dominican Peso', 'multisite-ultimate'),
+			'EUR' => __('Euros', 'multisite-ultimate'),
+			'HKD' => __('Hong Kong Dollar', 'multisite-ultimate'),
+			'HRK' => __('Croatia kuna', 'multisite-ultimate'),
+			'HUF' => __('Hungarian Forint', 'multisite-ultimate'),
+			'ISK' => __('Icelandic krona', 'multisite-ultimate'),
+			'IDR' => __('Indonesia Rupiah', 'multisite-ultimate'),
+			'INR' => __('Indian Rupee', 'multisite-ultimate'),
+			'NPR' => __('Nepali Rupee', 'multisite-ultimate'),
+			'ILS' => __('Israeli Shekel', 'multisite-ultimate'),
+			'JPY' => __('Japanese Yen', 'multisite-ultimate'),
+			'KES' => __('Kenyan Shilling', 'multisite-ultimate'),
+			'KIP' => __('Lao Kip', 'multisite-ultimate'),
+			'KRW' => __('South Korean Won', 'multisite-ultimate'),
+			'MYR' => __('Malaysian Ringgits', 'multisite-ultimate'),
+			'MXN' => __('Mexican Peso', 'multisite-ultimate'),
+			'NGN' => __('Nigerian Naira', 'multisite-ultimate'),
+			'NOK' => __('Norwegian Krone', 'multisite-ultimate'),
+			'NZD' => __('New Zealand Dollar', 'multisite-ultimate'),
+			'PYG' => __('Paraguayan Guaraní', 'multisite-ultimate'),
+			'PHP' => __('Philippine Pesos', 'multisite-ultimate'),
+			'PLN' => __('Polish Zloty', 'multisite-ultimate'),
+			'GBP' => __('Pounds Sterling', 'multisite-ultimate'),
+			'RON' => __('Romanian Leu', 'multisite-ultimate'),
+			'RUB' => __('Russian Ruble', 'multisite-ultimate'),
+			'SGD' => __('Singapore Dollar', 'multisite-ultimate'),
+			'ZAR' => __('South African rand', 'multisite-ultimate'),
+			'SAR' => __('Saudi Riyal', 'multisite-ultimate'),
+			'SEK' => __('Swedish Krona', 'multisite-ultimate'),
+			'CHF' => __('Swiss Franc', 'multisite-ultimate'),
+			'TWD' => __('Taiwan New Dollars', 'multisite-ultimate'),
+			'THB' => __('Thai Baht', 'multisite-ultimate'),
+			'TRY' => __('Turkish Lira', 'multisite-ultimate'),
+			'UAH' => __('Ukrainian Hryvnia', 'multisite-ultimate'),
+			'USD' => __('US Dollars', 'multisite-ultimate'),
+			'VND' => __('Vietnamese Dong', 'multisite-ultimate'),
+			'EGP' => __('Egyptian Pound', 'multisite-ultimate'),
 		]
 	);
 
@@ -271,7 +271,7 @@ function wu_format_currency($value, $currency = null, $format = null, $thousands
 }
 
 /**
- * Determines if WP Multisite WaaS is using a zero-decimal currency.
+ * Determines if Multisite Ultimate is using a zero-decimal currency.
  *
  * @param  string $currency The currency code to check.
  *

@@ -43,7 +43,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $tutorial_link = '';
+	protected $tutorial_link = 'https://github.com/superdav42/wp-multisite-waas/wiki/Closte-Integration';
 
 	/**
 	 * Array containing the features this integration supports.
@@ -157,12 +157,12 @@ class Closte_Host_Provider extends Base_Host_Provider {
 		if (wu_get_isset($response, 'error') === 'Invalid or empty domain: ') {
 			wp_send_json_success(
 				[
-					'message' => __('Access Authorized'),
+					'message' => __('Access Authorized', 'multisite-ultimate'),
 				]
 			);
 		}
 
-		$error = new \WP_Error('not-auth', __('Something went wrong', 'wp-multisite-waas'));
+		$error = new \WP_Error('not-auth', __('Something went wrong', 'multisite-ultimate'));
 
 		wp_send_json_error($error);
 	}
@@ -224,7 +224,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('Closte is not just another web hosting who advertise their services as a cloud hosting while still provides fixed plans like in 1995.', 'wp-multisite-waas');
+		return __('Closte is not just another web hosting who advertise their services as a cloud hosting while still provides fixed plans like in 1995.', 'multisite-ultimate');
 	}
 
 	/**

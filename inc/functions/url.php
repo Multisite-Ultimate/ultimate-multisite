@@ -21,10 +21,10 @@ function wu_get_current_url() {
 	 * the initiator URL.
 	 */
 	if (wp_doing_ajax() && isset($_SERVER['HTTP_REFERER'])) {
-		return wp_unslash($_SERVER['HTTP_REFERER']);
+		return sanitize_text_field(wp_unslash($_SERVER['HTTP_REFERER']));
 	}
 
-	return (is_ssl() ? 'https://' : 'http://') . strtolower(wp_unslash($_SERVER['HTTP_HOST'])) . $_SERVER['REQUEST_URI'];
+	return (is_ssl() ? 'https://' : 'http://') . strtolower(sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST']?? ''))) . sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']?? ''));
 }
 
 /**
@@ -42,11 +42,11 @@ function wu_replace_scheme($url, $new_scheme = '') {
 }
 
 /**
- * Wrapper to the network_admin_url function for WP Multisite WaaS admin urls.
+ * Wrapper to the network_admin_url function for Multisite Ultimate admin urls.
  *
  * @since 2.0.0
  *
- * @param string $path WP Multisite WaaS page.
+ * @param string $path Multisite Ultimate page.
  * @param array  $query URL query parameters.
  * @return string
  */

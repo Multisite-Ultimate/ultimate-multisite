@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Add New Site Admin Page.
+ * Multisite Ultimate Add New Site Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Admin_Pages\Base_Customer_Facing_Admin_Page;
 
 /**
- * WP Multisite WaaS Add New Site Admin Page.
+ * Multisite Ultimate Add New Site Admin Page.
  */
 class Add_New_Site_Admin_Page extends Base_Customer_Facing_Admin_Page {
 
@@ -209,7 +209,7 @@ class Add_New_Site_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Add New Site', 'wp-multisite-waas');
+		return __('Add New Site', 'multisite-ultimate');
 	}
 
 	/**
@@ -220,7 +220,7 @@ class Add_New_Site_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Add New Site', 'wp-multisite-waas');
+		return __('Add New Site', 'multisite-ultimate');
 	}
 
 	/**
@@ -231,7 +231,7 @@ class Add_New_Site_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Add New Site', 'wp-multisite-waas');
+		return __('Add New Site', 'multisite-ultimate');
 	}
 
 	/**

@@ -171,7 +171,7 @@ function wu_is_form_field_pre_selected($field_slug) {
 
 	$pre_selected = $checkout->request_or_session('pre_selected', []);
 
-	$from_request = stripslashes_deep(wu_get_isset($_GET, $field_slug)) || isset($pre_selected[ $field_slug ]);
+	$from_request = stripslashes_deep(wu_get_isset($_GET, $field_slug)) || isset($pre_selected[ $field_slug ]); // phpcs:ignore WordPress.Security.NonceVerification
 
 	return wu_request('wu_preselected') === $field_slug || $from_request;
 }

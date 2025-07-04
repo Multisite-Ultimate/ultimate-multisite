@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Product Admin Page.
+ * Multisite Ultimate Product Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Product Admin Page.
+ * Multisite Ultimate Product Admin Page.
  */
 class Product_List_Admin_Page extends List_Admin_Page {
 
@@ -71,8 +71,8 @@ class Product_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Product removed successfully.', 'wp-multisite-waas'),
-			'search_label'    => __('Search Product', 'wp-multisite-waas'),
+			'deleted_message' => __('Product removed successfully.', 'multisite-ultimate'),
+			'search_label'    => __('Search Product', 'multisite-ultimate'),
 		];
 	}
 
@@ -84,7 +84,7 @@ class Product_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Products', 'wp-multisite-waas');
+		return __('Products', 'multisite-ultimate');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Product_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Products', 'wp-multisite-waas');
+		return __('Products', 'multisite-ultimate');
 	}
 
 	/**
@@ -106,7 +106,7 @@ class Product_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Products', 'wp-multisite-waas');
+		return __('Products', 'multisite-ultimate');
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Product_List_Admin_Page extends List_Admin_Page {
 		return [
 			[
 				'url'   => wu_network_admin_url('wp-ultimo-edit-product'),
-				'label' => __('Add Product'),
+				'label' => __('Add Product', 'multisite-ultimate'),
 				'icon'  => 'wu-circle-with-plus',
 			],
 		];

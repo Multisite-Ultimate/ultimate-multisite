@@ -10,11 +10,11 @@
 	<div class="wu-self-center wu-text-center wu-w-full">
 	<span class="dashicons dashicons-yes-alt wu-text-green-400 wu-w-auto wu-h-auto wu-text-5xl wu-mb-2"></span>
 	<h1>
-		<?php esc_html_e('That\'s it! We are ready!', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('That\'s it! We are ready!', 'multisite-ultimate'); ?>
 	</h1>
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">
 		<?php // translators: % site title ?>
-		<?php esc_html(sprintf(__('The integration with %s was correctly setup and is now ready! Now, every time a new domain is added to your platform, WP Multisite WaaS will sync that with your application automatically.', 'wp-multisite-waas'), $integration->get_title())); ?>
+		<?php esc_html(sprintf(__('The integration with %s was correctly setup and is now ready! Now, every time a new domain is added to your platform, Multisite Ultimate will sync that with your application automatically.', 'multisite-ultimate'), $integration->get_title())); ?>
 	</p>
 	</div>
 
@@ -26,7 +26,7 @@
 	<span class="wu-float-right">
 
 	<a href="<?php echo esc_url(wu_network_admin_url('wp-ultimo')); ?>" class="button button-primary button-large">
-	<?php esc_html_e('Finish!', 'wp-multisite-waas'); ?>
+	<?php esc_html_e('Finish!', 'multisite-ultimate'); ?>
 	</a>
 
 	</span>

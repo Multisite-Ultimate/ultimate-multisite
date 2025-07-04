@@ -132,7 +132,7 @@ function wu_tooltip_text($tooltip): string {
 function wu_preview_image($image_url, $label = false): string {
 
 	if (empty($label)) {
-		$label = __('Preview', 'wp-multisite-waas');
+		$label = __('Preview', 'multisite-ultimate');
 	}
 
 	return sprintf(' <span class="wu-image-preview wu-text-gray-600 wu-bg-gray-200 wu-p-1 wu-px-2 wu-ml-1 wu-inline-block wu-text-2xs wu-uppercase wu-font-bold wu-rounded wu-cursor-pointer wu-border-gray-300 wu-border wu-border-solid" data-image="%s">%s %s</span>', $image_url, "<span class='dashicons-wu-image wu-align-middle wu-mr-1'></span>", $label);

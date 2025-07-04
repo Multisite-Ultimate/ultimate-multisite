@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS base Installer Class.
+ * Multisite Ultimate base Installer Class.
  *
  * @package WP_Ultimo
  * @subpackage Installers
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Installers;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS base Installer Class.
+ * Multisite Ultimate base Installer Class.
  *
  * @since 2.0.0
  */
@@ -69,7 +69,7 @@ class Base_Installer {
 	 * @param bool|\WP_Error $status Status of the installer.
 	 * @param string         $installer The installer name.
 	 * @param object         $wizard Wizard class.
-	 * @return bool
+	 * @return bool|\WP_Error
 	 */
 	public function handle($status, $installer, $wizard) {
 
@@ -87,16 +87,16 @@ class Base_Installer {
 		}
 
 		try {
-			$wpdb->query('START TRANSACTION');
+			$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			call_user_func($callable);
 		} catch (\Throwable $e) {
-			$wpdb->query('ROLLBACK');
+			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
-			return new \WP_Error($installer, $e->getMessage());
+			return new \WP_Error(esc_html($installer), esc_html($e->getMessage()));
 		}
 
-		$wpdb->query('COMMIT');
+		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		return $status;
 	}

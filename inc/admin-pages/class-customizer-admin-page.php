@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Customize/Add New Template Previewer Page.
+ * Multisite Ultimate Customize/Add New Template Previewer Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Template Previewer Customize/Add New Admin Page.
+ * Multisite Ultimate Template Previewer Customize/Add New Admin Page.
  */
 abstract class Customizer_Admin_Page extends Edit_Admin_Page {
 
@@ -95,7 +95,6 @@ abstract class Customizer_Admin_Page extends Edit_Admin_Page {
 			['jquery', 'wu-vue', 'wu-block-ui'],
 			\WP_Ultimo::VERSION,
 			[
-				'async'     => true,
 				'in_footer' => true,
 			]
 		);

@@ -14,8 +14,8 @@
 		$data    = [];
 		$slug    = 'signup_countries';
 		$headers = [
-			__('Country', 'wp-multisite-waas'),
-			__('Customer Count', 'wp-multisite-waas'),
+			__('Country', 'multisite-ultimate'),
+			__('Customer Count', 'multisite-ultimate'),
 		];
 
 		foreach ($countries as $country_code => $count) {
@@ -49,8 +49,8 @@
 
 			<thead>
 			<tr>
-				<th><?php esc_html_e('Country', 'wp-multisite-waas'); ?></th>
-				<th class="wu-text-right"><?php esc_html_e('Customer Count', 'wp-multisite-waas'); ?></th>
+				<th><?php esc_html_e('Country', 'multisite-ultimate'); ?></th>
+				<th class="wu-text-right"><?php esc_html_e('Customer Count', 'multisite-ultimate'); ?></th>
 			</tr>
 			</thead>
 
@@ -90,7 +90,7 @@
 
 				<?php if ($state_list && $count - $_state_count >= 0) : ?>
 					<tr>
-						<td class="wu-text-xs">|&longrightarrow; <?php esc_html_e('Other', 'wp-multisite-waas'); ?></td>
+						<td class="wu-text-xs">|&longrightarrow; <?php esc_html_e('Other', 'multisite-ultimate'); ?></td>
 						<td class="wu-text-right"><?php echo esc_html($count - $_state_count); ?></td>
 					</tr>
 				<?php endif; ?>
@@ -107,7 +107,7 @@
 
 	<div class="wu-bg-gray-100 wu-p-4 wu-rounded wu-mt-6">
 
-		<?php esc_html_e('No countries registered yet.', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('No countries registered yet.', 'multisite-ultimate'); ?>
 
 	</div>
 

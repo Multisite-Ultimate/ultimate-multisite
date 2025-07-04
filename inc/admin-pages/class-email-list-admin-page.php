@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Broadcast Admin Page.
+ * Multisite Ultimate Broadcast Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Broadcast Admin Page.
+ * Multisite Ultimate Broadcast Admin Page.
  */
 class Email_List_Admin_Page extends List_Admin_Page {
 
@@ -102,7 +102,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('System Emails', 'wp-multisite-waas');
+		return __('System Emails', 'multisite-ultimate');
 	}
 
 	/**
@@ -113,7 +113,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('System Emails', 'wp-multisite-waas');
+		return __('System Emails', 'multisite-ultimate');
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('System Emails', 'wp-multisite-waas');
+		return __('System Emails', 'multisite-ultimate');
 	}
 
 	/**
@@ -182,9 +182,9 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'send_to'       => [
 				'type'        => 'email',
-				'title'       => __('Send To', 'wp-multisite-waas'),
-				'placeholder' => __('E.g. network@email.com', 'wp-multisite-waas'),
-				'desc'        => __('The test email will be sent to the above email address.', 'wp-multisite-waas'),
+				'title'       => __('Send To', 'multisite-ultimate'),
+				'placeholder' => __('E.g. network@email.com', 'multisite-ultimate'),
+				'desc'        => __('The test email will be sent to the above email address.', 'multisite-ultimate'),
 				'value'       => get_network_option(null, 'admin_email'),
 				'html_attr'   => [
 					'required' => 'required',
@@ -200,7 +200,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Send Test Email', 'wp-multisite-waas'),
+				'title'           => __('Send Test Email', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end wu-text-right',
@@ -236,7 +236,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$send_to = wu_request('send_to');
 
 		if ( ! $email_id || ! $send_to) {
-			$error = new \WP_Error('error', __('Something wrong happened.', 'wp-multisite-waas'));
+			$error = new \WP_Error('error', __('Something wrong happened.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -275,7 +275,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$send_mail = wu_send_mail($from, $to, $args);
 
 		if ( ! $send_mail) {
-			$error = new \WP_Error('error', __('Something wrong happened with your test.', 'wp-multisite-waas'));
+			$error = new \WP_Error('error', __('Something wrong happened with your test.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -289,7 +289,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 						'wp-ultimo-edit-email',
 						[
 							'id'          => $email_id,
-							'test_notice' => __('Test sent successfully', 'wp-multisite-waas'),
+							'test_notice' => __('Test sent successfully', 'multisite-ultimate'),
 						]
 					),
 				]
@@ -303,7 +303,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 				'redirect_url' => wu_network_admin_url(
 					'wp-ultimo-emails',
 					[
-						'notice' => __('Test sent successfully', 'wp-multisite-waas'),
+						'notice' => __('Test sent successfully', 'multisite-ultimate'),
 					]
 				),
 			]
@@ -326,8 +326,8 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'reset_emails' => [
 				'type'      => 'toggle',
-				'title'     => __('Reset System Emails ', 'wp-multisite-waas'),
-				'desc'      => __('Restore the system emails to their original content.', 'wp-multisite-waas'),
+				'title'     => __('Reset System Emails ', 'multisite-ultimate'),
+				'desc'      => __('Restore the system emails to their original content.', 'multisite-ultimate'),
 				'tooltip'   => '',
 				'value'     => 0,
 				'html_attr' => [
@@ -339,7 +339,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields['reset_note'] = [
 			'type'              => 'note',
 			'title'             => '',
-			'desc'              => __('No emails to reset.', 'wp-multisite-waas'),
+			'desc'              => __('No emails to reset.', 'multisite-ultimate'),
 			'tooltip'           => '',
 			'value'             => 0,
 			'wrapper_html_attr' => [
@@ -379,8 +379,8 @@ class Email_List_Admin_Page extends List_Admin_Page {
 
 		$fields['import_emails'] = [
 			'type'      => 'toggle',
-			'title'     => __('Import System Emails', 'wp-multisite-waas'),
-			'desc'      => __('Add new system emails based on WP Multisite WaaS presets.', 'wp-multisite-waas'),
+			'title'     => __('Import System Emails', 'multisite-ultimate'),
+			'desc'      => __('Add new system emails based on Multisite Ultimate presets.', 'multisite-ultimate'),
 			'tooltip'   => '',
 			'value'     => 0,
 			'html_attr' => [
@@ -391,7 +391,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields['import_note'] = [
 			'type'              => 'note',
 			'title'             => '',
-			'desc'              => __('All emails are already present.', 'wp-multisite-waas'),
+			'desc'              => __('All emails are already present.', 'multisite-ultimate'),
 			'tooltip'           => '',
 			'value'             => 0,
 			'wrapper_html_attr' => [
@@ -429,7 +429,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 
 		$fields['submit_button'] = [
 			'type'            => 'submit',
-			'title'           => __('Reset and/or Import', 'wp-multisite-waas'),
+			'title'           => __('Reset and/or Import', 'multisite-ultimate'),
 			'value'           => 'save',
 			'classes'         => 'button button-primary wu-w-full',
 			'wrapper_classes' => 'wu-items-end wu-text-right',
@@ -543,8 +543,8 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'single_reset'  => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Reset', 'wp-multisite-waas'),
-				'desc'      => __('This action can not be undone.', 'wp-multisite-waas'),
+				'title'     => __('Confirm Reset', 'multisite-ultimate'),
+				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
 				'default'   => 0,
 				'html_attr' => [
 					'required' => 'required',
@@ -556,7 +556,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Reset Email', 'wp-multisite-waas'),
+				'title'           => __('Reset Email', 'multisite-ultimate'),
 				'value'           => 'reset',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end wu-text-right',
@@ -593,7 +593,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$email_id = wu_request('email_id');
 
 		if ( ! $single_reset || ! $email_id) {
-			$error = new \WP_Error('error', __('Something wrong happened.', 'wp-multisite-waas'));
+			$error = new \WP_Error('error', __('Something wrong happened.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -612,7 +612,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 			$new_email = wu_get_email_by('slug', $slug);
 
 			if ( ! $new_email) {
-				$error = new \WP_Error('error', __('Something wrong happened.', 'wp-multisite-waas'));
+				$error = new \WP_Error('error', __('Something wrong happened.', 'multisite-ultimate'));
 
 				wp_send_json_error($error);
 			}
@@ -643,18 +643,18 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		return [
 			[
 				'url'   => wu_network_admin_url('wp-ultimo-edit-email'),
-				'label' => __('Add System Email', 'wp-multisite-waas'),
+				'label' => __('Add System Email', 'multisite-ultimate'),
 				'icon'  => 'wu-circle-with-plus',
 			],
 			[
 				'url'   => wu_network_admin_url('wp-ultimo-customize-email-template&id=' . $email_template_default),
-				'label' => __('Email Template', 'wp-multisite-waas'),
+				'label' => __('Email Template', 'multisite-ultimate'),
 				'icon'  => 'wu-mail',
 			],
 			[
 				'url'     => wu_get_form_url('reset_import'),
 				'classes' => 'wubox',
-				'label'   => __('Reset or Import', 'wp-multisite-waas'),
+				'label'   => __('Reset or Import', 'multisite-ultimate'),
 				'icon'    => 'wu-cycle',
 			],
 		];

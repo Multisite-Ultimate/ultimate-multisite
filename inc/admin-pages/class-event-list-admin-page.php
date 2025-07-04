@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Event Admin Page.
+ * Multisite Ultimate Event Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\Models\Event;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Event Admin Page.
+ * Multisite Ultimate Event Admin Page.
  */
 class Event_List_Admin_Page extends List_Admin_Page {
 
@@ -160,8 +160,8 @@ class Event_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Event removed successfully.', 'wp-multisite-waas'),
-			'search_label'    => __('Search Event', 'wp-multisite-waas'),
+			'deleted_message' => __('Event removed successfully.', 'multisite-ultimate'),
+			'search_label'    => __('Search Event', 'multisite-ultimate'),
 		];
 	}
 
@@ -173,7 +173,7 @@ class Event_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Events', 'wp-multisite-waas');
+		return __('Events', 'multisite-ultimate');
 	}
 
 	/**
@@ -184,7 +184,7 @@ class Event_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Events', 'wp-multisite-waas');
+		return __('Events', 'multisite-ultimate');
 	}
 
 	/**
@@ -195,7 +195,7 @@ class Event_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Events', 'wp-multisite-waas');
+		return __('Events', 'multisite-ultimate');
 	}
 
 	/**
@@ -209,7 +209,7 @@ class Event_List_Admin_Page extends List_Admin_Page {
 		return [
 			[
 				'url'   => wu_network_admin_url('wp-ultimo-view-logs'),
-				'label' => __('View Logs'),
+				'label' => __('View Logs', 'multisite-ultimate'),
 				'icon'  => 'dashicons dashicons-editor-ol',
 			],
 		];

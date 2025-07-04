@@ -69,7 +69,7 @@ class Signup_Field_Terms_Of_Use extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Terms of Use', 'wp-multisite-waas');
+		return __('Terms of Use', 'multisite-ultimate');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Signup_Field_Terms_Of_Use extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a terms and conditions checkbox that must be marked before the account/site can be created.', 'wp-multisite-waas');
+		return __('Adds a terms and conditions checkbox that must be marked before the account/site can be created.', 'multisite-ultimate');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Signup_Field_Terms_Of_Use extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a terms and conditions checkbox that must be marked before the account/site can be created.', 'wp-multisite-waas');
+		return __('Adds a terms and conditions checkbox that must be marked before the account/site can be created.', 'multisite-ultimate');
 	}
 
 	/**
@@ -123,7 +123,7 @@ class Signup_Field_Terms_Of_Use extends Base_Signup_Field {
 	public function defaults() {
 
 		return [
-			'tou_name' => __('I agree with the terms of use.', 'wp-multisite-waas'),
+			'tou_name' => __('I agree with the terms of use.', 'multisite-ultimate'),
 		];
 	}
 
@@ -148,7 +148,7 @@ class Signup_Field_Terms_Of_Use extends Base_Signup_Field {
 
 		return [
 			'id'   => 'terms_of_use',
-			'name' => __('Terms of Use', 'wp-multisite-waas'),
+			'name' => __('Terms of Use', 'multisite-ultimate'),
 		];
 	}
 
@@ -164,15 +164,15 @@ class Signup_Field_Terms_Of_Use extends Base_Signup_Field {
 			'tou_name' => [
 				'order'       => 10,
 				'type'        => 'text',
-				'title'       => __('Terms Checkbox Label', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. I agree with the terms of use.', 'wp-multisite-waas'),
+				'title'       => __('Terms Checkbox Label', 'multisite-ultimate'),
+				'placeholder' => __('e.g. I agree with the terms of use.', 'multisite-ultimate'),
 			],
 			'tou_url'  => [
 				'order'       => 20,
 				'type'        => 'url',
-				'title'       => __('Link to the Terms Page', 'wp-multisite-waas'),
-				'desc'        => __('Enter the link to the terms of use content.', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. https://yoursite.com/terms', 'wp-multisite-waas'),
+				'title'       => __('Link to the Terms Page', 'multisite-ultimate'),
+				'desc'        => __('Enter the link to the terms of use content.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. https://yoursite.com/terms', 'multisite-ultimate'),
 			],
 		];
 	}
@@ -189,7 +189,7 @@ class Signup_Field_Terms_Of_Use extends Base_Signup_Field {
 
 		$checkout_fields = [];
 
-		$tou_link = sprintf('<a href="%s" target="_blank">%s</a>', $attributes['tou_url'], __('Read here', 'wp-multisite-waas'));
+		$tou_link = sprintf('<a href="%s" target="_blank">%s</a>', $attributes['tou_url'], __('Read here', 'multisite-ultimate'));
 
 		$checkout_fields['terms_of_use'] = [
 			'type'            => 'checkbox',

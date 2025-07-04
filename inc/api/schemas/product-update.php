@@ -20,32 +20,32 @@ defined('ABSPATH') || exit;
  */
 return [
 	'featured_image_id'   => [
-		'description' => __('The ID of the feature image of the product.', 'wp-multisite-waas'),
+		'description' => __('The ID of the feature image of the product.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'slug'                => [
-		'description' => __('The product slug. It needs to be unique and preferably make it clear what it is about. Example: my_new_product.', 'wp-multisite-waas'),
+		'description' => __('The product slug. It needs to be unique and preferably make it clear what it is about. Example: my_new_product.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'name'                => [
-		'description' => __('Your product name, which is used as product title as well.', 'wp-multisite-waas'),
+		'description' => __('Your product name, which is used as product title as well.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'description'         => [
-		'description' => __('A description for the product, usually a short text.', 'wp-multisite-waas'),
+		'description' => __('A description for the product, usually a short text.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'currency'            => [
-		'description' => __("The currency that this product accepts. It's a 3-letter code. E.g. 'USD'.", 'wp-multisite-waas'),
+		'description' => __("The currency that this product accepts. It's a 3-letter code. E.g. 'USD'.", 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'pricing_type'        => [
-		'description' => __("The pricing type can be 'free', 'paid' or 'contact_us'.", 'wp-multisite-waas'),
+		'description' => __("The pricing type can be 'free', 'paid' or 'contact_us'.", 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -55,12 +55,12 @@ return [
 		],
 	],
 	'trial_duration'      => [
-		'description' => __('The duration of the trial period of this product, if the product has one.', 'wp-multisite-waas'),
+		'description' => __('The duration of the trial period of this product, if the product has one.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'trial_duration_unit' => [
-		'description' => __('The unit of the trial duration amount. Can be day, week, month or year.', 'wp-multisite-waas'),
+		'description' => __('The unit of the trial duration amount. Can be day, week, month or year.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -71,12 +71,12 @@ return [
 		],
 	],
 	'duration'            => [
-		'description' => __('Time interval between charges.', 'wp-multisite-waas'),
+		'description' => __('Time interval between charges.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'duration_unit'       => [
-		'description' => __('Time interval unit between charges.', 'wp-multisite-waas'),
+		'description' => __('Time interval unit between charges.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -87,22 +87,22 @@ return [
 		],
 	],
 	'amount'              => [
-		'description' => __('The value of this product. E.g. 19.99.', 'wp-multisite-waas'),
+		'description' => __('The value of this product. E.g. 19.99.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'setup_fee'           => [
-		'description' => __('The setup fee value, if the product has one. E.g. 159.99.', 'wp-multisite-waas'),
+		'description' => __('The setup fee value, if the product has one. E.g. 159.99.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'active'              => [
-		'description' => __('Set this product as active (true), which means available to be used, or inactive (false).', 'wp-multisite-waas'),
+		'description' => __('Set this product as active (true), which means available to be used, or inactive (false).', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'type'                => [
-		'description' => __("The default product types are 'product', 'service' and 'package'. More types can be add using the product type filter.", 'wp-multisite-waas'),
+		'description' => __("The default product types are 'product', 'service' and 'package'. More types can be add using the product type filter.", 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -112,87 +112,87 @@ return [
 		],
 	],
 	'parent_id'           => [
-		'description' => __('The ID from another Product that this product is related to.', 'wp-multisite-waas'),
+		'description' => __('The ID from another Product that this product is related to.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'recurring'           => [
-		'description' => __('Set this product as a recurring one (true), which means the customer paid a defined amount each period of time, or not recurring (false).', 'wp-multisite-waas'),
+		'description' => __('Set this product as a recurring one (true), which means the customer paid a defined amount each period of time, or not recurring (false).', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'billing_cycles'      => [
-		'description' => __('The number of times we should charge this product.', 'wp-multisite-waas'),
+		'description' => __('The number of times we should charge this product.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'date_created'        => [
-		'description' => __('Date when this was created.', 'wp-multisite-waas'),
+		'description' => __('Date when this was created.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_modified'       => [
-		'description' => __('Date when this was last modified.', 'wp-multisite-waas'),
+		'description' => __('Date when this was last modified.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'taxable'             => [
-		'description' => __('Set this product as a taxable one (true), which means tax rules are applied to, or not taxable (false).', 'wp-multisite-waas'),
+		'description' => __('Set this product as a taxable one (true), which means tax rules are applied to, or not taxable (false).', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'tax_category'        => [
-		'description' => __('Category of taxes applied to this product. You need to set this if taxable is set to true.', 'wp-multisite-waas'),
+		'description' => __('Category of taxes applied to this product. You need to set this if taxable is set to true.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'contact_us_label'    => [
-		'description' => __("If the product is the 'contact_us' type, it will need a label for the contact us button.", 'wp-multisite-waas'),
+		'description' => __("If the product is the 'contact_us' type, it will need a label for the contact us button.", 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'contact_us_link'     => [
-		'description' => __('The url where the contact us button will lead to.', 'wp-multisite-waas'),
+		'description' => __('The url where the contact us button will lead to.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'feature_list'        => [
-		'description' => __('A list (array) of features of the product.', 'wp-multisite-waas'),
+		'description' => __('A list (array) of features of the product.', 'multisite-ultimate'),
 		'type'        => 'array',
 		'required'    => false,
 	],
 	'customer_role'       => [
-		'description' => __('The customer role of this product.', 'wp-multisite-waas'),
+		'description' => __('The customer role of this product.', 'multisite-ultimate'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'available_addons'    => [
-		'description' => __('The available addons of this product.', 'wp-multisite-waas'),
+		'description' => __('The available addons of this product.', 'multisite-ultimate'),
 		'type'        => 'array',
 		'required'    => false,
 	],
 	'group'               => [
-		'description' => __('The group of this product, if has any.', 'wp-multisite-waas'),
+		'description' => __('The group of this product, if has any.', 'multisite-ultimate'),
 		'type'        => 'array',
 		'required'    => false,
 	],
 	'legacy_options'      => [
-		'description' => __('If the legacy options are enabled.', 'wp-multisite-waas'),
+		'description' => __('If the legacy options are enabled.', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'migrated_from_id'    => [
-		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'wp-multisite-waas'),
+		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'multisite-ultimate'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'skip_validation'     => [
-		'description' => __('Set true to have field information validation bypassed when saving this event.', 'wp-multisite-waas'),
+		'description' => __('Set true to have field information validation bypassed when saving this event.', 'multisite-ultimate'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'featured_plan'       => [
-		'description' => __('Feature list for pricing tables.', 'wp-multisite-waas'),
+		'description' => __('Feature list for pricing tables.', 'multisite-ultimate'),
 		'type'        => 'array',
 		'required'    => false,
 	],

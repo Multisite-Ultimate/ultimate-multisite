@@ -66,7 +66,7 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Site Title', 'wp-multisite-waas');
+		return __('Site Title', 'multisite-ultimate');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a Site Title field. This value is used to set the site title for the site being created.', 'wp-multisite-waas');
+		return __('Adds a Site Title field. This value is used to set the site title for the site being created.', 'multisite-ultimate');
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a Site Title field. This value is used to set the site title for the site being created.', 'wp-multisite-waas');
+		return __('Adds a Site Title field. This value is used to set the site title for the site being created.', 'multisite-ultimate');
 	}
 
 	/**
@@ -164,8 +164,8 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 		return [
 			'auto_generate_site_title' => [
 				'type'      => 'toggle',
-				'title'     => __('Auto-generate?', 'wp-multisite-waas'),
-				'desc'      => __('Check this option to auto-generate this field based on the username of the customer.', 'wp-multisite-waas'),
+				'title'     => __('Auto-generate?', 'multisite-ultimate'),
+				'desc'      => __('Check this option to auto-generate this field based on the username of the customer.', 'multisite-ultimate'),
 				'tooltip'   => '',
 				'value'     => 0,
 				'html_attr' => [

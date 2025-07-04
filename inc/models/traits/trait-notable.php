@@ -44,7 +44,7 @@ trait Notable {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array|\WP_Ultimo|Objects\Note $note The note to add.
+	 * @param array|\WP_Ultimo\Objects\Note $note The note to add.
 	 * @return bool
 	 */
 	public function add_note($note) {

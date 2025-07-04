@@ -2,7 +2,7 @@
 
 Checkout Forms are an easy and flexible way to experiment with different approaches when trying to convert new customers.
 
-WP Multisite WaaS 2.0 offers a Checkout Form editor that allows you to create as many forms as you want, with different fields, products on offer, etc.
+Multisite Ultimate 2.0 offers a Checkout Form editor that allows you to create as many forms as you want, with different fields, products on offer, etc.
 
 To access this feature, go to the Checkout Forms menu, on the left side-bar.
 

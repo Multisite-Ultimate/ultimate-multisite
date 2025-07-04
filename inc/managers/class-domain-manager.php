@@ -141,9 +141,9 @@ class Domain_Manager extends Base_Manager {
 	 * @return void
 	 */
 	protected function set_cookie_domain() {
-
-		if (defined('DOMAIN_CURRENT_SITE') && ! defined('COOKIE_DOMAIN') && ! preg_match('/' . DOMAIN_CURRENT_SITE . '$/', '.' . $_SERVER['HTTP_HOST'])) {
-			define('COOKIE_DOMAIN', '.' . $_SERVER['HTTP_HOST']);
+		$host = sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'] ?? ''));
+		if (defined('DOMAIN_CURRENT_SITE') && ! defined('COOKIE_DOMAIN') && ! preg_match('/' . DOMAIN_CURRENT_SITE . '$/', '.' . $host)) {
+			define('COOKIE_DOMAIN', '.' . $host);
 		}
 	}
 
@@ -162,6 +162,8 @@ class Domain_Manager extends Base_Manager {
 		$has_subdomain = str_replace($current_site->domain, '', $site->domain);
 
 		if ( ! $has_subdomain) {
+			// Create a domain record for the site
+			$this->create_domain_record_for_site($site);
 			return;
 		}
 
@@ -171,6 +173,56 @@ class Domain_Manager extends Base_Manager {
 		];
 
 		wu_enqueue_async_action('wu_add_subdomain', $args, 'domain');
+
+		// Create a domain record for the site
+		$this->create_domain_record_for_site($site);
+	}
+
+	/**
+	 * Creates a domain record for a site.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param \WP_Site $site The site to create a domain record for.
+	 * @return \WP_Error|\WP_Ultimo\Models\Domain
+	 */
+	public function create_domain_record_for_site($site) {
+
+		// Check if a domain record already exists for this site
+		$existing_domains = wu_get_domains(
+			[
+				'blog_id' => $site->blog_id,
+				'number'  => 1,
+			]
+		);
+
+		if ( ! empty($existing_domains)) {
+			return $existing_domains[0];
+		}
+
+		// Create a new domain record
+		$domain = wu_create_domain(
+			[
+				'blog_id'        => $site->blog_id,
+				'domain'         => $site->domain,
+				'active'         => true,
+				'primary_domain' => true,
+				'secure'         => false,
+				'stage'          => 'checking-dns',
+			]
+		);
+
+		if (is_wp_error($domain)) {
+			wu_log_add('domain-creation', sprintf('Failed to create domain record for site %d: %s', $site->blog_id, $domain->get_error_message()), LogLevel::ERROR);
+			return $domain;
+		}
+
+		wu_log_add('domain-creation', sprintf('Created domain record for site %d: %s', $site->blog_id, $site->domain));
+
+		// Process the domain stage asynchronously
+		wu_enqueue_async_action('wu_async_process_domain_stage', ['domain_id' => $domain->get_id()], 'domain');
+
+		return $domain;
 	}
 
 	/**
@@ -254,8 +306,8 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'domain_mapping_header',
 			[
-				'title' => __('Domain Mapping Settings', 'wp-multisite-waas'),
-				'desc'  => __('Define the domain mapping settings for your network.', 'wp-multisite-waas'),
+				'title' => __('Domain Mapping Settings', 'multisite-ultimate'),
+				'desc'  => __('Define the domain mapping settings for your network.', 'multisite-ultimate'),
 				'type'  => 'header',
 			]
 		);
@@ -264,8 +316,8 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'enable_domain_mapping',
 			[
-				'title'   => __('Enable Domain Mapping?', 'wp-multisite-waas'),
-				'desc'    => __('Do you want to enable domain mapping?', 'wp-multisite-waas'),
+				'title'   => __('Enable Domain Mapping?', 'multisite-ultimate'),
+				'desc'    => __('Do you want to enable domain mapping?', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -275,16 +327,16 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'force_admin_redirect',
 			[
-				'title'   => __('Force Admin Redirect', 'wp-multisite-waas'),
-				'desc'    => __('Select how you want your users to access the admin panel if they have mapped domains.', 'wp-multisite-waas') . '<br><br>' . __('Force Redirect to Mapped Domain: your users with mapped domains will be redirected to theirdomain.com/wp-admin, even if they access using yournetworkdomain.com/wp-admin.', 'wp-multisite-waas') . '<br><br>' . __('Force Redirect to Network Domain: your users with mapped domains will be redirect to yournetworkdomain.com/wp-admin, even if they access using theirdomain.com/wp-admin.', 'wp-multisite-waas'),
+				'title'   => __('Force Admin Redirect', 'multisite-ultimate'),
+				'desc'    => __('Select how you want your users to access the admin panel if they have mapped domains.', 'multisite-ultimate') . '<br><br>' . __('Force Redirect to Mapped Domain: your users with mapped domains will be redirected to theirdomain.com/wp-admin, even if they access using yournetworkdomain.com/wp-admin.', 'multisite-ultimate') . '<br><br>' . __('Force Redirect to Network Domain: your users with mapped domains will be redirect to yournetworkdomain.com/wp-admin, even if they access using theirdomain.com/wp-admin.', 'multisite-ultimate'),
 				'tooltip' => '',
 				'type'    => 'select',
 				'default' => 'both',
 				'require' => ['enable_domain_mapping' => 1],
 				'options' => [
-					'both'          => __('Allow access to the admin by both mapped domain and network domain', 'wp-multisite-waas'),
-					'force_map'     => __('Force Redirect to Mapped Domain', 'wp-multisite-waas'),
-					'force_network' => __('Force Redirect to Network Domain', 'wp-multisite-waas'),
+					'both'          => __('Allow access to the admin by both mapped domain and network domain', 'multisite-ultimate'),
+					'force_map'     => __('Force Redirect to Mapped Domain', 'multisite-ultimate'),
+					'force_network' => __('Force Redirect to Network Domain', 'multisite-ultimate'),
 				],
 			]
 		);
@@ -293,8 +345,8 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'custom_domains',
 			[
-				'title'   => __('Enable Custom Domains?', 'wp-multisite-waas'),
-				'desc'    => __('Toggle this option if you wish to allow end-customers to add their own domains. This can be controlled on a plan per plan basis.', 'wp-multisite-waas'),
+				'title'   => __('Enable Custom Domains?', 'multisite-ultimate'),
+				'desc'    => __('Toggle this option if you wish to allow end-customers to add their own domains. This can be controlled on a plan per plan basis.', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 1,
 				'require' => [
@@ -307,9 +359,9 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'domain_mapping_instructions',
 			[
-				'title'     => __('Add New Domain Instructions', 'wp-multisite-waas'),
-				'tooltip'   => __('Display a customized message with instructions for the mapping and alerting the end-user of the risks of mapping a misconfigured domain.', 'wp-multisite-waas'),
-				'desc'      => __('You can use the placeholder <code>%NETWORK_DOMAIN%</code> and <code>%NETWORK_IP%</code>.', 'wp-multisite-waas'),
+				'title'     => __('Add New Domain Instructions', 'multisite-ultimate'),
+				'tooltip'   => __('Display a customized message with instructions for the mapping and alerting the end-user of the risks of mapping a misconfigured domain.', 'multisite-ultimate'),
+				'desc'      => __('You can use the placeholder <code>%NETWORK_DOMAIN%</code> and <code>%NETWORK_IP%</code>.', 'multisite-ultimate'),
 				'type'      => 'textarea',
 				'default'   => [$this, 'default_domain_mapping_instructions'],
 				'html_attr' => [
@@ -318,6 +370,26 @@ class Domain_Manager extends Base_Manager {
 				'require'   => [
 					'enable_domain_mapping' => true,
 					'custom_domains'        => true,
+				],
+			]
+		);
+
+		wu_register_settings_field(
+			'domain-mapping',
+			'dns_check_interval',
+			[
+				'title'     => __('DNS Check Interval', 'wp-multisite-waas'),
+				'tooltip'   => __('Set the interval in seconds between DNS and SSL certificate checks for domains.', 'wp-multisite-waas'),
+				'desc'      => __('Minimum: 10 seconds, Maximum: 300 seconds (5 minutes). Default: 300 seconds.', 'wp-multisite-waas'),
+				'type'      => 'number',
+				'default'   => 300,
+				'min'       => 10,
+				'max'       => 300,
+				'html_attr' => [
+					'step' => 1,
+				],
+				'require'   => [
+					'enable_domain_mapping' => true,
 				],
 			]
 		);
@@ -335,8 +407,8 @@ class Domain_Manager extends Base_Manager {
 			'sso',
 			'sso_header',
 			[
-				'title' => __('Single Sign-On Settings', 'wp-multisite-waas'),
-				'desc'  => __('Settings to configure the Single Sign-On functionality of WP Multisite WaaS, responsible for keeping customers and admins logged in across all network domains.', 'wp-multisite-waas'),
+				'title' => __('Single Sign-On Settings', 'multisite-ultimate'),
+				'desc'  => __('Settings to configure the Single Sign-On functionality of Multisite Ultimate, responsible for keeping customers and admins logged in across all network domains.', 'multisite-ultimate'),
 				'type'  => 'header',
 			]
 		);
@@ -345,8 +417,8 @@ class Domain_Manager extends Base_Manager {
 			'sso',
 			'enable_sso',
 			[
-				'title'   => __('Enable Single Sign-On', 'wp-multisite-waas'),
-				'desc'    => __('Enables the Single Sign-on functionality.', 'wp-multisite-waas'),
+				'title'   => __('Enable Single Sign-On', 'multisite-ultimate'),
+				'desc'    => __('Enables the Single Sign-on functionality.', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -356,8 +428,8 @@ class Domain_Manager extends Base_Manager {
 			'sso',
 			'restrict_sso_to_login_pages',
 			[
-				'title'   => __('Restrict SSO Checks to Login Pages', 'wp-multisite-waas'),
-				'desc'    => __('The Single Sign-on feature adds one extra ajax calls to every page load on sites with custom domains active to check if it should perform an auth loopback. You can restrict these extra calls to the login pages of sub-sites using this option. If enabled, SSO will only work on login pages.', 'wp-multisite-waas'),
+				'title'   => __('Restrict SSO Checks to Login Pages', 'multisite-ultimate'),
+				'desc'    => __('The Single Sign-on feature adds one extra ajax calls to every page load on sites with custom domains active to check if it should perform an auth loopback. You can restrict these extra calls to the login pages of sub-sites using this option. If enabled, SSO will only work on login pages.', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 0,
 				'require' => [
@@ -370,8 +442,8 @@ class Domain_Manager extends Base_Manager {
 			'sso',
 			'enable_sso_loading_overlay',
 			[
-				'title'   => __('Enable SSO Loading Overlay', 'wp-multisite-waas'),
-				'desc'    => __('When active, a loading overlay will be added on-top of the site currently being viewed while the SSO auth loopback is performed on the background.', 'wp-multisite-waas'),
+				'title'   => __('Enable SSO Loading Overlay', 'multisite-ultimate'),
+				'desc'    => __('When active, a loading overlay will be added on-top of the site currently being viewed while the SSO auth loopback is performed on the background.', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 1,
 				'require' => [
@@ -390,11 +462,11 @@ class Domain_Manager extends Base_Manager {
 
 		$instructions = [];
 
-		$instructions[] = __("Cool! You're about to make this site accessible using your own domain name!", 'wp-multisite-waas');
+		$instructions[] = __("Cool! You're about to make this site accessible using your own domain name!", 'multisite-ultimate');
 
-		$instructions[] = __("For that to work, you'll need to create a new CNAME record pointing to <code>%NETWORK_DOMAIN%</code> on your DNS manager.", 'wp-multisite-waas');
+		$instructions[] = __("For that to work, you'll need to create a new CNAME record pointing to <code>%NETWORK_DOMAIN%</code> on your DNS manager.", 'multisite-ultimate');
 
-		$instructions[] = __('After you finish that step, come back to this screen and click the button below.', 'wp-multisite-waas');
+		$instructions[] = __('After you finish that step, come back to this screen and click the button below.', 'multisite-ultimate');
 
 		return implode(PHP_EOL . PHP_EOL, $instructions);
 	}
@@ -470,7 +542,19 @@ class Domain_Manager extends Base_Manager {
 
 		$max_tries = apply_filters('wu_async_process_domain_stage_max_tries', 5, $domain);
 
-		$try_again_time = apply_filters('wu_async_process_domains_try_again_time', 5, $domain); // minutes
+		// Get the DNS check interval from settings (in seconds)
+		$dns_check_interval = wu_get_setting('dns_check_interval', 300);
+
+		// Ensure the interval is within the allowed range (10-300 seconds)
+		$dns_check_interval = max(10, min(300, (int) $dns_check_interval));
+
+		// Convert seconds to minutes for the schedule
+		$try_again_time = ceil($dns_check_interval / 60);
+
+		// Ensure we have at least 1 minute
+		$try_again_time = max(1, $try_again_time);
+
+		$try_again_time = apply_filters('wu_async_process_domains_try_again_time', $try_again_time, $domain); // minutes
 
 		++$tries;
 
@@ -479,7 +563,7 @@ class Domain_Manager extends Base_Manager {
 		$domain_url = $domain->get_domain();
 
 		// translators: %s is the domain name
-		wu_log_add("domain-{$domain_url}", sprintf(__('Starting Check for %s', 'wp-multisite-waas'), $domain_url));
+		wu_log_add("domain-{$domain_url}", sprintf(__('Starting Check for %s', 'multisite-ultimate'), $domain_url));
 
 		if ('checking-dns' === $stage) {
 			if ($domain->has_correct_dns()) {
@@ -489,7 +573,7 @@ class Domain_Manager extends Base_Manager {
 
 				wu_log_add(
 					"domain-{$domain_url}",
-					__('- DNS propagation finished, advancing domain to next step...', 'wp-multisite-waas')
+					__('- DNS propagation finished, advancing domain to next step...', 'multisite-ultimate')
 				);
 
 				wu_enqueue_async_action(
@@ -516,7 +600,7 @@ class Domain_Manager extends Base_Manager {
 					wu_log_add(
 						"domain-{$domain_url}",
 						// translators: %d is the number of minutes to try again.
-						sprintf(__('- DNS propagation checks tried for the max amount of times (5 times, one every %d minutes). Marking as failed.', 'wp-multisite-waas'), $try_again_time)
+						sprintf(__('- DNS propagation checks tried for the max amount of times (5 times, one every %d minutes). Marking as failed.', 'multisite-ultimate'), $try_again_time)
 					);
 
 					return;
@@ -525,11 +609,11 @@ class Domain_Manager extends Base_Manager {
 				wu_log_add(
 					"domain-{$domain_url}",
 					// translators: %d is the number of minutes before trying again.
-					sprintf(__('- DNS propagation not finished, retrying in %d minutes...', 'wp-multisite-waas'), $try_again_time)
+					sprintf(__('- DNS propagation not finished, retrying in %d minutes...', 'multisite-ultimate'), $try_again_time)
 				);
 
 				wu_schedule_single_action(
-					strtotime("+{$try_again_time} minutes"),
+					time() + $dns_check_interval,
 					'wu_async_process_domain_stage',
 					[
 						'domain_id' => $domain_id,
@@ -550,7 +634,7 @@ class Domain_Manager extends Base_Manager {
 
 				wu_log_add(
 					"domain-{$domain_url}",
-					__('- Valid SSL cert found. Marking domain as done.', 'wp-multisite-waas')
+					__('- Valid SSL cert found. Marking domain as done.', 'multisite-ultimate')
 				);
 
 				return;
@@ -566,7 +650,7 @@ class Domain_Manager extends Base_Manager {
 					wu_log_add(
 						"domain-{$domain_url}",
 						// translators: %d is the number of minutes to try again.
-						sprintf(__('- SSL checks tried for the max amount of times (5 times, one every %d minutes). Marking as ready without SSL.', 'wp-multisite-waas'), $try_again_time)
+						sprintf(__('- SSL checks tried for the max amount of times (5 times, one every %d minutes). Marking as ready without SSL.', 'multisite-ultimate'), $try_again_time)
 					);
 
 					return;
@@ -575,11 +659,11 @@ class Domain_Manager extends Base_Manager {
 				wu_log_add(
 					"domain-{$domain_url}",
 					// translators: %d is the number of minutes before trying again.
-					sprintf(__('- SSL Cert not found, retrying in %d minute(s)...', 'wp-multisite-waas'), $try_again_time)
+					sprintf(__('- SSL Cert not found, retrying in %d minute(s)...', 'multisite-ultimate'), $try_again_time)
 				);
 
 				wu_schedule_single_action(
-					strtotime("+{$try_again_time} minutes"),
+					time() + $dns_check_interval,
 					'wu_async_process_domain_stage',
 					[
 						'domain_id' => $domain_id,
@@ -664,7 +748,7 @@ class Domain_Manager extends Base_Manager {
 		$domain = wu_request('domain');
 
 		if ( ! $domain) {
-			wp_send_json_error(new \WP_Error('domain-missing', __('A valid domain was not passed.', 'wp-multisite-waas')));
+			wp_send_json_error(new \WP_Error('domain-missing', __('A valid domain was not passed.', 'multisite-ultimate')));
 		}
 
 		$auth_ns = [];
@@ -677,7 +761,7 @@ class Domain_Manager extends Base_Manager {
 			wp_send_json_error(
 				new \WP_Error(
 					'error',
-					__('Not able to fetch DNS entries.', 'wp-multisite-waas'),
+					__('Not able to fetch DNS entries.', 'multisite-ultimate'),
 					[
 						'exception' => $e->getMessage(),
 					]
@@ -686,7 +770,7 @@ class Domain_Manager extends Base_Manager {
 		}
 
 		if (false === $result) {
-			wp_send_json_error(new \WP_Error('error', __('Not able to fetch DNS entries.', 'wp-multisite-waas')));
+			wp_send_json_error(new \WP_Error('error', __('Not able to fetch DNS entries.', 'multisite-ultimate')));
 		}
 
 		wp_send_json_success(
@@ -726,7 +810,7 @@ class Domain_Manager extends Base_Manager {
 	 * Tests the integration in the Wizard context.
 	 *
 	 * @since 2.0.0
-	 * @return mixed
+	 * @return void
 	 */
 	public function test_integration() {
 
@@ -737,7 +821,7 @@ class Domain_Manager extends Base_Manager {
 		if ( ! $integration) {
 			wp_send_json_error(
 				[
-					'message' => __('Invalid Integration ID', 'wp-multisite-waas'),
+					'message' => __('Invalid Integration ID', 'multisite-ultimate'),
 				]
 			);
 		}
@@ -750,7 +834,7 @@ class Domain_Manager extends Base_Manager {
 				[
 					'message' => sprintf(
 						// translators: %s is the name of the missing constant
-						__('The necessary constants were not found on your wp-config.php file: %s', 'wp-multisite-waas'),
+						__('The necessary constants were not found on your wp-config.php file: %s', 'multisite-ultimate'),
 						implode(', ', $integration->get_missing_constants())
 					),
 				]

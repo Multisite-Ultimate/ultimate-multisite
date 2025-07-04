@@ -37,14 +37,14 @@ class WP_Config {
 		if ( ! is_writable($config_path)) {
 
 			// translators: %s is the file name.
-			return new \WP_Error('not-writeable', sprintf(__('The file %s is not writable', 'wp-multisite-waas'), $config_path));
+			return new \WP_Error('not-writeable', sprintf(__('The file %s is not writable', 'multisite-ultimate'), $config_path));
 		}
 
 		$config = file($config_path);
 
 		$line = $this->find_injected_line($config, $constant);
 
-		$content = str_pad(sprintf("define( '%s', '%s' );", $constant, $value), 50) . '// Automatically injected by WP Multisite WaaS;';
+		$content = str_pad(sprintf("define( '%s', '%s' );", $constant, $value), 50) . '// Automatically injected by Multisite Ultimate;';
 
 		if (false === $line) {
 
@@ -52,7 +52,7 @@ class WP_Config {
 			$hook_line = $this->find_reference_hook_line($config);
 
 			if (false === $hook_line) {
-				return new \WP_Error('unknown-wpconfig', __("WP Multisite WaaS can't recognize your wp-config.php, please revert it to original state for further process.", 'wp-multisite-waas'));
+				return new \WP_Error('unknown-wpconfig', __("Multisite Ultimate can't recognize your wp-config.php, please revert it to original state for further process.", 'multisite-ultimate'));
 			}
 
 			$config = $this->inject_contents($config, $hook_line + 1, PHP_EOL . $content . PHP_EOL);
@@ -180,7 +180,7 @@ class WP_Config {
 		if ( ! is_writable($config_path)) {
 
 			// translators: %s is the file name.
-			return new \WP_Error('not-writeable', sprintf(__('The file %s is not writable', 'wp-multisite-waas'), $config_path));
+			return new \WP_Error('not-writeable', sprintf(__('The file %s is not writable', 'multisite-ultimate'), $config_path));
 		}
 
 		$config = file($config_path);

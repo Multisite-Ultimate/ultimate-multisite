@@ -64,7 +64,7 @@ class Clean_Period_Selection_Field_Template extends Base_Field_Template {
 	 */
 	public function get_title() {
 
-		return __('Clean', 'wp-multisite-waas');
+		return __('Clean', 'multisite-ultimate');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Clean_Period_Selection_Field_Template extends Base_Field_Template {
 	 */
 	public function get_description() {
 
-		return __('A simple template with clean markup and no styling, ready to be customized with custom CSS.', 'wp-multisite-waas');
+		return __('A simple template with clean markup and no styling, ready to be customized with custom CSS.', 'multisite-ultimate');
 	}
 
 	/**

@@ -2,7 +2,7 @@
 
 WordPress Multisite allows you to have a network of sites on a single installation. This is a built-in feature, but it’s not active by default.
 
-Since WP Multisite WaaS is a network-only plugin, in this tutorial, you are going to learn how to install and set up WordPress Multisite. This text is based on [How to Install and Setup WordPress Multisite Network](https://www.wpbeginner.com/wp-tutorials/how-to-install-and-setup-wordpress-multisite-network/), from WPBeginner.
+Since Multisite Ultimate is a network-only plugin, in this tutorial, you are going to learn how to install and set up WordPress Multisite. This text is based on [How to Install and Setup WordPress Multisite Network](https://www.wpbeginner.com/wp-tutorials/how-to-install-and-setup-wordpress-multisite-network/), from WPBeginner.
 
 **Things to pay attention to before creating your multisite network:**
 
@@ -62,7 +62,7 @@ Use an FTP client or a file manager (if you are using something like cPanel, for
 
 Finally, re-login to your WordPress site to access your multisite network.
 
-**It is important to test and make sure that you are able to create a subsite on your WordPress Multisite installation before you install WP Multisite WaaS.**
+**It is important to test and make sure that you are able to create a subsite on your WordPress Multisite installation before you install Multisite Ultimate.**
 
 To create a subsite:
 

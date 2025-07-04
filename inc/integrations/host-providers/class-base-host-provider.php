@@ -202,7 +202,7 @@ abstract class Base_Host_Provider {
 
 		$slug = $this->get_id();
 
-		$html = $this->is_enabled() ? sprintf('<span class="wu-self-center wu-text-green-800 wu-mr-4"><span class="dashicons-wu-check"></span> %s</span>', __('Activated', 'wp-multisite-waas')) : '';
+		$html = $this->is_enabled() ? sprintf('<span class="wu-self-center wu-text-green-800 wu-mr-4"><span class="dashicons-wu-check"></span> %s</span>', __('Activated', 'multisite-ultimate')) : '';
 
 		$url = wu_network_admin_url(
 			'wp-ultimo-hosting-integration-wizard',
@@ -211,14 +211,14 @@ abstract class Base_Host_Provider {
 			]
 		);
 
-		$html .= sprintf('<a href="%s" class="button-primary">%s</a>', $url, __('Configuration', 'wp-multisite-waas'));
+		$html .= sprintf('<a href="%s" class="button-primary">%s</a>', $url, __('Configuration', 'multisite-ultimate'));
 
 		// translators: %s is the name of a host provider (e.g. Cloudways, WPMUDev, Closte...).
-		$title = sprintf(__('%s Integration', 'wp-multisite-waas'), $this->get_title());
+		$title = sprintf(__('%s Integration', 'multisite-ultimate'), $this->get_title());
 
 		$title .= sprintf(
 			"<span class='wu-normal-case wu-block wu-text-xs wu-font-normal wu-mt-1'>%s</span>",
-			__('Go to the setup wizard to setup this integration.', 'wp-multisite-waas')
+			__('Go to the setup wizard to setup this integration.', 'multisite-ultimate')
 		);
 
 		wu_register_settings_field(
@@ -245,14 +245,14 @@ abstract class Base_Host_Provider {
 		}
 
 		// translators: %1$s will be replaced with the integration title. E.g. RunCloud
-		$message = sprintf(__('It looks like you are using %1$s as your hosting provider, yet the %1$s integration module is not active. In order for the domain mapping integration to work with %1$s, you might want to activate that module.', 'wp-multisite-waas'), $this->get_title());
+		$message = sprintf(__('It looks like you are using %1$s as your hosting provider, yet the %1$s integration module is not active. In order for the domain mapping integration to work with %1$s, you might want to activate that module.', 'multisite-ultimate'), $this->get_title());
 
 		$slug = $this->get_id();
 
 		$actions = [
 			'activate' => [
 				// translators: %s is the integration name.
-				'title' => sprintf(__('Activate %s', 'wp-multisite-waas'), $this->get_title()),
+				'title' => sprintf(__('Activate %s', 'multisite-ultimate'), $this->get_title()),
 				'url'   => wu_network_admin_url(
 					'wp-ultimo-hosting-integration-wizard',
 					[
@@ -278,14 +278,14 @@ abstract class Base_Host_Provider {
 		}
 
 		// translators: %1$s will be replaced with the integration title. E.g. RunCloud.
-		$message = sprintf(__('It looks like you are using %1$s as your hosting provider, yet the %1$s integration module was not properly setup. In order for the domain mapping integration to work with %1$s, you need to configure that module.', 'wp-multisite-waas'), $this->get_title());
+		$message = sprintf(__('It looks like you are using %1$s as your hosting provider, yet the %1$s integration module was not properly setup. In order for the domain mapping integration to work with %1$s, you need to configure that module.', 'multisite-ultimate'), $this->get_title());
 
 		$slug = $this->get_id();
 
 		$actions = [
 			'activate' => [
 				// translators: %s is the integration name
-				'title' => sprintf(__('Setup %s', 'wp-multisite-waas'), $this->get_title()),
+				'title' => sprintf(__('Setup %s', 'multisite-ultimate'), $this->get_title()),
 				'url'   => wu_network_admin_url(
 					'wp-ultimo-hosting-integration-wizard',
 					[
@@ -513,7 +513,7 @@ abstract class Base_Host_Provider {
 	/**
 	 * Generates a define string for manual insertion on-to wp-config.php.
 	 *
-	 * This is useful when the user is not willing to let WP Multisite WaaS inject the code,
+	 * This is useful when the user is not willing to let Multisite Ultimate inject the code,
 	 * Or when the wp-config.php is not writable.
 	 *
 	 * @since 2.0.0
@@ -526,7 +526,7 @@ abstract class Base_Host_Provider {
 		 * Initializes the array with an opening comment.
 		 */
 		$content = [
-			sprintf('// WP Multisite WaaS - Domain Mapping - %s', $this->get_title()),
+			sprintf('// Multisite Ultimate - Domain Mapping - %s', $this->get_title()),
 		];
 
 		/*
@@ -546,7 +546,7 @@ abstract class Base_Host_Provider {
 		/*
 		 * Adds the final line.
 		 */
-		$content[] = sprintf('// WP Multisite WaaS - Domain Mapping - %s - End', $this->get_title());
+		$content[] = sprintf('// Multisite Ultimate - Domain Mapping - %s - End', $this->get_title());
 
 		return implode(PHP_EOL, $content);
 	}
@@ -562,7 +562,7 @@ abstract class Base_Host_Provider {
 		$explainer_lines = [
 			'will'     => [
 				// translators: %s is the name of the integration e.g. RunCloud
-				'send_domains' => sprintf(__('Send API calls to %s servers with domain names added to this network', 'wp-multisite-waas'), $this->get_title()),
+				'send_domains' => sprintf(__('Send API calls to %s servers with domain names added to this network', 'multisite-ultimate'), $this->get_title()),
 			],
 			'will_not' => [],
 		];
@@ -570,11 +570,11 @@ abstract class Base_Host_Provider {
 		if ($this->supports('autossl')) {
 
 			// translators: %s is the name of the integration e.g. RunCloud
-			$explainer_lines['will'][] = sprintf(__('Fetch and install a SSL certificate on %s platform after the domain is added.', 'wp-multisite-waas'), $this->get_title());
+			$explainer_lines['will'][] = sprintf(__('Fetch and install a SSL certificate on %s platform after the domain is added.', 'multisite-ultimate'), $this->get_title());
 		} else {
 
 			// translators: %s is the name of the integration e.g. RunCloud
-			$explainer_lines['will_not'][] = sprintf(__('Fetch and install a SSL certificate on %s platform after the domain is added. This needs to be done manually.', 'wp-multisite-waas'), $this->get_title());
+			$explainer_lines['will_not'][] = sprintf(__('Fetch and install a SSL certificate on %s platform after the domain is added. This needs to be done manually.', 'multisite-ultimate'), $this->get_title());
 		}
 
 		return $explainer_lines;
@@ -645,7 +645,7 @@ abstract class Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('No description provided.', 'wp-multisite-waas');
+		return __('No description provided.', 'multisite-ultimate');
 	}
 
 	/**

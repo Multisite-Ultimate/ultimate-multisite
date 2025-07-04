@@ -1,8 +1,8 @@
 # How can I cancel my subscription?
 
-If you have a WP Multisite WaaS license, you can cancel its renewal at any time you want. Just follow the steps below:
+If you have a Multisite Ultimate license, you can cancel its renewal at any time you want. Just follow the steps below:
 
-Access your Freemius account page through the link you received in your e-mail after buying WP Multisite WaaS:
+Access your Freemius account page through the link you received in your e-mail after buying Multisite Ultimate:
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-602125811f25b9041bebc762-kFXPifHWo-Account.png)
 

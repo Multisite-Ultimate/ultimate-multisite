@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Customize/Add New Template Previewer Page.
+ * Multisite Ultimate Customize/Add New Template Previewer Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\UI\Template_Previewer;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Template Previewer Customize/Add New Admin Page.
+ * Multisite Ultimate Template Previewer Customize/Add New Admin Page.
  */
 class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 
@@ -97,14 +97,14 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 				'fields' => [
 					'preview_url_parameter' => [
 						'type'  => 'text',
-						'title' => __('URL Parameter', 'wp-multisite-waas'),
-						'desc'  => __('This is the URL parameter WP Multisite WaaS will use to generate the template preview URLs.', 'wp-multisite-waas'),
+						'title' => __('URL Parameter', 'multisite-ultimate'),
+						'desc'  => __('This is the URL parameter Multisite Ultimate will use to generate the template preview URLs.', 'multisite-ultimate'),
 						'value' => Template_Previewer::get_instance()->get_setting('preview_url_parameter', 'template-preview'),
 					],
 					'enabled'               => [
 						'type'      => 'toggle',
-						'title'     => __('Active', 'wp-multisite-waas'),
-						'desc'      => __('If your site templates are not loading, you can disable the top-bar using this setting.', 'wp-multisite-waas'),
+						'title'     => __('Active', 'multisite-ultimate'),
+						'desc'      => __('If your site templates are not loading, you can disable the top-bar using this setting.', 'multisite-ultimate'),
 						'value'     => Template_Previewer::get_instance()->get_setting('enabled', true),
 						'html_attr' => [],
 					],
@@ -129,16 +129,16 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 					'v-model' => 'tab',
 				],
 				'options'           => [
-					'general' => __('General', 'wp-multisite-waas'),
-					'colors'  => __('Colors', 'wp-multisite-waas'),
-					'images'  => __('Images', 'wp-multisite-waas'),
+					'general' => __('General', 'multisite-ultimate'),
+					'colors'  => __('Colors', 'multisite-ultimate'),
+					'images'  => __('Images', 'multisite-ultimate'),
 				],
 			],
 
 			'display_responsive_controls' => [
 				'type'              => 'toggle',
-				'title'             => __('Show Responsive Controls', 'wp-multisite-waas'),
-				'desc'              => __('Toggle to show or hide the responsive controls.', 'wp-multisite-waas'),
+				'title'             => __('Show Responsive Controls', 'multisite-ultimate'),
+				'desc'              => __('Toggle to show or hide the responsive controls.', 'multisite-ultimate'),
 				'value'             => true,
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "general")',
@@ -150,8 +150,8 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 			],
 			'button_text'                 => [
 				'type'              => 'text',
-				'title'             => __('Button Text', 'wp-multisite-waas'),
-				'value'             => __('Use this Template', 'wp-multisite-waas'),
+				'title'             => __('Button Text', 'multisite-ultimate'),
+				'value'             => __('Use this Template', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "general")',
 					'v-cloak' => 1,
@@ -163,8 +163,8 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 
 			'bg_color'                    => [
 				'type'              => 'color-picker',
-				'title'             => __('Background Color', 'wp-multisite-waas'),
-				'desc'              => __('Choose the background color for the top-bar.', 'wp-multisite-waas'),
+				'title'             => __('Background Color', 'multisite-ultimate'),
+				'desc'              => __('Choose the background color for the top-bar.', 'multisite-ultimate'),
 				'value'             => '#f9f9f9',
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "colors")',
@@ -176,8 +176,8 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 			],
 			'button_bg_color'             => [
 				'type'              => 'color-picker',
-				'title'             => __('Button BG Color', 'wp-multisite-waas'),
-				'desc'              => __('Pick the background color for the button.', 'wp-multisite-waas'),
+				'title'             => __('Button BG Color', 'multisite-ultimate'),
+				'desc'              => __('Pick the background color for the button.', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "colors")',
 					'v-cloak' => 1,
@@ -189,8 +189,8 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 
 			'use_custom_logo'             => [
 				'type'              => 'toggle',
-				'title'             => __('Use Custom Logo', 'wp-multisite-waas'),
-				'desc'              => __('You can set a different logo to be used on the top-bar.', 'wp-multisite-waas'),
+				'title'             => __('Use Custom Logo', 'multisite-ultimate'),
+				'desc'              => __('You can set a different logo to be used on the top-bar.', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "images")',
 					'v-cloak' => 1,
@@ -202,8 +202,8 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 			'custom_logo'                 => [
 				'type'              => 'image',
 				'stacked'           => true,
-				'title'             => __('Custom Logo', 'wp-multisite-waas'),
-				'desc'              => __('The logo is displayed on the preview page top-bar.', 'wp-multisite-waas'),
+				'title'             => __('Custom Logo', 'multisite-ultimate'),
+				'desc'              => __('The logo is displayed on the preview page top-bar.', 'multisite-ultimate'),
 				'value'             => $custom_logo_id,
 				'img'               => $custom_logo,
 				'wrapper_html_attr' => [
@@ -226,7 +226,7 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 		$this->add_fields_widget(
 			'customizer',
 			[
-				'title'     => __('Customizer', 'wp-multisite-waas'),
+				'title'     => __('Customizer', 'multisite-ultimate'),
 				'position'  => 'side',
 				'fields'    => $fields,
 				'html_attr' => [
@@ -247,7 +247,7 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Customize Template Previewer', 'wp-multisite-waas');
+		return __('Customize Template Previewer', 'multisite-ultimate');
 	}
 
 	/**
@@ -258,7 +258,7 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Customize Template Previewer', 'wp-multisite-waas');
+		return __('Customize Template Previewer', 'multisite-ultimate');
 	}
 
 	/**
@@ -281,13 +281,13 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'customize_label'   => __('Customize Template Previewer', 'wp-multisite-waas'),
-			'add_new_label'     => __('Customize Template Previewer', 'wp-multisite-waas'),
-			'edit_label'        => __('Edit Template Previewer', 'wp-multisite-waas'),
-			'updated_message'   => __('Template Previewer updated with success!', 'wp-multisite-waas'),
-			'title_placeholder' => __('Enter Template Previewer Name', 'wp-multisite-waas'),
-			'title_description' => __('This name is used for internal reference only.', 'wp-multisite-waas'),
-			'save_button_label' => __('Save Changes', 'wp-multisite-waas'),
+			'customize_label'   => __('Customize Template Previewer', 'multisite-ultimate'),
+			'add_new_label'     => __('Customize Template Previewer', 'multisite-ultimate'),
+			'edit_label'        => __('Edit Template Previewer', 'multisite-ultimate'),
+			'updated_message'   => __('Template Previewer updated with success!', 'multisite-ultimate'),
+			'title_placeholder' => __('Enter Template Previewer Name', 'multisite-ultimate'),
+			'title_description' => __('This name is used for internal reference only.', 'multisite-ultimate'),
+			'save_button_label' => __('Save Changes', 'multisite-ultimate'),
 			'save_description'  => '',
 		];
 	}
@@ -300,7 +300,8 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 	 */
 	public function handle_save(): void {
 
-		$settings = Template_Previewer::get_instance()->save_settings($_POST);
+		// Nonce checked in calling method.
+		$settings = Template_Previewer::get_instance()->save_settings($_POST); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		$array_params = [
 			'updated' => 1,

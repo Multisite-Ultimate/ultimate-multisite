@@ -40,7 +40,7 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $tutorial_link = 'https://help.wpultimo.com/en/articles/2632349-configuring-automatic-domain-syncing-with-serverpilot-io-with-autossl-support';
+	protected $tutorial_link = 'https://github.com/superdav42/wp-multisite-waas/wiki/ServerPilot-Integration';
 
 	/**
 	 * Array containing the features this integration supports.
@@ -87,19 +87,19 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 
 		return [
 			'WU_SERVER_PILOT_CLIENT_ID' => [
-				'title'       => __('ServerPilot Client ID', 'wp-multisite-waas'),
-				'desc'        => __('Your ServerPilot Client ID.', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. cid_lSmjevkdoSOpasYVqm', 'wp-multisite-waas'),
+				'title'       => __('ServerPilot Client ID', 'multisite-ultimate'),
+				'desc'        => __('Your ServerPilot Client ID.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. cid_lSmjevkdoSOpasYVqm', 'multisite-ultimate'),
 			],
 			'WU_SERVER_PILOT_API_KEY'   => [
-				'title'       => __('ServerPilot API Key', 'wp-multisite-waas'),
-				'desc'        => __('The API Key retrieved in the previous step.', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. eYP0Jo3Fzzm5SOZCi5nLR0Mki2lbYZ', 'wp-multisite-waas'),
+				'title'       => __('ServerPilot API Key', 'multisite-ultimate'),
+				'desc'        => __('The API Key retrieved in the previous step.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. eYP0Jo3Fzzm5SOZCi5nLR0Mki2lbYZ', 'multisite-ultimate'),
 			],
 			'WU_SERVER_PILOT_APP_ID'    => [
-				'title'       => __('ServerPilot App ID', 'wp-multisite-waas'),
-				'desc'        => __('The App ID retrieved in the previous step.', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. 940288', 'wp-multisite-waas'),
+				'title'       => __('ServerPilot App ID', 'multisite-ultimate'),
+				'desc'        => __('The App ID retrieved in the previous step.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. 940288', 'multisite-ultimate'),
 			],
 		];
 	}
@@ -270,7 +270,7 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 		 */
 
 		// translators: %s is the wp_json_encode of the error.
-		wu_log_add('integration-serverpilot', sprintf(__('An error occurred while trying to get the current list of domains: %s', 'wp-multisite-waas'), wp_json_encode($app_info)), LogLevel::ERROR);
+		wu_log_add('integration-serverpilot', sprintf(__('An error occurred while trying to get the current list of domains: %s', 'multisite-ultimate'), wp_json_encode($app_info)), LogLevel::ERROR);
 
 		return false;
 	}
@@ -311,7 +311,7 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('ServerPilot is a cloud service for hosting WordPress and other PHP websites on servers at DigitalOcean, Amazon, Google, or any other server provider. You can think of ServerPilot as a modern, centralized hosting control panel.', 'wp-multisite-waas');
+		return __('ServerPilot is a cloud service for hosting WordPress and other PHP websites on servers at DigitalOcean, Amazon, Google, or any other server provider. You can think of ServerPilot as a modern, centralized hosting control panel.', 'multisite-ultimate');
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS faker
+ * Multisite Ultimate faker
  *
  * @package WP_Ultimo
  * @subpackage Helper
@@ -9,13 +9,16 @@
 
 namespace WP_Ultimo;
 
+use Exception;
 use Faker as Lib_Faker;
+use WP_Ultimo\Models\Membership;
+use WP_Ultimo\Models\Product;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS faker
+ * Multisite Ultimate faker
  *
  * @since 2.0.0
  */
@@ -51,7 +54,7 @@ class Faker {
 	 * Get the faker generator.
 	 *
 	 * @since 2.0.0
-	 * @return Faker faker object.
+	 * @return \Faker\Generator faker object.
 	 */
 	private function get_faker() {
 
@@ -62,7 +65,7 @@ class Faker {
 	 * Get the faker generator.
 	 *
 	 * @since 2.0.0
-	 * @return Faker faker object.
+	 * @return \Faker\Generator faker object.
 	 */
 	public function generate() {
 
@@ -111,7 +114,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param string $model The model name.
-	 * @param string $value The value to identify the fake data generated.
+	 * @param mixed  $value The value to identify the fake data generated.
 	 */
 	public function set_fake_data_generated($model, $value): void {
 
@@ -152,7 +155,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param string $model The name of model.
-	 * @return number The id of the data.
+	 * @return object|false The id of the data.
 	 */
 	private function get_random_data($model) {
 
@@ -218,7 +221,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param boolean $create_if_not_exist Create the data if there's none.
-	 * @return object The product object.
+	 * @return Product|false The product object.
 	 */
 	private function get_random_product($create_if_not_exist = false) {
 
@@ -247,7 +250,7 @@ class Faker {
 	 * Get random membership.
 	 *
 	 * @since 2.0.0
-	 * @return object The membership object.
+	 * @return Membership|false The membership object.
 	 */
 	private function get_random_membership() {
 
@@ -270,7 +273,7 @@ class Faker {
 	 * Get random site.
 	 *
 	 * @since 2.0.0
-	 * @return object The site object.
+	 * @return object|false The site object.
 	 */
 	private function get_random_site() {
 
@@ -293,7 +296,7 @@ class Faker {
 	 * Get random payment.
 	 *
 	 * @since 2.0.0
-	 * @return object The payment object.
+	 * @return object|false The payment object.
 	 */
 	private function get_random_payment() {
 
@@ -317,7 +320,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_customers($number = 1): void {
 
@@ -351,7 +354,7 @@ class Faker {
 				);
 
 				if (is_wp_error($customer)) {
-					throw new \Exception(esc_html($customer->get_error_message()));
+					throw new Exception(esc_html($customer->get_error_message()));
 				} else {
 					$this->set_fake_data_generated('customers', $customer);
 				}
@@ -364,7 +367,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_products($number = 1): void {
 
@@ -411,7 +414,7 @@ class Faker {
 			$product = wu_create_product($product_data);
 
 			if (is_wp_error($product)) {
-				throw new \Exception(esc_html($product->get_error_message()));
+				throw new Exception(esc_html($product->get_error_message()));
 			} else {
 				$this->set_fake_data_generated('products', $product);
 			}
@@ -423,7 +426,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_memberships($number = 1): void {
 
@@ -460,7 +463,7 @@ class Faker {
 			$membership = wu_create_membership($membership_data);
 
 			if (is_wp_error($membership)) {
-				throw new \Exception(esc_html($membership->get_error_message()));
+				throw new Exception(esc_html($membership->get_error_message()));
 			} else {
 				$this->set_fake_data_generated('memberships', $membership);
 			}
@@ -472,7 +475,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_domain($number = 1): void {
 
@@ -502,7 +505,7 @@ class Faker {
 			);
 
 			if (is_wp_error($domain)) {
-				throw new \Exception(esc_html($domain->get_error_message()));
+				throw new Exception(esc_html($domain->get_error_message()));
 			} else {
 				$this->set_fake_data_generated('domains', $domain);
 			}
@@ -514,7 +517,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_events($number = 1): void {
 
@@ -550,7 +553,7 @@ class Faker {
 			$event_data = wu_create_event($event_data);
 
 			if (is_wp_error($event_data)) {
-				throw new \Exception(esc_html($event_data->get_error_message()));
+				throw new Exception(esc_html($event_data->get_error_message()));
 			} else {
 				$this->set_fake_data_generated('events', $event_data);
 			}
@@ -562,7 +565,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_discount_code($number = 1): void {
 
@@ -599,7 +602,7 @@ class Faker {
 			);
 
 			if (is_wp_error($discount_code)) {
-				throw new \Exception(esc_html($discount_code->get_error_message()));
+				throw new Exception(esc_html($discount_code->get_error_message()));
 			} else {
 				$this->set_fake_data_generated('discount_codes', $discount_code);
 			}
@@ -611,7 +614,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_checkout_form($number = 1): void {
 
@@ -635,7 +638,7 @@ class Faker {
 			$checkout_form = wu_create_checkout_form($checkout_form_data);
 
 			if (is_wp_error($checkout_form)) {
-				throw new \Exception(esc_html($checkout_form->get_error_message()));
+				throw new Exception(esc_html($checkout_form->get_error_message()));
 			} else {
 				$this->set_fake_data_generated('checkout_forms', $checkout_form);
 			}
@@ -647,7 +650,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_email($number = 1): void {
 
@@ -691,7 +694,7 @@ class Faker {
 			$email = wu_create_email($email_data);
 
 			if (is_wp_error($email)) {
-				throw new \Exception(esc_html($email->get_error_message()));
+				throw new Exception(esc_html($email->get_error_message()));
 			} else {
 				$this->set_fake_data_generated('emails', $email);
 			}
@@ -703,7 +706,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_broadcast($number = 1): void {
 
@@ -734,7 +737,7 @@ class Faker {
 			$broadcast = wu_create_broadcast($broadcast_data);
 
 			if (is_wp_error($broadcast)) {
-				throw new \Exception(esc_html($broadcast->get_error_message()));
+				throw new Exception(esc_html($broadcast->get_error_message()));
 			} else {
 				$this->set_fake_data_generated('broadcasts', $broadcast);
 			}
@@ -746,7 +749,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_webhook($number = 1): void {
 
@@ -777,7 +780,7 @@ class Faker {
 			$webhook = wu_create_webhook($webhook_data);
 
 			if (is_wp_error($webhook)) {
-				throw new \Exception(esc_html($webhook->get_error_message()));
+				throw new Exception(esc_html($webhook->get_error_message()));
 			} else {
 				$this->set_fake_data_generated('webhooks', $webhook);
 			}
@@ -789,7 +792,7 @@ class Faker {
 	 *
 	 * @since 2.0.0
 	 * @param int $number The number of fake data that will be generated.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_payment($number = 1): void {
 
@@ -839,7 +842,7 @@ class Faker {
 			$payment = wu_create_payment($payment_data);
 
 			if (is_wp_error($payment)) {
-				throw new \Exception(esc_html($payment->get_error_message()));
+				throw new Exception(esc_html($payment->get_error_message()));
 			} else {
 				$payment->recalculate_totals()->save();
 
@@ -854,7 +857,7 @@ class Faker {
 	 * @since 2.0.0
 	 * @param int    $number The number of fake data that will be generated.
 	 * @param string $type The type of site to favor.
-	 * @throws \Exception In case of failures, an exception is thrown.
+	 * @throws Exception In case of failures, an exception is thrown.
 	 */
 	public function generate_fake_site($number = 1, $type = 'customer_owned'): void {
 
@@ -892,7 +895,7 @@ class Faker {
 			$site = wu_create_site($site_data);
 
 			if (is_wp_error($site)) {
-				throw new \Exception(esc_html($site->get_error_message()));
+				throw new Exception(esc_html($site->get_error_message()));
 			} else {
 				$this->set_fake_data_generated('sites', $site);
 			}

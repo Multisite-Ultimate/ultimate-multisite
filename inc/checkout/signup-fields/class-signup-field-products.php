@@ -53,7 +53,7 @@ class Signup_Field_Products extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Product', 'wp-multisite-waas');
+		return __('Product', 'multisite-ultimate');
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Signup_Field_Products extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Hidden field used to pre-select products. This is useful when you have a signup page for specific offering/bundles and do not want your customers to be able to choose plans and products manually.', 'wp-multisite-waas');
+		return __('Hidden field used to pre-select products. This is useful when you have a signup page for specific offering/bundles and do not want your customers to be able to choose plans and products manually.', 'multisite-ultimate');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Signup_Field_Products extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Hidden field used to pre-select products. This is useful when you have a signup page for specific offering/bundles and do not want your customers to be able to choose plans and products manually.', 'wp-multisite-waas');
+		return __('Hidden field used to pre-select products. This is useful when you have a signup page for specific offering/bundles and do not want your customers to be able to choose plans and products manually.', 'multisite-ultimate');
 	}
 
 	/**
@@ -130,7 +130,7 @@ class Signup_Field_Products extends Base_Signup_Field {
 	public function force_attributes() {
 
 		return [
-			'name' => __('Pre-selected Products', 'wp-multisite-waas'),
+			'name' => __('Pre-selected Products', 'multisite-ultimate'),
 			'id'   => 'products',
 		];
 	}
@@ -146,9 +146,9 @@ class Signup_Field_Products extends Base_Signup_Field {
 		return [
 			'products' => [
 				'type'        => 'model',
-				'title'       => __('Products', 'wp-multisite-waas'),
-				'placeholder' => __('Products', 'wp-multisite-waas'),
-				'desc'        => __('Use this field to pre-select products. This is useful when you have a signup page for specific offering/bundles and do not want your customers to be able to choose plans and other products manually.', 'wp-multisite-waas'),
+				'title'       => __('Products', 'multisite-ultimate'),
+				'placeholder' => __('Products', 'multisite-ultimate'),
+				'desc'        => __('Use this field to pre-select products. This is useful when you have a signup page for specific offering/bundles and do not want your customers to be able to choose plans and other products manually.', 'multisite-ultimate'),
 				'tooltip'     => '',
 				'html_attr'   => [
 					'data-model'        => 'product',

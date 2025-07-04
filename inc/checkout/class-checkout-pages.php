@@ -108,8 +108,8 @@ class Checkout_Pages {
 
     <div class="misc-pub-section misc-pub-section-last" style="margin-top: 12px; margin-bottom: 6px; display: flex; align-items: center;">
 				<label for="wu-compat-mode">
-						<span style="display: block; font-weight: 600; margin-bottom: 3px;"><?php esc_html_e('WP Multisite WaaS Compatibility Mode', 'wp-multisite-waas'); ?></span>
-						<small style="display: block; line-height: 1.8em;"><?php esc_html_e('Toggle this option on if WP Multisite WaaS elements are not loading correctly or at all.', 'wp-multisite-waas'); ?></small>
+						<span style="display: block; font-weight: 600; margin-bottom: 3px;"><?php esc_html_e('Multisite Ultimate Compatibility Mode', 'multisite-ultimate'); ?></span>
+						<small style="display: block; line-height: 1.8em;"><?php esc_html_e('Toggle this option on if Multisite Ultimate elements are not loading correctly or at all.', 'multisite-ultimate'); ?></small>
 				</label>
 				<div style="margin-left: 6px;">
 					<input id="wu-compat-mode" type="checkbox" value="1" <?php checked($value, true, true); ?> name="_wu_force_elements_loading" />
@@ -134,8 +134,8 @@ class Checkout_Pages {
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
 			return;
 		}
-
-		if ( ! isset($_POST['_wu_force_compat']) || ! wp_verify_nonce($_POST['_wu_force_compat'], '_wu_force_compat_' . $post_id)) {
+		// Nonce checked in calling method.
+		if ( ! isset($_POST['_wu_force_compat']) || ! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wu_force_compat'])), '_wu_force_compat_' . $post_id)) {
 			return;
 		}
 
@@ -144,7 +144,7 @@ class Checkout_Pages {
 		}
 
 		if (isset($_POST['_wu_force_elements_loading'])) {
-			update_post_meta($post_id, '_wu_force_elements_loading', $_POST['_wu_force_elements_loading']);
+			update_post_meta($post_id, '_wu_force_elements_loading', sanitize_text_field(wp_unslash($_POST['_wu_force_elements_loading'])));
 		} else {
 			delete_post_meta($post_id, '_wu_force_elements_loading');
 		}
@@ -190,7 +190,7 @@ class Checkout_Pages {
 	public function get_error_message($error_code, $username = '') {
 
 		$messages = [
-			'incorrect_password'         => sprintf(__('<strong>Error:</strong> The password you entered is incorrect.', 'wp-multisite-waas')),
+			'incorrect_password'         => sprintf(__('<strong>Error:</strong> The password you entered is incorrect.', 'multisite-ultimate')),
 			// From here we are using the same messages as WordPress core.
 			'expired'                    => __('Your session has expired. Please log in to continue where you left off.'),
 			'confirm'                    => sprintf(__('Check your email for the confirmation link, then visit the <a href="%s">login page</a>.'), wp_login_url()),
@@ -217,7 +217,7 @@ class Checkout_Pages {
 		 */
 		$messages = apply_filters('wu_checkout_pages_error_messages', $messages);
 
-		return wu_get_isset($messages, $error_code, __('Something went wrong', 'wp-multisite-waas'));
+		return wu_get_isset($messages, $error_code, __('Something went wrong', 'multisite-ultimate'));
 	}
 
 	/**
@@ -381,8 +381,8 @@ class Checkout_Pages {
 
 		$redirect_to = $active_blog ? get_admin_url($active_blog->blog_id) : false;
 
-		if (isset($_GET['redirect_to'])) {
-			$redirect_to = $_GET['redirect_to'];
+		if (isset($_GET['redirect_to'])) { // phpcs:ignore WordPress.Security.NonceVerification
+			$redirect_to = sanitize_url(wp_unslash($_GET['redirect_to'])); // phpcs:ignore WordPress.Security.NonceVerification
 		} elseif (is_multisite() && ! get_active_blog_for_user($user->ID) && ! is_super_admin($user->ID)) {
 			$redirect_to = user_admin_url();
 		} elseif (is_multisite() && ! $user->has_cap('read')) {
@@ -412,14 +412,21 @@ class Checkout_Pages {
 	 */
 	public function add_verify_email_notice($payment, $membership, $customer): void {
 
-		if ($payment->get_total() == 0 && $customer->get_email_verification() === 'pending') {
-			$html = '<div class="wu-p-4 wu-bg-yellow-200 wu-mb-2 wu-text-yellow-700 wu-rounded">%s</div>';
-
-			$message = __('Your email address is not yet verified. Your site <strong>will only be activated</strong> after your email address is verified. Check your inbox and verify your email address.', 'wp-multisite-waas');
-
-			$message .= sprintf('<br><a href="#" class="wu-resend-verification-email wu-text-gray-700">%s</a>', __('Resend verification email &rarr;', 'wp-multisite-waas'));
-
-			printf($html, $message);
+		if ($payment->get_total() === 0.0 && $customer->get_email_verification() === 'pending') {
+			printf(
+				'<div class="wu-p-4 wu-bg-yellow-200 wu-mb-2 wu-text-yellow-700 wu-rounded">
+                    %s
+                    <br>
+                    <a href="#" class="wu-resend-verification-email wu-text-gray-700">%s</a>
+                </div>',
+				sprintf(
+					// translators: %1$s and %2$s are <strong></strong> HTML tags
+					esc_html__('Your email address is not yet verified. Your site %1$s will only be activated %2$s after your email address is verified. Check your inbox and verify your email address.', 'multisite-ultimate'),
+					'<strong>',
+					'</strong>'
+				),
+				esc_html__('Resend verification email →', 'multisite-ultimate')
+			);
 		}
 	}
 
@@ -437,7 +444,7 @@ class Checkout_Pages {
 			return;
 		}
 
-		if ('POST' === $_SERVER['REQUEST_METHOD']) {
+		if (isset($_SERVER['REQUEST_METHOD']) && 'POST' === $_SERVER['REQUEST_METHOD']) {
 			return;
 		}
 
@@ -537,7 +544,7 @@ class Checkout_Pages {
 		}
 
 		if ($redirect) {
-			$new_login_url = add_query_arg('redirect_to', urlencode($redirect), $new_login_url);
+			$new_login_url = add_query_arg('redirect_to', rawurlencode($redirect), $new_login_url);
 		}
 
 		if ($force_reauth) {
@@ -548,7 +555,7 @@ class Checkout_Pages {
 	}
 
 	/**
-	 * Returns the ID of the pages being used for each WP Multisite WaaS purpose.
+	 * Returns the ID of the pages being used for each Multisite Ultimate purpose.
 	 *
 	 * @since 2.0.0
 	 * @return array
@@ -603,7 +610,7 @@ class Checkout_Pages {
 	}
 
 	/**
-	 * Tags the WP Multisite WaaS pages on the main site.
+	 * Tags the Multisite Ultimate pages on the main site.
 	 *
 	 * @since 2.0.0
 	 *
@@ -618,11 +625,11 @@ class Checkout_Pages {
 		}
 
 		$labels = [
-			'register'       => __('WP Multisite WaaS - Register Page', 'wp-multisite-waas'),
-			'login'          => __('WP Multisite WaaS - Login Page', 'wp-multisite-waas'),
-			'block_frontend' => __('WP Multisite WaaS - Site Blocked Page', 'wp-multisite-waas'),
-			'update'         => __('WP Multisite WaaS - Membership Update Page', 'wp-multisite-waas'),
-			'new_site'       => __('WP Multisite WaaS - New Site Page', 'wp-multisite-waas'),
+			'register'       => __('Multisite Ultimate - Register Page', 'multisite-ultimate'),
+			'login'          => __('Multisite Ultimate - Login Page', 'multisite-ultimate'),
+			'block_frontend' => __('Multisite Ultimate - Site Blocked Page', 'multisite-ultimate'),
+			'update'         => __('Multisite Ultimate - Membership Update Page', 'multisite-ultimate'),
+			'new_site'       => __('Multisite Ultimate - New Site Page', 'multisite-ultimate'),
 		];
 
 		$pages = array_map('absint', $this->get_signup_pages());

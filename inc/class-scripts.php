@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS helper class to handle global registering of scripts and styles.
+ * Multisite Ultimate helper class to handle global registering of scripts and styles.
  *
  * @package WP_Ultimo
  * @subpackage Scripts
@@ -13,7 +13,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS helper class to handle global registering of scripts and styles.
+ * Multisite Ultimate helper class to handle global registering of scripts and styles.
  *
  * @since 2.0.0
  */
@@ -60,11 +60,10 @@ class Scripts {
 	 * @return void
 	 */
 	public function register_script($handle, $src, $deps = [], $args = [
-		'async'     => true,
 		'in_footer' => true,
 	]): void {
 
-		wp_register_script($handle, $src, $deps, wu_get_version(), $args);
+		wp_register_script($handle, $src, $deps, \WP_Ultimo::VERSION, $args);
 	}
 
 	/**
@@ -79,11 +78,11 @@ class Scripts {
 	 */
 	public function register_style($handle, $src, $deps = []): void {
 
-		wp_register_style($handle, $src, $deps, wu_get_version());
+		wp_register_style($handle, $src, $deps, \WP_Ultimo::VERSION);
 	}
 
 	/**
-	 * Registers the default WP Multisite WaaS scripts.
+	 * Registers the default Multisite Ultimate scripts.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -177,8 +176,8 @@ class Scripts {
 			'wu_fields',
 			[
 				'l10n' => [
-					'image_picker_title'       => __('Select an Image.', 'wp-multisite-waas'),
-					'image_picker_button_text' => __('Use this image', 'wp-multisite-waas'),
+					'image_picker_title'       => __('Select an Image.', 'multisite-ultimate'),
+					'image_picker_button_text' => __('Use this image', 'multisite-ultimate'),
 				],
 			]
 		);
@@ -192,6 +191,8 @@ class Scripts {
 		 * Adds Vue Apps
 		 */
 		$this->register_script('wu-vue-apps', wu_get_asset('vue-apps.js', 'js'), ['wu-functions', 'wu-vue', 'wu-money-mask', 'wu-input-mask', 'wp-hooks']);
+		$this->register_script('wu-vue-sortable', wu_get_asset('lib/sortablejs.js', 'js'), []);
+		$this->register_script('wu-vue-draggable', wu_get_asset('lib/vue-draggable.js', 'js'), ['wu-vue-sortable']);
 
 		/*
 		 * Adds Selectizer
@@ -273,8 +274,8 @@ class Scripts {
 			[
 				'LT'   => $time_format,
 				'LTS'  => str_replace(':i', ':i:s', (string) $time_format),
-				/* translators: the day/month/year date format used by WP Multisite WaaS. You can changed it to localize this date format to your language. the default value is d/m/Y, which is the format 31/12/2021. */
-				'L'    => __('d/m/Y', 'wp-multisite-waas'),
+				/* translators: the day/month/year date format used by Multisite Ultimate. You can changed it to localize this date format to your language. the default value is d/m/Y, which is the format 31/12/2021. */
+				'L'    => __('d/m/Y', 'multisite-ultimate'),
 				'LL'   => $date_format,
 				'LLL'  => sprintf('%s %s', $date_format, $time_format),
 				'LLLL' => sprintf('%s %s', $date_format, $time_format),
@@ -284,22 +285,22 @@ class Scripts {
 		// phpcs:disable
 		$strings = [
 			'relativeTime' => [
-				'future' => __('in %s', 'wp-multisite-waas'),
-				'past'   => __('%s ago', 'wp-multisite-waas'),
-				's'      => __('a few seconds', 'wp-multisite-waas'),
-				'ss'     => __('%d seconds', 'wp-multisite-waas'),
-				'm'      => __('a minute', 'wp-multisite-waas'),
-				'mm'     => __('%d minutes', 'wp-multisite-waas'),
-				'h'      => __('an hour', 'wp-multisite-waas'),
-				'hh'     => __('%d hours', 'wp-multisite-waas'),
-				'd'      => __('a day', 'wp-multisite-waas'),
-				'dd'     => __('%d days', 'wp-multisite-waas'),
-				'w'      => __('a week', 'wp-multisite-waas'),
-				'ww'     => __('%d weeks', 'wp-multisite-waas'),
-				'M'      => __('a month', 'wp-multisite-waas'),
-				'MM'     => __('%d months', 'wp-multisite-waas'),
-				'y'      => __('a year', 'wp-multisite-waas'),
-				'yy'     => __('%d years', 'wp-multisite-waas'),
+				'future' => __('in %s', 'multisite-ultimate'),
+				'past'   => __('%s ago', 'multisite-ultimate'),
+				's'      => __('a few seconds', 'multisite-ultimate'),
+				'ss'     => __('%d seconds', 'multisite-ultimate'),
+				'm'      => __('a minute', 'multisite-ultimate'),
+				'mm'     => __('%d minutes', 'multisite-ultimate'),
+				'h'      => __('an hour', 'multisite-ultimate'),
+				'hh'     => __('%d hours', 'multisite-ultimate'),
+				'd'      => __('a day', 'multisite-ultimate'),
+				'dd'     => __('%d days', 'multisite-ultimate'),
+				'w'      => __('a week', 'multisite-ultimate'),
+				'ww'     => __('%d weeks', 'multisite-ultimate'),
+				'M'      => __('a month', 'multisite-ultimate'),
+				'MM'     => __('%d months', 'multisite-ultimate'),
+				'y'      => __('a year', 'multisite-ultimate'),
+				'yy'     => __('%d years', 'multisite-ultimate'),
 			],
 			'longDateFormat' => $long_date_formats,
 		];
@@ -311,7 +312,7 @@ class Scripts {
 	}
 
 	/**
-	 * Registers the default WP Multisite WaaS styles.
+	 * Registers the default Multisite Ultimate styles.
 	 *
 	 * @since 2.0.0
 	 * @return void

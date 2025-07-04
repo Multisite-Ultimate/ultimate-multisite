@@ -1,6 +1,6 @@
 # Setting the Sunrise constant to true on Closte
 
-Some host providers lock the wp-config.php for security reasons. This means that WP Multisite WaaS cannot automatically edit the file to include the necessary constants to get domain mapping and other features to work. Closte is one such host.
+Some host providers lock the wp-config.php for security reasons. This means that Multisite Ultimate cannot automatically edit the file to include the necessary constants to get domain mapping and other features to work. Closte is one such host.
 
 However, Closte offers a way to add constants to the wp-config.php in a secure manner. You just need to follow the steps below:
 
@@ -18,8 +18,8 @@ Then, on the **Settings** , find the WP-Config tab, and then the "Additional wp-
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-FqVEnSTIu9.png)
 
-In the context of installing WP Multisite WaaS, you'll need to add the sunrise constant onto that field. Simply add a new line and paste the line below. After that, click the **Save All** button.
+In the context of installing Multisite Ultimate, you'll need to add the sunrise constant onto that field. Simply add a new line and paste the line below. After that, click the **Save All** button.
 
 define('SUNRISE', true);
 
-That's it, you're all set. Return to the WP Multisite WaaS install wizard and refresh the page to continue the process.
+That's it, you're all set. Return to the Multisite Ultimate install wizard and refresh the page to continue the process.

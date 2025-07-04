@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Tax\Tax;
 
 /**
- * Checks if WP Multisite WaaS should collect taxes.
+ * Checks if Multisite Ultimate should collect taxes.
  *
  * @since 2.0.0
  * @return bool
@@ -170,7 +170,7 @@ function wu_get_applicable_tax_rates($country, $tax_category = 'default', $state
 			 */
 			if ('state' === $key && '*' !== $state) {
 				if (in_array($state, $value, true)) {
-					$priority += 1;
+					++$priority;
 				} elseif (empty($value) || in_array('*', $value, true)) {
 					$priority += 0.5;
 				}
@@ -184,7 +184,7 @@ function wu_get_applicable_tax_rates($country, $tax_category = 'default', $state
 					/*
 					 * If it's a full match, gives 1 point.
 					 */
-					$priority += 1;
+					++$priority;
 				} elseif (empty($value) || in_array('*', $value, true)) {
 					/*
 					 * If it is a wildcard, award half a point.

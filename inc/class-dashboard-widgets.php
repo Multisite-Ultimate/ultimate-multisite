@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Dashboard Widgets
+ * Multisite Ultimate Dashboard Widgets
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -15,7 +15,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Dashboard Widgets
+ * Multisite Ultimate Dashboard Widgets
  *
  * @since 2.0.0
  */
@@ -87,28 +87,28 @@ class Dashboard_Widgets {
 	 */
 	public function register_network_widgets(): void {
 
-		add_meta_box('wp-ultimo-setup', __('WP Multisite WaaS - First Steps', 'wp-multisite-waas'), [$this, 'output_widget_first_steps'], $this->screen_id, 'normal', 'high');
+		add_meta_box('wp-ultimo-setup', __('Multisite Ultimate - First Steps', 'multisite-ultimate'), [$this, 'output_widget_first_steps'], $this->screen_id, 'normal', 'high');
 
-		add_meta_box('wp-ultimo-summary', __('WP Multisite WaaS - Summary', 'wp-multisite-waas'), [$this, 'output_widget_summary'], $this->screen_id, 'normal', 'high');
+		add_meta_box('wp-ultimo-summary', __('Multisite Ultimate - Summary', 'multisite-ultimate'), [$this, 'output_widget_summary'], $this->screen_id, 'normal', 'high');
 
-		add_meta_box('wp-ultimo-activity-stream', __('WP Multisite WaaS - Activity Stream', 'wp-multisite-waas'), [$this, 'output_widget_activity_stream'], $this->screen_id, 'normal', 'high');
+		add_meta_box('wp-ultimo-activity-stream', __('Multisite Ultimate - Activity Stream', 'multisite-ultimate'), [$this, 'output_widget_activity_stream'], $this->screen_id, 'normal', 'high');
 
 		\WP_Ultimo\UI\Tours::get_instance()->create_tour(
 			'dashboard',
 			[
 				[
 					'id'    => 'welcome',
-					'title' => __('Welcome!', 'wp-multisite-waas'),
+					'title' => __('Welcome!', 'multisite-ultimate'),
 					'text'  => [
-						__('Welcome to your new network dashboard!', 'wp-multisite-waas'),
-						__('You will notice that <strong>WP Multisite WaaS</strong> adds a couple of useful widgets here so you can keep an eye on how your network is doing.', 'wp-multisite-waas'),
+						__('Welcome to your new network dashboard!', 'multisite-ultimate'),
+						__('You will notice that <strong>Multisite Ultimate</strong> adds a couple of useful widgets here so you can keep an eye on how your network is doing.', 'multisite-ultimate'),
 					],
 				],
 				[
 					'id'       => 'finish-your-setup',
-					'title'    => __('Finish your setup', 'wp-multisite-waas'),
+					'title'    => __('Finish your setup', 'multisite-ultimate'),
 					'text'     => [
-						__('You still have a couple of things to do configuration-wise. Check the steps on this list and make sure you complete them all.', 'wp-multisite-waas'),
+						__('You still have a couple of things to do configuration-wise. Check the steps on this list and make sure you complete them all.', 'multisite-ultimate'),
 					],
 					'attachTo' => [
 						'element' => '#wp-ultimo-setup',
@@ -117,9 +117,9 @@ class Dashboard_Widgets {
 				],
 				[
 					'id'       => 'wp-ultimo-menu',
-					'title'    => __('Our home', 'wp-multisite-waas'),
+					'title'    => __('Our home', 'multisite-ultimate'),
 					'text'     => [
-						__('You can always find WP Multisite WaaS settings and other pages under our menu item, here on the Network-level dashboard. 😃', 'wp-multisite-waas'),
+						__('You can always find Multisite Ultimate settings and other pages under our menu item, here on the Network-level dashboard. 😃', 'multisite-ultimate'),
 					],
 					'attachTo' => [
 						'element' => '.toplevel_page_wp-ultimo',
@@ -182,16 +182,16 @@ class Dashboard_Widgets {
 
 		$steps = [
 			'inital-setup'        => [
-				'title'        => __('Initial Setup', 'wp-multisite-waas'),
-				'desc'         => __('Go through the initial Setup Wizard to configure the basic settings of your network.', 'wp-multisite-waas'),
-				'action_label' => __('Finish the Setup Wizard', 'wp-multisite-waas'),
+				'title'        => __('Initial Setup', 'multisite-ultimate'),
+				'desc'         => __('Go through the initial Setup Wizard to configure the basic settings of your network.', 'multisite-ultimate'),
+				'action_label' => __('Finish the Setup Wizard', 'multisite-ultimate'),
 				'action_link'  => wu_network_admin_url('wp-ultimo-setup'),
 				'done'         => wu_string_to_bool($initial_setup_done),
 			],
 			'payment-method'      => [
-				'title'        => __('Payment Method', 'wp-multisite-waas'),
-				'desc'         => __('You will need to configure at least one payment gateway to be able to receive money from your customers.', 'wp-multisite-waas'),
-				'action_label' => __('Add a Payment Method', 'wp-multisite-waas'),
+				'title'        => __('Payment Method', 'multisite-ultimate'),
+				'desc'         => __('You will need to configure at least one payment gateway to be able to receive money from your customers.', 'multisite-ultimate'),
+				'action_label' => __('Add a Payment Method', 'multisite-ultimate'),
 				'action_link'  => wu_network_admin_url(
 					'wp-ultimo-settings',
 					[
@@ -202,10 +202,10 @@ class Dashboard_Widgets {
 			],
 			'your-first-customer' => [
 				'done'         => ! empty(wu_get_customers()),
-				'title'        => __('Your First Customer', 'wp-multisite-waas'),
-				'desc'         => __('Open the link below in an incognito tab and go through your newly created signup form.', 'wp-multisite-waas'),
+				'title'        => __('Your First Customer', 'multisite-ultimate'),
+				'desc'         => __('Open the link below in an incognito tab and go through your newly created signup form.', 'multisite-ultimate'),
 				'action_link'  => wp_registration_url(),
-				'action_label' => __('Create a test Account', 'wp-multisite-waas'),
+				'action_label' => __('Create a test Account', 'multisite-ultimate'),
 			],
 		];
 
@@ -284,7 +284,7 @@ class Dashboard_Widgets {
 			$_GET, // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			[
 				'url'          => 'https://community.wpultimo.com/topics/feed',
-				'title'        => __('Forum Discussions', 'wp-multisite-waas'),
+				'title'        => __('Forum Discussions', 'multisite-ultimate'),
 				'items'        => 3,
 				'show_summary' => 1,
 				'show_author'  => 0,

@@ -1,18 +1,18 @@
 # Sending Emails and Broadcasts (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
 
-WP Multisite WaaS comes with a feature that will allow you to communicate with your customers by sending an email to a targeted user or a group of users as well as sending notices on their admin dashboard to broadcast announcements
+Multisite Ultimate comes with a feature that will allow you to communicate with your customers by sending an email to a targeted user or a group of users as well as sending notices on their admin dashboard to broadcast announcements
 
 ## Add admin notices to your customers’ dashboard with Broadcasts
 
-Using the WP Multisite WaaS broadcast feature, you can add **admin notices** to your user’s subsite admin dashboard.
+Using the Multisite Ultimate broadcast feature, you can add **admin notices** to your user’s subsite admin dashboard.
 
 This is extremely helpful should you need to make an announcement like system maintenance or offering new products or services to your existing users. This is how the admin notice will look on your user’s dashboard.
 
 ![broadcast account](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-UhCB0zV12U.png)
 
-To start an admin notice, go to your network admin dashboard and under the **WP Multisite WaaS** menu, you will find the **Broadcasts** option.
+To start an admin notice, go to your network admin dashboard and under the **Multisite Ultimate** menu, you will find the **Broadcasts** option.
 
 ![broadcast admin](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-UBLRopntNQ.png)
 
@@ -44,9 +44,9 @@ And that is it. The admin notice should immediately show on your user’s dashbo
 
 ## Send emails to your customers
 
-Using the WP Multisite WaaS broadcast feature, you can send an email to your users. You have an option to send the email only to specific users or target a specific user group based on the product or plan they are subscribed under.
+Using the Multisite Ultimate broadcast feature, you can send an email to your users. You have an option to send the email only to specific users or target a specific user group based on the product or plan they are subscribed under.
 
-To start an email broadcast, go to your network admin dashboard and under the WP Multisite WaaS menu, you will find the Broadcast option.
+To start an email broadcast, go to your network admin dashboard and under the Multisite Ultimate menu, you will find the Broadcast option.
 
 ![email admin](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-UBLRopntNQ.png)
 
@@ -74,11 +74,11 @@ And that is how easy it is to send an email to your end-users using the broadcas
 
 ## System emails
 
-System emails in WP Multisite WaaS are those **automatic notifications** sent by the system after certain actions like registration, payment, domain mapping, etc. These emails can be edited or modified from WP Multisite WaaS settings. It also comes with a feature that will allow you to reset and import existing settings from another WP Multisite WaaS installation.
+System emails in Multisite Ultimate are those **automatic notifications** sent by the system after certain actions like registration, payment, domain mapping, etc. These emails can be edited or modified from Multisite Ultimate settings. It also comes with a feature that will allow you to reset and import existing settings from another Multisite Ultimate installation.
 
 ### Resetting & Importing
 
-New WP Multisite WaaS versions, as well as add-ons, can and will register new emails from time to time.
+New Multisite Ultimate versions, as well as add-ons, can and will register new emails from time to time.
 
 To prevent conflicts and other issues, **we won't add the new email templates as System Emails on your install automatically** , unless they are crucial to the correct functioning of a given feature.
 
@@ -86,7 +86,7 @@ However, super admins and agents can import this newly registered emails via the
 
 #### How to import system emails
 
-Go to your WP Multisite WaaS Settings page and head to the **Emails** tab.
+Go to your Multisite Ultimate Settings page and head to the **Emails** tab.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-yIQvxZcJqk.png)
 

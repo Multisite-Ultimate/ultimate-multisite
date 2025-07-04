@@ -4,7 +4,7 @@
  *
  * Abstract class that makes it easy to create new admin pages.
  *
- * Most of WP Multisite WaaS pages are implemented using this class, which means that the filters and hooks
+ * Most of Multisite Ultimate pages are implemented using this class, which means that the filters and hooks
  * listed below can be used to append content to all of our pages at once.
  *
  * @package WP_Ultimo
@@ -140,12 +140,12 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 
 		if ($locked && $this->edit) {
 
-			// translators: %s is the date, using the site format options
-			$message = sprintf(__('This item is locked from editions.<br />This is probably due to a background action being performed (like a transfer between different accounts, for example). You can manually unlock it, but be careful. The lock should be released automatically in %s seconds.', 'wp-multisite-waas'), wu_get_next_queue_run() + 10);
+			// translators: %1$s is the date, using the site format options, %2$s is a <br /> tag.
+			$message = sprintf(esc_html__('This item is locked from editions. %2$s This is probably due to a background action being performed (like a transfer between different accounts, for example). You can manually unlock it, but be careful. The lock should be released automatically in %1$s seconds.', 'multisite-ultimate'), wu_get_next_queue_run() + 10, '<br />');
 
 			$actions = [
 				'preview' => [
-					'title' => __('Unlock', 'wp-multisite-waas'),
+					'title' => esc_html__('Unlock', 'multisite-ultimate'),
 					'url'   => add_query_arg(
 						[
 							'remove-lock'           => 1,
@@ -264,15 +264,15 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 	public function get_labels() {
 
 		$default_labels = [
-			'edit_label'          => __('Edit Object', 'wp-multisite-waas'),
-			'add_new_label'       => __('Add New Object', 'wp-multisite-waas'),
-			'updated_message'     => __('Object updated with success!', 'wp-multisite-waas'),
-			'title_placeholder'   => __('Enter Object Name', 'wp-multisite-waas'),
+			'edit_label'          => __('Edit Object', 'multisite-ultimate'),
+			'add_new_label'       => __('Add New Object', 'multisite-ultimate'),
+			'updated_message'     => __('Object updated with success!', 'multisite-ultimate'),
+			'title_placeholder'   => __('Enter Object Name', 'multisite-ultimate'),
 			'title_description'   => '',
-			'save_button_label'   => __('Save', 'wp-multisite-waas'),
+			'save_button_label'   => __('Save', 'multisite-ultimate'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete', 'wp-multisite-waas'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'wp-multisite-waas'),
+			'delete_button_label' => __('Delete', 'multisite-ultimate'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
 		];
 
 		return apply_filters('wu_edit_admin_page_labels', $default_labels);
@@ -320,7 +320,7 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 		$this->add_info_widget(
 			'info',
 			[
-				'title'    => __('Timestamps', 'wp-multisite-waas'),
+				'title'    => __('Timestamps', 'multisite-ultimate'),
 				'position' => 'side-bottom',
 			]
 		);
@@ -350,7 +350,7 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 		$created_value = call_user_func([$this->get_object(), "get_$created_key"]);
 
 		$atts['fields'][ $created_key ] = [
-			'title'         => __('Created at', 'wp-multisite-waas'),
+			'title'         => __('Created at', 'multisite-ultimate'),
 			'type'          => 'text-display',
 			'date'          => true,
 			'display_value' => $this->edit ? $created_value : false,
@@ -367,10 +367,10 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 
 		if ($this->edit && true === $show_modified) {
 			$atts['fields']['date_modified'] = [
-				'title'         => __('Last Modified at', 'wp-multisite-waas'),
+				'title'         => __('Last Modified at', 'multisite-ultimate'),
 				'type'          => 'text-display',
 				'date'          => true,
-				'display_value' => $this->edit ? $this->get_object()->get_date_modified() : __('No date', 'wp-multisite-waas'),
+				'display_value' => $this->edit ? $this->get_object()->get_date_modified() : __('No date', 'multisite-ultimate'),
 				'value'         => $this->get_object()->get_date_modified(),
 				'placeholder'   => '2020-04-04 12:00:00',
 				'html_attr'     => [
@@ -401,7 +401,7 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 				'widget_id'    => $id,
 				'before'       => '',
 				'after'        => '',
-				'title'        => __('List Table', 'wp-multisite-waas'),
+				'title'        => __('List Table', 'multisite-ultimate'),
 				'position'     => 'advanced',
 				'screen'       => get_current_screen(),
 				'page'         => $this,
@@ -466,7 +466,7 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 				'widget_id'             => $id,
 				'before'                => '',
 				'after'                 => '',
-				'title'                 => __('Fields', 'wp-multisite-waas'),
+				'title'                 => __('Fields', 'multisite-ultimate'),
 				'position'              => 'side',
 				'screen'                => get_current_screen(),
 				'fields'                => [],
@@ -484,7 +484,7 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 				if (wu_get_isset($atts['html_attr'], 'data-wu-app')) {
 					$atts['fields']['loading'] = [
 						'type'              => 'note',
-						'desc'              => sprintf('<div class="wu-block wu-text-center wu-blinking-animation wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">%s</div>', __('Loading...', 'wp-multisite-waas')),
+						'desc'              => sprintf('<div class="wu-block wu-text-center wu-blinking-animation wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">%s</div>', __('Loading...', 'multisite-ultimate')),
 						'wrapper_html_attr' => [
 							'v-if' => 0,
 						],
@@ -535,7 +535,7 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 				'widget_id' => $id,
 				'before'    => '',
 				'after'     => '',
-				'title'     => __('Tabs', 'wp-multisite-waas'),
+				'title'     => __('Tabs', 'multisite-ultimate'),
 				'position'  => 'advanced',
 				'screen'    => get_current_screen(),
 				'sections'  => [],
@@ -651,7 +651,7 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 				'widget_id' => $id,
 				'before'    => '',
 				'after'     => '',
-				'title'     => __('Fields', 'wp-multisite-waas'),
+				'title'     => __('Fields', 'multisite-ultimate'),
 				'screen'    => get_current_screen(),
 				'position'  => 'side',
 				'display'   => '__return_empty_string',
@@ -674,7 +674,7 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 
 		$labels = $this->get_labels();
 
-		$atts['title'] = __('Save', 'wp-multisite-waas');
+		$atts['title'] = __('Save', 'multisite-ultimate');
 
 		/**
 		 * Adds Submit Button
@@ -694,7 +694,7 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 		}
 
 		if ($this->get_object() && $this->edit && $this->get_object()->is_locked()) {
-			$atts['fields']['submit_save']['title']                 = __('Locked', 'wp-multisite-waas');
+			$atts['fields']['submit_save']['title']                 = __('Locked', 'multisite-ultimate');
 			$atts['fields']['submit_save']['value']                 = 'none';
 			$atts['fields']['submit_save']['html_attr']['disabled'] = 'disabled';
 		}
@@ -716,7 +716,7 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 		$labels = $this->get_labels();
 
 		$atts_default = [
-			'title'    => __('Delete', 'wp-multisite-waas'),
+			'title'    => __('Delete', 'multisite-ultimate'),
 			'position' => 'side-bottom',
 		];
 		$atts         = array_merge($atts_default, $atts);
@@ -828,11 +828,11 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 		 */
 		$_POST['active'] = (bool) wu_request('active', false);
 
-		$object->attributes($_POST);
+		// Nonce handled in calling method.
+		$object->attributes($_POST); // phpcs:ignore WordPress.Security.NonceVerification
 
 		if (method_exists($object, 'handle_limitations')) {
-			$object->handle_limitations($_POST); // @phpstan-ignore-line
-
+			$object->handle_limitations($_POST); // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
 		$save = $object->save();

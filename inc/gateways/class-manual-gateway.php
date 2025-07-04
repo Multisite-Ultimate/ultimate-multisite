@@ -6,7 +6,7 @@
  * It doesn't do anything with the payments,
  * as they need to be manually approved by the super admin
  * but it serves as a good example of how
- * to implement a custom gateway for WP Multisite WaaS.
+ * to implement a custom gateway for Multisite Ultimate.
  *
  * @package WP_Ultimo
  * @subpackage Gateways
@@ -87,8 +87,8 @@ class Manual_Gateway extends Base_Gateway {
 			'payment-gateways',
 			'manual_header',
 			[
-				'title'           => __('Manual', 'wp-multisite-waas'),
-				'desc'            => __('Use the settings section below to configure the manual payment method. This method allows your customers to manually pay for their memberships, but those payments require manual confirmation on your part.', 'wp-multisite-waas'),
+				'title'           => __('Manual', 'multisite-ultimate'),
+				'desc'            => __('Use the settings section below to configure the manual payment method. This method allows your customers to manually pay for their memberships, but those payments require manual confirmation on your part.', 'multisite-ultimate'),
 				'type'            => 'header',
 				'show_as_submenu' => true,
 				'require'         => [
@@ -101,11 +101,11 @@ class Manual_Gateway extends Base_Gateway {
 			'payment-gateways',
 			'manual_payment_instructions',
 			[
-				'title'      => __('Payment Instructions', 'wp-multisite-waas'),
-				'desc'       => __('This instructions will be shown to the customer on the thank you page, as well as be sent via email.', 'wp-multisite-waas'),
+				'title'      => __('Payment Instructions', 'multisite-ultimate'),
+				'desc'       => __('This instructions will be shown to the customer on the thank you page, as well as be sent via email.', 'multisite-ultimate'),
 				'type'       => 'wp_editor',
 				'allow_html' => true,
-				'default'    => __('Payment instructions here.', 'wp-multisite-waas'),
+				'default'    => __('Payment instructions here.', 'multisite-ultimate'),
 				'require'    => [
 					'active_gateways' => 'manual',
 				],
@@ -141,9 +141,9 @@ class Manual_Gateway extends Base_Gateway {
 	public function get_amount_update_message($to_customer = false) {
 
 		if ($to_customer) {
-			$message = __('You will receive a updated invoice on the next billing cycle.', 'wp-multisite-waas');
+			$message = __('You will receive a updated invoice on the next billing cycle.', 'multisite-ultimate');
 		} else {
-			$message = __('The customer will receive a updated invoice on the next billing cycle.', 'wp-multisite-waas');
+			$message = __('The customer will receive a updated invoice on the next billing cycle.', 'multisite-ultimate');
 		}
 
 		return $message;
@@ -212,7 +212,7 @@ class Manual_Gateway extends Base_Gateway {
 		 *
 		 * If you wish to stop the process at any point
 		 * due to some error, API failure or such,
-		 * simply throw a exception and WP Multisite WaaS will
+		 * simply throw a exception and Multisite Ultimate will
 		 * catch it and rollback any changes.
 		 */
 		if ('new' === $type) {
@@ -273,7 +273,7 @@ class Manual_Gateway extends Base_Gateway {
 		 * for a possible wp_error.
 		 *
 		 * If that happens, we need to throw an exception
-		 * WP Multisite WaaS will capture that exception and
+		 * Multisite Ultimate will capture that exception and
 		 * rollback database changes for us,
 		 * to avoid problems with data integrity.
 		 *
@@ -282,20 +282,23 @@ class Manual_Gateway extends Base_Gateway {
 		 * will be undone, including the swap above.
 		 */
 		if (is_wp_error($status)) {
-			throw new \Exception($status->get_error_message(), $status->get_error_code());
+			throw new \Exception(esc_html($status->get_error_message()), esc_html($status->get_error_code()));
 		}
 
 		// In case of trials with payment method
 		if ($payment->get_total() === 0.00) {
 			$payment->set_status(Payment_Status::COMPLETED);
-
 			$payment->save();
+			if ($cart->has_trial()) {
+				$membership->set_status(Membership_Status::TRIALING);
+				$membership->save();
+			}
 		}
 
 		/*
 		 * You don't need to return anything,
 		 * but if you return false from this method,
-		 * WP Multisite WaaS will assume that you want to handle redirection
+		 * Multisite Ultimate will assume that you want to handle redirection
 		 * and such by yourself.
 		 *
 		 * This can be useful for some gateways that require
@@ -337,7 +340,7 @@ class Manual_Gateway extends Base_Gateway {
 		$status = $payment->refund($amount);
 
 		if (is_wp_error($status)) {
-			throw new \Exception($status->get_error_code(), $status->get_error_message());
+			throw new \Exception(esc_html($status->get_error_code()), esc_html($status->get_error_message()));
 		}
 	}
 	/**
@@ -352,7 +355,7 @@ class Manual_Gateway extends Base_Gateway {
 	 */
 	public function fields() {
 
-		$message = __('After you finish signing up, we will send you an email with instructions to finalize the payment. Your account will be pending until the payment is finalized and confirmed.', 'wp-multisite-waas');
+		$message = __('After you finish signing up, we will send you an email with instructions to finalize the payment. Your account will be pending until the payment is finalized and confirmed.', 'multisite-ultimate');
 
 		return sprintf('<p v-if="!order.has_trial" class="wu-p-4 wu-bg-yellow-200">%s</p>', $message);
 	}
@@ -385,7 +388,7 @@ class Manual_Gateway extends Base_Gateway {
 
 					<h4 class="wu-m-0 <?php echo wu_env_picker('', 'wu-widget-title'); ?>">
 
-						<?php esc_html_e('Instructions for Payment', 'wp-multisite-waas'); ?>
+						<?php esc_html_e('Instructions for Payment', 'multisite-ultimate'); ?>
 
 					</h4>
 

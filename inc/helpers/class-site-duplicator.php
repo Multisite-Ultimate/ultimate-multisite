@@ -56,7 +56,7 @@ class Site_Duplicator {
 		if (is_wp_error($duplicate_site)) {
 
 			// translators: %s id the template site id and %s is the error message returned.
-			$message = sprintf(__('Attempt to duplicate site %1$d failed: %2$s', 'wp-multisite-waas'), $from_site_id, $duplicate_site->get_error_message());
+			$message = sprintf(__('Attempt to duplicate site %1$d failed: %2$s', 'multisite-ultimate'), $from_site_id, $duplicate_site->get_error_message());
 
 			wu_log_add('site-duplication', $message, LogLevel::ERROR);
 
@@ -64,7 +64,7 @@ class Site_Duplicator {
 		}
 
 		// translators: %1$d is the ID of the site template used, and %2$d is the id of the new site.
-		$message = sprintf(__('Attempt to duplicate site %1$d successful - New site id: %2$d', 'wp-multisite-waas'), $from_site_id, $duplicate_site);
+		$message = sprintf(__('Attempt to duplicate site %1$d successful - New site id: %2$d', 'multisite-ultimate'), $from_site_id, $duplicate_site);
 
 		wu_log_add('site-duplication', $message);
 
@@ -108,7 +108,7 @@ class Site_Duplicator {
 		if (is_wp_error($duplicate_site_id)) {
 
 			// translators: %s id the template site id and %s is the error message returned.
-			$message = sprintf(__('Attempt to override site %1$d with data from site %2$d failed: %3$s', 'wp-multisite-waas'), $from_site_id, $to_site_id, $duplicate_site_id->get_error_message());
+			$message = sprintf(__('Attempt to override site %1$d with data from site %2$d failed: %3$s', 'multisite-ultimate'), $from_site_id, $to_site_id, $duplicate_site_id->get_error_message());
 
 			wu_log_add('site-duplication', $message, LogLevel::ERROR);
 
@@ -132,7 +132,7 @@ class Site_Duplicator {
 		if ($saved) {
 
 			// translators: %1$d is the ID of the site template used, and %2$d is the ID of the overriden site.
-			$message = sprintf(__('Attempt to override site %1$d with data from site %2$d successful.', 'wp-multisite-waas'), $from_site_id, $duplicate_site_id);
+			$message = sprintf(__('Attempt to override site %1$d with data from site %2$d successful.', 'multisite-ultimate'), $from_site_id, $duplicate_site_id);
 
 			wu_log_add('site-duplication', $message);
 
@@ -188,7 +188,7 @@ class Site_Duplicator {
 		$wpdb->hide_errors();
 
 		if ( ! $args->from_site_id) {
-			return new \WP_Error('from_site_id_required', __('You need to provide a valid site to duplicate.', 'wp-multisite-waas'));
+			return new \WP_Error('from_site_id_required', __('You need to provide a valid site to duplicate.', 'multisite-ultimate'));
 		}
 
 		$user_id = ! empty($args->user_id) ? $args->user_id : self::create_admin($args->email, $site_domain);
@@ -210,7 +210,7 @@ class Site_Duplicator {
 		}
 
 		if ( ! is_numeric($args->to_site_id)) {
-			return new \WP_Error('site_creation_failed', __('An attempt to create a new site failed.', 'wp-multisite-waas'));
+			return new \WP_Error('site_creation_failed', __('An attempt to create a new site failed.', 'multisite-ultimate'));
 		}
 
 		if ( ! is_super_admin($user_id) && ! get_user_option('primary_blog', $user_id)) {
@@ -274,7 +274,7 @@ class Site_Duplicator {
 			$user_id = wpmu_create_user($domain, $password, $email);
 
 			if (false === $user_id) {
-				return new \WP_Error('user_creation_error', __('We were not able to create a new admin user for the site being duplicated.', 'wp-multisite-waas'));
+				return new \WP_Error('user_creation_error', __('We were not able to create a new admin user for the site being duplicated.', 'multisite-ultimate'));
 			} else {
 				wp_new_user_notification($user_id);
 			}

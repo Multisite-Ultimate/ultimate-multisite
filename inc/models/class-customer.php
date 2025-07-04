@@ -103,7 +103,7 @@ class Customer extends Base_Model {
 	 * @since 2.0.0
 	 * @var string
 	 */
-	protected $signup_form;
+	protected $signup_form = 'by-admin';
 
 	/**
 	 * Extra information about this customer.
@@ -128,16 +128,6 @@ class Customer extends Base_Model {
 	 * @var string
 	 */
 	public $_user;
-
-	/**
-	 * Save (create or update) the model on the database.
-	 *
-	 * @since 2.0.0
-	 */
-	public function save() {
-
-		return parent::save();
-	}
 
 	/**
 	 * Set the validation rules for this particular model.
@@ -211,7 +201,7 @@ class Customer extends Base_Model {
 		$user = $this->get_user();
 
 		if (empty($user)) {
-			return __('User Deleted', 'wp-multisite-waas');
+			return __('User Deleted', 'multisite-ultimate');
 		}
 
 		return $user->display_name;
@@ -267,7 +257,7 @@ class Customer extends Base_Model {
 		$user = $this->get_user();
 
 		if (empty($user)) {
-			return __('none', 'wp-multisite-waas');
+			return __('none', 'multisite-ultimate');
 		}
 
 		return $user->user_login;
@@ -284,7 +274,7 @@ class Customer extends Base_Model {
 		$user = $this->get_user();
 
 		if (empty($user)) {
-			return __('none', 'wp-multisite-waas');
+			return __('none', 'multisite-ultimate');
 		}
 
 		return $user->user_email;
@@ -598,7 +588,7 @@ class Customer extends Base_Model {
 		$query_args = array_merge(
 			$query_args,
 			[
-				'meta_query' => [
+				'meta_query' => [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 					'customer_id' => [
 						'key'   => 'wu_customer_id',
 						'value' => $this->get_id(),
@@ -748,7 +738,7 @@ class Customer extends Base_Model {
 		static $sum;
 
 		if (null === $sum) {
-			$sum = $wpdb->get_var(
+			$sum = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prepare(
 					"SELECT SUM(total) FROM {$wpdb->base_prefix}wu_payments WHERE parent_id = 0 AND customer_id = %d",
 					$this->get_id()

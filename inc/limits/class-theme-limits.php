@@ -57,14 +57,14 @@ class Theme_Limits {
 		 * We need to bail if we're inside the WP CLI context and the
 		 * `skip-plugins` flag is present.
 		 *
-		 * This is due to the fact that without WP Multisite WaaS being loaded,
+		 * This is due to the fact that without Multisite Ultimate being loaded,
 		 * the functions and classes we'll need to perform any kind of proper
 		 * checks won't be available. To validate if we're being loaded or not,
 		 * we check for the function `wu_get_product`.
 		 *
 		 * @since 2.1.0
 		 */
-		if (wu_cli_is_plugin_skipped('wp-ultimo')) {
+		if (wu_cli_is_plugin_skipped('multisite-ultimate')) {
 			return;
 		}
 
@@ -126,7 +126,7 @@ class Theme_Limits {
 		if ($theme_limitations->allowed($new_theme, 'not_available')) {
 			$response = [
 				'code'    => 'not-available',
-				'message' => __('This theme is not available on your current plan.', 'wp-multisite-waas'),
+				'message' => __('This theme is not available on your current plan.', 'multisite-ultimate'),
 			];
 
 			wp_send_json($response, 'not-available');
@@ -168,7 +168,7 @@ class Theme_Limits {
 		}
 
 		$upgrade_button = wu_generate_upgrade_to_unlock_button(
-			__('Upgrade to unlock', 'wp-multisite-waas'),
+			__('Upgrade to unlock', 'multisite-ultimate'),
 			[
 				'module'  => 'themes',
 				'type'    => 'EXTENSION',

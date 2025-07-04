@@ -54,7 +54,7 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Order Summary', 'wp-multisite-waas');
+		return __('Order Summary', 'multisite-ultimate');
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a summary table with prices, key subscription dates, discounts, and taxes.', 'wp-multisite-waas');
+		return __('Adds a summary table with prices, key subscription dates, discounts, and taxes.', 'multisite-ultimate');
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a summary table with prices, key subscription dates, discounts, and taxes.', 'wp-multisite-waas');
+		return __('Adds a summary table with prices, key subscription dates, discounts, and taxes.', 'multisite-ultimate');
 	}
 
 	/**
@@ -163,11 +163,11 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 
 		$editor_fields['table_columns'] = [
 			'type'    => 'select',
-			'title'   => __('Table Columns', 'wp-multisite-waas'),
-			'desc'    => __('"Simplified" will condense all discount and tax info into separate rows to keep the table with only two columns. "Display All" adds a discounts and taxes column to each product row.', 'wp-multisite-waas'),
+			'title'   => __('Table Columns', 'multisite-ultimate'),
+			'desc'    => __('"Simplified" will condense all discount and tax info into separate rows to keep the table with only two columns. "Display All" adds a discounts and taxes column to each product row.', 'multisite-ultimate'),
 			'options' => [
-				'simple' => __('Simplified', 'wp-multisite-waas'),
-				'full'   => __('Display All', 'wp-multisite-waas'),
+				'simple' => __('Simplified', 'multisite-ultimate'),
+				'full'   => __('Display All', 'multisite-ultimate'),
 			],
 		];
 
@@ -177,8 +177,8 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 			'fields' => [
 				'order_summary_template' => [
 					'type'            => 'select',
-					'title'           => __('Layout', 'wp-multisite-waas'),
-					'placeholder'     => __('Select your Layout', 'wp-multisite-waas'),
+					'title'           => __('Layout', 'multisite-ultimate'),
+					'placeholder'     => __('Select your Layout', 'multisite-ultimate'),
 					'options'         => [$this, 'get_templates'],
 					'wrapper_classes' => 'wu-flex-grow',
 					'html_attr'       => [
@@ -194,7 +194,7 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 		// 'order'           => 99,
 		// 'wrapper_classes' => 'sm:wu-p-0 sm:wu-block',
 		// 'classes'         => '',
-		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized order summary templates?<br><a target="_blank" class="wu-no-underline" href="https://help.wpultimo.com/article/343-customize-your-checkout-flow-using-field-templates">See how you can do that here</a>.', 'wp-multisite-waas')),
+		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized order summary templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'multisite-ultimate')),
 		// );
 
 		return $editor_fields;
@@ -221,7 +221,7 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('order_summary', $attributes['order_summary_template']);
 
-		$content = $template_class ? $template_class->render_container($attributes) : __('Template does not exist.', 'wp-multisite-waas');
+		$content = $template_class ? $template_class->render_container($attributes) : __('Template does not exist.', 'multisite-ultimate');
 
 		$checkout_fields[ $attributes['id'] ] = [
 			'type'              => 'note',

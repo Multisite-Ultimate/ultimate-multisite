@@ -62,7 +62,7 @@ class Customer_Manager extends Base_Manager {
 			function () {
 				Event_Manager::register_model_events(
 					'customer',
-					__('Customer', 'wp-multisite-waas'),
+					__('Customer', 'multisite-ultimate'),
 					['created', 'updated']
 				);
 			}
@@ -89,7 +89,7 @@ class Customer_Manager extends Base_Manager {
 	public function handle_resend_verification_email(): void {
 
 		if ( ! check_ajax_referer('wu_resend_verification_email_nonce', false, false)) {
-			wp_send_json_error(new \WP_Error('not-allowed', __('Error: you are not allowed to perform this action.', 'wp-multisite-waas')));
+			wp_send_json_error(new \WP_Error('not-allowed', __('Error: you are not allowed to perform this action.', 'multisite-ultimate')));
 
 			exit;
 		}
@@ -97,7 +97,7 @@ class Customer_Manager extends Base_Manager {
 		$customer = wu_get_current_customer();
 
 		if ( ! $customer) {
-			wp_send_json_error(new \WP_Error('customer-not-found', __('Error: customer not found.', 'wp-multisite-waas')));
+			wp_send_json_error(new \WP_Error('customer-not-found', __('Error: customer not found.', 'multisite-ultimate')));
 
 			exit;
 		}
@@ -200,7 +200,7 @@ class Customer_Manager extends Base_Manager {
 			wp_die(
 				sprintf(
 					/* translators: the placeholder is the login URL */
-					wp_kses_post(__('You must be authenticated in order to verify your email address. <a href=%s>Click here</a> to access your account.', 'wp-multisite-waas')),
+					wp_kses_post(__('You must be authenticated in order to verify your email address. <a href=%s>Click here</a> to access your account.', 'multisite-ultimate')),
 					esc_attr(
 						wp_login_url(
 							add_query_arg(
@@ -216,31 +216,31 @@ class Customer_Manager extends Base_Manager {
 		}
 
 		if ( ! $customer_to_verify) {
-			wp_die(wp_kses_post(__('<strong>ERROR:</strong> Invalid verification key.', 'wp-multisite-waas')));
+			wp_die(wp_kses_post(__('<strong>ERROR:</strong> Invalid verification key.', 'multisite-ultimate')));
 		}
 
 		$current_customer = wu_get_current_customer();
 
 		if ( ! $current_customer) {
-			wp_die(wp_kses_post(__('<strong>Error:</strong> Invalid verification key.', 'wp-multisite-waas')));
+			wp_die(wp_kses_post(__('<strong>Error:</strong> Invalid verification key.', 'multisite-ultimate')));
 		}
 
 		if ($current_customer->get_id() !== $customer_to_verify->get_id()) {
-			wp_die(esc_html__('Invalid verification key.', 'wp-multisite-waas'));
+			wp_die(esc_html__('Invalid verification key.', 'multisite-ultimate'));
 		}
 
 		if ($customer_to_verify->get_email_verification() !== 'pending') {
-			wp_die(esc_html__('Invalid verification key.', 'wp-multisite-waas'));
+			wp_die(esc_html__('Invalid verification key.', 'multisite-ultimate'));
 		}
 
 		$key = $customer_to_verify->get_verification_key();
 
 		if ( ! $key) {
-			wp_die(wp_kses_post(__('<strong>Error:</strong> Invalid verification key.', 'wp-multisite-waas')));
+			wp_die(wp_kses_post(__('<strong>Error:</strong> Invalid verification key.', 'multisite-ultimate')));
 		}
 
 		if ($key !== $email_verify_key) {
-			wp_die(esc_html__('Invalid verification key.', 'wp-multisite-waas'));
+			wp_die(esc_html__('Invalid verification key.', 'multisite-ultimate'));
 		}
 
 		/*

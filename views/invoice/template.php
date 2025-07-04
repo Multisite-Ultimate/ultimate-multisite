@@ -139,23 +139,20 @@ $has_tax_included = false;
 					<tr>
 						<td class="title">
 							<?php if ($use_custom_logo && $custom_logo) : ?>
-
 								<?php echo wp_get_attachment_image($custom_logo, 'full', false, array('style' => 'width: 100px; height: auto;')); ?>
-
 							<?php else : ?>
-
 								<img width="100" src="<?php echo esc_attr($logo_url); ?>" alt="<?php echo esc_attr(get_network_option(null, 'site_name')); ?>">
-								
 							<?php endif; ?>
 						</td>
 
 						<td>
-							<strong><?php esc_html_e('Invoice #', 'wp-multisite-waas'); ?></strong><br>
+							<strong><?php esc_html_e('Invoice #', 'multisite-ultimate'); ?></strong><br>
 							<?php echo esc_html($payment->get_invoice_number()); ?>
 							<br>
-							<?php echo esc_html(sprintf(esc_html__('Created: %s', 'wp-multisite-waas'), date_i18n(get_option('date_format'), strtotime($payment->get_date_created())))); ?><br>
+							<?php // translators: %s is the payment creation date ?>
+							<?php echo esc_html(sprintf(esc_html__('Created: %s', 'multisite-ultimate'), date_i18n(get_option('date_format'), strtotime($payment->get_date_created())))); ?><br>
 
-							<?php esc_html_e('Due on Receipt', 'wp-multisite-waas'); ?><br>
+							<?php esc_html_e('Due on Receipt', 'multisite-ultimate'); ?><br>
 						</td>
 					</tr>
 				</table>
@@ -185,23 +182,22 @@ $has_tax_included = false;
 							/**
 							 * Displays the company address.
 							 */
-							echo nl2br(esc_html($company_address), array('br' => array()));
+							echo nl2br(esc_html($company_address));
 
 							?>
 						</td>
 
 						<td>
-							<strong><?php esc_html_e('Bill to', 'wp-multisite-waas'); ?></strong>
+							<strong><?php esc_html_e('Bill to', 'multisite-ultimate'); ?></strong>
 							<br>
 							<?php
 
 							/**
 							 * Displays the clients address.
 							 */
-							echo nl2br(esc_html(implode(PHP_EOL, (array) $billing_address)), array('br' => array()));
+							echo nl2br(esc_html(implode(PHP_EOL, (array) $billing_address)));
 
 							?>
-						   
 						</td>
 					</tr>
 				</table>
@@ -211,23 +207,23 @@ $has_tax_included = false;
 		<tr class="heading">
 
 			<th style="text-align: left;">
-				<?php esc_html_e('Item', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Item', 'multisite-ultimate'); ?>
 			</th>
 
 			<th style="width: 17%;">
-				<?php esc_html_e('Price', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Price', 'multisite-ultimate'); ?>
 			</th>
 
 			<th style="width: 17%;">
-				<?php esc_html_e('Discount', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Discount', 'multisite-ultimate'); ?>
 			</th>
 
 			<th style="width: 17%;">
-				<?php esc_html_e('Tax', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Tax', 'multisite-ultimate'); ?>
 			</th>
 
 			<th style="width: 17%;">
-				<?php esc_html_e('Total', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Total', 'multisite-ultimate'); ?>
 			</th>
 
 		</tr>
@@ -239,7 +235,7 @@ $has_tax_included = false;
 				<td>
 					<span class="font-weight: medium;"><?php echo esc_html($line_item->get_title()); ?></span>
 					<br>
-					<small><?php echo esc_html($line_item->get_description()); ?></small>
+					<small><?php echo wp_kses($line_item->get_description(), wu_kses_allowed_html()); ?></small>
 				</td>
 
 				<td style="text-align: right;">
@@ -271,11 +267,13 @@ $has_tax_included = false;
 		<tr class="total">
 			<?php if ($has_tax_included) : ?>
 				<td style="text-align: left; font-weight: normal;">
-					<small>* <?php esc_html_e('Tax included in price.', 'wp-multisite-waas'); ?></small>
+					<small>* <?php esc_html_e('Tax included in price.', 'multisite-ultimate'); ?></small>
 				</td>
 			<?php endif; ?>
 			<td colspan='5'>
-				<?php printf(esc_html__('Total: %s', 'wp-multisite-waas'), esc_html(wu_format_currency($payment->get_total(), $payment->get_currency()))); ?>
+
+				<?php // translators: %s is the total amount in currency format. ?>
+				<?php printf(esc_html__('Total: %s', 'multisite-ultimate'), esc_html(wu_format_currency($payment->get_total(), $payment->get_currency()))); ?>
 			</td>
 		</tr>
 
@@ -283,7 +281,7 @@ $has_tax_included = false;
 
 			<tr class="heading">
 				<th colspan="5" style="text-align: left;">
-					<?php esc_html_e('Payment Method', 'wp-multisite-waas'); ?>
+					<?php esc_html_e('Payment Method', 'multisite-ultimate'); ?>
 				</th>
 			</tr>
 

@@ -64,7 +64,7 @@ class Clean_Steps_Field_Template extends Base_Field_Template {
 	 */
 	public function get_title() {
 
-		return __('Clean', 'wp-multisite-waas');
+		return __('Clean', 'multisite-ultimate');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Clean_Steps_Field_Template extends Base_Field_Template {
 	 */
 	public function get_description() {
 
-		return __('A simple layout with minimal styling, just enough to make it usable out-of-the-box.', 'wp-multisite-waas');
+		return __('A simple layout with minimal styling, just enough to make it usable out-of-the-box.', 'multisite-ultimate');
 	}
 
 	/**

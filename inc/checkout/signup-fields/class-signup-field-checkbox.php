@@ -69,7 +69,7 @@ class Signup_Field_Checkbox extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Checkbox', 'wp-multisite-waas');
+		return __('Checkbox', 'multisite-ultimate');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Signup_Field_Checkbox extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout box that can be checked by the customer.', 'wp-multisite-waas');
+		return __('Adds a checkout box that can be checked by the customer.', 'multisite-ultimate');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Signup_Field_Checkbox extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a checkout box that can be checked by the customer.', 'wp-multisite-waas');
+		return __('Adds a checkout box that can be checked by the customer.', 'multisite-ultimate');
 	}
 
 	/**
@@ -166,8 +166,8 @@ class Signup_Field_Checkbox extends Base_Signup_Field {
 		return [
 			'default_state' => [
 				'type'  => 'toggle',
-				'title' => __('Default State', 'wp-multisite-waas'),
-				'desc'  => __('Use the toggle to the set the default state of the checkbox.', 'wp-multisite-waas'),
+				'title' => __('Default State', 'multisite-ultimate'),
+				'desc'  => __('Use the toggle to the set the default state of the checkbox.', 'multisite-ultimate'),
 				'value' => 0,
 				'order' => 12,
 			],
@@ -201,7 +201,7 @@ class Signup_Field_Checkbox extends Base_Signup_Field {
 
 		$value = $this->get_value();
 
-		if ('' !== $value && (bool) $value === true) {
+		if ('' !== $value && true === (bool) $value) {
 			$checkout_fields[ $attributes['id'] ]['html_attr']['checked'] = 'checked';
 		}
 

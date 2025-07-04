@@ -38,7 +38,7 @@ trait WP_Ultimo_Subscription_Deprecated {
 		 *
 		 * @since 2.0.0
 		 */
-		_doing_it_wrong($key, __('Membership keys should not be accessed directly', 'wp-multisite-waas'), '2.0.0');
+		_doing_it_wrong(esc_html($key), esc_html__('Membership keys should not be accessed directly', 'multisite-ultimate'), '2.0.0');
 
 		return $value;
 	}

@@ -7,7 +7,7 @@
 ?>
 <div class="wu-styling <?php echo esc_attr($className); ?>">
 
-	<div class="<?php echo wu_env_picker('', 'wu-mt-4'); ?>">
+	<div class="<?php echo esc_attr(wu_env_picker('', 'wu-mt-4')); ?>">
 
 	<?php if ($display_breadcrumbs) : ?>
 
@@ -16,8 +16,8 @@
 		<div class="wu-bg-gray-100">
 
 			<nav 
-			class="wu-border wu-rounded wu-border-solid wu-flex wu-px-4 <?php echo wu_env_picker('wu-border-gray-300', 'wu-border-gray-400'); ?>" 
-			aria-label="<?php esc_attr_e('Breadcrumb', 'wp-multisite-waas'); ?>"
+			class="wu-border wu-rounded wu-border-solid wu-flex wu-px-4 <?php echo esc_attr(wu_env_picker('wu-border-gray-300', 'wu-border-gray-400')); ?>" 
+			aria-label="<?php esc_attr_e('Breadcrumb', 'multisite-ultimate'); ?>"
 			>
 
 			<ol class="wu-p-0 wu-m-0 wu-w-full wu-mx-auto wu-flex">
@@ -30,7 +30,7 @@
 					<path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
 					</svg>
 
-					<span class="screen-reader-text"><?php _e('Home'); ?></span>
+					<span class="screen-reader-text"><?php esc_html_e('Home', 'multisite-ultimate'); ?></span>
 
 				</div>
 
@@ -42,7 +42,7 @@
 					<path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
 					</svg>
 					<a href="<?php echo esc_url($my_sites_url); ?>" class="wu-mx-4 wu-text-sm wu-font-medium wu-text-gray-500 hover:wu-text-gray-700 wu-no-underline">
-						<?php esc_html_e('Your Sites', 'wp-multisite-waas'); ?>
+						<?php esc_html_e('Your Sites', 'multisite-ultimate'); ?>
 					</a>
 				</div>
 				</li>
@@ -52,7 +52,7 @@
 					<path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
 					</svg>
 					<span class="wu-mx-4 wu-text-sm wu-font-medium wu-text-gray-700 hover:wu-text-gray-700">
-						<?php echo $current_site->get_title(); ?>
+						<?php echo esc_html($current_site->get_title()); ?>
 					</span>
 				</div>
 				</li>
@@ -66,7 +66,7 @@
 
 	<?php endif; ?>
 
-	<div class="wu-py-4 <?php echo wu_env_picker('', ''); ?>">
+	<div class="wu-py-4 <?php echo esc_attr(wu_env_picker('', '')); ?>">
 
 		<div class="wu-relative md:wu-flex">
 
@@ -76,9 +76,10 @@
 
 			<img 
 				style="max-width: <?php echo esc_attr($screenshot_size); ?>px;"
-				class="wu-w-full wu-rounded wu-border wu-border-solid <?php echo wu_env_picker('wu-border-gray-300', 'wu-border-gray-400'); ?>" 
-				src="<?php echo $current_site->get_featured_image(); ?>" 
-				alt="<?php printf(esc_attr__('Site Image: %s', 'wp-multisite-waas'), $current_site->get_title()); ?>"
+				class="wu-w-full wu-rounded wu-border wu-border-solid <?php echo esc_attr(wu_env_picker('wu-border-gray-300', 'wu-border-gray-400')); ?>" 
+				src="<?php echo esc_attr($current_site->get_featured_image()); ?>"
+				<?php // translators: %s: Site Title ?>
+				alt="<?php printf(esc_attr__('Site Image: %s', 'multisite-ultimate'), esc_attr($current_site->get_title())); ?>"
 			>
 
 			</div>
@@ -91,13 +92,13 @@
 
 			<span class="wu-text-3xl wu-font-bold wu-text-gray-900 sm:wu-text-4xl wu-block wu-leading-none">
 
-				<?php echo $current_site->get_title(); ?>
+				<?php echo esc_html($current_site->get_title()); ?>
 
 			</span>
 
 			<span class="wu-text-sm wu-text-gray-600 wu-block wu-my-3 wu-leading-none">
 
-				<?php echo $current_site->get_active_site_url(); ?>
+				<?php echo esc_html($current_site->get_active_site_url()); ?>
 
 			</span>
 
@@ -105,14 +106,14 @@
 
 				<span class="wu-text-sm wu-text-gray-700 wu-my-5 wu-block wu-leading-none">
 
-				<?php echo $current_site->get_description(); ?>
+				<?php echo esc_html($current_site->get_description()); ?>
 
 				</span>
 
 			<?php endif; ?>
 
 			<!-- Site Actions -->
-			<ul class="wu-list-none wu-p-0 wu-m-0 <?php echo wu_env_picker('', 'wu-mt-4'); ?>">
+			<ul class="wu-list-none wu-p-0 wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-mt-4')); ?>">
 
 				<?php foreach ($actions as $action) : ?>
 
@@ -126,7 +127,7 @@
 
 					<span class="<?php echo esc_attr($action['icon_classes']); ?>"></span>
 
-					<?php echo $action['label']; ?>
+					<?php echo esc_html($action['label']); ?>
 
 					</a>
 

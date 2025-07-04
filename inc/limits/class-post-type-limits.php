@@ -112,7 +112,8 @@ class Post_Type_Limits {
 	 */
 	public function limit_restoring(): void {
 
-		if (isset($_REQUEST['action']) && 'untrash' === $_REQUEST['action']) {
+		// nonce is checked in a different action.
+		if (isset($_REQUEST['action']) && 'untrash' === $_REQUEST['action']) { // phpcs:ignore WordPress.Security.NonceVerification
 			$this->limit_posts();
 		}
 	}
@@ -132,18 +133,16 @@ class Post_Type_Limits {
 		$screen = get_current_screen();
 
 		if ( ! wu_get_current_site()->get_limitations()->post_types->{$screen->post_type}->enabled) {
-			$upgrade_message = __('Your plan does not support this post type.', 'wp-multisite-waas');
+			$upgrade_message = __('Your plan does not support this post type.', 'multisite-ultimate');
 
-			// translators: %s is the URL.
-			wp_die(esc_html($upgrade_message), esc_html(__('Limit Reached', 'wp-multisite-waas')), ['back_link' => true]);
+			wp_die(esc_html($upgrade_message), esc_html(__('Limit Reached', 'multisite-ultimate')), ['back_link' => true]);
 		}
 
 		// Check if that is more than our limit
 		if (wu_get_current_site()->get_limitations()->post_types->is_post_above_limit($screen->post_type)) {
-			$upgrade_message = __('You reached your plan\'s post limit.', 'wp-multisite-waas');
+			$upgrade_message = __('You reached your plan\'s post limit.', 'multisite-ultimate');
 
-			// translators: %s is the URL
-			wp_die(esc_html($upgrade_message), esc_html__('Limit Reached', 'wp-multisite-waas'), ['back_link' => true]);
+			wp_die(esc_html($upgrade_message), esc_html__('Limit Reached', 'multisite-ultimate'), ['back_link' => true]);
 		}
 	}
 
@@ -196,7 +195,7 @@ class Post_Type_Limits {
 	public function limit_media($file) {
 
 		if ( ! wu_get_current_site()->get_limitations()->post_types->attachment->enabled) {
-			$file['error'] = __('Your plan does not support media upload.', 'wp-multisite-waas');
+			$file['error'] = __('Your plan does not support media upload.', 'multisite-ultimate');
 
 			return $file;
 		}
@@ -223,7 +222,7 @@ class Post_Type_Limits {
 		if ($quota > 0 && $post_count >= $quota) {
 
 			// translators: %d is the number of images allowed.
-			$file['error'] = sprintf(__('You reached your media upload limit of %d images. Upgrade your account to unlock more media uploads.', 'wp-multisite-waas'), $quota, '#');
+			$file['error'] = sprintf(__('You reached your media upload limit of %d images. Upgrade your account to unlock more media uploads.', 'multisite-ultimate'), $quota, '#');
 		}
 
 		return $file;

@@ -60,14 +60,14 @@ class Payment_Methods_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Payment Methods', 'wp-multisite-waas');
+		return __('Payment Methods', 'multisite-ultimate');
 	}
 
 	/**
@@ -76,14 +76,14 @@ class Payment_Methods_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'wp-multisite-waas');
+		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
 	}
 
 	/**
@@ -108,23 +108,23 @@ class Payment_Methods_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['password_strength'] = [
 			'type'    => 'toggle',
-			'title'   => __('Password Strength Meter', 'wp-multisite-waas'),
-			'desc'    => __('Set this customer as a VIP.', 'wp-multisite-waas'),
+			'title'   => __('Password Strength Meter', 'multisite-ultimate'),
+			'desc'    => __('Set this customer as a VIP.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
 
 		$fields['apply_styles'] = [
 			'type'    => 'toggle',
-			'title'   => __('Apply Styles', 'wp-multisite-waas'),
-			'desc'    => __('Set this customer as a VIP.', 'wp-multisite-waas'),
+			'title'   => __('Apply Styles', 'multisite-ultimate'),
+			'desc'    => __('Set this customer as a VIP.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
@@ -140,7 +140,7 @@ class Payment_Methods_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Payment Methods',
 	 *  'Form',
 	 *  'Cart',
@@ -153,7 +153,7 @@ class Payment_Methods_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Payment Methods',
 			'Form',
 			'Cart',

@@ -4,7 +4,7 @@
  *
  * Abstract class that makes it easy to create new admin pages.
  *
- * Most of WP Multisite WaaS pages are implemented using this class, which means that the filters and hooks
+ * Most of Multisite Ultimate pages are implemented using this class, which means that the filters and hooks
  * listed below can be used to append content to all of our pages at once.
  *
  * @package WP_Ultimo
@@ -76,7 +76,7 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	public function page_loaded(): void {
+	public function page_loaded() {
 		/*
 		 * Load sections to memory.
 		 */
@@ -99,7 +99,7 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	final public function process_save(): void {
+	final public function process_save() {
 
 		$saving_tag = sprintf('saving_%s', $this->get_current_section());
 
@@ -124,12 +124,12 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'        => __('Edit Object', 'wp-multisite-waas'),
-			'add_new_label'     => __('Add New Object', 'wp-multisite-waas'),
-			'updated_message'   => __('Object updated with success!', 'wp-multisite-waas'),
-			'title_placeholder' => __('Enter Object Name', 'wp-multisite-waas'),
+			'edit_label'        => __('Edit Object', 'multisite-ultimate'),
+			'add_new_label'     => __('Add New Object', 'multisite-ultimate'),
+			'updated_message'   => __('Object updated with success!', 'multisite-ultimate'),
+			'title_placeholder' => __('Enter Object Name', 'multisite-ultimate'),
 			'title_description' => '',
-			'save_button_label' => __('Save', 'wp-multisite-waas'),
+			'save_button_label' => __('Save', 'multisite-ultimate'),
 			'save_description'  => '',
 		];
 	}
@@ -144,7 +144,7 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	public function register_widgets(): void {
+	public function register_widgets() {
 
 		$screen = get_current_screen();
 
@@ -152,7 +152,7 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 			return;
 		}
 
-		add_meta_box('wp-ultimo-wizard-body', wu_get_isset($this->current_section, 'title', __('Section', 'wp-multisite-waas')), [$this, 'output_default_widget_body'], $screen->id, 'normal', null);
+		add_meta_box('wp-ultimo-wizard-body', wu_get_isset($this->current_section, 'title', __('Section', 'multisite-ultimate')), [$this, 'output_default_widget_body'], $screen->id, 'normal', null);
 	}
 
 	/**
@@ -161,7 +161,7 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	public function output_default_widget_body(): void {
+	public function output_default_widget_body() {
 
 		echo '<div class="wu-p-4">';
 
@@ -192,7 +192,7 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	public function output(): void {
+	public function output() {
 		/*
 		 * Renders the base edit page layout, with the columns and everything else =)
 		 */
@@ -239,7 +239,7 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 
 		$sections = array_filter($sections, fn($item) => wu_get_isset($item, 'addon') === false);
 
-		$current_section = isset($_GET[ $this->section_slug ]) ? sanitize_key($_GET[ $this->section_slug ]) : current(array_keys($sections));
+		$current_section = isset($_GET[ $this->section_slug ]) ? sanitize_key($_GET[ $this->section_slug ]) : current(array_keys($sections)); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		return $current_section;
 	}
@@ -297,7 +297,7 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	public function default_handler(): void {
+	public function default_handler() {
 
 		wp_safe_redirect($this->get_next_section_link());
 
@@ -310,7 +310,7 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	public function default_view(): void {
+	public function default_view() {
 
 		$section = wp_parse_args(
 			$this->current_section,
@@ -319,9 +319,9 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 				'description' => '',
 				'content'     => '',
 				'fields'      => [],
-				'next_label'  => __('Continue &rarr;', 'wp-multisite-waas'),
-				'back_label'  => __('&larr; Go Back', 'wp-multisite-waas'),
-				'skip_label'  => __('Skip this Step', 'wp-multisite-waas'),
+				'next_label'  => __('Continue &rarr;', 'multisite-ultimate'),
+				'back_label'  => __('&larr; Go Back', 'multisite-ultimate'),
+				'skip_label'  => __('Skip this Step', 'multisite-ultimate'),
 				'back'        => false,
 				'skip'        => false,
 				'next'        => true,

@@ -24,7 +24,7 @@ class Default_Content_Installer extends Base_Installer {
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
-	 * Loads dependencies for when WP Multisite WaaS is not yet loaded.
+	 * Loads dependencies for when Multisite Ultimate is not yet loaded.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -147,51 +147,51 @@ class Default_Content_Installer extends Base_Installer {
 
 		$steps['create_template_site'] = [
 			'done'        => $this->done_creating_template_site(),
-			'title'       => __('Create Example Template Site', 'wp-multisite-waas'),
-			'description' => __('This will create a template site on your network that you can use as a starting point.', 'wp-multisite-waas'),
-			'pending'     => __('Pending', 'wp-multisite-waas'),
-			'installing'  => __('Creating Template Site...', 'wp-multisite-waas'),
-			'success'     => __('Success!', 'wp-multisite-waas'),
+			'title'       => __('Create Example Template Site', 'multisite-ultimate'),
+			'description' => __('This will create a template site on your network that you can use as a starting point.', 'multisite-ultimate'),
+			'pending'     => __('Pending', 'multisite-ultimate'),
+			'installing'  => __('Creating Template Site...', 'multisite-ultimate'),
+			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 		];
 
 		$steps['create_products'] = [
 			'done'        => $this->done_creating_products(),
-			'title'       => __('Create Example Products', 'wp-multisite-waas'),
-			'description' => __('This action will create example products (plans, packages, and services), so you have an starting point.', 'wp-multisite-waas'),
-			'pending'     => __('Pending', 'wp-multisite-waas'),
-			'installing'  => __('Creating Products...', 'wp-multisite-waas'),
-			'success'     => __('Success!', 'wp-multisite-waas'),
+			'title'       => __('Create Example Products', 'multisite-ultimate'),
+			'description' => __('This action will create example products (plans, packages, and services), so you have an starting point.', 'multisite-ultimate'),
+			'pending'     => __('Pending', 'multisite-ultimate'),
+			'installing'  => __('Creating Products...', 'multisite-ultimate'),
+			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 		];
 
 		$steps['create_checkout'] = [
 			'done'        => $this->done_creating_checkout_forms(),
-			'title'       => __('Create a Checkout Form', 'wp-multisite-waas'),
-			'description' => __('This action will create a single-step checkout form that your customers will use to place purchases, as well as the page that goes with it.', 'wp-multisite-waas'),
-			'pending'     => __('Pending', 'wp-multisite-waas'),
-			'installing'  => __('Creating Checkout Form and Registration Page...', 'wp-multisite-waas'),
-			'success'     => __('Success!', 'wp-multisite-waas'),
+			'title'       => __('Create a Checkout Form', 'multisite-ultimate'),
+			'description' => __('This action will create a single-step checkout form that your customers will use to place purchases, as well as the page that goes with it.', 'multisite-ultimate'),
+			'pending'     => __('Pending', 'multisite-ultimate'),
+			'installing'  => __('Creating Checkout Form and Registration Page...', 'multisite-ultimate'),
+			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 		];
 
 		$steps['create_emails'] = [
 			'done'        => $this->done_creating_emails(),
-			'title'       => __('Create the System Emails', 'wp-multisite-waas'),
-			'description' => __('This action will create all emails sent by WP Multisite WaaS.', 'wp-multisite-waas'),
-			'pending'     => __('Pending', 'wp-multisite-waas'),
-			'installing'  => __('Creating System Emails...', 'wp-multisite-waas'),
-			'success'     => __('Success!', 'wp-multisite-waas'),
+			'title'       => __('Create the System Emails', 'multisite-ultimate'),
+			'description' => __('This action will create all emails sent by Multisite Ultimate.', 'multisite-ultimate'),
+			'pending'     => __('Pending', 'multisite-ultimate'),
+			'installing'  => __('Creating System Emails...', 'multisite-ultimate'),
+			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 		];
 
 		$steps['create_login_page'] = [
 			'done'        => $this->done_creating_login_page(),
-			'title'       => __('Create Custom Login Page', 'wp-multisite-waas'),
-			'description' => __('This action will create a custom login page and replace the default one.', 'wp-multisite-waas'),
-			'pending'     => __('Pending', 'wp-multisite-waas'),
-			'installing'  => __('Creating Custom Login Page...', 'wp-multisite-waas'),
-			'success'     => __('Success!', 'wp-multisite-waas'),
+			'title'       => __('Create Custom Login Page', 'multisite-ultimate'),
+			'description' => __('This action will create a custom login page and replace the default one.', 'multisite-ultimate'),
+			'pending'     => __('Pending', 'multisite-ultimate'),
+			'installing'  => __('Creating Custom Login Page...', 'multisite-ultimate'),
+			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 		];
 
@@ -214,20 +214,20 @@ class Default_Content_Installer extends Base_Installer {
 		$template_site = [
 			'domain' => $d->domain,
 			'path'   => $d->path,
-			'title'  => __('Template Site', 'wp-multisite-waas'),
+			'title'  => __('Template Site', 'multisite-ultimate'),
 			'type'   => 'site_template',
 		];
 
 		$status = wu_create_site($template_site);
 
 		if (is_wp_error($status)) {
-			throw new \Exception($status->get_error_message());
+			throw new \Exception(esc_html($status->get_error_message()));
 		}
 
 		if ( ! $status) {
-			$error_message = __('Template Site was not created. Maybe a site with the /template path already exists?', 'wp-multisite-waas');
+			$error_message = __('Template Site was not created. Maybe a site with the /template path already exists?', 'multisite-ultimate');
 
-			throw new \Exception($error_message);
+			throw new \Exception(esc_html($error_message));
 		}
 	}
 
@@ -256,8 +256,8 @@ class Default_Content_Installer extends Base_Installer {
 		 * Free Plan
 		 */
 		$products[] = [
-			'name'           => __('Free', 'wp-multisite-waas'),
-			'description'    => __('This is an example of a free plan.', 'wp-multisite-waas'),
+			'name'           => __('Free', 'multisite-ultimate'),
+			'description'    => __('This is an example of a free plan.', 'multisite-ultimate'),
 			'currency'       => wu_get_setting('currency_symbol', 'USD'),
 			'pricing_type'   => 'free',
 			'duration'       => 1,
@@ -276,8 +276,8 @@ class Default_Content_Installer extends Base_Installer {
 		 * Premium Plan
 		 */
 		$products[] = [
-			'name'           => __('Premium', 'wp-multisite-waas'),
-			'description'    => __('This is an example of a paid plan.', 'wp-multisite-waas'),
+			'name'           => __('Premium', 'multisite-ultimate'),
+			'description'    => __('This is an example of a paid plan.', 'multisite-ultimate'),
 			'currency'       => wu_get_setting('currency_symbol', 'USD'),
 			'pricing_type'   => 'paid',
 			'type'           => 'plan',
@@ -296,8 +296,8 @@ class Default_Content_Installer extends Base_Installer {
 		 * Service
 		 */
 		$products[] = [
-			'name'           => __('SEO Consulting', 'wp-multisite-waas'),
-			'description'    => __('This is an example of a service that you can create and charge customers for.', 'wp-multisite-waas'),
+			'name'           => __('SEO Consulting', 'multisite-ultimate'),
+			'description'    => __('This is an example of a service that you can create and charge customers for.', 'multisite-ultimate'),
 			'currency'       => wu_get_setting('currency_symbol', 'USD'),
 			'pricing_type'   => 'paid',
 			'type'           => 'service',
@@ -316,7 +316,7 @@ class Default_Content_Installer extends Base_Installer {
 			$status = wu_create_product($product_data);
 
 			if (is_wp_error($status)) {
-				throw new \Exception($status->get_error_message());
+				throw new \Exception(esc_html($status->get_error_message()));
 			}
 
 			$status->set_featured_image_id($images[ $product_data['slug'] ]);
@@ -335,7 +335,7 @@ class Default_Content_Installer extends Base_Installer {
 	public function _install_create_checkout(): void {
 
 		$checkout_form = [
-			'name'     => __('Registration Form', 'wp-multisite-waas'),
+			'name'     => __('Registration Form', 'multisite-ultimate'),
 			'slug'     => 'main-form',
 			'settings' => [],
 		];
@@ -343,7 +343,7 @@ class Default_Content_Installer extends Base_Installer {
 		$status = wu_create_checkout_form($checkout_form);
 
 		if (is_wp_error($status)) {
-			throw new \Exception($status->get_error_message());
+			throw new \Exception(esc_html($status->get_error_message()));
 		} else {
 			$status->use_template('single-step');
 
@@ -361,7 +361,7 @@ class Default_Content_Installer extends Base_Installer {
 		 */
 		$post_details = [
 			'post_name'    => 'register',
-			'post_title'   => __('Register', 'wp-multisite-waas'),
+			'post_title'   => __('Register', 'multisite-ultimate'),
 			'post_content' => sprintf($post_content, $status->get_slug()),
 			'post_status'  => 'publish',
 			'post_type'    => 'page',
@@ -371,7 +371,7 @@ class Default_Content_Installer extends Base_Installer {
 		$page_id = wp_insert_post($post_details);
 
 		if (is_wp_error($page_id)) {
-			throw new \Exception($page_id->get_error_message());
+			throw new \Exception(esc_html($page_id->get_error_message()));
 		}
 
 		/*
@@ -408,7 +408,7 @@ class Default_Content_Installer extends Base_Installer {
 	  ';
 
 		$page_args = [
-			'post_title'   => __('Login', 'wp-multisite-waas'),
+			'post_title'   => __('Login', 'multisite-ultimate'),
 			'post_content' => $page_content,
 			'post_status'  => 'publish',
 			'post_author'  => get_current_user_id(),
@@ -418,7 +418,7 @@ class Default_Content_Installer extends Base_Installer {
 		$page_id = wp_insert_post($page_args);
 
 		if (is_wp_error($page_id)) {
-			throw new \Exception($page_id->get_error_message());
+			throw new \Exception(esc_html($page_id->get_error_message()));
 		}
 
 		/*

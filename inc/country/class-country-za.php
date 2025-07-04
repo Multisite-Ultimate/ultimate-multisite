@@ -72,7 +72,7 @@ class Country_ZA extends Country {
 	 */
 	public function get_name() {
 
-		return __('South Africa', 'wp-multisite-waas');
+		return __('South Africa', 'multisite-ultimate');
 	}
 
 	/**
@@ -84,15 +84,15 @@ class Country_ZA extends Country {
 	protected function states() {
 
 		return [
-			'EC'  => __('Eastern Cape', 'wp-multisite-waas'),
-			'FS'  => __('Free State', 'wp-multisite-waas'),
-			'GP'  => __('Gauteng', 'wp-multisite-waas'),
-			'KZN' => __('KwaZulu-Natal', 'wp-multisite-waas'),
-			'LP'  => __('Limpopo', 'wp-multisite-waas'),
-			'MP'  => __('Mpumalanga', 'wp-multisite-waas'),
-			'NW'  => __('North West', 'wp-multisite-waas'),
-			'NC'  => __('Northern Cape', 'wp-multisite-waas'),
-			'WC'  => __('Western Cape', 'wp-multisite-waas'),
+			'EC'  => __('Eastern Cape', 'multisite-ultimate'),
+			'FS'  => __('Free State', 'multisite-ultimate'),
+			'GP'  => __('Gauteng', 'multisite-ultimate'),
+			'KZN' => __('KwaZulu-Natal', 'multisite-ultimate'),
+			'LP'  => __('Limpopo', 'multisite-ultimate'),
+			'MP'  => __('Mpumalanga', 'multisite-ultimate'),
+			'NW'  => __('North West', 'multisite-ultimate'),
+			'NC'  => __('Northern Cape', 'multisite-ultimate'),
+			'WC'  => __('Western Cape', 'multisite-ultimate'),
 		];
 	}
 }

@@ -1,6 +1,6 @@
 # How to get help
 
-You got your valid License key, and attached to that is access to our team to help you solve issues you might encounter during your time setting up WP Multisite WaaS.
+You got your valid License key, and attached to that is access to our team to help you solve issues you might encounter during your time setting up Multisite Ultimate.
 
 This lesson covers the available support channels for license holders and what kind of info you'll need to have at hand to contact our support team.
 
@@ -10,7 +10,7 @@ You can access different articles and tutorials from our help site which you can
 
 [https://help.wpultimo.com/](../../../index.html)
 
-We encourage our users to familiarize themselves with WP Multisite WaaS's basic features and functions. There are "Getting Started" articles available on our help site and answers to common questions can be found there as well, like how to install add-ons, how to integrate payment gateways, etc.
+We encourage our users to familiarize themselves with Multisite Ultimate's basic features and functions. There are "Getting Started" articles available on our help site and answers to common questions can be found there as well, like how to install add-ons, how to integrate payment gateways, etc.
 
 ## Contact Support
 
@@ -20,4 +20,4 @@ When contacting support for technical issues, please make sure you provide a det
 
 ## Community Site
 
-Our [community site](https://community.wpultimo.com/) is a venue for WP Multisite WaaS users to interact with each other. It serves as an information system where members can post, comment on discussions, give advice, collaborate, or crowdsource. You will be required to provide your WP Multisite WaaS license key to unlock private spaces/pages.
+Our [community site](https://community.wpultimo.com/) is a venue for Multisite Ultimate users to interact with each other. It serves as an information system where members can post, comment on discussions, give advice, collaborate, or crowdsource. You will be required to provide your Multisite Ultimate license key to unlock private spaces/pages.

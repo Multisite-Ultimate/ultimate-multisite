@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Membership Edit/Add New Admin Page.
+ * Multisite Ultimate Membership Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -12,10 +12,11 @@ namespace WP_Ultimo\Admin_Pages;
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
+use WordPressCS\WordPress\Sniffs\Security\NonceVerificationSniff;
 use WP_Ultimo\Database\Memberships\Membership_Status;
 
 /**
- * WP Multisite WaaS Membership Edit/Add New Admin Page.
+ * Multisite Ultimate Membership Edit/Add New Admin Page.
  */
 class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 
@@ -120,7 +121,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 
 		$actions = [
 			'preview' => [
-				'title' => __('Preview', 'wp-multisite-waas'),
+				'title' => __('Preview', 'multisite-ultimate'),
 				'url'   => add_query_arg('preview-swap', 1),
 			],
 		];
@@ -128,7 +129,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$date = new \DateTime($swap_order->scheduled_date);
 
 		// translators: %s is the date, using the site format options
-		$message = sprintf(__('There is a change scheduled to take place on this membership in <strong>%s</strong>. You can preview the changes here. Scheduled changes are usually created by downgrades.', 'wp-multisite-waas'), $date->format(get_option('date_format')));
+		$message = sprintf(__('There is a change scheduled to take place on this membership in <strong>%s</strong>. You can preview the changes here. Scheduled changes are usually created by downgrades.', 'multisite-ultimate'), $date->format(get_option('date_format')));
 
 		WP_Ultimo()->notices->add($message, 'warning', 'network-admin', false, $actions);
 	}
@@ -212,7 +213,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	function render_transfer_membership_modal(): void {
+	public function render_transfer_membership_modal(): void {
 
 		$membership = wu_get_membership(wu_request('id'));
 
@@ -223,16 +224,16 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = [
 			'confirm'            => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Transfer', 'wp-multisite-waas'),
-				'desc'      => __('This will start the transfer of assets from one customer to another.', 'wp-multisite-waas'),
+				'title'     => __('Confirm Transfer', 'multisite-ultimate'),
+				'desc'      => __('This will start the transfer of assets from one customer to another.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_button'      => [
 				'type'            => 'submit',
-				'title'           => __('Start Transfer', 'wp-multisite-waas'),
-				'placeholder'     => __('Start Transfer', 'wp-multisite-waas'),
+				'title'           => __('Start Transfer', 'multisite-ultimate'),
+				'placeholder'     => __('Start Transfer', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -282,17 +283,17 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$membership = wu_get_membership(wu_request('id'));
 
 		if ( ! $membership) {
-			wp_send_json_error(new \WP_Error('not-found', __('Membership not found.', 'wp-multisite-waas')));
+			wp_send_json_error(new \WP_Error('not-found', __('Membership not found.', 'multisite-ultimate')));
 		}
 
 		$target_customer = wu_get_customer(wu_request('target_customer_id'));
 
 		if ( ! $target_customer) {
-			wp_send_json_error(new \WP_Error('not-found', __('Target customer not found.', 'wp-multisite-waas')));
+			wp_send_json_error(new \WP_Error('not-found', __('Target customer not found.', 'multisite-ultimate')));
 		}
 
 		if ($target_customer->get_id() === $membership->get_customer_id()) {
-			wp_send_json_error(new \WP_Error('not-found', __('Cannot transfer to the same customer.', 'wp-multisite-waas')));
+			wp_send_json_error(new \WP_Error('not-found', __('Cannot transfer to the same customer.', 'multisite-ultimate')));
 		}
 
 		/*
@@ -354,26 +355,26 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'at_a_glance',
 			[
-				'title'                 => __('At a Glance', 'wp-multisite-waas'),
+				'title'                 => __('At a Glance', 'multisite-ultimate'),
 				'position'              => 'normal',
 				'classes'               => 'wu-overflow-hidden wu-widget-inset',
 				'field_wrapper_classes' => 'wu-w-1/3 wu-box-border wu-items-center wu-flex wu-justify-between wu-p-4 wu-m-0 wu-border-t-0 wu-border-l-0 wu-border-r wu-border-b-0 wu-border-gray-300 wu-border-solid wu-float-left wu-relative',
 				'fields'                => [
 					'status'        => [
 						'type'          => 'text-display',
-						'title'         => __('Membership Status', 'wp-multisite-waas'),
+						'title'         => __('Membership Status', 'multisite-ultimate'),
 						'display_value' => $tag,
 						'tooltip'       => '',
 					],
 					'hash'          => [
 						'copy'          => true,
 						'type'          => 'text-display',
-						'title'         => __('Reference ID', 'wp-multisite-waas'),
+						'title'         => __('Reference ID', 'multisite-ultimate'),
 						'display_value' => $this->get_object()->get_hash(),
 					],
 					'total_grossed' => [
 						'type'            => 'text-display',
-						'title'           => __('Total Grossed', 'wp-multisite-waas'),
+						'title'           => __('Total Grossed', 'multisite-ultimate'),
 						'display_value'   => wu_format_currency($this->get_object()->get_total_grossed(), $this->get_object()->get_currency()),
 						'wrapper_classes' => 'sm:wu-border-r-0',
 					],
@@ -385,7 +386,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			'membership-products',
 			[
 				'position' => 'normal',
-				'title'    => __('Products', 'wp-multisite-waas'),
+				'title'    => __('Products', 'multisite-ultimate'),
 				'table'    => new \WP_Ultimo\List_Tables\Membership_Line_Item_List_Table(),
 				'after'    => $this->output_widget_products(),
 			]
@@ -394,7 +395,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'payments',
 			[
-				'title'        => __('Payments', 'wp-multisite-waas'),
+				'title'        => __('Payments', 'multisite-ultimate'),
 				'table'        => new \WP_Ultimo\List_Tables\Customers_Payment_List_Table(),
 				'query_filter' => [$this, 'payments_query_filter'],
 			]
@@ -403,7 +404,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'sites',
 			[
-				'title'        => __('Sites', 'wp-multisite-waas'),
+				'title'        => __('Sites', 'multisite-ultimate'),
 				'table'        => new \WP_Ultimo\List_Tables\Memberships_Site_List_Table(),
 				'query_filter' => [$this, 'sites_query_filter'],
 			]
@@ -412,7 +413,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'customer',
 			[
-				'title'        => __('Linked Customer', 'wp-multisite-waas'),
+				'title'        => __('Linked Customer', 'multisite-ultimate'),
 				'table'        => new \WP_Ultimo\List_Tables\Site_Customer_List_Table(),
 				'query_filter' => [$this, 'customer_query_filter'],
 			]
@@ -421,27 +422,27 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_tabs_widget(
 			'options',
 			[
-				'title'    => __('Membership Options', 'wp-multisite-waas'),
+				'title'    => __('Membership Options', 'multisite-ultimate'),
 				'position' => 'normal',
 				'sections' => apply_filters(
 					'wu_membership_options_sections',
 					[
 						'general'      => [
-							'title'  => __('General', 'wp-multisite-waas'),
-							'desc'   => __('General membership options', 'wp-multisite-waas'),
+							'title'  => __('General', 'multisite-ultimate'),
+							'desc'   => __('General membership options', 'multisite-ultimate'),
 							'icon'   => 'dashicons-wu-globe',
 							'fields' => [
 								'blocking' => [
 									'type'  => 'toggle',
-									'title' => __('Is Blocking?', 'wp-multisite-waas'),
-									'desc'  => __('Should we block access to the site, plugins, themes, and services after the expiration date is reached?', 'wp-multisite-waas'),
+									'title' => __('Is Blocking?', 'multisite-ultimate'),
+									'desc'  => __('Should we block access to the site, plugins, themes, and services after the expiration date is reached?', 'multisite-ultimate'),
 									'value' => true,
 								],
 							],
 						],
 						'billing_info' => [
-							'title'  => __('Billing Info', 'wp-multisite-waas'),
-							'desc'   => __('Billing information for this particular membership.', 'wp-multisite-waas'),
+							'title'  => __('Billing Info', 'multisite-ultimate'),
+							'desc'   => __('Billing information for this particular membership.', 'multisite-ultimate'),
 							'icon'   => 'dashicons-wu-address',
 							'fields' => $this->get_object()->get_billing_address()->get_fields(),
 						],
@@ -458,7 +459,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			$this->add_list_table_widget(
 				'events',
 				[
-					'title'        => __('Events', 'wp-multisite-waas'),
+					'title'        => __('Events', 'multisite-ultimate'),
 					'table'        => new \WP_Ultimo\List_Tables\Inside_Events_List_Table(),
 					'query_filter' => [$this, 'events_query_filter'],
 				]
@@ -468,8 +469,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$regular_fields = [
 			'status'              => [
 				'type'              => 'select',
-				'title'             => __('Status', 'wp-multisite-waas'),
-				'desc'              => __('The membership current status.', 'wp-multisite-waas'),
+				'title'             => __('Status', 'multisite-ultimate'),
+				'desc'              => __('The membership current status.', 'multisite-ultimate'),
 				'value'             => $this->get_object()->get_status(),
 				'options'           => Membership_Status::to_array(),
 				'tooltip'           => '',
@@ -482,8 +483,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'cancellation_reason' => [
 				'type'              => 'textarea',
-				'title'             => __('Cancellation Reason', 'wp-multisite-waas'),
-				'desc'              => __('The reason why the customer cancelled this membership.', 'wp-multisite-waas'),
+				'title'             => __('Cancellation Reason', 'multisite-ultimate'),
+				'desc'              => __('The reason why the customer cancelled this membership.', 'multisite-ultimate'),
 				'value'             => $this->get_object()->get_cancellation_reason(),
 				'wrapper_html_attr' => [
 					'v-show'  => 'status == \'cancelled\'',
@@ -492,8 +493,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'cancel_gateway'      => [
 				'type'              => 'toggle',
-				'title'             => __('Cancel on gateway', 'wp-multisite-waas'),
-				'desc'              => __('If enable we will cancel the subscription on payment method', 'wp-multisite-waas'),
+				'title'             => __('Cancel on gateway', 'multisite-ultimate'),
+				'desc'              => __('If enable we will cancel the subscription on payment method', 'multisite-ultimate'),
 				'value'             => false,
 				'wrapper_html_attr' => [
 					'v-show'  => ! empty($this->get_object()->get_gateway_customer_id()) ? 'status == \'cancelled\'' : 'false',
@@ -506,9 +507,9 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'customer_id'         => [
 				'type'              => 'model',
-				'title'             => __('Customer', 'wp-multisite-waas'),
-				'placeholder'       => __('Search a Customer...', 'wp-multisite-waas'),
-				'desc'              => __('The owner of this membership.', 'wp-multisite-waas'),
+				'title'             => __('Customer', 'multisite-ultimate'),
+				'placeholder'       => __('Search a Customer...', 'multisite-ultimate'),
+				'desc'              => __('The owner of this membership.', 'multisite-ultimate'),
 				'value'             => $this->get_object()->get_customer_id(),
 				'tooltip'           => '',
 				'html_attr'         => [
@@ -527,7 +528,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'transfer_note'       => [
 				'type'              => 'note',
-				'desc'              => __('Changing the customer will transfer this membership and all its assets, including sites, to the new customer.', 'wp-multisite-waas'),
+				'desc'              => __('Changing the customer will transfer this membership and all its assets, including sites, to the new customer.', 'multisite-ultimate'),
 				'classes'           => 'wu-p-2 wu-bg-red-100 wu-text-red-600 wu-rounded wu-w-full',
 				'wrapper_html_attr' => [
 					'v-show'  => '(original_customer_id != customer_id) && customer_id',
@@ -548,7 +549,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'transfer'            => [
 				'type'              => 'link',
-				'display_value'     => __('Transfer Membership', 'wp-multisite-waas'),
+				'display_value'     => __('Transfer Membership', 'multisite-ultimate'),
 				'wrapper_classes'   => 'wu-bg-gray-200',
 				'classes'           => 'button wubox wu-w-full wu-text-center',
 				'wrapper_html_attr' => [
@@ -563,7 +564,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 							'target_customer_id' => '',
 						]
 					) . "=' + customer_id",
-					'title'       => __('Transfer Membership', 'wp-multisite-waas'),
+					'title'       => __('Transfer Membership', 'multisite-ultimate'),
 				],
 			],
 		];
@@ -573,7 +574,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 
 			unset($regular_fields['transfer']);
 
-			$regular_fields['submit_save']['title']                 = __('Locked', 'wp-multisite-waas');
+			$regular_fields['submit_save']['title']                 = __('Locked', 'multisite-ultimate');
 			$regular_fields['submit_save']['value']                 = 'none';
 			$regular_fields['submit_save']['html_attr']['disabled'] = 'disabled';
 		}
@@ -599,7 +600,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'pricing',
 			[
-				'title'     => __('Billing Amount', 'wp-multisite-waas'),
+				'title'     => __('Billing Amount', 'multisite-ultimate'),
 				'html_attr' => [
 					'data-wu-app' => 'true',
 					'data-state'  => wp_json_encode(
@@ -620,10 +621,10 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 					// Fields for price
 					'_initial_amount'               => [
 						'type'              => 'text',
-						'title'             => __('Initial Amount', 'wp-multisite-waas'),
+						'title'             => __('Initial Amount', 'multisite-ultimate'),
 						// translators: %s is a price placeholder value.
-						'placeholder'       => sprintf(__('E.g. %s', 'wp-multisite-waas'), wu_format_currency(199)),
-						'desc'              => __('The initial amount collected on the first payment.', 'wp-multisite-waas'),
+						'placeholder'       => sprintf(__('E.g. %s', 'multisite-ultimate'), wu_format_currency(199)),
+						'desc'              => __('The initial amount collected on the first payment.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->get_initial_amount(),
 						'money'             => true,
 						'html_attr'         => [
@@ -641,8 +642,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'recurring'                     => [
 						'type'              => 'toggle',
-						'title'             => __('Is Recurring', 'wp-multisite-waas'),
-						'desc'              => __('Use this option to manually enable or disable this membership.', 'wp-multisite-waas'),
+						'title'             => __('Is Recurring', 'multisite-ultimate'),
+						'desc'              => __('Use this option to manually enable or disable this membership.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->is_recurring(),
 						'html_attr'         => [
 							'v-model' => 'is_recurring',
@@ -659,9 +660,9 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'recurring_amount_group'        => [
 						'type'              => 'group',
-						'title'             => __('Recurring Amount', 'wp-multisite-waas'),
+						'title'             => __('Recurring Amount', 'multisite-ultimate'),
 						// translators: placeholder %1$s is the amount, %2$s is the duration (such as 1, 2, 3), and %3$s is the unit (such as month, year, week)
-						'desc'              => sprintf(__('The customer will be charged %1$s every %2$s %3$s(s).', 'wp-multisite-waas'), '{{ wu_format_money(amount) }}', '{{ duration }}', '{{ duration_unit }}'),
+						'desc'              => sprintf(__('The customer will be charged %1$s every %2$s %3$s(s).', 'multisite-ultimate'), '{{ wu_format_money(amount) }}', '{{ duration }}', '{{ duration_unit }}'),
 						'wrapper_html_attr' => [
 							'v-show'  => 'is_recurring',
 							'v-cloak' => '1',
@@ -697,10 +698,10 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 									'v-model' => 'duration_unit',
 								],
 								'options'         => [
-									'day'   => __('Days', 'wp-multisite-waas'),
-									'week'  => __('Weeks', 'wp-multisite-waas'),
-									'month' => __('Months', 'wp-multisite-waas'),
-									'year'  => __('Years', 'wp-multisite-waas'),
+									'day'   => __('Days', 'multisite-ultimate'),
+									'week'  => __('Weeks', 'multisite-ultimate'),
+									'month' => __('Months', 'multisite-ultimate'),
+									'year'  => __('Years', 'multisite-ultimate'),
 								],
 							],
 						],
@@ -733,9 +734,9 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'billing_cycles'                => [
 						'type'              => 'number',
-						'title'             => __('Billing Cycles', 'wp-multisite-waas'),
-						'placeholder'       => __('E.g. 0', 'wp-multisite-waas'),
-						'desc'              => __('How many times should we bill this customer. Leave 0 to charge until cancelled.', 'wp-multisite-waas'),
+						'title'             => __('Billing Cycles', 'multisite-ultimate'),
+						'placeholder'       => __('E.g. 0', 'multisite-ultimate'),
+						'desc'              => __('How many times should we bill this customer. Leave 0 to charge until cancelled.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->get_billing_cycles(),
 						'min'               => 0,
 						'wrapper_html_attr' => [
@@ -745,8 +746,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'times_billed'                  => [
 						'type'              => 'number',
-						'title'             => __('Times Billed', 'wp-multisite-waas'),
-						'desc'              => __('The number of times this membership was billed so far.', 'wp-multisite-waas'),
+						'title'             => __('Times Billed', 'multisite-ultimate'),
+						'desc'              => __('The number of times this membership was billed so far.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->get_times_billed(),
 						'min'               => 0,
 						'wrapper_html_attr' => [
@@ -757,8 +758,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 
 					'auto_renew'                    => [
 						'type'              => 'toggle',
-						'title'             => __('Auto-Renew?', 'wp-multisite-waas'),
-						'desc'              => __('Activating this will tell the gateway to try to automatically charge for this membership.', 'wp-multisite-waas'),
+						'title'             => __('Auto-Renew?', 'multisite-ultimate'),
+						'desc'              => __('Activating this will tell the gateway to try to automatically charge for this membership.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->should_auto_renew(),
 						'wrapper_html_attr' => [
 							'v-show'  => 'is_recurring',
@@ -770,10 +771,10 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'gateway'                       => [
 						'type'              => 'text',
-						'title'             => __('Gateway', 'wp-multisite-waas'),
-						'placeholder'       => __('e.g. stripe', 'wp-multisite-waas'),
-						'description'       => __('e.g. stripe', 'wp-multisite-waas'),
-						'desc'              => __('Payment gateway used to process the payment.', 'wp-multisite-waas'),
+						'title'             => __('Gateway', 'multisite-ultimate'),
+						'placeholder'       => __('e.g. stripe', 'multisite-ultimate'),
+						'description'       => __('e.g. stripe', 'multisite-ultimate'),
+						'desc'              => __('Payment gateway used to process the payment.', 'multisite-ultimate'),
 						'value'             => $this->get_object()->get_gateway(),
 						'wrapper_classes'   => 'wu-w-full',
 						'html_attr'         => [
@@ -797,7 +798,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 							$url = apply_filters("wu_{$gateway_id}_remote_customer_url", $this->get_object()->get_gateway_customer_id());
 
 							if ($url) {
-								return sprintf('<a class="wu-text-gray-800 wu-text-center wu-w-full wu-no-underline" href="%s" target="_blank">%s</a>', esc_attr($url), __('View on Gateway &rarr;', 'wp-multisite-waas'));
+								return sprintf('<a class="wu-text-gray-800 wu-text-center wu-w-full wu-no-underline" href="%s" target="_blank">%s</a>', esc_attr($url), __('View on Gateway &rarr;', 'multisite-ultimate'));
 							}
 
 							return '';
@@ -809,8 +810,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 						'fields'            => [
 							'gateway_customer_id' => [
 								'type'              => 'text',
-								'title'             => __('Gateway Customer ID', 'wp-multisite-waas'),
-								'placeholder'       => __('Gateway Customer ID', 'wp-multisite-waas'),
+								'title'             => __('Gateway Customer ID', 'multisite-ultimate'),
+								'placeholder'       => __('Gateway Customer ID', 'multisite-ultimate'),
 								'value'             => $this->get_object()->get_gateway_customer_id(),
 								'tooltip'           => '',
 								'wrapper_classes'   => 'wu-w-full',
@@ -835,7 +836,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 							$url = apply_filters("wu_{$gateway_id}_remote_subscription_url", $this->get_object()->get_gateway_subscription_id());
 
 							if ($url) {
-								return sprintf('<a class="wu-text-gray-800 wu-text-center wu-w-full wu-no-underline" href="%s" target="_blank">%s</a>', esc_attr($url), __('View on Gateway &rarr;', 'wp-multisite-waas'));
+								return sprintf('<a class="wu-text-gray-800 wu-text-center wu-w-full wu-no-underline" href="%s" target="_blank">%s</a>', esc_attr($url), __('View on Gateway &rarr;', 'multisite-ultimate'));
 							}
 
 							return '';
@@ -847,8 +848,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 						'fields'            => [
 							'gateway_subscription_id' => [
 								'type'              => 'text',
-								'title'             => __('Gateway Subscription ID', 'wp-multisite-waas'),
-								'placeholder'       => __('Gateway Subscription ID', 'wp-multisite-waas'),
+								'title'             => __('Gateway Subscription ID', 'multisite-ultimate'),
+								'placeholder'       => __('Gateway Subscription ID', 'multisite-ultimate'),
 								'value'             => $this->get_object()->get_gateway_subscription_id(),
 								'tooltip'           => '',
 								'wrapper_classes'   => 'wu-w-full',
@@ -862,7 +863,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 
 					'gateway_note'                  => [
 						'type'              => 'note',
-						'desc'              => __('We will try to cancel the old subscription on the gateway.', 'wp-multisite-waas'),
+						'desc'              => __('We will try to cancel the old subscription on the gateway.', 'multisite-ultimate'),
 						'classes'           => 'wu-p-2 wu-bg-red-100 wu-text-red-600 wu-rounded wu-w-full',
 						'wrapper_html_attr' => [
 							'v-show'  => 'is_recurring && (' . implode(
@@ -883,10 +884,10 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$timestamp_fields = [];
 
 		$timestamps = [
-			'date_expiration'   => __('Expires at', 'wp-multisite-waas'),
-			'date_renewed'      => __('Last Renewed at', 'wp-multisite-waas'),
-			'date_trial_end'    => __('Trial Ends at', 'wp-multisite-waas'),
-			'date_cancellation' => __('Cancelled at', 'wp-multisite-waas'),
+			'date_expiration'   => __('Expires at', 'multisite-ultimate'),
+			'date_renewed'      => __('Last Renewed at', 'multisite-ultimate'),
+			'date_trial_end'    => __('Trial Ends at', 'multisite-ultimate'),
+			'date_cancellation' => __('Cancelled at', 'multisite-ultimate'),
 		];
 
 		foreach ($timestamps as $timestamp_name => $timestamp_label) {
@@ -911,7 +912,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		if ( ! $this->get_object()->is_lifetime()) {
 			$timestamp_fields['convert_to_lifetime'] = [
 				'type'              => 'submit',
-				'title'             => __('Convert to Lifetime', 'wp-multisite-waas'),
+				'title'             => __('Convert to Lifetime', 'multisite-ultimate'),
 				'value'             => 'convert_to_lifetime',
 				'classes'           => 'button wu-w-full',
 				'wrapper_html_attr' => [],
@@ -921,7 +922,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'membership-timestamps',
 			[
-				'title'  => __('Important Timestamps', 'wp-multisite-waas'),
+				'title'  => __('Important Timestamps', 'multisite-ultimate'),
 				'fields' => $timestamp_fields,
 			]
 		);
@@ -951,7 +952,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Membership', 'wp-multisite-waas') : __('Add new Membership', 'wp-multisite-waas');
+		return $this->edit ? __('Edit Membership', 'multisite-ultimate') : __('Add new Membership', 'multisite-ultimate');
 	}
 
 	/**
@@ -962,7 +963,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Membership', 'wp-multisite-waas');
+		return __('Edit Membership', 'multisite-ultimate');
 	}
 
 	/**
@@ -985,15 +986,15 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Membership', 'wp-multisite-waas'),
-			'add_new_label'       => __('Add new Membership', 'wp-multisite-waas'),
-			'updated_message'     => __('Membership updated with success!', 'wp-multisite-waas'),
-			'title_placeholder'   => __('Enter Membership Name', 'wp-multisite-waas'),
-			'title_description'   => __('This name will be used on pricing tables, invoices, and more.', 'wp-multisite-waas'),
-			'save_button_label'   => __('Save Membership', 'wp-multisite-waas'),
+			'edit_label'          => __('Edit Membership', 'multisite-ultimate'),
+			'add_new_label'       => __('Add new Membership', 'multisite-ultimate'),
+			'updated_message'     => __('Membership updated with success!', 'multisite-ultimate'),
+			'title_placeholder'   => __('Enter Membership Name', 'multisite-ultimate'),
+			'title_description'   => __('This name will be used on pricing tables, invoices, and more.', 'multisite-ultimate'),
+			'save_button_label'   => __('Save Membership', 'multisite-ultimate'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Membership', 'wp-multisite-waas'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'wp-multisite-waas'),
+			'delete_button_label' => __('Delete Membership', 'multisite-ultimate'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
 		];
 	}
 
@@ -1022,7 +1023,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function sites_query_filter($args) {
 
-		$args['meta_query'] = [
+		$args['meta_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			'membership_id' => [
 				'key'   => 'wu_membership_id',
 				'value' => $this->get_object()->get_id(),
@@ -1103,7 +1104,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 
 			$actions = [
 				'preview' => [
-					'title' => __('&larr; Go back', 'wp-multisite-waas'),
+					'title' => __('&larr; Go back', 'multisite-ultimate'),
 					'url'   => remove_query_arg('preview-swap', wu_get_current_url()),
 				],
 			];
@@ -1111,7 +1112,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			$date = new \DateTime($swap_order->scheduled_date);
 
 			// translators: %s is the date, using the site format options
-			$message = sprintf(__('This is a <strong>preview</strong>. This page displays the final stage of the membership after the changes scheduled for <strong>%s</strong>. Saving here will persist these changes, so be careful.', 'wp-multisite-waas'), $date->format(get_option('date_format')));
+			$message = sprintf(__('This is a <strong>preview</strong>. This page displays the final stage of the membership after the changes scheduled for <strong>%s</strong>. Saving here will persist these changes, so be careful.', 'multisite-ultimate'), $date->format(get_option('date_format')));
 
 			WP_Ultimo()->notices->add($message, 'info', 'network-admin', false, $actions);
 
@@ -1196,7 +1197,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 
 		$billing_address = $object->get_billing_address();
 
-		$billing_address->attributes($_POST);
+		$billing_address->attributes($_POST); // phpcs:ignore WordPress.Security.NonceVerification
 
 		$valid_address = $billing_address->validate();
 
@@ -1260,8 +1261,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = [
 			'product_id'    => [
 				'type'        => 'model',
-				'title'       => __('Product', 'wp-multisite-waas'),
-				'placeholder' => __('Search product...', 'wp-multisite-waas'),
+				'title'       => __('Product', 'multisite-ultimate'),
+				'placeholder' => __('Search product...', 'multisite-ultimate'),
 				'value'       => '',
 				'tooltip'     => '',
 				'html_attr'   => [
@@ -1275,7 +1276,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'quantity'      => [
 				'type'            => 'number',
-				'title'           => __('Quantity', 'wp-multisite-waas'),
+				'title'           => __('Quantity', 'multisite-ultimate'),
 				'value'           => 1,
 				'placeholder'     => 1,
 				'wrapper_classes' => 'wu-w-1/2',
@@ -1286,8 +1287,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'update_price'  => [
 				'type'      => 'toggle',
-				'title'     => __('Update Pricing', 'wp-multisite-waas'),
-				'desc'      => __('Checking this box will update the membership pricing. Otherwise, the products will be added without changing the membership prices.', 'wp-multisite-waas'),
+				'title'     => __('Update Pricing', 'multisite-ultimate'),
+				'desc'      => __('Checking this box will update the membership pricing. Otherwise, the products will be added without changing the membership prices.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'update_pricing',
 				],
@@ -1303,8 +1304,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Add Product', 'wp-multisite-waas'),
-				'placeholder'     => __('Add Product', 'wp-multisite-waas'),
+				'title'           => __('Add Product', 'multisite-ultimate'),
+				'placeholder'     => __('Add Product', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'wu-w-full button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -1351,7 +1352,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$membership = wu_get_membership(wu_request('id'));
 
 		if ( ! $membership) {
-			$error = new \WP_Error('membership-not-found', __('Membership not found.', 'wp-multisite-waas'));
+			$error = new \WP_Error('membership-not-found', __('Membership not found.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -1359,7 +1360,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$product = wu_get_product(wu_request('product_id'));
 
 		if ( ! $product) {
-			$error = new \WP_Error('product-not-found', __('Product not found.', 'wp-multisite-waas'));
+			$error = new \WP_Error('product-not-found', __('Product not found.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -1382,10 +1383,11 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		if (is_wp_error($saved)) {
 			wp_send_json_error($saved);
 		}
+		$referer = isset($_SERVER['HTTP_REFERER']) ? sanitize_url(wp_unslash($_SERVER['HTTP_REFERER'])) : '';
 
 		wp_send_json_success(
 			[
-				'redirect_url' => add_query_arg('updated', 1, $_SERVER['HTTP_REFERER']),
+				'redirect_url' => add_query_arg('updated', 1, $referer),
 			]
 		);
 	}
@@ -1415,7 +1417,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = [
 			'quantity'      => [
 				'type'            => 'number',
-				'title'           => __('Quantity', 'wp-multisite-waas'),
+				'title'           => __('Quantity', 'multisite-ultimate'),
 				'value'           => 1,
 				'placeholder'     => 1,
 				'wrapper_classes' => 'wu-w-1/2',
@@ -1426,8 +1428,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'update_price'  => [
 				'type'      => 'toggle',
-				'title'     => __('Update Pricing?', 'wp-multisite-waas'),
-				'desc'      => __('Checking this box will update the membership pricing. Otherwise, the products will be added without changing the membership prices.', 'wp-multisite-waas'),
+				'title'     => __('Update Pricing?', 'multisite-ultimate'),
+				'desc'      => __('Checking this box will update the membership pricing. Otherwise, the products will be added without changing the membership prices.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'update_pricing',
 				],
@@ -1443,8 +1445,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Remove Product', 'wp-multisite-waas'),
-				'placeholder'     => __('Remove Product', 'wp-multisite-waas'),
+				'title'           => __('Remove Product', 'multisite-ultimate'),
+				'placeholder'     => __('Remove Product', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'wu-w-full button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -1495,7 +1497,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$membership = wu_get_membership(wu_request('id'));
 
 		if ( ! $membership) {
-			$error = new \WP_Error('membership-not-found', __('Membership not found.', 'wp-multisite-waas'));
+			$error = new \WP_Error('membership-not-found', __('Membership not found.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -1503,7 +1505,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$product = wu_get_product(wu_request('product_id'));
 
 		if ( ! $product) {
-			$error = new \WP_Error('product-not-found', __('Product not found.', 'wp-multisite-waas'));
+			$error = new \WP_Error('product-not-found', __('Product not found.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -1532,10 +1534,11 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		if (is_wp_error($saved)) {
 			wp_send_json_error($saved);
 		}
+		$referer = isset($_SERVER['HTTP_REFERER']) ? sanitize_url(wp_unslash($_SERVER['HTTP_REFERER'])) : '';
 
 		wp_send_json_success(
 			[
-				'redirect_url' => add_query_arg('updated', 1, $_SERVER['HTTP_REFERER']),
+				'redirect_url' => add_query_arg('updated', 1, $referer),
 			]
 		);
 	}
@@ -1571,9 +1574,9 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = [
 			'plan_id'       => [
 				'type'        => 'model',
-				'title'       => __('Plan', 'wp-multisite-waas'),
-				'placeholder' => __('Search new Plan...', 'wp-multisite-waas'),
-				'desc'        => __('Select a new plan for this membership.', 'wp-multisite-waas'),
+				'title'       => __('Plan', 'multisite-ultimate'),
+				'placeholder' => __('Search new Plan...', 'multisite-ultimate'),
+				'desc'        => __('Select a new plan for this membership.', 'multisite-ultimate'),
 				'value'       => $product->get_id(),
 				'tooltip'     => '',
 				'html_attr'   => [
@@ -1588,8 +1591,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'update_price'  => [
 				'type'      => 'toggle',
-				'title'     => __('Update Pricing', 'wp-multisite-waas'),
-				'desc'      => __('Checking this box will update the membership pricing. Otherwise, the products will be added without changing the membership prices.', 'wp-multisite-waas'),
+				'title'     => __('Update Pricing', 'multisite-ultimate'),
+				'desc'      => __('Checking this box will update the membership pricing. Otherwise, the products will be added without changing the membership prices.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'update_pricing',
 				],
@@ -1605,8 +1608,8 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Change Product', 'wp-multisite-waas'),
-				'placeholder'     => __('Change Product', 'wp-multisite-waas'),
+				'title'           => __('Change Product', 'multisite-ultimate'),
+				'placeholder'     => __('Change Product', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'wu-w-full button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -1659,7 +1662,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$membership = wu_get_membership(wu_request('id'));
 
 		if ( ! $membership) {
-			$error = new \WP_Error('membership-not-found', __('Membership not found.', 'wp-multisite-waas'));
+			$error = new \WP_Error('membership-not-found', __('Membership not found.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -1667,7 +1670,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$plan = wu_get_product(wu_request('plan_id'));
 
 		if ( ! $plan) {
-			$error = new \WP_Error('plan-not-found', __('Plan not found.', 'wp-multisite-waas'));
+			$error = new \WP_Error('plan-not-found', __('Plan not found.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -1675,7 +1678,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		$original_plan_id = $membership->get_plan_id();
 
 		if (absint($original_plan_id) === absint($plan->get_id())) {
-			$error = new \WP_Error('same-plan', __('No change performed. The same plan selected.', 'wp-multisite-waas'));
+			$error = new \WP_Error('same-plan', __('No change performed. The same plan selected.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -1704,10 +1707,11 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 		if (is_wp_error($saved)) {
 			wp_send_json_error($saved);
 		}
+		$referer = isset($_SERVER['HTTP_REFERER']) ? sanitize_url(wp_unslash($_SERVER['HTTP_REFERER'])) : '';
 
 		wp_send_json_success(
 			[
-				'redirect_url' => add_query_arg('updated', 1, $_SERVER['HTTP_REFERER']),
+				'redirect_url' => add_query_arg('updated', 1, $referer),
 			]
 		);
 	}

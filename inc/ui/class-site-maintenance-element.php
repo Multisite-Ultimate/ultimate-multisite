@@ -81,14 +81,14 @@ class Site_Maintenance_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Site Maintenance', 'wp-multisite-waas');
+		return __('Site Maintenance', 'multisite-ultimate');
 	}
 
 	/**
@@ -97,14 +97,14 @@ class Site_Maintenance_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds the toggle control to turn maintenance mode on.', 'wp-multisite-waas');
+		return __('Adds the toggle control to turn maintenance mode on.', 'multisite-ultimate');
 	}
 
 	/**
@@ -129,23 +129,23 @@ class Site_Maintenance_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'        => 'text',
-			'title'       => __('Label', 'wp-multisite-waas'),
-			'value'       => __('Toggle Maintenance Mode', 'wp-multisite-waas'),
-			'placeholder' => __('e.g. Toggle Maintenance Mode', 'wp-multisite-waas'),
+			'title'       => __('Label', 'multisite-ultimate'),
+			'value'       => __('Toggle Maintenance Mode', 'multisite-ultimate'),
+			'placeholder' => __('e.g. Toggle Maintenance Mode', 'multisite-ultimate'),
 			'tooltip'     => '',
 		];
 
 		$fields['desc'] = [
 			'type'    => 'textarea',
-			'title'   => __('Description', 'wp-multisite-waas'),
-			'value'   => __('Put your site on maintenance mode. When activated, the front-end will only be accessible to logged users.', 'wp-multisite-waas'),
+			'title'   => __('Description', 'multisite-ultimate'),
+			'value'   => __('Put your site on maintenance mode. When activated, the front-end will only be accessible to logged users.', 'multisite-ultimate'),
 			'tooltip' => '',
 		];
 
@@ -160,7 +160,7 @@ class Site_Maintenance_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Billing_Address',
 	 *  'Form',
 	 *  'Cart',
@@ -173,7 +173,7 @@ class Site_Maintenance_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Login',
 			'Reset Password',
 		];
@@ -196,8 +196,8 @@ class Site_Maintenance_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'title' => __('Toggle Maintenance Mode', 'wp-multisite-waas'),
-			'desc'  => __('Put your site on maintenance mode. When activated, the front-end will only be accessible to logged users.', 'wp-multisite-waas'),
+			'title' => __('Toggle Maintenance Mode', 'multisite-ultimate'),
+			'desc'  => __('Put your site on maintenance mode. When activated, the front-end will only be accessible to logged users.', 'multisite-ultimate'),
 		];
 	}
 

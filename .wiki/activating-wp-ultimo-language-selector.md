@@ -1,10 +1,10 @@
-# Activating WP Multisite WaaS: Language Selector
+# Activating Multisite Ultimate: Language Selector
 
 With this free add-on you can let your users choose which language they would like to see on the sign-up flow and on the login page.
 
-After [activating your license](1677127280-how-do-i-activate-wp-ultimo-using-my-license-key.html) you will be able to install WP Multisite WaaS add-ons your license gives you access to.
+After [activating your license](1677127280-how-do-i-activate-wp-ultimo-using-my-license-key.html) you will be able to install Multisite Ultimate add-ons your license gives you access to.
 
-Go to your WP Multisite WaaS settings page and then, on the menu on the left, click the _Add-ons_ label.
+Go to your Multisite Ultimate settings page and then, on the menu on the left, click the _Add-ons_ label.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-rzVqJCVpY1.png)
 
@@ -24,7 +24,7 @@ _![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-P5ogwZKKDy.
 
 _Activate it on your Plugins page_
 
-Now, go to WP Multisite WaaS’s Settings menu and enter the _Network Settings_ tab. There, at the bottom of the page, you will find a new section called _Languages_.
+Now, go to Multisite Ultimate’s Settings menu and enter the _Network Settings_ tab. There, at the bottom of the page, you will find a new section called _Languages_.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-CaH7BHDh50.png)
 

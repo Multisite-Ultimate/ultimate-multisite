@@ -55,7 +55,7 @@ class Signup_Field_Select extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Select', 'wp-multisite-waas');
+		return __('Select', 'multisite-ultimate');
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Signup_Field_Select extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a select field.', 'wp-multisite-waas');
+		return __('Adds a select field.', 'multisite-ultimate');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Signup_Field_Select extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a select field.', 'wp-multisite-waas');
+		return __('Adds a select field.', 'multisite-ultimate');
 	}
 
 	/**
@@ -156,13 +156,13 @@ class Signup_Field_Select extends Base_Signup_Field {
 		$editor_fields['options_header'] = [
 			'order' => 12,
 			'type'  => 'small-header',
-			'title' => __('Options', 'wp-multisite-waas'),
-			'desc'  => __('Add different options below. The first option is used as the default.', 'wp-multisite-waas'),
+			'title' => __('Options', 'multisite-ultimate'),
+			'desc'  => __('Add different options below. The first option is used as the default.', 'multisite-ultimate'),
 		];
 
 		$editor_fields['options_empty'] = [
 			'type'              => 'note',
-			'desc'              => __('Add the first option using the button below.', 'wp-multisite-waas'),
+			'desc'              => __('Add the first option using the button below.', 'multisite-ultimate'),
 			'classes'           => 'wu-text-gray-600 wu-text-xs wu-text-center wu-w-full',
 			'wrapper_classes'   => 'wu-bg-gray-100 wu-items-end',
 			'order'             => 13,
@@ -185,13 +185,13 @@ class Signup_Field_Select extends Base_Signup_Field {
 			'fields'            => [
 				'options_remove' => [
 					'type'            => 'note',
-					'desc'            => sprintf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => options.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', __('Remove', 'wp-multisite-waas')),
+					'desc'            => sprintf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => options.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', __('Remove', 'multisite-ultimate')),
 					'wrapper_classes' => 'wu-absolute wu-top-0 wu-right-0',
 				],
 				'options_key'    => [
 					'type'            => 'text',
-					'title'           => __('Option Value', 'wp-multisite-waas'),
-					'placeholder'     => __('e.g. option1', 'wp-multisite-waas'),
+					'title'           => __('Option Value', 'multisite-ultimate'),
+					'placeholder'     => __('e.g. option1', 'multisite-ultimate'),
 					'wrapper_classes' => 'wu-w-1/2 wu-mr-2',
 					'html_attr'       => [
 						'v-model'     => 'option.key',
@@ -201,8 +201,8 @@ class Signup_Field_Select extends Base_Signup_Field {
 				],
 				'options_label'  => [
 					'type'            => 'text',
-					'title'           => __('Label', 'wp-multisite-waas'),
-					'placeholder'     => __('e.g. Option 1', 'wp-multisite-waas'),
+					'title'           => __('Label', 'multisite-ultimate'),
+					'placeholder'     => __('e.g. Option 1', 'multisite-ultimate'),
 					'wrapper_classes' => 'wu-w-1/2 wu-ml-2',
 					'html_attr'       => [
 						'v-model'     => 'option.label',
@@ -215,7 +215,7 @@ class Signup_Field_Select extends Base_Signup_Field {
 		$editor_fields['repeat_select_option'] = [
 			'order'             => 16,
 			'type'              => 'submit',
-			'title'             => __('+ Add option', 'wp-multisite-waas'),
+			'title'             => __('+ Add option', 'multisite-ultimate'),
 			'classes'           => 'wu-uppercase wu-text-2xs wu-text-blue-700 wu-border-none wu-bg-transparent wu-font-bold wu-text-right wu-w-full wu-cursor-pointer',
 			'wrapper_classes'   => 'wu-bg-gray-100 wu-items-end',
 			'wrapper_html_attr' => [

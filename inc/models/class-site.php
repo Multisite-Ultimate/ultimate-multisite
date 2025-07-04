@@ -339,7 +339,7 @@ class Site extends Base_Model implements Limitable {
 	 * Get the list of categories.
 	 *
 	 * @since 2.0.0
-	 * @return string
+	 * @return array
 	 */
 	public function get_categories() {
 
@@ -429,7 +429,7 @@ class Site extends Base_Model implements Limitable {
 	 */
 	public function get_preview_url_attrs(): string {
 
-		$is_enabled = Template_Previewer::get_instance()->get_setting('enabled');
+		$is_enabled = Template_Previewer::get_instance()->get_setting('enabled', true);
 
 		$href = 'href="%s" target="_blank"';
 
@@ -990,7 +990,7 @@ class Site extends Base_Model implements Limitable {
 	 */
 	public function has_product() {
 
-		return $this->has_membership() && $this->get_membership()->has_product();
+		return $this->has_membership() && $this->get_membership()->has_plan();
 	}
 
 	/**
@@ -1400,7 +1400,7 @@ class Site extends Base_Model implements Limitable {
 			return get_blog_option($this->get_id(), $option, false);
 		}
 
-		throw new \BadMethodCallException(self::class . "::$name()");
+		throw new \BadMethodCallException(esc_html(self::class . "::$name()"));
 	}
 
 	/**
@@ -1437,7 +1437,7 @@ class Site extends Base_Model implements Limitable {
 	public function delete() {
 
 		if ( ! $this->get_id()) {
-			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'wp-multisite-waas'));
+			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'multisite-ultimate'));
 		}
 
 		/**
@@ -1506,7 +1506,7 @@ class Site extends Base_Model implements Limitable {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return bool
+	 * @return bool|\WP_Error
 	 */
 	public function save() {
 		/*
@@ -1782,7 +1782,7 @@ class Site extends Base_Model implements Limitable {
 			$results = array_map(
 				function ($item) {
 
-					$pending_site = unserialize($item);
+					$pending_site = maybe_unserialize($item);
 
 					$pending_site->set_type('pending');
 
@@ -1796,7 +1796,7 @@ class Site extends Base_Model implements Limitable {
 
 		$query = $query_args;
 
-		$query['meta_query'] = [
+		$query['meta_query'] = [ // phpcs:ignore WordPress
 			[
 				'key'   => 'wu_type',
 				'value' => $type,
@@ -1821,7 +1821,7 @@ class Site extends Base_Model implements Limitable {
 
 		$query = $query_args;
 
-		$query['meta_query'] = [
+		$query['meta_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			[
 				'key'     => 'wu_categories',
 				'value'   => maybe_serialize($categories),

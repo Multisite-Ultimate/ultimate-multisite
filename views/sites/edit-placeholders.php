@@ -9,7 +9,7 @@
 
 	<h1 class="wp-heading-inline">
 
-		<?php esc_html_e('Template Placeholders', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Template Placeholders', 'multisite-ultimate'); ?>
 
 	</h1>
 
@@ -27,7 +27,7 @@
 
 			<span v-cloak class="displaying-num">
 
-			{{data.placeholders.length}} <?php esc_html_e('item(s)', 'wp-multisite-waas'); ?>
+			{{data.placeholders.length}} <?php esc_html_e('item(s)', 'multisite-ultimate'); ?>
 
 			</span>
 
@@ -45,7 +45,7 @@
 					<th id="cb" class="manage-column column-cb" style="width: 50px;">
 
 						<label class="screen-reader-text" for="wu-select-2">
-							<?php esc_attr_e('Select All'); ?>
+							<?php esc_attr_e('Select All', 'multisite-ultimate'); ?>
 						</label>
 
 						<input v-bind:disabled="!data.placeholders" v-model="toggle" v-on:click="select_all" id="wu-select-2"
@@ -73,7 +73,7 @@
 
 						<div class="wu-p-4">
 
-							<?php esc_html_e('Loading Template Placeholders...', 'wp-multisite-waas'); ?>
+							<?php esc_html_e('Loading Template Placeholders...', 'multisite-ultimate'); ?>
 
 						</div>
 
@@ -87,7 +87,7 @@
 
 						<div class="wu-p-4">
 
-							<?php esc_html_e('No items to display', 'wp-multisite-waas'); ?>
+							<?php esc_html_e('No items to display', 'multisite-ultimate'); ?>
 
 						</div>
 
@@ -101,7 +101,7 @@
 
 						<label class="screen-reader-text" for="wu-select-1">
 
-							<?php echo esc_html_e('Select', 'your-textdomain'); ?> {{item.title}}
+							<?php esc_html_e('Select', 'multisite-ultimate'); ?> {{item.title}}
 
 						</label>
 
@@ -149,7 +149,7 @@
 
 								<input
 										class="wu-bg-transparent wu-p-4 wu-border-none wu-w-full hover:wu-bg-gray-200 hover:wu-border hover:wu-border-solid hover:wu-border-gray-400 hover:wu-cursor-pointer"
-										name="" placeholder="*" v-model="item.<?php esc_attr_e($key); ?>">
+										name="" placeholder="*" v-model="item.<?php echo esc_attr($key); ?>">
 
 								<?php
 								break;
@@ -173,7 +173,7 @@
 						<label class="screen-reader-text" for="wu-select">
 
 
-							<?php esc_html_e('Select All'); ?>
+							<?php esc_html_e('Select All', 'multisite-ultimate'); ?>
 
 						</label>
 
@@ -205,13 +205,13 @@
 
 			<button v-on:click.prevent="add_row" class="button">
 
-				<?php esc_html_e('Add new Row', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Add new Row', 'multisite-ultimate'); ?>
 
 			</button>
 
 			<button v-on:click.prevent="delete_rows" class="button">
 
-				<?php esc_html_e('Delete Selected Rows', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('Delete Selected Rows', 'multisite-ultimate'); ?>
 
 			</button>
 
@@ -237,11 +237,11 @@
 
 		<span v-if="changed && !saveMessage && !saving" class="description"
 				style="display: inline-block; line-height: 28px; margin-right: 10px;">
-		<?php esc_html_e('Save your changes!', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Save your changes!', 'multisite-ultimate'); ?>
 		</span>
 
 			<span v-if="saving" class="description" style="display: inline-block; line-height: 28px; margin-right: 10px;">
-		<?php esc_html_e('Saving...', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Saving...', 'multisite-ultimate'); ?>
 		</span>
 
 			<span v-if="saveMessage" class="description"
@@ -250,7 +250,7 @@
 		</span>
 
 			<button v-on:click.prevent="save" v-bind:disabled="saving" class="button button-primary">
-				<?php esc_html_e('Save Template Placeholders'); ?>
+				<?php esc_html_e('Save Template Placeholders', 'multisite-ultimate'); ?>
 			</button>
 		</div>
 

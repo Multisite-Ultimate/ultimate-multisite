@@ -44,7 +44,7 @@ class WPEngine_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $tutorial_link = '';
+	protected $tutorial_link = 'https://github.com/superdav42/wp-multisite-waas/wiki/WP-Engine-Integration';
 
 	/**
 	 * Array containing the features this integration supports.
@@ -172,9 +172,9 @@ class WPEngine_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		$description = __('WP Engine drives your business forward faster with the first and only WordPress Digital Experience Platform. We offer the best WordPress hosting and developer experience on a proven, reliable architecture that delivers unparalleled speed, scalability, and security for your sites.', 'wp-multisite-waas');
+		$description = __('WP Engine drives your business forward faster with the first and only WordPress Digital Experience Platform. We offer the best WordPress hosting and developer experience on a proven, reliable architecture that delivers unparalleled speed, scalability, and security for your sites.', 'multisite-ultimate');
 
-		$description .= '<br><br><b>' . __('We recommend to enter in contact with WP Engine support to ask for a Wildcard domain if you are using a subdomain install.', 'wp-multisite-waas') . '</b>';
+		$description .= '<br><br><b>' . __('We recommend to enter in contact with WP Engine support to ask for a Wildcard domain if you are using a subdomain install.', 'multisite-ultimate') . '</b>';
 
 		return $description;
 	}

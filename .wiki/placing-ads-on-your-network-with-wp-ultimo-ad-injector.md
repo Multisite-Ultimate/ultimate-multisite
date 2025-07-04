@@ -1,8 +1,8 @@
-# Placing Ads on your network with WP Multisite WaaS: Ad Injector
+# Placing Ads on your network with Multisite Ultimate: Ad Injector
 
-WP Multisite WaaS: Ad Injector is a **free add-on** that gives you the tools to place ads on your plans right from their edit page.
+Multisite Ultimate: Ad Injector is a **free add-on** that gives you the tools to place ads on your plans right from their edit page.
 
-After installing WP Multisite WaaS: Ad Injector, go to your _Plugins_ page to activate it.
+After installing Multisite Ultimate: Ad Injector, go to your _Plugins_ page to activate it.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-KgDegqpbeb.png)
 
@@ -32,7 +32,7 @@ _Go to the Admin Panel Ad Code option if you want to display ads on your user's 
 
 ### Beyond Advertising
 
-You can also use WP Multisite WaaS: Ad Injector to offer support to high-tier plans.
+You can also use Multisite Ultimate: Ad Injector to offer support to high-tier plans.
 
 Just go to _Admin Panel Ads_ option and add the HTML code for your support tool.
 

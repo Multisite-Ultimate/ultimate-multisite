@@ -22,16 +22,16 @@
 	<div class="wu-w-2/3">
 
 		<label for="<?php echo esc_attr($field->id); ?>">
-		<button class="button" name="<?php echo esc_attr($field->id); ?>" id="<?php echo esc_attr($field->id); ?>" value="<?php echo wp_create_nonce($field->action); ?>">
-			<?php echo $field->title; ?>
+		<button class="button" name="<?php echo esc_attr($field->id); ?>" id="<?php echo esc_attr($field->id); ?>" value="<?php echo esc_attr(wp_create_nonce($field->action)); ?>">
+			<?php echo esc_html($field->title); ?>
 		</button>
 		</label>
 
 		<?php if ($field->desc) : ?>
 
-		<p class="description" id="<?php echo $field->id; ?>-desc">
+		<p class="description" id="<?php echo esc_attr($field->id); ?>-desc">
 
-			<?php echo $field->desc; ?>
+			<?php echo esc_html($field->desc); ?>
 
 		</p>
 
@@ -40,8 +40,6 @@
 	</div>
 
 	</div>
-
-	<?php // if (isset($field['tooltip'])) {echo WU_Util::tooltip($field['tooltip']);} ?>
 
 </div>
 

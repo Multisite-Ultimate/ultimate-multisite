@@ -1,6 +1,6 @@
 # Downgrading a plan (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
 
 Downgrading a plan or subscription is a common action your clients might do if they have a limited budget or they decided that they won't need many resources to run their subsite.
 
@@ -28,7 +28,7 @@ It does not automatically change the site template since changing the site templ
 
 We understand that your main concern would be the limits and quotas you set under each plan but we have to consider the damage it would do to the user's subsite should we delete or change any of its configurations.
 
-For the posts exceeding the limit set on the plan, you have 3 different options: **Keep the posts as it** *,* **Move the posts to trash** *,* or **Move the posts to draft** *.* You can configure this under WP Multisite WaaS settings.
+For the posts exceeding the limit set on the plan, you have 3 different options: **Keep the posts as it** *,* **Move the posts to trash** *,* or **Move the posts to draft** *.* You can configure this under Multisite Ultimate settings.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-ztHV8cZDG0.png)
 

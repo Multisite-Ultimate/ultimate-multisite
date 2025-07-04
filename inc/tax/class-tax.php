@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Tax Class.
+ * Multisite Ultimate Tax Class.
  *
  * @package WP_Ultimo
  * @subpackage Tax
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Tax;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS Tax Class.
+ * Multisite Ultimate Tax Class.
  *
  * @since 2.0.0
  */
@@ -101,8 +101,8 @@ class Tax {
 		wu_register_settings_section(
 			'taxes',
 			[
-				'title' => __('Taxes', 'wp-multisite-waas'),
-				'desc'  => __('Taxes', 'wp-multisite-waas'),
+				'title' => __('Taxes', 'multisite-ultimate'),
+				'desc'  => __('Taxes', 'multisite-ultimate'),
 				'icon'  => 'dashicons-wu-percent',
 				'order' => 55,
 			]
@@ -112,8 +112,8 @@ class Tax {
 			'taxes',
 			'enable_taxes',
 			[
-				'title'   => __('Enable Taxes', 'wp-multisite-waas'),
-				'desc'    => __('Enable this option to be able to collect sales taxes on your network payments.', 'wp-multisite-waas'),
+				'title'   => __('Enable Taxes', 'multisite-ultimate'),
+				'desc'    => __('Enable this option to be able to collect sales taxes on your network payments.', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]
@@ -123,8 +123,8 @@ class Tax {
 			'taxes',
 			'inclusive_tax',
 			[
-				'title'   => __('Inclusive Tax', 'wp-multisite-waas'),
-				'desc'    => __('Enable this option if your prices include taxes. In that case, WP Multisite WaaS will calculate the included tax instead of adding taxes to the price.', 'wp-multisite-waas'),
+				'title'   => __('Inclusive Tax', 'multisite-ultimate'),
+				'desc'    => __('Enable this option if your prices include taxes. In that case, Multisite Ultimate will calculate the included tax instead of adding taxes to the price.', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 0,
 				'require' => [
@@ -145,7 +145,7 @@ class Tax {
 		wu_register_settings_side_panel(
 			'taxes',
 			[
-				'title'  => __('Tax Rates', 'wp-multisite-waas'),
+				'title'  => __('Tax Rates', 'multisite-ultimate'),
 				'render' => [$this, 'render_taxes_side_panel'],
 			]
 		);
@@ -186,7 +186,7 @@ class Tax {
 		return apply_filters(
 			'wu_get_tax_rate_types',
 			[
-				'regular' => __('Regular', 'wp-multisite-waas'),
+				'regular' => __('Regular', 'multisite-ultimate'),
 			]
 		);
 	}
@@ -201,7 +201,7 @@ class Tax {
 
 		$defaults = [
 			'id'         => uniqid(),
-			'title'      => __('Tax Rate', 'wp-multisite-waas'),
+			'title'      => __('Tax Rate', 'multisite-ultimate'),
 			'country'    => '',
 			'state'      => '',
 			'city'       => '',
@@ -229,7 +229,7 @@ class Tax {
 			'tax_rates',
 			[
 				'default' => [
-					'name'  => __('Default', 'wp-multisite-waas'),
+					'name'  => __('Default', 'multisite-ultimate'),
 					'rates' => [],
 				],
 			]
@@ -292,7 +292,7 @@ class Tax {
 			wp_send_json(
 				[
 					'code'    => 'not-enough-permissions',
-					'message' => __('You don\'t have permission to alter tax rates', 'wp-multisite-waas'),
+					'message' => __('You don\'t have permission to alter tax rates', 'multisite-ultimate'),
 				]
 			);
 		}
@@ -305,7 +305,7 @@ class Tax {
 			wp_send_json(
 				[
 					'code'    => 'tax-rates-not-found',
-					'message' => __('No tax rates present in the request', 'wp-multisite-waas'),
+					'message' => __('No tax rates present in the request', 'multisite-ultimate'),
 				]
 			);
 		}
@@ -337,7 +337,7 @@ class Tax {
 		wp_send_json(
 			[
 				'code'         => 'success',
-				'message'      => __('Tax Rates successfully updated!', 'wp-multisite-waas'),
+				'message'      => __('Tax Rates successfully updated!', 'multisite-ultimate'),
 				'tax_category' => strtolower(sanitize_title(wu_get_isset($data, 'tax_category', 'default'))),
 			]
 		);
@@ -357,21 +357,21 @@ class Tax {
 			<div class="wu-p-4">
 
 				<span class="wu-text-gray-700 wu-font-bold wu-uppercase wu-tracking-wide wu-text-xs">
-					<?php esc_html_e('Manage Tax Rates', 'wp-multisite-waas'); ?>
+					<?php esc_html_e('Manage Tax Rates', 'multisite-ultimate'); ?>
 				</span>
 
 				<div class="wu-py-2">
-					<img class="wu-w-full" alt="<?php esc_attr_e('Manage Tax Rates', 'wp-multisite-waas'); ?>" src="<?php echo wu_get_asset('sidebar/invoices.webp'); ?>">
+					<img class="wu-w-full" alt="<?php esc_attr_e('Manage Tax Rates', 'multisite-ultimate'); ?>" src="<?php echo esc_attr(wu_get_asset('sidebar/invoices.webp')); ?>">
 				</div>
 
 				<p class="wu-text-gray-600 wu-p-0 wu-m-0">
-					<?php esc_html_e('Add different tax rates depending on the country of your customers.', 'wp-multisite-waas'); ?>
+					<?php esc_html_e('Add different tax rates depending on the country of your customers.', 'multisite-ultimate'); ?>
 				</p>
 
 			</div>
 
 			<div v-cloak v-show="enabled == 0" class="wu-mx-4 wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded wu-mb-4">
-				<?php esc_html_e('You need to activate tax support first.', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('You need to activate tax support first.', 'multisite-ultimate'); ?>
 			</div>
 
 			<?php if (current_user_can('wu_edit_payments')) : ?>
@@ -379,17 +379,17 @@ class Tax {
 				<div class="wu-p-4 wu-bg-gray-100 wu-border-solid wu-border-0 wu-border-t wu-border-gray-300">
 
 					<span v-if="false" class="button wu-w-full wu-text-center">
-						<?php esc_html_e('Manage Tax Rates &rarr;', 'wp-multisite-waas'); ?>
+						<?php esc_html_e('Manage Tax Rates &rarr;', 'multisite-ultimate'); ?>
 					</span>
 
 					<div v-cloak>
 
-						<a v-if="enabled" class="button wu-w-full wu-text-center" target="_blank" href="<?php echo wu_network_admin_url('wp-ultimo-tax-rates'); ?>">
-							<?php esc_html_e('Manage Tax Rates &rarr;', 'wp-multisite-waas'); ?>
+						<a v-if="enabled" class="button wu-w-full wu-text-center" target="_blank" href="<?php echo esc_attr(wu_network_admin_url('wp-ultimo-tax-rates')); ?>">
+							<?php esc_html_e('Manage Tax Rates &rarr;', 'multisite-ultimate'); ?>
 						</a>
 
 						<button v-else disabled="disabled" class="button wu-w-full wu-text-center">
-							<?php esc_html_e('Manage Tax Rates &rarr;', 'wp-multisite-waas'); ?>
+							<?php esc_html_e('Manage Tax Rates &rarr;', 'multisite-ultimate'); ?>
 						</button>
 
 					</div>

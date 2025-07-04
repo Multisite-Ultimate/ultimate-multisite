@@ -1,4 +1,4 @@
-# Integrating WP Multisite WaaS with Zapier
+# Integrating Multisite Ultimate with Zapier
 
 In one of the articles, we discussed [Webhooks](1677127281-a-first-look-on-webhooks.html)[ ](https://help.wpultimo.com/article/432-webhooks)and how they can be used to integrate with 3rd party applications.
 
@@ -6,13 +6,13 @@ Using webhooks is a bit complicated as it requires advanced knowledge in coding 
 
 Zapier has integration with over 5000+ apps which makes communication between different applications easier.
 
-You can create **Triggers** that will be set off when events happen on your network (eg an account is created and triggers the account_create event) or generate **Actions** on your network reacting to external events (eg create a new account membership in your WP Multisite WaaS network).
+You can create **Triggers** that will be set off when events happen on your network (eg an account is created and triggers the account_create event) or generate **Actions** on your network reacting to external events (eg create a new account membership in your Multisite Ultimate network).
 
-This is possible because **WP Multisite WaaS Zapier's triggers** and actions are powered by the [REST API](https://developer.wpultimo.com/api/docs/).
+This is possible because **Multisite Ultimate Zapier's triggers** and actions are powered by the [REST API](https://developer.wpultimo.com/api/docs/).
 
 ## How to start
 
-First, search for WP Multisite WaaS in the Zapier app list. Alternatively, you can click [this link](https://zapier.com/apps/wp-ultimo/integrations).
+First, search for Multisite Ultimate in the Zapier app list. Alternatively, you can click [this link](https://zapier.com/apps/wp-ultimo/integrations).
 
 Go to your dashboard and press the **+** **Create Zap** button on the left sidebar to set up a new Zap.
 
@@ -24,7 +24,7 @@ In the search box type "wp ultimo". Click to choose the **Beta** version option.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-BrOYbp7dSE.png)
 
-After selecting our app, choose the available event: **New WP Multisite WaaS Event**.
+After selecting our app, choose the available event: **New Multisite Ultimate Event**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-srblXqJnQE.png)
 
@@ -32,7 +32,7 @@ Now we need to give Zapier access to **your network**. Clicking in **Sign in** w
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-HcULsQoFpZ.png)
 
-Go to your network admin panel and navigate to **WP Multisite WaaS > Settings** > **API & Webhooks** and look for the API Settings section.
+Go to your network admin panel and navigate to **Multisite Ultimate > Settings** > **API & Webhooks** and look for the API Settings section.
 
 Select the **Enable API** option as it is required for this connection to work.
 
@@ -66,7 +66,7 @@ In our tutorial the test was **completed successfully** and returned the payload
 
 Actions use information from other triggers to create new entries in your network.
 
-In the **creating an action step** you will choose the WP Multisite WaaS **Beta** and the option of **Create Items on WP Multisite WaaS**.
+In the **creating an action step** you will choose the Multisite Ultimate **Beta** and the option of **Create Items on Multisite Ultimate**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-swCbHP8jNG.png)
 

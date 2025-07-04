@@ -62,7 +62,7 @@ class Customer_User_Role_Limits {
 			return;
 		}
 
-		$message = __('You reached your membership users limit.', 'wp-multisite-waas');
+		$message = __('You reached your membership users limit.', 'multisite-ultimate');
 
 		/**
 		 * Allow developers to change the message about the membership users limit
@@ -71,7 +71,7 @@ class Customer_User_Role_Limits {
 		 */
 		$message = apply_filters('wu_users_membership_limit_message', $message);
 
-		wp_die($message, __('Limit Reached', 'wp-multisite-waas'), ['back_link' => true]);
+		wp_die(esc_html($message), esc_html__('Limit Reached', 'multisite-ultimate'), ['back_link' => true]);
 	}
 
 	/**

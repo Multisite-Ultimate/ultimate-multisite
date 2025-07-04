@@ -172,7 +172,7 @@ class Field implements \JsonSerializable {
 			if (array_key_exists($this->type, $deprecated)) {
 
 				// translators: The %1$s placeholder is the old type name, the second, the new type name.
-				_doing_it_wrong('wu_add_field', sprintf(__('The field type "%1$s" is no longer supported, use "%2$s" instead.'), $this->type, $new_type_name), '2.0.0');
+				_doing_it_wrong(esc_html('wu_add_field'), esc_html(sprintf(__('The field type "%1$s" is no longer supported, use "%2$s" instead.'), $this->type, $new_type_name)), '2.0.0');
 			}
 
 			/*

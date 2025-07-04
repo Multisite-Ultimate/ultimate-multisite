@@ -1,7 +1,7 @@
-# WP Multisite WaaS
+# Multisite Ultimate
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/superdav42/wp-multisite-waas/refs/heads/main/assets/img/logo.png" alt="WP Multisite WaaS Logo" width="300">
+  <img src="https://raw.githubusercontent.com/superdav42/wp-multisite-waas/refs/heads/main/assets/img/logo.png" alt="Multisite Ultimate Logo" width="300">
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
 
 ## 🌟 Overview
 
-**WP Multisite WaaS** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
+**Multisite Ultimate** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
 
 This plugin was formerly known as WP Ultimo and is now community maintained.
 
@@ -42,7 +42,7 @@ This plugin was formerly known as WP Ultimo and is now community maintained.
 
 ## 🔧 Installation
 
-There are two recommended ways to install WP Multisite WaaS:
+There are two recommended ways to install Multisite Ultimate:
 
 ### Method 1: Using the pre-packaged release (Recommended)
 
@@ -87,7 +87,7 @@ This method requires command-line access to your server and familiarity with Git
 <details>
 <summary><strong>"Cannot declare class ComposerAutoloaderInitWPUltimoDependencies, because the name is already in use"</strong></summary>
 <p>This error usually occurs when updating from an older version of WP Ultimo or when multiple versions of the plugin are installed.</p>
-<p><strong>Solution:</strong> Deactivate and remove any older versions of WP Ultimo or WP Multisite WaaS before activating the new version.</p>
+<p><strong>Solution:</strong> Deactivate and remove any older versions of WP Ultimo or Multisite Ultimate before activating the new version.</p>
 </details>
 
 <details>
@@ -98,7 +98,7 @@ This method requires command-line access to your server and familiarity with Git
 
 ## 🚀 Contributing
 
-We welcome contributions to WP Multisite WaaS! Here's how you can contribute effectively:
+We welcome contributions to Multisite Ultimate! Here's how you can contribute effectively:
 
 ### Development Workflow
 
@@ -167,12 +167,29 @@ We recommend running this in a staging environment before updating your producti
 
 ## 📝 Recent Changes
 
+### Version [2.4.0] - Released on 2025-XX-XX
+- Improved: Prep Plugin for release on WordPress.org
+- Improved: Update translation text domain
+- Fixed: Escape everything that should be escaped.
+- Fixed: Add nonce checks where needed.
+- Fixed: Sanitize all inputs.
+- Improved: Apply Code style changes across the codebase.
+- Fixed: Many deprecation notices.
+- Improved: Load order of many filters.
+- Improved: Add Proper Build script
+- Improved: Use emojii flags
+- Fixed: i18n deprecation notice for translating too early
+- Improved: Put all scripts in footer and load async
+- Improved: Add discounts to thank you page
+- Improved: Prevent downgrading a plan if it the post type could would be over the limit
+- Fixed: Styles on thank you page of legacy checkout
+
 ### Version [2.3.4] - Released on 2024-01-31
 - Fixed: Unable to checkout with any payment gateway
 - Fixed: Warning Undefined global variable $pagenow
 
 ### Version [2.3.3] - Released on 2024-01-29
-- Improved: Plugin renamed to WP Multisite WaaS
+- Improved: Plugin renamed to Multisite Ultimate
 - Removed: Enforcement of paid license
 - Fixed: Incompatibilities with WordPress 6.7 and i18n timing
 - Improved: Reduced plugin size by removing many unnecessary files and shrinking images
@@ -181,16 +198,16 @@ For the complete changelog, please see [readme.txt](readme.txt).
 
 ## 👥 Contributors
 
-WP Multisite WaaS is an open-source project with contributions from:
+Multisite Ultimate is an open-source project with contributions from:
 - [aanduque](https://github.com/aanduque)
 - [superdav42](https://github.com/superdav42)
 - [And the community](https://github.com/superdav42/wp-multisite-waas/graphs/contributors)
 
 ## 📄 License
 
-WP Multisite WaaS is licensed under the GPL v2 or later.
+Multisite Ultimate is licensed under the GPL v2 or later.
 
-Copyright © 2024 [WP Multisite WaaS Contributors](https://github.com/superdav42/wp-multisite-waas/graphs/contributors)
+Copyright © 2024 [Multisite Ultimate Contributors](https://github.com/superdav42/wp-multisite-waas/graphs/contributors)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as

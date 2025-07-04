@@ -87,14 +87,14 @@ class Domain_Mapping_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Domains', 'wp-multisite-waas');
+		return __('Domains', 'multisite-ultimate');
 	}
 
 	/**
@@ -103,14 +103,14 @@ class Domain_Mapping_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds the site\'s domains block.', 'wp-multisite-waas');
+		return __('Adds the site\'s domains block.', 'multisite-ultimate');
 	}
 
 	/**
@@ -135,16 +135,16 @@ class Domain_Mapping_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Title', 'wp-multisite-waas'),
-			'value'   => __('Domains', 'wp-multisite-waas'),
-			'desc'    => __('Leave blank to hide the title completely.', 'wp-multisite-waas'),
+			'title'   => __('Title', 'multisite-ultimate'),
+			'value'   => __('Domains', 'multisite-ultimate'),
+			'desc'    => __('Leave blank to hide the title completely.', 'multisite-ultimate'),
 			'tooltip' => '',
 		];
 
@@ -159,7 +159,7 @@ class Domain_Mapping_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Checkout',
 	 *  'Form',
 	 *  'Cart',
@@ -172,7 +172,7 @@ class Domain_Mapping_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Domain',
 		];
 	}
@@ -194,7 +194,7 @@ class Domain_Mapping_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'title' => __('Domains', 'wp-multisite-waas'),
+			'title' => __('Domains', 'multisite-ultimate'),
 		];
 	}
 
@@ -291,7 +291,7 @@ class Domain_Mapping_Element extends Base_Element {
 		$fields = [
 			'instructions_note' => [
 				'type'              => 'note',
-				'desc'              => sprintf('<a href="#" class="wu-no-underline" v-on:click.prevent="ready = false">%s</a>', __('&larr; Back to the Instructions', 'wp-multisite-waas')),
+				'desc'              => sprintf('<a href="#" class="wu-no-underline" v-on:click.prevent="ready = false">%s</a>', __('&larr; Back to the Instructions', 'multisite-ultimate')),
 				'wrapper_html_attr' => [
 					'v-if'    => 'ready',
 					'v-cloak' => '1',
@@ -300,7 +300,7 @@ class Domain_Mapping_Element extends Base_Element {
 			'instructions'      => [
 				'type'              => 'text-display',
 				'copy'              => false,
-				'title'             => __('Instructions', 'wp-multisite-waas'),
+				'title'             => __('Instructions', 'multisite-ultimate'),
 				'tooltip'           => '',
 				'display_value'     => sprintf('<div class="wu--mt-2 wu--mb-2">%s</div>', wpautop($instructions)),
 				'wrapper_html_attr' => [
@@ -310,7 +310,7 @@ class Domain_Mapping_Element extends Base_Element {
 			],
 			'ready'             => [
 				'type'              => 'submit',
-				'title'             => __('Next Step &rarr;', 'wp-multisite-waas'),
+				'title'             => __('Next Step &rarr;', 'multisite-ultimate'),
 				'value'             => 'save',
 				'classes'           => 'button button-primary wu-w-full',
 				'wrapper_classes'   => 'wu-items-end',
@@ -328,8 +328,8 @@ class Domain_Mapping_Element extends Base_Element {
 			],
 			'domain'            => [
 				'type'              => 'text',
-				'title'             => __('Domain', 'wp-multisite-waas'),
-				'placeholder'       => __('mydomain.com', 'wp-multisite-waas'),
+				'title'             => __('Domain', 'multisite-ultimate'),
+				'placeholder'       => __('mydomain.com', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-show'  => 'ready',
 					'v-cloak' => 1,
@@ -337,8 +337,8 @@ class Domain_Mapping_Element extends Base_Element {
 			],
 			'primary_domain'    => [
 				'type'              => 'toggle',
-				'title'             => __('Primary Domain', 'wp-multisite-waas'),
-				'desc'              => __('Check to set this domain as the primary', 'wp-multisite-waas'),
+				'title'             => __('Primary Domain', 'multisite-ultimate'),
+				'desc'              => __('Check to set this domain as the primary', 'multisite-ultimate'),
 				'html_attr'         => [
 					'v-model' => 'primary_domain',
 				],
@@ -349,7 +349,7 @@ class Domain_Mapping_Element extends Base_Element {
 			],
 			'primary_note'      => [
 				'type'              => 'note',
-				'desc'              => __('By making this the primary domain, we will convert the previous primary domain for this site, if one exists, into an alias domain.', 'wp-multisite-waas'),
+				'desc'              => __('By making this the primary domain, we will convert the previous primary domain for this site, if one exists, into an alias domain.', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-if'    => "require('primary_domain', true) && ready",
 					'v-cloak' => 1,
@@ -357,7 +357,7 @@ class Domain_Mapping_Element extends Base_Element {
 			],
 			'submit_button_new' => [
 				'type'              => 'submit',
-				'title'             => __('Add Domain', 'wp-multisite-waas'),
+				'title'             => __('Add Domain', 'multisite-ultimate'),
 				'value'             => 'save',
 				'classes'           => 'button button-primary wu-w-full',
 				'wrapper_classes'   => 'wu-items-end',
@@ -406,7 +406,7 @@ class Domain_Mapping_Element extends Base_Element {
 
 		if ( ! is_super_admin() && (! $current_site || $current_site->get_customer()->get_user_id() !== $current_user_id)) {
 			wp_send_json_error(
-				new \WP_Error('no-permissions', __('You do not have permissions to perform this action.', 'wp-multisite-waas'))
+				new \WP_Error('no-permissions', __('You do not have permissions to perform this action.', 'multisite-ultimate'))
 			);
 
 			exit;
@@ -470,8 +470,8 @@ class Domain_Mapping_Element extends Base_Element {
 		$fields = [
 			'confirm'       => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Deletion', 'wp-multisite-waas'),
-				'desc'      => __('This action can not be undone.', 'wp-multisite-waas'),
+				'title'     => __('Confirm Deletion', 'multisite-ultimate'),
+				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
@@ -482,8 +482,8 @@ class Domain_Mapping_Element extends Base_Element {
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Delete', 'wp-multisite-waas'),
-				'placeholder'     => __('Delete', 'wp-multisite-waas'),
+				'title'           => __('Delete', 'multisite-ultimate'),
+				'placeholder'     => __('Delete', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -554,8 +554,8 @@ class Domain_Mapping_Element extends Base_Element {
 		$fields = [
 			'confirm'       => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Action', 'wp-multisite-waas'),
-				'desc'      => __('This action will also convert the previous primary domain (if any) to an alias to prevent unexpected behavior.', 'wp-multisite-waas'),
+				'title'     => __('Confirm Action', 'multisite-ultimate'),
+				'desc'      => __('This action will also convert the previous primary domain (if any) to an alias to prevent unexpected behavior.', 'multisite-ultimate'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
@@ -566,8 +566,8 @@ class Domain_Mapping_Element extends Base_Element {
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Make it Primary', 'wp-multisite-waas'),
-				'placeholder'     => __('Make it Primary', 'wp-multisite-waas'),
+				'title'           => __('Make it Primary', 'multisite-ultimate'),
+				'placeholder'     => __('Make it Primary', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -642,7 +642,7 @@ class Domain_Mapping_Element extends Base_Element {
 			);
 		}
 
-		wp_send_json_error(new \WP_Error('error', __('Something wrong happenned.', 'wp-multisite-waas')));
+		wp_send_json_error(new \WP_Error('error', __('Something wrong happenned.', 'multisite-ultimate')));
 	}
 
 	/**
@@ -712,12 +712,12 @@ class Domain_Mapping_Element extends Base_Element {
 
 			$secure = 'dashicons-wu-lock-open';
 
-			$secure_message = __('Domain not secured with HTTPS', 'wp-multisite-waas');
+			$secure_message = __('Domain not secured with HTTPS', 'multisite-ultimate');
 
 			if ($domain->is_secure()) {
 				$secure = 'dashicons-wu-lock wu-text-green-500';
 
-				$secure_message = __('Domain secured with HTTPS', 'wp-multisite-waas');
+				$secure_message = __('Domain secured with HTTPS', 'multisite-ultimate');
 			}
 
 			$url_atts = [
@@ -749,7 +749,7 @@ class Domain_Mapping_Element extends Base_Element {
 		$other_atts = [
 			'domains' => $domains,
 			'modal'   => [
-				'label'   => __('Add Domain', 'wp-multisite-waas'),
+				'label'   => __('Add Domain', 'multisite-ultimate'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('user_add_new_domain', $url_atts),

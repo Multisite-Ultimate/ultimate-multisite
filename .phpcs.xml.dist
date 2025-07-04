@@ -41,11 +41,15 @@
         <exclude name="Squiz.Commenting.FileComment.PackageName" />
         <exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited" />
         <exclude name="Generic.Commenting.DocComment.MissingShort" />
+        <exclude name="Squiz.Commenting.FileComment.MissingPackageTag" />
 	</rule>
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<!-- Value: replace the function, class, and variable prefixes used. Separate multiple prefixes with a comma. -->
-			<property name="prefixes" type="array" value="wu_,wp_ultimo"/>
+			<property name="prefixes" type="array">
+                <element value="wu_"/>
+                <element value="wp_ultimo"/>
+            </property>
 		</properties>
 		<exclude-pattern>/views/</exclude-pattern>
 	</rule>
@@ -90,8 +94,22 @@
                 <element key="6" value="delete_notes"/>
                 <element key="7" value="wu_edit_payments"/>
                 <element key="8" value="wu_edit_sites"/>
+                <element key="9" value="wu_delete_sites"/>
+                <element key="10" value="wu_delete_payments"/>
+                <element key="11" value="wu_transfer_memberships"/>
+                <element key="12" value="wu_transfer_sites"/>
+                <element key="13" value="wu_read_financial" />
+                <element key="14" value="wu_manage_invoice" />
             </property>
         </properties>
     </rule>
+    <rule ref="WordPress.Security.ValidatedSanitizedInput">
+        <properties>
+            <property name="customSanitizingFunctions" type="array">
+                <element value="wu_clean" />
+            </property>
+        </properties>
+    </rule>
+
 
 </ruleset>

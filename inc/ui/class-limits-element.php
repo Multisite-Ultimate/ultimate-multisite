@@ -75,14 +75,14 @@ class Limits_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Limits & Quotas', 'wp-multisite-waas');
+		return __('Limits & Quotas', 'multisite-ultimate');
 	}
 
 	/**
@@ -91,14 +91,14 @@ class Limits_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'wp-multisite-waas');
+		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
 	}
 
 	/**
@@ -123,23 +123,23 @@ class Limits_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Title', 'wp-multisite-waas'),
-			'value'   => __('Site Limits', 'wp-multisite-waas'),
-			'desc'    => __('Leave blank to hide the title completely.', 'wp-multisite-waas'),
+			'title'   => __('Title', 'multisite-ultimate'),
+			'value'   => __('Site Limits', 'multisite-ultimate'),
+			'desc'    => __('Leave blank to hide the title completely.', 'multisite-ultimate'),
 			'tooltip' => '',
 		];
 
 		$fields['columns'] = [
 			'type'    => 'number',
-			'title'   => __('Columns', 'wp-multisite-waas'),
-			'desc'    => __('How many columns to use.', 'wp-multisite-waas'),
+			'title'   => __('Columns', 'multisite-ultimate'),
+			'desc'    => __('How many columns to use.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 			'min'     => 1,
@@ -157,7 +157,7 @@ class Limits_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Checkout',
 	 *  'Form',
 	 *  'Cart',
@@ -170,7 +170,7 @@ class Limits_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Account',
 			'Limits',
 			'Quotas',
@@ -195,7 +195,7 @@ class Limits_Element extends Base_Element {
 
 		return [
 			'columns' => 1,
-			'title'   => __('Site Limits', 'wp-multisite-waas'),
+			'title'   => __('Site Limits', 'multisite-ultimate'),
 		];
 	}
 

@@ -101,14 +101,14 @@ class Current_Site_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Site', 'wp-multisite-waas');
+		return __('Site', 'multisite-ultimate');
 	}
 
 	/**
@@ -117,14 +117,14 @@ class Current_Site_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a block to display the current site being managed.', 'wp-multisite-waas');
+		return __('Adds a block to display the current site being managed.', 'multisite-ultimate');
 	}
 
 	/**
@@ -149,15 +149,15 @@ class Current_Site_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['display_breadcrumbs'] = [
 			'type'    => 'toggle',
-			'title'   => __('Display Breadcrumbs?', 'wp-multisite-waas'),
-			'desc'    => __('Toggle to show/hide the breadcrumbs block.', 'wp-multisite-waas'),
+			'title'   => __('Display Breadcrumbs?', 'multisite-ultimate'),
+			'desc'    => __('Toggle to show/hide the breadcrumbs block.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
@@ -170,7 +170,7 @@ class Current_Site_Element extends Base_Element {
 
 		$pages = $pages ?: [];
 
-		$pages_list = [0 => __('Current Page', 'wp-multisite-waas')];
+		$pages_list = [0 => __('Current Page', 'multisite-ultimate')];
 
 		foreach ($pages as $page) {
 			$pages_list[ $page->ID ] = $page->post_title;
@@ -178,31 +178,31 @@ class Current_Site_Element extends Base_Element {
 
 		$fields['breadcrumbs_my_sites_page'] = [
 			'type'    => 'select',
-			'title'   => __('My Sites Page', 'wp-multisite-waas'),
+			'title'   => __('My Sites Page', 'multisite-ultimate'),
 			'value'   => 0,
-			'desc'    => __('The page with the customer sites list.', 'wp-multisite-waas'),
+			'desc'    => __('The page with the customer sites list.', 'multisite-ultimate'),
 			'options' => $pages_list,
 		];
 
 		$fields['display_description'] = [
 			'type'    => 'toggle',
-			'title'   => __('Display Site Description?', 'wp-multisite-waas'),
-			'desc'    => __('Toggle to show/hide the site description on the element.', 'wp-multisite-waas'),
+			'title'   => __('Display Site Description?', 'multisite-ultimate'),
+			'desc'    => __('Toggle to show/hide the site description on the element.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 0,
 		];
 
 		$fields['display_image'] = [
 			'type'    => 'toggle',
-			'title'   => __('Display Site Screenshot?', 'wp-multisite-waas'),
-			'desc'    => __('Toggle to show/hide the site screenshots on the element.', 'wp-multisite-waas'),
+			'title'   => __('Display Site Screenshot?', 'multisite-ultimate'),
+			'desc'    => __('Toggle to show/hide the site screenshots on the element.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
 
 		$fields['screenshot_size'] = [
 			'type'     => 'number',
-			'title'    => __('Screenshot Size', 'wp-multisite-waas'),
+			'title'    => __('Screenshot Size', 'multisite-ultimate'),
 			'desc'     => '',
 			'tooltip'  => '',
 			'value'    => 200,
@@ -215,10 +215,10 @@ class Current_Site_Element extends Base_Element {
 
 		$fields['screenshot_position'] = [
 			'type'     => 'select',
-			'title'    => __('Screenshot Position', 'wp-multisite-waas'),
+			'title'    => __('Screenshot Position', 'multisite-ultimate'),
 			'options'  => [
-				'right' => __('Right', 'wp-multisite-waas'),
-				'left'  => __('Left', 'wp-multisite-waas'),
+				'right' => __('Right', 'multisite-ultimate'),
+				'left'  => __('Left', 'multisite-ultimate'),
 			],
 			'desc'     => '',
 			'tooltip'  => '',
@@ -230,8 +230,8 @@ class Current_Site_Element extends Base_Element {
 
 		$fields['show_admin_link'] = [
 			'type'    => 'toggle',
-			'title'   => __('Show Admin Link?', 'wp-multisite-waas'),
-			'desc'    => __('Toggle to show/hide the WP admin link on the element.', 'wp-multisite-waas'),
+			'title'   => __('Show Admin Link?', 'multisite-ultimate'),
+			'desc'    => __('Toggle to show/hide the WP admin link on the element.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
@@ -247,7 +247,7 @@ class Current_Site_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Site',
 	 *  'Form',
 	 *  'Cart',
@@ -260,7 +260,7 @@ class Current_Site_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Site',
 			'Form',
 			'Cart',
@@ -354,13 +354,13 @@ class Current_Site_Element extends Base_Element {
 
 		$actions = [
 			'visit_site' => [
-				'label'        => __('Visit Site', 'wp-multisite-waas'),
+				'label'        => __('Visit Site', 'multisite-ultimate'),
 				'icon_classes' => 'dashicons-wu-browser wu-align-text-bottom',
 				'classes'      => '',
 				'href'         => $this->site->get_active_site_url(),
 			],
 			'edit_site'  => [
-				'label'        => __('Edit Site', 'wp-multisite-waas'),
+				'label'        => __('Edit Site', 'multisite-ultimate'),
 				'icon_classes' => 'dashicons-wu-edit wu-align-text-bottom',
 				'classes'      => 'wubox',
 				'href'         => wu_get_form_url(
@@ -374,7 +374,7 @@ class Current_Site_Element extends Base_Element {
 
 		if ($atts['show_admin_link']) {
 			$actions['site_admin'] = [
-				'label'        => __('Admin Panel', 'wp-multisite-waas'),
+				'label'        => __('Admin Panel', 'multisite-ultimate'),
 				'icon_classes' => 'dashicons-wu-grid wu-align-text-bottom',
 				'classes'      => '',
 				'href'         => get_admin_url($this->site->get_id()),
@@ -411,8 +411,8 @@ class Current_Site_Element extends Base_Element {
 		$fields = [
 			'site_title'       => [
 				'type'        => 'text',
-				'title'       => __('Site Title', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. My Awesome Site', 'wp-multisite-waas'),
+				'title'       => __('Site Title', 'multisite-ultimate'),
+				'placeholder' => __('e.g. My Awesome Site', 'multisite-ultimate'),
 				'value'       => $site->get_title(),
 				'html_attr'   => [
 					'v-model' => 'site_title',
@@ -420,8 +420,8 @@ class Current_Site_Element extends Base_Element {
 			],
 			'site_description' => [
 				'type'        => 'textarea',
-				'title'       => __('Site Description', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. My Awesome Site description.', 'wp-multisite-waas'),
+				'title'       => __('Site Description', 'multisite-ultimate'),
+				'placeholder' => __('e.g. My Awesome Site description.', 'multisite-ultimate'),
 				'value'       => $site->get_description(),
 				'html_attr'   => [
 					'rows' => 5,
@@ -433,7 +433,7 @@ class Current_Site_Element extends Base_Element {
 			],
 			'submit_button'    => [
 				'type'            => 'submit',
-				'title'           => __('Save Changes', 'wp-multisite-waas'),
+				'title'           => __('Save Changes', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -477,7 +477,7 @@ class Current_Site_Element extends Base_Element {
 		$site = wu_get_site_by_hash(wu_request('site'));
 
 		if ( ! $site) {
-			$error = new \WP_Error('site-dont-exist', __('Something went wrong.', 'wp-multisite-waas'));
+			$error = new \WP_Error('site-dont-exist', __('Something went wrong.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -485,7 +485,7 @@ class Current_Site_Element extends Base_Element {
 		$new_title = wu_request('site_title');
 
 		if ( ! $new_title) {
-			$error = new \WP_Error('title_empty', __('Site title can not be empty.', 'wp-multisite-waas'));
+			$error = new \WP_Error('title_empty', __('Site title can not be empty.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
@@ -493,10 +493,11 @@ class Current_Site_Element extends Base_Element {
 		$status = update_blog_option($site->get_id(), 'blogname', $new_title);
 
 		$status_desc = update_blog_option($site->get_id(), 'blogdescription', wu_request('site_description'));
+		$referer     = isset($_SERVER['HTTP_REFERER']) ? sanitize_url(wp_unslash($_SERVER['HTTP_REFERER'])) : '';
 
 		wp_send_json_success(
 			[
-				'redirect_url' => add_query_arg('updated', (int) $status, $_SERVER['HTTP_REFERER']),
+				'redirect_url' => add_query_arg('updated', (int) $status, $referer),
 			]
 		);
 	}

@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS About Admin Page.
+ * Multisite Ultimate About Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\Tax\Tax;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS About Admin Page.
+ * Multisite Ultimate About Admin Page.
  */
 class Tax_Rates_Admin_Page extends Base_Admin_Page {
 
@@ -72,7 +72,7 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Tax Rates', 'wp-multisite-waas');
+		return __('Tax Rates', 'multisite-ultimate');
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Tax Rates', 'wp-multisite-waas');
+		return __('Tax Rates', 'multisite-ultimate');
 	}
 
 	/**
@@ -94,7 +94,7 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Tax Rates', 'wp-multisite-waas');
+		return __('Tax Rates', 'multisite-ultimate');
 	}
 
 	/**
@@ -110,11 +110,11 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 		$columns = apply_filters(
 			'wu_tax_rates_columns',
 			[
-				'title'    => __('Label', 'wp-multisite-waas'),
-				'country'  => __('Country', 'wp-multisite-waas'),
-				'state'    => __('State / Province', 'wp-multisite-waas'),
-				'city'     => __('City', 'wp-multisite-waas'),
-				'tax_rate' => __('Tax Rate (%)', 'wp-multisite-waas'),
+				'title'    => __('Label', 'multisite-ultimate'),
+				'country'  => __('Country', 'multisite-ultimate'),
+				'state'    => __('State / Province', 'multisite-ultimate'),
+				'city'     => __('City', 'multisite-ultimate'),
+				'tax_rate' => __('Tax Rate (%)', 'multisite-ultimate'),
 				'move'     => '',
 			]
 		);
@@ -139,21 +139,17 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 
 		parent::register_scripts();
 
-		wp_register_script('wu-tax-rates', wu_get_asset('tax-rates.js', 'js'), ['wu-admin', 'wu-vue', 'underscore', 'wu-selectizer'], wu_get_version(), false);
+		wp_register_script('wu-tax-rates', wu_get_asset('tax-rates.js', 'js'), ['wu-admin', 'wu-vue', 'underscore', 'wu-selectizer', 'wu-vue-sortable', 'wu-vue-draggable'], wu_get_version(), false);
 
 		wp_localize_script(
 			'wu-tax-rates',
 			'wu_tax_ratesl10n',
 			[
-				'name'                                => __('Tax', 'wp-multisite-waas'),
-				'confirm_message'                     => __('Are you sure you want to delete this rows?', 'wp-multisite-waas'),
-				'confirm_delete_tax_category_message' => __('Are you sure you want to delete this tax category?', 'wp-multisite-waas'),
+				'name'                                => __('Tax', 'multisite-ultimate'),
+				'confirm_message'                     => __('Are you sure you want to delete this rows?', 'multisite-ultimate'),
+				'confirm_delete_tax_category_message' => __('Are you sure you want to delete this tax category?', 'multisite-ultimate'),
 			]
 		);
-
-		wp_enqueue_script('wu-vue-sortable', '//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js', [], wu_get_version());
-
-		wp_enqueue_script('wu-vue-draggable', '//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js', [], wu_get_version());
 
 		wp_enqueue_script('wu-tax-rates');
 	}
@@ -176,7 +172,7 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 				'widget_id'             => $id,
 				'before'                => '',
 				'after'                 => '',
-				'title'                 => __('Fields', 'wp-multisite-waas'),
+				'title'                 => __('Fields', 'multisite-ultimate'),
 				'position'              => 'side',
 				'screen'                => get_current_screen(),
 				'fields'                => [],
@@ -194,7 +190,7 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 				if (wu_get_isset($atts['html_attr'], 'data-wu-app')) {
 					$atts['fields']['loading'] = [
 						'type'              => 'note',
-						'desc'              => sprintf('<div class="wu-block wu-text-center wu-blinking-animation wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">%s</div>', __('Loading...', 'wp-multisite-waas')),
+						'desc'              => sprintf('<div class="wu-block wu-text-center wu-blinking-animation wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">%s</div>', __('Loading...', 'multisite-ultimate')),
 						'wrapper_html_attr' => [
 							'v-if' => 0,
 						],

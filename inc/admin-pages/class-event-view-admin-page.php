@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Event View Admin Page.
+ * Multisite Ultimate Event View Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Models\Event;
 
 /**
- * WP Multisite WaaS Event View Admin Page.
+ * Multisite Ultimate Event View Admin Page.
  */
 class Event_View_Admin_Page extends Edit_Admin_Page {
 
@@ -128,16 +128,16 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 
 		parent::register_widgets();
 
-		add_meta_box('wp-ultimo-message', __('Event Message', 'wp-multisite-waas'), [$this, 'output_default_widget_message'], get_current_screen()->id, 'normal', 'default');
+		add_meta_box('wp-ultimo-message', __('Event Message', 'multisite-ultimate'), [$this, 'output_default_widget_message'], get_current_screen()->id, 'normal', 'default');
 
-		add_meta_box('wp-ultimo-initiator', __('Event', 'wp-multisite-waas'), [$this, 'output_default_widget_initiator'], get_current_screen()->id, 'side', 'default');
+		add_meta_box('wp-ultimo-initiator', __('Event', 'multisite-ultimate'), [$this, 'output_default_widget_initiator'], get_current_screen()->id, 'side', 'default');
 
-		add_meta_box('wp-ultimo-payload', __('Event Payload', 'wp-multisite-waas'), [$this, 'output_default_widget_payload'], get_current_screen()->id, 'normal', 'default');
+		add_meta_box('wp-ultimo-payload', __('Event Payload', 'multisite-ultimate'), [$this, 'output_default_widget_payload'], get_current_screen()->id, 'normal', 'default');
 
 		$this->add_info_widget(
 			'info',
 			[
-				'title'    => __('Timestamps', 'wp-multisite-waas'),
+				'title'    => __('Timestamps', 'multisite-ultimate'),
 				'position' => 'side',
 				'modified' => false,
 			]
@@ -176,8 +176,8 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 		wu_get_template(
 			'events/widget-payload',
 			[
-				'title'        => __('Event Payload', 'wp-multisite-waas'),
-				'loading_text' => __('Loading Payload', 'wp-multisite-waas'),
+				'title'        => __('Event Payload', 'multisite-ultimate'),
+				'loading_text' => __('Loading Payload', 'multisite-ultimate'),
 				'payload'      => wp_json_encode($object->get_payload(), JSON_PRETTY_PRINT),
 			]
 		);
@@ -208,7 +208,7 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Event', 'wp-multisite-waas') : __('Add new Event', 'wp-multisite-waas');
+		return $this->edit ? __('Edit Event', 'multisite-ultimate') : __('Add new Event', 'multisite-ultimate');
 	}
 
 	/**
@@ -219,7 +219,7 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Event', 'wp-multisite-waas');
+		return __('Edit Event', 'multisite-ultimate');
 	}
 
 	/**
@@ -242,15 +242,15 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Event', 'wp-multisite-waas'),
-			'add_new_label'       => __('Add new Event', 'wp-multisite-waas'),
-			'updated_message'     => __('Event updated with success!', 'wp-multisite-waas'),
-			'title_placeholder'   => __('Enter Event', 'wp-multisite-waas'),
+			'edit_label'          => __('Edit Event', 'multisite-ultimate'),
+			'add_new_label'       => __('Add new Event', 'multisite-ultimate'),
+			'updated_message'     => __('Event updated with success!', 'multisite-ultimate'),
+			'title_placeholder'   => __('Enter Event', 'multisite-ultimate'),
 			'title_description'   => '',
-			'save_button_label'   => __('Save Event', 'wp-multisite-waas'),
+			'save_button_label'   => __('Save Event', 'multisite-ultimate'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Event', 'wp-multisite-waas'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'wp-multisite-waas'),
+			'delete_button_label' => __('Delete Event', 'multisite-ultimate'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
 		];
 	}
 
@@ -262,10 +262,10 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_object() {
 
-		if (isset($_GET['id'])) {
+		if (isset($_GET['id'])) { // phpcs:ignore WordPress.Security.NonceVerification
 			$query = new \WP_Ultimo\Database\Events\Event_Query();
 
-			$item = $query->get_item_by('id', $_GET['id']);
+			$item = $query->get_item_by('id', (int) $_GET['id']); // phpcs:ignore WordPress.Security.NonceVerification
 
 			if ($item) {
 				return $item;

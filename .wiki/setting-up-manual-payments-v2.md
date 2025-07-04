@@ -1,6 +1,6 @@
 # Setting Up Manual Payments (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
 
 Manual payments are a way for to you offer other payment methods should **Stripe** or **PayPal** is not available for your users. It can be a wire or bank transfer or any other payment method available to your users locally.
 
@@ -8,7 +8,7 @@ Manual payments are a way for to you offer other payment methods should **Stripe
 
 Setting up manual payment is very easy. You just need to enable it under payment gateways and put in detailed instructions on how the user should send the payment.
 
-First, go to **WP Multisite WaaS > Settings > Payments**. Below **Payment Gateways** , toggle **Manual** on. You will see that a **Payment Instructions** box will show up for you.
+First, go to **Multisite Ultimate > Settings > Payments**. Below **Payment Gateways** , toggle **Manual** on. You will see that a **Payment Instructions** box will show up for you.
 
 Add to this box the information your customer will need to make the payment. It can be your bank account details and your email so the customer can send you the payment confirmation, for example.
 

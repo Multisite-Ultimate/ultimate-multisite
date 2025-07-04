@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Debug Admin Page.
+ * Multisite Ultimate Debug Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages\Debug
@@ -16,7 +16,7 @@ use WP_Ultimo\Admin_Pages\Base_Admin_Page;
 use WP_Ultimo\Debug\Debug;
 
 /**
- * WP Multisite WaaS Debug Admin Page.
+ * Multisite Ultimate Debug Admin Page.
  */
 class Debug_Admin_Page extends Base_Admin_Page {
 
@@ -83,7 +83,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 
 		add_meta_box(
 			'wp-ultimo-debug-pages',
-			__('All Registered Pages', 'wp-multisite-waas'),
+			__('All Registered Pages', 'multisite-ultimate'),
 			[$this, 'render_debug_pages'],
 			get_current_screen()->id,
 			'normal',
@@ -92,7 +92,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	}
 
 	/**
-	 * Renders the list of WP Multisite WaaS registered pages.
+	 * Renders the list of Multisite Ultimate registered pages.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -110,8 +110,8 @@ class Debug_Admin_Page extends Base_Admin_Page {
 					<a class="wu-mx-1 wu-block wu-p-2 wu-box-border wu-border wu-border-gray-400 wu-border-solid wu-rounded" href="%s">%s</a>
 				</li>
 			',
-				$url,
-				$page_id
+				esc_attr($url),
+				esc_html($page_id)
 			);
 		}
 
@@ -126,7 +126,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Registered Pages', 'wp-multisite-waas');
+		return __('Registered Pages', 'multisite-ultimate');
 	}
 
 	/**
@@ -137,7 +137,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Registered Pages', 'wp-multisite-waas');
+		return __('Registered Pages', 'multisite-ultimate');
 	}
 
 	/**
@@ -148,7 +148,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Registered Pages', 'wp-multisite-waas');
+		return __('Registered Pages', 'multisite-ultimate');
 	}
 
 	/**

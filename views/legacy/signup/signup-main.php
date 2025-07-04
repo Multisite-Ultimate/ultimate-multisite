@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/signup-header.php.
  *
- * HOWEVER, on occasion WP Multisite WaaS will need to update template files and you
+ * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -60,7 +60,7 @@ do_action('wu_checkout_scripts');
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 	<title>
-		<?php echo apply_filters('wu_signup_page_title', sprintf(__('%s - Signup', 'wp-multisite-waas'), get_bloginfo('Name'), get_bloginfo('Name'))); ?>
+		<?php echo apply_filters('wu_signup_page_title', sprintf(__('%s - Signup', 'multisite-ultimate'), get_bloginfo('Name'), get_bloginfo('Name'))); ?>
 	</title>
 
 	<?php // Signup do action, like the default ?>
@@ -96,8 +96,9 @@ do_action('wu_checkout_scripts');
 		<div id="login">
 
 			<h1 id="wu-setup-logo">
-			<a href="<?php echo get_site_url(get_current_site()->blog_id); ?>">
-				<?php printf(__('%s - Signup', 'wp-multisite-waas'), get_bloginfo('Name')); ?>
+			<a href="<?php echo esc_attr(get_site_url(get_current_site()->blog_id)); ?>">
+				<?php // translators: %s: Site Name ?>
+				<?php printf(esc_html__('%s - Signup', 'multisite-ultimate'), esc_html(get_bloginfo('Name'))); ?>
 			</a>
 			</h1>
 
@@ -109,7 +110,7 @@ do_action('wu_checkout_scripts');
 
 			?>
 
-			<div class="wu-setup-content wu-content-<?php echo wu_request('step', $signup->step ?? 'default'); ?>">
+			<div class="wu-setup-content wu-content-<?php echo esc_attr(wu_request('step', $signup->step ?? 'default')); ?>">
 
 			<div name="loginform" id="loginform">
 
@@ -161,7 +162,7 @@ do_action('wu_checkout_scripts');
 
 		global $wp_scripts;
 
-		$wp_scripts->print_inline_script('wu-checkout', 'after', true);
+		echo $wp_scripts->get_inline_script_tag('wu-checkout'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 	?>
 

@@ -117,10 +117,10 @@ class Limit_Subtype extends Limit {
 	 */
 	public function handle_limit() {
 
-		$received = wu_get_isset($_POST['modules'][ $this->id ], 'limit', []);
+		$received = wu_get_isset(wu_clean(wp_unslash($_POST['modules'][ $this->id ] ?? [])), 'limit', []); // phpcs:ignore WordPress.Security.NonceVerification
 
 		foreach ($received as $post_type => &$limitations) {
-			$limitations['enabled'] = (bool) wu_get_isset($_POST['modules'][ $this->id ]['limit'][ $post_type ], 'enabled', false);
+			$limitations['enabled'] = (bool) wu_get_isset(wu_clean(wp_unslash($_POST['modules'][ $this->id ]['limit'][ $post_type ] ?? [])), 'enabled', false); // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
 		return $received;

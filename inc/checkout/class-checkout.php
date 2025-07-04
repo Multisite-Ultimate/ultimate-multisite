@@ -54,7 +54,7 @@ class Checkout {
 	 * Current step of the signup flow.
 	 *
 	 * @since 2.0.0
-	 * @var string
+	 * @var array
 	 */
 	public $step;
 
@@ -357,7 +357,7 @@ class Checkout {
 		if (wu_request('pre-flight')) {
 			$checkout_form_slug = false;
 
-			$_REQUEST['pre_selected'] = $_REQUEST;
+			$_REQUEST['pre_selected'] = $_REQUEST; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 
 		if ( ! $checkout_form_slug && is_a($element, \WP_Ultimo\UI\Checkout_Element::class)) {
@@ -476,6 +476,7 @@ class Checkout {
 
 		$this->setup_checkout();
 
+		check_ajax_referer('wu_checkout');
 		if ($this->is_last_step()) {
 			$this->handle_order_submission();
 		} else {
@@ -503,7 +504,7 @@ class Checkout {
 
 		global $wpdb;
 
-		$wpdb->query('START TRANSACTION');
+		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		try {
 			/*
@@ -533,18 +534,18 @@ class Checkout {
 		} catch (\Throwable $e) {
 			wu_maybe_log_error($e);
 
-			$wpdb->query('ROLLBACK');
+			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			$this->errors = new \WP_Error('exception-order-submission', $e->getMessage(), $e->getTrace());
 		}
 
 		if (is_wp_error($this->errors)) {
-			$wpdb->query('ROLLBACK');
+			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			wp_send_json_error($this->errors);
 		}
 
-		$wpdb->query('COMMIT');
+		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		$this->session->set('signup', []);
 		$this->session->commit();
@@ -646,7 +647,7 @@ class Checkout {
 		if ($cart->should_collect_payment() === false) {
 			$gateway = wu_get_gateway('free');
 		} elseif ( ! $gateway || $gateway->get_id() === 'free') {
-			$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'wp-multisite-waas'));
+			$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
 
 			return false;
 		}
@@ -656,7 +657,7 @@ class Checkout {
 		 * we need to bail.
 		 */
 		if ( ! $gateway) {
-			return new \WP_Error('no-gateway', __('Payment gateway not registered.', 'wp-multisite-waas'));
+			return new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
 		}
 
 		$this->gateway_id = $gateway->get_id();
@@ -970,7 +971,7 @@ class Checkout {
 					'email_verification' => 'verified',
 				];
 			} elseif (isset($customer_data['email']) && get_user_by('email', $customer_data['email'])) {
-				return new \WP_Error('email_exists', __('The email address you entered is already in use.', 'wp-multisite-waas'));
+				return new \WP_Error('email_exists', __('The email address you entered is already in use.', 'multisite-ultimate'));
 			}
 
 			/*
@@ -1004,7 +1005,7 @@ class Checkout {
 		 * the entire post array in here.
 		 */
 		$session = $this->session->get('signup') ?? [];
-		$billing_address->attributes(array_merge($session, $_POST));
+		$billing_address->attributes(array_merge($session, $_POST)); // phpcs:ignore WordPress.Security.NonceVerification
 
 		/*
 		 * Validates the address.
@@ -1028,7 +1029,7 @@ class Checkout {
 		 * wrong with the customer update, we return a general error.
 		 */
 		if ( ! $address_saved) {
-			return new \WP_Error('address_failure', __('Something wrong happened while attempting to save the customer billing address', 'wp-multisite-waas'));
+			return new \WP_Error('address_failure', __('Something wrong happened while attempting to save the customer billing address', 'multisite-ultimate'));
 		}
 
 		/*
@@ -1102,7 +1103,7 @@ class Checkout {
 			 *
 			 * @since 2.0.0
 			 * @param array $meta_repository The list of meta fields, key => value structured.
-			 * @param Customer $customer The WP Multisite WaaS customer object.
+			 * @param Customer $customer The Multisite Ultimate customer object.
 			 * @param Checkout $this The checkout class.
 			 */
 			do_action('wu_handle_customer_meta_fields', $meta_repository, $customer, $this);
@@ -1135,7 +1136,7 @@ class Checkout {
 			 * @since 2.0.4
 			 * @param array $meta_repository The list of meta fields, key => value structured.
 			 * @param \WP_User $user The WordPress user object.
-			 * @param Customer $customer The WP Multisite WaaS customer object.
+			 * @param Customer $customer The Multisite Ultimate customer object.
 			 * @param Checkout $this The checkout class.
 			 */
 			do_action('wu_handle_user_meta_fields', $user_meta_repository, $user, $customer, $this);
@@ -1557,9 +1558,9 @@ class Checkout {
 		 * Localized strings.
 		 */
 		$i18n = [
-			'loading'        => __('Loading...', 'wp-multisite-waas'),
-			'added_to_order' => __('The item was added!', 'wp-multisite-waas'),
-			'weak_password'  => __('The Password entered is too weak.', 'wp-multisite-waas'),
+			'loading'        => __('Loading...', 'multisite-ultimate'),
+			'added_to_order' => __('The item was added!', 'multisite-ultimate'),
+			'weak_password'  => __('The Password entered is too weak.', 'multisite-ultimate'),
 		];
 
 		/*
@@ -1679,6 +1680,10 @@ class Checkout {
 		 * accordingly.
 		 */
 		$variables['order'] = (new Cart($variables))->done();
+
+		if ( ! empty($variables['order']->discount_code)) {
+			$variables['discount_code'] = $variables['order']->discount_code->get_code();
+		}
 
 		/**
 		 * Allow plugin developers to filter the pre-sets of a checkout page.
@@ -1828,10 +1833,11 @@ class Checkout {
 
 		$session = $this->session->get('signup');
 
-		$stack = $_REQUEST;
+		// Nonce check handled in calling method.
+		$stack = $_REQUEST; // phpcs:ignore WordPress.Security.NonceVerification
 
 		if (is_array($session)) {
-			$stack = array_merge($session, $_REQUEST);
+			$stack = array_merge($session, $_REQUEST); // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
 		if (null === $rules) {
@@ -1855,11 +1861,11 @@ class Checkout {
 		// Add some hidden or compound fields ids
 		$validation_aliases = array_merge(
 			[
-				'password_conf'  => __('Password confirmation', 'wp-multisite-waas'),
-				'template_id'    => __('Template ID', 'wp-multisite-waas'),
-				'valid_password' => __('Valid password', 'wp-multisite-waas'),
-				'products'       => __('Products', 'wp-multisite-waas'),
-				'gateway'        => __('Payment Gateway', 'wp-multisite-waas'),
+				'password_conf'  => __('Password confirmation', 'multisite-ultimate'),
+				'template_id'    => __('Template ID', 'multisite-ultimate'),
+				'valid_password' => __('Valid password', 'multisite-ultimate'),
+				'products'       => __('Products', 'multisite-ultimate'),
+				'gateway'        => __('Payment Gateway', 'multisite-ultimate'),
 			],
 			$base_aliases
 		);
@@ -1917,7 +1923,7 @@ class Checkout {
 		/*
 		 * Checks if we are in the last step.
 		 *
-		 * WP Multisite WaaS supports multi-step checkout
+		 * Multisite Ultimate supports multi-step checkout
 		 * flows. That means that we do different
 		 * things on the intermediary steps (mostly
 		 * add things to the session) and on the final,
@@ -1983,10 +1989,10 @@ class Checkout {
 			 * Cleans data and add it to the session.
 			 *
 			 * Here we remove the items that either
-			 * have checkout_ on their name, or start
-			 * with a underscore.
+			 * have checkout_ on their name or start
+			 * with an underscore.
 			 */
-			$to_save = array_filter($_POST, fn($item) => ! str_starts_with((string) $item, 'checkout_') && ! str_starts_with((string) $item, '_'), ARRAY_FILTER_USE_KEY);
+			$to_save = array_filter($_POST, fn($item) => ! str_starts_with((string) $item, 'checkout_') && ! str_starts_with((string) $item, '_'), ARRAY_FILTER_USE_KEY); // phpcs:ignore WordPress.Security.NonceVerification
 
 			if (isset($to_save['pre-flight'])) {
 				unset($to_save['pre-flight']);
@@ -2076,13 +2082,13 @@ class Checkout {
 			} elseif ($this->order->should_collect_payment() === false) {
 				$gateway = wu_get_gateway('free');
 			} elseif ($gateway->get_id() === 'free') {
-					$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'wp-multisite-waas'));
+					$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
 
 					return false;
 			}
 
 			if ( ! $gateway) {
-				$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'wp-multisite-waas'));
+				$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
 
 				return false;
 			}
@@ -2104,7 +2110,7 @@ class Checkout {
 			 *
 			 * The gateway takes in the info about the transaction
 			 * and perform the necessary steps to make sure the
-			 * data on the gateway correctly reflects the data on WP Multisite WaaS.
+			 * data on the gateway correctly reflects the data on Multisite Ultimate.
 			 */
 			$status = $gateway->process_checkout($payment, $membership, $customer, $this->order, $type);
 
@@ -2162,7 +2168,7 @@ class Checkout {
 				 *
 				 * @since 1.1.3 Let developers filter the redirect URL.
 				 */
-				$redirect_url = apply_filters('wp_ultimo_redirect_url_after_signup', $redirect_url, 0, get_current_user_id(), $_POST);
+				$redirect_url = apply_filters('wp_ultimo_redirect_url_after_signup', $redirect_url, 0, get_current_user_id(), $_POST); // phpcs:ignore WordPress.Security.NonceVerification
 
 				$redirect_url = add_query_arg(
 					[
@@ -2179,7 +2185,8 @@ class Checkout {
 		} catch (\Throwable $e) {
 			$membership_id = $this->order->get_membership() ? $this->order->get_membership()->get_id() : 'unknown';
 
-			$log_message  = sprintf(__('Checkout failed for customer %s: ', 'wp-multisite-waas'), $membership_id);
+			// translators: %s is the membership ID
+			$log_message  = sprintf(__('Checkout failed for customer %s: ', 'multisite-ultimate'), $membership_id);
 			$log_message .= $e->getMessage();
 
 			wu_log_add('checkout', $log_message, LogLevel::ERROR);

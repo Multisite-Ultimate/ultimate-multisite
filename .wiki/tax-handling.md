@@ -1,14 +1,14 @@
 # Tax Handling
 
-WP Multisite WaaS has a tax collection module built into our core plugin, so if you need to collect sales taxes on your plans, packages and services, you can easily do so without resorting to installing any add-ons.
+Multisite Ultimate has a tax collection module built into our core plugin, so if you need to collect sales taxes on your plans, packages and services, you can easily do so without resorting to installing any add-ons.
 
 For companies located in Europe, we offer an **add-on** that adds tools and features to better **support VAT** compliance.
 
-WP Multisite WaaS does not file or remit taxes on your behalf to the government; we simply help you collect the appropriate taxes at the time of the transaction. **You’ll still need to remit taxes on your own.**
+Multisite Ultimate does not file or remit taxes on your behalf to the government; we simply help you collect the appropriate taxes at the time of the transaction. **You’ll still need to remit taxes on your own.**
 
 ## Enabling Tax Collection
 
-Tax collection is not enabled by default. To enable it, you need to go to **WP Multisite WaaS > Settings > Taxes** and toggle to enable the Enable Taxes setting.
+Tax collection is not enabled by default. To enable it, you need to go to **Multisite Ultimate > Settings > Taxes** and toggle to enable the Enable Taxes setting.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-ICSEhm7yhk.png)
 
@@ -58,7 +58,7 @@ You can set the tax category for a particular product by going to the [Product e
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-vkh5NXKplU.png)
 
-On that same screen, you can toggle off the **Is Taxable?** toggle to let WP Multisite WaaS know that it should not collect taxes on that given product.
+On that same screen, you can toggle off the **Is Taxable?** toggle to let Multisite Ultimate know that it should not collect taxes on that given product.
 
 ## European VAT Support
 
@@ -70,11 +70,11 @@ Our VAT tools help with a couple of important things:
 
   * VAT Number collection and validation - and reverse charging for VAT exempt entities (such as companies with valid VAT numbers);
 
-To install that add-on, go to **WP Multisite WaaS > Settings** and then click on the **Check our Add-ons** sidebar link.
+To install that add-on, go to **Multisite Ultimate > Settings** and then click on the **Check our Add-ons** sidebar link.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-AsMyAH5HKC.png)
 
-You'll be redirected to our add-ons page. There, you can search for the **WP Multisite WaaS VAT add-on** and install it.
+You'll be redirected to our add-ons page. There, you can search for the **Multisite Ultimate VAT add-on** and install it.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-AQ6gWfdY5G.png)
 
@@ -100,8 +100,8 @@ You can also edit the values after pulling them. To do it, simply edit the table
 
 ### VAT Validation
 
-When VAT support is enabled, WP Multisite WaaS will add an additional field to the checkout form, bellow the billing address field. The field will only show up for customers located in the EU.
+When VAT support is enabled, Multisite Ultimate will add an additional field to the checkout form, bellow the billing address field. The field will only show up for customers located in the EU.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-ITUbFOIM4r.png)
 
-WP Multisite WaaS will then validate the VAT Number and if it comes back as a valid one, the reverse charge mechanism is applied and the tax rate is set to 0% on that order.
+Multisite Ultimate will then validate the VAT Number and if it comes back as a valid one, the reverse charge mechanism is applied and the tax rate is set to 0% on that order.

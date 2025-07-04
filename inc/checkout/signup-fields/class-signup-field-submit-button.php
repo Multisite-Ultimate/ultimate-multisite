@@ -55,7 +55,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Submit Button', 'wp-multisite-waas');
+		return __('Submit Button', 'multisite-ultimate');
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a submit button. This is required to finalize single-step checkout forms or to navigate to the next step on multi-step checkout forms.', 'wp-multisite-waas');
+		return __('Adds a submit button. This is required to finalize single-step checkout forms or to navigate to the next step on multi-step checkout forms.', 'multisite-ultimate');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a submit button. This is required to finalize single-step checkout forms or to navigate to the next step on multi-step checkout forms.', 'wp-multisite-waas');
+		return __('Adds a submit button. This is required to finalize single-step checkout forms or to navigate to the next step on multi-step checkout forms.', 'multisite-ultimate');
 	}
 
 	/**
@@ -110,7 +110,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 
 		return [
 			'enable_go_back_button' => false,
-			'back_button_label'     => __('&larr; Go Back', 'wp-multisite-waas'),
+			'back_button_label'     => __('&larr; Go Back', 'multisite-ultimate'),
 		];
 	}
 
@@ -150,8 +150,8 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 		return [
 			'enable_go_back_button' => [
 				'type'      => 'toggle',
-				'title'     => __('Add "Go Back" button', 'wp-multisite-waas'),
-				'desc'      => __('Enable this option to add a "Go Back" button. Useful for multi-step checkout forms.', 'wp-multisite-waas'),
+				'title'     => __('Add "Go Back" button', 'multisite-ultimate'),
+				'desc'      => __('Enable this option to add a "Go Back" button. Useful for multi-step checkout forms.', 'multisite-ultimate'),
 				'tooltip'   => '',
 				'value'     => 0,
 				'html_attr' => [
@@ -160,10 +160,10 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 			],
 			'back_button_label'     => [
 				'type'              => 'text',
-				'title'             => __('"Go Back" Button Label', 'wp-multisite-waas'),
-				'desc'              => __('Value to be used as the "Go Back" label.', 'wp-multisite-waas'),
-				'placeholder'       => __('e.g. &larr; Go Back', 'wp-multisite-waas'),
-				'value'             => __('&larr; Go Back', 'wp-multisite-waas'),
+				'title'             => __('"Go Back" Button Label', 'multisite-ultimate'),
+				'desc'              => __('Value to be used as the "Go Back" label.', 'multisite-ultimate'),
+				'placeholder'       => __('e.g. &larr; Go Back', 'multisite-ultimate'),
+				'value'             => __('&larr; Go Back', 'multisite-ultimate'),
 				'wrapper_html_attr' => [
 					'v-cloak' => '1',
 					'v-show'  => 'enable_go_back_button',
@@ -189,7 +189,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 		$fields[ $attributes['id'] . '_errors' ] = [
 			'type'              => 'html',
 			'wrapper_classes'   => 'wu_submit_button_errors wu-clear-both',
-			'content'           => '<span v-cloak class="wu-block wu-bg-red-100 wu-p-2 wu-mb-4" v-html="get_errors().join(' . esc_js(json_encode('<br>')) . ')"></span>',
+			'content'           => '<span v-cloak class="wu-block wu-bg-red-100 wu-p-2 wu-mb-4" v-html="get_errors().join(' . esc_js(wp_json_encode('<br>')) . ')"></span>',
 			'wrapper_html_attr' => [
 				'v-if' => 'get_errors()',
 			],
@@ -215,7 +215,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 					'type'            => 'html',
 					'wrapper_classes' => 'md:wu-w-1/2 wu-box-border wu-float-left wu--mt-4',
 					'id'              => $attributes['id'] . '_go_back',
-					'content'         => sprintf('<a href="#" class="button wu-go-back" v-on:click.prevent="go_back()">%s</a>', $attributes['back_button_label']),
+					'content'         => sprintf('<a href="#" class="button wu-go-back" v-on:click.prevent="go_back()">%s</a>', esc_html($attributes['back_button_label'])),
 				];
 
 				$button_wrapper_classes .= ' md:wu-w-1/2 wu-box-border wu-float-left wu-text-right';
@@ -225,7 +225,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 		$fields[ $attributes['id'] . '_group' ]['fields'][ $attributes['id'] ] = [
 			'type'            => 'submit',
 			'wrapper_classes' => trim($button_wrapper_classes . ' ' . wu_get_isset($attributes, 'wrapper_element_classes', '')),
-			'classes'         => trim('button button-primary btn-primary' . ' ' . wu_get_isset($attributes, 'element_classes', '')),
+			'classes'         => trim('button button-primary btn-primary ' . wu_get_isset($attributes, 'element_classes', '')),
 			'id'              => $attributes['id'],
 			'name'            => $attributes['name'],
 		];

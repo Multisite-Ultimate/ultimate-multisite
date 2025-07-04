@@ -1,18 +1,18 @@
-# The WP Multisite WaaS Register API endpoint
+# The Multisite Ultimate Register API endpoint
 
-In this tutorial, you will learn how to use the WP Multisite WaaS /register API endpoint to create the entire onboarding process for a new customer in your network and how to do that with Zapier.
+In this tutorial, you will learn how to use the Multisite Ultimate /register API endpoint to create the entire onboarding process for a new customer in your network and how to do that with Zapier.
 
 The endpoint uses the POST method and is called by the URL _**https://yoursite.com/wp-json/wu/v2/register**_. In this call, 4 processes will be executed within your network:
 
   * A new WordPress user or its identification through the user ID will be created.
 
-  * A new Customer in WP Multisite WaaS or its identification through the customer ID will be created.
+  * A new Customer in Multisite Ultimate or its identification through the customer ID will be created.
 
   * A new site on the WordPress network will be created.
 
-  * In the end, a new Membership in WP Multisite WaaS will be created.
+  * In the end, a new Membership in Multisite Ultimate will be created.
 
-For this process, you will need your API credentials. To get them, go to your network admin panel, navigate to **WP Multisite WaaS > Settings** > **API & Webhooks,** and look for the API Settings section.
+For this process, you will need your API credentials. To get them, go to your network admin panel, navigate to **Multisite Ultimate > Settings** > **API & Webhooks,** and look for the API Settings section.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-MzcShcSVgI.png)  
 Select the **Enable API** and get your API credentials.
@@ -25,7 +25,7 @@ Let's have an overview of the minimum information we need to send to the endpoin
 
 ### Customer
 
-This is the information that is necessary for the process of creating the User and the WP Multisite WaaS Customer:
+This is the information that is necessary for the process of creating the User and the Multisite Ultimate Customer:
 
 "customer_id" : integer
 
@@ -41,7 +41,7 @@ The only information we need inside this object is Membership Status.
 
 ### **Products**
 
-Products are given an array with 1 or more product ID from your network. Beware, this endpoint does not create products. Check WP Multisite WaaS's documentation to better understand the product creation endpoint.
+Products are given an array with 1 or more product ID from your network. Beware, this endpoint does not create products. Check Multisite Ultimate's documentation to better understand the product creation endpoint.
 
 **"products" : [1,2],**
 
@@ -67,7 +67,7 @@ Do you know how to use and enjoy everything that the new version of Zapier offer
 
 ### Creating an action
 
-To better illustrate how to use the registration endpoint with Zapier, let's create an integration with Google Forms. Every time this form is filled out and the information is saved in the form's answer sheet, a new membership will be created in the WP Multisite WaaS network.
+To better illustrate how to use the registration endpoint with Zapier, let's create an integration with Google Forms. Every time this form is filled out and the information is saved in the form's answer sheet, a new membership will be created in the Multisite Ultimate network.
 
 In Google Forms, make a form with the minimum fields necessary to create a new membership in the network.
 
@@ -79,7 +79,7 @@ Now in Zapier, make a new Zap and connect the created form in Google through the
 
 Done! The Google Forms form is connected with Zapier and ready to be integrated with the network. Now let's move on to the Action that will result from the Trigger that Google Forms triggers every time it's filled.
 
-Locate the new WP Multisite WaaS app and select it. For this kind of Zap choose the Register option.
+Locate the new Multisite Ultimate app and select it. For this kind of Zap choose the Register option.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-hq2yHGYR31.png)
 

@@ -44,7 +44,7 @@ class WPMUDEV_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $tutorial_link = '';
+	protected $tutorial_link = 'https://github.com/superdav42/wp-multisite-waas/wiki/WPMU-DEV-Integration';
 
 	/**
 	 * Array containing the features this integration supports.
@@ -157,7 +157,7 @@ class WPMUDEV_Host_Provider extends Base_Host_Provider {
 			if (is_wp_error($response)) {
 
 				// translators: The %s placeholder will be replaced with the domain name.
-				wu_log_add('integration-wpmudev', sprintf(__('An error occurred while trying to add the custom domain %s to WPMU Dev hosting.', 'wp-multisite-waas'), $_domain), LogLevel::ERROR);
+				wu_log_add('integration-wpmudev', sprintf(__('An error occurred while trying to add the custom domain %s to WPMU Dev hosting.', 'multisite-ultimate'), $_domain), LogLevel::ERROR);
 			}
 
 			$body = json_decode(wp_remote_retrieve_body($response));
@@ -165,11 +165,11 @@ class WPMUDEV_Host_Provider extends Base_Host_Provider {
 			if ($body->message) {
 
 				// translators: The %1$s will be replaced with the domain name and %2$s is the error message.
-				wu_log_add('integration-wpmudev', sprintf(__('An error occurred while trying to add the custom domain %1$s to WPMU Dev hosting: %2$s', 'wp-multisite-waas'), $_domain, $body->message->message), LogLevel::ERROR);
+				wu_log_add('integration-wpmudev', sprintf(__('An error occurred while trying to add the custom domain %1$s to WPMU Dev hosting: %2$s', 'multisite-ultimate'), $_domain, $body->message->message), LogLevel::ERROR);
 			} else {
 
 				// translators: The %s placeholder will be replaced with the domain name.
-				wu_log_add('integration-wpmudev', sprintf(__('Domain %s added to WPMU Dev hosting successfully.', 'wp-multisite-waas'), $_domain));
+				wu_log_add('integration-wpmudev', sprintf(__('Domain %s added to WPMU Dev hosting successfully.', 'multisite-ultimate'), $_domain));
 			}
 		}
 	}
@@ -253,7 +253,7 @@ class WPMUDEV_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('WPMU DEV is one of the largest companies in the WordPress space. Founded in 2004, it was one of the first companies to scale the Website as a Service model with products such as Edublogs and CampusPress.', 'wp-multisite-waas');
+		return __('WPMU DEV is one of the largest companies in the WordPress space. Founded in 2004, it was one of the first companies to scale the Website as a Service model with products such as Edublogs and CampusPress.', 'multisite-ultimate');
 	}
 
 	/**

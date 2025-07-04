@@ -1,6 +1,6 @@
 # Upgrading a Plan (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
 
 Your customers are able to upgrade their plans at any time. They can either upgrade to another plan or purchase any additional services or packages that you offer on your network.
 
@@ -40,7 +40,7 @@ After the checkout is completed, the new product(s) will be added to your custom
 
 On each of your products, you'll have an **Up & Downgrades** tab. The first option on that tab is a field called **Plan Group**.
 
-**Plan groups** is what allows you to let WP Multisite WaaS know that certain plans belong to the same "family", and therefore should be used to construct upgrade/downgrade path options.
+**Plan groups** is what allows you to let Multisite Ultimate know that certain plans belong to the same "family", and therefore should be used to construct upgrade/downgrade path options.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-KZFTDp2LlW.png)
 
@@ -50,4 +50,4 @@ For example, you have a **Free plan** , a **Basic Plan** and a **Premium Plan** 
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-dbabo1khAz.png)
 
-What this should do is tell WP Multisite WaaS that there is a "family" of plans in the network called **High End**. When offering upgrades or downgrades, only plans from the same family will be presented as an option for the user.
+What this should do is tell Multisite Ultimate that there is a "family" of plans in the network called **High End**. When offering upgrades or downgrades, only plans from the same family will be presented as an option for the user.

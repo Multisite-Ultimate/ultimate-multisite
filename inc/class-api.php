@@ -13,7 +13,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Adds a lighter ajax option to WP Multisite WaaS.
+ * Adds a lighter ajax option to Multisite Ultimate.
  *
  * @since 1.9.14
  */
@@ -137,13 +137,13 @@ class API {
 	public function add_settings(): void {
 		/*
 		 * API & Webhooks
-		 * This section holds the API settings of the WP Multisite WaaS Plugin.
+		 * This section holds the API settings of the Multisite Ultimate Plugin.
 		 */
 		wu_register_settings_section(
 			'api',
 			[
-				'title' => __('API & Webhooks', 'wp-multisite-waas'),
-				'desc'  => __('API & Webhooks', 'wp-multisite-waas'),
+				'title' => __('API & Webhooks', 'multisite-ultimate'),
+				'desc'  => __('API & Webhooks', 'multisite-ultimate'),
 				'icon'  => 'dashicons-wu-paper-plane',
 				'order' => 95,
 			]
@@ -153,8 +153,8 @@ class API {
 			'api',
 			'api_header',
 			[
-				'title' => __('API Settings', 'wp-multisite-waas'),
-				'desc'  => __('Options related to WP Multisite WaaS API endpoints.', 'wp-multisite-waas'),
+				'title' => __('API Settings', 'multisite-ultimate'),
+				'desc'  => __('Options related to Multisite Ultimate API endpoints.', 'multisite-ultimate'),
 				'type'  => 'header',
 			]
 		);
@@ -163,8 +163,8 @@ class API {
 			'api',
 			'enable_api',
 			[
-				'title'   => __('Enable API', 'wp-multisite-waas'),
-				'desc'    => __('Tick this box if you want WP Multisite WaaS to add its own endpoints to the WordPress REST API. This is required for some integrations to work, most notabily, Zapier.', 'wp-multisite-waas'),
+				'title'   => __('Enable API', 'multisite-ultimate'),
+				'desc'    => __('Tick this box if you want Multisite Ultimate to add its own endpoints to the WordPress REST API. This is required for some integrations to work, most notabily, Zapier.', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -173,14 +173,14 @@ class API {
 		$refreshed_tag = '';
 
 		if (wu_request('updated') && wu_request('api') === 'refreshed') {
-			$refreshed_tag = sprintf('<span class="wu-ml-2 wu-text-green-600">%s</span>', __('Credentials Refreshed', 'wp-multisite-waas'));
+			$refreshed_tag = sprintf('<span class="wu-ml-2 wu-text-green-600">%s</span>', __('Credentials Refreshed', 'multisite-ultimate'));
 		}
 
 		wu_register_settings_field(
 			'api',
 			'api_url',
 			[
-				'title'   => __('API URL', 'wp-multisite-waas'),
+				'title'   => __('API URL', 'multisite-ultimate'),
 				'desc'    => '',
 				'tooltip' => '',
 				'copy'    => true,
@@ -196,7 +196,7 @@ class API {
 			'api',
 			'api_key',
 			[
-				'title'           => __('API Key', 'wp-multisite-waas') . $refreshed_tag,
+				'title'           => __('API Key', 'multisite-ultimate') . $refreshed_tag,
 				'desc'            => '',
 				'tooltip'         => '',
 				'type'            => 'text-display',
@@ -213,7 +213,7 @@ class API {
 			'api',
 			'api_secret',
 			[
-				'title'           => __('API Secret', 'wp-multisite-waas') . $refreshed_tag,
+				'title'           => __('API Secret', 'multisite-ultimate') . $refreshed_tag,
 				'tooltip'         => '',
 				'type'            => 'text-display',
 				'copy'            => true,
@@ -229,7 +229,7 @@ class API {
 			'api',
 			'api_note',
 			[
-				'desc'            => __('This is your API Key. You cannot change it directly. To reset the API key and secret, use the button "Refresh API credentials" below.', 'wp-multisite-waas'),
+				'desc'            => __('This is your API Key. You cannot change it directly. To reset the API key and secret, use the button "Refresh API credentials" below.', 'multisite-ultimate'),
 				'type'            => 'note',
 				'classes'         => 'wu-text-gray-700 wu-text-xs',
 				'wrapper_classes' => 'wu-bg-white sm:wu-border-t-0 sm:wu-mt-0 sm:wu-pt-0',
@@ -243,7 +243,7 @@ class API {
 			'api',
 			'refresh_api_credentials',
 			[
-				'title'           => __('Refresh API Credentials', 'wp-multisite-waas'),
+				'title'           => __('Refresh API Credentials', 'multisite-ultimate'),
 				'type'            => 'submit',
 				'classes'         => 'button wu-ml-auto',
 				'wrapper_classes' => 'wu-bg-white sm:wu-border-t-0 sm:wu-mt-0 sm:wu-pt-0',
@@ -257,8 +257,8 @@ class API {
 			'api',
 			'api_log_calls',
 			[
-				'title'   => __('Log API calls (Advanced)', 'wp-multisite-waas'),
-				'desc'    => __('Tick this box if you want to log all calls received via WP Multisite WaaS API endpoints. You can access the logs on WP Multisite WaaS &rarr; System Info &rarr; Logs.', 'wp-multisite-waas'),
+				'title'   => __('Log API calls (Advanced)', 'multisite-ultimate'),
+				'desc'    => __('Tick this box if you want to log all calls received via Multisite Ultimate API endpoints. You can access the logs on Multisite Ultimate &rarr; System Info &rarr; Logs.', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 0,
 				'require' => [
@@ -271,8 +271,8 @@ class API {
 			'api',
 			'webhook_header',
 			[
-				'title' => __('Webhook Settings', 'wp-multisite-waas'),
-				'desc'  => __('Options related to WP Multisite WaaS API webhooks.', 'wp-multisite-waas'),
+				'title' => __('Webhook Settings', 'multisite-ultimate'),
+				'desc'  => __('Options related to Multisite Ultimate API webhooks.', 'multisite-ultimate'),
 				'type'  => 'header',
 			]
 		);
@@ -281,8 +281,8 @@ class API {
 			'api',
 			'webhook_calls_blocking',
 			[
-				'title'   => __('Wait for Response (Advanced)', 'wp-multisite-waas'),
-				'desc'    => __('Tick this box if you want the WP Multisite WaaS\'s webhook calls to wait for the remote server to respond. Keeping this option enabled can have huge effects on your network\'s performance, only enable it if you know what you are doing and need to debug webhook calls.', 'wp-multisite-waas'),
+				'title'   => __('Wait for Response (Advanced)', 'multisite-ultimate'),
+				'desc'    => __('Tick this box if you want the Multisite Ultimate\'s webhook calls to wait for the remote server to respond. Keeping this option enabled can have huge effects on your network\'s performance, only enable it if you know what you are doing and need to debug webhook calls.', 'multisite-ultimate'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]
@@ -343,7 +343,7 @@ class API {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_REST_Request $request The request sent.
+	 * @param \WP_REST_Request $request The request sent.
 	 */
 	public function maybe_log_api_call($request): void {
 
@@ -367,6 +367,8 @@ class API {
 	 * @param mixed            $result The result of the REST API call.
 	 * @param string|array     $handler The callback.
 	 * @param \WP_REST_Request $request The request object.
+	 *
+	 * @return mixed
 	 */
 	public function log_api_errors($result, $handler, $request) {
 
@@ -387,6 +389,7 @@ class API {
 
 			wu_log_add('api-errors', $result);
 		}
+		return $result;
 	}
 
 	/**
@@ -483,7 +486,7 @@ class API {
 			[
 				'success' => true,
 				'label'   => $current_site->site_name,
-				'message' => __('Welcome to our API', 'wp-multisite-waas'),
+				'message' => __('Welcome to our API', 'multisite-ultimate'),
 			]
 		);
 	}

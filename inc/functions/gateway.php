@@ -26,7 +26,7 @@ use WP_Ultimo\Managers\Gateway_Manager;
 function wu_register_gateway($id, $title, $desc, $class_name, $hidden = false) {
 
 	if ( ! did_action('wu_register_gateways')) {
-		_doing_it_wrong(__FUNCTION__, __('You should not register new payment gateways before the wu_register_gateways hook.', 'wp-multisite-waas'), '2.0.0');
+		_doing_it_wrong(__FUNCTION__, esc_html__('You should not register new payment gateways before the wu_register_gateways hook.', 'multisite-ultimate'), '2.0.0');
 	}
 
 	return Gateway_Manager::get_instance()->register_gateway($id, $title, $desc, $class_name, $hidden);
@@ -72,7 +72,7 @@ function wu_get_active_gateways() {
  *
  * @param string $id Gateway ID.
  * @param string $subscription Subscription object to load into the gateway.
- * @return mixed Gateway class.
+ * @return \WP_Ultimo\Gateways\Base_Gateway|false Gateway class.
  */
 function wu_get_gateway($id, $subscription = null) {
 

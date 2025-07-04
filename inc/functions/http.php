@@ -48,7 +48,7 @@ function wu_no_cache() {
 }
 
 /**
- * Maybe sends a WP Multisite WaaS X Header.
+ * Maybe sends a Multisite Ultimate X Header.
  *
  * Useful for debugging purposes.
  * These headers can easily be omitted by

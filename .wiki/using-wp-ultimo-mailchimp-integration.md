@@ -1,16 +1,16 @@
-# Using WP Multisite WaaS: MailChimp Integration
+# Using Multisite Ultimate: MailChimp Integration
 
-Syncing subscribers' emails with your MailChimp lists is really easy with our WP Multisite WaaS: MailChimp Integration Add-on. This tutorial aims to help you get everything set up!
+Syncing subscribers' emails with your MailChimp lists is really easy with our Multisite Ultimate: MailChimp Integration Add-on. This tutorial aims to help you get everything set up!
 
 ## Getting an API key
 
-Before we start to get into the different settings available, we need a MailChimp API key. This will allow WP Multisite WaaS to talk with the MailChimp API to retrieve lists, groups, and add email addresses to those lists and groups when users sign up.
+Before we start to get into the different settings available, we need a MailChimp API key. This will allow Multisite Ultimate to talk with the MailChimp API to retrieve lists, groups, and add email addresses to those lists and groups when users sign up.
 
 Follow this tutorial to get your own MailChimp API key: [About API Keys | MailChimp](https://kb.mailchimp.com/integrations/api-integrations/about-api-keys)
 
 [![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-60212659ac2f834ec53865f3-zimbKYFZo-B4D1E28C-1203-4E9A-AC7B-D8E9B5659B93.png)](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-60212659ac2f834ec53865f3-zimbKYFZo-B4D1E28C-1203-4E9A-AC7B-D8E9B5659B93.png)
 
-_Add your MailChimp API key on_ _**WP Multisite WaaS Settings - > Add-on Settings -> MailChimp**_
+_Add your MailChimp API key on_ _**Multisite Ultimate Settings - > Add-on Settings -> MailChimp**_
 
 ## Integration Mode
 

@@ -2,7 +2,7 @@
 
 WordPress admin interface has been the same for ages. But have you ever wondered how a Material Design version of the admin interface would look like?
 
-Material WP is an admin theme developed to give you that look and feeling, helping you to provide your clients with a more customized Dashboard. Material WP is also part of WP Multisite WaaS’s premium plugins core.
+Material WP is an admin theme developed to give you that look and feeling, helping you to provide your clients with a more customized Dashboard. Material WP is also part of Multisite Ultimate’s premium plugins core.
 
 After [installing it](https://help.wpultimo.com/faq/where-can-i-download-the-add-ons), go to your _Plugins_ page and click to activate it on your Network.
 

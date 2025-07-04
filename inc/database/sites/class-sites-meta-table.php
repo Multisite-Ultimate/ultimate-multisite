@@ -54,18 +54,6 @@ final class Sites_Meta_Table extends Table {
 	protected $version = '2.0.0';
 
 	/**
-	 * Sites constructor.
-	 *
-	 * @access public
-	 * @since  2.0.0
-	 * @return void
-	 */
-	public function __construct() {
-
-		parent::__construct();
-	}
-
-	/**
 	 * Setup the database schema
 	 *
 	 * @access protected

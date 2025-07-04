@@ -13,11 +13,11 @@
 
 		<a 
 		class="button wu-ml-2 wubox"
-		title="<?php esc_attr_e('Add new Product', 'wp-multisite-waas'); ?>"
+		title="<?php esc_attr_e('Add new Product', 'multisite-ultimate'); ?>"
 		href="<?php echo esc_attr(wu_get_form_url('edit_membership_product', ['id' => $membership->get_id()])); ?>"
 		>
 		<span class="dashicons-wu-circle-with-plus wu-align-text-bottom"></span>
-		<?php esc_html_e('Add new Product', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Add new Product', 'multisite-ultimate'); ?>
 		</a>
 
 	</div>

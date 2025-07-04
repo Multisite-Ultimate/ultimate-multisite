@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Payment Admin Page.
+ * Multisite Ultimate Payment Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Database\Payments\Payment_Status;
 
 /**
- * WP Multisite WaaS Payment Admin Page.
+ * Multisite Ultimate Payment Admin Page.
  */
 class Payment_List_Admin_Page extends List_Admin_Page {
 
@@ -87,9 +87,9 @@ class Payment_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'products'       => [
 				'type'        => 'model',
-				'title'       => __('Products', 'wp-multisite-waas'),
-				'placeholder' => __('Search Products...', 'wp-multisite-waas'),
-				'desc'        => __('Each product will be added as a line item.', 'wp-multisite-waas'),
+				'title'       => __('Products', 'multisite-ultimate'),
+				'placeholder' => __('Search Products...', 'multisite-ultimate'),
+				'desc'        => __('Each product will be added as a line item.', 'multisite-ultimate'),
 				'value'       => '',
 				'tooltip'     => '',
 				'html_attr'   => [
@@ -102,18 +102,18 @@ class Payment_List_Admin_Page extends List_Admin_Page {
 			],
 			'status'         => [
 				'type'        => 'select',
-				'title'       => __('Status', 'wp-multisite-waas'),
-				'placeholder' => __('Status', 'wp-multisite-waas'),
-				'desc'        => __('The payment status to attach to the newly created payment.', 'wp-multisite-waas'),
+				'title'       => __('Status', 'multisite-ultimate'),
+				'placeholder' => __('Status', 'multisite-ultimate'),
+				'desc'        => __('The payment status to attach to the newly created payment.', 'multisite-ultimate'),
 				'value'       => Payment_Status::COMPLETED,
 				'options'     => Payment_Status::to_array(),
 				'tooltip'     => '',
 			],
 			'membership_id'  => [
 				'type'        => 'model',
-				'title'       => __('Membership', 'wp-multisite-waas'),
-				'placeholder' => __('Search Membership...', 'wp-multisite-waas'),
-				'desc'        => __('The membership associated with this payment.', 'wp-multisite-waas'),
+				'title'       => __('Membership', 'multisite-ultimate'),
+				'placeholder' => __('Search Membership...', 'multisite-ultimate'),
+				'desc'        => __('The membership associated with this payment.', 'multisite-ultimate'),
 				'value'       => '',
 				'tooltip'     => '',
 				'html_attr'   => [
@@ -126,13 +126,13 @@ class Payment_List_Admin_Page extends List_Admin_Page {
 			],
 			'add_setup_fees' => [
 				'type'  => 'toggle',
-				'title' => __('Include Setup Fees', 'wp-multisite-waas'),
-				'desc'  => __('Checking this box will include setup fees attached to the selected products as well.', 'wp-multisite-waas'),
+				'title' => __('Include Setup Fees', 'multisite-ultimate'),
+				'desc'  => __('Checking this box will include setup fees attached to the selected products as well.', 'multisite-ultimate'),
 				'value' => 1,
 			],
 			'submit_button'  => [
 				'type'            => 'submit',
-				'title'           => __('Add Payment', 'wp-multisite-waas'),
+				'title'           => __('Add Payment', 'multisite-ultimate'),
 				'value'           => 'save',
 				'classes'         => 'wu-w-full button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -172,7 +172,7 @@ class Payment_List_Admin_Page extends List_Admin_Page {
 		$membership = wu_get_membership(wu_request('membership_id'));
 
 		if ( ! $membership) {
-			$error = new \WP_Error('invalid-membership', __('Invalid membership.', 'wp-multisite-waas'));
+			$error = new \WP_Error('invalid-membership', __('Invalid membership.', 'multisite-ultimate'));
 
 			return wp_send_json_error($error);
 		}
@@ -228,8 +228,8 @@ class Payment_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Payment removed successfully.', 'wp-multisite-waas'),
-			'search_label'    => __('Search Payment', 'wp-multisite-waas'),
+			'deleted_message' => __('Payment removed successfully.', 'multisite-ultimate'),
+			'search_label'    => __('Search Payment', 'multisite-ultimate'),
 		];
 	}
 
@@ -241,7 +241,7 @@ class Payment_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Payments', 'wp-multisite-waas');
+		return __('Payments', 'multisite-ultimate');
 	}
 
 	/**
@@ -252,7 +252,7 @@ class Payment_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Payments', 'wp-multisite-waas');
+		return __('Payments', 'multisite-ultimate');
 	}
 
 	/**
@@ -263,7 +263,7 @@ class Payment_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Payments', 'wp-multisite-waas');
+		return __('Payments', 'multisite-ultimate');
 	}
 
 	/**
@@ -276,7 +276,7 @@ class Payment_List_Admin_Page extends List_Admin_Page {
 
 		return [
 			[
-				'label'   => __('Add Payment', 'wp-multisite-waas'),
+				'label'   => __('Add Payment', 'multisite-ultimate'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('add_new_payment'),

@@ -260,8 +260,8 @@ class Multiple_Accounts_Compat {
 			'login-and-registration',
 			'multiple_accounts_header',
 			[
-				'title' => __('Multiple Accounts', 'wp-multisite-waas'),
-				'desc'  => __('Options related to the Multiple Accounts feature.', 'wp-multisite-waas'),
+				'title' => __('Multiple Accounts', 'multisite-ultimate'),
+				'desc'  => __('Options related to the Multiple Accounts feature.', 'multisite-ultimate'),
 				'type'  => 'header',
 			]
 		);
@@ -270,8 +270,8 @@ class Multiple_Accounts_Compat {
 			'login-and-registration',
 			'enable_multiple_accounts',
 			[
-				'title'   => __('Enable Multiple Accounts', 'wp-multisite-waas'),
-				'desc'    => __('Allow users to have accounts in different sites with the same email address. This is useful when running stores with WooCommerce and other plugins, for example.', 'wp-multisite-waas') . ' ' . sprintf('<a href="%s" target="_blank">%s</a>', wu_get_documentation_url('multiple-accounts'), __('Read More', 'wp-multisite-waas')),
+				'title'   => __('Enable Multiple Accounts', 'multisite-ultimate'),
+				'desc'    => __('Allow users to have accounts in different sites with the same email address. This is useful when running stores with WooCommerce and other plugins, for example.', 'multisite-ultimate') . ' ' . sprintf('<a href="%s" target="_blank">%s</a>', wu_get_documentation_url('multiple-accounts'), __('Read More', 'multisite-ultimate')),
 				'type'    => 'toggle',
 				'default' => 0,
 			]
@@ -288,7 +288,7 @@ class Multiple_Accounts_Compat {
 	 */
 	public function add_multiple_account_column($columns) {
 
-		$columns['multiple_accounts'] = __('Multiple Accounts', 'wp-multisite-waas');
+		$columns['multiple_accounts'] = __('Multiple Accounts', 'multisite-ultimate');
 
 		return $columns;
 	}
@@ -320,11 +320,8 @@ class Multiple_Accounts_Compat {
 			);
 
 			// translators: the %d is the account count for that email address.
-			$html = sprintf(__('<strong>%d</strong> accounts using this email.', 'wp-multisite-waas'), $users->total_users);
-
-			$html .= sprintf("<br><a href='%s' class=''>" . __('See all', 'wp-multisite-waas') . ' &raquo;</a>', network_admin_url('users.php?s=' . $user->user_email));
-
-			echo $html;
+			printf(esc_html__('%s accounts using this email.', 'multisite-ultimate'), '<strong>' . esc_html($users->total_users) . '</strong>');
+			printf("<br><a href='%s' class=''>" . esc_html__('See all', 'multisite-ultimate') . ' &raquo;</a>', esc_attr(network_admin_url('users.php?s=' . $user->user_email)));
 		}
 	}
 
@@ -338,11 +335,10 @@ class Multiple_Accounts_Compat {
 
 		// Only run in the right case
 		if (wu_request('action') === 'retrievepassword' || wu_request('wc_reset_password')) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Password reset functionality, nonce is verified elsewhere
-
+			// Password reset functionality, nonce is verified elsewhere
 			// Only do thing if is login by email
-			if (isset($_REQUEST['user_login']) && is_email($_REQUEST['user_login'])) {
-				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.NonceVerification.Recommended -- Password reset functionality, nonce is verified elsewhere
+			if (isset($_REQUEST['user_login']) && is_email(wp_unslash($_REQUEST['user_login']))) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Password reset functionality, nonce is verified elsewhere
 				$user = $this->get_right_user(sanitize_email(wp_unslash($_REQUEST['user_login'])));
 
 				if ($user) {

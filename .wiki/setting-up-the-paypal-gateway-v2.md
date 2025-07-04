@@ -1,6 +1,6 @@
 # Setting Up The PayPal Gateway (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
 
 You can activate up to four methods of payment on our payment settings page: Stripe, Stripe Checkout, PayPal and Manual. In this article, we will see how to integrate with **PayPal**.
 
@@ -10,7 +10,7 @@ Note that you need to have a **PayPal Business account** to obtain the API crede
 
 ## Enabling PayPal on your network
 
-To enable PayPal as an available payment method on your network, go to **WP Multisite WaaS > Settings > Payments** tab and tick the box next to PayPal.
+To enable PayPal as an available payment method on your network, go to **Multisite Ultimate > Settings > Payments** tab and tick the box next to PayPal.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-FhlfHHJLPl.png)
 

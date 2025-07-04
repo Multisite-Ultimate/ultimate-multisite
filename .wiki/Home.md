@@ -1,30 +1,43 @@
-# WP Multisite WaaS Documentation
+# Multisite Ultimate Documentation
 
-Welcome to the WP Multisite WaaS documentation. This wiki contains all the information you need to get started with WP Multisite WaaS.
+Welcome to the Multisite Ultimate documentation. This wiki contains all the information you need to get started with Multisite Ultimate.
 
 ## Documentation Categories
 
 ### Getting Started
-Everything you need to know to get started with WP Multisite WaaS.
+Everything you need to know to get started with Multisite Ultimate.
 
-- [WP Multisite WaaS 101](wp-ultimo-101) - A comprehensive introduction to WP Multisite WaaS
+- [Multisite Ultimate 101](wp-ultimo-101) - A comprehensive introduction to Multisite Ultimate
 - [Basic Concepts](basic-concepts) - Understanding the core concepts
 - [What is WordPress Multisite?](what-is-wordpress-multisite) - Learn about WordPress Multisite
-- [Installing WP Multisite WaaS](installing-wp-ultimo-v2) - How to install WP Multisite WaaS
+- [Installing Multisite Ultimate](installing-wp-ultimo-v2) - How to install Multisite Ultimate
 
 ### Administration
-Manage your WP Multisite WaaS network effectively.
+Manage your Multisite Ultimate network effectively.
 
 - [Understanding the Dashboard](understanding-the-wp-ultimo-dashboard) - Navigate the admin interface
 - [Managing Customers](managing-customers) - Customer management tools
 - [Managing Sites](managing-sites) - Site management tools
 
 ### Configuration
-Configure your WP Multisite WaaS network.
+Configure your Multisite Ultimate network.
 
 - [Site Templates](site-templates-v2) - Create and manage site templates
 - [Checkout Forms](checkout-forms) - Customize your checkout forms
 - [Creating Products](creating-your-first-subscription-product-v2) - Set up subscription products
+
+### Host Provider Integrations
+Integrate with various hosting providers for domain management.
+
+- [Closte Integration](Closte-Integration) - Automatic domain syncing with Closte hosting
+- [Cloudflare Integration](Cloudflare-Integration) - DNS management with Cloudflare
+- [Cloudways Integration](Cloudways-Integration) - Domain syncing with Cloudways hosting
+- [cPanel Integration](cPanel-Integration) - Domain management with cPanel
+- [GridPane Integration](GridPane-Integration) - Domain syncing with GridPane
+- [RunCloud Integration](Runcloud-Integration) - Domain syncing with RunCloud
+- [ServerPilot Integration](ServerPilot-Integration) - Domain syncing with ServerPilot
+- [WP Engine Integration](WP-Engine-Integration) - Domain management with WP Engine
+- [WPMU DEV Integration](WPMU-DEV-Integration) - Domain syncing with WPMU DEV hosting
 
 ### Payment Gateways
 Set up payment processing for your network.
@@ -49,3 +62,17 @@ Browse all documentation using the sidebar navigation on the right. The document
 - **Troubleshooting** - Solve common issues
 - **Migration & Updates** - Migrate from v1 and update your installation
 - **Miscellaneous** - Other useful information
+
+## Host Provider Integrations
+
+Multisite Ultimate integrates with various hosting providers to automate domain management and SSL certificate issuance:
+
+- [Closte Integration](Closte-Integration) - Automatic domain syncing with Closte hosting
+- [Cloudflare Integration](Cloudflare-Integration) - DNS management with Cloudflare
+- [Cloudways Integration](Cloudways-Integration) - Domain syncing with Cloudways hosting
+- [cPanel Integration](cPanel-Integration) - Domain management with cPanel
+- [GridPane Integration](GridPane-Integration) - Domain syncing with GridPane
+- [RunCloud Integration](Runcloud-Integration) - Domain syncing with RunCloud
+- [ServerPilot Integration](ServerPilot-Integration) - Domain syncing with ServerPilot
+- [WP Engine Integration](WP-Engine-Integration) - Domain management with WP Engine
+- [WPMU DEV Integration](WPMU-DEV-Integration) - Domain syncing with WPMU DEV hosting

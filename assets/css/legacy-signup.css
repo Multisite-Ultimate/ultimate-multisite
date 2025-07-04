@@ -10,7 +10,10 @@ body {
 }
 
 .wu-setup #wu-thank-you-element {
-  margin: 0 -150px;
+  margin: 0;
+}
+.wu-thank-you-pending-site img {
+  max-width: 100%;
 }
 .wu-setup #wu-thank-you-element table {
   width: 100%;

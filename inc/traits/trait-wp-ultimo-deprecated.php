@@ -110,19 +110,4 @@ trait WP_Ultimo_Deprecated {
 
 		return WP_Ultimo()->is_loaded();
 	}
-
-	/**
-	 * Deprecated: enqueue_select2.
-	 *
-	 * @since 2.0.0
-	 * @return void
-	 */
-	public function enqueue_select2(): void {
-
-		_deprecated_function(__METHOD__, '2.0.0');
-
-		wp_enqueue_style('wu-select2css', 'https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css', false, '1.0', 'all');
-
-		wp_enqueue_script('wu-select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.js', ['jquery'], '1.0', true);
-	}
 }

@@ -89,14 +89,14 @@ class Login_Form_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Login Form', 'wp-multisite-waas');
+		return __('Login Form', 'multisite-ultimate');
 	}
 
 	/**
@@ -105,14 +105,14 @@ class Login_Form_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a login form to the page.', 'wp-multisite-waas');
+		return __('Adds a login form to the page.', 'multisite-ultimate');
 	}
 
 	/**
@@ -137,23 +137,23 @@ class Login_Form_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['display_title'] = [
 			'type'    => 'toggle',
-			'title'   => __('Display Title?', 'wp-multisite-waas'),
-			'desc'    => __('Toggle to show/hide the title element.', 'wp-multisite-waas'),
+			'title'   => __('Display Title?', 'multisite-ultimate'),
+			'desc'    => __('Toggle to show/hide the title element.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
 
 		$fields['title'] = [
 			'type'     => 'text',
-			'title'    => __('Title', 'wp-multisite-waas'),
-			'value'    => __('Login', 'wp-multisite-waas'),
+			'title'    => __('Title', 'multisite-ultimate'),
+			'value'    => __('Login', 'multisite-ultimate'),
 			'desc'     => '',
 			'tooltip'  => '',
 			'required' => [
@@ -163,22 +163,22 @@ class Login_Form_Element extends Base_Element {
 
 		$fields['redirect_type'] = [
 			'type'    => 'select',
-			'title'   => __('Redirect Type', 'wp-multisite-waas'),
-			'desc'    => __('The behavior after login', 'wp-multisite-waas'),
+			'title'   => __('Redirect Type', 'multisite-ultimate'),
+			'desc'    => __('The behavior after login', 'multisite-ultimate'),
 			'tooltip' => '',
 			'default' => 'default',
 			'options' => [
-				'default'       => __('Wordpress Default', 'wp-multisite-waas'),
-				'customer_site' => __('Send To Customer Site', 'wp-multisite-waas'),
-				'main_site'     => __('Send To Main Site', 'wp-multisite-waas'),
+				'default'       => __('Wordpress Default', 'multisite-ultimate'),
+				'customer_site' => __('Send To Customer Site', 'multisite-ultimate'),
+				'main_site'     => __('Send To Main Site', 'multisite-ultimate'),
 			],
 		];
 
 		$fields['customer_redirect_path'] = [
 			'type'     => 'text',
-			'title'    => __('Customer Redirect Path', 'wp-multisite-waas'),
-			'value'    => __('/wp-admin', 'wp-multisite-waas'),
-			'desc'     => __('e.g. /wp-admin', 'wp-multisite-waas'),
+			'title'    => __('Customer Redirect Path', 'multisite-ultimate'),
+			'value'    => __('/wp-admin', 'multisite-ultimate'),
+			'desc'     => __('e.g. /wp-admin', 'multisite-ultimate'),
 			'tooltip'  => '',
 			'required' => [
 				'redirect_type' => 'customer_site',
@@ -187,9 +187,9 @@ class Login_Form_Element extends Base_Element {
 
 		$fields['main_redirect_path'] = [
 			'type'     => 'text',
-			'title'    => __('Main Site Redirect Path', 'wp-multisite-waas'),
-			'value'    => __('/wp-admin', 'wp-multisite-waas'),
-			'desc'     => __('e.g. /wp-admin', 'wp-multisite-waas'),
+			'title'    => __('Main Site Redirect Path', 'multisite-ultimate'),
+			'value'    => __('/wp-admin', 'multisite-ultimate'),
+			'desc'     => __('e.g. /wp-admin', 'multisite-ultimate'),
 			'tooltip'  => '',
 			'required' => [
 				'redirect_type' => 'main_site',
@@ -197,66 +197,66 @@ class Login_Form_Element extends Base_Element {
 		];
 
 		$fields['header_username'] = [
-			'title' => __('Username Field', 'wp-multisite-waas'),
-			'desc'  => __('Username Field', 'wp-multisite-waas'),
+			'title' => __('Username Field', 'multisite-ultimate'),
+			'desc'  => __('Username Field', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['label_username'] = [
 			'type'    => 'text',
-			'title'   => __('Username Field Label', 'wp-multisite-waas'),
-			'value'   => __('Username or Email Address', 'wp-multisite-waas'),
-			'desc'    => __('Leave blank to hide.', 'wp-multisite-waas'),
+			'title'   => __('Username Field Label', 'multisite-ultimate'),
+			'value'   => __('Username or Email Address', 'multisite-ultimate'),
+			'desc'    => __('Leave blank to hide.', 'multisite-ultimate'),
 			'tooltip' => '',
 		];
 
 		$fields['placeholder_username'] = [
 			'type'    => 'text',
-			'title'   => __('Username Field Placeholder', 'wp-multisite-waas'),
-			'desc'    => __('e.g. Username Here', 'wp-multisite-waas'),
+			'title'   => __('Username Field Placeholder', 'multisite-ultimate'),
+			'desc'    => __('e.g. Username Here', 'multisite-ultimate'),
 			'value'   => '',
 			'tooltip' => '',
 		];
 
 		$fields['header_password'] = [
-			'title' => __('Password Field', 'wp-multisite-waas'),
-			'desc'  => __('Password Field', 'wp-multisite-waas'),
+			'title' => __('Password Field', 'multisite-ultimate'),
+			'desc'  => __('Password Field', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['label_password'] = [
 			'type'    => 'text',
-			'title'   => __('Password Field Label', 'wp-multisite-waas'),
-			'value'   => __('Password', 'wp-multisite-waas'),
-			'desc'    => __('Leave blank to hide.', 'wp-multisite-waas'),
+			'title'   => __('Password Field Label', 'multisite-ultimate'),
+			'value'   => __('Password', 'multisite-ultimate'),
+			'desc'    => __('Leave blank to hide.', 'multisite-ultimate'),
 			'tooltip' => '',
 		];
 
 		$fields['placeholder_password'] = [
 			'type'    => 'text',
-			'title'   => __('Password Field Placeholder', 'wp-multisite-waas'),
-			'desc'    => __('e.g. Your Password', 'wp-multisite-waas'),
+			'title'   => __('Password Field Placeholder', 'multisite-ultimate'),
+			'desc'    => __('e.g. Your Password', 'multisite-ultimate'),
 			'value'   => '',
 			'tooltip' => '',
 		];
 
 		$fields['header_remember'] = [
-			'title' => __('Remember Me', 'wp-multisite-waas'),
-			'desc'  => __('Remember Me', 'wp-multisite-waas'),
+			'title' => __('Remember Me', 'multisite-ultimate'),
+			'desc'  => __('Remember Me', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['remember'] = [
 			'type'    => 'toggle',
-			'title'   => __('Display Remember Toggle?', 'wp-multisite-waas'),
-			'desc'    => __('Toggle to show/hide the remember me checkbox.', 'wp-multisite-waas'),
+			'title'   => __('Display Remember Toggle?', 'multisite-ultimate'),
+			'desc'    => __('Toggle to show/hide the remember me checkbox.', 'multisite-ultimate'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
 
 		$fields['label_remember'] = [
 			'type'     => 'text',
-			'title'    => __('Remember Me Label', 'wp-multisite-waas'),
+			'title'    => __('Remember Me Label', 'multisite-ultimate'),
 			'value'    => __('Remember Me'),
 			'desc'     => '',
 			'tooltip'  => '',
@@ -267,8 +267,8 @@ class Login_Form_Element extends Base_Element {
 
 		$fields['desc_remember'] = [
 			'type'     => 'text',
-			'title'    => __('Remember Me Description', 'wp-multisite-waas'),
-			'value'    => __('Keep me logged in for two weeks.', 'wp-multisite-waas'),
+			'title'    => __('Remember Me Description', 'multisite-ultimate'),
+			'value'    => __('Keep me logged in for two weeks.', 'multisite-ultimate'),
 			'desc'     => '',
 			'tooltip'  => '',
 			'required' => [
@@ -277,15 +277,15 @@ class Login_Form_Element extends Base_Element {
 		];
 
 		$fields['header_submit'] = [
-			'title' => __('Submit Button', 'wp-multisite-waas'),
-			'desc'  => __('Submit Button', 'wp-multisite-waas'),
+			'title' => __('Submit Button', 'multisite-ultimate'),
+			'desc'  => __('Submit Button', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['label_log_in'] = [
 			'type'    => 'text',
-			'title'   => __('Submit Button Label', 'wp-multisite-waas'),
-			'value'   => __('Log In', 'wp-multisite-waas'),
+			'title'   => __('Submit Button Label', 'multisite-ultimate'),
+			'value'   => __('Log In', 'multisite-ultimate'),
 			'tooltip' => '',
 		];
 
@@ -311,7 +311,7 @@ class Login_Form_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Billing_Address',
 	 *  'Form',
 	 *  'Cart',
@@ -324,7 +324,7 @@ class Login_Form_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Login',
 			'Reset Password',
 		];
@@ -351,7 +351,7 @@ class Login_Form_Element extends Base_Element {
 
 		return [
 			'display_title'          => 1,
-			'title'                  => __('Login', 'wp-multisite-waas'),
+			'title'                  => __('Login', 'multisite-ultimate'),
 
 			'redirect_type'          => 'default',
 			'customer_redirect_path' => '/wp-admin',
@@ -367,7 +367,7 @@ class Login_Form_Element extends Base_Element {
 			'placeholder_password'   => '',
 
 			'label_remember'         => __('Remember Me'),
-			'desc_remember'          => __('Keep me logged in for two weeks.', 'wp-multisite-waas'),
+			'desc_remember'          => __('Keep me logged in for two weeks.', 'multisite-ultimate'),
 
 			'label_log_in'           => __('Log In'),
 
@@ -396,8 +396,8 @@ class Login_Form_Element extends Base_Element {
 
 			$rp_cookie = 'wp-resetpass-' . COOKIEHASH;
 
-			if (isset($_GET['key']) && isset($_GET['login'])) {
-				$value = sprintf('%s:%s', sanitize_text_field(wp_unslash($_GET['login'])), sanitize_text_field(wp_unslash($_GET['key'])));
+			if (isset($_GET['key']) && isset($_GET['login'])) { // phpcs:ignore WordPress.Security.NonceVerification
+				$value = sprintf('%s:%s', sanitize_text_field(wp_unslash($_GET['login'])), sanitize_text_field(wp_unslash($_GET['key']))); // phpcs:ignore WordPress.Security.NonceVerification
 
 				setcookie(
 					$rp_cookie,
@@ -605,7 +605,7 @@ class Login_Form_Element extends Base_Element {
 
 				$user = check_password_reset_key($rp_key, $rp_login);
 
-				if (isset($_POST['pass1']) && isset($_POST['rp_key']) && ! hash_equals(wp_unslash($_POST['rp_key']), wp_unslash($_POST['rp_key']))) {
+				if (isset($_POST['pass1']) && isset($_POST['rp_key']) && ! hash_equals(wp_unslash($_POST['rp_key']), wp_unslash($_POST['rp_key']))) { // phpcs:ignore WordPress.Security.NonceVerification
 					$user = false;
 				}
 			} else {
@@ -743,7 +743,7 @@ class Login_Form_Element extends Base_Element {
 				'value' => $atts['redirect'],
 			];
 
-			if (isset($_GET['redirect_to'])) {
+			if (isset($_GET['redirect_to'])) { // phpcs:ignore WordPress.Security.NonceVerification
 				$atts['redirect_type'] = 'query_redirect';
 			} elseif ('customer_site' === $atts['redirect_type']) {
 				$fields['redirect_to']['value'] = $atts['customer_redirect_path'];

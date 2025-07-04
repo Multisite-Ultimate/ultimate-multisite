@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS Dashboard Admin Page.
+ * Multisite Ultimate Dashboard Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Dashboard_Statistics;
 
 /**
- * WP Multisite WaaS Dashboard Admin Page.
+ * Multisite Ultimate Dashboard Admin Page.
  */
 class Dashboard_Admin_Page extends Base_Admin_Page {
 
@@ -137,17 +137,17 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 		if ('wp-ultimo' === $page->id) {
 			$preset_options = [
 				'last_7_days'  => [
-					'label'      => __('Last 7 days', 'wp-multisite-waas'),
+					'label'      => __('Last 7 days', 'multisite-ultimate'),
 					'start_date' => date_i18n('Y-m-d', strtotime('-7 days')),
 					'end_date'   => date_i18n('Y-m-d'),
 				],
 				'last_30_days' => [
-					'label'      => __('Last 30 days', 'wp-multisite-waas'),
+					'label'      => __('Last 30 days', 'multisite-ultimate'),
 					'start_date' => date_i18n('Y-m-d', strtotime('-30 days')),
 					'end_date'   => date_i18n('Y-m-d'),
 				],
 				'year_to_date' => [
-					'label'      => __('Year to date', 'wp-multisite-waas'),
+					'label'      => __('Year to date', 'multisite-ultimate'),
 					'start_date' => date_i18n('Y-m-d', strtotime('first day of january this year')),
 					'end_date'   => date_i18n('Y-m-d'),
 				],
@@ -180,7 +180,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 			'general' => [
 				'field' => 'type',
 				'url'   => add_query_arg('tab', 'general'),
-				'label' => __('General', 'wp-multisite-waas'),
+				'label' => __('General', 'multisite-ultimate'),
 				'count' => 0,
 			],
 		];
@@ -209,7 +209,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 		 *
 		 * @param string $tab The current tab.
 		 * @param \WP_Screen $screen The screen object.
-		 * @param \WP_Ultimo\Admin_Pages\Dashboard_Admin_Page $page WP Multisite WaaS admin page instance.
+		 * @param \WP_Ultimo\Admin_Pages\Dashboard_Admin_Page $page Multisite Ultimate admin page instance.
 		 */
 		do_action("wu_dashboard_{$this->tab}_widgets", $this->tab, $screen, $this);
 
@@ -220,7 +220,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 		 *
 		 * @param string $tab The current tab.
 		 * @param \WP_Screen $screen The screen object.
-		 * @param \WP_Ultimo\Admin_Pages\Dashboard_Admin_Page $page WP Multisite WaaS admin page instance.
+		 * @param \WP_Ultimo\Admin_Pages\Dashboard_Admin_Page $page Multisite Ultimate admin page instance.
 		 */
 		do_action('wu_dashboard_widgets', $this->tab, $screen, $this);
 
@@ -230,16 +230,16 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 				[
 					[
 						'id'    => 'your-dashboard',
-						'title' => __('Our dashboard', 'wp-multisite-waas'),
+						'title' => __('Our dashboard', 'multisite-ultimate'),
 						'text'  => [
-							__('This is the <strong>WP Multisite WaaS Dashboard</strong>, where you will find most of the important information you will need regarding your business\' performance.', 'wp-multisite-waas'),
+							__('This is the <strong>Multisite Ultimate Dashboard</strong>, where you will find most of the important information you will need regarding your business\' performance.', 'multisite-ultimate'),
 						],
 					],
 					[
 						'id'       => 'documentation',
-						'title'    => __('Learning more', 'wp-multisite-waas'),
+						'title'    => __('Learning more', 'multisite-ultimate'),
 						'text'     => [
-							__('Most of the WP Multisite WaaS admin pages will contain a link like this one at the top. These will link directly to the relevant knowledge base page on the WP Multisite WaaS site.', 'wp-multisite-waas'),
+							__('Most of the Multisite Ultimate admin pages will contain a link like this one at the top. These will link directly to the relevant knowledge base page on the Multisite Ultimate site.', 'multisite-ultimate'),
 						],
 						'attachTo' => [
 							'element' => '#wp-ultimo-wrap > h1 > a:last-child',
@@ -248,9 +248,9 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 					],
 					[
 						'id'       => 'mrr-growth',
-						'title'    => __('It\'s all about growth!', 'wp-multisite-waas'),
+						'title'    => __('It\'s all about growth!', 'multisite-ultimate'),
 						'text'     => [
-							__('This graph allows you to follow how your monthly recurring revenue is growing this year.', 'wp-multisite-waas'),
+							__('This graph allows you to follow how your monthly recurring revenue is growing this year.', 'multisite-ultimate'),
 						],
 						'attachTo' => [
 							'element' => '#wp-ultimo-mrr-growth',
@@ -259,10 +259,10 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 					],
 					[
 						'id'       => 'tailor-made',
-						'title'    => __('Date-range support', 'wp-multisite-waas'),
+						'title'    => __('Date-range support', 'multisite-ultimate'),
 						'text'     => [
-							__('Checking statistics and comparing data for different periods is key in maintaining a good grasp on your business.', 'wp-multisite-waas'),
-							__('You can use the date-range selectors to have access to just the data you need and nothing more.', 'wp-multisite-waas'),
+							__('Checking statistics and comparing data for different periods is key in maintaining a good grasp on your business.', 'multisite-ultimate'),
+							__('You can use the date-range selectors to have access to just the data you need and nothing more.', 'multisite-ultimate'),
 						],
 						'attachTo' => [
 							'element' => '#dashboard-filters',
@@ -286,18 +286,18 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 	public function register_general_tab_widgets($tab, $screen): void {
 
 		if (current_user_can('wu_read_financial')) {
-			add_meta_box('wp-ultimo-mrr-growth', __('Monthly Recurring Revenue Growth', 'wp-multisite-waas'), [$this, 'output_widget_mrr_growth'], $screen->id, 'full', 'high');
+			add_meta_box('wp-ultimo-mrr-growth', __('Monthly Recurring Revenue Growth', 'multisite-ultimate'), [$this, 'output_widget_mrr_growth'], $screen->id, 'full', 'high');
 
-			add_meta_box('wp-ultimo-revenue', __('Revenue', 'wp-multisite-waas'), [$this, 'output_widget_revenues'], $screen->id, 'normal', 'high');
+			add_meta_box('wp-ultimo-revenue', __('Revenue', 'multisite-ultimate'), [$this, 'output_widget_revenues'], $screen->id, 'normal', 'high');
 		}
 
-		add_meta_box('wp-ultimo-countries', __('Signups by Countries', 'wp-multisite-waas'), [$this, 'output_widget_countries'], $screen->id, 'side', 'high');
+		add_meta_box('wp-ultimo-countries', __('Signups by Countries', 'multisite-ultimate'), [$this, 'output_widget_countries'], $screen->id, 'side', 'high');
 
-		add_meta_box('wp-ultimo-signups', __('Signups by Form', 'wp-multisite-waas'), [$this, 'output_widget_forms'], $screen->id, 'side', 'high');
+		add_meta_box('wp-ultimo-signups', __('Signups by Form', 'multisite-ultimate'), [$this, 'output_widget_forms'], $screen->id, 'side', 'high');
 
-		add_meta_box('wp-ultimo-most-visited-sites', __('Most Visited Sites', 'wp-multisite-waas'), [$this, 'output_widget_most_visited_sites'], $screen->id, 'side', 'low');
+		add_meta_box('wp-ultimo-most-visited-sites', __('Most Visited Sites', 'multisite-ultimate'), [$this, 'output_widget_most_visited_sites'], $screen->id, 'side', 'low');
 
-		add_meta_box('wp-ultimo-new-accounts', __('New Memberships', 'wp-multisite-waas'), [$this, 'output_widget_new_accounts'], $screen->id, 'normal', 'low');
+		add_meta_box('wp-ultimo-new-accounts', __('New Memberships', 'multisite-ultimate'), [$this, 'output_widget_new_accounts'], $screen->id, 'normal', 'low');
 	}
 
 	/**
@@ -449,7 +449,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 		 * Add edge case for no plan.
 		 */
 		$products['none'] = (object) [
-			'name'  => __('No Product', 'wp-multisite-waas'),
+			'name'  => __('No Product', 'multisite-ultimate'),
 			'count' => 0,
 		];
 
@@ -514,8 +514,8 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 				'today'      => date_i18n('Y-m-d', strtotime('tomorrow')),
 				'month_list' => $month_list,
 				'i18n'       => [
-					'new_mrr'       => __('New MRR', 'wp-multisite-waas'),
-					'cancellations' => __('Cancellations', 'wp-multisite-waas'),
+					'new_mrr'       => __('New MRR', 'multisite-ultimate'),
+					'cancellations' => __('Cancellations', 'multisite-ultimate'),
 				],
 			]
 		);
@@ -537,7 +537,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Dashboard', 'wp-multisite-waas');
+		return __('Dashboard', 'multisite-ultimate');
 	}
 
 	/**
@@ -548,7 +548,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Multisite WaaS', 'wp-multisite-waas');
+		return __('Multisite WaaS', 'multisite-ultimate');
 	}
 
 	/**
@@ -559,7 +559,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Dashboard', 'wp-multisite-waas');
+		return __('Dashboard', 'multisite-ultimate');
 	}
 
 	/**
@@ -608,20 +608,24 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 
 		$data_strings = wp_json_encode($args['data']);
 
-		$html = "<div class='wu-bg-gray-100 wu-p-2 wu-text-right wu-border-0 wu-border-b wu-border-solid wu-border-gray-400'>
-
-			<a href='#' attr-slug-csv='{$slug}' class='wu-export-button wu-no-underline wu-text-gray-800 wu-text-xs'>
-				<span class='dashicons-wu-download wu-mr-1'></span> %s
+		$html = '<div class="wu-bg-gray-100 wu-p-2 wu-text-right wu-border-0 wu-border-b wu-border-solid wu-border-gray-400">
+			<a href="#" attr-slug-csv="%2$s" class="wu-export-button wu-no-underline wu-text-gray-800 wu-text-xs">
+				<span class="dashicons-wu-download wu-mr-1"></span> %1$s
 			</a>
-
-			<input type='hidden' id='csv_headers_{$slug}' value='{$header_strings}' />
-			<input type='hidden' id='csv_data_{$slug}' value='{$data_strings}' />
-			<input type='hidden' id='csv_action_{$slug}' value='{$args['action']}' />
-
-		</div>";
+			<input type="hidden" id="csv_headers_%2$s" value="%3$s" />
+			<input type="hidden" id="csv_data_%2$s" value="%4$s" />
+			<input type="hidden" id="csv_action_%2$s" value="%5$s" />
+		</div>';
 
 		$html = apply_filters('wu_export_html_render', $html, $html);
 
-		printf($html, apply_filters('wu_export_data_table_label', __('CSV', 'wp-multisite-waas')));
+		printf(
+			$html, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			apply_filters('wu_export_data_table_label', esc_html__('CSV', 'multisite-ultimate')), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			esc_attr($slug),
+			esc_attr($header_strings),
+			esc_attr($data_strings),
+			esc_attr($args['action'])
+		);
 	}
 }

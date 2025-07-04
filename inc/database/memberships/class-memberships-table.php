@@ -55,18 +55,6 @@ final class Memberships_Table extends Table {
 	];
 
 	/**
-	 * Memberships constructor.
-	 *
-	 * @access public
-	 * @since  2.0.0
-	 * @return void
-	 */
-	public function __construct() {
-
-		parent::__construct();
-	}
-
-	/**
 	 * Setup the database schema.
 	 *
 	 * @access protected

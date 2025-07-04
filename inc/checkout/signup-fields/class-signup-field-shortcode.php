@@ -53,7 +53,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Shortcode', 'wp-multisite-waas');
+		return __('Shortcode', 'multisite-ultimate');
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Displays the content of a given WordPress shortcode. Can be useful to inset content from other plugins inside a WP Multisite WaaS checkout form.', 'wp-multisite-waas');
+		return __('Displays the content of a given WordPress shortcode. Can be useful to inset content from other plugins inside a Multisite Ultimate checkout form.', 'multisite-ultimate');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Displays the content of a given WordPress shortcode. Can be useful to insert content from other plugins inside a WP Multisite WaaS checkout form.', 'wp-multisite-waas');
+		return __('Displays the content of a given WordPress shortcode. Can be useful to insert content from other plugins inside a Multisite Ultimate checkout form.', 'multisite-ultimate');
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	public function force_attributes() {
 
 		return [
-			'name' => __('Shortcode', 'wp-multisite-waas'),
+			'name' => __('Shortcode', 'multisite-ultimate'),
 		];
 	}
 
@@ -148,9 +148,9 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 		return [
 			'shortcode_code' => [
 				'type'        => 'text',
-				'title'       => __('Shortcode', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. [shortcode]', 'wp-multisite-waas'),
-				'desc'        => __('Please, enter the full shortcode, including [].', 'wp-multisite-waas'),
+				'title'       => __('Shortcode', 'multisite-ultimate'),
+				'placeholder' => __('e.g. [shortcode]', 'multisite-ultimate'),
+				'desc'        => __('Please, enter the full shortcode, including [].', 'multisite-ultimate'),
 			],
 		];
 	}

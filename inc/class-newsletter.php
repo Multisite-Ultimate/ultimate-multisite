@@ -17,8 +17,8 @@ class Newsletter {
 			'general',
 			self::SETTING_FIELD_SLUG,
 			[
-				'title' => __('Signup for WP Multisite WaaS Newsletter', 'wp-multisite-waas'),
-				'desc'  => __('Be informed of new releases and all things related to running a WaaS Network.', 'wp-multisite-waas'),
+				'title' => __('Signup for Multisite Ultimate Newsletter', 'multisite-ultimate'),
+				'desc'  => __('Be informed of new releases and all things related to running a WaaS Network.', 'multisite-ultimate'),
 				'type'  => 'toggle',
 				'value' => '1',
 			],

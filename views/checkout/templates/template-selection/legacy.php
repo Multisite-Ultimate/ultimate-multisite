@@ -10,7 +10,7 @@
  * @see inc/models/class-products.php.
  *
  * This template can also be overridden using template overrides.
- * See more here: https://help.wpultimo.com/article/335-template-overrides.
+ * See more here: https://github.com/superdav42/wp-multisite-waas/wiki/Template-Overrides.
  *
  * @since 2.0.0
  * @package WP_Ultimo/Views
@@ -28,7 +28,7 @@ $sites = array_map('wu_get_site', $sites ?? []);
 
 $categories ??= [];
 
-$customer_sites_category = __('Your Sites', 'wp_ultimo');
+$customer_sites_category = __('Your Sites', 'multisite-ultimate');
 
 $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) : [];
 
@@ -37,7 +37,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 <?php if ( empty($sites) ) : ?>
 
 	<div class="wu-text-center wu-bg-gray-100 wu-rounded wu-uppercase wu-font-semibold wu-text-xs wu-text-gray-700 wu-p-4">
-		<?php esc_html_e('No Site Templates Found.', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('No Site Templates Found.', 'multisite-ultimate'); ?>
 	</div>
 
 <?php else : ?>
@@ -57,7 +57,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 				<h2>
 
-					<?php esc_html_e('Pick your Template', 'wp-multisite-waas'); ?>
+					<?php esc_html_e('Pick your Template', 'multisite-ultimate'); ?>
 
 					<span class="title-count theme-count">
 						<?php echo count($sites); ?>
@@ -71,13 +71,13 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 				<div class="wp-filter-responsive">
 
-					<h4><?php esc_html_e('Template Categories', 'wp-multisite-waas'); ?></h4>
+					<h4><?php esc_html_e('Template Categories', 'multisite-ultimate'); ?></h4>
 
 					<select class="">
 
 						<option value="">
 
-							<?php esc_html_e('All Templates', 'wp-multisite-waas'); ?>
+							<?php esc_html_e('All Templates', 'multisite-ultimate'); ?>
 
 						</option>
 
@@ -118,7 +118,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 								v-on:click.prevent="$parent.template_category = ''"
 						>
 
-							<?php esc_html_e('All Templates', 'wp-multisite-waas'); ?>
+							<?php esc_html_e('All Templates', 'multisite-ultimate'); ?>
 
 						</a>
 
@@ -210,7 +210,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 								class="more-details"
 								id="<?php echo esc_attr($site->get_id()); ?>-action"
 							>
-								<?php $is_template ? esc_html_e('View Template', 'wp-multisite-waas') : esc_html_e('View Site', 'wp-multisite-waas'); ?>
+								<?php $is_template ? esc_html_e('View Template', 'multisite-ultimate') : esc_html_e('View Site', 'multisite-ultimate'); ?>
 							</a>
 
 							<div class="wu-flex theme-name-header wu-items-center wu-relative">
@@ -229,9 +229,9 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 											v-on:click.prevent="$parent.template_id = <?php echo esc_attr($site->get_id()); ?>"
 									>
 
-										<span v-if="$parent.template_id == <?php echo esc_attr($site->get_id()); ?>"><?php esc_html_e('Selected', 'wp-multisite-waas'); ?></span>
+										<span v-if="$parent.template_id == <?php echo esc_attr($site->get_id()); ?>"><?php esc_html_e('Selected', 'multisite-ultimate'); ?></span>
 
-										<span v-else><?php esc_html_e('Select', 'wp-multisite-waas'); ?></span>
+										<span v-else><?php esc_html_e('Select', 'multisite-ultimate'); ?></span>
 
 									</button>
 
@@ -255,7 +255,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 			<div class="theme-overlay"></div>
 
 			<p class="no-themes">
-				<?php esc_html_e('No Templates Found', 'wp-multisite-waas'); ?>
+				<?php esc_html_e('No Templates Found', 'multisite-ultimate'); ?>
 			</p>
 
 		</div>

@@ -7,16 +7,16 @@
 ?>
 <div class="wu-styling <?php echo esc_attr($className); ?>">
 
-	<div class="<?php echo wu_env_picker('', 'wu-widget-inset'); ?>">
+	<div class="<?php echo esc_attr(wu_env_picker('', 'wu-widget-inset')); ?>">
 
 	<!-- Title Element -->
-	<div class="wu-p-4 wu-flex wu-items-center <?php echo wu_env_picker('', 'wu-bg-gray-100'); ?>">
+	<div class="wu-p-4 wu-flex wu-items-center <?php echo esc_attr(wu_env_picker('', 'wu-bg-gray-100')); ?>">
 
 		<?php if (true) : ?>
 
-		<h3 class="wu-m-0 <?php echo wu_env_picker('', 'wu-widget-title'); ?>">
+		<h3 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
-			<?php echo __('Actions', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('Actions', 'multisite-ultimate'); ?>
 
 		</h3>
 
@@ -42,7 +42,7 @@
 			wu-px-4 wu-py-3 wu-inline-block wu-no-underline"
 			>
 
-			<?php echo $action['label']; ?>
+			<?php echo esc_html($action['label']); ?>
 
 			</a>
 
@@ -55,13 +55,13 @@
 	<?php if ( ! empty($danger_zone_actions)) : ?>
 
 		<!-- Title Element -->
-		<div class="wu-p-4 wu-flex wu-items-center <?php echo wu_env_picker('', 'wu-bg-gray-100 wu-border-solid wu-border-0 wu-border-t wu-border-gray-200'); ?>">
+		<div class="wu-p-4 wu-flex wu-items-center <?php echo esc_attr(wu_env_picker('', 'wu-bg-gray-100 wu-border-solid wu-border-0 wu-border-t wu-border-gray-200')); ?>">
 
 		<?php if (true) : ?>
 
-			<h3 class="wu-m-0 <?php echo wu_env_picker('', 'wu-widget-title'); ?>">
+			<h3 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
-			<?php echo __('Danger Zone', 'wp-multisite-waas'); ?>
+			<?php esc_html_e('Danger Zone', 'multisite-ultimate'); ?>
 
 			</h3>
 
@@ -82,7 +82,7 @@
 				class="<?php echo esc_attr($action['classes']); ?> wu-px-4 wu-py-3 wu-inline-block wu-no-underline"
 			>
 
-				<?php echo $action['label']; ?>
+				<?php echo esc_html($action['label']); ?>
 
 			</a>
 

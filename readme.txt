@@ -1,12 +1,12 @@
-=== WP Multisite WaaS ===
+=== Multisite Ultimate ===
 Contributors: aanduque, superdav42 
 Donate link: https://github.com/sponsors/superdav42/
 Tags: multisite, waas, membership, domain-mapping, recurring payments, subscription
 Requires at least: 5.3
 
 Requires PHP: 7.4.30
-Tested up to: 6.7.2
-Stable tag: 2.3.4
+Tested up to: 6.8
+Stable tag: 2.4.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ The Complete Network Solution for transforming your WordPress Multisite into a W
 
 == Description ==
 
-**WP Multisite WaaS** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
+**Multisite Ultimate** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
 
 This plugin was formerly known as WP Ultimo and is now community maintained.
 
@@ -36,7 +36,7 @@ This plugin was formerly known as WP Ultimo and is now community maintained.
 
 = Contributing =
 
-We welcome contributions to WP Multisite WaaS! To contribute effectively:
+We welcome contributions to Multisite Ultimate! To contribute effectively:
 
 **Development Workflow:**
 
@@ -80,7 +80,7 @@ For more detailed contribution guidelines, see the [GitHub repository](https://g
 
 == Installation ==
 
-There are two recommended ways to install WP Multisite WaaS:
+There are two recommended ways to install Multisite Ultimate:
 
 = Method 1: Using the pre-packaged release (Recommended) =
 
@@ -124,7 +124,7 @@ Solution: Use the pre-packaged release from the [Releases page](https://github.c
 
 This error usually occurs when updating from an older version of WP Ultimo or when multiple versions of the plugin are installed.
 
-Solution: Deactivate and remove any older versions of WP Ultimo or WP Multisite WaaS before activating the new version.
+Solution: Deactivate and remove any older versions of WP Ultimo or Multisite Ultimate before activating the new version.
 
 **"Class 'WP_Ultimo\Database\Sites\Site_Query' not found"**
 
@@ -147,7 +147,7 @@ No, this plugin specifically requires WordPress Multisite to function properly. 
 
 = Does this plugin support custom domains? =
 
-Yes, WP Multisite WaaS includes robust domain mapping functionality that allows your customers to use their own domains for their websites within your network.
+Yes, Multisite Ultimate includes robust domain mapping functionality that allows your customers to use their own domains for their websites within your network.
 
 = Which payment gateways are supported? =
 
@@ -155,7 +155,7 @@ The plugin supports multiple payment gateways including Stripe, PayPal, and manu
 
 = Can I migrate from WP Ultimo to this plugin? =
 
-Yes, WP Multisite WaaS is a community-maintained fork of WP Ultimo. The plugin includes migration tools to help you transition from WP Ultimo.
+Yes, Multisite Ultimate is a community-maintained fork of WP Ultimo. The plugin includes migration tools to help you transition from WP Ultimo.
 
 == Screenshots ==
 
@@ -188,6 +188,9 @@ Version [2.4.0] - Released on 2025-XX-XX
 - Improved: Use emojii flags
 - Fixed: i18n deprecation notice for translating too early
 - Improved: Put all scripts in footer and load async
+- Improved: Add discounts to thank you page
+- Improved: Prevent downgrading a plan if it the post type could would be over the limit
+- Fixed: Styles on thank you page of legacy checkout
 
 Version [2.3.4] - Released on 2024-01-31
 - Fixed: Unable to checkout with any payment gateway
@@ -195,7 +198,7 @@ Version [2.3.4] - Released on 2024-01-31
 
 Version [2.3.3] - Released on 2024-01-29
 
-- Improved: Plugin renamed to WP Multisite WaaS
+- Improved: Plugin renamed to Multisite Ultimate
 - Removed: Enforcement of paid license
 - Fixed: Incompatibilities with WordPress 6.7 and i18n timing
 - Improved: Reduced plugin size by removing many unnecessary files and shrinking images

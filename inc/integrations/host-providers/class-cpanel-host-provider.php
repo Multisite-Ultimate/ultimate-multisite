@@ -44,7 +44,7 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $tutorial_link = 'https://help.wpultimo.com/article/295-configuring-automatic-domain-syncing-with-cpanel';
+	protected $tutorial_link = 'https://github.com/superdav42/wp-multisite-waas/wiki/cPanel-Integration';
 
 	/**
 	 * Array containing the features this integration supports.
@@ -111,26 +111,26 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 
 		return [
 			'WU_CPANEL_USERNAME' => [
-				'title'       => __('cPanel Username', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. username', 'wp-multisite-waas'),
+				'title'       => __('cPanel Username', 'multisite-ultimate'),
+				'placeholder' => __('e.g. username', 'multisite-ultimate'),
 			],
 			'WU_CPANEL_PASSWORD' => [
 				'type'        => 'password',
-				'title'       => __('cPanel Password', 'wp-multisite-waas'),
-				'placeholder' => __('password', 'wp-multisite-waas'),
+				'title'       => __('cPanel Password', 'multisite-ultimate'),
+				'placeholder' => __('password', 'multisite-ultimate'),
 			],
 			'WU_CPANEL_HOST'     => [
-				'title'       => __('cPanel Host', 'wp-multisite-waas'),
-				'placeholder' => __('e.g. yourdomain.com', 'wp-multisite-waas'),
+				'title'       => __('cPanel Host', 'multisite-ultimate'),
+				'placeholder' => __('e.g. yourdomain.com', 'multisite-ultimate'),
 			],
 			'WU_CPANEL_PORT'     => [
-				'title'       => __('cPanel Port', 'wp-multisite-waas'),
-				'placeholder' => __('Defaults to 2083', 'wp-multisite-waas'),
+				'title'       => __('cPanel Port', 'multisite-ultimate'),
+				'placeholder' => __('Defaults to 2083', 'multisite-ultimate'),
 				'value'       => 2083,
 			],
 			'WU_CPANEL_ROOT_DIR' => [
-				'title'       => __('Root Directory', 'wp-multisite-waas'),
-				'placeholder' => __('Defaults to /public_html', 'wp-multisite-waas'),
+				'title'       => __('Root Directory', 'multisite-ultimate'),
+				'placeholder' => __('Defaults to /public_html', 'multisite-ultimate'),
 				'value'       => '/public_html',
 			],
 		];
@@ -300,7 +300,7 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 			wu_log_add('integration-cpanel', $results->cpanelresult->data->reason);
 			return;
 		} elseif ( ! isset($results->cpanelresult->data[0])) {
-			wu_log_add('integration-cpanel', __('Unexpected error ocurred trying to sync domains with CPanel', 'wp-multisite-waas'), LogLevel::ERROR);
+			wu_log_add('integration-cpanel', __('Unexpected error ocurred trying to sync domains with CPanel', 'multisite-ultimate'), LogLevel::ERROR);
 			return;
 		}
 
@@ -315,7 +315,7 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('cPanel is the management panel being used on a large number of shared and dedicated hosts across the globe.', 'wp-multisite-waas');
+		return __('cPanel is the management panel being used on a large number of shared and dedicated hosts across the globe.', 'multisite-ultimate');
 	}
 
 	/**
@@ -360,13 +360,13 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 
 		$explainer_lines = [
 			'will'     => [
-				'send_domains' => __('Add a new Addon Domain on cPanel whenever a new domain mapping gets created on your network', 'wp-multisite-waas'),
+				'send_domains' => __('Add a new Addon Domain on cPanel whenever a new domain mapping gets created on your network', 'multisite-ultimate'),
 			],
 			'will_not' => [],
 		];
 
 		if (is_subdomain_install()) {
-			$explainer_lines['will']['send_sub_domains'] = __('Add a new SubDomain on cPanel whenever a new site gets created on your network', 'wp-multisite-waas');
+			$explainer_lines['will']['send_sub_domains'] = __('Add a new SubDomain on cPanel whenever a new site gets created on your network', 'multisite-ultimate');
 		}
 
 		return $explainer_lines;

@@ -31,7 +31,7 @@
 
 		if (wu_validate_date($field->value)) {
 			if ( ! $field->display_value) {
-				esc_html_e('No date', 'wp-multisite-waas');
+				esc_html_e('No date', 'multisite-ultimate');
 			} else {
 				$date = $field->value;
 
@@ -40,11 +40,11 @@
 				$formatted_value = date_i18n(get_option('date_format'), $time);
 
 				// translators: %s a unit of time.
-				$placeholder = wu_get_current_time('timestamp') > $time ? __('%s ago', 'wp-multisite-waas') : __('In %s', 'wp-multisite-waas');
+				$placeholder = wu_get_current_time('timestamp') > $time ? __('%s ago', 'multisite-ultimate') : __('In %s', 'multisite-ultimate');
 				printf('<time datetime="%3$s">%1$s</time><br><small>%2$s</small>', esc_html($formatted_value), esc_html(sprintf($placeholder, human_time_diff($time, wu_get_current_time('timestamp')))), esc_html(get_date_from_gmt($date)));
 			}
 		} else {
-			esc_html_e('None', 'wp-multisite-waas');
+			esc_html_e('None', 'multisite-ultimate');
 		}
 
 		?>

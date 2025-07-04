@@ -1,6 +1,6 @@
 # Basic Concepts
 
-For a new WordPress Multisite user and someone who just started using WP Multisite WaaS, there can be a lot of new words and phrases to take on board at first. Learning them is an important task because you’ll need to understand the platform and how it works as a whole.
+For a new WordPress Multisite user and someone who just started using Multisite Ultimate, there can be a lot of new words and phrases to take on board at first. Learning them is an important task because you’ll need to understand the platform and how it works as a whole.
 
 In this article, we’ll attempt to define and explain some of the key concepts in WordPress. Some of these are more relevant for users, others for developers, and some for both.
 
@@ -88,20 +88,20 @@ Permalinks are the permanent URLs of your individual blog post or page within yo
 
 [**http://www.example.com/registration**](http://www.example.com/registration)
 
-## WP Multisite WaaS
+## Multisite Ultimate
 
-WP Multisite WaaS is a WordPress plugin, made for WordPress Multisite installs, that transforms your WordPress install into a premium network of sites – like [WordPress.com](https://WordPress.com) – allowing clients to create sites via monthly, quarterly, or yearly fees (you can also create Free plans).
+Multisite Ultimate is a WordPress plugin, made for WordPress Multisite installs, that transforms your WordPress install into a premium network of sites – like [WordPress.com](https://WordPress.com) – allowing clients to create sites via monthly, quarterly, or yearly fees (you can also create Free plans).
 
 ## Checkout Form
 
-Checkout Form is a single or multi-step order form that involves the creation of subsite, membership, and user accounts through WP Multisite WaaS registration. It consists of different fields and payment forms that a user must submit during the sign-up process.
+Checkout Form is a single or multi-step order form that involves the creation of subsite, membership, and user accounts through Multisite Ultimate registration. It consists of different fields and payment forms that a user must submit during the sign-up process.
 
 ## Webhook
 
 A webhook (also called a web callback or HTTP push API) is a way for an app to provide other applications with real-time information. A webhook delivers data to other applications as it happens, meaning you get data immediately.
 
-[WP Multisite WaaS webhooks](https://help.wpultimo.com/article/337-integrating-wp-ultimo-with-zapier-using-webhooks) open infinite possibilities, allowing network admins to do all sorts of crazy-but-useful integrations, especially if used in conjunction with services like _Zapier and IFTTT_.
+[Multisite Ultimate webhooks](https://help.wpultimo.com/article/337-integrating-wp-ultimo-with-zapier-using-webhooks) open infinite possibilities, allowing network admins to do all sorts of crazy-but-useful integrations, especially if used in conjunction with services like _Zapier and IFTTT_.
 
 ## Events
 
-An Event is an action that occurs as a result of the user or another source action, such as a mouse click. WP Multisite WaaS keeps a record of all the events and logs that are happening within your entire network. It tracks different activities happening in your multisite, like plan changes.
+An Event is an action that occurs as a result of the user or another source action, such as a mouse click. Multisite Ultimate keeps a record of all the events and logs that are happening within your entire network. It tracks different activities happening in your multisite, like plan changes.

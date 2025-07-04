@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS overview collector.
+ * Multisite Ultimate overview collector.
  *
  * @package query-monitor
  * @since 2.0.11
@@ -59,6 +59,6 @@ class Collector_Overview extends \QM_Collector {
 	 */
 	public function process(): void {
 
-		$this->data = $_REQUEST;
+		$this->data = $_REQUEST; // phpcs:ignore WordPress.Security.NonceVerification
 	}
 }

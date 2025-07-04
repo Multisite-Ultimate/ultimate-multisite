@@ -221,7 +221,7 @@ class Limit_Site_Templates extends Limit {
 	 */
 	public function handle_limit() {
 
-		$module = wu_get_isset($_POST['modules'], $this->id, []);
+		$module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification
 
 		return wu_get_isset($module, 'limit', $this->get_limit());
 	}
@@ -236,7 +236,7 @@ class Limit_Site_Templates extends Limit {
 	 */
 	public function handle_others($module) {
 
-		$_module = wu_get_isset($_POST['modules'], $this->id, []);
+		$_module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification
 
 		$module['mode'] = wu_get_isset($_module, 'mode', 'default');
 

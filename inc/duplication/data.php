@@ -30,7 +30,7 @@ if ( ! class_exists('MUCD_Data') ) {
 			global $wpdb;
 
 			// Delete everything
-			$wpdb->delete(
+			$wpdb->delete( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				_get_meta_table('blog'),
 				[
 					'blog_id' => $to_site_id,
@@ -122,7 +122,7 @@ if ( ! class_exists('MUCD_Data') ) {
 
 				$create_statement_sql = str_replace($from_site_prefix, $to_site_prefix, (string) $create_statement[1]);
 
-				$wpdb->get_results('SET foreign_key_checks = 0');
+				$wpdb->get_results('SET foreign_key_checks = 0'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 				self::do_sql_query($create_statement_sql);
 
@@ -133,7 +133,7 @@ if ( ! class_exists('MUCD_Data') ) {
 				// Populate database with data from source table
 				self::do_sql_query('INSERT `' . $table_name . '` SELECT * FROM `' . $schema . '`.`' . $table . '`');
 
-				$wpdb->get_results('SET foreign_key_checks = 1');
+				$wpdb->get_results('SET foreign_key_checks = 1'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			}
 
 			// apply key options from new blog.
@@ -281,7 +281,7 @@ if ( ! class_exists('MUCD_Data') ) {
 					// Bugfix : escape '_' , '%' and '/' character for mysql 'like' queries
 					$from_string_like = $wpdb->esc_like($from_string);
 
-					$results = $wpdb->query("SET SQL_MODE='ALLOW_INVALID_DATES';");
+					$results = $wpdb->query("SET SQL_MODE='ALLOW_INVALID_DATES';"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 					$sql_query = $wpdb->prepare(
 						'
@@ -419,22 +419,22 @@ if ( ! class_exists('MUCD_Data') ) {
 
 			switch ($type) {
 				case 'col':
-					$results = $wpdb->get_col($sql_query);
+					$results = $wpdb->get_col($sql_query);  // phpcs:ignore WordPress.DB
 					break;
 				case 'row':
-					$results = $wpdb->get_row($sql_query);
+					$results = $wpdb->get_row($sql_query);  // phpcs:ignore WordPress.DB
 					break;
 				case 'row_array':
-					$results = $wpdb->get_row($sql_query, ARRAY_N);
+					$results = $wpdb->get_row($sql_query, ARRAY_N); // phpcs:ignore WordPress.DB
 					break;
 				case 'var':
-					$results = $wpdb->get_var($sql_query);
+					$results = $wpdb->get_var($sql_query); // phpcs:ignore WordPress.DB
 					break;
 				case 'results':
-					$results = $wpdb->get_results($sql_query, ARRAY_A);
+					$results = $wpdb->get_results($sql_query, ARRAY_A); // phpcs:ignore WordPress.DB
 					break;
 				default:
-					$results = $wpdb->query($sql_query);
+					$results = $wpdb->query($sql_query); // phpcs:ignore WordPress.DB
 					break;
 			}
 

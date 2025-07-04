@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS My Sites Admin Page.
+ * Multisite Ultimate My Sites Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Admin_Pages\Base_Customer_Facing_Admin_Page;
 
 /**
- * WP Multisite WaaS My Sites Admin Page.
+ * Multisite Ultimate My Sites Admin Page.
  */
 class My_Sites_Admin_Page extends Base_Customer_Facing_Admin_Page {
 
@@ -232,7 +232,7 @@ class My_Sites_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('My Sites', 'wp-multisite-waas');
+		return __('My Sites', 'multisite-ultimate');
 	}
 
 	/**
@@ -243,7 +243,7 @@ class My_Sites_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('My Sites', 'wp-multisite-waas');
+		return __('My Sites', 'multisite-ultimate');
 	}
 
 	/**
@@ -254,7 +254,7 @@ class My_Sites_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('My Sites', 'wp-multisite-waas');
+		return __('My Sites', 'multisite-ultimate');
 	}
 
 	/**

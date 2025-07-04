@@ -1,12 +1,12 @@
 # Getting Paid (v2)
 
-_**IMPORTANT NOTE: This article refers to WP Multisite WaaS version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
 
-WP Multisite WaaS has a built-in membership and billing system. For our billing system to function, we have integrated the most common payment gateways used in e-commerce. The default payment gateways in WP Multisite WaaS are _Stripe_ , _PayPal_ , and Manual Payment. You can also use _WooCommerce_ , _GoCardless_ and _Payfast_ to receive payments by installing their respective add-ons.
+Multisite Ultimate has a built-in membership and billing system. For our billing system to function, we have integrated the most common payment gateways used in e-commerce. The default payment gateways in Multisite Ultimate are _Stripe_ , _PayPal_ , and Manual Payment. You can also use _WooCommerce_ , _GoCardless_ and _Payfast_ to receive payments by installing their respective add-ons.
 
 ## Basic Settings
 
-You can configure any of these payment gateways under WP Multisite WaaS payment settings. You can find it by going to **WP Multisite WaaS menu > Settings > Payments.**
+You can configure any of these payment gateways under Multisite Ultimate payment settings. You can find it by going to **Multisite Ultimate menu > Settings > Payments.**
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-42sl37Fn5G.png)
 
@@ -32,7 +32,7 @@ Before you setup your payment gateway, please take a look at the basic payment s
 
 ## Where to find the gateways:
 
-You can setup the payment gateways on the same page ( **WP Multisite WaaS > Settings > Payments**). Right below **active payment gateways** , you will be able to see: _Stripe_ , _Stripe_ _Checkout_ , _PayPal_ and _Manual_.
+You can setup the payment gateways on the same page ( **Multisite Ultimate > Settings > Payments**). Right below **active payment gateways** , you will be able to see: _Stripe_ , _Stripe_ _Checkout_ , _PayPal_ and _Manual_.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-g9RMYx84r5.png)
 
@@ -48,15 +48,15 @@ Now, if you want to use _WooCommerce_ , _GoCardless_ or _Payfast_ as your paymen
 
 ### How to install the WooCommerce add-on:
 
-We understand that _Stripe_ and _PayPal_ are not available in some countries which limit or hinders WP Multisite WaaS users from effectively using our plugin. So we created an add-on to integrate _WooCommerce,_ which is a very popular e-commerce plugin. Developers around the world created add-ons to integrate different payment gateways to it. We took advantage of this to extend the payment gateways you can use with the WP Multisite WaaS billing system.
+We understand that _Stripe_ and _PayPal_ are not available in some countries which limit or hinders Multisite Ultimate users from effectively using our plugin. So we created an add-on to integrate _WooCommerce,_ which is a very popular e-commerce plugin. Developers around the world created add-ons to integrate different payment gateways to it. We took advantage of this to extend the payment gateways you can use with the Multisite Ultimate billing system.
 
-_**IMPORTANT:** WP Multisite WaaS: WooCommerce Integration requires WooCommerce to be activated at least on your main site._
+_**IMPORTANT:** Multisite Ultimate: WooCommerce Integration requires WooCommerce to be activated at least on your main site._
 
-First, please go to the add-ons page. You can find it by going to **WP Multisite WaaS > Settings**. You should see the **Add-ons** table. Click on **Check our Add-ons**.
+First, please go to the add-ons page. You can find it by going to **Multisite Ultimate > Settings**. You should see the **Add-ons** table. Click on **Check our Add-ons**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-WtOkJNuCsj.png)
 
-After clicking on **Check our Add-ons** , you will be redirected to the add-ons page. Here you can find all WP Multisite WaaS add-ons. Click on the **WP Multisite WaaS: WooCommerce Integration** add-on.
+After clicking on **Check our Add-ons** , you will be redirected to the add-ons page. Here you can find all Multisite Ultimate add-ons. Click on the **Multisite Ultimate: WooCommerce Integration** add-on.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-BmLWqj4yjt.png)
 
@@ -76,7 +76,7 @@ To read more about the WooCommerce Integration add-on, [click here](https://help
 
 ### How to install the GoCardless add-on:
 
-The steps to install the _GoCardless_ add-on are pretty much the same as the _WooCommerce_ add-on. Please go to the add-ons page and select the **WP Multisite WaaS: GoCardless Gateway** add-on.
+The steps to install the _GoCardless_ add-on are pretty much the same as the _WooCommerce_ add-on. Please go to the add-ons page and select the **Multisite Ultimate: GoCardless Gateway** add-on.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-BmLWqj4yjt.png)
 
@@ -92,7 +92,7 @@ To learn how to get started with the _GoCardless_ gateway, [read this article](h
 
 ### How to install the Payfast add-on:
 
-Go to the add-ons page and select the **WP Multisite WaaS: Payfast Gateway** add-on.
+Go to the add-ons page and select the **Multisite Ultimate: Payfast Gateway** add-on.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-BmLWqj4yjt.png)
 

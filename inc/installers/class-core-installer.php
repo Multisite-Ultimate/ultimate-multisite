@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS 1.X to 2.X migrator.
+ * Multisite Ultimate 1.X to 2.X migrator.
  *
  * @package WP_Ultimo
  * @subpackage Installers/Core_Installer
@@ -15,7 +15,7 @@ use WP_Ultimo\Integrations\Host_Providers\Closte_Host_Provider;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS 1.X to 2.X migrator.
+ * Multisite Ultimate 1.X to 2.X migrator.
  *
  * @since 2.0.0
  */
@@ -40,10 +40,8 @@ class Core_Installer extends Base_Installer {
 				if ($is_closte) {
 					if ( ! (defined('SUNRISE') && SUNRISE)) {
 
-						// translators: %s is a URL to a documentation link.
-						$closte_message = sprintf(__('You are using Closte and they prevent the wp-config.php file from being written to. <a href="%s" target="_blank">Follow these instructions to do it manually</a>.', 'wp-multisite-waas'), wu_get_documentation_url('wp-ultimo-closte-config'));
-
-						throw new \Exception($closte_message);
+						// translators: %1$s opening a tag, %2$s closing a tag.
+						throw new \Exception(sprintf(esc_html__('You are using Closte and they prevent the wp-config.php file from being written to. %1$s Follow these instructions to do it manually %2$s.', 'multisite-ultimate'), sprintf('<a href="%s" target="_blank">', esc_attr(wu_get_documentation_url('wp-ultimo-closte-config'))), '</a>'));
 					}
 
 					return true;
@@ -68,21 +66,21 @@ class Core_Installer extends Base_Installer {
 
 		$steps['database_tables'] = [
 			'done'        => $has_tables_installed,
-			'title'       => __('Create Database Tables', 'wp-multisite-waas'),
-			'description' => __('WP Multisite WaaS uses custom tables for performance reasons. We need to create those tables and make sure they are setup properly before we can activate the plugin.', 'wp-multisite-waas'),
-			'pending'     => __('Pending', 'wp-multisite-waas'),
-			'installing'  => __('Creating default tables...', 'wp-multisite-waas'),
-			'success'     => __('Success!', 'wp-multisite-waas'),
+			'title'       => __('Create Database Tables', 'multisite-ultimate'),
+			'description' => __('Multisite Ultimate uses custom tables for performance reasons. We need to create those tables and make sure they are setup properly before we can activate the plugin.', 'multisite-ultimate'),
+			'pending'     => __('Pending', 'multisite-ultimate'),
+			'installing'  => __('Creating default tables...', 'multisite-ultimate'),
+			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 		];
 
 		$steps['sunrise'] = [
 			'done'        => defined('SUNRISE') && SUNRISE && defined('WP_ULTIMO_SUNRISE_VERSION'),
-			'title'       => __('Install <code>sunrise.php</code> File', 'wp-multisite-waas'),
-			'description' => __('We need to add our own sunrise.php file to the wp-content folder in order to be able to control access to sites and plugins before anything else happens on WordPress. ', 'wp-multisite-waas'),
-			'pending'     => __('Pending', 'wp-multisite-waas'),
-			'installing'  => __('Installing sunrise file...', 'wp-multisite-waas'),
-			'success'     => __('Success!', 'wp-multisite-waas'),
+			'title'       => __('Install <code>sunrise.php</code> File', 'multisite-ultimate'),
+			'description' => __('We need to add our own sunrise.php file to the wp-content folder in order to be able to control access to sites and plugins before anything else happens on WordPress. ', 'multisite-ultimate'),
+			'pending'     => __('Pending', 'multisite-ultimate'),
+			'installing'  => __('Installing sunrise file...', 'multisite-ultimate'),
+			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 		];
 
@@ -117,9 +115,9 @@ class Core_Installer extends Base_Installer {
 			if (false === $success) {
 
 				// translators: %s is the name of a database table, e.g. wu_memberships.
-				$error_message = sprintf(__('Installation of the table %s failed', 'wp-multisite-waas'), $table->get_name());
+				$error_message = sprintf(__('Installation of the table %s failed', 'multisite-ultimate'), $table->get_name());
 
-				throw new \Exception($error_message);
+				throw new \Exception(esc_html($error_message));
 			}
 		}
 	}
@@ -136,13 +134,13 @@ class Core_Installer extends Base_Installer {
 		$copy = \WP_Ultimo\Sunrise::try_upgrade();
 
 		if (is_wp_error($copy)) {
-			throw new \Exception($copy->get_error_message());
+			throw new \Exception(esc_html($copy->get_error_message()));
 		}
 
 		/**
 		 * Allow host providers to install the constant differently.
 		 *
-		 * Returning true will prevent WP Multisite WaaS from trying to write to the wp-config file.
+		 * Returning true will prevent Multisite Ultimate from trying to write to the wp-config file.
 		 *
 		 * @since 2.0.0
 		 * @param bool $short_circuit
@@ -156,7 +154,7 @@ class Core_Installer extends Base_Installer {
 		$success = \WP_Ultimo\Helpers\WP_Config::get_instance()->inject_wp_config_constant('SUNRISE', true);
 
 		if (is_wp_error($success)) {
-			throw new \Exception($success->get_error_message());
+			throw new \Exception(esc_html($success->get_error_message()));
 		}
 	}
 }

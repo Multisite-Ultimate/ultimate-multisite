@@ -35,7 +35,7 @@ class Documentation {
 	 *
 	 * @var string
 	 */
-	protected $default_link = 'https://help.wpultimo.com/';
+	protected $default_link = 'https://github.com/superdav42/wp-multisite-waas/wiki';
 
 	/**
 	 * Set the default links.
@@ -47,41 +47,41 @@ class Documentation {
 
 		$links = [];
 
-		// WP Multisite WaaS Dashboard
-		$links['wp-ultimo'] = 'https://help.wpultimo.com/en/articles/4803213-understanding-the-wp-ultimo-dashboard';
+		// Multisite Ultimate Dashboard
+		$links['wp-ultimo'] = 'https://github.com/superdav42/wp-multisite-waas/wiki';
 
 		// Settings Page
-		$links['wp-ultimo-settings'] = 'https://help.wpultimo.com';
+		$links['wp-ultimo-settings'] = 'https://github.com/superdav42/wp-multisite-waas/wiki';
 
 		// Checkout Pages
-		$links['wp-ultimo-checkout-forms']         = 'https://help.wpultimo.com/en/articles/4803465-checkout-forms';
-		$links['wp-ultimo-edit-checkout-form']     = 'https://help.wpultimo.com/en/articles/4803465-checkout-forms';
-		$links['wp-ultimo-populate-site-template'] = 'https://help.wpultimo.com/en/articles/4803661-pre-populate-site-template-with-data-from-checkout-forms';
+		$links['wp-ultimo-checkout-forms']         = 'https://github.com/superdav42/wp-multisite-waas/wiki/checkout-forms';
+		$links['wp-ultimo-edit-checkout-form']     = 'https://github.com/superdav42/wp-multisite-waas/wiki/checkout-forms';
+		$links['wp-ultimo-populate-site-template'] = 'https://github.com/superdav42/wp-multisite-waas/wiki/Pre-populate-Site-Template';
 
 		// Products
-		$links['wp-ultimo-products']     = 'https://help.wpultimo.com/en/articles/4803960-managing-your-products';
-		$links['wp-ultimo-edit-product'] = 'https://help.wpultimo.com/en/articles/4803960-managing-your-products';
+		$links['wp-ultimo-products']     = 'https://github.com/superdav42/wp-multisite-waas/wiki/creating-your-first-subscription-product-v2';
+		$links['wp-ultimo-edit-product'] = 'https://github.com/superdav42/wp-multisite-waas/wiki/creating-your-first-subscription-product-v2';
 
 		// Memberships
-		$links['wp-ultimo-memberships']     = 'https://help.wpultimo.com/en/articles/4803989-managing-memberships';
-		$links['wp-ultimo-edit-membership'] = 'https://help.wpultimo.com/en/articles/4803989-managing-memberships';
+		$links['wp-ultimo-memberships']     = 'https://github.com/superdav42/wp-multisite-waas/wiki/managing-memberships-v2';
+		$links['wp-ultimo-edit-membership'] = 'https://github.com/superdav42/wp-multisite-waas/wiki/managing-memberships-v2';
 
 		// Payments
-		$links['wp-ultimo-payments']     = 'https://help.wpultimo.com/en/articles/4804023-managing-payments-and-invoices';
-		$links['wp-ultimo-edit-payment'] = 'https://help.wpultimo.com/en/articles/4804023-managing-payments-and-invoices';
+		$links['wp-ultimo-payments']     = 'https://github.com/superdav42/wp-multisite-waas/wiki/managing-payments-and-invoices';
+		$links['wp-ultimo-edit-payment'] = 'https://github.com/superdav42/wp-multisite-waas/wiki/managing-payments-and-invoices';
 
 		// WP Config Closte Instructions
-		$links['wp-ultimo-closte-config'] = 'https://help.wpultimo.com/en/articles/4807812-setting-the-sunrise-constant-to-true-on-closte';
+		$links['wp-ultimo-closte-config'] = 'https://github.com/superdav42/wp-multisite-waas/wiki/Closte-Integration';
 
 		// Requirements
-		$links['wp-ultimo-requirements'] = 'https://help.wpultimo.com/en/articles/4829561-wp-ultimo-requirements';
+		$links['wp-ultimo-requirements'] = 'https://github.com/superdav42/wp-multisite-waas/wiki/wp-ultimo-requirements';
 
 		// Installer - Migrator
-		$links['installation-errors'] = 'https://help.wpultimo.com/en/articles/4829568-installation-errors';
-		$links['migration-errors']    = 'https://help.wpultimo.com/en/articles/4829587-migration-errors';
+		$links['installation-errors'] = 'https://github.com/superdav42/wp-multisite-waas/wiki/error-installing-the-sunrise-file';
+		$links['migration-errors']    = 'https://github.com/superdav42/wp-multisite-waas/wiki/migrating-from-v1';
 
 		// Multiple Accounts
-		$links['multiple-accounts'] = 'https://help.wpultimo.com/article/303-accounts-taken-care-of-with-wp-ultimo-multiple-accounts';
+		$links['multiple-accounts'] = 'https://github.com/superdav42/wp-multisite-waas/wiki/Multiple-Accounts';
 
 		$this->links = apply_filters('wu_documentation_links_list', $links);
 	}

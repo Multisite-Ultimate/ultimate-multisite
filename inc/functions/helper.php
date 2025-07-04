@@ -13,7 +13,7 @@ use WP_Ultimo\Exception\Runtime_Exception;
 use Psr\Log\LogLevel;
 
 /**
- * Returns the WP Multisite WaaS version.
+ * Returns the Multisite Ultimate version.
  *
  * @since 2.0.0
  * @return string
@@ -35,7 +35,7 @@ function wu_is_debug() {
 }
 
 /**
- * Checks if WP Multisite WaaS is being loaded as a must-use plugin.
+ * Checks if Multisite Ultimate is being loaded as a must-use plugin.
  *
  * @since 2.0.0
  * @return bool
@@ -58,18 +58,18 @@ function wu_is_must_use() {
  *
  * @since 2.0.0
  *
- * @param array|object $array Array or object to check key.
+ * @param array|object $array_or_obj Array or object to check key.
  * @param string       $key Key to check.
- * @param mixed        $default Default value, if the key is not set.
+ * @param mixed        $default_value Default value, if the key is not set.
  * @return mixed
  */
-function wu_get_isset($array, $key, $default = false) {
+function wu_get_isset($array_or_obj, $key, $default_value = false) {
 
-	if ( ! is_array($array)) {
-		$array = (array) $array;
+	if ( ! is_array($array_or_obj)) {
+		$array_or_obj = (array) $array_or_obj;
 	}
 
-	return $array[ $key ] ?? $default;
+	return $array_or_obj[ $key ] ?? $default_value;
 }
 
 /**
@@ -128,14 +128,14 @@ function wu_url($dir) {
  * @since 2.0.0
  *
  * @param string $key Key to retrieve.
- * @param mixed  $default Default value, when the variable is not available.
+ * @param mixed  $default_value Default value, when the variable is not available.
  * @return mixed
  */
-function wu_request($key, $default = false) {
+function wu_request($key, $default_value = false) {
 
-	$value = isset($_REQUEST[ $key ]) ? stripslashes_deep($_REQUEST[ $key ]) : $default;
+	$value = isset($_REQUEST[ $key ]) ? wu_clean(stripslashes_deep($_REQUEST[ $key ])) : $default_value; // phpcs:ignore WordPress.Security.NonceVerification
 
-	return apply_filters('wu_request', $value, $key, $default);
+	return apply_filters('wu_request', $value, $key, $default_value);
 }
 
 /**
@@ -152,7 +152,7 @@ function _wu_require_hook($hook = 'ms_loaded') { // phpcs:ignore
 	if ( ! did_action($hook)) {
 		$message = "This function can not yet be run as it relies on processing that happens on hook {$hook}.";
 
-		throw new Runtime_Exception($message);
+		throw new Runtime_Exception(esc_html($message));
 	}
 }
 
@@ -236,7 +236,7 @@ function wu_log_clear($handle) {
 function wu_maybe_log_error($e) {
 
 	if (defined('WP_DEBUG') && WP_DEBUG) {
-		error_log($e);
+		error_log($e); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 	}
 }
 
@@ -287,17 +287,187 @@ function wu_cli_is_plugin_skipped($plugin = null): bool {
  * @since 2.1.0
  *
  * @todo Implement the logging portion of the feature.
- * @param \Callable $fn A callable to be run inside the capture block.
+ * @param \Callable $func A callable to be run inside the capture block.
  * @param bool      $log Wether or not captured errors should be logged to a file.
  *
  * @return void
  */
-function wu_ignore_errors($fn, $log = false) {
+function wu_ignore_errors($func, $log = false) {
 
 	try {
-		call_user_func($fn);
+		call_user_func($func);
 	} catch (\Throwable $exception) {
 
 		// Ignore it or log it.
 	}
+}
+
+
+/**
+ * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
+ * Non-scalar values are ignored. Based of wc_clean from WooCommerce.
+ *
+ * @since 2.4.0
+ * @param string|array $variable Data to sanitize.
+ * @return string|array
+ */
+function wu_clean($variable) {
+	if ( is_array($variable) ) {
+		return array_map('wu_clean', $variable);
+	} else {
+		return is_scalar($variable) ? sanitize_text_field($variable) : $variable;
+	}
+}
+
+/**
+ * Get allowed HTML tags and attributes for wp_kses including SVG support and all style attributes.
+ *
+ * @since 2.4.0
+ * @return array Allowed HTML tags and attributes.
+ */
+function wu_kses_allowed_html() {
+	$svg_attributes = [
+		'class'             => true,
+		'id'                => true,
+		'style'             => true,
+		'xmlns'             => true,
+		'fill'              => true,
+		'stroke'            => true,
+		'stroke-width'      => true,
+		'stroke-linecap'    => true,
+		'stroke-linejoin'   => true,
+		'stroke-dasharray'  => true,
+		'stroke-dashoffset' => true,
+		'stroke-miterlimit' => true,
+		'fill-opacity'      => true,
+		'stroke-opacity'    => true,
+		'opacity'           => true,
+		'transform'         => true,
+		'clip-path'         => true,
+		'mask'              => true,
+		'filter'            => true,
+		'aria-hidden'       => true,
+		'aria-labelledby'   => true,
+		'aria-describedby'  => true,
+		'role'              => true,
+		'focusable'         => true,
+	];
+
+	return wp_kses_allowed_html('post') + [
+		'svg'            => $svg_attributes + [
+			'width'               => true,
+			'height'              => true,
+			'viewbox'             => true,
+			'preserveaspectratio' => true,
+			'version'             => true,
+			'baseprofile'         => true,
+		],
+		'g'              => $svg_attributes,
+		'defs'           => $svg_attributes,
+		'title'          => $svg_attributes,
+		'desc'           => $svg_attributes,
+		'path'           => $svg_attributes + [
+			'd'          => true,
+			'pathLength' => true,
+		],
+		'circle'         => $svg_attributes + [
+			'cx' => true,
+			'cy' => true,
+			'r'  => true,
+		],
+		'ellipse'        => $svg_attributes + [
+			'cx' => true,
+			'cy' => true,
+			'rx' => true,
+			'ry' => true,
+		],
+		'rect'           => $svg_attributes + [
+			'x'      => true,
+			'y'      => true,
+			'width'  => true,
+			'height' => true,
+			'rx'     => true,
+			'ry'     => true,
+		],
+		'line'           => $svg_attributes + [
+			'x1' => true,
+			'y1' => true,
+			'x2' => true,
+			'y2' => true,
+		],
+		'polyline'       => $svg_attributes + [
+			'points' => true,
+		],
+		'polygon'        => $svg_attributes + [
+			'points' => true,
+		],
+		'text'           => $svg_attributes + [
+			'x'            => true,
+			'y'            => true,
+			'dx'           => true,
+			'dy'           => true,
+			'rotate'       => true,
+			'textLength'   => true,
+			'lengthAdjust' => true,
+		],
+		'tspan'          => $svg_attributes + [
+			'x'            => true,
+			'y'            => true,
+			'dx'           => true,
+			'dy'           => true,
+			'rotate'       => true,
+			'textLength'   => true,
+			'lengthAdjust' => true,
+		],
+		'use'            => $svg_attributes + [
+			'href'       => true,
+			'xlink:href' => true,
+			'x'          => true,
+			'y'          => true,
+			'width'      => true,
+			'height'     => true,
+		],
+		'image'          => $svg_attributes + [
+			'href'                => true,
+			'xlink:href'          => true,
+			'x'                   => true,
+			'y'                   => true,
+			'width'               => true,
+			'height'              => true,
+			'preserveaspectratio' => true,
+		],
+		'linearGradient' => $svg_attributes + [
+			'x1'                => true,
+			'y1'                => true,
+			'x2'                => true,
+			'y2'                => true,
+			'gradientUnits'     => true,
+			'gradientTransform' => true,
+		],
+		'radialGradient' => $svg_attributes + [
+			'cx'                => true,
+			'cy'                => true,
+			'r'                 => true,
+			'fx'                => true,
+			'fy'                => true,
+			'gradientUnits'     => true,
+			'gradientTransform' => true,
+		],
+		'stop'           => $svg_attributes + [
+			'offset'       => true,
+			'stop-color'   => true,
+			'stop-opacity' => true,
+		],
+		'clipPath'       => $svg_attributes + [
+			'clipPathUnits' => true,
+		],
+		'mask'           => $svg_attributes + [
+			'maskUnits'        => true,
+			'maskContentUnits' => true,
+			'x'                => true,
+			'y'                => true,
+			'width'            => true,
+			'height'           => true,
+		],
+	] + array_fill_keys(['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'em', 'b', 'i', 'ul', 'ol', 'li', 'a', 'img'], ['style' => true]);
 }

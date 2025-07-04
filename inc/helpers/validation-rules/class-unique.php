@@ -81,7 +81,7 @@ class Unique extends Rule {
 		* Customize the error message for the customer.
 		*/
 		if (in_array($model, $user_models, true)) {
-			$this->message = __('A customer with the same email address or username already exists.', 'wp-multisite-waas');
+			$this->message = __('A customer with the same email address or username already exists.', 'multisite-ultimate');
 		}
 
 		if ( ! $existing) {

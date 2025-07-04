@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS About Admin Page.
+ * Multisite Ultimate About Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS About Admin Page.
+ * Multisite Ultimate About Admin Page.
  */
 class Placeholders_Admin_Page extends Base_Admin_Page {
 
@@ -70,7 +70,7 @@ class Placeholders_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Edit Template Placeholders', 'wp-multisite-waas');
+		return __('Edit Template Placeholders', 'multisite-ultimate');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Placeholders_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Template Placeholders', 'wp-multisite-waas');
+		return __('Edit Template Placeholders', 'multisite-ultimate');
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Placeholders_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Edit Template Placeholders', 'wp-multisite-waas');
+		return __('Edit Template Placeholders', 'multisite-ultimate');
 	}
 
 	/**
@@ -108,8 +108,8 @@ class Placeholders_Admin_Page extends Base_Admin_Page {
 		$columns = apply_filters(
 			'wu_edit_placeholders_columns',
 			[
-				'placeholder' => __('Placeholder', 'wp-multisite-waas'),
-				'content'     => __('Content', 'wp-multisite-waas'),
+				'placeholder' => __('Placeholder', 'multisite-ultimate'),
+				'content'     => __('Content', 'multisite-ultimate'),
 			]
 		);
 
@@ -138,9 +138,9 @@ class Placeholders_Admin_Page extends Base_Admin_Page {
 			'wu-edit-placeholders',
 			'wu_placeholdersl10n',
 			[
-				'name'                                => __('Tax', 'wp-multisite-waas'),
-				'confirm_message'                     => __('Are you sure you want to delete this rows?', 'wp-multisite-waas'),
-				'confirm_delete_tax_category_message' => __('Are you sure you want to delete this tax category?', 'wp-multisite-waas'),
+				'name'                                => __('Tax', 'multisite-ultimate'),
+				'confirm_message'                     => __('Are you sure you want to delete this rows?', 'multisite-ultimate'),
+				'confirm_delete_tax_category_message' => __('Are you sure you want to delete this tax category?', 'multisite-ultimate'),
 			]
 		);
 

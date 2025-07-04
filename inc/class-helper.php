@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS helper methods for including and rendering files, assets, etc
+ * Multisite Ultimate helper methods for including and rendering files, assets, etc
  *
  * @package WP_Ultimo
  * @subpackage Helper
@@ -13,7 +13,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS helper methods for including and rendering files, assets, etc
+ * Multisite Ultimate helper methods for including and rendering files, assets, etc
  *
  * @since 2.0.0
  */
@@ -158,7 +158,7 @@ class Helper {
 	}
 
 	/**
-	 * Creates a WP Multisite WaaS folder inside the uploads folder. Returns the path to the folder.
+	 * Creates a Multisite Ultimate folder inside the uploads folder. Returns the path to the folder.
 	 *
 	 * @since 2.0.0
 	 *

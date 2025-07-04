@@ -35,7 +35,13 @@
 				'field' => $field,
 			]
 		);
+		?>
 
+		<div class="wu-block wu-w-full wu-mt-4">
+			<?php echo $field->content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		</div>
+
+		<?php
 		/**
 		 * Adds the partial errors template.
 		 *

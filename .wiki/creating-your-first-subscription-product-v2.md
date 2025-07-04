@@ -1,32 +1,32 @@
 # Creating your First Subscription Product (v2)
 
-_**IMPORTANT NOTE: This article is only for WP Multisite WaaS version 2.x users. If you are using version 1.x,**_ [_**see this article**_](https://help.wpultimo.com/article/268-getting-started-with-new-plans).
+_**IMPORTANT NOTE: This article is only for Multisite Ultimate version 2.x users. If you are using version 1.x,**_ [_**see this article**_](https://help.wpultimo.com/article/268-getting-started-with-new-plans).
 
 To start running your network and begin selling your services to potential users, you need to have different subscription options. How do you create these products? What are the types of products you can offer? In this article, we will cover everything you need to know about products.
 
 ## Product Type
 
-With WP Multisite WaaS you can offer two categories of products to your clients: **plans** and **add-ons** **(Order Bump)**. Add-ons can be divided into two types:**packages** and **services**. We will see their differences and particularities next.
+With Multisite Ultimate you can offer two categories of products to your clients: **plans** and **add-ons** **(Order Bump)**. Add-ons can be divided into two types:**packages** and **services**. We will see their differences and particularities next.
 
-  * **Plans** : the fundamental product of WP Multisite WaaS. Your client can only have a membership if it’s attached to a plan. A plan provides your clients with one or more sites (it depends on the configurations of your plan) with the limitations you set on your product editing page.
+  * **Plans** : the fundamental product of Multisite Ultimate. Your client can only have a membership if it’s attached to a plan. A plan provides your clients with one or more sites (it depends on the configurations of your plan) with the limitations you set on your product editing page.
 
-  * **Packages** : add-ons that impact directly on WP Multisite WaaS plans’ functionalities. They alter limitations or add new resources, plugins or themes to the original plan your client bought. For example, a basic plan might allow 1,000 visits per month and you can make available a package that extends this number to 10,000.
+  * **Packages** : add-ons that impact directly on Multisite Ultimate plans’ functionalities. They alter limitations or add new resources, plugins or themes to the original plan your client bought. For example, a basic plan might allow 1,000 visits per month and you can make available a package that extends this number to 10,000.
 
-  * **Services:** add-ons that do not alter WP Multisite WaaS’s functionalities. They are tasks that you will realize for your client in addition to the plan they bought. For example, your customer might buy a plan that allows for a single site and also pays for an extra service that will make this site design.
+  * **Services:** add-ons that do not alter Multisite Ultimate’s functionalities. They are tasks that you will realize for your client in addition to the plan they bought. For example, your customer might buy a plan that allows for a single site and also pays for an extra service that will make this site design.
 
 ## Managing Products
 
-For many the **Products** tab in WP Multisite WaaS **(WP Multisite WaaS > Products)** can be equated with plans in a traditional hosting environment.
+For many the **Products** tab in Multisite Ultimate **(Multisite Ultimate > Products)** can be equated with plans in a traditional hosting environment.
 
-Within WP Multisite WaaS the Products tab defines the construct and limitations applicable to a specific product or service. Such constructs extend to product or service description, price, taxes, and permissions.
+Within Multisite Ultimate the Products tab defines the construct and limitations applicable to a specific product or service. Such constructs extend to product or service description, price, taxes, and permissions.
 
-This section will guide your understanding of this essential cornerstone of WP Multisite WaaS.
+This section will guide your understanding of this essential cornerstone of Multisite Ultimate.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-1YccQg0IBG.png)
 
 ## Adding Products
 
-Whether a plan, package, or service the entry point to defining a new item is via **WP Multisite WaaS > Products > Add Product**.
+Whether a plan, package, or service the entry point to defining a new item is via **Multisite Ultimate > Products > Add Product**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-C0AmJMeqen.png)
 
@@ -46,7 +46,7 @@ On the right side of the interface, the base pricing can be defined.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-oHwhlrBFC9.png)
 
-WP Multisite WaaS supports three different pricing types. The **paid** option prompts the network administrator for information regarding the product’s price and billing frequency.
+Multisite Ultimate supports three different pricing types. The **paid** option prompts the network administrator for information regarding the product’s price and billing frequency.
 
 ### Pricing
 
@@ -112,11 +112,11 @@ The **General** tab defines the general attributes of the product not applicable
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-z32g4XQeyT.png)
 
-The self-explanatory **product slug** defines the slug with which the product is identified in URLs and other areas of WP Multisite WaaS.
+The self-explanatory **product slug** defines the slug with which the product is identified in URLs and other areas of Multisite Ultimate.
 
-WP Multisite WaaS supports several product types namely Plan, Package, and Service. The **Product Options** tabs are dynamically adjusted depending on the product type specified.
+Multisite Ultimate supports several product types namely Plan, Package, and Service. The **Product Options** tabs are dynamically adjusted depending on the product type specified.
 
-The **Customer Role** specifies the role that the customer is assigned when the site is created. Typically for most network administrators, this will be the WP Multisite WaaS default or Administrator. The WP Multisite WaaS default role can be set in **WP Multisite WaaS > Settings > Login & Registration**.
+The **Customer Role** specifies the role that the customer is assigned when the site is created. Typically for most network administrators, this will be the Multisite Ultimate default or Administrator. The Multisite Ultimate default role can be set in **Multisite Ultimate > Settings > Login & Registration**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-Ap5I4lXWwB.png)
 
@@ -124,9 +124,9 @@ The **Customer Role** specifies the role that the customer is assigned when the 
 
 This tab specifies the upgrade and downgrade paths available to a customer within their specific tier.
 
-To understand this concept consider an example where a niche WP Multisite WaaS installation provides learning management solutions to its customers. To achieve this three plans (Basic, Plus, and Premium) are defined and specific plugins are activated for each plan (see later in this section for instructions on how to activate plugins).
+To understand this concept consider an example where a niche Multisite Ultimate installation provides learning management solutions to its customers. To achieve this three plans (Basic, Plus, and Premium) are defined and specific plugins are activated for each plan (see later in this section for instructions on how to activate plugins).
 
-If the WP Multisite WaaS installation also services business websites or eCommerce websites those plans may require different plugins to be installed and activated.
+If the Multisite Ultimate installation also services business websites or eCommerce websites those plans may require different plugins to be installed and activated.
 
 To this extent, it would be undesirable and problematic to allow eLearning customers to transition to eCommerce plans as these plans, pricing, and limitations may not be an appropriate fit.
 
@@ -136,7 +136,7 @@ Thus to restrict the path of the customer and to prevent incidents the network a
 
 To define a plan group specify the compatible plans within the **plan group** list. The **product order** determines how the plans are ordered and displayed from the lowest to the highest.
 
-WP Multisite WaaS also includes an **order bump** feature where appropriate add-on products and services can be added to plans. These are offered to the customer as additional items which can be added to plans on checkout or during an upgrade.
+Multisite Ultimate also includes an **order bump** feature where appropriate add-on products and services can be added to plans. These are offered to the customer as additional items which can be added to plans on checkout or during an upgrade.
 
 #### Price Variations
 
@@ -152,13 +152,13 @@ To enter a variation, set the duration, period, and price of the variation. Addi
 
 #### Taxes
 
-The **Taxes** tab aligns with the tax settings specified in **WP Multisite WaaS > Settings > Taxes** and more specifically the tax rates defined. To enable taxes and define applicable tax rates please see the documentation at **WP Multisite WaaS: Settings**
+The **Taxes** tab aligns with the tax settings specified in **Multisite Ultimate > Settings > Taxes** and more specifically the tax rates defined. To enable taxes and define applicable tax rates please see the documentation at **Multisite Ultimate: Settings**
 
 **![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-xYLtpFySzL.png)**
 
 In a previous example, we defined a local tax rate of 7.25% applicable to customers in California (United States of America).
 
-Once the tax rate is defined in **WP Multisite WaaS > Settings > Manage Tax Rates** it is selectable at the product level.
+Once the tax rate is defined in **Multisite Ultimate > Settings > Manage Tax Rates** it is selectable at the product level.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-Sh1BVGVj6i.png)
 
@@ -186,7 +186,7 @@ Ultimately if the network administrator desires template selection to occur in t
 
 #### Sites
 
-The **Sites** tab is part of WP Multisite WaaS’s limitations functionality.
+The **Sites** tab is part of Multisite Ultimate’s limitations functionality.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-A8fzNucGyC.png)
 
@@ -196,7 +196,7 @@ To enable the limitation, set the **limit sites** toggle to its active state and
 
 #### Visits
 
-The **Visits** tab is a further part of WP Multisite WaaS’s limitations system. This setting allows for the accounting and subsequent throttling of unique visitors to a customer’s site.
+The **Visits** tab is a further part of Multisite Ultimate’s limitations system. This setting allows for the accounting and subsequent throttling of unique visitors to a customer’s site.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-e7f5otg89m.png)
 
@@ -204,11 +204,11 @@ From a marketing perspective network, administrators can make use of this settin
 
 To make use of this feature, set the **limit unique visits** toggle to its active state and specify the maximum number of unique visitors in the **unique visits quota** field.
 
-Once this limit is reached WP Multisite WaaS will cease to serve the customer’s site instead of displaying a message to indicate that limits have been exceeded.
+Once this limit is reached Multisite Ultimate will cease to serve the customer’s site instead of displaying a message to indicate that limits have been exceeded.
 
 #### Users
 
-WP Multisite WaaS’s ‘Users’ limitations allow the network administrator to impose limits on the number of users that can be created and assigned to roles.
+Multisite Ultimate’s ‘Users’ limitations allow the network administrator to impose limits on the number of users that can be created and assigned to roles.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-maGYqW7WlP.png)
 
@@ -222,7 +222,7 @@ The **Post Types** tab allows the network administrator to impose granular limit
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-ZELQvvqyvn.png)
 
-Due to the construction of WordPress, posts and post types are a significant component of its core functionality, and thus WP Multisite WaaS’s limitations system is designed to assist the network administrator in establishing and maintaining limits.
+Due to the construction of WordPress, posts and post types are a significant component of its core functionality, and thus Multisite Ultimate’s limitations system is designed to assist the network administrator in establishing and maintaining limits.
 
 To enable this limits subsystem, set the **limit post types** toggle to its active state by sliding it to the right.
 
@@ -266,7 +266,7 @@ In the **A** **vailable** state the theme is made available to the customer for 
 
 #### Plugins
 
-Similar to the Themes tab, WP Multisite WaaS allows the network administrator to define the visibility of plugins to customers as well as their state upon the creation of a new site.
+Similar to the Themes tab, Multisite Ultimate allows the network administrator to define the visibility of plugins to customers as well as their state upon the creation of a new site.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-Ipzv31FIb6.png)
 
@@ -296,7 +296,7 @@ To confirm the action slide the **confirm reset** toggle to its active state on 
 
 #### Legacy Options
 
-The **Legacy Options** tab observes certain options and behaviors defined in WP Multisite WaaS 1.x.
+The **Legacy Options** tab observes certain options and behaviors defined in Multisite Ultimate 1.x.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-Fn3BjwTH4r.png)
 
@@ -304,7 +304,7 @@ These options are offered for compatibility and ease of transition and will be d
 
 ## Edit, Duplicate, or Delete Product
 
-Existing products can be edited, duplicated or deleted by navigating to **WP Multisite WaaS > Products** and hovering over the existing product name.
+Existing products can be edited, duplicated or deleted by navigating to **Multisite Ultimate > Products** and hovering over the existing product name.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-GcHtJl6WmV.png)
 

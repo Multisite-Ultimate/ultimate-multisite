@@ -114,14 +114,14 @@ class Billing_Info_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'wp-multisite-waas').
+	 * e.g. return __('My Element', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Billing Information', 'wp-multisite-waas');
+		return __('Billing Information', 'multisite-ultimate');
 	}
 
 	/**
@@ -130,14 +130,14 @@ class Billing_Info_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'wp-multisite-waas').
+	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'wp-multisite-waas');
+		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
 	}
 
 	/**
@@ -162,16 +162,16 @@ class Billing_Info_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'wp-multisite-waas'),
-			'desc'  => __('General', 'wp-multisite-waas'),
+			'title' => __('General', 'multisite-ultimate'),
+			'desc'  => __('General', 'multisite-ultimate'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Title', 'wp-multisite-waas'),
-			'value'   => __('Billing Address', 'wp-multisite-waas'),
-			'desc'    => __('Leave blank to hide the title completely.', 'wp-multisite-waas'),
+			'title'   => __('Title', 'multisite-ultimate'),
+			'value'   => __('Billing Address', 'multisite-ultimate'),
+			'desc'    => __('Leave blank to hide the title completely.', 'multisite-ultimate'),
 			'tooltip' => '',
 		];
 
@@ -186,7 +186,7 @@ class Billing_Info_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'WP Multisite WaaS',
+	 *  'Multisite Ultimate',
 	 *  'Billing Information',
 	 *  'Form',
 	 *  'Cart',
@@ -199,7 +199,7 @@ class Billing_Info_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'WP Multisite WaaS',
+			'Multisite Ultimate',
 			'Billing Information',
 			'Form',
 			'Cart',
@@ -223,7 +223,7 @@ class Billing_Info_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'title' => __('Billing Address', 'wp-multisite-waas'),
+			'title' => __('Billing Address', 'multisite-ultimate'),
 		];
 	}
 
@@ -325,8 +325,8 @@ class Billing_Info_Element extends Base_Element {
 		$fields['billing-title'] = [
 			'type'            => 'header',
 			'order'           => 1,
-			'title'           => __('Your Address', 'wp-multisite-waas'),
-			'desc'            => __('Enter your billing address here. This info will be used on your invoices.', 'wp-multisite-waas'),
+			'title'           => __('Your Address', 'multisite-ultimate'),
+			'desc'            => __('Enter your billing address here. This info will be used on your invoices.', 'multisite-ultimate'),
 			'wrapper_classes' => 'wu-col-span-2',
 		];
 
@@ -336,7 +336,7 @@ class Billing_Info_Element extends Base_Element {
 
 		$fields['submit'] = [
 			'type'            => 'submit',
-			'title'           => __('Save Changes', 'wp-multisite-waas'),
+			'title'           => __('Save Changes', 'multisite-ultimate'),
 			'value'           => 'save',
 			'classes'         => 'button button-primary wu-w-full',
 			'wrapper_classes' => 'wu-col-span-2',
@@ -375,14 +375,14 @@ class Billing_Info_Element extends Base_Element {
 		$membership = wu_get_membership_by_hash(wu_request('membership'));
 
 		if ( ! $membership) {
-			$error = new \WP_Error('membership-dont-exist', __('Something went wrong.', 'wp-multisite-waas'));
+			$error = new \WP_Error('membership-dont-exist', __('Something went wrong.', 'multisite-ultimate'));
 
 			wp_send_json_error($error);
 		}
 
 		$billing_address = $membership->get_billing_address();
 
-		$billing_address->attributes($_POST);
+		$billing_address->attributes($_POST); // phpcs:ignore WordPress.Security.NonceVerification
 
 		$valid_address = $billing_address->validate();
 
@@ -397,10 +397,11 @@ class Billing_Info_Element extends Base_Element {
 		if (is_wp_error($saved)) {
 			wp_send_json_error($saved);
 		}
+		$referer = isset($_SERVER['HTTP_REFERER']) ? sanitize_url(wp_unslash($_SERVER['HTTP_REFERER'])) : '';
 
 		wp_send_json_success(
 			[
-				'redirect_url' => add_query_arg('updated', (int) $saved, $_SERVER['HTTP_REFERER']),
+				'redirect_url' => add_query_arg('updated', (int) $saved, $referer),
 			]
 		);
 	}

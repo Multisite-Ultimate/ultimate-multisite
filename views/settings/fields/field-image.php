@@ -44,7 +44,7 @@ wp_enqueue_script('wu-field-button-upload', wu_get_asset('wu-field-image.js', 'j
 	</a>
 
 	<a data-default="<?php echo esc_attr($field['default']); ?>" href="#" class="button wu-field-button-upload-remove" data-target="<?php echo esc_attr($field_slug); ?>">
-		<?php esc_html_e('Remove Image', 'wp-multisite-waas'); ?>
+		<?php esc_html_e('Remove Image', 'multisite-ultimate'); ?>
 	</a>
 
 	<?php if ( ! empty($field['desc'])) : ?>

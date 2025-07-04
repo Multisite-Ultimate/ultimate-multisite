@@ -65,7 +65,7 @@ trait WP_Ultimo_Settings_Deprecated {
 		];
 
 		foreach ($filters as $filter) {
-			$message = __('Adding setting sections directly via filters is no longer supported.');
+			$message = __('Adding setting sections directly via filters is no longer supported.', 'multisite-ultimate');
 
 			$legacy_settings = apply_filters_deprecated($filter, [$legacy_settings], '2.0.0', 'wu_register_settings_field()', $message);
 		}
@@ -74,8 +74,8 @@ trait WP_Ultimo_Settings_Deprecated {
 			$this->add_section(
 				'other',
 				[
-					'title' => __('Other', 'wp-multisite-waas'),
-					'desc'  => __('Other', 'wp-multisite-waas'),
+					'title' => __('Other', 'multisite-ultimate'),
+					'desc'  => __('Other', 'multisite-ultimate'),
 				]
 			);
 

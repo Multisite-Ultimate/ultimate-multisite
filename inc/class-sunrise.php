@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS activation and deactivation hooks
+ * Multisite Ultimate activation and deactivation hooks
  *
  * @package WP_Ultimo
  * @subpackage Sunrise
@@ -15,7 +15,7 @@ use Psr\Log\LogLevel;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS activation and deactivation hooks
+ * Multisite Ultimate activation and deactivation hooks
  *
  * @since 2.0.0
  */
@@ -201,7 +201,7 @@ class Sunrise {
 			\WP_Ultimo\Limits\Theme_Limits::get_instance();
 
 			/**
-			 * Define the WP Multisite WaaS main debug constant.
+			 * Define the Multisite Ultimate main debug constant.
 			 */
 			! defined('WP_ULTIMO_DEBUG') && define('WP_ULTIMO_DEBUG', false);
 
@@ -211,11 +211,11 @@ class Sunrise {
 			$security_mode = (bool) (int) wu_get_setting_early('security_mode');
 
 			if ($security_mode) {
-				if (wu_get_isset($_GET, 'wu_secure') === wu_get_security_mode_key()) {
+				if (wu_get_isset($_GET, 'wu_secure') === wu_get_security_mode_key()) { // phpcs:ignore WordPress.Security.NonceVerification
 					wu_save_setting_early('security_mode', false);
 				} else {
 					/**
-					 *  Disable all plugins except WP Multisite WaaS
+					 *  Disable all plugins except Multisite Ultimate
 					 */
 					add_filter('option_active_plugins', fn() => []);
 
@@ -278,10 +278,10 @@ class Sunrise {
 			wu_log_add('sunrise', $error['message'], LogLevel::ERROR);
 
 			/* translators: the placeholder is an error message */
-			return new \WP_Error('error', sprintf(__('Sunrise copy failed: %s', 'wp-multisite-waas'), $error['message']));
+			return new \WP_Error('error', sprintf(__('Sunrise copy failed: %s', 'multisite-ultimate'), $error['message']));
 		}
 
-		wu_log_add('sunrise', __('Sunrise upgrade attempt succeeded.', 'wp-multisite-waas'));
+		wu_log_add('sunrise', __('Sunrise upgrade attempt succeeded.', 'multisite-ultimate'));
 		return true;
 	}
 
@@ -317,7 +317,7 @@ class Sunrise {
 	 * Method for imputing Sunrise data at wp-ultimo-system-info table.
 	 *
 	 * @since 2.0.11
-	 * @param array $sys_info Array containing WP Multisite WaaS installation info.
+	 * @param array $sys_info Array containing Multisite Ultimate installation info.
 	 * @return array Returns the array, modified with the sunrise data.
 	 */
 	public static function system_info($sys_info) {

@@ -66,11 +66,11 @@ jobs:
         with:
           files: |
             build/wp-multisite-waas-${{ env.VERSION }}.zip
-          name: WP Multisite WaaS ${{ env.VERSION }}
+          name: Multisite Ultimate ${{ env.VERSION }}
           draft: true
           prerelease: true
           body: |
-            # WP Multisite WaaS ${{ env.VERSION }}
+            # Multisite Ultimate ${{ env.VERSION }}
             
             ## What's Changed
             

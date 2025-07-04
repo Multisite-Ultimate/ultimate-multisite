@@ -1,7 +1,7 @@
 {
-    "name": "devstone/wp-multisite-waas",
-    "url": "https://wpmultisitewaas.org",
-    "description": "The WordPress Multisite Website as a Service (WaaS) plugin.",
+    "name": "devstone/multisite-ultimate",
+    "url": "https://MultisiteUltimate.org",
+    "description": "The Multisite Website as a Service (WaaS) plugin.",
     "version": "2.4.0",
     "authors": [
         {
@@ -28,6 +28,11 @@
         "automattic/jetpack-autoloader": "^5.0.0",
         "rpnzl/arrch": "dev-master#994258bbefb7722243211654c4f78813312cd5ed",
         "amphp/amp": "^2.6.2",
+        "amphp/byte-stream": "^1.8.1",
+        "amphp/cache": "^1.5.1",
+        "amphp/http-client": "^4.6.3",
+        "amphp/http": "^1.7.1",
+        "amphp/sync": "^1.4.2",
         "psr/log": "^1.1.4",
         "delight-im/cookie": "^3.4.0",
         "berlindb/core": "^2.0.1",
@@ -73,7 +78,8 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "automattic/jetpack-autoloader": true,
             "cweagans/composer-patches": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true
         }
     },
     "archive": {
@@ -97,7 +103,13 @@
             "utils",
             "update.sh",
             "phpstan.neon.dist",
-            "rector.php"
+            "rector.php",
+            "inc/development",
+            ".github",
+            ".wiki",
+            "codeception.yml",
+            "CLAUDE.md",
+            "patches"
         ]
     },
     "extra": {
@@ -125,5 +137,8 @@
             "Utils\\Rector\\": "utils/rector/src",
             "Utils\\Rector\\Tests\\": "utils/rector/tests"
         }
+    },
+    "replace": {
+        "paragonie/random_compat": "*"
     }
 }

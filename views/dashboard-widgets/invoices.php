@@ -7,15 +7,15 @@
 ?>
 <div class="wu-styling <?php echo esc_attr($className); ?>">
 
-	<div class="<?php echo wu_env_picker('', 'wu-widget-inset'); ?>">
+	<div class="<?php echo esc_attr(wu_env_picker('', 'wu-widget-inset')); ?>">
 
 	<?php if ($title) : ?>
 
 		<!-- Title Element -->
 
-		<div class="wu-p-4 wu-flex wu-items-center <?php echo wu_env_picker('', 'wu-bg-gray-100 wu-border-solid wu-border-0 wu-border-b wu-border-gray-400'); ?>">
+		<div class="wu-p-4 wu-flex wu-items-center <?php echo esc_attr(wu_env_picker('', 'wu-bg-gray-100 wu-border-solid wu-border-0 wu-border-b wu-border-gray-400')); ?>">
 
-			<h3 class="wu-m-0 <?php echo wu_env_picker('', 'wu-widget-title'); ?>">
+			<h3 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
 			<?php echo esc_html($title); ?>
 
@@ -27,7 +27,7 @@
 
 	<?php endif; ?>
 
-	<table class="striped <?php echo wu_env_picker('', 'wp-list-table widefat wu-border-none'); ?>">
+	<table class="striped <?php echo esc_attr(wu_env_picker('', 'wp-list-table widefat wu-border-none')); ?>">
 
 		<tbody class="wu-align-baseline">
 
@@ -47,19 +47,19 @@
 
                 </a>',
 					$payment->get_invoice_url(),
-					esc_html__('Download Invoice', 'wp-multisite-waas')
+					esc_html__('Download Invoice', 'multisite-ultimate')
 				);
 
 				$payment_column = $payment->get_status() === 'pending' ? [
 					'pay_now' => [
 						'url'   => add_query_arg(['payment' => $payment->get_hash()], wu_get_registration_url()),
 						'icon'  => 'dashicons-wu-credit-card wu-align-middle wu-mr-1',
-						'label' => esc_html__('Go to payment', 'wp-multisite-waas'),
-						'value' => esc_html__('Pay Now', 'wp-multisite-waas'),
+						'label' => esc_html__('Go to payment', 'multisite-ultimate'),
+						'value' => esc_html__('Pay Now', 'multisite-ultimate'),
 					],
 				] : [];
 
-				echo wu_responsive_table_row(
+				echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					[
 						'url'    => false,
 						'title'  => $payment->get_invoice_number() . $download_link,

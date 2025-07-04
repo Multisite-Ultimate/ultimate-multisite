@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Multisite WaaS ENUM base class.
+ * Multisite Ultimate ENUM base class.
  *
  * @package WP_Ultimo
  * @subpackage WP_Ultimo\Database\Engine
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Database\Engine;
 defined('ABSPATH') || exit;
 
 /**
- * WP Multisite WaaS ENUM base class.
+ * Multisite Ultimate ENUM base class.
  *
  * @since 2.0.0
  */
@@ -31,7 +31,7 @@ abstract class Enum {
 	 * @since 2.0.0
 	 * @var array
 	 */
-	static $options = [];
+	public static $options = [];
 
 	/**
 	 * @var string
@@ -70,7 +70,7 @@ abstract class Enum {
 	 * Returns an array with values => labels.
 	 *
 	 * @since 2.0.0
-	 * @return void
+	 * @return array
 	 */
 	protected function icon_classes() {
 
@@ -96,11 +96,11 @@ abstract class Enum {
 		return static::$options[ $hook ];
 	}
 
-	public static function get_allowed_list($string = false) {
+	public static function get_allowed_list($str = false) {
 
 		$options = array_unique(self::get_options());
 
-		return $string ? implode(',', $options) : $options;
+		return $str ? implode(',', $options) : $options;
 	}
 
 	/**
@@ -185,7 +185,7 @@ abstract class Enum {
 	 * Returns an array of options.
 	 *
 	 * @since 2.0.0
-	 * @return void
+	 * @return array
 	 */
 	public static function to_array() {
 
@@ -220,18 +220,18 @@ abstract class Enum {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array  $array The array to check.
+	 * @param array  $arr The array to check.
 	 * @param string $key The key to check.
-	 * @param string $default The default value.
+	 * @param string $default_value The default value.
 	 * @return string
 	 */
-	public function exists_or_default($array, $key, $default = '') {
+	public function exists_or_default($arr, $key, $default_value = '') {
 
-		if (empty($default)) {
-			$default = $array[ static::__default ] ?? '';
+		if (empty($default_value)) {
+			$default_value = $arr[ static::__default ] ?? '';
 		}
 
-		return $array[ $key ] ?? $default;
+		return $arr[ $key ] ?? $default_value;
 	}
 
 	/**

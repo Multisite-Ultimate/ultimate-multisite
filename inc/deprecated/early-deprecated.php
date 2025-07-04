@@ -33,7 +33,7 @@ class WU_Domain_Mapping {
 
 		$ip = \WP_Ultimo\Domain_Mapping\Helper::get_network_public_ip();
 
-		return apply_filters('wu_domain_mapping_get_ip_address', $ip, $_SERVER['SERVER_ADDR']);
+		return apply_filters('wu_domain_mapping_get_ip_address', $ip, sanitize_text_field(wp_unslash($_SERVER['SERVER_ADDR'] ?? '')));
 	}
 
 	/**

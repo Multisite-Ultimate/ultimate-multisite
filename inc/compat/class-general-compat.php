@@ -225,7 +225,7 @@ class General_Compat {
 	 *
 	 * This plugin has a setting that replaces quotes on the content.
 	 * This breaks our moment configuration strings, and is generally
-	 * not compatible with WP Multisite WaaS vue templates.
+	 * not compatible with Multisite Ultimate vue templates.
 	 *
 	 * Here on this filter, we manually disable the smart quotes
 	 * settings to prevent that kind of processing, as well as add
@@ -252,7 +252,7 @@ class General_Compat {
 	 */
 	public function add_wp_typography_warning_message(): void {
 
-		WP_Ultimo()->notices->add(__('WP Typography "Smart Quotes" replacement is not compatible with WP Multisite WaaS and will be automatically disabled.', 'wp-multisite-waas'), 'warning');
+		WP_Ultimo()->notices->add(__('WP Typography "Smart Quotes" replacement is not compatible with Multisite Ultimate and will be automatically disabled.', 'multisite-ultimate'), 'warning');
 	}
 
 	/**
@@ -307,7 +307,7 @@ class General_Compat {
 	 */
 	public function fix_divi_editor_screen(bool $should_redirect): bool {
 
-		if (isset($_GET['et_fb']) && (bool) $_GET['et_fb']) {
+		if (isset($_GET['et_fb']) && (bool) $_GET['et_fb']) { // phpcs:ignore WordPress.Security.NonceVerification
 			return false;
 		}
 

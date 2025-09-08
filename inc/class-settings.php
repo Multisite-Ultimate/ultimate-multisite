@@ -162,6 +162,21 @@ class Settings {
 		return $this->settings;
 	}
 
+	public function get_all_with_defaults($check_caps = false) {
+		$all_settings = $this->get_all($check_caps);
+		foreach ($this->get_sections() as $section_slug => $section) {
+			foreach ($section['fields'] as $field_slug => $field_atts) {
+				if (is_callable($field_atts['value'])) {
+					$value = $field_atts['value']();
+					if (isset($all_settings[ $field_slug ]) && $value !== $all_settings[ $field_slug ]) {
+						$all_settings[ $field_slug ] = $value;
+					}
+				}
+			}
+		}
+		return $all_settings;
+	}
+
 	/**
 	 * Get a specific settings from the plugin
 	 *
@@ -725,7 +740,7 @@ class Settings {
 			'enable_email_verification',
 			[
 				'title'   => __('Email verification', 'multisite-ultimate'),
-				'desc'    => __('Controls when email verification is required during registration. Sites will not be created until the customer email verification status is changed to verified.', 'multisite-ultimate'),
+				'desc'    => __('Controls if email verification is required during registration. If set, sites will not be created until the customer email verification status is changed to verified.', 'multisite-ultimate'),
 				'type'    => 'select',
 				'options' => [
 					'never'     => __('Never require email verification', 'multisite-ultimate'),
@@ -733,6 +748,16 @@ class Settings {
 					'always'    => __('Always require email verification', 'multisite-ultimate'),
 				],
 				'default' => 'free_only',
+				'value'   => function () {
+					$raw = wu_get_setting('enable_email_verification', 'free_only');
+					if (1 === $raw || '1' === $raw || true === $raw) {
+							return 'free_only'; // legacy "enabled"
+					}
+					if (0 === $raw || '0' === $raw || false === $raw) {
+							return 'never'; // legacy "disabled"
+					}
+					return in_array($raw, ['never', 'free_only', 'always'], true) ? $raw : 'free_only';
+				},
 			]
 		);
 

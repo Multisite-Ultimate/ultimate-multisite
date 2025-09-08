@@ -43,7 +43,7 @@ final class Products_Table extends Table {
 	 * @since 2.0.0
 	 * @var string
 	 */
-	protected $version = '2.0.1-revision.20230601';
+	protected $version = '2.0.2-revision.20240908';
 
 	/**
 	 * List of table upgrades.
@@ -54,6 +54,7 @@ final class Products_Table extends Table {
 		'2.0.1-revision.20210419' => 20_210_419,
 		'2.0.1-revision.20210607' => 20_210_607,
 		'2.0.1-revision.20230601' => 20_230_601,
+		'2.0.2-revision.20240908' => 20_240_908,
 	];
 
 	/**
@@ -70,6 +71,7 @@ final class Products_Table extends Table {
 			slug tinytext NOT NULL DEFAULT '',
 			parent_id bigint(20),
 			migrated_from_id bigint(20) DEFAULT NULL,
+			network_id bigint(20) unsigned DEFAULT NULL,
 			description longtext NOT NULL default '',
 			product_group varchar(20) DEFAULT '',
 			currency varchar(10) NOT NULL DEFAULT 'USD',
@@ -87,7 +89,8 @@ final class Products_Table extends Table {
 			type tinytext NOT NULL DEFAULT '',
 			date_created datetime NULL,
 			date_modified datetime NULL,
-			PRIMARY KEY (id)";
+			PRIMARY KEY (id),
+			KEY network_id (network_id)";
 	}
 
 	/**
@@ -163,6 +166,33 @@ final class Products_Table extends Table {
 			if ( ! $this->is_success($result)) {
 				return false;
 			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Adds network_id column for multinetwork support.
+	 *
+	 * @since 2.0.2
+	 */
+	protected function __20240908(): bool {
+
+		$query = "ALTER TABLE {$this->table_name} ADD COLUMN `network_id` bigint(20) unsigned DEFAULT NULL AFTER `migrated_from_id`;";
+
+		$result = $this->get_db()->query($query);
+
+		if ( ! $this->is_success($result)) {
+			return false;
+		}
+
+		// Add index for network_id
+		$index_query = "ALTER TABLE {$this->table_name} ADD INDEX `network_id` (`network_id`);";
+
+		$index_result = $this->get_db()->query($index_query);
+
+		if ( ! $this->is_success($index_result)) {
+			return false;
 		}
 
 		return true;

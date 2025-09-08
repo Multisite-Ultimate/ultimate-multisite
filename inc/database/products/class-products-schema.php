@@ -216,5 +216,16 @@ class Products_Schema extends Schema {
 			'sortable'   => true,
 		],
 
+		// network_id - Added for multinetwork support
+		[
+			'name'       => 'network_id',
+			'type'       => 'bigint',
+			'length'     => '20',
+			'unsigned'   => true,
+			'allow_null' => true,
+			'searchable' => true,
+			'sortable'   => true,
+		],
+
 	];
 }

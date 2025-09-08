@@ -43,7 +43,7 @@ final class Customers_Table extends Table {
 	 * @since 2.0.0
 	 * @var string
 	 */
-	protected $version = '2.0.1-revision.20230601';
+	protected $version = '2.0.2-revision.20240908';
 
 	/**
 	 * List of table upgrades.
@@ -54,6 +54,7 @@ final class Customers_Table extends Table {
 		'2.0.1-revision.20210508' => 20_210_508,
 		'2.0.1-revision.20210607' => 20_210_607,
 		'2.0.1-revision.20230601' => 20_230_601,
+		'2.0.2-revision.20240908' => 20_240_908,
 	];
 
 	/**
@@ -80,6 +81,7 @@ final class Customers_Table extends Table {
 		$this->schema = "id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 			user_id bigint(20) unsigned NOT NULL DEFAULT '0',
 			type varchar(20) NOT NULL DEFAULT 'customer',
+			network_id bigint(20) unsigned DEFAULT NULL,
 			email_verification enum('verified', 'pending', 'none') DEFAULT 'none',
 			date_modified datetime NULL,
 			date_registered datetime NULL,
@@ -89,7 +91,8 @@ final class Customers_Table extends Table {
 			ips longtext,
 			signup_form varchar(40) DEFAULT 'by-admin',
 			PRIMARY KEY (id),
-			KEY user_id (user_id)";
+			KEY user_id (user_id),
+			KEY network_id (network_id)";
 	}
 
 	/**
@@ -166,6 +169,33 @@ final class Customers_Table extends Table {
 			if ( ! $this->is_success($result)) {
 				return false;
 			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Adds network_id column for multinetwork support.
+	 *
+	 * @since 2.0.2
+	 */
+	protected function __20240908(): bool {
+
+		$query = "ALTER TABLE {$this->table_name} ADD COLUMN `network_id` bigint(20) unsigned DEFAULT NULL AFTER `type`;";
+
+		$result = $this->get_db()->query($query);
+
+		if ( ! $this->is_success($result)) {
+			return false;
+		}
+
+		// Add index for network_id
+		$index_query = "ALTER TABLE {$this->table_name} ADD INDEX `network_id` (`network_id`);";
+
+		$index_result = $this->get_db()->query($index_query);
+
+		if ( ! $this->is_success($index_result)) {
+			return false;
 		}
 
 		return true;

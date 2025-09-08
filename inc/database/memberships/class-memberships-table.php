@@ -43,7 +43,7 @@ final class Memberships_Table extends Table {
 	 * @since 2.0.0
 	 * @var string
 	 */
-	protected $version = '2.0.1-revision.20230601';
+	protected $version = '2.0.2-revision.20240908';
 
 	/**
 	 * List of table upgrades.
@@ -52,6 +52,7 @@ final class Memberships_Table extends Table {
 	 */
 	protected $upgrades = [
 		'2.0.1-revision.20230601' => 20_230_601,
+		'2.0.2-revision.20240908' => 20_240_908,
 	];
 
 	/**
@@ -68,6 +69,7 @@ final class Memberships_Table extends Table {
 			user_id bigint(20) unsigned DEFAULT NULL,
 			migrated_from_id bigint(20) DEFAULT NULL,
 			plan_id bigint(20) NOT NULL default '0',
+			network_id bigint(20) unsigned DEFAULT NULL,
 			addon_products longtext,
 			currency varchar(10) NOT NULL DEFAULT 'USD',
 			initial_amount decimal(13,4) default 0,
@@ -97,6 +99,7 @@ final class Memberships_Table extends Table {
 			PRIMARY KEY (id),
 			KEY customer_id (customer_id),
 			KEY plan_id (plan_id),
+			KEY network_id (network_id),
 			KEY status (status),
 			KEY disabled (disabled)";
 	}
@@ -127,6 +130,33 @@ final class Memberships_Table extends Table {
 			if ( ! $this->is_success($result)) {
 				return false;
 			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Adds network_id column for multinetwork support.
+	 *
+	 * @since 2.0.2
+	 */
+	protected function __20240908(): bool {
+
+		$query = "ALTER TABLE {$this->table_name} ADD COLUMN `network_id` bigint(20) unsigned DEFAULT NULL AFTER `plan_id`;";
+
+		$result = $this->get_db()->query($query);
+
+		if ( ! $this->is_success($result)) {
+			return false;
+		}
+
+		// Add index for network_id
+		$index_query = "ALTER TABLE {$this->table_name} ADD INDEX `network_id` (`network_id`);";
+
+		$index_result = $this->get_db()->query($index_query);
+
+		if ( ! $this->is_success($index_result)) {
+			return false;
 		}
 
 		return true;

@@ -277,6 +277,14 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	protected $cancellation_reason;
 
 	/**
+	 * Network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @var int|null
+	 */
+	protected $network_id;
+
+	/**
 	 * Keep original list of products.
 	 *
 	 * If the products are changed for some reason,
@@ -371,6 +379,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			'signup_method'       => 'default:',
 			'disabled'            => 'default:0',
 			'recurring'           => 'default:0',
+			'network_id'          => 'integer|nullable',
 		];
 	}
 
@@ -2523,5 +2532,28 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 		}
 
 		return parent::delete();
+	}
+
+	/**
+	 * Get the network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @return int|null
+	 */
+	public function get_network_id() {
+
+		return $this->network_id ? absint($this->network_id) : null;
+	}
+
+	/**
+	 * Set the network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @param int|null $network_id Network ID.
+	 * @return void
+	 */
+	public function set_network_id($network_id): void {
+
+		$this->network_id = $network_id ? absint($network_id) : null;
 	}
 }

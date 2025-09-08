@@ -231,23 +231,14 @@ class Orphaned_Users_Manager {
 	 */
 	public function find_orphaned_users(): array {
 
-		global $wpdb;
-
 		$orphaned_users = [];
-
-		// Get all site IDs in the network
-		$site_ids = get_sites(
-			[
-				'fields' => 'ids',
-				'number' => 0,
-			]
-		);
 
 		// Get all users
 		$users = get_users(
 			[
-				'number' => '',
-				'fields' => ['ID', 'user_login', 'user_email', 'user_registered'],
+				'blog_id' => 0,
+				'number'  => '',
+				'fields'  => ['ID', 'user_login', 'user_email', 'user_registered'],
 			]
 		);
 
@@ -257,20 +248,10 @@ class Orphaned_Users_Manager {
 				continue;
 			}
 
-			$has_role_on_any_site = false;
-
-			// Check if user has a role on any site in the network
-			foreach ($site_ids as $site_id) {
-				$user_roles = get_user_meta($user->ID, $wpdb->get_blog_prefix($site_id) . 'capabilities', true);
-
-				if (! empty($user_roles) && is_array($user_roles)) {
-					$has_role_on_any_site = true;
-					break;
-				}
-			}
+			$blogs = get_blogs_of_user($user->ID, true);
 
 			// If user has no roles on any site, they are orphaned
-			if (! $has_role_on_any_site) {
+			if (empty($blogs)) {
 				$orphaned_users[] = $user;
 			}
 		}
@@ -287,6 +268,14 @@ class Orphaned_Users_Manager {
 	 */
 	public function delete_orphaned_users(array $users): int {
 
+		// Ensure required WordPress admin includes are loaded before deletion functions are used.
+		if (! function_exists('wp_delete_user')) {
+			require_once ABSPATH . 'wp-admin/includes/user.php';
+		}
+		if (is_multisite() && ! function_exists('wpmu_delete_user')) {
+			require_once ABSPATH . 'wp-admin/includes/ms.php';
+		}
+
 		$deleted_count = 0;
 
 		foreach ($users as $user) {
@@ -296,7 +285,7 @@ class Orphaned_Users_Manager {
 			}
 
 			// Use WordPress core function to properly delete user and their data
-			$result = wp_delete_user($user->ID);
+			$result = is_multisite() ? wpmu_delete_user($user->ID) : wp_delete_user($user->ID);
 
 			if ($result) {
 				++$deleted_count;

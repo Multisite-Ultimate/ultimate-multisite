@@ -894,6 +894,7 @@ final class WP_Ultimo {
 		 */
 		WP_Ultimo\Managers\Cache_Manager::get_instance();
 		WP_Ultimo\Orphaned_Tables_Manager::get_instance();
+		WP_Ultimo\Orphaned_Users_Manager::get_instance();
 
 		/**
 		 * Loads views overrides

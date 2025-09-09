@@ -1717,18 +1717,19 @@ class Checkout {
 		 * First, let's set upm the general rules:
 		 */
 		$rules = [
-			'email_address'    => 'required_without:user_id|email|unique:\WP_User,email',
-			'username'         => 'required_without:user_id|alpha_dash|min:4|lowercase|unique:\WP_User,login',
-			'password'         => 'required_without:user_id|min:6',
-			'password_conf'    => 'same:password',
-			'template_id'      => 'integer|site_template',
-			'products'         => 'products',
-			'gateway'          => '',
-			'valid_password'   => 'accepted',
-			'billing_country'  => 'country|required_with:billing_country',
-			'billing_zip_code' => 'required_with:billing_zip_code',
-			'billing_state'    => 'state',
-			'billing_city'     => 'city',
+			'email_address'              => 'required_without:user_id|email|unique:\WP_User,email',
+			'email_address_confirmation' => 'same:email_address',
+			'username'                   => 'required_without:user_id|alpha_dash|min:4|lowercase|unique:\WP_User,login',
+			'password'                   => 'required_without:user_id|min:6',
+			'password_conf'              => 'same:password',
+			'template_id'                => 'integer|site_template',
+			'products'                   => 'products',
+			'gateway'                    => '',
+			'valid_password'             => 'accepted',
+			'billing_country'            => 'country|required_with:billing_country',
+			'billing_zip_code'           => 'required_with:billing_zip_code',
+			'billing_state'              => 'state',
+			'billing_city'               => 'city',
 		];
 
 		/*
@@ -1859,11 +1860,12 @@ class Checkout {
 		// Add some hidden or compound fields ids
 		$validation_aliases = array_merge(
 			[
-				'password_conf'  => __('Password confirmation', 'multisite-ultimate'),
-				'template_id'    => __('Template ID', 'multisite-ultimate'),
-				'valid_password' => __('Valid password', 'multisite-ultimate'),
-				'products'       => __('Products', 'multisite-ultimate'),
-				'gateway'        => __('Payment Gateway', 'multisite-ultimate'),
+				'password_conf'              => __('Password confirmation', 'multisite-ultimate'),
+				'email_address_confirmation' => __('Email confirmation', 'multisite-ultimate'),
+				'template_id'                => __('Template ID', 'multisite-ultimate'),
+				'valid_password'             => __('Valid password', 'multisite-ultimate'),
+				'products'                   => __('Products', 'multisite-ultimate'),
+				'gateway'                    => __('Payment Gateway', 'multisite-ultimate'),
 			],
 			$base_aliases
 		);

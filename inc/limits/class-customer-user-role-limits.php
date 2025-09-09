@@ -83,7 +83,9 @@ class Customer_User_Role_Limits {
 	 * @return array
 	 */
 	public function filter_editable_roles($roles) {
-
+		if ( ! is_admin() || ! is_user_logged_in() ) {
+			return $roles;
+		}
 		if ( ! wu_get_current_site()->has_module_limitation('users') || is_super_admin()) {
 			return $roles;
 		}

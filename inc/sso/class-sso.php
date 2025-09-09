@@ -26,7 +26,7 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Psr16Cache;
 use WP_Ultimo\SSO\Exception\SSO_Exception;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Handles Sign-sign on.
@@ -325,9 +325,6 @@ class SSO {
 		global $pagenow;
 
 		$broker = $this->get_broker();
-
-		if ( ! $broker) {
-		}
 
 		if ($broker->is_must_redirect_call()) {
 			return false;
@@ -656,7 +653,7 @@ class SSO {
 			 * on if we are not able to validate the customer.
 			 *
 			 * @throws ServerException
-			 * @throws SsoException
+			 * @throws SSO_Exception
 			 * @throws BrokerException
 			 * @throws NotAttachedException
 			 */

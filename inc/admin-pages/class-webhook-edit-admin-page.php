@@ -120,7 +120,7 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 		 */
 		add_filter(
 			'wu_data_json_success_delete_webhook_modal',
-			fn($data_json) => [
+			fn($data_json) => [ // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 				'redirect_url' => wu_network_admin_url('wp-ultimo-webhooks', ['deleted' => 1]),
 			]
 		);

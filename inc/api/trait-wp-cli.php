@@ -9,7 +9,7 @@
 
 namespace WP_Ultimo\Apis;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * WP CLI trait.

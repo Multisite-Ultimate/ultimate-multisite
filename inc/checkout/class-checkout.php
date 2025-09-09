@@ -383,7 +383,7 @@ class Checkout {
 
 			$this->step = $this->checkout_form->get_step($this->step_name, true);
 
-			if(!$this->step) {
+			if (! $this->step) {
 				$this->step = [];
 			}
 

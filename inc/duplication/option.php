@@ -1,18 +1,24 @@
 <?php
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Option management for the plugin
  */
 if ( ! class_exists('MUCD_Option') ) {
 
+	/**
+	 * Multisite Ultimate Clone Duplicator Option class.
+	 *
+	 * Manages WordPress options during site duplication, handling
+	 * the copying and updating of site-specific configuration.
+	 */
 	class MUCD_Option {
 
 		/**
 		 * Init 'mucd_duplicable' options
 		 *
-		 * @param string $blogs_value the value for blogs options
-		 * @param string $network_value the value for site option
+		 * @param string $blogs_value   The value for blogs options.
+		 * @param string $network_value The value for site option.
 		 * @since 0.2.0
 		 */
 		public static function init_duplicable_option($blogs_value = 'no', $network_value = 'all'): void {
@@ -46,7 +52,7 @@ if ( ! class_exists('MUCD_Option') ) {
 		 * Set 'mucd_duplicable' option to "yes" for the list of blogs, other to "no"
 		 *
 		 * @since 0.2.0
-		 * @param array $blogs list of blogs we want the option set to "yes"
+		 * @param array $blogs List of blog IDs to set the option to "yes".
 		 */
 		public static function set_duplicable_option($blogs): void {
 			$network_blogs = MUCD_Functions::get_sites();

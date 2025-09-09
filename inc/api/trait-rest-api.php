@@ -12,7 +12,7 @@ namespace WP_Ultimo\Apis;
 use WP_REST_Request;
 use WP_Ultimo\Managers\Base_Manager;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * REST API trait.

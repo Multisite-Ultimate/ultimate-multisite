@@ -11,12 +11,17 @@
 
 namespace WP_Ultimo\Compat;
 
-
 // Exit if accessed directly
 use WP_Ultimo\Checkout\Checkout_Pages;
 
 defined('ABSPATH') || exit;
 
+/**
+ * LoginWP compatibility class.
+ *
+ * Provides compatibility fixes for LoginWP plugins to ensure
+ * proper login error handling and form display.
+ */
 class Login_WP_Compat {
 
 	use \WP_Ultimo\Traits\Singleton;
@@ -28,9 +33,19 @@ class Login_WP_Compat {
 	 * @return void
 	 */
 	public function init(): void {
-		add_filter("wu_wp-ultimo/login-form_form_fields", [$this, 'add_error_field']);
+		add_filter('wu_wp-ultimo/login-form_form_fields', [$this, 'add_error_field']);
 	}
 
+	/**
+	 * Add error field to login form when login fails.
+	 *
+	 * Checks for login failure and adds an error message field
+	 * to the top of the login form fields array.
+	 *
+	 * @since 2.0.0
+	 * @param array $fields The current form fields.
+	 * @return array The modified form fields with error field if needed.
+	 */
 	public function add_error_field(array $fields): array {
 		/*
 		 * Check for error messages

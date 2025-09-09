@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <?php if (is_array($field->value)) : ?>
 	<?php foreach ($field->value as $index => $value) : ?>

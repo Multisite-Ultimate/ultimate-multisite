@@ -84,6 +84,7 @@ function wu_register_settings_section($section_slug, $atts) {
  * @param string $section_slug Section to which this field will be added to.
  * @param string $field_slug ID of the field. This is used to later retrieve the value saved on this setting.
  * @param array  $atts Field attributes such as title, description, tooltip, default value, etc.
+ * @param int    $priority Priority of the field. Lower numbers correspond with earlier execution. Default 10.
  * @return void
  */
 function wu_register_settings_field($section_slug, $field_slug, $atts, $priority = 10) {

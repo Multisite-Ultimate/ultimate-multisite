@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <div class="wu--mt-7">
 	<p><?php esc_html_e('This plugin comes with support for issues you may have. Support can be requested via email on <a class="wu-no-underline" href="mailto:support@wpultimo.com" target="_blank">support@wpultimo.com</a> and includes:', 'multisite-ultimate'); ?></p>

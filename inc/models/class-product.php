@@ -1386,8 +1386,11 @@ class Product extends Base_Model implements Limitable {
 	public function get_available_addons() {
 
 		if (null === $this->available_addons) {
-			$this->available_addons = $this->get_meta('wu_
-			available_addons', []);
+			$this->available_addons = $this->get_meta(
+				'wu_
+			available_addons',
+				[]
+			);
 
 			if (is_string($this->available_addons)) {
 				$this->available_addons = explode(',', $this->available_addons);

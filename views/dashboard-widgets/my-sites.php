@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 $add_new_url = wu_get_setting('enable_multiple_sites') ? $element->get_new_site_url() : wu_get_registration_url();
 

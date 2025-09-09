@@ -9,7 +9,6 @@
 
 namespace WP_Ultimo\Integrations\Host_Providers\CPanel_API;
 
-
 defined('ABSPATH') || exit;
 
 /**

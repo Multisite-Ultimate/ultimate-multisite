@@ -652,7 +652,7 @@ class Checkout_Pages {
 	 * @param null|string $content The post content.
 	 * @return string
 	 */
-	public function render_confirmation_page($atts, $content = null) {
+	public function render_confirmation_page($atts, $content = null) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		return wu_get_template_contents(
 			'checkout/confirmation',

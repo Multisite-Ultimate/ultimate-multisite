@@ -5,6 +5,12 @@ namespace WP_Ultimo\Models;
 use WP_Error;
 use WP_UnitTestCase;
 
+/**
+ * Test class for Discount Code model functionality.
+ *
+ * Tests discount code validation, expiration dates, usage limits,
+ * product restrictions, and error handling.
+ */
 class Discount_Code_Test extends WP_UnitTestCase {
 
 	/**

@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <p><?php esc_html_e('Hey there', 'multisite-ultimate'); ?></p>
 <?php // translators: %1$s: Customer name, %2$s: Customer email, %3$s: Customer user email, %4$s: Payment total. ?>

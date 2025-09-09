@@ -96,6 +96,15 @@ abstract class Enum {
 		return static::$options[ $hook ];
 	}
 
+	/**
+	 * Gets the allowed list of enum values.
+	 *
+	 * Returns the unique list of allowed enum values, optionally as a comma-separated string.
+	 *
+	 * @since 2.0.0
+	 * @param bool $str Whether to return as a comma-separated string. Default false.
+	 * @return array|string Array of allowed values or comma-separated string if $str is true.
+	 */
 	public static function get_allowed_list($str = false) {
 
 		$options = array_unique(self::get_options());

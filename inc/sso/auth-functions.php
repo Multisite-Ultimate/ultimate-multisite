@@ -18,7 +18,7 @@
 
 use Delight\Cookie\Cookie;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 
 if ( ! function_exists('wp_set_auth_cookie') ) :
@@ -67,7 +67,7 @@ if ( ! function_exists('wp_set_auth_cookie') ) :
 		}
 
 		// Front-end cookie is secure when the auth cookie is secure and the site's home URL uses HTTPS.
-		$secure_logged_in_cookie = $secure && 'https' === parse_url((string) get_option('home'), PHP_URL_SCHEME);
+		$secure_logged_in_cookie = $secure && 'https' === wp_parse_url((string) get_option('home'), PHP_URL_SCHEME);
 
 		/**
 		 * Filters whether the auth cookie should only be sent over HTTPS.

@@ -55,7 +55,7 @@ function wu_wrap_use_container() {
  * @param array $second_row The second row, on the right.
  * @return string
  */
-function wu_responsive_table_row($args = [], $first_row = [], $second_row = []) {
+function wu_responsive_table_row($args = [], $first_row = [], $second_row = []) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 	$args = wp_parse_args(
 		$args,

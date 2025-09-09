@@ -52,6 +52,15 @@ class Orphaned_Tables_Manager {
 		);
 	}
 
+	/**
+	 * Registers the cleanup orphaned tables settings field.
+	 *
+	 * Adds a settings field to the other settings tab that allows administrators
+	 * to scan and cleanup database tables from deleted sites.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
 	public function register_settings_field(): void {
 		wu_register_settings_field(
 			'other',

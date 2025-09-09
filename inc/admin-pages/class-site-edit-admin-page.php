@@ -125,7 +125,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 
 		add_filter(
 			'wu_data_json_success_delete_site_modal',
-			fn($unused_data_json) => [
+			fn($unused_data_json) => [ // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 				'redirect_url' => wu_network_admin_url('wp-ultimo-sites', ['deleted' => 1]),
 			]
 		);

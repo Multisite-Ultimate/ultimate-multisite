@@ -50,33 +50,37 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 		$this->manager = Membership_Manager::get_instance();
 
 		// Create test customer
-		$customer = wu_create_customer([
-			'username'      => 'testuser',
-			'email_address' => 'test@example.com',
-			'password'      => 'password123',
-		]);
+		$customer = wu_create_customer(
+			[
+				'username'      => 'testuser',
+				'email_address' => 'test@example.com',
+				'password'      => 'password123',
+			]
+		);
 
 		if (is_wp_error($customer)) {
 			$this->markTestSkipped('Could not create test customer: ' . $customer->get_error_message());
 		}
-		
+
 		$this->customer = $customer;
 
 		// Create test product
-		$product = wu_create_product([
-			'name'        => 'Test Product',
-			'slug'        => 'test-product',
-			'description' => 'A test product',
-			'type'        => 'plan',
-			'amount'      => 10,
-			'duration'    => 1,
-			'duration_unit' => 'month',
-		]);
+		$product = wu_create_product(
+			[
+				'name'          => 'Test Product',
+				'slug'          => 'test-product',
+				'description'   => 'A test product',
+				'type'          => 'plan',
+				'amount'        => 10,
+				'duration'      => 1,
+				'duration_unit' => 'month',
+			]
+		);
 
 		if (is_wp_error($product)) {
 			$this->markTestSkipped('Could not create test product: ' . $product->get_error_message());
 		}
-		
+
 		$this->product = $product;
 	}
 
@@ -85,13 +89,13 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 	 */
 	public function test_manager_initialization() {
 		$this->assertInstanceOf(Membership_Manager::class, $this->manager);
-		
+
 		// Use reflection to access protected properties
-		$reflection = new \ReflectionClass($this->manager);
+		$reflection    = new \ReflectionClass($this->manager);
 		$slug_property = $reflection->getProperty('slug');
 		$slug_property->setAccessible(true);
 		$this->assertEquals('membership', $slug_property->getValue($this->manager));
-		
+
 		$model_class_property = $reflection->getProperty('model_class');
 		$model_class_property->setAccessible(true);
 		$this->assertEquals(\WP_Ultimo\Models\Membership::class, $model_class_property->getValue($this->manager));
@@ -102,20 +106,22 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 	 */
 	public function test_async_publish_pending_site_success() {
 		// Create membership with pending site
-		$membership = wu_create_membership([
-			'customer_id' => $this->customer->get_id(),
-			'product_id'  => $this->product->get_id(),
-			'status'      => Membership_Status::ACTIVE,
-			'amount'      => 10,
-			'currency'    => 'USD',
-		]);
+		$membership = wu_create_membership(
+			[
+				'customer_id' => $this->customer->get_id(),
+				'product_id'  => $this->product->get_id(),
+				'status'      => Membership_Status::ACTIVE,
+				'amount'      => 10,
+				'currency'    => 'USD',
+			]
+		);
 
 		$this->assertInstanceOf(Membership::class, $membership);
 
 		// Test async publish with valid membership ID
 		$result = $this->manager->async_publish_pending_site($membership->get_id());
-		
-		// Since we don't have a pending site in this test setup, 
+
+		// Since we don't have a pending site in this test setup,
 		// we expect the method to handle gracefully
 		$this->assertNotInstanceOf(\WP_Error::class, $result);
 	}
@@ -125,7 +131,7 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 	 */
 	public function test_async_publish_pending_site_invalid_id() {
 		$result = $this->manager->async_publish_pending_site(99999);
-		
+
 		$this->assertInstanceOf(\WP_Error::class, $result);
 		$this->assertEquals('error', $result->get_error_code());
 		$this->assertEquals('An unexpected error happened.', $result->get_error_message());
@@ -135,13 +141,15 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 	 * Test mark cancelled date functionality.
 	 */
 	public function test_mark_cancelled_date() {
-		$membership = wu_create_membership([
-			'customer_id' => $this->customer->get_id(),
-			'product_id'  => $this->product->get_id(),
-			'status'      => Membership_Status::ACTIVE,
-			'amount'      => 10,
-			'currency'    => 'USD',
-		]);
+		$membership = wu_create_membership(
+			[
+				'customer_id' => $this->customer->get_id(),
+				'product_id'  => $this->product->get_id(),
+				'status'      => Membership_Status::ACTIVE,
+				'amount'      => 10,
+				'currency'    => 'USD',
+			]
+		);
 
 		$this->assertInstanceOf(Membership::class, $membership);
 
@@ -154,7 +162,7 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 
 		// Refresh membership from database
 		$membership = wu_get_membership($membership->get_id());
-		
+
 		// If status changed to cancelled, cancelled_at should be set
 		if ($new_status === Membership_Status::CANCELLED) {
 			$this->assertNotNull($membership->get_date_cancelled());
@@ -165,13 +173,15 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 	 * Test membership status transition.
 	 */
 	public function test_transition_membership_status() {
-		$membership = wu_create_membership([
-			'customer_id' => $this->customer->get_id(),
-			'product_id'  => $this->product->get_id(),
-			'status'      => Membership_Status::PENDING,
-			'amount'      => 10,
-			'currency'    => 'USD',
-		]);
+		$membership = wu_create_membership(
+			[
+				'customer_id' => $this->customer->get_id(),
+				'product_id'  => $this->product->get_id(),
+				'status'      => Membership_Status::PENDING,
+				'amount'      => 10,
+				'currency'    => 'USD',
+			]
+		);
 
 		$this->assertInstanceOf(Membership::class, $membership);
 
@@ -189,20 +199,24 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 	 * Test async transfer membership.
 	 */
 	public function test_async_transfer_membership() {
-		$membership = wu_create_membership([
-			'customer_id' => $this->customer->get_id(),
-			'product_id'  => $this->product->get_id(),
-			'status'      => Membership_Status::ACTIVE,
-			'amount'      => 10,
-			'currency'    => 'USD',
-		]);
+		$membership = wu_create_membership(
+			[
+				'customer_id' => $this->customer->get_id(),
+				'product_id'  => $this->product->get_id(),
+				'status'      => Membership_Status::ACTIVE,
+				'amount'      => 10,
+				'currency'    => 'USD',
+			]
+		);
 
 		// Create another customer to transfer to
-		$new_customer = wu_create_customer([
-			'username'      => 'newuser',
-			'email_address' => 'new@example.com',
-			'password'      => 'password123',
-		]);
+		$new_customer = wu_create_customer(
+			[
+				'username'      => 'newuser',
+				'email_address' => 'new@example.com',
+				'password'      => 'password123',
+			]
+		);
 
 		$this->assertInstanceOf(Membership::class, $membership);
 		$this->assertInstanceOf(Customer::class, $new_customer);
@@ -218,13 +232,15 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 	 * Test async delete membership.
 	 */
 	public function test_async_delete_membership() {
-		$membership = wu_create_membership([
-			'customer_id' => $this->customer->get_id(),
-			'product_id'  => $this->product->get_id(),
-			'status'      => Membership_Status::ACTIVE,
-			'amount'      => 10,
-			'currency'    => 'USD',
-		]);
+		$membership = wu_create_membership(
+			[
+				'customer_id' => $this->customer->get_id(),
+				'product_id'  => $this->product->get_id(),
+				'status'      => Membership_Status::ACTIVE,
+				'amount'      => 10,
+				'currency'    => 'USD',
+			]
+		);
 
 		$this->assertInstanceOf(Membership::class, $membership);
 		$membership_id = $membership->get_id();
@@ -241,13 +257,15 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 	 * Test async membership swap.
 	 */
 	public function test_async_membership_swap() {
-		$membership = wu_create_membership([
-			'customer_id' => $this->customer->get_id(),
-			'product_id'  => $this->product->get_id(),
-			'status'      => Membership_Status::ACTIVE,
-			'amount'      => 10,
-			'currency'    => 'USD',
-		]);
+		$membership = wu_create_membership(
+			[
+				'customer_id' => $this->customer->get_id(),
+				'product_id'  => $this->product->get_id(),
+				'status'      => Membership_Status::ACTIVE,
+				'amount'      => 10,
+				'currency'    => 'USD',
+			]
+		);
 
 		$this->assertInstanceOf(Membership::class, $membership);
 
@@ -262,10 +280,10 @@ class Membership_Manager_Test extends WP_UnitTestCase {
 	 */
 	public function tearDown(): void {
 		// Clean up test data
-		if ($this->customer && !is_wp_error($this->customer)) {
+		if ($this->customer && ! is_wp_error($this->customer)) {
 			$this->customer->delete();
 		}
-		if ($this->product && !is_wp_error($this->product)) {
+		if ($this->product && ! is_wp_error($this->product)) {
 			$this->product->delete();
 		}
 

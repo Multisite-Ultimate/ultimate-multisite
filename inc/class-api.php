@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  *
  * @since 1.9.14
  */
-class API {
+class API implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 
@@ -43,7 +43,7 @@ class API {
 	 * @since 1.7.4
 	 * @return void
 	 */
-	public function __construct() {
+	public function init(): void {
 
 		/**
 		 * Add the admin settings for the API
@@ -478,7 +478,7 @@ class API {
 	 * @param \WP_REST_Request $request WP Request Object.
 	 * @return void
 	 */
-	public function auth($request): void {
+	public function auth($request): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		$current_site = get_current_site();
 

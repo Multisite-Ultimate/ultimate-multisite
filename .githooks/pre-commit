@@ -35,7 +35,7 @@ echo -e "${YELLOW}Running PHPCS...${NC}"
 HAS_PHPCS_ERRORS=0
 for FILE in $STAGED_FILES; do
     if [ -f "$FILE" ]; then
-        vendor/bin/phpcs --colors --standard=WordPress "$FILE" || HAS_PHPCS_ERRORS=1
+        vendor/bin/phpcs --colors "$FILE" || HAS_PHPCS_ERRORS=1
     fi
 done
 

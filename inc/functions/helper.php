@@ -290,7 +290,7 @@ function wu_cli_is_plugin_skipped($plugin = null): bool {
  *
  * @return void
  */
-function wu_ignore_errors($func, $log = false) {
+function wu_ignore_errors($func, $log = false) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 	try {
 		call_user_func($func);

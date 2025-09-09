@@ -149,15 +149,14 @@ function wu_create_customer($customer_data) {
 	}
 
 	if ( ! $user) {
-
 		$sanitized_username = '';
-		if (!empty($customer_data['username'])) {
+		if (! empty($customer_data['username'])) {
 			$sanitized_username = sanitize_user($customer_data['username'], true);
 			$sanitized_username = strtolower($sanitized_username);
 		}
 
 		$customer_data['email'] = sanitize_email($customer_data['email']);
-		if (!is_email($customer_data['email'])) {
+		if (! is_email($customer_data['email'])) {
 			return new \WP_Error(
 				'invalid_email',
 				__('The email address is invalid.', 'multisite-ultimate'),

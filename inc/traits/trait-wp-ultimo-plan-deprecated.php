@@ -9,7 +9,7 @@
 
 namespace WP_Ultimo\Traits;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * WP_Ultimo_Plan_Deprecated trait.
@@ -61,7 +61,6 @@ trait WP_Ultimo_Plan_Deprecated {
 				break;
 			case 'quotas':
 				$value = [
-					// 'sites'  => 300,
 					'upload' => 1024 * 1024 * 1024,
 					'visits' => 300,
 				];
@@ -294,10 +293,10 @@ trait WP_Ultimo_Plan_Deprecated {
 	 *
 	 * @since 1.5.4
 	 * @param string $quota_type Post type to check.
-	 * @param string $default Default value.
+	 * @param string $default_value Default value.
 	 * @return bool
 	 */
-	public function should_display_quota_on_pricing_tables($quota_type, $default = false) {
+	public function should_display_quota_on_pricing_tables($quota_type, $default_value = false) {
 		/*
 		 * @since  1.3.3 Only Show elements allowed on the plan settings
 		 */
@@ -307,7 +306,7 @@ trait WP_Ultimo_Plan_Deprecated {
 			return true;
 		}
 
-		if ( ! isset($elements[ $quota_type ]) && $default) {
+		if ( ! isset($elements[ $quota_type ]) && $default_value) {
 			return true;
 		}
 

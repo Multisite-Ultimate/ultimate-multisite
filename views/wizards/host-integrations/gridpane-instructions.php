@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <h1><?php esc_html_e('Instructions', 'multisite-ultimate'); ?></h1>
 

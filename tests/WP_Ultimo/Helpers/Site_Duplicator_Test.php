@@ -40,45 +40,53 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 		parent::setUp();
 
 		// Skip if not in multisite
-		if (!is_multisite()) {
+		if (! is_multisite()) {
 			$this->markTestSkipped('Site duplication tests require multisite');
 		}
 
 		// Create test customer
-		$this->customer = wu_create_customer([
-			'username'      => 'testuser',
-			'email_address' => 'test@example.com',
-			'password'      => 'password123',
-		]);
+		$this->customer = wu_create_customer(
+			[
+				'username'      => 'testuser',
+				'email_address' => 'test@example.com',
+				'password'      => 'password123',
+			]
+		);
 
 		if (is_wp_error($this->customer)) {
 			$this->markTestSkipped('Could not create test customer: ' . $this->customer->get_error_message());
 		}
 
 		// Create template site
-		$this->template_site_id = self::factory()->blog->create([
-			'domain' => 'template.example.com',
-			'path'   => '/',
-			'title'  => 'Template Site',
-		]);
+		$this->template_site_id = self::factory()->blog->create(
+			[
+				'domain' => 'template.example.com',
+				'path'   => '/',
+				'title'  => 'Template Site',
+			]
+		);
 
 		// Switch to template site and add some content
 		switch_to_blog($this->template_site_id);
-		
+
 		// Create a test post
-		wp_insert_post([
-			'post_title'   => 'Template Post',
-			'post_content' => 'This is template content',
-			'post_status'  => 'publish',
-		]);
+		wp_insert_post(
+			[
+				'post_title'   => 'Template Post',
+				'post_content' => 'This is template content',
+				'post_status'  => 'publish',
+			]
+		);
 
 		// Create a test page
-		wp_insert_post([
-			'post_title' => 'Template Page',
-			'post_type'  => 'page',
-			'post_content' => 'This is a template page',
-			'post_status' => 'publish',
-		]);
+		wp_insert_post(
+			[
+				'post_title'   => 'Template Page',
+				'post_type'    => 'page',
+				'post_content' => 'This is a template page',
+				'post_status'  => 'publish',
+			]
+		);
 
 		restore_current_blog();
 	}
@@ -112,7 +120,7 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 	 */
 	public function test_duplicate_invalid_source_site() {
 		$invalid_site_id = 99999;
-		
+
 		$args = [
 			'domain' => 'newsite.example.com',
 			'path'   => '/',
@@ -122,7 +130,7 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 		$result = Site_Duplicator::duplicate_site($invalid_site_id, 'New Site', $args);
 
 		// The result should be either a WP_Error or a failure case
-		$this->assertTrue(is_wp_error($result) || !$result || is_int($result));
+		$this->assertTrue(is_wp_error($result) || ! $result || is_int($result));
 	}
 
 	/**
@@ -146,18 +154,22 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 	 */
 	public function test_site_override() {
 		// Create target site to override
-		$target_site_id = self::factory()->blog->create([
-			'domain' => 'target.example.com',
-			'path'   => '/',
-			'title'  => 'Target Site',
-		]);
+		$target_site_id = self::factory()->blog->create(
+			[
+				'domain' => 'target.example.com',
+				'path'   => '/',
+				'title'  => 'Target Site',
+			]
+		);
 
 		// Create wu_site record for target
-		$target_wu_site = wu_create_site([
-			'blog_id'     => $target_site_id,
-			'customer_id' => $this->customer->get_id(),
-			'type'        => Site_Type::REGULAR,
-		]);
+		$target_wu_site = wu_create_site(
+			[
+				'blog_id'     => $target_site_id,
+				'customer_id' => $this->customer->get_id(),
+				'type'        => Site_Type::REGULAR,
+			]
+		);
 
 		if (is_wp_error($target_wu_site)) {
 			$this->markTestSkipped('Could not create wu_site record: ' . $target_wu_site->get_error_message());
@@ -172,7 +184,7 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 
 		// Clean up
 		wpmu_delete_blog($target_site_id, true);
-		if ($target_wu_site && !is_wp_error($target_wu_site)) {
+		if ($target_wu_site && ! is_wp_error($target_wu_site)) {
 			$target_wu_site->delete();
 		}
 	}
@@ -182,7 +194,7 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 	 */
 	public function test_override_invalid_target_site() {
 		$invalid_target_id = 99999;
-		
+
 		$args = [];
 
 		$result = Site_Duplicator::override_site($this->template_site_id, $invalid_target_id, $args);
@@ -196,17 +208,17 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 	 */
 	public function test_duplication_with_custom_args() {
 		$args = [
-			'domain'      => 'custom.example.com',
-			'path'        => '/',
-			'title'       => 'Custom Site',
-			'copy_files'  => true,
-			'copy_users'  => false,
-			'keep_users'  => true,
+			'domain'     => 'custom.example.com',
+			'path'       => '/',
+			'title'      => 'Custom Site',
+			'copy_files' => true,
+			'copy_users' => false,
+			'keep_users' => true,
 		];
 
 		$result = Site_Duplicator::duplicate_site($this->template_site_id, 'Custom Site', $args);
 
-		if (!is_wp_error($result)) {
+		if (! is_wp_error($result)) {
 			$this->assertIsInt($result);
 			$this->assertGreaterThan(0, $result);
 
@@ -230,12 +242,12 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 
 		$result = Site_Duplicator::duplicate_site($this->template_site_id, 'Content Site', $args);
 
-		if (!is_wp_error($result)) {
+		if (! is_wp_error($result)) {
 			$this->assertIsInt($result);
 
 			// Switch to new site and check content
 			switch_to_blog($result);
-			
+
 			$posts = get_posts(['post_type' => 'any']);
 			$this->assertNotEmpty($posts);
 
@@ -247,7 +259,7 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 					break;
 				}
 			}
-			
+
 			$this->assertTrue($found_template_post);
 
 			restore_current_blog();
@@ -271,7 +283,7 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 
 		$result = Site_Duplicator::duplicate_site($this->template_site_id, 'Subdirectory Site', $args);
 
-		if (!is_wp_error($result)) {
+		if (! is_wp_error($result)) {
 			$this->assertIsInt($result);
 
 			$new_site = get_site($result);
@@ -295,7 +307,7 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 		}
 
 		// Clean up test customer
-		if ($this->customer && !is_wp_error($this->customer)) {
+		if ($this->customer && ! is_wp_error($this->customer)) {
 			$this->customer->delete();
 		}
 

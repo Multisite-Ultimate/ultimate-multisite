@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <div id="wp-ultimo-header" class="wu-px-4 wu--ml-5 wu-bg-white wu-border-0 wu-border-gray-300 wu-border-b wu-border-solid wu-pb-3 sm:wu-py-3 sm:wu-pt-3 wu-hidden sm:wu-flex">
 

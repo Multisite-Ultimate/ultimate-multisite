@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <div id="wu-template-placeholders" class="<?php wu_wrap_use_container(); ?> wrap wp-ultimo">
 

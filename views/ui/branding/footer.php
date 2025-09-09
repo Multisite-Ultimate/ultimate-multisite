@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 
 <div id="wp-ultimo-footer" class="wu-pt-6 wu-pb-1 wu--mx-5 wu-mb-0 wu-text-gray-500 wu-text-center wu-bg-gray-100 wu-border-0 wu-border-gray-300 wu-border-t wu-border-solid">

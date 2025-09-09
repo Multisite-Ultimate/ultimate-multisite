@@ -16,6 +16,12 @@ use WP_Ultimo\Checkout\Checkout_Pages;
 
 defined('ABSPATH') || exit;
 
+/**
+ * Honeypot/WP Armor compatibility class.
+ *
+ * Provides compatibility fixes for Honeypot and WP Armor plugins
+ * to ensure proper functionality with WP Ultimo forms.
+ */
 class Honeypot_Compat {
 
 	use \WP_Ultimo\Traits\Singleton;

@@ -27,28 +27,6 @@ class Collector_Overview extends \QM_Collector {
 	public $id = 'wp-ultimo';
 
 	/**
-	 * Set-up routines.
-	 *
-	 * @since 2.0.11
-	 * @return void
-	 */
-	public function set_up(): void {
-
-		parent::set_up();
-	}
-
-	/**
-	 * Tear down routines.
-	 *
-	 * @since 2.0.11
-	 * @return void
-	 */
-	public function tear_down(): void {
-
-		parent::tear_down();
-	}
-
-	/**
 	 * Process the collection.
 	 *
 	 * Here, we just need to add items to the

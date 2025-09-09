@@ -26,7 +26,7 @@ defined('ABSPATH') || exit;
  *
  * @since 2.0.0
  */
-class Cron {
+class Cron implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 

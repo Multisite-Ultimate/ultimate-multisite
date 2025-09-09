@@ -73,11 +73,11 @@ class Notification_Manager {
 		$cleaner = [$this, 'clear_callback_list'];
 
 		if (wu_get_isset($wp_filter, 'admin_notices')) {
-			$wp_filter['admin_notices']->callbacks = array_filter($wp_filter['admin_notices']->callbacks, $cleaner ?? fn($v, $k): bool => ! empty($v), null === $cleaner ? ARRAY_FILTER_USE_BOTH : 0);
+			$wp_filter['admin_notices']->callbacks = array_filter($wp_filter['admin_notices']->callbacks, $cleaner ?? fn($v, $k): bool => ! empty($v), null === $cleaner ? ARRAY_FILTER_USE_BOTH : 0); // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 		}
 
 		if (wu_get_isset($wp_filter, 'all_admin_notices')) {
-			$wp_filter['all_admin_notices']->callbacks = array_filter($wp_filter['all_admin_notices']->callbacks, $cleaner ?? fn($v, $k): bool => ! empty($v), null === $cleaner ? ARRAY_FILTER_USE_BOTH : 0);
+			$wp_filter['all_admin_notices']->callbacks = array_filter($wp_filter['all_admin_notices']->callbacks, $cleaner ?? fn($v, $k): bool => ! empty($v), null === $cleaner ? ARRAY_FILTER_USE_BOTH : 0); // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 		}
 	}
 

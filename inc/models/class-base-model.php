@@ -292,7 +292,7 @@ abstract class Base_Model implements \JsonSerializable {
 	 *
 	 * @since 2.0.0
 	 * @return Schema
-	 * @throws \ReflectionException
+	 * @throws \ReflectionException When reflection operations fail on the query class.
 	 */
 	public static function get_schema() {
 

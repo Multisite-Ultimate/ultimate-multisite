@@ -149,7 +149,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'wu-when'       => [
 				'type'  => 'hidden',
-				'value' => base64_encode('init'),
+				'value' => base64_encode('init'), // phpcs:ignore
 			],
 			'membership_id' => [
 				'type'  => 'hidden',
@@ -441,7 +441,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'wu-when'       => [
 				'type'  => 'hidden',
-				'value' => base64_encode('init'),
+				'value' => base64_encode('init'), // phpcs:ignore
 			],
 			'submit_button' => [
 				'type'            => 'submit',

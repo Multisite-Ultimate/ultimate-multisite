@@ -203,7 +203,7 @@ class Base_Signup_Field_Test extends WP_UnitTestCase {
 	 */
 	public function test_get_fields() {
 		$fields = $this->field->get_fields();
-		
+
 		$this->assertIsArray($fields);
 		$this->assertArrayHasKey('test_option', $fields);
 		$this->assertEquals('text', $fields['test_option']['type']);
@@ -215,7 +215,7 @@ class Base_Signup_Field_Test extends WP_UnitTestCase {
 	 */
 	public function test_to_array() {
 		$array = $this->field->to_array();
-		
+
 		$this->assertIsArray($array);
 		$this->assertEquals('test_field', $array['type']);
 		$this->assertEquals('Test Field', $array['title']);
@@ -230,7 +230,7 @@ class Base_Signup_Field_Test extends WP_UnitTestCase {
 		ob_start();
 		$this->field->output();
 		$output = ob_get_clean();
-		
+
 		$this->assertStringContainsString('input', $output);
 		$this->assertStringContainsString('test_field', $output);
 	}
@@ -242,10 +242,10 @@ class Base_Signup_Field_Test extends WP_UnitTestCase {
 		// Test that attributes property exists
 		$reflection = new \ReflectionClass($this->field);
 		$this->assertTrue($reflection->hasProperty('attributes'));
-		
+
 		$property = $reflection->getProperty('attributes');
 		$property->setAccessible(true);
-		
+
 		// Initially should be null or empty
 		$attributes = $property->getValue($this->field);
 		$this->assertTrue(is_null($attributes) || empty($attributes));
@@ -256,9 +256,9 @@ class Base_Signup_Field_Test extends WP_UnitTestCase {
 	 */
 	public function test_abstract_methods() {
 		$reflection = new \ReflectionClass(Base_Signup_Field::class);
-		
+
 		$this->assertTrue($reflection->isAbstract());
-		
+
 		// Check that all required abstract methods exist
 		$abstract_methods = [
 			'get_type',
@@ -269,7 +269,7 @@ class Base_Signup_Field_Test extends WP_UnitTestCase {
 			'get_icon',
 			'get_fields',
 		];
-		
+
 		foreach ($abstract_methods as $method) {
 			$this->assertTrue($reflection->hasMethod($method));
 		}
@@ -301,10 +301,10 @@ class Base_Signup_Field_Test extends WP_UnitTestCase {
 	 */
 	public function test_has_validation_methods() {
 		$reflection = new \ReflectionClass($this->field);
-		
+
 		// These are common methods that signup fields often have
 		$common_methods = ['get_type', 'get_title', 'is_required'];
-		
+
 		foreach ($common_methods as $method) {
 			$this->assertTrue($reflection->hasMethod($method), "Method {$method} should exist");
 		}

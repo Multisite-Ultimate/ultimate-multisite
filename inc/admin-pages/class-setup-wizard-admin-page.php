@@ -745,12 +745,11 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		}
 
 		if (! defined('SUNRISE') || ! SUNRISE) {
-			$message = sprintf(__('The SUNRISE constant is missing. Domain mapping and plugin/theme limits will not function until `%s` is added to wp-config.php. Please complete the setup to attempt to do this automatically.'), 'define( SUNRISE, \'1\' );');
+			// translators: %s code snippet.
+			$message = sprintf(__('The SUNRISE constant is missing. Domain mapping and plugin/theme limits will not function until `%s` is added to wp-config.php. Please complete the setup to attempt to do this automatically.', 'multisite-ultimate'), 'define( SUNRISE, \'1\' );');
 		} else {
 			$message = __('Multisite Ultimate installation is incomplete. The sunrise.php file is missing. Please complete the setup to ensure proper functionality.', 'multisite-ultimate');
 		}
-
-
 
 		$actions = [
 			'complete_setup' => [

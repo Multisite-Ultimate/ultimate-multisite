@@ -12,7 +12,7 @@
  * @param string $name ID of the field.
  * @param string $label The field label.
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 
 $products_to_reduce = array_merge([false], $products);

@@ -16,7 +16,7 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 
 	public static function set_up_before_class() {
 		parent::set_up_before_class();
-		
+
 		// Create a simple payment object for testing
 		// We'll use minimal setup to avoid complex dependencies
 		self::$payment = new Payment();
@@ -27,10 +27,10 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 		self::$payment->set_total(100.00);
 		self::$payment->set_status(Payment_Status::COMPLETED);
 		self::$payment->set_gateway('manual');
-		
+
 		// Save the payment and generate a hash
 		$saved = self::$payment->save();
-		if (!$saved) {
+		if (! $saved) {
 			// If save fails, just set a fake hash for testing
 			self::$payment->set_hash('test_payment_hash_' . uniqid());
 		}
@@ -49,15 +49,15 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 	public function test_invoice_viewer_with_valid_parameters(): void {
 		// Use a test hash that won't be found in the database
 		$payment_hash = 'test_payment_hash_12345';
-		$nonce = wp_create_nonce('see_invoice');
+		$nonce        = wp_create_nonce('see_invoice');
 
 		// Mock the request parameters
-		$_REQUEST['action'] = 'invoice';
+		$_REQUEST['action']    = 'invoice';
 		$_REQUEST['reference'] = $payment_hash;
-		$_REQUEST['key'] = $nonce;
+		$_REQUEST['key']       = $nonce;
 
 		$reflection = new \ReflectionClass($this->payment_manager);
-		$method = $reflection->getMethod('invoice_viewer');
+		$method     = $reflection->getMethod('invoice_viewer');
 		$method->setAccessible(true);
 
 		// The method should pass nonce validation but fail on payment lookup
@@ -66,7 +66,7 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 		$this->expectExceptionMessage('This invoice does not exist.');
 
 		$method->invoke($this->payment_manager);
-		
+
 		// Clean up request parameters
 		unset($_REQUEST['action'], $_REQUEST['reference'], $_REQUEST['key']);
 	}
@@ -75,16 +75,16 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 	 * Test invoice_viewer method with invalid nonce.
 	 */
 	public function test_invoice_viewer_with_invalid_nonce(): void {
-		$payment_hash = self::$payment->get_hash();
+		$payment_hash  = self::$payment->get_hash();
 		$invalid_nonce = 'invalid_nonce';
 
 		// Mock the request parameters
-		$_REQUEST['action'] = 'invoice';
+		$_REQUEST['action']    = 'invoice';
 		$_REQUEST['reference'] = $payment_hash;
-		$_REQUEST['key'] = $invalid_nonce;
+		$_REQUEST['key']       = $invalid_nonce;
 
 		$reflection = new \ReflectionClass($this->payment_manager);
-		$method = $reflection->getMethod('invoice_viewer');
+		$method     = $reflection->getMethod('invoice_viewer');
 		$method->setAccessible(true);
 
 		// Expect wp_die to be called with permission error
@@ -102,15 +102,15 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 	 */
 	public function test_invoice_viewer_with_nonexistent_payment(): void {
 		$invalid_hash = 'nonexistent_hash';
-		$nonce = wp_create_nonce('see_invoice');
+		$nonce        = wp_create_nonce('see_invoice');
 
 		// Mock the request parameters
-		$_REQUEST['action'] = 'invoice';
+		$_REQUEST['action']    = 'invoice';
 		$_REQUEST['reference'] = $invalid_hash;
-		$_REQUEST['key'] = $nonce;
+		$_REQUEST['key']       = $nonce;
 
 		$reflection = new \ReflectionClass($this->payment_manager);
-		$method = $reflection->getMethod('invoice_viewer');
+		$method     = $reflection->getMethod('invoice_viewer');
 		$method->setAccessible(true);
 
 		// Expect wp_die to be called with invoice not found error
@@ -129,10 +129,10 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 	public function test_invoice_viewer_with_missing_action(): void {
 		// Don't set action parameter
 		$_REQUEST['reference'] = self::$payment->get_hash();
-		$_REQUEST['key'] = wp_create_nonce('see_invoice');
+		$_REQUEST['key']       = wp_create_nonce('see_invoice');
 
 		$reflection = new \ReflectionClass($this->payment_manager);
-		$method = $reflection->getMethod('invoice_viewer');
+		$method     = $reflection->getMethod('invoice_viewer');
 		$method->setAccessible(true);
 
 		// Method should return early without doing anything
@@ -152,10 +152,10 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 	public function test_invoice_viewer_with_missing_reference(): void {
 		// Set action but not reference
 		$_REQUEST['action'] = 'invoice';
-		$_REQUEST['key'] = wp_create_nonce('see_invoice');
+		$_REQUEST['key']    = wp_create_nonce('see_invoice');
 
 		$reflection = new \ReflectionClass($this->payment_manager);
-		$method = $reflection->getMethod('invoice_viewer');
+		$method     = $reflection->getMethod('invoice_viewer');
 		$method->setAccessible(true);
 
 		// Method should return early without doing anything
@@ -174,11 +174,11 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 	 */
 	public function test_invoice_viewer_with_missing_key(): void {
 		// Set action and reference but not key
-		$_REQUEST['action'] = 'invoice';
+		$_REQUEST['action']    = 'invoice';
 		$_REQUEST['reference'] = self::$payment->get_hash();
 
 		$reflection = new \ReflectionClass($this->payment_manager);
-		$method = $reflection->getMethod('invoice_viewer');
+		$method     = $reflection->getMethod('invoice_viewer');
 		$method->setAccessible(true);
 
 		// Method should return early without doing anything
@@ -194,7 +194,7 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 
 	public static function tear_down_after_class() {
 		global $wpdb;
-		
+
 		// Clean up test data
 		if (self::$payment) {
 			self::$payment->delete();
@@ -202,11 +202,11 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 		if (self::$customer) {
 			self::$customer->delete();
 		}
-		
+
 		// Clean up database tables
 		$wpdb->query("TRUNCATE TABLE {$wpdb->prefix}wu_payments");
 		$wpdb->query("TRUNCATE TABLE {$wpdb->prefix}wu_customers");
-		
+
 		parent::tear_down_after_class();
 	}
 }

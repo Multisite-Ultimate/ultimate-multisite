@@ -444,12 +444,12 @@ abstract class Base_Element {
 
 	/**
 	 * Ensures setup is called before output to prevent errors.
-	 * 
+	 *
 	 * @since 2.4.3
 	 * @return void
 	 */
 	protected function ensure_setup() {
-		if (!$this->loaded) {
+		if (! $this->loaded) {
 			$this->is_preview() ? $this->setup_preview() : $this->setup();
 			$this->loaded = true;
 		}

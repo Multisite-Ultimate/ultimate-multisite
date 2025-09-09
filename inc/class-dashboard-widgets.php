@@ -19,7 +19,7 @@ defined('ABSPATH') || exit;
  *
  * @since 2.0.0
  */
-class Dashboard_Widgets {
+class Dashboard_Widgets implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 

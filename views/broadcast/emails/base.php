@@ -14,7 +14,7 @@
  * @package     WP_Ultimo/Views
  * @version     1.4.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 if ( ! defined('ABSPATH')) {
 	exit; // Exit if accessed directly

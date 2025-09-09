@@ -21,10 +21,10 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_basic_encode_decode() {
 		$original_id = 12345;
-		
-		$hash = Hash::encode($original_id);
+
+		$hash       = Hash::encode($original_id);
 		$decoded_id = Hash::decode($hash);
-		
+
 		$this->assertEquals($original_id, $decoded_id);
 		$this->assertIsString($hash);
 		$this->assertNotEmpty($hash);
@@ -35,10 +35,10 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_consistent_encoding() {
 		$id = 999;
-		
+
 		$hash1 = Hash::encode($id);
 		$hash2 = Hash::encode($id);
-		
+
 		$this->assertEquals($hash1, $hash2);
 	}
 
@@ -47,10 +47,10 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_different_groups_produce_different_hashes() {
 		$id = 123;
-		
+
 		$hash1 = Hash::encode($id, 'group1');
 		$hash2 = Hash::encode($id, 'group2');
-		
+
 		$this->assertNotEquals($hash1, $hash2);
 	}
 
@@ -58,12 +58,12 @@ class Hash_Test extends WP_UnitTestCase {
 	 * Test decode with matching groups.
 	 */
 	public function test_decode_with_matching_groups() {
-		$id = 456;
+		$id    = 456;
 		$group = 'test-group';
-		
-		$hash = Hash::encode($id, $group);
+
+		$hash       = Hash::encode($id, $group);
 		$decoded_id = Hash::decode($hash, $group);
-		
+
 		$this->assertEquals($id, $decoded_id);
 	}
 
@@ -72,10 +72,10 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_decode_with_mismatched_groups() {
 		$id = 789;
-		
-		$hash = Hash::encode($id, 'group1');
+
+		$hash       = Hash::encode($id, 'group1');
 		$decoded_id = Hash::decode($hash, 'group2');
-		
+
 		$this->assertNotEquals($id, $decoded_id);
 	}
 
@@ -84,10 +84,10 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_encode_zero() {
 		$id = 0;
-		
-		$hash = Hash::encode($id);
+
+		$hash       = Hash::encode($id);
 		$decoded_id = Hash::decode($hash);
-		
+
 		$this->assertEquals($id, $decoded_id);
 		$this->assertIsString($hash);
 	}
@@ -97,10 +97,10 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_encode_large_numbers() {
 		$id = 999999999;
-		
-		$hash = Hash::encode($id);
+
+		$hash       = Hash::encode($id);
 		$decoded_id = Hash::decode($hash);
-		
+
 		$this->assertEquals($id, $decoded_id);
 	}
 
@@ -116,10 +116,10 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_default_group_encoding() {
 		$id = 555;
-		
+
 		$hash1 = Hash::encode($id);
 		$hash2 = Hash::encode($id, 'wp-ultimo');
-		
+
 		$this->assertEquals($hash1, $hash2);
 	}
 
@@ -129,10 +129,10 @@ class Hash_Test extends WP_UnitTestCase {
 	public function test_consecutive_ids_different_hashes() {
 		$id1 = 100;
 		$id2 = 101;
-		
+
 		$hash1 = Hash::encode($id1);
 		$hash2 = Hash::encode($id2);
-		
+
 		$this->assertNotEquals($hash1, $hash2);
 	}
 
@@ -140,9 +140,9 @@ class Hash_Test extends WP_UnitTestCase {
 	 * Test hash contains only allowed characters.
 	 */
 	public function test_hash_character_set() {
-		$id = 12345;
+		$id   = 12345;
 		$hash = Hash::encode($id);
-		
+
 		// Should only contain uppercase letters and numbers
 		$this->assertMatchesRegularExpression('/^[A-Z0-9]+$/', $hash);
 	}
@@ -152,8 +152,8 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_decode_invalid_hash() {
 		$invalid_hash = 'invalid-hash-string';
-		$result = Hash::decode($invalid_hash);
-		
+		$result       = Hash::decode($invalid_hash);
+
 		// Should return false or empty when decoding fails
 		$this->assertFalse($result);
 	}
@@ -164,10 +164,10 @@ class Hash_Test extends WP_UnitTestCase {
 	public function test_encode_negative_numbers() {
 		// Hashids typically doesn't handle negative numbers well
 		$id = -123;
-		
-		$hash = Hash::encode($id);
+
+		$hash       = Hash::encode($id);
 		$decoded_id = Hash::decode($hash);
-		
+
 		// The behavior may vary, but it should at least not crash
 		$this->assertIsString($hash);
 	}
@@ -177,11 +177,11 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_round_trip_various_ranges() {
 		$test_ids = [1, 10, 100, 1000, 10000, 99999];
-		
+
 		foreach ($test_ids as $id) {
-			$hash = Hash::encode($id);
+			$hash       = Hash::encode($id);
 			$decoded_id = Hash::decode($hash);
-			
+
 			$this->assertEquals($id, $decoded_id, "Failed for ID: {$id}");
 		}
 	}
@@ -191,13 +191,13 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_hash_uniqueness() {
 		$hashes = [];
-		
+
 		for ($i = 1; $i <= 100; $i++) {
 			$hash = Hash::encode($i);
 			$this->assertNotContains($hash, $hashes, "Duplicate hash found for ID: {$i}");
 			$hashes[] = $hash;
 		}
-		
+
 		// Ensure we generated 100 unique hashes
 		$this->assertEquals(100, count(array_unique($hashes)));
 	}
@@ -207,10 +207,10 @@ class Hash_Test extends WP_UnitTestCase {
 	 */
 	public function test_encode_empty_group() {
 		$id = 123;
-		
-		$hash = Hash::encode($id, '');
+
+		$hash       = Hash::encode($id, '');
 		$decoded_id = Hash::decode($hash, '');
-		
+
 		$this->assertEquals($id, $decoded_id);
 	}
 
@@ -218,12 +218,12 @@ class Hash_Test extends WP_UnitTestCase {
 	 * Test encoding with very long group name.
 	 */
 	public function test_encode_long_group_name() {
-		$id = 456;
+		$id         = 456;
 		$long_group = str_repeat('very-long-group-name-', 10);
-		
-		$hash = Hash::encode($id, $long_group);
+
+		$hash       = Hash::encode($id, $long_group);
 		$decoded_id = Hash::decode($hash, $long_group);
-		
+
 		$this->assertEquals($id, $decoded_id);
 	}
 }

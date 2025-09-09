@@ -42,16 +42,7 @@
         <exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited" />
         <exclude name="Generic.Commenting.DocComment.MissingShort" />
         <exclude name="Squiz.Commenting.FileComment.MissingPackageTag" />
-	</rule>
-	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
-		<properties>
-			<!-- Value: replace the function, class, and variable prefixes used. Separate multiple prefixes with a comma. -->
-			<property name="prefixes" type="array">
-                <element value="wu_"/>
-                <element value="wp_ultimo"/>
-            </property>
-		</properties>
-		<exclude-pattern>/views/</exclude-pattern>
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals" />
 	</rule>
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
 		<properties>

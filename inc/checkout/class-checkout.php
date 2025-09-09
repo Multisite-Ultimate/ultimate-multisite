@@ -812,7 +812,7 @@ class Checkout {
 			/*
 			 * Checks for free memberships.
 			 */
-			if ($this->order->is_free() && $this->order->get_recurring_total() === 0.0 && (! wu_get_setting('enable_email_verification', true) || $this->customer->get_email_verification() !== 'pending')) {
+			if ($this->order->is_free() && $this->order->get_recurring_total() === 0.0 && $this->customer->get_email_verification() !== 'pending') {
 				if ($this->order->get_plan_id() === $this->membership->get_plan_id()) {
 					$this->membership->set_status(Membership_Status::ACTIVE);
 
@@ -829,7 +829,7 @@ class Checkout {
 				$this->membership->set_date_trial_end(gmdate('Y-m-d 23:59:59', $this->order->get_billing_start_date()));
 				$this->membership->set_date_expiration(gmdate('Y-m-d 23:59:59', $this->order->get_billing_start_date()));
 
-				if (wu_get_setting('allow_trial_without_payment_method') && (! wu_get_setting('enable_email_verification', true) || $this->customer->get_email_verification() !== 'pending')) {
+				if (wu_get_setting('allow_trial_without_payment_method') && $this->customer->get_email_verification() !== 'pending') {
 					/*
 					 * In this particular case, we need to set the status to trialing here as we will not update the membership after and then, publish the site.
 					 */
@@ -2259,9 +2259,23 @@ class Checkout {
 	 */
 	public function get_customer_email_verification_status() {
 
-		$should_confirm_email = wu_get_setting('enable_email_verification', true);
+		$email_verification_setting = wu_get_setting('enable_email_verification', 'free_only');
 
-		return $this->order->should_collect_payment() === false && $should_confirm_email ? 'pending' : 'none';
+		switch ($email_verification_setting) {
+			case 'never':
+				return 'none';
+
+			case 'always':
+				return 'pending';
+
+			case 'free_only':
+				return $this->order->should_collect_payment() === false ? 'pending' : 'none';
+
+			default:
+				// Legacy behavior - handle boolean values
+				$should_confirm_email = (bool) $email_verification_setting;
+				return $this->order->should_collect_payment() === false && $should_confirm_email ? 'pending' : 'none';
+		}
 	}
 
 	/**

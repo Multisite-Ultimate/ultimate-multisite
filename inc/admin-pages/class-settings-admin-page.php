@@ -602,7 +602,7 @@ class Settings_Admin_Page extends Wizard_Admin_Page {
 					'style'        => '',
 					'data-on-load' => 'remove_block_ui',
 					'data-wu-app'  => str_replace('-', '_', $section_slug),
-					'data-state'   => wp_json_encode(wu_array_map_keys('wu_replace_dashes', Settings::get_instance()->get_all(true))),
+					'data-state'   => wp_json_encode(wu_array_map_keys('wu_replace_dashes', Settings::get_instance()->get_all_with_defaults(true))),
 				],
 			]
 		);

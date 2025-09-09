@@ -23,11 +23,24 @@ jobs:
       - name: Install PHP Dependencies
         run: composer install --no-interaction --prefer-dist
 
+      - name: Get changed PHP files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            **/*.php
+
       - name: Run PHP CodeSniffer
-        run: vendor/bin/phpcs --report=checkstyle --report-file=phpcs-report.xml || true
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+          vendor/bin/phpcs --report=checkstyle --report-file=phpcs-report.xml ${{ steps.changed-files.outputs.all_changed_files }} || true
 
       - name: Run PHPStan
-        run: vendor/bin/phpstan analyse --error-format=checkstyle --no-progress > phpstan-report.xml || true
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "Running PHPStan on changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+          vendor/bin/phpstan analyse --error-format=checkstyle --no-progress ${{ steps.changed-files.outputs.all_changed_files }} > phpstan-report.xml || true
 
       - name: Annotate PR with PHPCS results
         uses: staabm/annotate-pull-request-from-checkstyle-action@v1

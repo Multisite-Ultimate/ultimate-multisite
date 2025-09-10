@@ -1086,8 +1086,9 @@ class Cart implements \JsonSerializable {
 		if (($is_same_product && $membership->get_amount() > $this->get_recurring_total()) || (! $is_same_product && $old_price_per_day > $new_price_per_day)) {
 			$this->cart_type = 'downgrade';
 
-			// If membership is active or trialing we will schendule the swap
-			if ($membership->is_active() || $membership->get_status() === Membership_Status::TRIALING) {
+			// If membership is active, schedule the swap and apply credit
+			// For trialing memberships, only schedule the swap without credit since they haven't been charged yet
+			if ($membership->is_active()) {
 				$line_item_params = apply_filters(
 					'wu_checkout_credit_line_item_params',
 					[
@@ -1195,7 +1196,7 @@ class Cart implements \JsonSerializable {
 		 */
 
 		/*
-		 * If the membership is in trial period theres nothing to prorate.
+		 * If the membership is in trial period there's nothing to prorate.
 		 */
 		if ($this->membership->get_status() === Membership_Status::TRIALING) {
 			return;

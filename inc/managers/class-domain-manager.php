@@ -55,6 +55,36 @@ class Domain_Manager extends Base_Manager {
 	protected $integrations = [];
 
 	/**
+	 * Checks if this is a main domain or a subdomain.
+	 *
+	 * @param string $domain the domain.
+	 *
+	 * @return bool
+	 */
+	public static function is_main_domain(string $domain) {
+		// Check if this is a main domain (no subdomain parts)
+		// A main domain has only 2 parts when split by dots (e.g., example.com)
+		// or 3 parts if it's a known TLD structure (e.g., example.co.uk)
+		$parts = explode('.', $domain);
+
+		// Simple heuristic: if domain has only 2 parts, it's definitely a main domain
+		if (count($parts) <= 2) {
+			return true; // e.g., example.com
+		}
+
+		// For 3+ parts, check if it's a main domain with multi-part TLD
+		$known_multi_part_tlds = apply_filters('wu_multi_part_tlds', ['.co.uk', '.com.au', '.co.nz', '.com.br', '.co.in']);
+		$last_two_parts        = '.' . $parts[ count($parts) - 2 ] . '.' . $parts[ count($parts) - 1 ];
+
+		// If it has exactly 3 parts and matches a known multi-part TLD, it's a main domain
+		if (count($parts) === 3 && in_array($last_two_parts, $known_multi_part_tlds, true)) {
+			return true; // e.g., example.co.uk
+		}
+		// Must be a subdomain.
+		return false;
+	}
+
+	/**
 	 * Returns the list of available host integrations.
 	 *
 	 * This needs to be a filterable method to allow integrations to self-register.
@@ -441,27 +471,7 @@ class Domain_Manager extends Base_Manager {
 				return false;
 
 			case 'main_only':
-				// Check if this is a main domain (no subdomain parts)
-				// A main domain has only 2 parts when split by dots (e.g., example.com)
-				// or 3 parts if it's a known TLD structure (e.g., example.co.uk)
-				$parts = explode('.', $domain);
-
-				// Simple heuristic: if domain has only 2 parts, it's definitely a main domain
-				if (count($parts) <= 2) {
-					return true; // e.g., example.com
-				}
-
-				// For 3+ parts, check if it's a main domain with multi-part TLD
-				$known_multi_part_tlds = apply_filters('wu_multi_part_tlds', ['.co.uk', '.com.au', '.co.nz', '.com.br', '.co.in']);
-				$last_two_parts        = '.' . $parts[ count($parts) - 2 ] . '.' . $parts[ count($parts) - 1 ];
-
-				// If it has exactly 3 parts and matches a known multi-part TLD, it's a main domain
-				if (count($parts) === 3 && in_array($last_two_parts, $known_multi_part_tlds, true)) {
-					return true; // e.g., example.co.uk
-				}
-
-				// Otherwise, it's a subdomain
-				return false;
+				return self::is_main_domain($domain);
 
 			case 'always':
 			default:

@@ -67,7 +67,7 @@ class Limitations {
 	 */
 	public function __construct($modules_data = []) {
 
-		$this->build_modules($modules_data);
+		$this->raw_module_data = $modules_data;
 	}
 
 	/**
@@ -83,16 +83,10 @@ class Limitations {
 		$module = wu_get_isset($this->modules, $name, false);
 
 		if (false === $module) {
-			$repo = self::repository();
-
-			$class_name = wu_get_isset($repo, $name, false);
-
-			if (class_exists($class_name)) {
-				$module = new $class_name($this->raw_module_data[ $name ] ?? []);
-
+			$module = self::build($this->raw_module_data[ $name ] ?? [], $name);
+			if ($module) {
 				$this->modules[ $name ] = $module;
-
-				return $module;
+				return $this->modules[ $name ];
 			}
 		}
 
@@ -121,7 +115,7 @@ class Limitations {
 	 * @return void
 	 */
 	public function __unserialize($modules_data) {
-		$this->build_modules($modules_data);
+		$this->raw_module_data = $modules_data;
 	}
 
 	/**
@@ -135,14 +129,6 @@ class Limitations {
 	public function build_modules($modules_data) {
 
 		$this->raw_module_data = $modules_data;
-
-		foreach ($modules_data as $type => $data) {
-			$module = self::build($data, $type);
-
-			if ($module) {
-				$this->modules[ $type ] = $module;
-			}
-		}
 
 		return $this;
 	}
@@ -181,7 +167,7 @@ class Limitations {
 	 */
 	public function exists($module) {
 
-		return wu_get_isset($this->modules, $module, false);
+		return (bool) wu_get_isset($this->raw_module_data, $module, false);
 	}
 
 	/**
@@ -192,15 +178,13 @@ class Limitations {
 	 */
 	public function has_limitations() {
 
-		$has_limitations = false;
-
-		foreach ($this->modules as $module) {
-			if ($module->is_enabled()) {
+		foreach ($this->raw_module_data as $module) {
+			if ($module['enabled']) {
 				return true;
 			}
 		}
 
-		return $has_limitations;
+		return false;
 	}
 
 	/**
@@ -213,9 +197,7 @@ class Limitations {
 	 */
 	public function is_module_enabled($module_name) {
 
-		$module = $this->{$module_name};
-
-		return $module ? $module->is_enabled() : false;
+		return $this->raw_module_data[ $module_name ]['enabled'] ?? false;
 	}
 
 	/**
@@ -374,8 +356,7 @@ class Limitations {
 	 * @since 2.0.0
 	 */
 	public function to_array(): array {
-
-		return array_map(fn($module) => method_exists($module, 'to_array') ? $module->to_array() : (array) $module, $this->modules);
+		return $this->raw_module_data;
 	}
 
 	/**

@@ -18,7 +18,7 @@ foreach ($notices as $key => $notice) : ?>
 	
 	<?php else : ?>
 
-	<p class="wu-py-2"><?php echo esc_html($notice['message']); ?></p>
+	<p class="wu-py-2"><?php echo wp_kses_post($notice['message']); ?></p>
 
 <?php endif; ?>
 

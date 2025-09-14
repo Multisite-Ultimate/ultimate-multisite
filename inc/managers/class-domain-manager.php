@@ -14,6 +14,7 @@ namespace WP_Ultimo\Managers;
 
 use Psr\Log\LogLevel;
 use WP_Ultimo\Domain_Mapping\Helper;
+use WP_Ultimo\Models\Domain;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -394,6 +395,78 @@ class Domain_Manager extends Base_Manager {
 				],
 			]
 		);
+
+		wu_register_settings_field(
+			'domain-mapping',
+			'auto_create_www_subdomain',
+			[
+				'title'   => __('Create www Subdomain Automatically?', 'multisite-ultimate'),
+				'desc'    => __('Control when www subdomains should be automatically created for mapped domains.', 'multisite-ultimate'),
+				'tooltip' => __('This setting applies to all hosting integrations and determines when a www version of the domain should be automatically created.', 'multisite-ultimate'),
+				'type'    => 'select',
+				'default' => 'always',
+				'options' => [
+					'always'    => __('Always - Create www subdomain for all domains', 'multisite-ultimate'),
+					'main_only' => __('Only for main domains (e.g., example.com but not subdomain.example.com)', 'multisite-ultimate'),
+					'never'     => __('Never - Do not automatically create www subdomains', 'multisite-ultimate'),
+				],
+				'require' => [
+					'enable_domain_mapping' => true,
+				],
+			]
+		);
+	}
+
+	/**
+	 * Check if a www subdomain should be created for the given domain.
+	 *
+	 * @since 2.0.0
+	 * @param string $domain The domain to check.
+	 * @return bool True if www subdomain should be created, false otherwise.
+	 */
+	public function should_create_www_subdomain($domain) {
+
+		// Normalize incoming domain
+		$domain = trim(strtolower($domain));
+
+		// Guard against double-prefixing - return false if already starts with www.
+		if (strpos($domain, 'www.') === 0) {
+			return false;
+		}
+
+		$setting = wu_get_setting('auto_create_www_subdomain', 'always');
+
+		switch ($setting) {
+			case 'never':
+				return false;
+
+			case 'main_only':
+				// Check if this is a main domain (no subdomain parts)
+				// A main domain has only 2 parts when split by dots (e.g., example.com)
+				// or 3 parts if it's a known TLD structure (e.g., example.co.uk)
+				$parts = explode('.', $domain);
+
+				// Simple heuristic: if domain has only 2 parts, it's definitely a main domain
+				if (count($parts) <= 2) {
+					return true; // e.g., example.com
+				}
+
+				// For 3+ parts, check if it's a main domain with multi-part TLD
+				$known_multi_part_tlds = apply_filters('wu_multi_part_tlds', ['.co.uk', '.com.au', '.co.nz', '.com.br', '.co.in']);
+				$last_two_parts        = '.' . $parts[ count($parts) - 2 ] . '.' . $parts[ count($parts) - 1 ];
+
+				// If it has exactly 3 parts and matches a known multi-part TLD, it's a main domain
+				if (count($parts) === 3 && in_array($last_two_parts, $known_multi_part_tlds, true)) {
+					return true; // e.g., example.co.uk
+				}
+
+				// Otherwise, it's a subdomain
+				return false;
+
+			case 'always':
+			default:
+				return true;
+		}
 	}
 
 	/**
@@ -903,5 +976,147 @@ class Domain_Manager extends Base_Manager {
 		 * @since 2.0.0
 		 */
 		do_action('wp_ultimo_host_providers_load');
+	}
+
+	/**
+	 * Verify domain ownership using a loopback request.
+	 *
+	 * This method attempts to verify a domain by making an loopback request with a
+	 * a specific parameter that is used by Domain_Mapper::verify_dns_mapping().
+	 *
+	 * @since 2.4.4
+	 *
+	 * @param Domain $domain The domain object to verify.
+	 * @return bool True if verification succeeds, false otherwise.
+	 */
+	public function verify_domain_with_loopback_request(Domain $domain): bool {
+
+		$domain_url = $domain->get_domain();
+		$domain_id  = $domain->get_id();
+
+		$endpoint_path = '/';
+
+		// Test protocols in order of preference: HTTPS with SSL verify, HTTPS without SSL verify, HTTP
+		$protocols_to_test = [
+			[
+				'url'       => "https://{$domain_url}{$endpoint_path}",
+				/** This filter is documented in wp-includes/class-wp-http-streams.php */
+				'sslverify' => apply_filters('https_local_ssl_verify', false),
+				'label'     => 'HTTPS with SSL verification',
+			],
+			[
+				'url'   => "http://{$domain_url}{$endpoint_path}",
+				'label' => 'HTTP',
+			],
+		];
+
+		foreach ($protocols_to_test as $protocol_config) {
+			wu_log_add(
+				"domain-{$domain_url}",
+				sprintf(
+					/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: URL being tested */
+					__('Testing domain verification via Loopback using %1$s: %2$s', 'multisite-ultimate'),
+					$protocol_config['label'],
+					$protocol_config['url']
+				)
+			);
+
+			// Make API request with basic auth
+			$response = wp_remote_get(
+				$protocol_config['url'],
+				[
+					'timeout'     => 10,
+					'redirection' => 0,
+					'sslverify'   => $protocol_config['sslverify'] ?? false,
+					'body'        => ['async_check_dns_nonce' => wp_hash($domain_url)],
+				]
+			);
+
+			// Check for connection errors
+			if (is_wp_error($response)) {
+				wu_log_add(
+					"domain-{$domain_url}",
+					sprintf(
+					/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Error Message */
+						__('Failed to connect via %1$s: %2$s', 'multisite-ultimate'),
+						$protocol_config['label'],
+						$response->get_error_message()
+					),
+					LogLevel::WARNING
+				);
+				continue;
+			}
+
+			$response_code = wp_remote_retrieve_response_code($response);
+			$body          = wp_remote_retrieve_body($response);
+
+			// Check HTTP status
+			if (200 !== $response_code) {
+				wu_log_add(
+					"domain-{$domain_url}",
+					sprintf(
+						/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: HTTP Response Code */
+						__('Loopback request via %1$s returned HTTP %2$d', 'multisite-ultimate'),
+						$protocol_config['label'],
+						$response_code
+					),
+					LogLevel::WARNING
+				);
+				continue;
+			}
+
+			// Try to decode JSON response
+			$data = json_decode($body, true);
+
+			if (json_last_error() !== JSON_ERROR_NONE) {
+				wu_log_add(
+					"domain-{$domain_url}",
+					sprintf(
+						/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Json error, %3$s part of the response */
+						__('Loopback response via %1$s is not valid JSON: %2$s : %3$s', 'multisite-ultimate'),
+						$protocol_config['label'],
+						json_last_error_msg(),
+						substr($body, 0, 100)
+					),
+					LogLevel::WARNING
+				);
+				continue;
+			}
+
+			// Check if we got a valid domain object back
+			if (isset($data['id']) && (int) $data['id'] === $domain_id) {
+				wu_log_add(
+					"domain-{$domain_url}",
+					sprintf(
+					/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number */
+						__('Domain verification successful via Loopback using %1$s. Domain ID %2$d confirmed.', 'multisite-ultimate'),
+						$protocol_config['label'],
+						$domain_id
+					)
+				);
+
+				return true;
+			}
+
+			wu_log_add(
+				"domain-{$domain_url}",
+				sprintf(
+				/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number, %3$s Domain ID number */
+					__('Loopback response via %1$s did not contain expected domain ID. Expected: %2$d, Got: %3$s', 'multisite-ultimate'),
+					$protocol_config['label'],
+					$domain_id,
+					isset($data['id']) ? $data['id'] : 'null'
+				),
+				LogLevel::WARNING
+			);
+		}
+
+		wu_log_add(
+			"domain-{$domain_url}",
+			__('Domain verification failed via loopback on all protocols (HTTPS with SSL, HTTPS without SSL, HTTP).', 'multisite-ultimate'),
+			LogLevel::ERROR
+		);
+
+		return false;
 	}
 }

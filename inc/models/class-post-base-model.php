@@ -104,7 +104,7 @@ class Post_Base_Model extends Base_Model {
 		parent::load_attributes_from_post();
 
 		if (isset($_POST['content'])) { // phpcs:ignore WordPress.Security.NonceVerification
-			$this->set_content(sanitize_post_field('content', wp_unslash($_POST['content']), $this->get_id(), 'db')); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification
+			$this->set_content(sanitize_post_field('post_content', wp_unslash($_POST['content']), $this->get_id(), 'db')); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification
 		}
 
 		return $this;

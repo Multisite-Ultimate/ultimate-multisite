@@ -352,9 +352,10 @@ class Current_Site_Element extends Base_Element {
 	 */
 	public function output($atts, $content = null): void {
 
-		// Defensive check - setup() may have been called but site can still be null
+		$this->ensure_setup();
+
+		// Return empty if no site available (e.g., during SEO processing)
 		if ( ! $this->site) {
-			_doing_it_wrong(__METHOD__, esc_html__('setup() or setup_preview() must be called before output().', 'multisite-ultimate'));
 			return;
 		}
 
@@ -363,22 +364,22 @@ class Current_Site_Element extends Base_Element {
 				'label'        => __('Visit Site', 'multisite-ultimate'),
 				'icon_classes' => 'dashicons-wu-browser wu-align-text-bottom',
 				'classes'      => '',
-				'href'         => $this->site->get_active_site_url(),
+				'href'         => $this->site ? $this->site->get_active_site_url() : '',
 			],
 			'edit_site'  => [
 				'label'        => __('Edit Site', 'multisite-ultimate'),
 				'icon_classes' => 'dashicons-wu-edit wu-align-text-bottom',
 				'classes'      => 'wubox',
-				'href'         => wu_get_form_url(
+				'href'         => $this->site ? wu_get_form_url(
 					'edit_site',
 					[
 						'site' => $this->site->get_hash(),
 					]
-				),
+				) : '',
 			],
 		];
 
-		if ($atts['show_admin_link']) {
+		if ($atts['show_admin_link'] && $this->site) {
 			$actions['site_admin'] = [
 				'label'        => __('Admin Panel', 'multisite-ultimate'),
 				'icon_classes' => 'dashicons-wu-grid wu-align-text-bottom',

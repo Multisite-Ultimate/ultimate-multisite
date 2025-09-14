@@ -300,6 +300,10 @@ class Base_List_Table extends \WP_List_Table {
 	 */
 	public function has_items() {
 
+		if ( ! empty($this->items)) {
+			return true;
+		}
+
 		$key = $this->get_table_id();
 
 		$results = $this->get_items(1, 1, false);

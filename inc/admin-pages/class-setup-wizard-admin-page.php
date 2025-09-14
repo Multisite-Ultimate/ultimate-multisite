@@ -143,6 +143,8 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		 * Redirect on activation
 		 */
 		add_action('wu_activation', [$this, 'redirect_to_wizard']);
+
+		add_action('admin_init', [$this, 'alert_incomplete_installation']);
 	}
 
 	/**
@@ -722,6 +724,42 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		wp_safe_redirect($this->get_next_section_link());
 
 		exit;
+	}
+
+	/**
+	 * Adds an admin notice telling the admin that the installation is incomplete.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
+	public function alert_incomplete_installation(): void {
+
+		if (WP_Ultimo()->is_loaded() === false) {
+			return;
+		}
+
+		$has_sunrise_setup = defined('SUNRISE') && SUNRISE && defined('WP_ULTIMO_SUNRISE_VERSION');
+
+		if ($has_sunrise_setup) {
+			return;
+		}
+
+		if (! defined('SUNRISE') || ! SUNRISE) {
+			$message = sprintf(__('The SUNRISE constant is missing. Domain mapping and plugin/theme limits will not function until `%s` is added to wp-config.php. Please complete the setup to attempt to do this automatically.'), 'define( SUNRISE, \'1\' );');
+		} else {
+			$message = __('Multisite Ultimate installation is incomplete. The sunrise.php file is missing. Please complete the setup to ensure proper functionality.', 'multisite-ultimate');
+		}
+
+
+
+		$actions = [
+			'complete_setup' => [
+				'title' => __('Complete Setup', 'multisite-ultimate'),
+				'url'   => wu_network_admin_url('wp-ultimo-setup'),
+			],
+		];
+
+		WP_Ultimo()->notices->add($message, 'error', 'network-admin', 'incomplete-installation', $actions);
 	}
 
 	/**

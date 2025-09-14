@@ -78,7 +78,7 @@ class Limitations_Test extends WP_UnitTestCase {
 
 		// Use reflection to access protected modules property
 		$reflection = new \ReflectionClass($limitations);
-		$modules_property = $reflection->getProperty('modules');
+		$modules_property = $reflection->getProperty('raw_module_data');
 		$modules_property->setAccessible(true);
 		$modules = $modules_property->getValue($limitations);
 
@@ -199,11 +199,11 @@ class Limitations_Test extends WP_UnitTestCase {
 
 		// Use reflection to access protected modules property
 		$reflection = new \ReflectionClass($limitations);
-		$modules_property = $reflection->getProperty('modules');
+		$modules_property = $reflection->getProperty('raw_module_data');
 		$modules_property->setAccessible(true);
 		$modules = $modules_property->getValue($limitations);
 
-		$this->assertCount($expected_count, $modules);
+		$this->assertEquals($modules_data, $modules);
 	}
 
 	/**
@@ -284,11 +284,11 @@ class Limitations_Test extends WP_UnitTestCase {
 	 */
 	public function test_exists_method(array $modules_data, string $module_name, bool $should_exist): void {
 		$limitations = new Limitations($modules_data);
-		$result = $limitations->exists($module_name);
+		$result      = $limitations->exists($module_name);
 
 		if ($should_exist) {
 			$this->assertNotFalse($result);
-			$this->assertIsObject($result);
+			$this->assertTrue($result);
 		} else {
 			$this->assertFalse($result);
 		}

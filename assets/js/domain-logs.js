@@ -12,7 +12,7 @@
 							return_ascii: 'no',
 						},
 						success(response) {
-							$('#content').html(response.data.contents);
+							$('#content').text(response.data.contents);
 
 							if (typeof callback !== 'undefined') {
 								callback();

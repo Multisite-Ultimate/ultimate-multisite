@@ -135,7 +135,7 @@ class WPMUDEV_Host_Provider extends Base_Host_Provider {
 
 		$domains = [$domain];
 
-		if (! str_starts_with($domain, 'www.')) {
+		if (! str_starts_with($domain, 'www.') && \WP_Ultimo\Managers\Domain_Manager::get_instance()->should_create_www_subdomain($domain)) {
 			$domains[] = "www.$domain";
 		}
 

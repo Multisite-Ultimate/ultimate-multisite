@@ -1,0 +1,26 @@
+--- a/src/Broker/Cookies.php
++++ b/src/Broker/Cookies.php
+@@ -43,6 +43,7 @@ class Cookies implements \ArrayAccess
+     /**
+      * @inheritDoc
+      */
++    #[\ReturnTypeWillChange]
+     public function offsetSet($name, $value)
+     {
+         $success = setcookie($name, $value, time() + $this->ttl, $this->path, $this->domain, $this->secure, true);
+@@ -66,6 +67,7 @@ class Cookies implements \ArrayAccess
+     /**
+      * @inheritDoc
+      */
++    #[\ReturnTypeWillChange]
+     public function offsetGet($name)
+     {
+         return $_COOKIE[$name] ?? null;
+@@ -74,6 +76,7 @@ class Cookies implements \ArrayAccess
+     /**
+      * @inheritDoc
+      */
++    #[\ReturnTypeWillChange]
+     public function offsetExists($name)
+     {
+         return isset($_COOKIE[$name]);

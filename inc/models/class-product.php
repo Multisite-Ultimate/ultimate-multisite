@@ -327,6 +327,19 @@ class Product extends Base_Model implements Limitable {
 	}
 
 	/**
+	 * @return $this
+	 */
+	public function load_attributes_from_post() {
+		parent::load_attributes_from_post();
+
+		if (isset($_POST['description'])) { // phpcs:ignore WordPress.Security.NonceVerification
+			$this->set_description(sanitize_post_field('post_content', wp_unslash($_POST['description']), $this->get_id(), 'db')); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Get featured image ID.
 	 *
 	 * @since 2.0.0
@@ -1373,7 +1386,8 @@ class Product extends Base_Model implements Limitable {
 	public function get_available_addons() {
 
 		if (null === $this->available_addons) {
-			$this->available_addons = $this->get_meta('wu_available_addons', []);
+			$this->available_addons = $this->get_meta('wu_
+			available_addons', []);
 
 			if (is_string($this->available_addons)) {
 				$this->available_addons = explode(',', $this->available_addons);

@@ -443,6 +443,19 @@ abstract class Base_Element {
 	public function setup_preview() {}
 
 	/**
+	 * Ensures setup is called before output to prevent errors.
+	 * 
+	 * @since 2.4.3
+	 * @return void
+	 */
+	protected function ensure_setup() {
+		if (!$this->loaded) {
+			$this->is_preview() ? $this->setup_preview() : $this->setup();
+			$this->loaded = true;
+		}
+	}
+
+	/**
 	 * Checks content to see if the current element is present.
 	 *
 	 * This check uses different methods, covering classic shortcodes,

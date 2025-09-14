@@ -256,7 +256,7 @@ class Customer_List_Table extends Base_List_Table {
 	 * @param \WP_Ultimo\Models\Customer $item The line item being displayed.
 	 * @return void
 	 */
-	public function single_row_grid($item): void {
+	public function single_row_grid($item) {
 
 		wu_get_template(
 			'base/customers/grid-item',

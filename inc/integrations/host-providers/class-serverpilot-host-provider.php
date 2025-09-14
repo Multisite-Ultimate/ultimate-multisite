@@ -11,7 +11,7 @@ namespace WP_Ultimo\Integrations\Host_Providers;
 
 use Psr\Log\LogLevel;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * This base class should be extended to implement new host integrations for SSL and domains.
@@ -119,10 +119,16 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 		$current_domain_list = $this->get_server_pilot_domains();
 
 		if ($current_domain_list && is_array($current_domain_list)) {
+			$domains_to_add = [$domain];
+
+			if (\WP_Ultimo\Managers\Domain_Manager::get_instance()->should_create_www_subdomain($domain)) {
+				$domains_to_add[] = 'www.' . $domain;
+			}
+
 			$this->send_server_pilot_api_request(
 				'',
 				[
-					'domains' => array_merge($current_domain_list, [$domain, 'www.' . $domain]),
+					'domains' => array_merge($current_domain_list, $domains_to_add),
 				]
 			);
 

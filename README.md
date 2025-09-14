@@ -18,7 +18,7 @@
 <p align="center">
   <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/tests.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/tests.yml/badge.svg" alt="Unit & Integration Tests"></a>
   <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/e2e.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/e2e.yml/badge.svg" alt="E2E Tests"></a>
-  <a href="https://img.shields.io/coderabbit/prs/github/superdav42/wp-multisite-waas?utm_source=oss&utm_medium=github&utm_campaign=superdav42%2Fwp-multisite-waas&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews"><img src="https://img.shields.io/coderabbit/prs/github/superdav42/wp-multisite-waas?utm_source=oss&utm_medium=github&utm_campaign=superdav42%2Fwp-multisite-waas&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews" alt="E2E Tests"></a>
+  <a href="https://img.shields.io/coderabbit/prs/github/Multisite-Ultimate/multisite-ultimate?utm_source=oss&utm_medium=github&utm_campaign=Multisite-Ultimate%2Fmultisite-ultimate&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews"><img src="https://img.shields.io/coderabbit/prs/github/Multisite-Ultimate/multisite-ultimate?utm_source=oss&utm_medium=github&utm_campaign=Multisite-Ultimate%2Fmultisite-ultimate&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews" alt="Code Rabbit"></a>
 </p>
 
 ## 🌟 Overview

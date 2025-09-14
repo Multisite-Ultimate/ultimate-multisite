@@ -252,7 +252,14 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 			return;
 		}
 
-		$should_add_www = apply_filters('wu_cloudflare_should_add_www', true, $subdomain, $site_id);
+        // Build FQDN so Domain_Manager can classify main vs. subdomain correctly.
+        $full_domain = $subdomain . '.' . $current_site->domain;
+        $should_add_www = apply_filters(
+            'wu_cloudflare_should_add_www',
+            \WP_Ultimo\Managers\Domain_Manager::get_instance()->should_create_www_subdomain($full_domain),
+            $subdomain,
+            $site_id
+        );
 
 		$domains_to_send = [$subdomain];
 

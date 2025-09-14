@@ -147,7 +147,8 @@
                 "patches/berlindb-core-src-database-column-php.patch"
             ],
             "jasny/sso": [
-                "patches/jasny-sso-src-broker-cookies-php.patch"
+                "patches/jasny-sso-src-broker-cookies-php.patch",
+                "patches/jasny-sso-php8-compatibility.patch"
             ]
         },
         "installer-paths": {

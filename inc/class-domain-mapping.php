@@ -122,6 +122,8 @@ class Domain_Mapping {
 		 */
 		add_filter('pre_get_site_by_path', [$this, 'check_domain_mapping'], 10, 2);
 
+		add_action('ms_site_not_found', [$this, 'verify_dns_mapping'], 5, 3);
+
 		/*
 		 * When a site gets delete, clean up the mapped domains
 		 */
@@ -241,6 +243,33 @@ class Domain_Mapping {
 	}
 
 	/**
+	 * Check if this is a special loopback request.
+	 *
+	 * @param null|false|\WP_Site $current_site Current Site.
+	 * @param string              $domain Current domain.
+	 * @param string              $path   Current Path.
+	 *
+	 * @return void
+	 */
+	public function verify_dns_mapping($current_site, $domain, $path) {
+
+		// Nonce functions are unavailable and the wp_hash is basically the same.
+		if (isset($_REQUEST['async_check_dns_nonce'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			// This is very early in the request we need these to use wp_hash.
+			require_once ABSPATH . WPINC . '/l10n.php';
+			require_once ABSPATH . WPINC . '/pluggable.php';
+			if (hash_equals(wp_hash($domain), $_REQUEST['async_check_dns_nonce'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+				$domains = $this->get_www_and_nowww_versions($domain);
+
+				$mapping = Domain::get_by_domain($domains);
+				if ($mapping) {
+					wp_send_json($mapping->to_array());
+				}
+			}
+		}
+	}
+
+	/**
 	 * Checks if we have a site associated with the domain being accessed
 	 *
 	 * This method tries to find a site on the network that has a mapping related to the current
@@ -254,6 +283,7 @@ class Domain_Mapping {
 	 */
 	public function check_domain_mapping($site, $domain) {
 
+		$this->verify_dns_mapping($site, $domain, '/');
 		// Have we already matched? (Allows other plugins to match first)
 		if ( ! empty($site)) {
 			return $site;

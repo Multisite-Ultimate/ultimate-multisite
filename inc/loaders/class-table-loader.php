@@ -12,6 +12,8 @@
 namespace WP_Ultimo\Loaders;
 
 // Exit if accessed directly
+use WP_Ultimo\Database\Engine\Table;
+
 defined('ABSPATH') || exit;
 
 /**
@@ -250,7 +252,7 @@ class Table_Loader {
 	 * Returns all the table objects.
 	 *
 	 * @since 2.0.0
-	 * @return array
+	 * @return Table[]
 	 */
 	public function get_tables() {
 

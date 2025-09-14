@@ -667,6 +667,8 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 		];
 
+		$plans_as_options = wu_get_plans_as_options();
+
 		$sections['ups-and-downs'] = [
 			'title'  => __('Up & Downgrades', 'multisite-ultimate'),
 			'desc'   => __('Settings related to upgrade and downgrade flows.', 'multisite-ultimate'),
@@ -699,7 +701,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					'placeholder' => __('Search for a package or service', 'multisite-ultimate'),
 					'desc'        => __('This products will be offered inside upgrade/downgrade forms as order bumps.', 'multisite-ultimate'),
 					'html_attr'   => [
-						'data-exclude'      => implode(',', array_keys(wu_get_plans_as_options())),
+						'data-exclude'      => implode(',', array_keys($plans_as_options)),
 						'data-model'        => 'product',
 						'data-value-field'  => 'id',
 						'data-label-field'  => 'name',
@@ -709,7 +711,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 							wu_get_products(
 								[
 									'id__in'     => $this->get_object()->get_available_addons(),
-									'id__not_in' => array_keys(wu_get_plans_as_options()),
+									'id__not_in' => array_keys($plans_as_options),
 								]
 							)
 						),

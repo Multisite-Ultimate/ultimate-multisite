@@ -97,6 +97,45 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 	}
 
 	/**
+	 * Handle secure deletion of customer meta fields.
+	 *
+	 * @since 2.0.11
+	 * @return void
+	 */
+	public function page_loaded() {
+
+		// Handle delete meta field action
+		if (isset($_GET['delete_meta_key']) && isset($_GET['_wpnonce'])) {
+
+			$meta_key = sanitize_key($_GET['delete_meta_key']);
+			$nonce = sanitize_text_field($_GET['_wpnonce']);
+
+			// Verify nonce for security
+			if ( ! wp_verify_nonce($nonce, 'delete_customer_meta_' . $meta_key)) {
+				wp_die(__('Security check failed. Please try again.', 'multisite-ultimate'));
+			}
+
+			$customer = $this->get_object();
+			if ($customer) {
+				$deleted = wu_delete_customer_meta($customer->get_id(), $meta_key);
+
+				$redirect_args = [
+					'updated' => $deleted ? 'meta_deleted' : 'meta_delete_failed',
+					'tab'     => 'custom_meta'
+				];
+
+				$redirect_url = add_query_arg($redirect_args, wu_network_admin_url('wp-ultimo-edit-customer', ['id' => $customer->get_id()]));
+				
+				wp_safe_redirect($redirect_url);
+				exit;
+			}
+		}
+
+		// Call parent to preserve existing functionality (e.g., adding new fields)
+		parent::page_loaded();
+	}
+
+	/**
 	 * Allow child classes to register scripts and styles that can be loaded on the output function, for example.
 	 *
 	 * @return void
@@ -411,10 +450,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 		foreach ($custom_meta_keys as $key => $value) {
 			$field_location_breadcrumbs = [
-				__(
-					'orphan field - the original form no longer exists',
-					'multisite-ultimate'
-				),
+				__('Custom field', 'multisite-ultimate'),
 			];
 
 			$form = wu_get_isset($value, 'form');
@@ -444,10 +480,25 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 			$options = array_merge(['' => '--'], $options);
 
+			// Add simple delete link for orphaned fields (those without form reference)
+			$delete_link = '';
+			if ( ! $form) {
+				$delete_url = add_query_arg([
+					'delete_meta_key' => $key,
+					'_wpnonce' => wp_create_nonce('delete_customer_meta_' . $key),
+				]);
+
+				$delete_link = sprintf(
+					'<small style="float: right;"><a href="%s" style="color: red; text-decoration: none;">%s</a></small>',
+					esc_url($delete_url),
+					__('Delete', 'multisite-ultimate')
+				);
+			}
+
 			$field_data = [
 				'title'   => wu_get_isset($value, 'title', wu_slug_to_name($key)),
 				'type'    => wu_get_isset($value, 'type', 'text'),
-				'desc'    => wu_get_isset($value, 'description', '') . $location,
+				'desc'    => wu_get_isset($value, 'description', '') . $location . $delete_link,
 				'options' => $options,
 				'tooltip' => wu_get_isset($value, 'tooltip', ''),
 				'value'   => wu_get_customer_meta($this->get_object()->get_id(), $key),
@@ -1248,6 +1299,8 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		}
 
 		$removable_query_args[] = 'notice_verification_sent';
+		$removable_query_args[] = 'delete_meta_key';
+		$removable_query_args[] = '_wpnonce';
 
 		return $removable_query_args;
 	}

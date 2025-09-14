@@ -72,7 +72,7 @@ class Hooks {
 	 */
 	public static function on_activation_do(): void {
 
-		if (get_network_option(null, 'wu_activation') === 'yes' && wu_request('activate')) {
+		if (wu_request('activate') && get_network_option(null, 'wu_activation') === 'yes') {
 
 			// Removes the flag
 			delete_network_option(null, 'wu_activation');

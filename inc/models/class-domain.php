@@ -397,6 +397,12 @@ class Domain extends Base_Model {
 
 		$domain_url = $this->get_domain();
 
+		$domain_manager = \WP_Ultimo\Managers\Domain_Manager::get_instance();
+
+		if ($domain_manager->verify_domain_with_loopback_request($this)) {
+			return true;
+		}
+
 		$network_ip_address = Helper::get_network_public_ip();
 
 		$results = \WP_Ultimo\Managers\Domain_Manager::dns_get_record($domain_url);
@@ -600,7 +606,7 @@ class Domain extends Base_Model {
 	 * @since 2.0.0
 	 *
 	 * @param array|string $domains Domain names to search for.
-	 * @return object
+	 * @return static
 	 */
 	public static function get_by_domain($domains) {
 
@@ -633,7 +639,7 @@ class Domain extends Base_Model {
 		$placeholders_in = implode(',', $placeholders);
 
 		// Prepare the query
-		$query = "SELECT * FROM {$wpdb->wu_dmtable} WHERE domain IN ($placeholders_in) AND active = 1 ORDER BY primary_domain DESC, active DESC, secure DESC LIMIT 1";
+		$query = "SELECT * FROM {$wpdb->wu_dmtable} WHERE domain IN ($placeholders_in) ORDER BY primary_domain DESC, active DESC, secure DESC LIMIT 1";
 
 		$query = $wpdb->prepare($query, $domains); // phpcs:ignore
 

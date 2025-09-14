@@ -2433,7 +2433,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 
 		// Set trial status if needed
 		if ($this->get_status() === Membership_Status::PENDING && $this->is_trialing() && ! $this->get_last_pending_payment()) {
-			if ( ! wu_get_setting('enable_email_verification', true) || $this->get_customer()->get_email_verification() !== 'pending') {
+			if ($this->get_customer()->get_email_verification() !== 'pending') {
 				$this->set_status(Membership_Status::TRIALING);
 			}
 		}

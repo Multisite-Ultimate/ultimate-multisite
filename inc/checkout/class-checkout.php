@@ -812,7 +812,7 @@ class Checkout {
 			/*
 			 * Checks for free memberships.
 			 */
-			if ($this->order->is_free() && $this->order->get_recurring_total() === 0.0 && (! wu_get_setting('enable_email_verification', true) || $this->customer->get_email_verification() !== 'pending')) {
+			if ($this->order->is_free() && $this->order->get_recurring_total() === 0.0 && $this->customer->get_email_verification() !== 'pending') {
 				if ($this->order->get_plan_id() === $this->membership->get_plan_id()) {
 					$this->membership->set_status(Membership_Status::ACTIVE);
 
@@ -829,7 +829,7 @@ class Checkout {
 				$this->membership->set_date_trial_end(gmdate('Y-m-d 23:59:59', $this->order->get_billing_start_date()));
 				$this->membership->set_date_expiration(gmdate('Y-m-d 23:59:59', $this->order->get_billing_start_date()));
 
-				if (wu_get_setting('allow_trial_without_payment_method') && (! wu_get_setting('enable_email_verification', true) || $this->customer->get_email_verification() !== 'pending')) {
+				if (wu_get_setting('allow_trial_without_payment_method') && $this->customer->get_email_verification() !== 'pending') {
 					/*
 					 * In this particular case, we need to set the status to trialing here as we will not update the membership after and then, publish the site.
 					 */
@@ -1717,18 +1717,19 @@ class Checkout {
 		 * First, let's set upm the general rules:
 		 */
 		$rules = [
-			'email_address'    => 'required_without:user_id|email|unique:\WP_User,email',
-			'username'         => 'required_without:user_id|alpha_dash|min:4|lowercase|unique:\WP_User,login',
-			'password'         => 'required_without:user_id|min:6',
-			'password_conf'    => 'same:password',
-			'template_id'      => 'integer|site_template',
-			'products'         => 'products',
-			'gateway'          => '',
-			'valid_password'   => 'accepted',
-			'billing_country'  => 'country|required_with:billing_country',
-			'billing_zip_code' => 'required_with:billing_zip_code',
-			'billing_state'    => 'state',
-			'billing_city'     => 'city',
+			'email_address'              => 'required_without:user_id|email|unique:\WP_User,email',
+			'email_address_confirmation' => 'same:email_address',
+			'username'                   => 'required_without:user_id|alpha_dash|min:4|lowercase|unique:\WP_User,login',
+			'password'                   => 'required_without:user_id|min:6',
+			'password_conf'              => 'same:password',
+			'template_id'                => 'integer|site_template',
+			'products'                   => 'products',
+			'gateway'                    => '',
+			'valid_password'             => 'accepted',
+			'billing_country'            => 'country|required_with:billing_country',
+			'billing_zip_code'           => 'required_with:billing_zip_code',
+			'billing_state'              => 'state',
+			'billing_city'               => 'city',
 		];
 
 		/*
@@ -1859,11 +1860,12 @@ class Checkout {
 		// Add some hidden or compound fields ids
 		$validation_aliases = array_merge(
 			[
-				'password_conf'  => __('Password confirmation', 'multisite-ultimate'),
-				'template_id'    => __('Template ID', 'multisite-ultimate'),
-				'valid_password' => __('Valid password', 'multisite-ultimate'),
-				'products'       => __('Products', 'multisite-ultimate'),
-				'gateway'        => __('Payment Gateway', 'multisite-ultimate'),
+				'password_conf'              => __('Password confirmation', 'multisite-ultimate'),
+				'email_address_confirmation' => __('Email confirmation', 'multisite-ultimate'),
+				'template_id'                => __('Template ID', 'multisite-ultimate'),
+				'valid_password'             => __('Valid password', 'multisite-ultimate'),
+				'products'                   => __('Products', 'multisite-ultimate'),
+				'gateway'                    => __('Payment Gateway', 'multisite-ultimate'),
 			],
 			$base_aliases
 		);
@@ -2259,9 +2261,23 @@ class Checkout {
 	 */
 	public function get_customer_email_verification_status() {
 
-		$should_confirm_email = wu_get_setting('enable_email_verification', true);
+		$email_verification_setting = wu_get_setting('enable_email_verification', 'free_only');
 
-		return $this->order->should_collect_payment() === false && $should_confirm_email ? 'pending' : 'none';
+		switch ($email_verification_setting) {
+			case 'never':
+				return 'none';
+
+			case 'always':
+				return 'pending';
+
+			case 'free_only':
+				return $this->order->should_collect_payment() === false ? 'pending' : 'none';
+
+			default:
+				// Legacy behavior - handle boolean values
+				$should_confirm_email = (bool) $email_verification_setting;
+				return $this->order->should_collect_payment() === false && $should_confirm_email ? 'pending' : 'none';
+		}
 	}
 
 	/**

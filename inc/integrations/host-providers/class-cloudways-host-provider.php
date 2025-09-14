@@ -291,7 +291,7 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 		$domain_list = $this->get_domain_list();
 
 		foreach ($domain_list as $naked_domain) {
-			if (! str_starts_with((string) $naked_domain, 'www.') && ! str_starts_with((string) $naked_domain, '*.')) {
+			if (! str_starts_with((string) $naked_domain, 'www.') && ! str_starts_with((string) $naked_domain, '*.') && \WP_Ultimo\Managers\Domain_Manager::get_instance()->should_create_www_subdomain($naked_domain)) {
 				$domain_list[] = 'www.' . $naked_domain;
 			}
 		}
@@ -378,7 +378,7 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 		foreach ($mappings as $domain) {
 			$final_domain_list[] = $domain;
 
-			if (! str_starts_with((string) $domain, 'www.')) {
+			if (! str_starts_with((string) $domain, 'www.') && \WP_Ultimo\Managers\Domain_Manager::get_instance()->should_create_www_subdomain($domain)) {
 				$final_domain_list[] = "www.$domain";
 			}
 		}

@@ -1674,7 +1674,11 @@ class Site extends Base_Model implements Limitable, Notable {
 
 			$user_id = $customer->get_user_id();
 
-			add_user_to_blog($this->get_id(), $user_id, $role);
+			// only add user to blog if they are not already a member, or we are downgrading their role.
+			// Without this check the user could lose additional roles added manually or with hooks.
+			if ('administrator' !== $role || ! is_user_member_of_blog($user_id, $this->get_id())) {
+				add_user_to_blog($this->get_id(), $user_id, $role);
+			}
 		} elseif ($this->get_type() !== Site_Type::CUSTOMER_OWNED && $original_customer_id) {
 			$user_id = wu_get_customer($original_customer_id)->get_user_id();
 

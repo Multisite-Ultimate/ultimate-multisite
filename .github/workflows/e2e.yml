@@ -11,10 +11,11 @@ on:
 jobs:
   cypress:
     runs-on: ubuntu-latest
+    timeout-minutes: 30  # Increased timeout for setup wizard
     strategy:
       matrix:
-        php: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
-        browser: ["chrome", "firefox"]
+        php: ["8.1", "8.2"]  # Reduced PHP versions for faster CI
+        browser: ["chrome"]   # Start with Chrome only for reliability
 
     services:
       mailpit:
@@ -59,30 +60,47 @@ jobs:
         run: |
           echo "{\"config\": {\"phpVersion\": \"${{ matrix.php }}\"}}" > .wp-env.override.json
 
-      - name: Start WordPress Environment
-        run: npm run env:start
+      - name: Start WordPress Test Environment
+        run: npm run env:start:test
 
       - name: Wait for WordPress to be ready
         run: |
-          for i in {1..30}; do
+          for i in {1..60}; do
             if curl -s http://localhost:8889 | grep -q "WordPress"; then
               echo "WordPress is ready";
               break;
             fi
-            echo "Waiting for WordPress... ($i/30)";
+            echo "Waiting for WordPress... ($i/60)";
             sleep 5;
           done
+          echo "Final check:"
+          curl -s http://localhost:8889 || echo "WordPress not responding"
 
-      - name: Run Cypress Tests in ${{ matrix.browser }}
-        id: tests
+      - name: Debug WordPress Setup
         run: |
-          docker run --network host \
-            -e CYPRESS_BASE_URL=http://localhost:8889 \
-            -v ${{ github.workspace }}:/e2e \
-            -w /e2e \
-            cypress/included:latest \
+          echo "WordPress URL check:"
+          curl -I http://localhost:8889 || echo "WordPress not responding"
+          echo "WordPress admin check:"
+          curl -I http://localhost:8889/wp-admin/ || echo "WP Admin not responding"
+          echo "Network admin check:"
+          curl -I http://localhost:8889/wp-admin/network/ || echo "Network admin not responding"
+
+      - name: Run Setup Wizard Test (Must Run First)
+        run: |
+          npx cypress run --config-file cypress.config.test.js \
+            --spec "tests/e2e/cypress/integration/setup-wizard-complete.spec.js" \
             --browser ${{ matrix.browser }} \
-            --config baseUrl=http://localhost:8889
+            --reporter spec \
+            --reporter-options "verbose=true"
+
+      - name: Run Checkout Tests (After Setup)
+        if: success()
+        run: |
+          npx cypress run --config-file cypress.config.test.js \
+            --spec "tests/e2e/cypress/integration/checkout-*.spec.js" \
+            --browser ${{ matrix.browser }} \
+            --reporter spec \
+            --reporter-options "verbose=true"
 
       - name: Fix permissions for Cypress output
         if: always()

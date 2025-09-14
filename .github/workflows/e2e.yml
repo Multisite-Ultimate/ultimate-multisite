@@ -125,8 +125,8 @@ jobs:
         continue-on-error: true
         run: |
           echo "=== Starting Setup Wizard Test ==="
-          set -e
 
+          # Don't exit on errors - we want to capture the result
           npx cypress run \
             --config-file cypress.config.test.js \
             --spec "tests/e2e/cypress/integration/setup-wizard-complete.spec.js" \
@@ -136,13 +136,20 @@ jobs:
             --env "CYPRESS_CRASH_REPORTS=0" \
             --record false \
             --video true \
-            --screenshot-on-failure true || {
-              echo "❌ Setup wizard test failed with exit code $?"
-              echo "Capturing failure information..."
-              ls -la tests/e2e/cypress/screenshots/ 2>/dev/null || echo "No screenshots"
-              ls -la tests/e2e/cypress/videos/ 2>/dev/null || echo "No videos"
-              exit 1
-            }
+            --screenshot-on-failure true
+
+          CYPRESS_EXIT_CODE=$?
+
+          if [ $CYPRESS_EXIT_CODE -eq 0 ]; then
+            echo "✅ Setup wizard test passed successfully"
+            echo "setup_success=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Setup wizard test failed with exit code $CYPRESS_EXIT_CODE"
+            echo "Capturing failure information..."
+            ls -la tests/e2e/cypress/screenshots/ 2>/dev/null || echo "No screenshots"
+            ls -la tests/e2e/cypress/videos/ 2>/dev/null || echo "No videos"
+            echo "setup_success=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Verify Setup Completed Successfully
         if: success()
@@ -152,25 +159,54 @@ jobs:
           curl -s "http://localhost:8889/wp-admin/network/" | grep -i "ultimo\|dashboard" && echo "✅ Setup appears successful" || echo "⚠️  Setup verification unclear"
 
       - name: Run Checkout Tests (After Setup)
-        if: steps.setup-test.outcome == 'success'
+        if: steps.setup-test.outputs.setup_success == 'true'
         continue-on-error: true
         run: |
           echo "=== Starting Checkout Tests ==="
+          echo "Setup wizard passed, now running comprehensive checkout test suite..."
 
-          npx cypress run \
-            --config-file cypress.config.test.js \
-            --spec "tests/e2e/cypress/integration/checkout-registration.spec.js" \
-            --browser ${{ matrix.browser }} \
-            --reporter spec \
-            --reporter-options "verbose=true" \
-            --env "CYPRESS_CRASH_REPORTS=0" \
-            --record false \
-            --video true \
-            --screenshot-on-failure true || {
-              echo "❌ Checkout test failed with exit code $?"
-              echo "Capturing failure information..."
-              exit 1
-            }
+          # Run all checkout tests in sequence
+          CHECKOUT_TESTS=(
+            "tests/e2e/cypress/integration/checkout-registration.spec.js"
+            "tests/e2e/cypress/integration/checkout-validation.spec.js"
+            "tests/e2e/cypress/integration/checkout-scenarios.spec.js"
+            "tests/e2e/cypress/integration/checkout-confirmation.spec.js"
+          )
+
+          TOTAL_FAILURES=0
+
+          for TEST_SPEC in "${CHECKOUT_TESTS[@]}"; do
+            echo "Running: $TEST_SPEC"
+
+            npx cypress run \
+              --config-file cypress.config.test.js \
+              --spec "$TEST_SPEC" \
+              --browser ${{ matrix.browser }} \
+              --reporter spec \
+              --reporter-options "verbose=true" \
+              --env "CYPRESS_CRASH_REPORTS=0" \
+              --record false \
+              --video true \
+              --screenshot-on-failure true
+
+            CYPRESS_EXIT_CODE=$?
+
+            if [ $CYPRESS_EXIT_CODE -eq 0 ]; then
+              echo "✅ $TEST_SPEC passed"
+            else
+              echo "❌ $TEST_SPEC failed with exit code $CYPRESS_EXIT_CODE"
+              TOTAL_FAILURES=$((TOTAL_FAILURES + 1))
+            fi
+          done
+
+          if [ $TOTAL_FAILURES -gt 0 ]; then
+            echo "❌ $TOTAL_FAILURES checkout tests failed"
+            echo "Capturing failure information..."
+            ls -la tests/e2e/cypress/screenshots/ 2>/dev/null || echo "No screenshots"
+            ls -la tests/e2e/cypress/videos/ 2>/dev/null || echo "No videos"
+          else
+            echo "✅ All checkout tests passed successfully!"
+          fi
 
       - name: Fix permissions for Cypress output
         if: always()

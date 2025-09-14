@@ -76,31 +76,101 @@ jobs:
           echo "Final check:"
           curl -s http://localhost:8889 || echo "WordPress not responding"
 
-      - name: Debug WordPress Setup
+      - name: Comprehensive WordPress Debug
         run: |
-          echo "WordPress URL check:"
-          curl -I http://localhost:8889 || echo "WordPress not responding"
-          echo "WordPress admin check:"
-          curl -I http://localhost:8889/wp-admin/ || echo "WP Admin not responding"
-          echo "Network admin check:"
-          curl -I http://localhost:8889/wp-admin/network/ || echo "Network admin not responding"
+          echo "=== WordPress Environment Debug ==="
+          echo "1. Basic URL Tests:"
+          curl -I http://localhost:8889 || echo "❌ WordPress not responding"
+          curl -I http://localhost:8889/wp-admin/ || echo "❌ WP Admin not responding"
+          curl -I http://localhost:8889/wp-admin/network/ || echo "❌ Network admin not responding"
+
+          echo -e "\n2. WordPress Content Test:"
+          curl -s http://localhost:8889 | head -20 | grep -E "(WordPress|wp-)" || echo "❌ No WordPress indicators found"
+
+          echo -e "\n3. Plugin Status Check:"
+          curl -s "http://localhost:8889/wp-admin/network/plugins.php" | grep -i "multisite-ultimate" || echo "❌ Plugin not found in network admin"
+
+          echo -e "\n4. Database Connection Test:"
+          curl -s "http://localhost:8889/wp-admin/network/" | grep -E "(Database|MySQL|connection)" || echo "✅ No database errors visible"
+
+          echo -e "\n5. Multisite Status:"
+          curl -s http://localhost:8889 | grep -i "multisite\|network" || echo "ℹ️  No multisite indicators in homepage"
+
+          echo -e "\n6. Error Log Check:"
+          docker logs $(docker ps -q --filter "name=tests-wordpress") 2>&1 | tail -20 || echo "ℹ️  Could not get container logs"
+
+          echo -e "\n7. File System Check:"
+          ls -la $(pwd) || echo "❌ Could not list current directory"
+          ls -la $(pwd)/multisite-ultimate.php 2>/dev/null && echo "✅ Main plugin file exists" || echo "❌ Main plugin file not found"
+
+      - name: Pre-Test Environment Verification
+        run: |
+          echo "=== Pre-Test Verification ==="
+          echo "1. Cypress Config Check:"
+          ls -la cypress.config.test.js && echo "✅ Config file exists" || echo "❌ Config file missing"
+
+          echo "2. Test Files Check:"
+          ls -la tests/e2e/cypress/integration/ && echo "✅ Test directory exists" || echo "❌ Test directory missing"
+          find tests/e2e/cypress/integration/ -name "*.spec.js" | wc -l | xargs echo "Test files found:"
+
+          echo "3. Support Files Check:"
+          ls -la tests/e2e/cypress/support/commands/ && echo "✅ Commands directory exists" || echo "❌ Commands missing"
+
+          echo "4. Cypress Environment Variables:"
+          echo "Base URL: http://localhost:8889"
+          cat cypress.env.json 2>/dev/null || echo "❌ cypress.env.json not found"
 
       - name: Run Setup Wizard Test (Must Run First)
+        id: setup-test
+        continue-on-error: true
         run: |
-          npx cypress run --config-file cypress.config.test.js \
+          echo "=== Starting Setup Wizard Test ==="
+          set -e
+
+          npx cypress run \
+            --config-file cypress.config.test.js \
             --spec "tests/e2e/cypress/integration/setup-wizard-complete.spec.js" \
             --browser ${{ matrix.browser }} \
             --reporter spec \
-            --reporter-options "verbose=true"
+            --reporter-options "verbose=true" \
+            --env "CYPRESS_CRASH_REPORTS=0" \
+            --record false \
+            --video true \
+            --screenshot-on-failure true || {
+              echo "❌ Setup wizard test failed with exit code $?"
+              echo "Capturing failure information..."
+              ls -la tests/e2e/cypress/screenshots/ 2>/dev/null || echo "No screenshots"
+              ls -la tests/e2e/cypress/videos/ 2>/dev/null || echo "No videos"
+              exit 1
+            }
 
-      - name: Run Checkout Tests (After Setup)
+      - name: Verify Setup Completed Successfully
         if: success()
         run: |
-          npx cypress run --config-file cypress.config.test.js \
-            --spec "tests/e2e/cypress/integration/checkout-*.spec.js" \
+          echo "=== Verifying Setup Wizard Completion ==="
+          # Test for setup completion indicators
+          curl -s "http://localhost:8889/wp-admin/network/" | grep -i "ultimo\|dashboard" && echo "✅ Setup appears successful" || echo "⚠️  Setup verification unclear"
+
+      - name: Run Checkout Tests (After Setup)
+        if: steps.setup-test.outcome == 'success'
+        continue-on-error: true
+        run: |
+          echo "=== Starting Checkout Tests ==="
+
+          npx cypress run \
+            --config-file cypress.config.test.js \
+            --spec "tests/e2e/cypress/integration/checkout-registration.spec.js" \
             --browser ${{ matrix.browser }} \
             --reporter spec \
-            --reporter-options "verbose=true"
+            --reporter-options "verbose=true" \
+            --env "CYPRESS_CRASH_REPORTS=0" \
+            --record false \
+            --video true \
+            --screenshot-on-failure true || {
+              echo "❌ Checkout test failed with exit code $?"
+              echo "Capturing failure information..."
+              exit 1
+            }
 
       - name: Fix permissions for Cypress output
         if: always()

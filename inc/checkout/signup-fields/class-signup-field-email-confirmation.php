@@ -123,8 +123,7 @@ class Signup_Field_Email_Confirmation extends Base_Signup_Field {
 	public function defaults() {
 
 		return [
-			'display_notices'     => true,
-			'confirmation_label'  => __('Confirm Email Address', 'multisite-ultimate'),
+			'confirmation_label'       => __('Confirm Email Address', 'multisite-ultimate'),
 			'confirmation_placeholder' => __('Re-enter your email address', 'multisite-ultimate'),
 		];
 	}
@@ -153,7 +152,7 @@ class Signup_Field_Email_Confirmation extends Base_Signup_Field {
 	public function force_attributes() {
 
 		return [
-			'id'       => 'email_address',
+			'id'       => 'email_address_confirmation',
 			'required' => true,
 		];
 	}
@@ -167,17 +166,7 @@ class Signup_Field_Email_Confirmation extends Base_Signup_Field {
 	public function get_fields() {
 
 		return [
-			'display_notices' => [
-				'type'      => 'toggle',
-				'title'     => __('Display Notices', 'multisite-ultimate'),
-				'desc'      => __('When the customer is already logged in, a box with the customer\'s username and a link to logout is displayed instead of the email fields. Disable this option if you do not want that box to show up.', 'multisite-ultimate'),
-				'tooltip'   => '',
-				'value'     => 1,
-				'html_attr' => [
-					'v-model' => 'display_notices',
-				],
-			],
-			'confirmation_label' => [
+			'confirmation_label'       => [
 				'type'        => 'text',
 				'title'       => __('Confirmation Field Label', 'multisite-ultimate'),
 				'placeholder' => __('e.g. Confirm Email Address', 'multisite-ultimate'),
@@ -214,119 +203,24 @@ class Signup_Field_Email_Confirmation extends Base_Signup_Field {
 
 		$checkout_fields = [];
 
-		if (is_user_logged_in()) {
-			if ($attributes['display_notices']) {
-				$checkout_fields['login_note'] = [
-					'type'              => 'note',
-					'title'             => __('Not you?', 'multisite-ultimate'),
-					'desc'              => [$this, 'render_not_you_customer_message'],
-					'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
-					'wrapper_html_attr' => [
-						'style' => $this->calculate_style_attr(),
-					],
-				];
-			}
-		} else {
-			if ($attributes['display_notices']) {
-				$checkout_fields['login_note'] = [
-					'type'              => 'note',
-					'title'             => __('Existing customer?', 'multisite-ultimate'),
-					'desc'              => [$this, 'render_existing_customer_message'],
-					'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
-					'wrapper_html_attr' => [
-						'style' => $this->calculate_style_attr(),
-					],
-				];
-			}
-
-			$checkout_fields['email_address'] = [
-				'type'              => 'email',
-				'id'                => 'email_address',
-				'name'              => $attributes['name'],
-				'placeholder'       => $attributes['placeholder'],
-				'tooltip'           => $attributes['tooltip'],
-				'value'             => $this->get_value(),
-				'required'          => true,
-				'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
-				'classes'           => wu_get_isset($attributes, 'element_classes', ''),
-				'wrapper_html_attr' => [
-					'style' => $this->calculate_style_attr(),
-				],
-			];
-
-			$checkout_fields['email_address_confirmation'] = [
-				'type'              => 'email',
-				'id'                => 'email_address_confirmation',
-				'name'              => wu_get_isset($attributes, 'confirmation_label', __('Confirm Email Address', 'multisite-ultimate')),
-				'placeholder'       => wu_get_isset($attributes, 'confirmation_placeholder', __('Re-enter your email address', 'multisite-ultimate')),
-				'tooltip'           => __('Please re-enter your email address to confirm it matches.', 'multisite-ultimate'),
-				'value'             => '',
-				'required'          => true,
-				'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
-				'classes'           => wu_get_isset($attributes, 'element_classes', ''),
-				'wrapper_html_attr' => [
-					'style' => $this->calculate_style_attr(),
-				],
-				'html_attr' => [
-					'data-confirm-email' => 'email_address',
-				],
-			];
-		}
+		$checkout_fields['email_address_confirmation'] = [
+			'type'              => 'email',
+			'id'                => 'email_address_confirmation',
+			'name'              => wu_get_isset($attributes, 'confirmation_label', __('Confirm Email Address', 'multisite-ultimate')),
+			'placeholder'       => wu_get_isset($attributes, 'confirmation_placeholder', __('Re-enter your email address', 'multisite-ultimate')),
+			'tooltip'           => __('Please re-enter your email address to confirm it matches.', 'multisite-ultimate'),
+			'value'             => '',
+			'required'          => true,
+			'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
+			'classes'           => wu_get_isset($attributes, 'element_classes', ''),
+			'wrapper_html_attr' => [
+				'style' => $this->calculate_style_attr(),
+			],
+			'html_attr'         => [
+				'data-confirm-email' => 'email_address',
+			],
+		];
 
 		return $checkout_fields;
-	}
-
-	/**
-	 * Renders the login message for users that are not logged in.
-	 *
-	 * @since 2.0.0
-	 * @return string
-	 */
-	public function render_existing_customer_message() {
-
-		$login_url = wp_login_url(add_query_arg('logged', '1'));
-
-		ob_start(); ?>
-
-		<div class="wu-p-4 wu-bg-yellow-200">
-
-			<?php
-			// translators: %s is the login URL.
-			printf(wp_kses_post(__('<a href="%s">Log in</a> to renew or change an existing membership.', 'multisite-ultimate')), esc_attr($login_url));
-
-			?>
-
-		</div>
-
-		<?php
-		return ob_get_clean();
-	}
-
-	/**
-	 * Renders the login message for users that are logged in.
-	 *
-	 * @since 2.0.0
-	 * @return string
-	 */
-	public function render_not_you_customer_message() {
-
-		$login_url = wp_login_url(add_query_arg('logged', '1'), true);
-
-		ob_start();
-
-		?>
-
-		<p class="wu-p-4 wu-bg-yellow-200">
-		<?php
-
-		// translators: 1$s is the display name of the user currently logged in.
-		printf(wp_kses_post(__('Not %1$s? <a href="%2$s">Log in</a> using your account.', 'multisite-ultimate')), esc_html(wp_get_current_user()->display_name), esc_attr($login_url));
-
-		?>
-		</p>
-
-		<?php
-
-		return ob_get_clean();
 	}
 }

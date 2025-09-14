@@ -145,9 +145,16 @@ jobs:
             echo "setup_success=true" >> $GITHUB_OUTPUT
           else
             echo "❌ Setup wizard test failed with exit code $CYPRESS_EXIT_CODE"
-            echo "Capturing failure information..."
-            ls -la tests/e2e/cypress/screenshots/ 2>/dev/null || echo "No screenshots"
-            ls -la tests/e2e/cypress/videos/ 2>/dev/null || echo "No videos"
+            echo "Capturing detailed failure information..."
+            echo "=== WordPress State ==="
+            curl -I http://localhost:8889 || echo "WordPress not responding"
+            echo "=== Test Files ==="
+            ls -la tests/e2e/cypress/screenshots/ 2>/dev/null || echo "No screenshots directory"
+            ls -la tests/e2e/cypress/videos/ 2>/dev/null || echo "No videos directory"
+            echo "=== Docker Logs ==="
+            docker logs $(docker ps -q --filter "name=tests-wordpress") 2>&1 | tail -10 || echo "No Docker logs"
+            echo "=== File System ==="
+            ls -la tests/e2e/cypress/integration/setup-wizard-complete.spec.js || echo "Setup test file missing"
             echo "setup_success=false" >> $GITHUB_OUTPUT
           fi
 
@@ -159,11 +166,13 @@ jobs:
           curl -s "http://localhost:8889/wp-admin/network/" | grep -i "ultimo\|dashboard" && echo "✅ Setup appears successful" || echo "⚠️  Setup verification unclear"
 
       - name: Run Checkout Tests (After Setup)
-        if: steps.setup-test.outputs.setup_success == 'true'
+        if: always()  # Run checkout tests regardless of setup wizard result for debugging
         continue-on-error: true
         run: |
           echo "=== Starting Checkout Tests ==="
-          echo "Setup wizard passed, now running comprehensive checkout test suite..."
+          echo "Setup wizard result: ${GITHUB_OUTPUT}"
+          echo "Setup success flag: ${{ steps.setup-test.outputs.setup_success }}"
+          echo "Running checkout test suite (setup wizard success not required for debugging)..."
 
           # Run all checkout tests in sequence
           CHECKOUT_TESTS=(

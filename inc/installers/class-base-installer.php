@@ -93,7 +93,7 @@ class Base_Installer {
 		} catch (\Throwable $e) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
-			return new \WP_Error(esc_html($installer), esc_html($e->getMessage()));
+			return new \WP_Error(esc_html($installer), wp_kses_post($e->getMessage()));
 		}
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching

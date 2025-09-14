@@ -353,50 +353,91 @@ function wu_kses_allowed_html(): array {
 
 	$vue_and_data_attributes = [
 		// Vue.js directives
-		'v-html'         => true,
-		'v-show'         => true,
-		'v-if'           => true,
-		'v-else'         => true,
-		'v-else-if'      => true,
-		'v-for'          => true,
-		'v-model'        => true,
-		'v-bind'         => true,
-		'v-on'           => true,
-		'v-cloak'        => true,
-		'v-pre'          => true,
-		'v-once'         => true,
-		'v-text'         => true,
+		'v-html'            => true,
+		'v-show'            => true,
+		'v-if'              => true,
+		'v-else'            => true,
+		'v-else-if'         => true,
+		'v-for'             => true,
+		'v-model'           => true,
+		'v-bind'            => true,
+		'v-bind:class'      => true,
+		'v-on'              => true,
+		'v-cloak'           => true,
+		'v-pre'             => true,
+		'v-once'            => true,
+		'v-text'            => true,
 		// Vue.js shorthand attributes
-		':class'         => true,
-		':style'         => true,
-		'v-on:click'     => true,
-		'v-on:input'     => true,
-		'v-on:change'    => true,
-		'@click'         => true,
-		'@submit'        => true,
-		'@change'        => true,
+		':class'            => true,
+		':style'            => true,
+		'v-on:click'        => true,
+		'v-on:input'        => true,
+		'v-on:change'       => true,
+		'@click'            => true,
+		'@submit'           => true,
+		'@change'           => true,
 		// Common data attributes
-		'data-image'     => true,
-		'data-src'       => true,
-		'data-id'        => true,
-		'data-value'     => true,
-		'data-target'    => true,
-		'data-toggle'    => true,
-		'data-dismiss'   => true,
-		'data-placement' => true,
-		'data-content'   => true,
-		'data-title'     => true,
-		'data-delay'     => true,
-		'data-animation' => true,
-		'data-container' => true,
-		'data-trigger'   => true,
+		'data-image'        => true,
+		'data-src'          => true,
+		'data-id'           => true,
+		'data-value'        => true,
+		'data-target'       => true,
+		'data-toggle'       => true,
+		'data-dismiss'      => true,
+		'data-placement'    => true,
+		'data-content'      => true,
+		'data-title'        => true,
+		'data-delay'        => true,
+		'data-animation'    => true,
+		'data-container'    => true,
+		'data-trigger'      => true,
+		'data-model'        => true,
+		'data-value-field'  => true,
+		'data-label-field'  => true,
+		'data-search-field' => true,
+		'data-max-items'    => true,
+		'data-init'         => true,
+		'tabindex'          => true,
+
 		// others
-		'style'          => true,
+		'style'             => true,
+		'class'             => true,
+		'id'                => true,
 	];
 
-	$allowed_html = wp_kses_allowed_html('post');
+	$allowed_html             = wp_kses_allowed_html('post');
+	$allowed_html['input']    = [
+		'value'       => true,
+		'min'         => true,
+		'max'         => true,
+		'type'        => true,
+		'placeholder' => true,
+		'name'        => true,
+		'disabled'    => true,
+	];
+	$allowed_html['textarea'] = [
+		'name'     => true,
+		'disabled' => true,
+	];
+	$allowed_html['select']   = [
+		'multiple'    => true,
+		'disabled'    => true,
+		'name'        => true,
+		'placeholder' => true,
+	];
+	$allowed_html['option']   = [
+		'selected' => true,
+		'disabled' => true,
+		'name'     => true,
+		'value'    => true,
+	];
+	$allowed_html['button']   = [
+		'disabled' => true,
+		'name'     => true,
+		'value'    => true,
+	];
 
-	return $allowed_html + [
+	return [
 		'svg'            => $svg_attributes + [
 			'width'               => true,
 			'height'              => true,
@@ -512,5 +553,5 @@ function wu_kses_allowed_html(): array {
 			'width'            => true,
 			'height'           => true,
 		],
-	] + array_fill_keys(['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'em', 'b', 'i', 'ul', 'ol', 'li', 'a', 'img'], $vue_and_data_attributes);
+	] + array_merge_recursive($allowed_html, array_fill_keys(array_keys($allowed_html) + ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'em', 'b', 'i', 'ul', 'ol', 'li', 'a', 'img', 'input', 'textarea'], $vue_and_data_attributes));
 }

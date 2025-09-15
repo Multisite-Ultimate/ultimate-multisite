@@ -216,7 +216,7 @@ abstract class Base_Admin_Page {
 	}
 
 	/**
-	 * Returns the appropriate capability for a this page, depending on the context.
+	 * Returns the appropriate capability for this page, depending on the context.
 	 *
 	 * @since 2.0.0
 	 * @return string

@@ -343,10 +343,11 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 				],
 			],
 			'installation' => [
-				'title'       => __('Installation', 'multisite-ultimate'),
-				'description' => __('Now, let\'s update your database and install the Sunrise.php file, which are necessary for the correct functioning of Multisite Ultimate.', 'multisite-ultimate'),
-				'next_label'  => Core_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'multisite-ultimate') : __('Install', 'multisite-ultimate'),
-				'fields'      => [
+				'title'        => __('Installation', 'multisite-ultimate'),
+				'description'  => __('Now, let\'s update your database and install the Sunrise.php file, which are necessary for the correct functioning of Multisite Ultimate.', 'multisite-ultimate'),
+				'next_label'   => Core_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'multisite-ultimate') : __('Install', 'multisite-ultimate'),
+				'disable_next' => true,
+				'fields'       => [
 					'terms' => [
 						'type' => 'note',
 						'desc' => fn() => $this->render_installation_steps(Core_Installer::get_instance()->get_steps(), false),
@@ -472,10 +473,11 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 			];
 
 			$sections['defaults'] = [
-				'title'       => __('Default Content', 'multisite-ultimate'),
-				'description' => __('Starting from scratch can be scarry, specially when first starting out. In this step, you can create default content to have a starting point for your network. Everything can be customized later.', 'multisite-ultimate'),
-				'next_label'  => Default_Content_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'multisite-ultimate') : __('Install', 'multisite-ultimate'),
-				'fields'      => [
+				'title'        => __('Default Content', 'multisite-ultimate'),
+				'description'  => __('Starting from scratch can be scarry, specially when first starting out. In this step, you can create default content to have a starting point for your network. Everything can be customized later.', 'multisite-ultimate'),
+				'next_label'   => Default_Content_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'multisite-ultimate') : __('Install', 'multisite-ultimate'),
+				'disable_next' => true,
+				'fields'       => [
 					'terms' => [
 						'type' => 'note',
 						'desc' => fn() => $this->render_installation_steps(Default_Content_Installer::get_instance()->get_steps()),

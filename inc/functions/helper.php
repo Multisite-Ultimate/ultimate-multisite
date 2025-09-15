@@ -414,6 +414,7 @@ function wu_kses_allowed_html(): array {
 		'placeholder' => true,
 		'name'        => true,
 		'disabled'    => true,
+		'checked'     => true,
 	];
 	$allowed_html['textarea'] = [
 		'name'     => true,

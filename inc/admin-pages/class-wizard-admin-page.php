@@ -315,16 +315,17 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 		$section = wp_parse_args(
 			$this->current_section,
 			[
-				'title'       => '',
-				'description' => '',
-				'content'     => '',
-				'fields'      => [],
-				'next_label'  => __('Continue &rarr;', 'multisite-ultimate'),
-				'back_label'  => __('&larr; Go Back', 'multisite-ultimate'),
-				'skip_label'  => __('Skip this Step', 'multisite-ultimate'),
-				'back'        => false,
-				'skip'        => false,
-				'next'        => true,
+				'title'        => '',
+				'description'  => '',
+				'content'      => '',
+				'fields'       => [],
+				'next_label'   => __('Continue &rarr;', 'multisite-ultimate'),
+				'back_label'   => __('&larr; Go Back', 'multisite-ultimate'),
+				'skip_label'   => __('Skip this Step', 'multisite-ultimate'),
+				'disable_next' => false,
+				'back'         => false,
+				'skip'         => false,
+				'next'         => true,
 			]
 		);
 

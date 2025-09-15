@@ -155,6 +155,8 @@
 
     });
 
+    $('#poststuff [name=next]').removeAttr('disabled');
+
   });
 
 }(jQuery));

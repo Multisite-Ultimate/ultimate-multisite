@@ -153,6 +153,7 @@ class Default_Content_Installer extends Base_Installer {
 			'installing'  => __('Creating Template Site...', 'multisite-ultimate'),
 			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
+			'checked'     => true,
 		];
 
 		$steps['create_products'] = [
@@ -163,6 +164,7 @@ class Default_Content_Installer extends Base_Installer {
 			'installing'  => __('Creating Products...', 'multisite-ultimate'),
 			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
+			'checked'     => true,
 		];
 
 		$steps['create_checkout'] = [
@@ -173,6 +175,7 @@ class Default_Content_Installer extends Base_Installer {
 			'installing'  => __('Creating Checkout Form and Registration Page...', 'multisite-ultimate'),
 			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
+			'checked'     => true,
 		];
 
 		$steps['create_emails'] = [
@@ -183,6 +186,7 @@ class Default_Content_Installer extends Base_Installer {
 			'installing'  => __('Creating System Emails...', 'multisite-ultimate'),
 			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
+			'checked'     => true,
 		];
 
 		$steps['create_login_page'] = [
@@ -193,6 +197,7 @@ class Default_Content_Installer extends Base_Installer {
 			'installing'  => __('Creating Custom Login Page...', 'multisite-ultimate'),
 			'success'     => __('Success!', 'multisite-ultimate'),
 			'help'        => wu_get_documentation_url('installation-errors'),
+			'checked'     => true,
 		];
 
 		return $steps;

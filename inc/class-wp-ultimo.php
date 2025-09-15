@@ -141,6 +141,11 @@ final class WP_Ultimo {
 		new WP_Ultimo\Admin_Pages\Setup_Wizard_Admin_Page();
 
 		/*
+		 * Multisite Setup for non-multisite installations
+		 */
+		new WP_Ultimo\Admin_Pages\Multisite_Setup_Admin_Page();
+
+		/*
 		 * Loads the Multisite Ultimate settings helper class.
 		 */
 		$this->settings = WP_Ultimo\Settings::get_instance();

@@ -463,6 +463,10 @@ function wu_kses_allowed_html(): array {
 		'name'     => true,
 		'value'    => true,
 	];
+	$allowed_html['dynamic']  = [
+		':template' => true,
+		'template'  => true,
+	];
 
 	return [
 		'svg'            => $svg_attributes + [

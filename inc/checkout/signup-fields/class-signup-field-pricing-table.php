@@ -277,7 +277,13 @@ class Signup_Field_Pricing_Table extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('pricing_table', $attributes['pricing_table_template']);
 
-		$content = $template_class ? $template_class->render_container($template_attributes) : __('Template does not exist.', 'multisite-ultimate');
+		$desc = function() use($template_attributes, $template_class) {
+			if ($template_class) {
+				$template_class->render_container($template_attributes);
+			} else {
+				esc_html_e('Template does not exist.', 'multisite-ultimate');
+			}
+		};
 
 		$checkout_fields = [];
 
@@ -286,7 +292,7 @@ class Signup_Field_Pricing_Table extends Base_Signup_Field {
 			'id'                => $attributes['id'],
 			'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
 			'classes'           => wu_get_isset($attributes, 'element_classes', ''),
-			'desc'              => $content,
+			'desc'              => $desc,
 			'wrapper_html_attr' => [
 				'style' => $this->calculate_style_attr(),
 			],

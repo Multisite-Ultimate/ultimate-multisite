@@ -349,7 +349,13 @@ class Template_Switching_Element extends Base_Element {
 
 			$template_class = Field_Templates_Manager::get_instance()->get_template_class('template_selection', $atts['template_selection_template']);
 
-			$content = $template_class ? $template_class->render_container($template_attributes, $reducer_class) : __('Template does not exist.', 'multisite-ultimate');
+			$desc = function() use($template_attributes, $template_class) {
+				if ($template_class) {
+					$template_class->render_container($template_attributes);
+				} else {
+					esc_html_e('Template does not exist.', 'multisite-ultimate');
+				}
+			};
 
 			$checkout_fields['back_to_template_selection'] = [
 				'type'              => 'note',
@@ -366,7 +372,7 @@ class Template_Switching_Element extends Base_Element {
 				'type'              => 'note',
 				'wrapper_classes'   => 'wu-w-full',
 				'classes'           => 'wu-w-full',
-				'desc'              => $content,
+				'desc'              => $desc,
 				'wrapper_html_attr' => [
 					'v-show'  => 'template_id == original_template_id',
 					'v-cloak' => '1',

@@ -138,13 +138,13 @@ class Base_Field_Template {
 	/**
 	 * Displays the content on the checkout form as a wrapper.
 	 *
-	 * This method should not be override.
+	 * This method should not be overridden.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @param array  $attributes The field template attributes.
 	 * @param object $signup_field The base field.
-	 * @return string
+	 * @return void
 	 */
 	public function render_container($attributes, $signup_field = false) {
 
@@ -153,11 +153,9 @@ class Base_Field_Template {
 				$attributes = $signup_field->reduce_attributes($attributes);
 			}
 
-			$markup = sprintf('<dynamic :template="get_template(\'%s\', %s)"></dynamic>', esc_js($this->id), esc_attr(wp_json_encode($attributes)));
+			printf('<dynamic :template="get_template(\'%s\', %s)"></dynamic>', esc_js($this->id), esc_attr(wp_json_encode($attributes)));
 		} else {
-			$markup = $this->render($attributes);
+			$this->output($attributes);
 		}
-
-		return $markup;
 	}
 }

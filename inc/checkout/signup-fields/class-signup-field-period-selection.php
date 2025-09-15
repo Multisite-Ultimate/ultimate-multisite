@@ -297,7 +297,13 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('period_selection', $attributes['period_selection_template']);
 
-		$content = $template_class ? $template_class->render_container($attributes) : __('Template does not exist.', 'multisite-ultimate');
+		$desc = function() use($attributes, $template_class) {
+			if ($template_class) {
+				$template_class->render_container($attributes);
+			} else {
+				esc_html_e('Template does not exist.', 'multisite-ultimate');
+			}
+		};
 
 		$checkout_fields = [];
 
@@ -305,7 +311,7 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 			'type'            => 'note',
 			'id'              => $attributes['id'],
 			'wrapper_classes' => $attributes['element_classes'],
-			'desc'            => $content,
+			'desc'            => $desc,
 		];
 
 		$checkout_fields['duration'] = [

@@ -247,12 +247,18 @@ class Signup_Field_Order_Bump extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('order_bump', $attributes['order_bump_template']);
 
-		$content = $template_class ? $template_class->render_container($attributes) : __('Template does not exist.', 'multisite-ultimate');
+		$desc = function() use($attributes, $template_class) {
+			if ($template_class) {
+				$template_class->render_container($attributes);
+			} else {
+				esc_html_e('Template does not exist.', 'multisite-ultimate');
+			}
+		};
 
 		return [
 			$attributes['id'] => [
 				'type'            => 'note',
-				'desc'            => $content,
+				'desc'            => $desc,
 				'wrapper_classes' => $attributes['element_classes'],
 			],
 		];

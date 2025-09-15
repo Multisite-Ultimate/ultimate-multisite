@@ -649,7 +649,7 @@ abstract class Base_Element {
 			return;
 		}
 
-		add_shortcode($this->get_shortcode_id(), [$this, 'display']);
+		add_shortcode($this->get_shortcode_id(), [$this, 'get_content']);
 	}
 
 	/**
@@ -1005,6 +1005,17 @@ abstract class Base_Element {
 	}
 
 	/**
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+    public function get_content($atts): string {
+        ob_start();
+        $this->display($atts);
+        return ob_get_clean();
+    }
+
+	/**
 	 * Retrieves a cleaned up version of the content.
 	 *
 	 * This method strips out vue reactivity tags and more.
@@ -1016,7 +1027,7 @@ abstract class Base_Element {
 	 */
 	public function display_template($atts) {
 
-		$content = $this->display($atts);
+		$content = $this->get_content($atts);
 
 		$content = str_replace(
 			[

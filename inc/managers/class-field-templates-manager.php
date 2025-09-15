@@ -11,6 +11,7 @@
 
 namespace WP_Ultimo\Managers;
 
+use WP_Ultimo\Checkout\Signup_Fields\Field_Templates\Base_Field_Template;
 use WP_Ultimo\Managers\Base_Manager;
 
 // Exit if accessed directly
@@ -177,7 +178,7 @@ class Field_Templates_Manager extends Base_Manager {
 	 *
 	 * @param string $field_type The field type id.
 	 * @param string $field_template_id The field template id.
-	 * @return object
+	 * @return Base_Field_Template
 	 */
 	public function get_template_class($field_type, $field_template_id) {
 

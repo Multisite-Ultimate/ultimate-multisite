@@ -42,7 +42,7 @@ class Signup_Field_Email_Confirmation extends Base_Signup_Field {
 	 */
 	public function is_required(): bool {
 
-		return true;
+		return false;
 	}
 
 	/**

@@ -1,5 +1,5 @@
 {
-  "version": "2.4.3",
+  "version": "2.4.4",
   "name": "multisite-ultimate",
   "title": "Multisite Ultimate",
   "homepage": "https://multisiteultimate.com/",
@@ -28,6 +28,7 @@
     "copylibs": "node scripts/copy-libs.js",
     "build": "npm run copylibs && npm run uglify && npm run cleancss && npm run archive",
     "build:dev": "npm run copylibs && npm run uglify && npm run cleancss && npm run makepot",
+    "build:translate": "npm run copylibs && npm run uglify && npm run cleancss && npm run makepot && npm run translate",
     "prearchive": "php encrypt-sectrets.php",
     "archive": "node scripts/archive.js",
     "postarchive": "node scripts/post-archive.js",
@@ -36,6 +37,8 @@
     "precleancss": "node scripts/clean-css.js",
     "cleancss": "node scripts/cleancss.js",
     "makepot": "node scripts/makepot.js",
+    "translate": "php scripts/translate.php",
+    "translate:force": "php scripts/translate.php --force",
     "env:start": "wp-env start",
     "env:stop": "wp-env stop",
     "env:clean": "wp-env clean all",

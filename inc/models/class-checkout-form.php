@@ -52,10 +52,10 @@ class Checkout_Form extends Base_Model {
 	protected $active = true;
 
 	/**
-	 * Payload of the event.
+	 * Settings which hold the fields of the checkout form
 	 *
 	 * @since 2.0.0
-	 * @var object
+	 * @var array
 	 */
 	protected $settings;
 
@@ -239,7 +239,7 @@ class Checkout_Form extends Base_Model {
 	 * Get settings of the event.
 	 *
 	 * @since 2.0.0
-	 * @return mixed
+	 * @return array
 	 */
 	public function get_settings() {
 
@@ -258,7 +258,7 @@ class Checkout_Form extends Base_Model {
 	 * Set settings of the checkout form.
 	 *
 	 * @since 2.0.0
-	 * @param object $settings The checkout form settings and configurations.
+	 * @param array|string $settings The checkout form settings and configurations.
 	 * @return void
 	 */
 	public function set_settings($settings): void {
@@ -420,8 +420,6 @@ class Checkout_Form extends Base_Model {
 
 	/**
 	 * Get all fields of a given type.
-	 *
-	 * @since 2.0.11
 	 *
 	 * @param string|array $type The field type or types to search for.
 	 * @return array
@@ -1147,7 +1145,7 @@ class Checkout_Form extends Base_Model {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return bool
+	 * @return bool|\WP_Error
 	 */
 	public function save() {
 

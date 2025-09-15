@@ -205,17 +205,6 @@ class Broadcast_Edit_Admin_Page extends Edit_Admin_Page {
 
 				$customer_link = wu_network_admin_url('wp-ultimo-edit-customer', $url_atts);
 
-				$avatar = get_avatar(
-					$customer->get_user_id(),
-					32,
-					'identicon',
-					'',
-					[
-						'force_display' => true,
-						'class'         => 'wu-rounded-full wu-border-solid wu-border-1 wu-border-white hover:wu-border-gray-400',
-					]
-				);
-
 				$display_name = $customer->get_display_name();
 
 				$id = $customer->get_id();
@@ -232,7 +221,16 @@ class Broadcast_Edit_Admin_Page extends Edit_Admin_Page {
 								</a>',
 					esc_attr($customer_link),
 					esc_html($display_name),
-					$avatar, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					get_avatar(
+						$customer->get_user_id(),
+						32,
+						'identicon',
+						'',
+						[
+							'force_display' => true,
+							'class'         => 'wu-rounded-full wu-border-solid wu-border-1 wu-border-white hover:wu-border-gray-400',
+						]
+					),
 					esc_html($id),
 					esc_html($email)
 				);
@@ -245,16 +243,6 @@ class Broadcast_Edit_Admin_Page extends Edit_Admin_Page {
 
 					$email = $customer->get_email_address();
 
-					$avatar = get_avatar(
-						$email,
-						32,
-						'identicon',
-						'',
-						[
-							'class' => 'wu-rounded-full wu-border-solid wu-border-1 wu-border-white hover:wu-border-gray-400',
-						]
-					);
-
 					$url_atts = [
 						'id' => $customer->get_id(),
 					];
@@ -265,7 +253,15 @@ class Broadcast_Edit_Admin_Page extends Edit_Admin_Page {
 						"<div class='wu-flex wu--mr-4'><a role='tooltip' aria-label='%s' href='%s'>%s</a></div>",
 						esc_attr($tooltip_name),
 						esc_attr($customer_link),
-						$avatar // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						get_avatar(
+							$email,
+							32,
+							'identicon',
+							'',
+							[
+								'class' => 'wu-rounded-full wu-border-solid wu-border-1 wu-border-white hover:wu-border-gray-400',
+							]
+						)
 					);
 				}
 
@@ -459,6 +455,7 @@ class Broadcast_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_object() {
 
+		// Data is only being fetch, nothing is being modified, no need for nonce check.
 		if (isset($_GET['id'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$query = new \WP_Ultimo\Database\Broadcasts\Broadcast_Query();
 

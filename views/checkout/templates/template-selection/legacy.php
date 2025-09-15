@@ -24,6 +24,7 @@ if ( ! $should_display ) {
 
 	return;
 }
+/** @var \WP_Ultimo\Models\Site[] $sites */
 $sites = array_map('wu_get_site', $sites ?? []);
 
 $categories ??= [];
@@ -206,7 +207,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 							</div>
 
 							<a
-								<?php echo $is_template ? $site->get_preview_url_attrs() : sprintf('href="%s" target="_blank"', $site->get_active_site_url()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<?php $is_template ? $site->get_preview_url_attrs() : printf('href="%s" target="_blank"', esc_attr($site->get_active_site_url())); ?>
 								class="more-details"
 								id="<?php echo esc_attr($site->get_id()); ?>-action"
 							>

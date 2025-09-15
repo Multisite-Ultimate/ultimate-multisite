@@ -116,9 +116,9 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 			);
 
 			if ( ! empty($dns_entries->result)) {
-				$proxied_tag = sprintf('<span class="wu-bg-orange-500 wu-text-white wu-p-1 wu-rounded wu-text-3xs wu-uppercase wu-ml-2 wu-font-bold" %s>%s</span>', wu_tooltip_text(__('Proxied', 'multisite-ultimate')), __('Cloudflare', 'multisite-ultimate'));
+				$proxied_tag = sprintf('<span class="wu-bg-orange-500 wu-text-white wu-p-1 wu-rounded wu-text-3xs wu-uppercase wu-ml-2 wu-font-bold" role="tooltip" aria-label="%s">%s</span>', __('Proxied', 'multisite-ultimate'), __('Cloudflare', 'multisite-ultimate'));
 
-				$not_proxied_tag = sprintf('<span class="wu-bg-gray-700 wu-text-white wu-p-1 wu-rounded wu-text-3xs wu-uppercase wu-ml-2 wu-font-bold" %s>%s</span>', wu_tooltip_text(__('Not Proxied', 'multisite-ultimate')), __('Cloudflare', 'multisite-ultimate'));
+				$not_proxied_tag = sprintf('<span class="wu-bg-gray-700 wu-text-white wu-p-1 wu-rounded wu-text-3xs wu-uppercase wu-ml-2 wu-font-bold" role="tooltip" aria-label="%s">%s</span>', __('Not Proxied', 'multisite-ultimate'), __('Cloudflare', 'multisite-ultimate'));
 
 				foreach ($dns_entries->result as $entry) {
 					$dns_records[] = [

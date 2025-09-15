@@ -997,9 +997,9 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 		if ($country_code) {
 			$html = sprintf(
-				'<span>%s</span><span class="wu-flag-icon wu-w-5 wu-ml-1" %s>%s</span>',
+				'<span>%s</span><span class="wu-flag-icon wu-w-5 wu-ml-1" role="tooltip" aria-label="%s">%s</span>',
 				$country_name,
-				wu_tooltip_text($country_name),
+				esc_attr($country_name),
 				wu_get_flag_emoji((string) $country_code)
 			);
 		} else {

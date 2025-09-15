@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 <?php endif; ?>
 
 <div class="wu-bg-white wu-p-4 wu--mx-5">
-	<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php echo wp_kses($content, wu_kses_allowed_html()); ?>
 </div>
 
 <!-- Submit Box -->

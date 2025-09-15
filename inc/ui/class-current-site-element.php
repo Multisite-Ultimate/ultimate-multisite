@@ -348,15 +348,15 @@ class Current_Site_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$this->ensure_setup();
 
 		// Return empty if no site available (e.g., during SEO processing)
 		if ( ! $this->site) {
-			return '';
+			return;
 		}
 
 		$actions = [
@@ -398,7 +398,7 @@ class Current_Site_Element extends Base_Element {
 
 		$atts['my_sites_url'] = is_admin() ? admin_url('admin.php?page=sites') : $my_sites_url;
 
-		return wu_get_template_contents('dashboard-widgets/current-site', $atts);
+		wu_get_template('dashboard-widgets/current-site', $atts);
 	}
 
 	/**

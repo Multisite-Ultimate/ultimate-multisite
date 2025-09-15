@@ -554,9 +554,9 @@ class Login_Form_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$view = 'dashboard-widgets/login-additional-forms';
 
@@ -820,6 +820,6 @@ class Login_Form_Element extends Base_Element {
 		$atts['login_url'] = $this->get_logout_url();
 		$atts['form']      = $form;
 
-		return wu_get_template_contents($view, $atts);
+		wu_get_template($view, $atts);
 	}
 }

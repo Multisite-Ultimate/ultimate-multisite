@@ -7,7 +7,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <tr id="multiselect-<?php echo esc_attr($field_slug); ?>">
-	<th scope="row"><label for="<?php echo esc_attr($field_slug); ?>"><?php echo esc_html($field['title']); ?></label> <?php echo wu_tooltip($field['tooltip']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></th>
+	<th scope="row"><label for="<?php echo esc_attr($field_slug); ?>"><?php echo esc_html($field['title']); ?></label> <?php wu_tooltip($field['tooltip']); ?></th>
 	<td>
 		<?php
 		// Check if it was selected

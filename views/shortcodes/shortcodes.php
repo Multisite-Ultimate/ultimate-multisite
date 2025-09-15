@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) || exit;
 						<?php echo esc_html($shortcode['title']); ?> <code>[<?php echo esc_html($shortcode['shortcode']); ?>]</code>
 					</h3>
 					<p class="wu-mt-1 wu-mb-0 wu-text-gray-700">
-						<?php echo $shortcode['description']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<?php echo esc_html($shortcode['description']); ?>
 					</p>
 					</div>
 				</div>
@@ -62,7 +62,7 @@ defined( 'ABSPATH' ) || exit;
 							<?php echo esc_html($param); ?>
 						</td>
 						<td class="wu-px-4 wu-py-2 wu-text-left">
-							<?php echo $value['desc']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<?php echo esc_html($value['desc']); ?>
 						</td>
 						<td class="wu-px-4 wu-py-2 wu-text-left">
 							<?php echo esc_html($value['options']); ?>

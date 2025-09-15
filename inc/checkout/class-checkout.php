@@ -1836,7 +1836,7 @@ class Checkout {
 		if (is_array($session)) {
 			$stack = array_merge($session, $_REQUEST); // phpcs:ignore WordPress.Security.NonceVerification
 		} else {
-			$stack = $_REQUEST;
+			$stack = $_REQUEST; // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
 		if (null === $rules) {

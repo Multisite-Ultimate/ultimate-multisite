@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <ul class="wu-widget-list wu-striped wu-m-0 wu--my-2 wu--mx-3">
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 	<h3 class="wu-my-1 wu-text-2xs wu-uppercase"><?php echo esc_html__('Message', 'multisite-ultimate'); ?></h3>
 
 	<span class="wu-my-1 wu-inline-block">
-		<?php echo $object->get_message(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php wp_kses($object->get_message(), wu_kses_allowed_html()); ?>
 	</span>
 
 	</li>

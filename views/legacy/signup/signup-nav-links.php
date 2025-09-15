@@ -50,7 +50,7 @@ if ( ! isset($signup->step)) {
 
 		<a href="<?php echo esc_attr($link); ?>">
 
-		<?php echo $label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php echo esc_html($label); ?>
 
 		</a>
 

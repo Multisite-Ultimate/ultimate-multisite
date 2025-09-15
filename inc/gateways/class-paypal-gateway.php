@@ -831,9 +831,7 @@ class PayPal_Gateway extends Base_Gateway {
 			$details = $this->get_checkout_details(wu_request('token'));
 
 			if (empty($details)) {
-				$error = new \WP_Error(esc_html__('PayPal token no longer valid.', 'multisite-ultimate'));
-
-				wp_die($error); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				wp_die(esc_html__('PayPal token no longer valid.', 'multisite-ultimate'));
 			}
 
 			/*
@@ -847,9 +845,7 @@ class PayPal_Gateway extends Base_Gateway {
 			* Bail.
 			*/
 			if (empty($payment)) {
-				$error = new \WP_Error(esc_html__('Pending payment does not exist.', 'multisite-ultimate'));
-
-				wp_die($error); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				wp_die(esc_html__('Pending payment does not exist.', 'multisite-ultimate'));
 			}
 
 			/*
@@ -861,9 +857,7 @@ class PayPal_Gateway extends Base_Gateway {
 			$original_cart = $payment->get_meta('wu_original_cart');
 
 			if (empty($original_cart)) {
-				$error = new \WP_Error('no-cart', esc_html__('Original cart does not exist.', 'multisite-ultimate'));
-
-				wp_die($error); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				wp_die(esc_html__('Original cart does not exist.', 'multisite-ultimate'));
 			}
 
 			/*
@@ -1289,13 +1283,13 @@ class PayPal_Gateway extends Base_Gateway {
 			]
 		);
 
+		if (is_wp_error($request)) {
+			wp_die(esc_html($request->get_error_message()));
+		}
+
 		$body    = wp_remote_retrieve_body($request);
 		$code    = wp_remote_retrieve_response_code($request);
 		$message = wp_remote_retrieve_response_message($request);
-
-		if (is_wp_error($request)) {
-			wp_die($request); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		}
 
 		if (200 === absint($code) && 'OK' === $message) {
 			/*
@@ -1307,7 +1301,7 @@ class PayPal_Gateway extends Base_Gateway {
 			}
 
 			if ('failure' === strtolower((string) $body['ACK'])) {
-				wp_die(new \WP_Error($body['L_ERRORCODE0'], esc_html($body['L_LONGMESSAGE0']))); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				wp_die(esc_html($body['L_LONGMESSAGE0']), esc_html($body['L_ERRORCODE0']));
 			} else {
 				/*
 				 * We were successful, let's update
@@ -1469,7 +1463,7 @@ class PayPal_Gateway extends Base_Gateway {
 		$message = wp_remote_retrieve_response_message($request);
 
 		if (is_wp_error($request)) {
-			wp_die($request); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wp_die(esc_html($request->get_error_message()));
 		}
 
 		if (200 === absint($code) && 'OK' === $message) {
@@ -1478,9 +1472,7 @@ class PayPal_Gateway extends Base_Gateway {
 			}
 
 			if ('failure' === strtolower((string) $body['ACK'])) {
-				$error = new \WP_Error($body['L_ERRORCODE0'], esc_html($body['L_LONGMESSAGE0']));
-
-				wp_die($error); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				wp_die(esc_html($body['L_LONGMESSAGE0']), esc_html($body['L_ERRORCODE0']));
 			} else {
 				/*
 					* We were successful, let's update

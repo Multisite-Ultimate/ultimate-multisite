@@ -178,7 +178,7 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function handle_add_new_webhook_modal(): void {
 
-		// Nonce check handled in calling method.
+		// Nonce check handled in Form_Manager::handle_form.
 		$status = wu_create_webhook(
 			[
 				'name'             => ! empty($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : false, // phpcs:ignore WordPress.Security.NonceVerification

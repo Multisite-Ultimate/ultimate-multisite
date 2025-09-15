@@ -61,7 +61,7 @@ defined( 'ABSPATH' ) || exit;
 					],
 				] : [];
 
-				echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				wu_responsive_table_row(
 					[
 						'url'    => false,
 						'title'  => $payment->get_invoice_number() . $download_link,

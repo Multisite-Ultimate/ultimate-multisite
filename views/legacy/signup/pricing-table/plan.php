@@ -21,25 +21,17 @@ if ( ! defined('ABSPATH')) {
 
 ?>
 
+
+<div id="plan-<?php echo esc_attr($plan->get_id()); ?>" data-plan="<?php echo esc_attr($plan->get_id()); ?>" 
 <?php
 
-/**
- * Set plan attributes
- *
- * @var string
- */
-$plan_attrs = '';
-
 foreach ([1, 3, 12] as $type) {
-	$price       = $plan->free ? __('Free!', 'multisite-ultimate') : str_replace(wu_get_currency_symbol(), '', wu_format_currency((((float) $plan->{'price_' . $type}) / $type)));
-	$plan_attrs .= " data-price-$type='$price'";
+	$price = $plan->free ? __('Free!', 'multisite-ultimate') : str_replace(wu_get_currency_symbol(), '', wu_format_currency((((float) $plan->{'price_' . $type}) / $type)));
+	printf(" data-price-%s='%s'", esc_attr($type), esc_attr($price));
 }
 
-$plan_attrs = apply_filters('wu_pricing_table_plan', $plan_attrs, $plan);
-
 ?>
-
-<div id="plan-<?php echo esc_attr($plan->get_id()); ?>" data-plan="<?php echo esc_attr($plan->get_id()); ?>" <?php echo $plan_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="<?php echo esc_attr("wu-product-{$plan->get_id()}"); ?> lift wu-plan plan-tier <?php echo $plan->is_featured_plan() ? 'callout' : ''; ?> wu-col-sm-<?php echo esc_attr($columns); ?> wu-col-xs-12">
+	class="<?php echo esc_attr("wu-product-{$plan->get_id()}"); ?> lift wu-plan plan-tier <?php echo $plan->is_featured_plan() ? 'callout' : ''; ?> wu-col-sm-<?php echo esc_attr($columns); ?> wu-col-xs-12">
 
 	<?php if ($plan->is_featured_plan()) : ?>
 
@@ -110,7 +102,7 @@ $plan_attrs = apply_filters('wu_pricing_table_plan', $plan_attrs, $plan);
 	foreach ($plan->get_pricing_table_lines() as $key => $line) :
 		?>
 
-		<li class="<?php echo esc_attr(str_replace('_', '-', $key)); ?>"><?php echo esc_html($line); ?></li>
+		<li class="<?php echo esc_attr(str_replace('_', '-', $key)); ?>"><?php echo wp_kses_post($line); ?></li>
 
 	<?php endforeach; ?>
 
@@ -131,7 +123,7 @@ $plan_attrs = apply_filters('wu_pricing_table_plan', $plan_attrs, $plan);
 	<?php else : ?>
 
 		<li class="wu-cta">
-		<button type="submit" name="plan_id" class="button button-primary button-next" value="<?php echo esc_attr($plan->get_id()); ?>" <?php echo $button_attrubutes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+		<button type="submit" name="plan_id" class="button button-primary button-next" value="<?php echo esc_attr($plan->get_id()); ?>">
 			<?php echo esc_html($button_label); ?>
 		</button>
 		</li>

@@ -134,7 +134,9 @@
             "vendor/delight-im/cookie/.travis-ci-apache",
             "vendor/doctrine",
             ".distignore",
-            "encrypt-sectrets.php"
+            "encrypt-sectrets.php",
+            "scripts",
+            "mu-plugins"
         ]
     },
     "extra": {

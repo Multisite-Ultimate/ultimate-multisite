@@ -9,9 +9,6 @@
 
 namespace WP_Ultimo\UI;
 
-use WP_Ultimo\UI\Base_Element;
-use WP_Ultimo\Checkout\Cart;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -299,9 +296,9 @@ class Current_Membership_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$atts['membership'] = $this->membership;
 		$atts['plan']       = $this->plan;
@@ -332,10 +329,8 @@ class Current_Membership_Element extends Base_Element {
 				$atts['pending_products'] = array_combine(array_column($pending_products, 'id'), $pending_products);
 			}
 
-			return wu_get_template_contents('dashboard-widgets/current-membership', $atts);
+			wu_get_template('dashboard-widgets/current-membership', $atts);
 		}
-
-		return '';
 	}
 
 	/**

@@ -92,8 +92,6 @@ class Theme_Limits {
 
 			add_action('admin_enqueue_scripts', [$this, 'hacky_remove_activate_button']);
 
-			add_action('admin_footer-themes.php', [$this, 'modify_backbone_template']);
-
 			add_action('customize_changeset_save_data', [$this, 'prevent_theme_activation_on_customizer'], 99, 2);
 		}
 	}
@@ -176,6 +174,16 @@ class Theme_Limits {
 			]
 		);
 
+		wp_add_inline_script(
+			'theme',
+			'if (typeof wu_theme_settings !== "undefined") {
+				let content = document.getElementById("tmpl-theme").innerHTML;
+				content = content.replace(new RegExp("(<a class=\\"button activate\\"[^<]*<\\/a>)", "g"), "<# if ( !wu_theme_settings.themes_not_available.includes(data.id) ) { #>$1<# } else { #> {{{ wu_theme_settings.replacement_message.replace(\\"EXTENSION\\", data.id) }}} <# } #>");
+				document.getElementById("tmpl-theme").innerHTML = content;
+			}',
+			'before'
+		);
+
 		wp_localize_script(
 			'theme',
 			'wu_theme_settings',
@@ -184,27 +192,6 @@ class Theme_Limits {
 				'replacement_message'  => $upgrade_button,
 			]
 		);
-	}
-
-	/**
-	 * Modifies the default WordPress theme page template.
-	 *
-	 * @since 2.0.0
-	 * @return void
-	 */
-	public function modify_backbone_template(): void {
-			// Inline script required to modify WordPress theme Backbone.js template - cannot be externalized.
-		?>
-
-		<script type="text/javascript">
-			if (typeof wu_theme_settings !== 'undefined') {
-				let content = document.getElementById("tmpl-theme").innerHTML;
-				content = content.replace(new RegExp('(<a class="button activate".*<\/a>)', 'g'), '<# if ( !wu_theme_settings.themes_not_available.includes(data.id) ) { #>$1<# } else { #> {{{ wu_theme_settings.replacement_message.replace("EXTENSION", data.id) }}} <# } #>');
-				document.getElementById("tmpl-theme").innerHTML = content;
-			}
-		</script>
-
-		<?php
 	}
 
 	/**

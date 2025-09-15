@@ -63,7 +63,7 @@ defined( 'ABSPATH' ) || exit;
 					<td>
 						<?php echo esc_html($form->signup_form); ?>
 						<?php if ('by-admin' === $form->signup_form) : ?>
-							<?php echo wu_tooltip(__('Customers created via the admin panel, by super admins.', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<?php wu_tooltip(__('Customers created via the admin panel, by super admins.', 'multisite-ultimate')); ?>
 						<?php endif; ?>
 					</td>
 					<td class="wu-text-right"><?php echo intval($form->count); ?></td> <!-- Ensure count is an integer and properly escaped -->

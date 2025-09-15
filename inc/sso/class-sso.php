@@ -26,7 +26,7 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Psr16Cache;
 use WP_Ultimo\SSO\Exception\SSO_Exception;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Handles Sign-sign on.
@@ -458,19 +458,19 @@ class SSO {
 		}
 
 		if ('jsonp' === $response_type) {
-			$data = wp_json_encode(
-				$error ?? [ // phpcs:ignore
-					'code'       => 200,
-					'verify'     => $verification_code,
-					'return_url' => $this->input('return_url', ''),
-				]
+			printf(
+				'wu.sso(%s, %d]);',
+				wp_json_encode(
+					$error ?? [
+						'code'       => 200,
+						'verify'     => $verification_code,
+						'return_url' => $this->input('return_url', ''),
+					]
+				),
+				200
 			);
 
-			$response_code = 200; // phpcs:ignore
-
-			echo "wu.sso($data, $response_code);"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-			status_header($response_code);
+			status_header(200);
 
 			exit;
 		} elseif ('redirect' === $response_type) {

@@ -205,9 +205,9 @@ abstract class Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	abstract public function output($atts, $content = null);
+	abstract public function output($atts, $content = null): void;
 
 	// Boilerplate -----------------------------------
 
@@ -979,7 +979,7 @@ abstract class Base_Element {
 	 * @since 2.0.0
 	 *
 	 * @param array $atts The element attributes.
-	 * @return string
+	 * @return void
 	 */
 	public function display($atts) {
 
@@ -1001,7 +1001,7 @@ abstract class Base_Element {
 		 */
 		$atts['element'] = $this;
 
-		return call_user_func([$this, 'output'], $atts);
+		call_user_func([$this, 'output'], $atts);
 	}
 
 	/**
@@ -1108,7 +1108,7 @@ abstract class Base_Element {
 
 				echo '<div class="wu-inline-widget-body ' . esc_attr($control_classes) . '">';
 
-				echo $this->display($atts); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				$this->display($atts);
 
 				echo '</div>';
 
@@ -1189,7 +1189,7 @@ abstract class Base_Element {
 
 				echo '<div class="wu-metabox-widget ' . esc_attr($control_classes) . '">';
 
-					echo $this->display($atts); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					$this->display($atts);
 
 				echo '</div>';
 
@@ -1229,7 +1229,7 @@ abstract class Base_Element {
 									<?php esc_html_e('generate a shortcode', 'multisite-ultimate'); ?>
 								</a>
 								<?php esc_html_e('to use it on the front-end!', 'multisite-ultimate'); ?>
-								<?php echo wu_tooltip(__('You are seeing this because you are a super admin', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<?php wu_tooltip(__('You are seeing this because you are a super admin', 'multisite-ultimate')); ?>
 							</div>
 					</div>
 				</div>

@@ -53,7 +53,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<div class="wu-block wu-my-2">
 
-		<a href="mailto:<?php echo esc_attr($user->user_email); ?>" class="wu-no-underline" <?php echo wu_tooltip_text(esc_html__('Send an email to this customer.', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+		<a href="mailto:<?php echo esc_attr($user->user_email); ?>" class="wu-no-underline" <?php wu_tooltip_text(esc_html__('Send an email to this customer.', 'multisite-ultimate')); ?>>
 			<?php echo esc_html($user->user_email); ?>
 		</a>
 
@@ -74,7 +74,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php else : ?>
 
 			<button class="button wu-w-full" disabled="disabled">
-			<span <?php echo wu_tooltip_text(esc_html__('Switching to your own account is not possible.', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<span <?php wu_tooltip_text(esc_html__('Switching to your own account is not possible.', 'multisite-ultimate')); ?>>
 				<?php esc_html_e('Switch To &rarr;', 'multisite-ultimate'); ?>
 			</span>
 			</button>

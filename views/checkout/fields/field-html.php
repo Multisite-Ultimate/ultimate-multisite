@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || exit;
 
 ?>
 
-<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<div class="wu-block wu-w-full">
 
@@ -40,7 +40,7 @@ defined( 'ABSPATH' ) || exit;
 		?>
 
 		<div class="wu-block wu-w-full wu-mt-4">
-			<?php echo $field->content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php echo wp_kses($field->content, wu_kses_allowed_html()); ?>
 		</div>
 
 		<?php

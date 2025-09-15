@@ -63,7 +63,7 @@ class Site_Customer_List_Table extends Customer_List_Table {
 			$last_login = '<span class="wu-inline-block wu-mr-1 wu-rounded-full wu-h-2 wu-w-2 wu-bg-green-500"></span>' . __('Online', 'multisite-ultimate');
 		}
 
-		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wu_responsive_table_row(
 			[
 				'id'     => $item->get_id(),
 				'title'  => $item->get_display_name(),

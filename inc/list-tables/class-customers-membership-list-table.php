@@ -53,7 +53,7 @@ class Customers_Membership_List_Table extends Membership_List_Table {
 		// translators: %s is the product name, %2$s is the count of other products.
 		$products_list = $p ? sprintf(_n('Contains %1$s', 'Contains %1$s and %2$s other product(s)', $product_count, 'multisite-ultimate'), $p->get_name(), count($item->get_addon_ids())) : ''; // phpcs:ignore
 
-		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wu_responsive_table_row(
 			[
 				'id'     => $item->get_id(),
 				'title'  => $item->get_hash(),

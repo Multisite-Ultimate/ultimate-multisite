@@ -166,7 +166,7 @@ class Checkout_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer_Facing_Ad
 			[
 				'screen'  => get_current_screen(),
 				'page'    => $this,
-				'content' => do_shortcode('[wu_checkout slug="wu-checkout"]'),
+				'content' => '[wu_checkout slug="wu-checkout"]',
 			]
 		);
 	}

@@ -78,7 +78,7 @@ class Inside_Events_List_Table extends Event_List_Table {
 			$value = sprintf('<span class="wu-text-gray-600">%s%s</span>', $avatar, $display_name);
 		}
 
-		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wu_responsive_table_row(
 			[
 				'id'     => '',
 				'title'  => sprintf('<span class="wu-font-normal">%s</span>', wp_trim_words($item->get_message(), 15)),

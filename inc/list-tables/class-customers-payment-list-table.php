@@ -44,7 +44,7 @@ class Customers_Payment_List_Table extends Payment_List_Table {
 	 */
 	public function column_responsive($item): void {
 
-		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wu_responsive_table_row(
 			[
 				'id'     => $item->get_id(),
 				'title'  => $item->get_hash(),

@@ -94,7 +94,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<span class="wu-text-md wu-font-bold wu-block">
 
-				<?php echo wu_format_currency($payment->get_total(), $payment->get_currency()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo esc_html(wu_format_currency($payment->get_total(), $payment->get_currency())); ?>
 
 			</span>
 
@@ -202,7 +202,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<span class="wu-text-md wu-font-bold wu-block">
 
-				<?php echo wu_format_currency($payment->get_total(), $payment->get_currency()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo esc_html(wu_format_currency($payment->get_total(), $payment->get_currency())); ?>
 
 			</span>
 
@@ -393,7 +393,7 @@ defined( 'ABSPATH' ) || exit;
 				</td>
 
 				<td class="wu-py-2 wu-px-4">
-					<?php echo wu_format_currency($line_item->get_subtotal(), $payment->get_currency()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php echo esc_html(wu_format_currency($line_item->get_subtotal(), $payment->get_currency())); ?>
 				</td>
 
 				</tr>
@@ -406,7 +406,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<tr>
 				<th class="wu-text-left wu-py-2 wu-px-4"><?php esc_html_e('Subtotal', 'multisite-ultimate'); ?></th>
-				<th class="wu-text-left wu-py-2 wu-px-4"><?php echo wu_format_currency($payment->get_subtotal(), $payment->get_currency()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></th>
+				<th class="wu-text-left wu-py-2 wu-px-4"><?php echo esc_html(wu_format_currency($payment->get_subtotal(), $payment->get_currency())); ?></th>
 			</tr>
 
 			<?php foreach ($payment->get_tax_breakthrough() as $rate => $total) : ?>
@@ -414,7 +414,7 @@ defined( 'ABSPATH' ) || exit;
 				<tr>
 				<?php // translators: %s: Tax rate. ?>
 				<th class="wu-text-left wu-py-2 wu-px-4"><?php printf(esc_html__('Tax (%s%%)', 'multisite-ultimate'), esc_html($rate)); ?></th>
-				<th class="wu-text-left wu-py-2 wu-px-4"><?php echo wu_format_currency($total, $payment->get_currency()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></th>
+				<th class="wu-text-left wu-py-2 wu-px-4"><?php echo esc_html(wu_format_currency($total, $payment->get_currency())); ?></th>
 				</tr>
 
 			<?php endforeach; ?>
@@ -423,13 +423,13 @@ defined( 'ABSPATH' ) || exit;
 				<tr>
 					<?php // translators: %s: Discount code. ?>
 					<th class="wu-text-left wu-py-2 wu-px-4"><?php printf(esc_html__('Discount (%s)', 'multisite-ultimate'), esc_html($payment->get_discount_code())); ?></th>
-					<th class="wu-text-left wu-py-2 wu-px-4"><?php echo wu_format_currency($payment->get_discount_total(), $payment->get_currency()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></th>
+					<th class="wu-text-left wu-py-2 wu-px-4"><?php echo esc_html(wu_format_currency($payment->get_discount_total(), $payment->get_currency())); ?></th>
 				</tr>
 			<?php endif; ?>
 
 			<tr>
 				<th class="wu-text-left wu-py-2 wu-px-4"><?php esc_html_e('Total', 'multisite-ultimate'); ?></th>
-				<th class="wu-text-left wu-py-2 wu-px-4"><?php echo wu_format_currency($payment->get_total(), $payment->get_currency()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></th>
+				<th class="wu-text-left wu-py-2 wu-px-4"><?php echo esc_html(wu_format_currency($payment->get_total(), $payment->get_currency())); ?></th>
 			</tr>
 
 			</tfoot>

@@ -240,7 +240,7 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 					'page'        => $this,
 					'integration' => $this->integration,
 					'form'        => $form,
-					'post'        => sanitize_text_field(wp_unslash($_GET['post'] ?? '')), // phpcs:ignore WordPress.Security.NonceVerification
+					'post'        => wu_request('post'),
 				]
 			);
 

@@ -30,6 +30,13 @@ class Orphaned_Tables_Manager {
 	 */
 	public function init(): void {
 
+		global $wp_version;
+
+		// Only run if WordPress version is 6.2 or greater
+		if (version_compare($wp_version, '6.2', '<')) {
+			return;
+		}
+
 		add_action('plugins_loaded', [$this, 'register_forms']);
 		add_action('wu_settings_other', [$this, 'register_settings_field']);
 	}
@@ -260,7 +267,7 @@ class Orphaned_Tables_Manager {
 			}
 
 			// Use DROP TABLE IF EXISTS for safety
-			$result = $wpdb->query($wpdb->prepare('DROP TABLE IF EXISTS %i', $table)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$result = $wpdb->query($wpdb->prepare('DROP TABLE IF EXISTS %i', $table)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQLPlaceholders.UnsupportedIdentifierPlaceholder
 
 			if (false !== $result) {
 				++$deleted_count;

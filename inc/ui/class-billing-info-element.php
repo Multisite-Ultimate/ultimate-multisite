@@ -9,8 +9,6 @@
 
 namespace WP_Ultimo\UI;
 
-use WP_Ultimo\UI\Base_Element;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -50,7 +48,7 @@ class Billing_Info_Element extends Base_Element {
 	 * The membership object.
 	 *
 	 * @since 2.2.0
-	 * @var \WP_Ultimo\Membership
+	 * @var \WP_Ultimo\Models\Membership
 	 */
 	protected $membership;
 
@@ -58,7 +56,7 @@ class Billing_Info_Element extends Base_Element {
 	 * The site object.
 	 *
 	 * @since 2.2.0
-	 * @var \WP_Ultimo\Site
+	 * @var \WP_Ultimo\Models\Site
 	 */
 	protected $site;
 
@@ -270,13 +268,13 @@ class Billing_Info_Element extends Base_Element {
 	 * @param string|null $content The content inside the shortcode.
 	 * @return string
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$this->ensure_setup();
 
 		// Return empty if no membership available (e.g., during SEO processing)
 		if ( ! $this->membership) {
-			return '';
+			return;
 		}
 
 		$atts['membership'] = $this->membership;
@@ -291,7 +289,7 @@ class Billing_Info_Element extends Base_Element {
 			]
 		);
 
-		return wu_get_template_contents('dashboard-widgets/billing-info', $atts);
+		wu_get_template('dashboard-widgets/billing-info', $atts);
 	}
 
 	/**

@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div
@@ -134,6 +134,6 @@ defined( 'ABSPATH' ) || exit;
 
 	</div>
 
-	<?php echo $after; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php echo wp_kses($after, wu_kses_allowed_html()); ?>
 
 </div>

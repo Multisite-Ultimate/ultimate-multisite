@@ -170,7 +170,7 @@ class Discount_Code_List_Table extends Base_List_Table {
 		$valid = $item->is_valid();
 
 		if (is_wp_error($valid)) {
-			$html .= sprintf('<small class="wu-block wu-sans" %s>%s</small>', wu_tooltip_text($valid->get_error_message()), __('Inactive', 'multisite-ultimate'));
+			$html .= sprintf('<small class="wu-block wu-sans" role="tooltip" aria-label="%s">%s</small>', esc_attr($valid->get_error_message()), esc_html__('Inactive', 'multisite-ultimate'));
 		}
 
 		return $html;

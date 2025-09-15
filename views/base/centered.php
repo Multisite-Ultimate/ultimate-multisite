@@ -110,7 +110,7 @@ defined( 'ABSPATH' ) || exit;
 
 						<div class="inside">
 
-							<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<?php echo do_shortcode($content); ?>
 
 						</div>
 

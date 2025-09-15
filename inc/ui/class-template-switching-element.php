@@ -9,7 +9,6 @@
 
 namespace WP_Ultimo\UI;
 
-use WP_Ultimo\UI\Base_Element;
 use WP_Ultimo\Managers\Field_Templates_Manager;
 
 // Exit if accessed directly
@@ -315,9 +314,9 @@ class Template_Switching_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		if ($this->site) {
 			$filter_template_limits = new \WP_Ultimo\Limits\Site_Template_Limits();
@@ -422,14 +421,8 @@ class Template_Switching_Element extends Base_Element {
 				]
 			);
 
-			ob_start();
-
 			$form->render();
-
-			return ob_get_clean();
 		}
-
-		return '';
 	}
 
 	/**

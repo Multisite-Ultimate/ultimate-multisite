@@ -7,7 +7,7 @@
 defined( 'ABSPATH' ) || exit;
 
 ?>
-<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<?php
 	/**
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php foreach ($field->options as $option_value => $option_name) : ?>
 		<label class="wu-block" for="field-<?php echo esc_attr($field->id); ?>-<?php echo esc_attr($option_value); ?>">
-			<input id="field-gateway-<?php echo esc_attr($option_value); ?>" type="checkbox" name="<?php echo esc_attr($field->id); ?>[]" value="<?php echo esc_attr($option_value); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php checked(in_array($option_value, (array) $field->value, true)); ?>>
+			<input id="field-gateway-<?php echo esc_attr($option_value); ?>" type="checkbox" name="<?php echo esc_attr($field->id); ?>[]" value="<?php echo esc_attr($option_value); ?>" <?php $field->print_html_attributes(); ?> <?php checked(in_array($option_value, (array) $field->value, true)); ?>>
 			<?php echo esc_html($option_name); ?>
 		</label>
 	<?php endforeach; ?>

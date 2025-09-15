@@ -86,7 +86,7 @@ defined( 'ABSPATH' ) || exit;
 							'url'             => $domain['delete_link'],
 						];
 
-						echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						wu_responsive_table_row(
 							[
 								'id'     => false,
 								'title'  => strtolower($item->get_domain()),

@@ -312,16 +312,9 @@ class Site_Manager extends Base_Manager {
 			}
 
 			wp_die(
-				new \WP_Error( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					'not-available',
-					// translators: %s: link to the login page
-					sprintf(__('This site is not available at the moment.<br><small>If you are the site admin, click <a href="%s">here</a> to login.</small>', 'multisite-ultimate'), wp_login_url()), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					[
-						'title' => esc_html__('Site not available', 'multisite-ultimate'),
-					]
-				),
-				'',
-				['code' => 200]
+				// translators: %s: link to the login page
+				sprintf(wp_kses_post(__('This site is not available at the moment.<br><small>If you are the site admin, click <a href="%s">here</a> to login.</small>', 'multisite-ultimate')), esc_attr(wp_login_url())),
+				esc_html__('Site not available', 'multisite-ultimate'),
 			);
 		}
 	}
@@ -491,18 +484,18 @@ class Site_Manager extends Base_Manager {
 		if (empty($logo)) {
 			return;
 		}
-		// Inline styles for login logo - dynamically generated based on site settings.
-		?>
 
-	<style type="text/css">
-			#login h1 a, .login h1 a {
-				background-image: url(<?php echo esc_url($logo); ?>);
-				background-position: center center;
-				background-size: contain;
-			}
-	</style>
-
-		<?php
+		wp_add_inline_style(
+			'login',
+			sprintf(
+				'#login h1 a, .login h1 a {
+                    background-image: url(%s);
+                    background-position: center center;
+                    background-size: contain;
+                }',
+				esc_url($logo)
+			)
+		);
 	}
 
 	/**

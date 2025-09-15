@@ -7,7 +7,7 @@
 defined( 'ABSPATH' ) || exit;
 
 ?>
-<?php echo $before; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+<?php $before(); ?>
 
 <?php if ($page->edit) : ?>
 
@@ -37,4 +37,4 @@ defined( 'ABSPATH' ) || exit;
 
 <?php endif; ?>
 
-<?php echo $after; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+<?php $after(); ?>

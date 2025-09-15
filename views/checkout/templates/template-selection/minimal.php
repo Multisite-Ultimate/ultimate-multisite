@@ -81,7 +81,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 	<div id="wu-site-template-container-grid">
 
-		<?php foreach ($sites as $site_template) : ?>
+		<?php foreach ($sites as $site_template) : /** @var $site_template \WP_Ultimo\Models\Site */ ?>
 
 			<?php
 			if ($site_template->get_type() !== 'site_template' && ! in_array($site_template->get_id(), $customer_sites, true)) {
@@ -110,7 +110,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 				<div class="wu-site-template-preview-block">
 
-					<a class="wu-site-template-selector" <?php echo $site_template->get_preview_url_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+					<a class="wu-site-template-selector" <?php $site_template->get_preview_url_attrs(); ?>>
 						<?php esc_html_e('View Template Preview', 'multisite-ultimate'); ?>
 					</a>
 

@@ -111,7 +111,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 					<a
 					title="<?php esc_attr_e('View Template Preview', 'multisite-ultimate'); ?>"
 					class="wu-site-template-selector wu-cursor-pointer wu-no-underline"
-					<?php echo $is_template ? $site_template->get_preview_url_attrs() : sprintf('href="%s" target="_blank"', $site_template->get_active_site_url()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php $is_template ? $site_template->get_preview_url_attrs() : printf('href="%s" target="_blank"', esc_attr($site_template->get_active_site_url())); ?>
 					>
 						<img class="wu-site-template-image wu-w-full wu-border-solid wu-border wu-border-gray-300 wu-mb-4 wu-bg-white" src="<?php echo esc_attr($site_template->get_featured_image()); ?>" alt="<?php echo esc_attr($site_template->get_title()); ?>">
 					</a>

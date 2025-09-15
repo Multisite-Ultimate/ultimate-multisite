@@ -76,7 +76,7 @@ class Dashboard_Taxes_Tab {
 	 */
 	public function disabled_message(): void {
 
-		echo wu_render_empty_state( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wu_render_empty_state(
 			[
 				'message'     => __('You do not have tax support enabled yet...', 'multisite-ultimate'),
 				'sub_message' => __('If you need to collect taxes, you\'ll be glad to hear that Multisite Ultimate offers tax support!', 'multisite-ultimate'),

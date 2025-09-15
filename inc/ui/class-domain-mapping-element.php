@@ -9,7 +9,6 @@
 
 namespace WP_Ultimo\UI;
 
-use WP_Ultimo\UI\Base_Element;
 use WP_Ultimo\Models\Domain;
 use WP_Ultimo\Database\Domains\Domain_Stage;
 use WP_Ultimo\Models\Site;
@@ -691,9 +690,9 @@ class Domain_Mapping_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$current_site = $this->site;
 
@@ -758,6 +757,6 @@ class Domain_Mapping_Element extends Base_Element {
 
 		$atts = array_merge($other_atts, $atts);
 
-		return wu_get_template_contents('dashboard-widgets/domain-mapping', $atts);
+		wu_get_template('dashboard-widgets/domain-mapping', $atts);
 	}
 }

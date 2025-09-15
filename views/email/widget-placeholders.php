@@ -46,7 +46,7 @@ defined( 'ABSPATH' ) || exit;
 
 						<td class="wu-align-middle wu-text-xs">
 
-									<a @click.prevent="" <?php echo wu_tooltip_text(__('Copy', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="wu-no-underline wp-ui-text-highlight wu-copy" href="#" data-clipboard-action="copy" :data-clipboard-target="'#payload_event_placeholder_' + placeholder.placeholder">
+									<a @click.prevent="" <?php wu_tooltip_text(__('Copy', 'multisite-ultimate')); ?> class="wu-no-underline wp-ui-text-highlight wu-copy" href="#" data-clipboard-action="copy" :data-clipboard-target="'#payload_event_placeholder_' + placeholder.placeholder">
 
 										<span class="dashicons-wu-copy wu-align-middle"></span>
 

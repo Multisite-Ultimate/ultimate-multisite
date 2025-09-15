@@ -9,7 +9,6 @@
 
 namespace WP_Ultimo\UI;
 
-use WP_Ultimo\UI\Base_Element;
 use WP_Ultimo\Models\Customer;
 
 // Exit if accessed directly
@@ -320,15 +319,15 @@ class My_Sites_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$atts['customer'] = $this->customer;
 
 		$atts['sites'] = $this->get_sites(wu_get_isset($atts, 'site_show'));
 
-		return wu_get_template_contents('dashboard-widgets/my-sites', $atts);
+		wu_get_template('dashboard-widgets/my-sites', $atts);
 	}
 
 	/**

@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<?php
 
-			$avatar = get_avatar(
+			echo get_avatar(
 				$object->get_author_id(),
 				32,
 				'identicon',
@@ -32,8 +32,6 @@ defined( 'ABSPATH' ) || exit;
 					'class'         => 'wu-rounded-full',
 				]
 			);
-
-			echo $avatar; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			?>
 
@@ -99,11 +97,11 @@ defined( 'ABSPATH' ) || exit;
 
 		switch ($type) {
 			case 'membership':
-				echo $base_list_table->column_membership($object); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				$base_list_table->column_membership($object);
 				break;
 
 			case 'payment':
-				echo $base_list_table->column_payment($object); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				$base_list_table->column_payment($object);
 				break;
 		}
 

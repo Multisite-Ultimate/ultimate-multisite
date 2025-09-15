@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 <?php if (empty($notes)) : ?>
 
 	<?php
-	echo wu_render_empty_state( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	wu_render_empty_state(
 		[
 			'message'                  => __('No notes yet.', 'multisite-ultimate'),
 			'sub_message'              => __('Use the "Add new Note" to create the first one.', 'multisite-ultimate'),

@@ -4,6 +4,11 @@
  *
  * @since 2.0.0
  */
+
+if ( ! defined('ABSPATH') ) {
+	exit; // Exit if accessed directly
+}
+
 ?>
 
 <div id="wp-ultimo-wrap" class="<?php wu_wrap_use_container(); ?> wrap wu-wrap <?php echo esc_attr($classes); ?>">

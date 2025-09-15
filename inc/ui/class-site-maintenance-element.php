@@ -264,9 +264,9 @@ class Site_Maintenance_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$fields = [
 			'maintenance_mode' => [
@@ -299,6 +299,6 @@ class Site_Maintenance_Element extends Base_Element {
 
 		$atts['form'] = $form;
 
-		return wu_get_template_contents('dashboard-widgets/site-maintenance', $atts);
+		wu_get_template('dashboard-widgets/site-maintenance', $atts);
 	}
 }

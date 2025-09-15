@@ -7,7 +7,7 @@
 defined( 'ABSPATH' ) || exit;
 
 ?>
-<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<div class="wu-block wu-w-full">
 
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
 
 	?>
 
-	<select class="form-control wu-w-full wu-my-1" name="<?php echo esc_attr($field->id); ?><?php echo isset($field->html_attr['multiple']) && $field->html_attr['multiple'] ? '[]' : ''; ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> placeholder="<?php echo esc_attr($field->placeholder); ?>">
+	<select class="form-control wu-w-full wu-my-1" name="<?php echo esc_attr($field->id); ?><?php echo isset($field->html_attr['multiple']) && $field->html_attr['multiple'] ? '[]' : ''; ?>" <?php $field->print_html_attributes(); ?> placeholder="<?php echo esc_attr($field->placeholder); ?>">
 
 		<?php foreach ($field->options as $option_value => $option_label) : ?>
 

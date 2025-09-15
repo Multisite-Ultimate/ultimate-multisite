@@ -65,8 +65,8 @@ defined( 'ABSPATH' ) || exit;
 						<?php
 
 						printf(
-							'<span class="wu-flag-icon wu-w-5 wu-mr-1" %s>%s</span>',
-							wu_tooltip_text(esc_html(wu_get_country_name($country_code))), // phpcs:ignore WordPress.Security.EscapeOutput
+							'<span class="wu-flag-icon wu-w-5 wu-mr-1" role="tooltip" aria-label="%s">%s</span>',
+							esc_html(wu_get_country_name($country_code)),
 							esc_html(wu_get_flag_emoji($country_code)),
 						);
 

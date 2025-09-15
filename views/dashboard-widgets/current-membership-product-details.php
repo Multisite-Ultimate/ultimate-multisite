@@ -58,7 +58,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php foreach ($product->get_pricing_table_lines() as $key => $line) : ?>
 
-		<li class="<?php echo esc_attr(str_replace('_', '-', $key)); ?>"><?php echo $line; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></li>
+		<li class="<?php echo esc_attr(str_replace('_', '-', $key)); ?>"><?php echo wp_kses($line, wu_kses_allowed_html()); ?></li>
 
 	<?php endforeach; ?>
 

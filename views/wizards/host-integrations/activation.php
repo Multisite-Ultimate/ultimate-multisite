@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 </h1>
 
 <p class="wu-text-lg wu-text-gray-600 wu-my-4">
-	<?php echo $integration->get_description(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php echo wp_kses($integration->get_description(), wu_kses_allowed_html()); ?>
 </p>
 
 <div class="wu-bg-white wu-p-4 wu--mx-6">

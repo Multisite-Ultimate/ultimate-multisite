@@ -167,9 +167,13 @@ class Membership_List_Table extends Base_List_Table {
 	 */
 	public function get_columns() {
 
+		ob_start();
+		wu_tooltip(__('Reference Code', 'multisite-ultimate'), 'dashicons-wu-hash wu-text-xs');
+		$realtooltip = ob_end_clean();
+
 		$columns = [
 			'cb'              => '<input type="checkbox" />',
-			'hash'            => wu_tooltip(__('Reference Code', 'multisite-ultimate'), 'dashicons-wu-hash wu-text-xs'),
+			'hash'            => $realtooltip,
 			'status'          => __('Status', 'multisite-ultimate'),
 			'customer'        => __('Customer', 'multisite-ultimate'),
 			'product'         => __('Product', 'multisite-ultimate'),
@@ -211,7 +215,7 @@ class Membership_List_Table extends Base_List_Table {
 
 		$text = $formatted_value . sprintf('<br><small>%s</small>', sprintf($placeholder, human_time_diff($time)));
 
-		return sprintf('<span %s>%s</span>', wu_tooltip_text(date_i18n('Y-m-d H:i:s', $time)), $text);
+		return sprintf('<span role="tooltip" aria-label="%s">%s</span>', esc_attr(date_i18n('Y-m-d H:i:s', $time)), esc_html($text));
 	}
 
 	/**

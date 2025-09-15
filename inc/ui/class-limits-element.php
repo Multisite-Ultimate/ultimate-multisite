@@ -9,8 +9,6 @@
 
 namespace WP_Ultimo\UI;
 
-use WP_Ultimo\UI\Base_Element;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -236,15 +234,15 @@ class Limits_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$this->ensure_setup();
 
 		// Return empty if no site available (e.g., during SEO processing)
 		if ( ! $this->site) {
-			return '';
+			return;
 		}
 
 		$post_types = get_post_types(
@@ -275,6 +273,6 @@ class Limits_Element extends Base_Element {
 		$atts['items_to_display'] = $items_to_display ? array_keys($items_to_display) : false;
 		$atts['post_type_limits'] = $this->site->get_limitations()->post_types;
 
-		return wu_get_template_contents('dashboard-widgets/limits-and-quotas', $atts);
+		wu_get_template('dashboard-widgets/limits-and-quotas', $atts);
 	}
 }

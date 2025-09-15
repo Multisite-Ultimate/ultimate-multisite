@@ -209,9 +209,9 @@ final class WP_Ultimo {
 	 */
 	public function after_init() {
 
-		/*
+		/**
 		 * Loads admin pages
-		 * @todo: move this to a manager in the future?
+		 * @todo: Move this to a manager in the future?
 		 */
 		$this->load_admin_pages();
 

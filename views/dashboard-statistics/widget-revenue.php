@@ -11,12 +11,12 @@ defined( 'ABSPATH' ) || exit;
 
 	<ul class="lg:wu-flex wu-my-0 wu-mx-0">
 
-	<li class="wu-p-2 wu-w-full md:wu-w-4/12 wu-relative" <?php echo wu_tooltip_text(__('MRR stands for Monthly Recurring Revenue', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<li class="wu-p-2 wu-w-full md:wu-w-4/12 wu-relative" <?php wu_tooltip_text(__('MRR stands for Monthly Recurring Revenue', 'multisite-ultimate')); ?>>
 
 		<div>
 
 		<strong class="wu-text-gray-800 wu-text-2xl md:wu-text-xl">
-			<?php echo wu_format_currency($mrr); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php echo esc_html(wu_format_currency($mrr)); ?>
 		</strong>
 
 		</div>
@@ -32,7 +32,7 @@ defined( 'ABSPATH' ) || exit;
 		<div>
 
 		<strong class="wu-text-gray-800 wu-text-2xl md:wu-text-xl">
-			<?php echo wu_format_currency($gross_revenue); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php echo esc_html(wu_format_currency($gross_revenue)); ?>
 		</strong>
 
 		</div>
@@ -48,7 +48,7 @@ defined( 'ABSPATH' ) || exit;
 		<div>
 
 		<strong class="wu-text-gray-800 wu-text-2xl md:wu-text-xl">
-			<?php echo wu_format_currency($refunds); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php echo esc_html(wu_format_currency($refunds)); ?>
 		</strong>
 
 		</div>
@@ -83,7 +83,7 @@ defined( 'ABSPATH' ) || exit;
 					<?php echo esc_html($stats['label']); ?>
 				</td>
 				<td class="wu-text-right">
-					<?php echo wu_format_currency($stats['revenue']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php echo esc_html(wu_format_currency($stats['revenue'])); ?>
 				</td>
 				</tr>
 

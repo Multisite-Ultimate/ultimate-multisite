@@ -58,7 +58,7 @@ if ( ! defined('ABSPATH')) {
 							</tr>
 							<tr style="">
 								<td style="">
-									<span style="font-family: <?php echo esc_attr($template_settings['content_font']); ?>; font-size: 14px; line-height: 1.6em; color: <?php echo esc_attr($template_settings['content_color']); ?>; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: <?php echo esc_attr($template_settings['content_align']); ?>;"><?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+									<span style="font-family: <?php echo esc_attr($template_settings['content_font']); ?>; font-size: 14px; line-height: 1.6em; color: <?php echo esc_attr($template_settings['content_color']); ?>; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: <?php echo esc_attr($template_settings['content_align']); ?>;"><?php echo wp_kses($content, wu_kses_allowed_html()); ?></span>
 									<br>
 								</td>
 							</tr>

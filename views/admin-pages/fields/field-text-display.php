@@ -4,10 +4,11 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
+/** @var $field \WP_Ultimo\UI\Field */
 
 ?>
-<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<div class="wu-block">
 
@@ -52,11 +53,11 @@ defined( 'ABSPATH' ) || exit;
 
 		<span class="wu-my-1 wu-inline-block">
 
-		<span id="<?php echo esc_attr($field->id); ?>_value"><?php echo $field->display_value; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+		<span id="<?php echo esc_attr($field->id); ?>_value"><?php echo wp_kses($field->display_value, wu_kses_allowed_html()); ?></span>
 
 		<?php if ($field->copy) : ?>
 
-			<a <?php echo wu_tooltip_text(esc_html__('Copy', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="wu-no-underline wp-ui-text-highlight wu-copy"  data-clipboard-action="copy" data-clipboard-target="#<?php echo esc_attr($field->id); ?>_value">
+			<a <?php wu_tooltip_text(esc_html__('Copy', 'multisite-ultimate')); ?> class="wu-no-underline wp-ui-text-highlight wu-copy"  data-clipboard-action="copy" data-clipboard-target="#<?php echo esc_attr($field->id); ?>_value">
 
 			<span class="dashicons-wu-copy wu-align-middle"></span>
 

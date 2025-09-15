@@ -17,7 +17,7 @@ $placeholder = $field['placeholder'] ?? '';
 ?>
 
 <tr>
-	<th scope="row"><label for="<?php echo esc_attr($field_slug); ?>"><?php echo esc_html($field['title']); ?></label> <?php echo wu_tooltip($field['tooltip']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> </th>
+	<th scope="row"><label for="<?php echo esc_attr($field_slug); ?>"><?php echo esc_html($field['title']); ?></label> <?php wu_tooltip($field['tooltip']); ?> </th>
 	<td>
 
 	<select data-width="350px" multiple="multiple" placeholder="<?php echo esc_attr($placeholder); ?>"  class="wu-select" name="<?php echo esc_attr($field_slug); ?>[]" id="<?php echo esc_attr($field_slug); ?>">

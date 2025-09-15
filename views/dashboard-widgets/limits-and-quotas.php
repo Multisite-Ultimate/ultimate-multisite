@@ -117,7 +117,7 @@ endforeach;
 
 			<?php esc_html_e('Unique Visits', 'multisite-ultimate'); ?>
 			<?php // translators: %s is the next reset date ?>
-			<?php echo wu_tooltip(sprintf(esc_html__('Next Reset: %s', 'multisite-ultimate'), date_i18n(get_option('date_format', 'd/m/Y'), strtotime('last day of this month')))); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php wu_tooltip(sprintf(esc_html__('Next Reset: %s', 'multisite-ultimate'), date_i18n(get_option('date_format', 'd/m/Y'), strtotime('last day of this month')))); ?>
 
 			</div>
 

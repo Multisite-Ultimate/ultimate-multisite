@@ -144,7 +144,7 @@ class Customer_List_Table extends Base_List_Table {
 		// Concatenate the two blocks
 		$title = "<strong>$customer_user</strong>";
 
-		$desc = sprintf('<a %s href="mailto:%s" class="description wu-ml-1 wu-text-xs">(%s)</a>', wu_tooltip_text(__('Send an email to this customer', 'multisite-ultimate')), $user->user_email, $user->user_email);
+		$desc = sprintf('<a role="tooltip" aria-label="%s" href="mailto:%s" class="description wu-ml-1 wu-text-xs">(%s)</a>', esc_attr__('Send an email to this customer', 'multisite-ultimate'), esc_attr($user->user_email), esc_html($user->user_email));
 
 		// Concatenate switch to url
 		$is_modal_switch_to = \WP_Ultimo\User_Switching::get_instance()->check_user_switching_is_activated() ? '' : 'wubox';

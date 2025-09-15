@@ -66,14 +66,14 @@ defined( 'ABSPATH' ) || exit;
 						v-if="field.logged && field.logged == 'guests_only'" 
 						class="wu-px-1 wu-ml-1 wu-text-xs wu-align-text-bottom wu-inline-block wu-rounded wu-bg-blue-100 wu-text-blue-600"
 					>
-			<?php echo wu_tooltip('Guests only', 'dashicons-wu-eye'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php wu_tooltip('Guests only', 'dashicons-wu-eye'); ?>
 			</span>
 
 			<span 
 						v-if="field.logged && field.logged == 'logged_only'" 
 						class="wu-px-1 wu-ml-1 wu-text-xs wu-align-text-bottom wu-inline-block wu-rounded wu-bg-blue-100 wu-text-blue-600"
 					>
-			<?php echo wu_tooltip('Logged-in users only', 'dashicons-wu-eye'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php wu_tooltip('Logged-in users only', 'dashicons-wu-eye'); ?>
 			</span>
 			<!-- Visibility - End -->
 

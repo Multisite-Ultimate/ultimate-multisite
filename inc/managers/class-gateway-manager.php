@@ -278,10 +278,8 @@ class Gateway_Manager extends Base_Manager {
 		$gateway = wu_get_gateway($gateway_id);
 
 		if ( ! $gateway) {
-			$error = new \WP_Error('missing_gateway', esc_html__('Missing gateway parameter.', 'multisite-ultimate'));
-
 			wp_die(
-				$error, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				esc_html__('Missing gateway parameter.', 'multisite-ultimate'),
 				esc_html__('Error', 'multisite-ultimate'),
 				[
 					'back_link' => true,
@@ -310,7 +308,7 @@ class Gateway_Manager extends Base_Manager {
 
 			if (is_wp_error($results)) {
 				wp_die(
-					$results, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					esc_html($results->get_error_message()),
 					esc_html__('Error', 'multisite-ultimate'),
 					[
 						'back_link' => true,
@@ -319,10 +317,8 @@ class Gateway_Manager extends Base_Manager {
 				);
 			}
 		} catch (\Throwable $e) {
-			$error = new \WP_Error('confirm-error-' . $e->getCode(), $e->getMessage());
-
 			wp_die(
-				$error, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				esc_html($e->getMessage()),
 				esc_html__('Error', 'multisite-ultimate'),
 				[
 					'back_link' => true,

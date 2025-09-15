@@ -501,7 +501,7 @@ class Base_List_Table extends \WP_List_Table {
 		 * Any items at all?
 		 */
 		if ( ! $this->has_items() && 'page' === $this->context) {
-			echo wu_render_empty_state( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wu_render_empty_state(
 				[
 					// translators: %s name of items in list.
 					'message'      => sprintf(__("You don't have any %s yet.", 'multisite-ultimate'), $this->labels['plural']),
@@ -839,7 +839,7 @@ class Base_List_Table extends \WP_List_Table {
 
 		$text = $formatted_value . sprintf('<br><small>%s</small>', sprintf($placeholder, human_time_diff($time)));
 
-		return sprintf('<span %s>%s</span>', wu_tooltip_text(date_i18n('Y-m-d H:i:s', $time)), $text);
+		return sprintf('<span role="tooltip" aria-label="%s">%s</span>', date_i18n('Y-m-d H:i:s', $time), $text);
 	}
 
 	/**
@@ -848,21 +848,22 @@ class Base_List_Table extends \WP_List_Table {
 	 * @since 2.0.0
 	 *
 	 * @param object $item Object.
-	 * @return string
+	 * @return void
 	 */
-	public function column_membership($item) {
+	public function column_membership($item): void {
 
 		$membership = $item->get_membership();
 
 		if ( ! $membership) {
-			$not_found = __('No membership found', 'multisite-ultimate');
-
-			return "<div class='wu-table-card  wu-text-gray-700 wu-py-1 wu-px-2 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
+			?>
+			<div class='wu-table-card  wu-text-gray-700 wu-py-1 wu-px-2 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
 				<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
 				<div class=''>
-					<span class='wu-block wu-py-3 wu-text-gray-600 wu-text-2xs wu-font-bold wu-uppercase'>{$not_found}</span>
+					<span class='wu-block wu-py-3 wu-text-gray-600 wu-text-2xs wu-font-bold wu-uppercase'><?php esc_html_e('No membership found', 'multisite-ultimate'); ?></span>
 				</div>
 			</div>";
+			<?php
+			return;
 		}
 
 		$url_atts = [
@@ -879,15 +880,20 @@ class Base_List_Table extends \WP_List_Table {
 
 		$membership_link = wu_network_admin_url('wp-ultimo-edit-membership', $url_atts);
 
-		$html = "<a href='{$membership_link}' class='wu-no-underline wu-table-card wu-text-gray-700 wu-py-1 wu-px-2 wu-pl-4 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
-			<div class='wu-absolute wu-top-0 wu-bottom-0 wu-left-0 wu-w-2 {$status_classes}'>&nbsp;</div>
+		printf(
+			"<a href='%s' class='wu-no-underline wu-table-card wu-text-gray-700 wu-py-1 wu-px-2 wu-pl-4 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
+			<div class='wu-absolute wu-top-0 wu-bottom-0 wu-left-0 wu-w-2 %s'>&nbsp;</div>
 			<div class=''>
-				<strong class='wu-block'>{$reference} <small class='wu-font-normal'>(#{$id})</small></strong>
-				<small>{$description}</small>
+				<strong class='wu-block'>%s <small class='wu-font-normal'>(#%s)</small></strong>
+				<small>%s</small>
 			</div>
-		</a>";
-
-		return $html;
+		</a>",
+			esc_attr($membership_link),
+			esc_attr($status_classes),
+			esc_html($reference),
+			esc_html($id),
+			esc_html($description)
+		);
 	}
 
 	/**
@@ -896,21 +902,24 @@ class Base_List_Table extends \WP_List_Table {
 	 * @since 2.0.0
 	 *
 	 * @param object $item Object.
-	 * @return string
+	 * @return void
 	 */
-	public function column_payment($item) {
+	public function column_payment($item): void {
 
 		$payment = $item->get_payment();
 
 		if ( ! $payment) {
 			$not_found = __('No payment found', 'multisite-ultimate');
 
-			return "<div class='wu-table-card  wu-text-gray-700 wu-py-1 wu-px-2 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
+			printf(
+				"<div class='wu-table-card  wu-text-gray-700 wu-py-1 wu-px-2 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
 				<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
 				<div class=''>
-					<span class='wu-block wu-py-3 wu-text-gray-600 wu-text-2xs wu-font-bold wu-uppercase'>{$not_found}</span>
+					<span class='wu-block wu-py-3 wu-text-gray-600 wu-text-2xs wu-font-bold wu-uppercase'>%s</span>
 				</div>
-			</div>";
+			</div>",
+				esc_html($not_found)
+			);
 		}
 
 		$url_atts = [
@@ -927,15 +936,20 @@ class Base_List_Table extends \WP_List_Table {
 
 		$payment_link = wu_network_admin_url('wp-ultimo-edit-payment', $url_atts);
 
-		$html = "<a href='{$payment_link}' class='wu-no-underline wu-table-card wu-text-gray-700 wu-py-1 wu-px-2 wu-pl-4 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
-			<div class='wu-absolute wu-top-0 wu-bottom-0 wu-left-0 wu-w-2 {$status_classes}'>&nbsp;</div>
+		printf(
+			"<a href='%s' class='wu-no-underline wu-table-card wu-text-gray-700 wu-py-1 wu-px-2 wu-pl-4 wu-flex wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
+			<div class='wu-absolute wu-top-0 wu-bottom-0 wu-left-0 wu-w-2 %s'>&nbsp;</div>
 			<div class=''>
-				<strong class='wu-block'>{$reference} <small class='wu-font-normal'>(#{$id})</small></strong>
-				<small>{$description}</small>
+				<strong class='wu-block'>%s <small class='wu-font-normal'>(#%s)</small></strong>
+				<small>%s</small>
 			</div>
-		</a>";
-
-		return $html;
+		</a>",
+			esc_attr($payment_link),
+			esc_attr($status_classes),
+			esc_html($reference),
+			esc_html($id),
+			esc_html($description)
+		);
 	}
 
 	/**

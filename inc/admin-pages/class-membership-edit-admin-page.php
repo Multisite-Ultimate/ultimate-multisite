@@ -388,7 +388,7 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 				'position' => 'normal',
 				'title'    => __('Products', 'multisite-ultimate'),
 				'table'    => new \WP_Ultimo\List_Tables\Membership_Line_Item_List_Table(),
-				'after'    => $this->output_widget_products(),
+				'after'    => [$this, 'output_widget_products'],
 			]
 		);
 
@@ -932,11 +932,11 @@ class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 	 * Renders the widget used to display the product list.
 	 *
 	 * @since 2.0.0
-	 * @return string
+	 * @return void
 	 */
 	public function output_widget_products() {
 
-		return wu_get_template_contents(
+		wu_get_template(
 			'memberships/product-list',
 			[
 				'membership' => $this->get_object(),

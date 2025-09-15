@@ -91,7 +91,7 @@ class Checkout_Form_Edit_Admin_Page extends Edit_Admin_Page {
 
 		parent::init();
 
-		add_action('init', [$this, 'generate_checkout_form_preview'], 9);
+		$this->generate_checkout_form_preview();
 
 		add_action('wp_ajax_wu_save_editor_session', [$this, 'save_editor_session']);
 
@@ -171,8 +171,6 @@ class Checkout_Form_Edit_Admin_Page extends Edit_Admin_Page {
 			return;
 		}
 
-		$content = '';
-
 		$key = wp_get_session_token();
 
 		$session = \WP_Session_Tokens::get_instance(get_current_user_id());
@@ -193,12 +191,20 @@ class Checkout_Form_Edit_Admin_Page extends Edit_Admin_Page {
 			$current_user = wp_set_current_user(0);
 		}
 
+		wp_enqueue_scripts();
+
+		wp_print_head_scripts();
+
+		printf('<body %s>', 'class="' . esc_attr(implode(' ', get_body_class('wu-styling'))) . '"');
+
+		echo '<div class="wu-p-6">';
+
 		$count = count($settings);
 
 		foreach ($settings as $index => $step) {
 			$final_fields = wu_create_checkout_fields($step['fields']);
 
-			$content .= wu_get_template_contents(
+			wu_get_template(
 				'checkout/form',
 				[
 					'step'               => $step,
@@ -212,19 +218,9 @@ class Checkout_Form_Edit_Admin_Page extends Edit_Admin_Page {
 			);
 
 			if ($index < $count - 1) {
-				$content .= sprintf('<hr class="sm:wu-bg-transparent wu-hr-text wu-font-semibold wu-my-4 wu-mt-6 wu-text-gray-600 wu-text-sm" data-content="%s">', esc_attr__('Step Separator', 'multisite-ultimate'));
+				printf('<hr class="sm:wu-bg-transparent wu-hr-text wu-font-semibold wu-my-4 wu-mt-6 wu-text-gray-600 wu-text-sm" data-content="%s">', esc_attr__('Step Separator', 'multisite-ultimate'));
 			}
 		}
-
-		wp_enqueue_scripts();
-
-		wp_print_head_scripts();
-
-		printf('<body %s>', 'class="' . esc_attr(implode(' ', get_body_class('wu-styling'))) . '"');
-
-		echo '<div class="wu-p-6">';
-
-		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		wp_print_footer_scripts();
 

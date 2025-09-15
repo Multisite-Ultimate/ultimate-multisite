@@ -44,7 +44,7 @@ class Sites_Domain_List_Table extends Domain_List_Table {
 	 */
 	public function column_responsive($item): void {
 
-		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wu_responsive_table_row(
 			[
 				'id'     => $item->get_id(),
 				'title'  => strtolower((string) $item->get_domain()),

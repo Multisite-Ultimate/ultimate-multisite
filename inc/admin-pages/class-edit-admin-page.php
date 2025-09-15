@@ -401,8 +401,8 @@ abstract class Edit_Admin_Page extends Base_Admin_Page {
 			$atts,
 			[
 				'widget_id'    => $id,
-				'before'       => '',
-				'after'        => '',
+				'before'       => fn() => null,
+				'after'        => fn() => null,
 				'title'        => __('List Table', 'multisite-ultimate'),
 				'position'     => 'advanced',
 				'screen'       => get_current_screen(),

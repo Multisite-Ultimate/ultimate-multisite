@@ -21,7 +21,7 @@ $content_wrapper_classes = $field->content_wrapper_classes
 
 ?>
 
-<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<div class="<?php echo esc_attr($mq); ?>md:wu-flex wu-items-center wu-w-full">
 
@@ -98,7 +98,7 @@ $content_wrapper_classes = $field->content_wrapper_classes
 
 		</div>
 
-		<input name="<?php echo esc_attr($field_slug); ?>" type="hidden" value="<?php echo esc_attr($field->value); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+		<input name="<?php echo esc_attr($field_slug); ?>" type="hidden" value="<?php echo esc_attr($field->value); ?>" <?php $field->print_html_attributes(); ?> />
 
 		<div class="wu-add-image-wrapper <?php echo esc_attr($mq); ?>md:wu-mt-0 wu-w-full" style="display: none;">
 

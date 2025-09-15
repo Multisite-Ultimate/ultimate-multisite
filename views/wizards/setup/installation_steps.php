@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 		</thead>
 		<tbody>
 		<?php foreach ($steps as $slug => $default) : ?>
-			<tr <?php echo ! $default['done'] ? 'data-content="' . esc_attr($slug) . '"' : ''; ?> <?php echo wu_array_to_html_attrs(wu_get_isset($default, 'html_attr', [])); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<tr <?php echo ! $default['done'] ? 'data-content="' . esc_attr($slug) . '"' : ''; ?> <?php wu_print_html_attributes(wu_get_isset($default, 'html_attr', [])); ?>>
 				<?php if ($checks) : ?>
 					<td>
 						<?php if ( ! $default['done']) : ?>

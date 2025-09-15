@@ -873,9 +873,9 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 	 * Display the payment actions.
 	 *
 	 * @since 2.0.0
-	 * @return string
+	 * @return void
 	 */
-	public function display_payment_actions() {
+	public function display_payment_actions(): void {
 
 		$actions = [];
 
@@ -907,7 +907,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			),
 		];
 
-		return wu_get_template_contents(
+		wu_get_template(
 			'payments/line-item-actions',
 			[
 				'payment' => $this->get_object(),
@@ -988,7 +988,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 				'table'        => new \WP_Ultimo\List_Tables\Payment_Line_Item_List_Table(),
 				'position'     => 'normal',
 				'query_filter' => [$this, 'payments_query_filter'],
-				'after'        => $this->display_payment_actions(),
+				'after'        => [$this, 'display_payment_actions'],
 			]
 		);
 

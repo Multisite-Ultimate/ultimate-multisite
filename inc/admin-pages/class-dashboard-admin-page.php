@@ -608,20 +608,16 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 
 		$data_strings = wp_json_encode($args['data']);
 
-		$html = '<div class="wu-bg-gray-100 wu-p-2 wu-text-right wu-border-0 wu-border-b wu-border-solid wu-border-gray-400">
+		printf(
+			'<div class="wu-bg-gray-100 wu-p-2 wu-text-right wu-border-0 wu-border-b wu-border-solid wu-border-gray-400">
 			<a href="#" attr-slug-csv="%2$s" class="wu-export-button wu-no-underline wu-text-gray-800 wu-text-xs">
 				<span class="dashicons-wu-download wu-mr-1"></span> %1$s
 			</a>
 			<input type="hidden" id="csv_headers_%2$s" value="%3$s" />
 			<input type="hidden" id="csv_data_%2$s" value="%4$s" />
 			<input type="hidden" id="csv_action_%2$s" value="%5$s" />
-		</div>';
-
-		$html = apply_filters('wu_export_html_render', $html, $html);
-
-		printf(
-			$html, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			apply_filters('wu_export_data_table_label', esc_html__('CSV', 'multisite-ultimate')), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		</div>',
+			esc_html__('CSV', 'multisite-ultimate'),
 			esc_attr($slug),
 			esc_attr($header_strings),
 			esc_attr($data_strings),

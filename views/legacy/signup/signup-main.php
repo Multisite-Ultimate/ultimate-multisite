@@ -163,6 +163,7 @@ do_action('wu_checkout_scripts');
 
 		global $wp_scripts;
 
+		// $wp_scripts will output and format the tag correctly and safely.
 		echo $wp_scripts->get_inline_script_tag('wu-checkout'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 	?>

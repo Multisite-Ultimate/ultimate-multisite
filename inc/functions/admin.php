@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
  * @since 2.0.0
  *
  * @param array $args List of the page arguments.
- * @return string
+ * @return void
  */
 function wu_render_empty_state($args = []) {
 
@@ -32,7 +32,7 @@ function wu_render_empty_state($args = []) {
 		]
 	);
 
-	return wu_get_template_contents('base/empty-state', $args);
+	wu_get_template('base/empty-state', $args);
 }
 
 /**
@@ -53,7 +53,7 @@ function wu_wrap_use_container() {
  * @param array $args Main arguments.
  * @param array $first_row The first row of icons + labels.
  * @param array $second_row The second row, on the right.
- * @return string
+ * @return void
  */
 function wu_responsive_table_row($args = [], $first_row = [], $second_row = []) {
 
@@ -68,5 +68,5 @@ function wu_responsive_table_row($args = [], $first_row = [], $second_row = []) 
 		]
 	);
 
-	return wu_get_template_contents('base/responsive-table-row', compact('args', 'first_row', 'second_row'));
+	wu_get_template('base/responsive-table-row', compact('args', 'first_row', 'second_row'));
 }

@@ -476,12 +476,16 @@ abstract class Base_Signup_Field {
 			],
 		];
 
+		ob_start();
+		wu_tooltip(__('Just like this!', 'multisite-ultimate'));
+		$realtooltip = ob_end_clean();
+
 		$fields['tooltip'] = [
 			'type'        => 'textarea',
 			'title'       => __('Field Tooltip', 'multisite-ultimate'),
 			'placeholder' => __('e.g. This field is great, be sure to fill it.', 'multisite-ultimate'),
 			// translators: %is is the icon for a question mark.
-			'desc'        => sprintf(__('Any text entered here will be shown when the customer hovers the %s icon next to the field label.', 'multisite-ultimate'), wu_tooltip(__('Just like this!', 'multisite-ultimate'))),
+			'desc'        => sprintf(__('Any text entered here will be shown when the customer hovers the %s icon next to the field label.', 'multisite-ultimate'), $realtooltip),
 			'tooltip'     => '',
 			'value'       => '',
 			'tab'         => 'advanced',

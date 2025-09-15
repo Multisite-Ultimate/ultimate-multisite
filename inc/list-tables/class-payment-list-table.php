@@ -171,9 +171,13 @@ class Payment_List_Table extends Base_List_Table {
 	 */
 	public function get_columns() {
 
+		ob_start();
+		wu_tooltip(__('Reference Code', 'multisite-ultimate'), 'dashicons-wu-hash wu-text-xs');
+		$realtooltip = ob_end_clean();
+
 		$columns = [
 			'cb'           => '<input type="checkbox" />',
-			'hash'         => wu_tooltip(__('Reference Code', 'multisite-ultimate'), 'dashicons-wu-hash wu-text-xs'),
+			'hash'         => $realtooltip,
 			'status'       => __('Status', 'multisite-ultimate'),
 			'customer'     => __('Customer', 'multisite-ultimate'),
 			'membership'   => __('Membership', 'multisite-ultimate'),

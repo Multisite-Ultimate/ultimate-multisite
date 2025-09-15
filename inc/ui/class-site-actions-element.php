@@ -1180,14 +1180,14 @@ class Site_Actions_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$atts['actions'] = $this->get_actions($atts);
 
 		$atts['danger_zone_actions'] = $this->get_danger_zone_actions($atts);
 
-		return wu_get_template_contents('dashboard-widgets/site-actions', $atts);
+		wu_get_template('dashboard-widgets/site-actions', $atts);
 	}
 }

@@ -7,7 +7,7 @@
 defined( 'ABSPATH' ) || exit;
 
 ?>
-<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<?php
 	/**
@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
 			name="<?php echo esc_attr($field->id); ?>"
 			type="<?php echo esc_attr($field->type); ?>"
 			placeholder="<?php echo esc_attr($field->placeholder); ?>"
-			value="<?php echo esc_attr($field->value); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			value="<?php echo esc_attr($field->value); ?>" <?php $field->print_html_attributes(); ?>>
 
 	<?php if ($field->meter) : ?>
 		<span class="wu-block">

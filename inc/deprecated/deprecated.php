@@ -503,13 +503,13 @@ class WU_Util {
 	 *
 	 * @param string $text The tooltip text.
 	 * @param string $icon The tooltip icon.
-	 * @return string
+	 * @return void
 	 */
 	public static function tooltip($text, $icon = 'dashicons-editor-help') {
 
 		_deprecated_function(__METHOD__, '2.0.0', 'wu_tooltip()');
 
-		return wu_tooltip($text, $icon);
+		wu_tooltip($text, $icon);
 	}
 
 	/**

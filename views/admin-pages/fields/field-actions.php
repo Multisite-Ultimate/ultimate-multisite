@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 ?>
-<li class="wu-bg-gray-100 <?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<li class="wu-bg-gray-100 <?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<?php foreach ($field->actions as $action_slug => $action) : ?>
 
@@ -18,14 +18,14 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php $action = new \WP_Ultimo\UI\Field($action_slug, $action); ?>
 
-			<button class="button <?php echo esc_attr($action->classes); ?>" id="action_button" data-action="<?php echo esc_attr($action->action); ?>" data-object="<?php echo esc_attr($action->object_id); ?>" value="<?php echo esc_attr(wp_create_nonce($action->action)); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> >
+			<button class="button <?php echo esc_attr($action->classes); ?>" id="action_button" data-action="<?php echo esc_attr($action->action); ?>" data-object="<?php echo esc_attr($action->object_id); ?>" value="<?php echo esc_attr(wp_create_nonce($action->action)); ?>" <?php $field->print_html_attributes(); ?> >
 
 		<?php echo esc_html($action->title); ?>
 
 		<?php if ($action->tooltip) : ?>
 
 
-			<?php echo wu_tooltip($action->tooltip); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php wu_tooltip($action->tooltip); ?>
 
 		<?php endif; ?>
 

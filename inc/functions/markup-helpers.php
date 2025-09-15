@@ -71,14 +71,41 @@ function wu_remove_empty_p($content): ?string {
  * Output: id="my-element-id" class="my-class my-class-2"
  *
  * @since 2.0.7
+ * @deprecated Since 2.4.4 use wu_print_html_attributes instead.
  *
  * @param array $attributes The list of attributes.
  */
 function wu_array_to_html_attrs($attributes = []): string {
+	$output = '';
+	foreach ($attributes as $key => $value) {
+		$output .= ' ' . esc_attr($key) . '="' . esc_attr($value) . '"';
+	}
+	return ltrim($output);
+}
 
-	$attributes = array_map(fn($key, $value) => $key . '="' . htmlspecialchars((string) $value) . '"', array_keys($attributes), $attributes);
+/**
+ * Generates a string containing html attributes to be used inside html tags.
+ *
+ * This function takes an array of attributes => value and echos
+ * them as html attributes while escaping them properly.
+ *
+ * Example input:
+ * array(
+ *   'id'    => 'my-element-id',
+ *   'class' => 'my-class my-class-2',
+ * );
+ *
+ * Output: id="my-element-id" class="my-class my-class-2"
+ *
+ * @since 2.4.4
+ *
+ * @param array $attributes The list of attributes.
+ */
+function wu_print_html_attributes(array $attributes = []): void {
 
-	return implode(' ', $attributes);
+	foreach ($attributes as $key => $value) {
+		echo ' ' . esc_attr($key) . '="' . esc_attr($value) . '"';
+	}
 }
 
 /**
@@ -88,25 +115,23 @@ function wu_array_to_html_attrs($attributes = []): string {
  *
  * @param string $tooltip Message to display.
  * @param string $icon Dashicon to display as the icon.
- * @return string
+ * @return void
  */
-function wu_tooltip($tooltip, $icon = 'dashicons-editor-help') {
+function wu_tooltip($tooltip, $icon = 'dashicons-editor-help'): void {
 
 	if (empty($tooltip)) {
-		return '';
+		return;
 	}
 
-	$markup = sprintf('<span class="wu-styling" role="tooltip" aria-label="%s">', esc_attr($tooltip));
+	printf('<span class="wu-styling" role="tooltip" aria-label="%s">', esc_attr($tooltip));
 
 	if ( ! is_admin()) {
-		$markup .= '<svg style="width:11px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 122.88 122.88" xml:space="preserve"><g><path class="st0" d="M122.88,61.44C122.88,27.51,95.37,0,61.44,0C27.51,0,0,27.51,0,61.44c0,33.93,27.51,61.44,61.44,61.44 C95.37,122.88,122.88,95.37,122.88,61.44L122.88,61.44z M68.79,74.58H51.3v-1.75c0-2.97,0.32-5.39,1-7.25 c0.68-1.87,1.68-3.55,3.01-5.1c1.34-1.54,4.35-4.23,9.01-8.11c2.48-2.03,3.73-3.88,3.73-5.56c0-1.71-0.51-3.01-1.5-3.95 c-1-0.93-2.51-1.4-4.54-1.4c-2.19,0-3.98,0.73-5.4,2.16c-1.43,1.44-2.34,3.97-2.74,7.56l-17.88-2.22c0.61-6.57,3-11.86,7.15-15.85 c4.17-4.02,10.55-6.01,19.14-6.01c6.7,0,12.1,1.4,16.21,4.19c5.6,3.78,8.38,8.82,8.38,15.1c0,2.62-0.73,5.14-2.16,7.56 c-1.44,2.44-4.39,5.39-8.85,8.88c-3.09,2.48-5.05,4.44-5.86,5.93C69.19,70.24,68.79,72.19,68.79,74.58L68.79,74.58z M50.68,79.25 h18.76v16.53H50.68V79.25L50.68,79.25z"></path></g></svg>';
+		echo '<svg style="width:11px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 122.88 122.88" xml:space="preserve"><g><path class="st0" d="M122.88,61.44C122.88,27.51,95.37,0,61.44,0C27.51,0,0,27.51,0,61.44c0,33.93,27.51,61.44,61.44,61.44 C95.37,122.88,122.88,95.37,122.88,61.44L122.88,61.44z M68.79,74.58H51.3v-1.75c0-2.97,0.32-5.39,1-7.25 c0.68-1.87,1.68-3.55,3.01-5.1c1.34-1.54,4.35-4.23,9.01-8.11c2.48-2.03,3.73-3.88,3.73-5.56c0-1.71-0.51-3.01-1.5-3.95 c-1-0.93-2.51-1.4-4.54-1.4c-2.19,0-3.98,0.73-5.4,2.16c-1.43,1.44-2.34,3.97-2.74,7.56l-17.88-2.22c0.61-6.57,3-11.86,7.15-15.85 c4.17-4.02,10.55-6.01,19.14-6.01c6.7,0,12.1,1.4,16.21,4.19c5.6,3.78,8.38,8.82,8.38,15.1c0,2.62-0.73,5.14-2.16,7.56 c-1.44,2.44-4.39,5.39-8.85,8.88c-3.09,2.48-5.05,4.44-5.86,5.93C69.19,70.24,68.79,72.19,68.79,74.58L68.79,74.58z M50.68,79.25 h18.76v16.53H50.68V79.25L50.68,79.25z"></path></g></svg>';
 	} else {
-		$markup .= sprintf('<span class="dashicons wu-text-xs wu-w-auto wu-h-auto wu-align-text-bottom %s"></span>', esc_attr($icon));
+		printf('<span class="dashicons wu-text-xs wu-w-auto wu-h-auto wu-align-text-bottom %s"></span>', esc_attr($icon));
 	}
 
-	$markup .= '</span>';
-
-	return $markup;
+	echo '</span>';
 }
 
 /**
@@ -116,9 +141,9 @@ function wu_tooltip($tooltip, $icon = 'dashicons-editor-help') {
  *
  * @param string $tooltip Message to display.
  */
-function wu_tooltip_text($tooltip): string {
+function wu_tooltip_text($tooltip): void {
 
-	return sprintf('role="tooltip" aria-label="%s"', esc_attr($tooltip));
+	printf('role="tooltip" aria-label="%s"', esc_attr($tooltip));
 }
 
 /**

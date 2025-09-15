@@ -108,7 +108,7 @@ $show_add_new = apply_filters('wp_ultimo_my_sites_show_add_new', $show_add_new);
 				<?php if ($site->get_id()) : ?>
 					<a href="<?php echo esc_attr($site->get_active_site_url()); ?>" class="wu-block wu-no-underline">
 
-					<span class="wu-text-base wu-font-semibold wu-text-gray-800 wu-block" <?php echo wu_tooltip_text(__('Visit Site', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+					<span class="wu-text-base wu-font-semibold wu-text-gray-800 wu-block" <?php wu_tooltip_text(__('Visit Site', 'multisite-ultimate')); ?>>
 						<?php echo esc_html($site->get_title()); ?> <span class="wu-text-sm dashicons-wu-popup"></span>
 					</span>
 

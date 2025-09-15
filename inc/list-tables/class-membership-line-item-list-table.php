@@ -74,7 +74,7 @@ class Membership_Line_Item_List_Table extends Product_List_Table {
 		$item = $item['product'];
 
 		if ( ! $item) {
-			echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wu_responsive_table_row(
 				[
 					'url'    => false,
 					'id'     => 'not-found',
@@ -147,7 +147,7 @@ class Membership_Line_Item_List_Table extends Product_List_Table {
 			];
 		}
 
-		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wu_responsive_table_row(
 			[
 				'id'     => $item->get_id(),
 				'title'  => $item->get_name(),

@@ -136,7 +136,7 @@ class Payment_Line_Item_List_Table extends Line_Item_List_Table {
 			'value' => $item->get_description(),
 		];
 
-		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wu_responsive_table_row(
 			[
 				'id'     => '',
 				'title'  => $item->get_title(),

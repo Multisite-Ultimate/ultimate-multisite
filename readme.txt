@@ -161,6 +161,37 @@ Yes, Multisite Ultimate is a community-maintained fork of WP Ultimo. The plugin 
 
 This plugin connects to several external services to provide its functionality. Below is a detailed list of all external services used, what data is sent, and when:
 
+= Geolocation Services =
+
+**MaxMind GeoLite2 Database**
+- Service: Geolocation database for determining user location based on IP address
+- Data sent: No personal data is sent - only downloads the database file
+- When: Downloaded periodically when geolocation features are enabled
+- Service URL: http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz
+- Terms of Service: https://www.maxmind.com/en/terms-of-service
+- Privacy Policy: https://www.maxmind.com/en/privacy-policy
+
+**IP Lookup Services**
+- Service: External APIs to determine the user's public IP address
+- Data sent: HTTP request to determine IP address (no personal data stored)
+- When: When geolocation features are enabled and user IP needs to be determined
+- Services used:
+  - IPify API (http://api.ipify.org/) - Terms: https://www.ipify.org/
+  - IP Echo (http://ipecho.net/plain)
+  - Ident.me (http://ident.me)
+  - WhatIsMyIPAddress (http://bot.whatismyipaddress.com)
+  - IPinfo.io (https://ipinfo.io/) - Terms: https://ipinfo.io/terms
+  - IP-API.com (http://ip-api.com/) - Terms: https://ip-api.com/docs/legal
+
+= Plugin Updates and Add-ons =
+
+**Multisite Ultimate Update Server**
+- Service: Official update server for the plugin and its add-ons (multisiteultimate.com)
+- Data sent: Site URL, plugin version, license keys, authentication tokens
+- When: During plugin/add-on updates and license checks
+- Terms of Service: https://multisiteultimate.com/terms-of-service/
+- Privacy Policy: https://multisiteultimate.com/privacy-policy/
+
 = Payment Processing Services =
 
 **PayPal**
@@ -186,6 +217,22 @@ This plugin connects to several external services to provide its functionality. 
 - Terms of Service: https://www.cloudflare.com/terms/
 - Privacy Policy: https://www.cloudflare.com/privacypolicy/
 
+**Closte Hosting API**
+- Service: Integration with Closte hosting provider for automated site management
+- Data sent: Site configuration data, API credentials
+- When: Only when Closte integration is enabled and configured
+- Service URL: https://app.closte.com/api/client
+- Terms of Service: https://closte.com/terms-of-service/
+- Privacy Policy: https://closte.com/privacy-policy/
+
+**Cloudways Hosting API**
+- Service: Integration with Cloudways hosting provider for automated site management
+- Data sent: Site configuration data, API credentials, authentication tokens
+- When: Only when Cloudways integration is enabled and configured
+- Service URL: https://api.cloudways.com/api/v1/oauth/access_token
+- Terms of Service: https://www.cloudways.com/en/terms.php
+- Privacy Policy: https://www.cloudways.com/en/privacy.php
+
 **GridPane**
 - Service: Server management and site provisioning
 - Data sent: Site configuration data, domain information
@@ -200,6 +247,16 @@ This plugin connects to several external services to provide its functionality. 
 - Terms of Service: https://wpmudev.com/terms-of-service/
 - Privacy Policy: https://incsub.com/privacy-policy/
 
+= DNS and Domain Services =
+
+**Google DNS Resolution**
+- Service: DNS lookup service for domain verification
+- Data sent: Domain names for DNS lookup (no personal data)
+- When: During domain mapping setup and verification
+- Service URL: https://dns.google/resolve
+- Terms of Service: https://developers.google.com/terms/
+- Privacy Policy: https://policies.google.com/privacy
+
 = Newsletter and Analytics =
 
 **Multisite Ultimate Newsletter Service**
@@ -208,6 +265,8 @@ This plugin connects to several external services to provide its functionality. 
 - When: During initial plugin setup (optional)
 - This is our own service for providing plugin updates and announcements
 - You can opt out of this service during setup
+- Terms of Service: https://multisiteultimate.com/terms-of-service/
+- Privacy Policy: https://multisiteultimate.com/privacy-policy/
 
 All external service connections are clearly disclosed to users during setup, and most services are optional or can be configured based on your chosen hosting provider and payment methods.
 

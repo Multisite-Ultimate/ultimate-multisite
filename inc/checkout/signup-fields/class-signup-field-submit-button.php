@@ -15,7 +15,7 @@ use WP_Ultimo\Checkout\Signup_Fields\Base_Signup_Field;
 defined('ABSPATH') || exit;
 
 /**
- * Creates an cart with the parameters of the purchase being placed.
+ * Creates a cart with the parameters of the purchase being placed.
  *
  * @package WP_Ultimo
  * @subpackage Checkout

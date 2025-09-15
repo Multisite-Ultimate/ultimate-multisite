@@ -10,7 +10,7 @@ defined('ABSPATH') || exit;
 ?>
 <div class="wu-styling">
 
-	<?php echo wp_kses($form->before, wu_kses_allowed_html()); ?>
+	<?php echo wp_kses($form->before ?? '', wu_kses_allowed_html()); ?>
 
 	<div class="wu-flex wu-flex-wrap">
 
@@ -37,7 +37,7 @@ defined('ABSPATH') || exit;
 
 	<?php endif; ?>
 
-	<?php echo wp_kses($form->after, wu_kses_allowed_html()); ?>
+	<?php echo wp_kses($form->after ?? '', wu_kses_allowed_html()); ?>
 
 	</div>
 

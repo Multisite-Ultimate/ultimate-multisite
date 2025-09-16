@@ -108,7 +108,7 @@ class Jobs_List_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Jobs', 'multisite-ultimate');
+		return __('Jobs', 'ultimate-multisite');
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Jobs_List_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Jobs', 'multisite-ultimate');
+		return __('Jobs', 'ultimate-multisite');
 	}
 
 	/**
@@ -130,7 +130,7 @@ class Jobs_List_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Jobs', 'multisite-ultimate');
+		return __('Jobs', 'ultimate-multisite');
 	}
 
 	/**

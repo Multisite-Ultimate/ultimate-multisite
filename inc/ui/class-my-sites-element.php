@@ -84,14 +84,14 @@ class My_Sites_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('My Sites', 'multisite-ultimate');
+		return __('My Sites', 'ultimate-multisite');
 	}
 
 	/**
@@ -100,14 +100,14 @@ class My_Sites_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a block to display the sites owned by the current customer.', 'multisite-ultimate');
+		return __('Adds a block to display the sites owned by the current customer.', 'ultimate-multisite');
 	}
 
 	/**
@@ -132,33 +132,33 @@ class My_Sites_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'multisite-ultimate'),
-			'desc'  => __('General', 'multisite-ultimate'),
+			'title' => __('General', 'ultimate-multisite'),
+			'desc'  => __('General', 'ultimate-multisite'),
 			'type'  => 'header',
 		];
 
 		$fields['site_manage_type'] = [
 			'type'    => 'select',
-			'title'   => __('Site Manage Type', 'multisite-ultimate'),
-			'desc'    => __('The page to manage a site.', 'multisite-ultimate'),
+			'title'   => __('Site Manage Type', 'ultimate-multisite'),
+			'desc'    => __('The page to manage a site.', 'ultimate-multisite'),
 			'tooltip' => '',
 			'default' => 'default',
 			'options' => [
-				'default'     => __('Same Page', 'multisite-ultimate'),
-				'wp_admin'    => __('WP Admin', 'multisite-ultimate'),
-				'custom_page' => __('Custom Page', 'multisite-ultimate'),
+				'default'     => __('Same Page', 'ultimate-multisite'),
+				'wp_admin'    => __('WP Admin', 'ultimate-multisite'),
+				'custom_page' => __('Custom Page', 'ultimate-multisite'),
 			],
 		];
 
 		$fields['site_show'] = [
 			'type'    => 'select',
-			'title'   => __('Which sites to show?', 'multisite-ultimate'),
-			'desc'    => __('Select which sites should be listed for user.', 'multisite-ultimate'),
+			'title'   => __('Which sites to show?', 'ultimate-multisite'),
+			'desc'    => __('Select which sites should be listed for user.', 'ultimate-multisite'),
 			'tooltip' => '',
 			'default' => 'all',
 			'options' => [
-				'all'   => __('All', 'multisite-ultimate'),
-				'owned' => __('Owned', 'multisite-ultimate'),
+				'all'   => __('All', 'ultimate-multisite'),
+				'owned' => __('Owned', 'ultimate-multisite'),
 			],
 		];
 
@@ -170,7 +170,7 @@ class My_Sites_Element extends Base_Element {
 
 		$pages = $pages ?: [];
 
-		$pages_list = [0 => __('Current Page', 'multisite-ultimate')];
+		$pages_list = [0 => __('Current Page', 'ultimate-multisite')];
 
 		foreach ($pages as $page) {
 			$pages_list[ $page->ID ] = $page->post_title;
@@ -178,9 +178,9 @@ class My_Sites_Element extends Base_Element {
 
 		$fields['custom_manage_page'] = [
 			'type'     => 'select',
-			'title'    => __('Manage Redirect Page', 'multisite-ultimate'),
+			'title'    => __('Manage Redirect Page', 'ultimate-multisite'),
 			'value'    => 0,
-			'desc'     => __('The page to redirect user after select a site.', 'multisite-ultimate'),
+			'desc'     => __('The page to redirect user after select a site.', 'ultimate-multisite'),
 			'tooltip'  => '',
 			'required' => [
 				'site_manage_type' => 'custom_page',
@@ -190,8 +190,8 @@ class My_Sites_Element extends Base_Element {
 
 		$fields['columns'] = [
 			'type'    => 'number',
-			'title'   => __('Columns', 'multisite-ultimate'),
-			'desc'    => __('How many columns to use.', 'multisite-ultimate'),
+			'title'   => __('Columns', 'ultimate-multisite'),
+			'desc'    => __('How many columns to use.', 'ultimate-multisite'),
 			'tooltip' => '',
 			'value'   => 4,
 			'min'     => 1,
@@ -200,8 +200,8 @@ class My_Sites_Element extends Base_Element {
 
 		$fields['display_images'] = [
 			'type'    => 'toggle',
-			'title'   => __('Display Site Screenshot?', 'multisite-ultimate'),
-			'desc'    => __('Toggle to show/hide the site screenshots on the element.', 'multisite-ultimate'),
+			'title'   => __('Display Site Screenshot?', 'ultimate-multisite'),
+			'desc'    => __('Toggle to show/hide the site screenshots on the element.', 'ultimate-multisite'),
 			'tooltip' => '',
 			'value'   => 1,
 		];

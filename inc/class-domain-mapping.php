@@ -382,7 +382,7 @@ class Domain_Mapping {
 			if (is_wp_error($error)) {
 
 				// translators: First placeholder is the mapping ID, second is the site ID.
-				$message = sprintf(__('Unable to delete mapping %1$d for site %2$d', 'multisite-ultimate'), $mapping->get_id(), $site->blog_id);
+				$message = sprintf(__('Unable to delete mapping %1$d for site %2$d', 'ultimate-multisite'), $mapping->get_id(), $site->blog_id);
 
 				trigger_error(esc_html($message), E_USER_WARNING); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 			}

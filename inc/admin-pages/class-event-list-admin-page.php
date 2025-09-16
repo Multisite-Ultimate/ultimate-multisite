@@ -160,8 +160,8 @@ class Event_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Event removed successfully.', 'multisite-ultimate'),
-			'search_label'    => __('Search Event', 'multisite-ultimate'),
+			'deleted_message' => __('Event removed successfully.', 'ultimate-multisite'),
+			'search_label'    => __('Search Event', 'ultimate-multisite'),
 		];
 	}
 
@@ -173,7 +173,7 @@ class Event_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Events', 'multisite-ultimate');
+		return __('Events', 'ultimate-multisite');
 	}
 
 	/**
@@ -184,7 +184,7 @@ class Event_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Events', 'multisite-ultimate');
+		return __('Events', 'ultimate-multisite');
 	}
 
 	/**
@@ -195,7 +195,7 @@ class Event_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Events', 'multisite-ultimate');
+		return __('Events', 'ultimate-multisite');
 	}
 
 	/**
@@ -209,7 +209,7 @@ class Event_List_Admin_Page extends List_Admin_Page {
 		return [
 			[
 				'url'   => wu_network_admin_url('wp-ultimo-view-logs'),
-				'label' => __('View Logs', 'multisite-ultimate'),
+				'label' => __('View Logs', 'ultimate-multisite'),
 				'icon'  => 'dashicons dashicons-editor-ol',
 			],
 		];

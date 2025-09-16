@@ -195,7 +195,7 @@ class Webhook_Manager extends Base_Manager {
 		if ( ! current_user_can('manage_network')) {
 			wp_send_json(
 				[
-					'response' => __('You do not have enough permissions to send a test event.', 'multisite-ultimate'),
+					'response' => __('You do not have enough permissions to send a test event.', 'ultimate-multisite'),
 					'webhooks' => Webhook::get_items_as_array(),
 				]
 			);

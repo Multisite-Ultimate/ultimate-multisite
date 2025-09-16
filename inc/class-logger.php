@@ -180,7 +180,7 @@ class Logger extends AbstractLogger {
 		$time_elapsed = microtime(true) - $start;
 
 		// translators: the placeholder %s will be replaced by the time in seconds (float).
-		$message .= ' - ' . sprintf(__('This action took %s seconds.', 'multisite-ultimate'), $time_elapsed);
+		$message .= ' - ' . sprintf(__('This action took %s seconds.', 'ultimate-multisite'), $time_elapsed);
 
 		self::add($handle, $message);
 

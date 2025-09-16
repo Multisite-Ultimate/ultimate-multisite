@@ -53,7 +53,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<div class="wu-block wu-my-2">
 
-		<a href="mailto:<?php echo esc_attr($user->user_email); ?>" class="wu-no-underline" <?php wu_tooltip_text(esc_html__('Send an email to this customer.', 'multisite-ultimate')); ?>>
+		<a href="mailto:<?php echo esc_attr($user->user_email); ?>" class="wu-no-underline" <?php wu_tooltip_text(esc_html__('Send an email to this customer.', 'ultimate-multisite')); ?>>
 			<?php echo esc_html($user->user_email); ?>
 		</a>
 
@@ -66,16 +66,16 @@ defined( 'ABSPATH' ) || exit;
 			<a 
 			href="<?php echo esc_attr(\WP_Ultimo\User_Switching::get_instance()->render($user->ID)); ?>"
 			class="button wu-w-full <?php echo \WP_Ultimo\User_Switching::get_instance()->check_user_switching_is_activated() ? '' : 'wubox'; ?> wu-block wu-text-center"
-			title="<?php echo \WP_Ultimo\User_Switching::get_instance()->check_user_switching_is_activated() ? '' : esc_attr__('Install User Switching', 'multisite-ultimate'); ?>"
+			title="<?php echo \WP_Ultimo\User_Switching::get_instance()->check_user_switching_is_activated() ? '' : esc_attr__('Install User Switching', 'ultimate-multisite'); ?>"
 			>
-			<?php esc_html_e('Switch To &rarr;', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Switch To &rarr;', 'ultimate-multisite'); ?>
 			</a>
 
 		<?php else : ?>
 
 			<button class="button wu-w-full" disabled="disabled">
-			<span <?php wu_tooltip_text(esc_html__('Switching to your own account is not possible.', 'multisite-ultimate')); ?>>
-				<?php esc_html_e('Switch To &rarr;', 'multisite-ultimate'); ?>
+			<span <?php wu_tooltip_text(esc_html__('Switching to your own account is not possible.', 'ultimate-multisite')); ?>>
+				<?php esc_html_e('Switch To &rarr;', 'ultimate-multisite'); ?>
 			</span>
 			</button>
 
@@ -83,7 +83,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<a href="<?php echo esc_attr(get_edit_user_link($user->ID)); ?>" target="_blank" class="wu-w-full wu-block wu-text-center wu-no-underline wu-mt-4">
 
-			<?php esc_html_e('Visit Profile &rarr;', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Visit Profile &rarr;', 'ultimate-multisite'); ?>
 
 		</a>
 

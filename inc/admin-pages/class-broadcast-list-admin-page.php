@@ -176,7 +176,7 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 					}
 
 					// translators: %s is the number of customers.
-					$description = sprintf(__('%s customer(s) targeted.', 'multisite-ultimate'), $customer_count);
+					$description = sprintf(__('%s customer(s) targeted.', 'ultimate-multisite'), $customer_count);
 
 					$display_targets[ $key ] = [
 						'link'         => $link,
@@ -267,8 +267,8 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'type'             => [
 				'type'              => 'select-icon',
-				'title'             => __('Broadcast Type', 'multisite-ultimate'),
-				'desc'              => __('Select the type of message you want to send.', 'multisite-ultimate'),
+				'title'             => __('Broadcast Type', 'ultimate-multisite'),
+				'desc'              => __('Select the type of message you want to send.', 'ultimate-multisite'),
 				'placeholder'       => '',
 				'tooltip'           => '',
 				'value'             => '',
@@ -281,29 +281,29 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 				],
 				'options'           => [
 					'broadcast_notice' => [
-						'title'   => __('Message', 'multisite-ultimate'),
-						'tooltip' => __('Display a message on your customers\' dashboard.', 'multisite-ultimate'),
+						'title'   => __('Message', 'ultimate-multisite'),
+						'tooltip' => __('Display a message on your customers\' dashboard.', 'ultimate-multisite'),
 						'icon'    => 'dashicons-before dashicons-excerpt-view',
 					],
 					'broadcast_email'  => [
-						'title'   => __('Email', 'multisite-ultimate'),
-						'tooltip' => __('Send an email to your customers.', 'multisite-ultimate'),
+						'title'   => __('Email', 'ultimate-multisite'),
+						'tooltip' => __('Send an email to your customers.', 'ultimate-multisite'),
 						'icon'    => 'dashicons-before dashicons-email',
 					],
 				],
 			],
 			'step_note'        => [
 				'type'              => 'note',
-				'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-show="step === 2" v-on:click.prevent="step = 1">%s</a>', __('&larr; Back to Type Selection', 'multisite-ultimate')),
+				'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-show="step === 2" v-on:click.prevent="step = 1">%s</a>', __('&larr; Back to Type Selection', 'ultimate-multisite')),
 				'wrapper_html_attr' => [
 					'v-show' => 'step === 2',
 				],
 			],
 			'target_customers' => [
 				'type'              => 'model',
-				'title'             => __('Target Customers', 'multisite-ultimate'),
-				'desc'              => __('This broadcast will be sent to the user or users that are selected here. You can select more than one.', 'multisite-ultimate'),
-				'placeholder'       => __('Search a customer...', 'multisite-ultimate'),
+				'title'             => __('Target Customers', 'ultimate-multisite'),
+				'desc'              => __('This broadcast will be sent to the user or users that are selected here. You can select more than one.', 'ultimate-multisite'),
+				'placeholder'       => __('Search a customer...', 'ultimate-multisite'),
 				'min'               => 1,
 				'html_attr'         => [
 					'v-model'           => 'target_customers',
@@ -319,9 +319,9 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 			],
 			'target_products'  => [
 				'type'              => 'model',
-				'title'             => __('Target Product', 'multisite-ultimate'),
-				'desc'              => __('This broadcast will be sent to the users that have this product. You can select more than one.', 'multisite-ultimate'),
-				'placeholder'       => __('Search for a product..', 'multisite-ultimate'),
+				'title'             => __('Target Product', 'ultimate-multisite'),
+				'desc'              => __('This broadcast will be sent to the users that have this product. You can select more than one.', 'ultimate-multisite'),
+				'placeholder'       => __('Search for a product..', 'ultimate-multisite'),
 				'html_attr'         => [
 					'v-model'           => 'target_products',
 					'data-model'        => 'product',
@@ -335,15 +335,15 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 				],
 			],
 			'notice_type'      => [
-				'title'             => __('Message Type', 'multisite-ultimate'),
-				'desc'              => __('The color of the notice is based on the type.', 'multisite-ultimate'),
+				'title'             => __('Message Type', 'ultimate-multisite'),
+				'desc'              => __('The color of the notice is based on the type.', 'ultimate-multisite'),
 				'type'              => 'select',
 				'default'           => 'success',
 				'options'           => [
-					'success' => __('Success (green)', 'multisite-ultimate'),
-					'info'    => __('Info (blue)', 'multisite-ultimate'),
-					'warning' => __('Warning (orange)', 'multisite-ultimate'),
-					'error'   => __('Error (red)', 'multisite-ultimate'),
+					'success' => __('Success (green)', 'ultimate-multisite'),
+					'info'    => __('Info (blue)', 'ultimate-multisite'),
+					'warning' => __('Warning (orange)', 'ultimate-multisite'),
+					'error'   => __('Error (red)', 'ultimate-multisite'),
 				],
 				'wrapper_html_attr' => [
 					'v-show'  => "step === 2 && require('type', 'broadcast_notice')",
@@ -352,16 +352,16 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 			],
 			'step_note_2'      => [
 				'type'              => 'note',
-				'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-show="step === 3" v-on:click.prevent="step = 2">%s</a>', __('&larr; Back to Target Selection', 'multisite-ultimate')),
+				'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-show="step === 3" v-on:click.prevent="step = 2">%s</a>', __('&larr; Back to Target Selection', 'ultimate-multisite')),
 				'wrapper_html_attr' => [
 					'v-show' => 'step === 3',
 				],
 			],
 			'subject'          => [
 				'type'              => 'text',
-				'title'             => __('Message Subject', 'multisite-ultimate'),
-				'desc'              => __('The title will appear above the main content in the notice or used as subject of the email.', 'multisite-ultimate'),
-				'placeholder'       => __('Enter a title for your broadcast.', 'multisite-ultimate'),
+				'title'             => __('Message Subject', 'ultimate-multisite'),
+				'desc'              => __('The title will appear above the main content in the notice or used as subject of the email.', 'ultimate-multisite'),
+				'placeholder'       => __('Enter a title for your broadcast.', 'ultimate-multisite'),
 				'html_attr'         => [
 					'v-model' => 'subject',
 				],
@@ -371,8 +371,8 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 			],
 			'content'          => [
 				'id'                => 'content',
-				'title'             => __('Content', 'multisite-ultimate'),
-				'desc'              => __('The main content of your broadcast.', 'multisite-ultimate'),
+				'title'             => __('Content', 'ultimate-multisite'),
+				'desc'              => __('The main content of your broadcast.', 'ultimate-multisite'),
 				'type'              => 'wp-editor',
 				'settings'          => [
 					'tinymce' => ['toolbar1' => 'bold,italic,strikethrough,link,unlink,undo,redo,pastetext'],
@@ -386,7 +386,7 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 			],
 			'submit_button'    => [
 				'type'              => 'submit',
-				'title'             => __('Next Step &rarr;', 'multisite-ultimate'),
+				'title'             => __('Next Step &rarr;', 'ultimate-multisite'),
 				'value'             => 'save',
 				'classes'           => 'button button-primary wu-w-full',
 				'wrapper_classes'   => 'wu-items-end',
@@ -400,7 +400,7 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 			],
 			'submit_button_2'  => [
 				'type'              => 'submit',
-				'title'             => __('Next Step &rarr;', 'multisite-ultimate'),
+				'title'             => __('Next Step &rarr;', 'ultimate-multisite'),
 				'value'             => 'save',
 				'classes'           => 'button button-primary wu-w-full',
 				'wrapper_classes'   => 'wu-items-end',
@@ -414,7 +414,7 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 			],
 			'submit_button_3'  => [
 				'type'              => 'submit',
-				'title'             => __('Send &rarr;', 'multisite-ultimate'),
+				'title'             => __('Send &rarr;', 'ultimate-multisite'),
 				'value'             => 'save',
 				'classes'           => 'button button-primary wu-w-full',
 				'wrapper_classes'   => 'wu-items-end',
@@ -484,8 +484,8 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Broadcast removed successfully.', 'multisite-ultimate'),
-			'search_label'    => __('Search Broadcast', 'multisite-ultimate'),
+			'deleted_message' => __('Broadcast removed successfully.', 'ultimate-multisite'),
+			'search_label'    => __('Search Broadcast', 'ultimate-multisite'),
 		];
 	}
 
@@ -497,7 +497,7 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Broadcast', 'multisite-ultimate');
+		return __('Broadcast', 'ultimate-multisite');
 	}
 
 	/**
@@ -508,7 +508,7 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Broadcasts', 'multisite-ultimate');
+		return __('Broadcasts', 'ultimate-multisite');
 	}
 
 	/**
@@ -519,7 +519,7 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Broadcasts', 'multisite-ultimate');
+		return __('Broadcasts', 'ultimate-multisite');
 	}
 
 	/**
@@ -532,14 +532,14 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 
 		return [
 			[
-				'label'   => __('Add Broadcast', 'multisite-ultimate'),
+				'label'   => __('Add Broadcast', 'ultimate-multisite'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('add_new_broadcast_message'),
 			],
 			[
 				'url'   => wu_network_admin_url('wp-ultimo-emails'),
-				'label' => __('System Emails', 'multisite-ultimate'),
+				'label' => __('System Emails', 'ultimate-multisite'),
 				'icon'  => 'wu-mail',
 			],
 		];

@@ -171,8 +171,8 @@ class WU_Page extends \WP_Ultimo\Admin_Pages\Base_Admin_Page {
 				'parent'        => 'wp-ultimo',
 				'capability'    => 'manage_network',
 				'menu_icon'     => 'dashicons-menu',
-				'title'         => __('Admin Page', 'multisite-ultimate'),
-				'menu_title'    => __('Admin Page', 'multisite-ultimate'),
+				'title'         => __('Admin Page', 'ultimate-multisite'),
+				'menu_title'    => __('Admin Page', 'ultimate-multisite'),
 			]
 		);
 

@@ -31,7 +31,7 @@ trait WP_Ultimo_Coupon_Deprecated {
 		 *
 		 * @since 2.0.0
 		 */
-		_doing_it_wrong(esc_html($key), esc_html__('Discount Code keys should not be set directly.', 'multisite-ultimate'), '2.0.0');
+		_doing_it_wrong(esc_html($key), esc_html__('Discount Code keys should not be set directly.', 'ultimate-multisite'), '2.0.0');
 
 		$this->meta[ "wpu_{$key}" ] = $value;
 	}
@@ -57,7 +57,7 @@ trait WP_Ultimo_Coupon_Deprecated {
 		if (null === $value) {
 
 			// translators: the placeholder is the key.
-			$message = sprintf(__('Discount Codes do not have a %s parameter', 'multisite-ultimate'), $key);
+			$message = sprintf(__('Discount Codes do not have a %s parameter', 'ultimate-multisite'), $key);
 
 			// throw new \Exception($message);
 
@@ -69,7 +69,7 @@ trait WP_Ultimo_Coupon_Deprecated {
 		 *
 		 * @since 2.0.0
 		 */
-		_doing_it_wrong(esc_html($key), esc_html__('Discount Code keys should not be accessed directly', 'multisite-ultimate'), '2.0.0');
+		_doing_it_wrong(esc_html($key), esc_html__('Discount Code keys should not be accessed directly', 'ultimate-multisite'), '2.0.0');
 
 		return $value;
 	}

@@ -16,10 +16,10 @@ defined( 'ABSPATH' ) || exit;
 	$data    = [];
 	$slug    = 'taxes_by_code';
 	$headers = [
-		__('Tax', 'multisite-ultimate'),
-		__('Rate', 'multisite-ultimate'),
-		__('Orders', 'multisite-ultimate'),
-		__('Tax Total', 'multisite-ultimate'),
+		__('Tax', 'ultimate-multisite'),
+		__('Rate', 'ultimate-multisite'),
+		__('Orders', 'ultimate-multisite'),
+		__('Tax Total', 'ultimate-multisite'),
 	];
 
 	foreach ($taxes_by_rate as $tax_line) {
@@ -47,10 +47,10 @@ defined( 'ABSPATH' ) || exit;
 
 		<thead>
 			<tr>
-			<th><?php esc_html_e('Tax', 'multisite-ultimate'); ?></th>
-			<th><?php esc_html_e('Rate', 'multisite-ultimate'); ?></th>
-			<th><?php esc_html_e('Orders', 'multisite-ultimate'); ?></th>
-			<th><?php esc_html_e('Tax Total', 'multisite-ultimate'); ?></th>
+			<th><?php esc_html_e('Tax', 'ultimate-multisite'); ?></th>
+			<th><?php esc_html_e('Rate', 'ultimate-multisite'); ?></th>
+			<th><?php esc_html_e('Orders', 'ultimate-multisite'); ?></th>
+			<th><?php esc_html_e('Tax Total', 'ultimate-multisite'); ?></th>
 			</tr>
 		</thead>
 
@@ -73,7 +73,7 @@ defined( 'ABSPATH' ) || exit;
 
 				<tr>
 				<td colspan="4">
-					<?php esc_html_e('No Taxes found.', 'multisite-ultimate'); ?>
+					<?php esc_html_e('No Taxes found.', 'ultimate-multisite'); ?>
 				</td>
 				</tr>
 

@@ -651,7 +651,7 @@ class Checkout {
 		if ($cart->should_collect_payment() === false) {
 			$gateway = wu_get_gateway('free');
 		} elseif ( ! $gateway || $gateway->get_id() === 'free') {
-			$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
+			$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'ultimate-multisite'));
 
 			return false;
 		}
@@ -661,7 +661,7 @@ class Checkout {
 		 * we need to bail.
 		 */
 		if ( ! $gateway) {
-			return new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
+			return new \WP_Error('no-gateway', __('Payment gateway not registered.', 'ultimate-multisite'));
 		}
 
 		$this->gateway_id = $gateway->get_id();
@@ -975,7 +975,7 @@ class Checkout {
 					'email_verification' => 'verified',
 				];
 			} elseif (isset($customer_data['email']) && get_user_by('email', $customer_data['email'])) {
-				return new \WP_Error('email_exists', __('The email address you entered is already in use.', 'multisite-ultimate'));
+				return new \WP_Error('email_exists', __('The email address you entered is already in use.', 'ultimate-multisite'));
 			}
 
 			/*
@@ -1027,7 +1027,7 @@ class Checkout {
 		 * wrong with the customer update, we return a general error.
 		 */
 		if ( ! $address_saved) {
-			return new \WP_Error('address_failure', __('Something wrong happened while attempting to save the customer billing address', 'multisite-ultimate'));
+			return new \WP_Error('address_failure', __('Something wrong happened while attempting to save the customer billing address', 'ultimate-multisite'));
 		}
 
 		/*
@@ -1556,9 +1556,9 @@ class Checkout {
 		 * Localized strings.
 		 */
 		$i18n = [
-			'loading'        => __('Loading...', 'multisite-ultimate'),
-			'added_to_order' => __('The item was added!', 'multisite-ultimate'),
-			'weak_password'  => __('The Password entered is too weak.', 'multisite-ultimate'),
+			'loading'        => __('Loading...', 'ultimate-multisite'),
+			'added_to_order' => __('The item was added!', 'ultimate-multisite'),
+			'weak_password'  => __('The Password entered is too weak.', 'ultimate-multisite'),
 		];
 
 		/*
@@ -1860,12 +1860,12 @@ class Checkout {
 		// Add some hidden or compound fields ids
 		$validation_aliases = array_merge(
 			[
-				'password_conf'              => __('Password confirmation', 'multisite-ultimate'),
-				'email_address_confirmation' => __('Email confirmation', 'multisite-ultimate'),
-				'template_id'                => __('Template ID', 'multisite-ultimate'),
-				'valid_password'             => __('Valid password', 'multisite-ultimate'),
-				'products'                   => __('Products', 'multisite-ultimate'),
-				'gateway'                    => __('Payment Gateway', 'multisite-ultimate'),
+				'password_conf'              => __('Password confirmation', 'ultimate-multisite'),
+				'email_address_confirmation' => __('Email confirmation', 'ultimate-multisite'),
+				'template_id'                => __('Template ID', 'ultimate-multisite'),
+				'valid_password'             => __('Valid password', 'ultimate-multisite'),
+				'products'                   => __('Products', 'ultimate-multisite'),
+				'gateway'                    => __('Payment Gateway', 'ultimate-multisite'),
 			],
 			$base_aliases
 		);
@@ -2082,13 +2082,13 @@ class Checkout {
 			} elseif ($this->order->should_collect_payment() === false) {
 				$gateway = wu_get_gateway('free');
 			} elseif ($gateway->get_id() === 'free') {
-					$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
+					$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'ultimate-multisite'));
 
 					return false;
 			}
 
 			if ( ! $gateway) {
-				$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
+				$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'ultimate-multisite'));
 
 				return false;
 			}
@@ -2186,7 +2186,7 @@ class Checkout {
 			$membership_id = $this->order->get_membership() ? $this->order->get_membership()->get_id() : 'unknown';
 
 			// translators: %s is the membership ID
-			$log_message  = sprintf(__('Checkout failed for customer %s: ', 'multisite-ultimate'), $membership_id);
+			$log_message  = sprintf(__('Checkout failed for customer %s: ', 'ultimate-multisite'), $membership_id);
 			$log_message .= $e->getMessage();
 
 			wu_log_add('checkout', $log_message, LogLevel::ERROR);

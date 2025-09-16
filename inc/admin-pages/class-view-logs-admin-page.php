@@ -100,7 +100,7 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 			'wu_view_logs',
 			[
 				'i18n' => [
-					'copied' => __('Copied!', 'multisite-ultimate'),
+					'copied' => __('Copied!', 'ultimate-multisite'),
 				],
 			]
 		);
@@ -118,7 +118,7 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('View Log', 'multisite-ultimate');
+		return __('View Log', 'ultimate-multisite');
 	}
 
 	/**
@@ -129,7 +129,7 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('View Log', 'multisite-ultimate');
+		return __('View Log', 'ultimate-multisite');
 	}
 
 	/**
@@ -152,7 +152,7 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 		$logs_list = array_combine(array_values($logs_list), array_map(fn($file) => str_replace(Logger::get_logs_folder(), '', (string) $file), $logs_list));
 
 		if (empty($logs_list)) {
-			$logs_list[''] = __('No log files found', 'multisite-ultimate');
+			$logs_list[''] = __('No log files found', 'ultimate-multisite');
 		}
 
 		$file = wu_request('file');
@@ -163,7 +163,7 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 
 		// Security check
 		if ($file && ! stristr((string) $file, Logger::get_logs_folder())) {
-			wp_die(esc_html__('You can see files that are not Multisite Ultimate\'s logs', 'multisite-ultimate'));
+			wp_die(esc_html__('You can see files that are not Multisite Ultimate\'s logs', 'ultimate-multisite'));
 		}
 
 		if ( ! $file && ! empty($logs_list)) {
@@ -172,7 +172,7 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 
 		$file_name = str_replace(Logger::get_logs_folder(), '', (string) $file);
 
-		$default_content = wu_request('return_ascii', 'yes') === 'yes' ? wu_get_template_contents('events/ascii-badge') : __('No log entries found.', 'multisite-ultimate');
+		$default_content = wu_request('return_ascii', 'yes') === 'yes' ? wu_get_template_contents('events/ascii-badge') : __('No log entries found.', 'ultimate-multisite');
 
 		$contents = $file && file_exists($file) ? file_get_contents($file) : $default_content;
 
@@ -200,24 +200,24 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 
 		$info = $this->handle_view_logs();
 
-		add_meta_box('wp-ultimo-log-contents', __('Log Contents', 'multisite-ultimate'), [$this, 'output_default_widget_payload'], get_current_screen()->id, 'normal', null, $info);
+		add_meta_box('wp-ultimo-log-contents', __('Log Contents', 'ultimate-multisite'), [$this, 'output_default_widget_payload'], get_current_screen()->id, 'normal', null, $info);
 
 		$this->add_fields_widget(
 			'file-selector',
 			[
-				'title'  => __('Log Files', 'multisite-ultimate'),
+				'title'  => __('Log Files', 'ultimate-multisite'),
 				'fields' => [
 					'log_file' => [
 						'type'        => 'select',
-						'title'       => __('Select Log File', 'multisite-ultimate'),
-						'placeholder' => __('Select Log File', 'multisite-ultimate'),
+						'title'       => __('Select Log File', 'ultimate-multisite'),
+						'placeholder' => __('Select Log File', 'ultimate-multisite'),
 						'value'       => wu_request('file'),
 						'tooltip'     => '',
 						'options'     => $info['logs_list'],
 					],
 					'download' => [
 						'type'    => 'submit',
-						'title'   => __('Download Log', 'multisite-ultimate'),
+						'title'   => __('Download Log', 'ultimate-multisite'),
 						'value'   => 'download',
 						'classes' => 'button button-primary wu-w-full',
 					],
@@ -228,11 +228,11 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'info',
 			[
-				'title'    => __('Timestamps', 'multisite-ultimate'),
+				'title'    => __('Timestamps', 'ultimate-multisite'),
 				'position' => 'side',
 				'fields'   => [
 					'date_modified' => [
-						'title'         => __('Last Modified at', 'multisite-ultimate'),
+						'title'         => __('Last Modified at', 'ultimate-multisite'),
 						'type'          => 'text-edit',
 						'date'          => true,
 						'value'         => date_i18n('Y-m-d H:i:s', filemtime($info['file'])),
@@ -257,8 +257,8 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 		wu_get_template(
 			'events/widget-payload',
 			[
-				'title'        => __('Event Payload', 'multisite-ultimate'),
-				'loading_text' => __('Loading Payload', 'multisite-ultimate'),
+				'title'        => __('Event Payload', 'ultimate-multisite'),
+				'loading_text' => __('Loading Payload', 'ultimate-multisite'),
 				'payload'      => $data['args']['contents'],
 			]
 		);
@@ -273,12 +273,12 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('View Log', 'multisite-ultimate'),
-			'add_new_label'       => __('View Log', 'multisite-ultimate'),
-			'title_placeholder'   => __('Enter Customer', 'multisite-ultimate'),
-			'title_description'   => __('Viewing file: ', 'multisite-ultimate'),
-			'delete_button_label' => __('Delete Log File', 'multisite-ultimate'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
+			'edit_label'          => __('View Log', 'ultimate-multisite'),
+			'add_new_label'       => __('View Log', 'ultimate-multisite'),
+			'title_placeholder'   => __('Enter Customer', 'ultimate-multisite'),
+			'title_description'   => __('Viewing file: ', 'ultimate-multisite'),
+			'delete_button_label' => __('Delete Log File', 'ultimate-multisite'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'ultimate-multisite'),
 		];
 	}
 
@@ -323,7 +323,7 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 		$action = wu_request('submit_button', 'none');
 
 		if ('none' === $action) {
-			WP_Ultimo()->notices->add(__('Something wrong happened', 'multisite-ultimate'), 'error', 'network-admin');
+			WP_Ultimo()->notices->add(__('Something wrong happened', 'ultimate-multisite'), 'error', 'network-admin');
 
 			return;
 		}
@@ -331,7 +331,7 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 		$file = wu_request('log_file', false);
 
 		if ( ! file_exists($file)) {
-			WP_Ultimo()->notices->add(__('File not found', 'multisite-ultimate'), 'error', 'network-admin');
+			WP_Ultimo()->notices->add(__('File not found', 'ultimate-multisite'), 'error', 'network-admin');
 
 			return;
 		}
@@ -350,12 +350,12 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 			}
 
 			if ( ! $wp_filesystem->exists($file) ) {
-				wp_die(esc_html__('Log file not found.', 'multisite-ultimate'));
+				wp_die(esc_html__('Log file not found.', 'ultimate-multisite'));
 			}
 
 			$content = $wp_filesystem->get_contents($file);
 			if ( false === $content ) {
-				wp_die(esc_html__('Unable to read log file.', 'multisite-ultimate'));
+				wp_die(esc_html__('Unable to read log file.', 'ultimate-multisite'));
 			}
 
 			header('Content-Length: ' . strlen($content));
@@ -366,7 +366,7 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 			$status = wp_delete_file($file);
 
 			if ( ! $status) {
-				WP_Ultimo()->notices->add(__('We were unable to delete file', 'multisite-ultimate'), 'error', 'network-admin');
+				WP_Ultimo()->notices->add(__('We were unable to delete file', 'ultimate-multisite'), 'error', 'network-admin');
 
 				return;
 			}

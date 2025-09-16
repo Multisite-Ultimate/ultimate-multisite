@@ -36,8 +36,8 @@ class Line_Item_List_Table extends Payment_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Line Item', 'multisite-ultimate'),  // singular name of the listed records
-				'plural'   => __('Line Items', 'multisite-ultimate'), // plural name of the listed records
+				'singular' => __('Line Item', 'ultimate-multisite'),  // singular name of the listed records
+				'plural'   => __('Line Items', 'ultimate-multisite'), // plural name of the listed records
 				'ajax'     => true,                         // does this table support ajax?
 			]
 		);
@@ -99,8 +99,8 @@ class Line_Item_List_Table extends Payment_List_Table {
 		];
 
 		$actions = [
-			'edit'   => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Edit Item', 'multisite-ultimate'), wu_get_form_url('edit_line_item', $url_atts), __('Edit', 'multisite-ultimate')),
-			'delete' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete Item', 'multisite-ultimate'), wu_get_form_url('delete_line_item', $url_atts), __('Delete', 'multisite-ultimate')),
+			'edit'   => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Edit Item', 'ultimate-multisite'), wu_get_form_url('edit_line_item', $url_atts), __('Edit', 'ultimate-multisite')),
+			'delete' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete Item', 'ultimate-multisite'), wu_get_form_url('delete_line_item', $url_atts), __('Delete', 'ultimate-multisite')),
 		];
 
 		$html = sprintf('<span class="wu-block wu-text-gray-700">%s</span>', $item->get_title());
@@ -123,7 +123,7 @@ class Line_Item_List_Table extends Payment_List_Table {
 		$html = wu_format_currency($item->get_unit_price());
 
 		// translators: %s is the quantity of items in the cart
-		$quantity = sprintf(__('Quantity: %s', 'multisite-ultimate'), $item->get_quantity());
+		$quantity = sprintf(__('Quantity: %s', 'ultimate-multisite'), $item->get_quantity());
 
 		return $html . sprintf('<small class="wu-block">%s</small>', $quantity);
 	}
@@ -146,7 +146,7 @@ class Line_Item_List_Table extends Payment_List_Table {
 			$tax_rate = $item->get_tax_rate() . '%';
 		}
 
-		$tax_label = $item->get_tax_rate() ? ($item->get_tax_label() ?: __('Tax Applied', 'multisite-ultimate')) : __('No Taxes Applied', 'multisite-ultimate');
+		$tax_label = $item->get_tax_rate() ? ($item->get_tax_label() ?: __('Tax Applied', 'ultimate-multisite')) : __('No Taxes Applied', 'ultimate-multisite');
 
 		return $html . sprintf('<small class="wu-block">%s (%s)</small>', $tax_rate, $tax_label);
 	}
@@ -169,7 +169,7 @@ class Line_Item_List_Table extends Payment_List_Table {
 			$tax_rate = $item->get_discount_rate() . '%';
 		}
 
-		$tax_label = $item->get_discount_rate() ? ($item->get_discount_label() ?: __('Discount', 'multisite-ultimate')) : __('No discount', 'multisite-ultimate');
+		$tax_label = $item->get_discount_rate() ? ($item->get_discount_label() ?: __('Discount', 'ultimate-multisite')) : __('No discount', 'ultimate-multisite');
 
 		return $html . sprintf('<small class="wu-block">%s (%s)</small>', $tax_rate, $tax_label);
 	}
@@ -209,12 +209,12 @@ class Line_Item_List_Table extends Payment_List_Table {
 	public function get_columns() {
 
 		$columns = [
-			'service'         => __('Service', 'multisite-ultimate'),
-			'unit_price'      => __('Unit Price', 'multisite-ultimate'),
-			'discounts_total' => __('discounts', 'multisite-ultimate'),
-			'subtotal'        => __('Subtotal', 'multisite-ultimate'),
-			'tax_total'       => __('Taxes', 'multisite-ultimate'),
-			'total'           => __('Total', 'multisite-ultimate'),
+			'service'         => __('Service', 'ultimate-multisite'),
+			'unit_price'      => __('Unit Price', 'ultimate-multisite'),
+			'discounts_total' => __('discounts', 'ultimate-multisite'),
+			'subtotal'        => __('Subtotal', 'ultimate-multisite'),
+			'tax_total'       => __('Taxes', 'ultimate-multisite'),
+			'total'           => __('Total', 'ultimate-multisite'),
 		];
 
 		return $columns;

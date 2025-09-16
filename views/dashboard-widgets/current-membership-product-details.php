@@ -40,7 +40,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<span class="wu-text-xs wu-uppercase wu-font-bold wu-block">
 
-		<?php esc_html_e('Product Description:', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Product Description:', 'ultimate-multisite'); ?>
 
 	</span>
 
@@ -50,7 +50,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<span class="wu-text-xs wu-uppercase wu-font-bold wu-block">
 
-	<?php esc_html_e('Product Characteristics:', 'multisite-ultimate'); ?>
+	<?php esc_html_e('Product Characteristics:', 'ultimate-multisite'); ?>
 
 	</span>
 

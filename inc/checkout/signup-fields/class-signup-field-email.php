@@ -64,7 +64,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Email', 'multisite-ultimate');
+		return __('Email', 'ultimate-multisite');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a email address field. This email address will be used to create the WordPress user.', 'multisite-ultimate');
+		return __('Adds a email address field. This email address will be used to create the WordPress user.', 'ultimate-multisite');
 	}
 
 	/**
@@ -90,7 +90,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a email address field. This email address will be used to create the WordPress user.', 'multisite-ultimate');
+		return __('Adds a email address field. This email address will be used to create the WordPress user.', 'ultimate-multisite');
 	}
 	/**
 	 * Returns the icon to be used on the selector.
@@ -118,7 +118,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 		return [
 			'display_notices'     => true,
 			'email_confirm_field' => false,
-			'email_confirm_label' => __('Confirm Email', 'multisite-ultimate'),
+			'email_confirm_label' => __('Confirm Email', 'ultimate-multisite'),
 		];
 	}
 
@@ -162,8 +162,8 @@ class Signup_Field_Email extends Base_Signup_Field {
 		return [
 			'display_notices'     => [
 				'type'      => 'toggle',
-				'title'     => __('Display Notices', 'multisite-ultimate'),
-				'desc'      => __('When the customer is already logged in, a box with the customer\'s username and a link to logout is displayed instead of the email field. Disable this option if you do not want that box to show up.', 'multisite-ultimate'),
+				'title'     => __('Display Notices', 'ultimate-multisite'),
+				'desc'      => __('When the customer is already logged in, a box with the customer\'s username and a link to logout is displayed instead of the email field. Disable this option if you do not want that box to show up.', 'ultimate-multisite'),
 				'tooltip'   => '',
 				'value'     => 1,
 				'html_attr' => [
@@ -172,8 +172,8 @@ class Signup_Field_Email extends Base_Signup_Field {
 			],
 			'email_confirm_field' => [
 				'type'  => 'toggle',
-				'title' => __('Display Email Confirm Field', 'multisite-ultimate'),
-				'desc'  => __('Adds a "Confirm Email" field below email field to reduce the chance of making a mistake.', 'multisite-ultimate'),
+				'title' => __('Display Email Confirm Field', 'ultimate-multisite'),
+				'desc'  => __('Adds a "Confirm Email" field below email field to reduce the chance of making a mistake.', 'ultimate-multisite'),
 				'value' => 1,
 			],
 		];
@@ -195,7 +195,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 			if ($attributes['display_notices']) {
 				$checkout_fields['login_note'] = [
 					'type'              => 'note',
-					'title'             => __('Not you?', 'multisite-ultimate'),
+					'title'             => __('Not you?', 'ultimate-multisite'),
 					'desc'              => [$this, 'render_not_you_customer_message'],
 					'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
 					'wrapper_html_attr' => [
@@ -207,7 +207,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 			if ($attributes['display_notices']) {
 				$checkout_fields['login_note'] = [
 					'type'              => 'note',
-					'title'             => __('Existing customer?', 'multisite-ultimate'),
+					'title'             => __('Existing customer?', 'ultimate-multisite'),
 					'desc'              => [$this, 'render_existing_customer_message'],
 					'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
 					'wrapper_html_attr' => [
@@ -267,7 +267,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 
 			<?php
 			// translators: %s is the login URL.
-			printf(wp_kses_post(__('<a href="%s">Log in</a> to renew or change an existing membership.', 'multisite-ultimate')), esc_attr($login_url));
+			printf(wp_kses_post(__('<a href="%s">Log in</a> to renew or change an existing membership.', 'ultimate-multisite')), esc_attr($login_url));
 
 			?>
 
@@ -295,7 +295,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 		<?php
 
 		// translators: 1$s is the display name of the user currently logged in.
-		printf(wp_kses_post(__('Not %1$s? <a href="%2$s">Log in</a> using your account.', 'multisite-ultimate')), esc_html(wp_get_current_user()->display_name), esc_attr($login_url));
+		printf(wp_kses_post(__('Not %1$s? <a href="%2$s">Log in</a> using your account.', 'ultimate-multisite')), esc_html(wp_get_current_user()->display_name), esc_attr($login_url));
 
 		?>
 		</p>

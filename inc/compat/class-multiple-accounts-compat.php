@@ -260,8 +260,8 @@ class Multiple_Accounts_Compat {
 			'login-and-registration',
 			'multiple_accounts_header',
 			[
-				'title' => __('Multiple Accounts', 'multisite-ultimate'),
-				'desc'  => __('Options related to the Multiple Accounts feature.', 'multisite-ultimate'),
+				'title' => __('Multiple Accounts', 'ultimate-multisite'),
+				'desc'  => __('Options related to the Multiple Accounts feature.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -270,8 +270,8 @@ class Multiple_Accounts_Compat {
 			'login-and-registration',
 			'enable_multiple_accounts',
 			[
-				'title'   => __('Enable Multiple Accounts', 'multisite-ultimate'),
-				'desc'    => __('Allow users to have accounts in different sites with the same email address. This is useful when running stores with WooCommerce and other plugins, for example.', 'multisite-ultimate') . ' ' . sprintf('<a href="%s" target="_blank">%s</a>', wu_get_documentation_url('multiple-accounts'), __('Read More', 'multisite-ultimate')),
+				'title'   => __('Enable Multiple Accounts', 'ultimate-multisite'),
+				'desc'    => __('Allow users to have accounts in different sites with the same email address. This is useful when running stores with WooCommerce and other plugins, for example.', 'ultimate-multisite') . ' ' . sprintf('<a href="%s" target="_blank">%s</a>', wu_get_documentation_url('multiple-accounts'), __('Read More', 'ultimate-multisite')),
 				'type'    => 'toggle',
 				'default' => 0,
 			]
@@ -288,7 +288,7 @@ class Multiple_Accounts_Compat {
 	 */
 	public function add_multiple_account_column($columns) {
 
-		$columns['multiple_accounts'] = __('Multiple Accounts', 'multisite-ultimate');
+		$columns['multiple_accounts'] = __('Multiple Accounts', 'ultimate-multisite');
 
 		return $columns;
 	}
@@ -320,8 +320,8 @@ class Multiple_Accounts_Compat {
 			);
 
 			// translators: the %d is the account count for that email address.
-			printf(esc_html__('%s accounts using this email.', 'multisite-ultimate'), '<strong>' . esc_html($users->total_users) . '</strong>');
-			printf("<br><a href='%s' class=''>" . esc_html__('See all', 'multisite-ultimate') . ' &raquo;</a>', esc_attr(network_admin_url('users.php?s=' . $user->user_email)));
+			printf(esc_html__('%s accounts using this email.', 'ultimate-multisite'), '<strong>' . esc_html($users->total_users) . '</strong>');
+			printf("<br><a href='%s' class=''>" . esc_html__('See all', 'ultimate-multisite') . ' &raquo;</a>', esc_attr(network_admin_url('users.php?s=' . $user->user_email)));
 		}
 	}
 

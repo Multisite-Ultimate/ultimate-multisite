@@ -25,7 +25,7 @@ $sites = array_map('wu_get_site', $sites ?? []);
 
 $categories ??= [];
 
-$customer_sites_category = __('Your Sites', 'multisite-ultimate');
+$customer_sites_category = __('Your Sites', 'ultimate-multisite');
 
 $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) : [];
 
@@ -41,7 +41,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 				:class="$parent.template_category === '' ? 'current wu-font-semibold' : ''"
 				v-on:click.prevent="$parent.template_category = ''"
 			>
-				<?php esc_html_e('All', 'multisite-ultimate'); ?>
+				<?php esc_html_e('All', 'ultimate-multisite'); ?>
 			</a>
 		</li>
 
@@ -111,7 +111,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 				<div class="wu-site-template-preview-block">
 
 					<a class="wu-site-template-selector" <?php $site_template->get_preview_url_attrs(); ?>>
-						<?php esc_html_e('View Template Preview', 'multisite-ultimate'); ?>
+						<?php esc_html_e('View Template Preview', 'ultimate-multisite'); ?>
 					</a>
 
 				</div>
@@ -122,7 +122,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 					<a class="wu-site-template-selector" @click.prevent="" href="#">
 
-						<?php esc_html_e('Select this Template', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Select this Template', 'ultimate-multisite'); ?>
 
 					</a>
 

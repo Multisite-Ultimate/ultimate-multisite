@@ -56,7 +56,7 @@ class Signup_Field_Payment extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Payment', 'multisite-ultimate');
+		return __('Payment', 'ultimate-multisite');
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Signup_Field_Payment extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds the payment options and the additional fields required to complete a purchase (e.g. credit card field).', 'multisite-ultimate');
+		return __('Adds the payment options and the additional fields required to complete a purchase (e.g. credit card field).', 'ultimate-multisite');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Signup_Field_Payment extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds the payment options and the additional fields required to complete a purchase (e.g. credit card field).', 'multisite-ultimate');
+		return __('Adds the payment options and the additional fields required to complete a purchase (e.g. credit card field).', 'ultimate-multisite');
 	}
 
 	/**
@@ -190,7 +190,7 @@ class Signup_Field_Payment extends Base_Signup_Field {
 			$fields['auto_renew'] = [
 				'type'              => 'toggle',
 				'id'                => 'auto_renew',
-				'name'              => __('Auto-renew', 'multisite-ultimate'),
+				'name'              => __('Auto-renew', 'ultimate-multisite'),
 				'tooltip'           => '',
 				'value'             => '1',
 				'html_attr'         => [

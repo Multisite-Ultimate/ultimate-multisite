@@ -614,18 +614,18 @@ abstract class Base_Gateway {
 	public function get_amount_update_message($to_customer = false) {
 
 		if ( ! $this->supports_amount_update()) {
-			$message = __('The current payment integration will be cancelled.', 'multisite-ultimate');
+			$message = __('The current payment integration will be cancelled.', 'ultimate-multisite');
 
 			if ($to_customer) {
-				$message .= ' ' . __('You will receive a new invoice on the next billing cycle.', 'multisite-ultimate');
+				$message .= ' ' . __('You will receive a new invoice on the next billing cycle.', 'ultimate-multisite');
 			} else {
-				$message .= ' ' . __('The customer will receive a new invoice on the next billing cycle.', 'multisite-ultimate');
+				$message .= ' ' . __('The customer will receive a new invoice on the next billing cycle.', 'ultimate-multisite');
 			}
 
 			return $message;
 		}
 
-		return __('The current payment integration will be updated.', 'multisite-ultimate');
+		return __('The current payment integration will be updated.', 'ultimate-multisite');
 	}
 
 	/**

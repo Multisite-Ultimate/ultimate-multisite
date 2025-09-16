@@ -152,16 +152,16 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 				[
 					[
 						'id'       => 'new-site-template-warning',
-						'title'    => __('On adding a new Site Template...', 'multisite-ultimate'),
+						'title'    => __('On adding a new Site Template...', 'ultimate-multisite'),
 						'text'     => [
-							__("You just successfully added a new site template to your Multisite Ultimate network and that's awesome!", 'multisite-ultimate'),
-							__('Keep in mind that newly created site templates do not appear automatically in your checkout forms.', 'multisite-ultimate'),
-							__('To make a site template available on registration, you will need to manually add it to the template selection field of your checkout forms.', 'multisite-ultimate'),
+							__("You just successfully added a new site template to your Multisite Ultimate network and that's awesome!", 'ultimate-multisite'),
+							__('Keep in mind that newly created site templates do not appear automatically in your checkout forms.', 'ultimate-multisite'),
+							__('To make a site template available on registration, you will need to manually add it to the template selection field of your checkout forms.', 'ultimate-multisite'),
 						],
 						'buttons'  => [
 							[
 								'classes' => 'button wu-text-xs sm:wu-normal-case wu-float-left',
-								'text'    => __('Go to Checkout Forms', 'multisite-ultimate'),
+								'text'    => __('Go to Checkout Forms', 'ultimate-multisite'),
 								'url'     => wu_network_admin_url('wp-ultimo-checkout-forms'),
 							],
 						],
@@ -192,16 +192,16 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = [
 			'confirm'              => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Transfer', 'multisite-ultimate'),
-				'desc'      => __('This will start the transfer of assets from one membership to another.', 'multisite-ultimate'),
+				'title'     => __('Confirm Transfer', 'ultimate-multisite'),
+				'desc'      => __('This will start the transfer of assets from one membership to another.', 'ultimate-multisite'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_button'        => [
 				'type'            => 'submit',
-				'title'           => __('Start Transfer', 'multisite-ultimate'),
-				'placeholder'     => __('Start Transfer', 'multisite-ultimate'),
+				'title'           => __('Start Transfer', 'ultimate-multisite'),
+				'placeholder'     => __('Start Transfer', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -257,11 +257,11 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 		$target_membership = wu_get_membership(wu_request('target_membership_id'));
 
 		if ( ! $site) {
-			wp_send_json_error(new \WP_Error('not-found', __('Site not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('Site not found.', 'ultimate-multisite')));
 		}
 
 		if ( ! $target_membership) {
-			wp_send_json_error(new \WP_Error('not-found', __('Membership not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('Membership not found.', 'ultimate-multisite')));
 		}
 
 		$site->set_membership_id($target_membership->get_id());
@@ -308,7 +308,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'at_a_glance',
 			[
-				'title'                 => __('At a Glance', 'multisite-ultimate'),
+				'title'                 => __('At a Glance', 'ultimate-multisite'),
 				'position'              => 'normal',
 				'classes'               => 'wu-overflow-hidden wu-m-0 wu--mt-1 wu--mx-3 wu--mb-3',
 				'field_wrapper_classes' => 'wu-w-1/4 wu-box-border wu-items-center wu-flex wu-justify-between wu-p-4 wu-m-0 wu-border-t-0 wu-border-l-0 wu-border-r wu-border-b-0 wu-border-gray-300 wu-border-solid wu-float-left wu-relative',
@@ -318,14 +318,14 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 				'fields'                => [
 					'type' => [
 						'type'          => 'text-display',
-						'title'         => __('Site Type', 'multisite-ultimate'),
+						'title'         => __('Site Type', 'ultimate-multisite'),
 						'display_value' => $tag,
 						'tooltip'       => '',
 					],
 					'id'   => [
 						'type'          => 'text-display',
 						'copy'          => true,
-						'title'         => __('Site ID', 'multisite-ultimate'),
+						'title'         => __('Site ID', 'ultimate-multisite'),
 						'display_value' => $this->get_object()->get_id(),
 						'tooltip'       => '',
 					],
@@ -336,13 +336,13 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'description',
 			[
-				'title'    => __('Description', 'multisite-ultimate'),
+				'title'    => __('Description', 'ultimate-multisite'),
 				'position' => 'normal',
 				'fields'   => [
 					'description' => [
 						'type'        => 'textarea',
-						'title'       => __('Site Description', 'multisite-ultimate'),
-						'placeholder' => __('Tell your customers what this site is about.', 'multisite-ultimate'),
+						'title'       => __('Site Description', 'ultimate-multisite'),
+						'placeholder' => __('Tell your customers what this site is about.', 'ultimate-multisite'),
 						'value'       => $this->get_object()->get_option_blogdescription(),
 						'html_attr'   => [
 							'rows' => 3,
@@ -355,7 +355,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_tabs_widget(
 			'options',
 			[
-				'title'    => __('Site Options', 'multisite-ultimate'),
+				'title'    => __('Site Options', 'ultimate-multisite'),
 				'position' => 'normal',
 				'sections' => $this->get_site_option_sections(),
 			]
@@ -364,7 +364,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'domains',
 			[
-				'title'        => __('Mapped Domains', 'multisite-ultimate'),
+				'title'        => __('Mapped Domains', 'ultimate-multisite'),
 				'table'        => new \WP_Ultimo\List_Tables\Sites_Domain_List_Table(),
 				'query_filter' => [$this, 'domain_query_filter'],
 			]
@@ -374,7 +374,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 			$this->add_list_table_widget(
 				'membership',
 				[
-					'title'        => __('Linked Membership', 'multisite-ultimate'),
+					'title'        => __('Linked Membership', 'ultimate-multisite'),
 					'table'        => new \WP_Ultimo\List_Tables\Customers_Membership_List_Table(),
 					'query_filter' => function ($query) {
 
@@ -388,7 +388,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 			$this->add_list_table_widget(
 				'customer',
 				[
-					'title'        => __('Linked Customer', 'multisite-ultimate'),
+					'title'        => __('Linked Customer', 'ultimate-multisite'),
 					'table'        => new \WP_Ultimo\List_Tables\Site_Customer_List_Table(),
 					'query_filter' => function ($query) {
 
@@ -403,7 +403,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'events',
 			[
-				'title'        => __('Events', 'multisite-ultimate'),
+				'title'        => __('Events', 'ultimate-multisite'),
 				'table'        => new \WP_Ultimo\List_Tables\Inside_Events_List_Table(),
 				'query_filter' => [$this, 'query_filter'],
 			]
@@ -429,9 +429,9 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 					// Fields for price
 					'type_main'     => [
 						'type'              => 'text-display',
-						'title'             => __('Site Type', 'multisite-ultimate'),
-						'display_value'     => __('Main Site', 'multisite-ultimate'),
-						'tooltip'           => __('You can\'t change the main site type.', 'multisite-ultimate'),
+						'title'             => __('Site Type', 'ultimate-multisite'),
+						'display_value'     => __('Main Site', 'ultimate-multisite'),
+						'tooltip'           => __('You can\'t change the main site type.', 'ultimate-multisite'),
 						'wrapper_html_attr' => [
 							'v-cloak' => '1',
 							'v-show'  => 'type === "main"',
@@ -439,15 +439,15 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'type'          => [
 						'type'              => 'select',
-						'title'             => __('Site Type', 'multisite-ultimate'),
-						'placeholder'       => __('Select Site Type', 'multisite-ultimate'),
-						'desc'              => __('Different site types have different options and settings.', 'multisite-ultimate'),
+						'title'             => __('Site Type', 'ultimate-multisite'),
+						'placeholder'       => __('Select Site Type', 'ultimate-multisite'),
+						'desc'              => __('Different site types have different options and settings.', 'ultimate-multisite'),
 						'value'             => $this->get_object()->get_type(),
 						'tooltip'           => '',
 						'options'           => [
-							'default'        => __('Regular WordPress', 'multisite-ultimate'),
-							'site_template'  => __('Site Template', 'multisite-ultimate'),
-							'customer_owned' => __('Customer-owned', 'multisite-ultimate'),
+							'default'        => __('Regular WordPress', 'ultimate-multisite'),
+							'site_template'  => __('Site Template', 'ultimate-multisite'),
+							'customer_owned' => __('Customer-owned', 'ultimate-multisite'),
 						],
 						'html_attr'         => [
 							'v-model' => 'type',
@@ -459,9 +459,9 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'categories'    => [
 						'type'              => 'select',
-						'title'             => __('Template Categories', 'multisite-ultimate'),
-						'placeholder'       => __('e.g.: Landing Page, Health...', 'multisite-ultimate'),
-						'desc'              => __('Customers will be able to filter by categories during signup.', 'multisite-ultimate'),
+						'title'             => __('Template Categories', 'ultimate-multisite'),
+						'placeholder'       => __('e.g.: Landing Page, Health...', 'ultimate-multisite'),
+						'desc'              => __('Customers will be able to filter by categories during signup.', 'ultimate-multisite'),
 						'value'             => $this->get_object()->get_categories(),
 						'options'           => Site::get_all_categories(),
 						'html_attr'         => [
@@ -475,9 +475,9 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'membership_id' => [
 						'type'              => 'model',
-						'title'             => __('Associated Membership', 'multisite-ultimate'),
-						'placeholder'       => __('Search Membership...', 'multisite-ultimate'),
-						'desc'              => __('The membership that owns this site.', 'multisite-ultimate'),
+						'title'             => __('Associated Membership', 'ultimate-multisite'),
+						'placeholder'       => __('Search Membership...', 'ultimate-multisite'),
+						'desc'              => __('The membership that owns this site.', 'ultimate-multisite'),
 						'value'             => $this->get_object()->get_membership_id(),
 						'tooltip'           => '',
 						'wrapper_html_attr' => [
@@ -495,7 +495,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'transfer_note' => [
 						'type'              => 'note',
-						'desc'              => __('Changing the membership will transfer the site and all its assets to the new membership.', 'multisite-ultimate'),
+						'desc'              => __('Changing the membership will transfer the site and all its assets to the new membership.', 'ultimate-multisite'),
 						'classes'           => 'wu-p-2 wu-bg-red-100 wu-text-red-600 wu-rounded wu-w-full',
 						'wrapper_html_attr' => [
 							'v-show'  => '(original_membership_id != membership_id) && membership_id',
@@ -504,8 +504,8 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'submit_save'   => [
 						'type'              => 'submit',
-						'title'             => __('Save Site', 'multisite-ultimate'),
-						'placeholder'       => __('Save Site', 'multisite-ultimate'),
+						'title'             => __('Save Site', 'ultimate-multisite'),
+						'placeholder'       => __('Save Site', 'ultimate-multisite'),
 						'value'             => 'save',
 						'classes'           => 'button button-primary wu-w-full',
 						'wrapper_html_attr' => [
@@ -515,7 +515,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'transfer'      => [
 						'type'              => 'link',
-						'display_value'     => __('Transfer Site', 'multisite-ultimate'),
+						'display_value'     => __('Transfer Site', 'ultimate-multisite'),
 						'wrapper_classes'   => 'wu-bg-gray-200',
 						'classes'           => 'button wubox wu-w-full wu-text-center',
 						'wrapper_html_attr' => [
@@ -530,7 +530,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 									'target_membership_id' => '',
 								]
 							) . "=' + membership_id",
-							'title'       => __('Transfer Site', 'multisite-ultimate'),
+							'title'       => __('Transfer Site', 'ultimate-multisite'),
 						],
 					],
 				],
@@ -540,12 +540,12 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'active',
 			[
-				'title'  => __('Active', 'multisite-ultimate'),
+				'title'  => __('Active', 'ultimate-multisite'),
 				'fields' => [
 					'active' => [
 						'type'  => 'toggle',
-						'title' => __('Active', 'multisite-ultimate'),
-						'desc'  => __('Use this option to manually enable or disable this site.', 'multisite-ultimate'),
+						'title' => __('Active', 'ultimate-multisite'),
+						'desc'  => __('Use this option to manually enable or disable this site.', 'ultimate-multisite'),
 						'value' => $this->get_object()->is_active(),
 					],
 				],
@@ -555,19 +555,19 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'image',
 			[
-				'title'  => __('Site Image', 'multisite-ultimate'),
+				'title'  => __('Site Image', 'ultimate-multisite'),
 				'fields' => [
 					'featured_image_id' => [
 						'type'    => 'image',
 						'stacked' => true,
-						'title'   => __('Site Image', 'multisite-ultimate'),
-						'desc'    => __('This image is used on lists of sites and other places. It can be automatically generated by the screenshot scraper.', 'multisite-ultimate'),
+						'title'   => __('Site Image', 'ultimate-multisite'),
+						'desc'    => __('This image is used on lists of sites and other places. It can be automatically generated by the screenshot scraper.', 'ultimate-multisite'),
 						'value'   => $this->get_object()->get_featured_image_id(),
 						'img'     => $this->get_object()->get_featured_image(),
 					],
 					'scraper_note'      => [
 						'type'            => 'note',
-						'desc'            => __('You need to save the site for the change to take effect.', 'multisite-ultimate'),
+						'desc'            => __('You need to save the site for the change to take effect.', 'ultimate-multisite'),
 						'wrapper_classes' => 'wu-hidden wu-scraper-note',
 					],
 					'scraper_error'     => [
@@ -577,12 +577,12 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'scraper_message'   => [
 						'type'            => 'note',
-						'desc'            => sprintf('<span class="wu-p-2 wu-bg-red-100 wu-text-red-600 wu-rounded wu-block">%s</span>', __('We detected that this network might be running locally. If that\'s the case, Multisite Ultimate will not be able to take a screenshot of the site. A site needs to be publicly available to the outside world in order for this feature to work.', 'multisite-ultimate')),
+						'desc'            => sprintf('<span class="wu-p-2 wu-bg-red-100 wu-text-red-600 wu-rounded wu-block">%s</span>', __('We detected that this network might be running locally. If that\'s the case, Multisite Ultimate will not be able to take a screenshot of the site. A site needs to be publicly available to the outside world in order for this feature to work.', 'ultimate-multisite')),
 						'wrapper_classes' => \WP_Ultimo\Domain_Mapping\Helper::is_development_mode() ? '' : 'wu-hidden',
 					],
 					'scraper'           => [
 						'type'    => 'submit',
-						'title'   => __('Take Screenshot', 'multisite-ultimate'),
+						'title'   => __('Take Screenshot', 'ultimate-multisite'),
 						'classes' => 'button wu-w-full',
 					],
 				],
@@ -617,7 +617,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Site', 'multisite-ultimate') : __('Add new Site', 'multisite-ultimate');
+		return $this->edit ? __('Edit Site', 'ultimate-multisite') : __('Add new Site', 'ultimate-multisite');
 	}
 
 	/**
@@ -628,7 +628,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Site', 'multisite-ultimate');
+		return __('Edit Site', 'ultimate-multisite');
 	}
 
 	/**
@@ -642,17 +642,17 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 		return [
 			[
 				'url'   => network_admin_url('site-settings.php?id=' . $this->get_object()->get_id()),
-				'label' => __('Go to the Default Edit Screen', 'multisite-ultimate'),
+				'label' => __('Go to the Default Edit Screen', 'ultimate-multisite'),
 				'icon'  => 'wu-cog',
 			],
 			[
 				'url'   => get_site_url($this->get_object()->get_id()),
-				'label' => __('Visit Site', 'multisite-ultimate'),
+				'label' => __('Visit Site', 'ultimate-multisite'),
 				'icon'  => 'wu-link',
 			],
 			[
 				'url'   => get_admin_url($this->get_object()->get_id()),
-				'label' => __('Dashboard', 'multisite-ultimate'),
+				'label' => __('Dashboard', 'ultimate-multisite'),
 				'icon'  => 'dashboard',
 			],
 		];
@@ -667,15 +667,15 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Site', 'multisite-ultimate'),
-			'add_new_label'       => __('Add new Site', 'multisite-ultimate'),
-			'updated_message'     => __('Site updated with success!', 'multisite-ultimate'),
-			'title_placeholder'   => __('Enter Site Name', 'multisite-ultimate'),
-			'title_description'   => __('This name will be used as the site title.', 'multisite-ultimate'),
-			'save_button_label'   => __('Save Site', 'multisite-ultimate'),
+			'edit_label'          => __('Edit Site', 'ultimate-multisite'),
+			'add_new_label'       => __('Add new Site', 'ultimate-multisite'),
+			'updated_message'     => __('Site updated with success!', 'ultimate-multisite'),
+			'title_placeholder'   => __('Enter Site Name', 'ultimate-multisite'),
+			'title_description'   => __('This name will be used as the site title.', 'ultimate-multisite'),
+			'save_button_label'   => __('Save Site', 'ultimate-multisite'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Site', 'multisite-ultimate'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
+			'delete_button_label' => __('Delete Site', 'ultimate-multisite'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'ultimate-multisite'),
 		];
 	}
 

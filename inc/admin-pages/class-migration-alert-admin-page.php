@@ -89,7 +89,7 @@ class Migration_Alert_Admin_Page extends Wizard_Admin_Page {
 	 */
 	public function get_title(): string {
 
-		return sprintf(__('Migration', 'multisite-ultimate'));
+		return sprintf(__('Migration', 'ultimate-multisite'));
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Migration_Alert_Admin_Page extends Wizard_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return WP_Ultimo()->is_loaded() ? __('Multisite Ultimate Migration Alert', 'multisite-ultimate') : __('Multisite Ultimate', 'multisite-ultimate');
+		return WP_Ultimo()->is_loaded() ? __('Multisite Ultimate Migration Alert', 'ultimate-multisite') : __('Multisite Ultimate', 'ultimate-multisite');
 	}
 
 	/**
@@ -113,7 +113,7 @@ class Migration_Alert_Admin_Page extends Wizard_Admin_Page {
 
 		return [
 			'alert' => [
-				'title'   => __('Alert!', 'multisite-ultimate'),
+				'title'   => __('Alert!', 'ultimate-multisite'),
 				'view'    => [$this, 'section_alert'],
 				'handler' => [$this, 'handle_proceed'],
 			],

@@ -232,7 +232,7 @@ class My_Sites_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('My Sites', 'multisite-ultimate');
+		return __('My Sites', 'ultimate-multisite');
 	}
 
 	/**
@@ -243,7 +243,7 @@ class My_Sites_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('My Sites', 'multisite-ultimate');
+		return __('My Sites', 'ultimate-multisite');
 	}
 
 	/**
@@ -254,7 +254,7 @@ class My_Sites_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('My Sites', 'multisite-ultimate');
+		return __('My Sites', 'ultimate-multisite');
 	}
 
 	/**

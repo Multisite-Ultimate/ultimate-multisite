@@ -94,13 +94,13 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'description',
 			[
-				'title'    => __('Description', 'multisite-ultimate'),
+				'title'    => __('Description', 'ultimate-multisite'),
 				'position' => 'normal',
 				'fields'   => [
 					'description' => [
 						'type'        => 'textarea',
-						'title'       => __('Description', 'multisite-ultimate'),
-						'placeholder' => __('Tell your customers what this product is about.', 'multisite-ultimate'),
+						'title'       => __('Description', 'ultimate-multisite'),
+						'placeholder' => __('Tell your customers what this product is about.', 'ultimate-multisite'),
 						'value'       => $this->get_object()->get_description(),
 						'html_attr'   => [
 							'rows' => 3,
@@ -114,30 +114,30 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 
 		$options = [
 			'general'  => [
-				'title'  => __('Limit Uses', 'multisite-ultimate'),
+				'title'  => __('Limit Uses', 'ultimate-multisite'),
 				'icon'   => 'dashicons-wu-lock',
-				'desc'   => __('Rules and limitations to the applicability of this discount code.', 'multisite-ultimate'),
+				'desc'   => __('Rules and limitations to the applicability of this discount code.', 'ultimate-multisite'),
 				'fields' => [
 					'uses'     => [
-						'title'         => __('Uses', 'multisite-ultimate'),
+						'title'         => __('Uses', 'ultimate-multisite'),
 						'type'          => 'text-display',
 						// translators: %d is the number of times the coupon was used.
-						'display_value' => sprintf(__('This discount code was used %d times.', 'multisite-ultimate'), $this->get_object()->get_uses()),
-						'tooltip'       => __('The number of times that this discount code was used so far.', 'multisite-ultimate'),
+						'display_value' => sprintf(__('This discount code was used %d times.', 'ultimate-multisite'), $this->get_object()->get_uses()),
+						'tooltip'       => __('The number of times that this discount code was used so far.', 'ultimate-multisite'),
 					],
 					'max_uses' => [
-						'title'       => __('Max Uses', 'multisite-ultimate'),
-						'desc'        => __('Use this option to set a limit on how many times this discount code can be used. Leave blank or 0 for unlimited uses.', 'multisite-ultimate'),
+						'title'       => __('Max Uses', 'ultimate-multisite'),
+						'desc'        => __('Use this option to set a limit on how many times this discount code can be used. Leave blank or 0 for unlimited uses.', 'ultimate-multisite'),
 						'type'        => 'number',
 						'min'         => 0,
 						'placeholder' => 0,
-						'value'       => $this->get_object()->has_max_uses() ? $this->get_object()->get_max_uses() : __('Unlimited', 'multisite-ultimate'),
+						'value'       => $this->get_object()->has_max_uses() ? $this->get_object()->get_max_uses() : __('Unlimited', 'ultimate-multisite'),
 					],
 				],
 			],
 			'time'     => [
-				'title'  => __('Start & Expiration Dates', 'multisite-ultimate'),
-				'desc'   => __('Define a start and end date for this discount code. Useful when running campaigns for a pre-determined period.', 'multisite-ultimate'),
+				'title'  => __('Start & Expiration Dates', 'ultimate-multisite'),
+				'desc'   => __('Define a start and end date for this discount code. Useful when running campaigns for a pre-determined period.', 'ultimate-multisite'),
 				'icon'   => 'dashicons-wu-calendar',
 				'state'  => [
 					'enable_date_start'      => $this->get_object()->get_date_start(),
@@ -146,19 +146,19 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 				'fields' => [
 					'enable_date_start'      => [
 						'type'      => 'toggle',
-						'title'     => __('Enable Start Date', 'multisite-ultimate'),
-						'desc'      => __('Allows you to set a start date for this coupon code.', 'multisite-ultimate'),
+						'title'     => __('Enable Start Date', 'ultimate-multisite'),
+						'desc'      => __('Allows you to set a start date for this coupon code.', 'ultimate-multisite'),
 						'value'     => 1,
 						'html_attr' => [
 							'v-model' => 'enable_date_start',
 						],
 					],
 					'date_start'             => [
-						'title'             => __('Start Date', 'multisite-ultimate'),
-						'desc'              => __('The discount code will only be good to be used after this date.', 'multisite-ultimate') . ' ' . $tz_note,
+						'title'             => __('Start Date', 'ultimate-multisite'),
+						'desc'              => __('The discount code will only be good to be used after this date.', 'ultimate-multisite') . ' ' . $tz_note,
 						'type'              => 'text',
 						'date'              => true,
-						'value'             => $this->edit ? $this->get_object()->get_date_start() : __('No date', 'multisite-ultimate'),
+						'value'             => $this->edit ? $this->get_object()->get_date_start() : __('No date', 'ultimate-multisite'),
 						'placeholder'       => 'E.g. 2020-04-04 12:00:00',
 						'wrapper_html_attr' => [
 							'v-cloak' => 1,
@@ -173,19 +173,19 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'enable_date_expiration' => [
 						'type'      => 'toggle',
-						'title'     => __('Enable Expiration Date', 'multisite-ultimate'),
-						'desc'      => __('Allows you to set an expiration date for this coupon code.', 'multisite-ultimate'),
+						'title'     => __('Enable Expiration Date', 'ultimate-multisite'),
+						'desc'      => __('Allows you to set an expiration date for this coupon code.', 'ultimate-multisite'),
 						'value'     => 1,
 						'html_attr' => [
 							'v-model' => 'enable_date_expiration',
 						],
 					],
 					'date_expiration'        => [
-						'title'             => __('Expiration Date', 'multisite-ultimate'),
-						'desc'              => __('The discount code will expire after this date.', 'multisite-ultimate') . ' ' . $tz_note,
+						'title'             => __('Expiration Date', 'ultimate-multisite'),
+						'desc'              => __('The discount code will expire after this date.', 'ultimate-multisite') . ' ' . $tz_note,
 						'type'              => 'text',
 						'date'              => true,
-						'value'             => $this->edit ? $this->get_object()->get_date_expiration() : __('Never Expires', 'multisite-ultimate'),
+						'value'             => $this->edit ? $this->get_object()->get_date_expiration() : __('Never Expires', 'ultimate-multisite'),
 						'placeholder'       => 'E.g. 2020-04-04 12:00:00',
 						'wrapper_html_attr' => [
 							'v-cloak' => 1,
@@ -201,8 +201,8 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 				],
 			],
 			'products' => [
-				'title'  => __('Limit Products', 'multisite-ultimate'),
-				'desc'   => __('Determine if you want this discount code to apply to all discountable products or not.', 'multisite-ultimate'),
+				'title'  => __('Limit Products', 'ultimate-multisite'),
+				'desc'   => __('Determine if you want this discount code to apply to all discountable products or not.', 'ultimate-multisite'),
 				'icon'   => 'dashicons-wu-price-tag',
 				'state'  => [
 					'limit_products' => $this->get_object()->get_limit_products(),
@@ -211,8 +211,8 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 					[
 						'limit_products' => [
 							'type'      => 'toggle',
-							'title'     => __('Select Products', 'multisite-ultimate'),
-							'desc'      => __('Manually select to which products this discount code should be applicable.', 'multisite-ultimate'),
+							'title'     => __('Select Products', 'ultimate-multisite'),
+							'desc'      => __('Manually select to which products this discount code should be applicable.', 'ultimate-multisite'),
 							'value'     => 1,
 							'html_attr' => [
 								'v-model' => 'limit_products',
@@ -227,7 +227,7 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_tabs_widget(
 			'options',
 			[
-				'title'    => __('Advanced Options', 'multisite-ultimate'),
+				'title'    => __('Advanced Options', 'ultimate-multisite'),
 				'position' => 'normal',
 				'sections' => apply_filters('wu_discount_code_options_sections', $options, $this->get_object()),
 			]
@@ -241,7 +241,7 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'events',
 			[
-				'title'        => __('Events', 'multisite-ultimate'),
+				'title'        => __('Events', 'ultimate-multisite'),
 				'table'        => new \WP_Ultimo\List_Tables\Inside_Events_List_Table(),
 				'query_filter' => [$this, 'query_filter'],
 			]
@@ -265,10 +265,10 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 				],
 				'fields'    => [
 					'code'                  => [
-						'title'             => __('Coupon Code', 'multisite-ultimate'),
+						'title'             => __('Coupon Code', 'ultimate-multisite'),
 						'type'              => 'text',
-						'placeholder'       => __('E.g. XMAS10OFF', 'multisite-ultimate'),
-						'desc'              => __('The actual code your customers will enter during checkout.', 'multisite-ultimate'),
+						'placeholder'       => __('E.g. XMAS10OFF', 'ultimate-multisite'),
+						'desc'              => __('The actual code your customers will enter during checkout.', 'ultimate-multisite'),
 						'value'             => $this->get_object()->get_code(),
 						'tooltip'           => '',
 						'wrapper_html_attr' => [
@@ -281,7 +281,7 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'value_group'           => [
 						'type'              => 'group',
-						'title'             => __('Discount', 'multisite-ultimate'),
+						'title'             => __('Discount', 'ultimate-multisite'),
 						'wrapper_html_attr' => [
 							'v-cloak' => '1',
 						],
@@ -292,9 +292,9 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 								'placeholder'     => '',
 								'wrapper_classes' => 'wu-w-2/3',
 								'options'         => [
-									'percentage' => __('Percentage (%)', 'multisite-ultimate'),
+									'percentage' => __('Percentage (%)', 'ultimate-multisite'),
 									// translators: %s is the currency symbol. e.g. $
-									'absolute'   => sprintf(__('Absolute (%s)', 'multisite-ultimate'), wu_get_currency_symbol()),
+									'absolute'   => sprintf(__('Absolute (%s)', 'ultimate-multisite'), wu_get_currency_symbol()),
 								],
 								'html_attr'       => [
 									'v-model' => 'type',
@@ -315,8 +315,8 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'apply_to_renewals'     => [
 						'type'              => 'toggle',
-						'title'             => __('Apply to Renewals', 'multisite-ultimate'),
-						'desc'              => __('By default, discounts are only applied to the first payment.', 'multisite-ultimate'),
+						'title'             => __('Apply to Renewals', 'ultimate-multisite'),
+						'desc'              => __('By default, discounts are only applied to the first payment.', 'ultimate-multisite'),
 						'value'             => $this->get_object()->should_apply_to_renewals(),
 						'wrapper_html_attr' => [
 							'v-cloak' => '1',
@@ -324,8 +324,8 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'apply_to_setup_fee'    => [
 						'type'              => 'toggle',
-						'title'             => __('Setup Fee Discount', 'multisite-ultimate'),
-						'desc'              => __('Also set a discount for setup fee?', 'multisite-ultimate'),
+						'title'             => __('Setup Fee Discount', 'ultimate-multisite'),
+						'desc'              => __('Also set a discount for setup fee?', 'ultimate-multisite'),
 						'value'             => $this->get_object()->get_setup_fee_value() > 0,
 						'html_attr'         => [
 							'v-model' => 'apply_to_setup_fee',
@@ -336,7 +336,7 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'setup_fee_value_group' => [
 						'type'              => 'group',
-						'title'             => __('Setup Fee Discount', 'multisite-ultimate'),
+						'title'             => __('Setup Fee Discount', 'ultimate-multisite'),
 						'wrapper_html_attr' => [
 							'v-show'  => 'apply_to_setup_fee',
 							'v-cloak' => '1',
@@ -348,9 +348,9 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 								'placeholder'     => '',
 								'wrapper_classes' => 'wu-w-2/3',
 								'options'         => [
-									'percentage' => __('Percentage (%)', 'multisite-ultimate'),
+									'percentage' => __('Percentage (%)', 'ultimate-multisite'),
 									// translators: %s is the currency symbol. e.g. $
-									'absolute'   => sprintf(__('Absolute (%s)', 'multisite-ultimate'), wu_get_currency_symbol()),
+									'absolute'   => sprintf(__('Absolute (%s)', 'ultimate-multisite'), wu_get_currency_symbol()),
 								],
 								'html_attr'       => [
 									'v-model' => 'setup_fee_type',
@@ -375,12 +375,12 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'active',
 			[
-				'title'  => __('Active', 'multisite-ultimate'),
+				'title'  => __('Active', 'ultimate-multisite'),
 				'fields' => [
 					'active' => [
 						'type'  => 'toggle',
-						'title' => __('Active', 'multisite-ultimate'),
-						'desc'  => __('Use this option to manually enable or disable this discount code for new sign-ups.', 'multisite-ultimate'),
+						'title' => __('Active', 'ultimate-multisite'),
+						'desc'  => __('Use this option to manually enable or disable this discount code for new sign-ups.', 'ultimate-multisite'),
 						'value' => $this->get_object()->is_active(),
 					],
 				],
@@ -404,7 +404,7 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 			$fields[ "allowed_products_{$product_id}" ] = [
 				'type'              => 'toggle',
 				'title'             => $product->get_name(),
-				'desc'              => __('Make applicable to this product.', 'multisite-ultimate'),
+				'desc'              => __('Make applicable to this product.', 'ultimate-multisite'),
 				'tooltip'           => '',
 				'wrapper_classes'   => '',
 				'html_attr'         => [
@@ -432,7 +432,7 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 			$fields['allowed_products_no_products'] = [
 				'type'              => 'note',
 				'title'             => '',
-				'desc'              => __('You do not have any products at this moment.', 'multisite-ultimate'),
+				'desc'              => __('You do not have any products at this moment.', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-cloak' => 1,
 					'v-show'  => 'limit_products',
@@ -453,7 +453,7 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 
 		global $wp_filter;
 
-		$tabs = [__('Legacy Add-ons', 'multisite-ultimate')];
+		$tabs = [__('Legacy Add-ons', 'ultimate-multisite')];
 
 		if ( ! isset($wp_filter['wp_ultimo_coupon_advanced_options'])) {
 			return;
@@ -466,9 +466,9 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = [
 			'heading' => [
 				'type'  => 'header',
-				'title' => __('Legacy Options', 'multisite-ultimate'),
+				'title' => __('Legacy Options', 'ultimate-multisite'),
 				// translators: %s is the comma-separated list of legacy add-ons.
-				'desc'  => sprintf(__('Options for %s, and others.', 'multisite-ultimate'), implode(', ', $tabs)),
+				'desc'  => sprintf(__('Options for %s, and others.', 'ultimate-multisite'), implode(', ', $tabs)),
 			],
 		];
 
@@ -488,7 +488,7 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'legacy-options',
 			[
-				'title'                 => __('Legacy Options', 'multisite-ultimate'),
+				'title'                 => __('Legacy Options', 'ultimate-multisite'),
 				'position'              => 'normal',
 				'fields'                => $fields,
 				'classes'               => 'wu-legacy-options-panel',
@@ -545,7 +545,7 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Discount Code', 'multisite-ultimate') : __('Add new Discount Code', 'multisite-ultimate');
+		return $this->edit ? __('Edit Discount Code', 'ultimate-multisite') : __('Add new Discount Code', 'ultimate-multisite');
 	}
 
 	/**
@@ -556,7 +556,7 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Discount Code', 'multisite-ultimate');
+		return __('Edit Discount Code', 'ultimate-multisite');
 	}
 
 	/**
@@ -579,15 +579,15 @@ class Discount_Code_Edit_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Discount Code', 'multisite-ultimate'),
-			'add_new_label'       => __('Add new Discount Code', 'multisite-ultimate'),
-			'updated_message'     => __('Discount Code updated successfully!', 'multisite-ultimate'),
-			'title_placeholder'   => __('Enter Discount Code', 'multisite-ultimate'),
+			'edit_label'          => __('Edit Discount Code', 'ultimate-multisite'),
+			'add_new_label'       => __('Add new Discount Code', 'ultimate-multisite'),
+			'updated_message'     => __('Discount Code updated successfully!', 'ultimate-multisite'),
+			'title_placeholder'   => __('Enter Discount Code', 'ultimate-multisite'),
 			'title_description'   => '',
-			'save_button_label'   => __('Save Discount Code', 'multisite-ultimate'),
+			'save_button_label'   => __('Save Discount Code', 'ultimate-multisite'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Discount Code', 'multisite-ultimate'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
+			'delete_button_label' => __('Delete Discount Code', 'ultimate-multisite'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'ultimate-multisite'),
 		];
 	}
 

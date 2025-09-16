@@ -83,7 +83,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 
 		add_meta_box(
 			'wp-ultimo-debug-pages',
-			__('All Registered Pages', 'multisite-ultimate'),
+			__('All Registered Pages', 'ultimate-multisite'),
 			[$this, 'render_debug_pages'],
 			get_current_screen()->id,
 			'normal',
@@ -126,7 +126,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Registered Pages', 'multisite-ultimate');
+		return __('Registered Pages', 'ultimate-multisite');
 	}
 
 	/**
@@ -137,7 +137,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Registered Pages', 'multisite-ultimate');
+		return __('Registered Pages', 'ultimate-multisite');
 	}
 
 	/**
@@ -148,7 +148,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Registered Pages', 'multisite-ultimate');
+		return __('Registered Pages', 'ultimate-multisite');
 	}
 
 	/**

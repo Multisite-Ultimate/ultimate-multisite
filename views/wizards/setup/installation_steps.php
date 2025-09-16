@@ -13,8 +13,8 @@ defined( 'ABSPATH' ) || exit;
 			<?php if ($checks) : ?>
 				<th class="check" style="width: 30px;"></th>
 			<?php endif ?>
-			<th class="item"><?php esc_html_e('Item', 'multisite-ultimate'); ?></th>
-			<th class="status" style="width: 40%;"><?php esc_html_e('Status', 'multisite-ultimate'); ?></th>
+			<th class="item"><?php esc_html_e('Item', 'ultimate-multisite'); ?></th>
+			<th class="status" style="width: 40%;"><?php esc_html_e('Status', 'ultimate-multisite'); ?></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -38,7 +38,7 @@ defined( 'ABSPATH' ) || exit;
 				<?php if ($default['done']) : ?>
 					<td class="status">
 							<span class="wu-text-green-600">
-								<?php echo esc_html($default['completed'] ?? __('Completed!', 'multisite-ultimate')); ?>
+								<?php echo esc_html($default['completed'] ?? __('Completed!', 'ultimate-multisite')); ?>
 							</span>
 					</td>
 				<?php else : ?>

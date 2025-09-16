@@ -43,7 +43,7 @@ defined( 'ABSPATH' ) || exit;
 				target="_blank"
 				class="button"
 				v-show='<?php echo esc_js(wu_get_isset($field->html_attr, 'v-model')); ?>'
-				<?php wu_tooltip_text(__('View', 'multisite-ultimate')); ?>
+				<?php wu_tooltip_text(__('View', 'ultimate-multisite')); ?>
 			>
 				<span class="dashicons-wu-popup wu-m-0 wu-p-0"></span>
 			</a>

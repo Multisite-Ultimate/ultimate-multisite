@@ -60,7 +60,7 @@ class Dashboard_Taxes_Tab {
 
 		$dashboard_filters['taxes'] = [
 			'field' => 'type',
-			'label' => __('Taxes', 'multisite-ultimate'),
+			'label' => __('Taxes', 'ultimate-multisite'),
 			'url'   => add_query_arg('tab', 'taxes'),
 			'count' => 0,
 		];
@@ -78,9 +78,9 @@ class Dashboard_Taxes_Tab {
 
 		wu_render_empty_state(
 			[
-				'message'     => __('You do not have tax support enabled yet...', 'multisite-ultimate'),
-				'sub_message' => __('If you need to collect taxes, you\'ll be glad to hear that Multisite Ultimate offers tax support!', 'multisite-ultimate'),
-				'link_label'  => __('Enable Tax Support', 'multisite-ultimate'),
+				'message'     => __('You do not have tax support enabled yet...', 'ultimate-multisite'),
+				'sub_message' => __('If you need to collect taxes, you\'ll be glad to hear that Multisite Ultimate offers tax support!', 'ultimate-multisite'),
+				'link_label'  => __('Enable Tax Support', 'ultimate-multisite'),
 				'link_url'    => wu_network_admin_url(
 					'wp-ultimo-settings',
 					[
@@ -104,7 +104,7 @@ class Dashboard_Taxes_Tab {
 		$back_link = [
 			[
 				'url'   => wu_network_admin_url('wp-ultimo'),
-				'label' => __('Go Back', 'multisite-ultimate'),
+				'label' => __('Go Back', 'ultimate-multisite'),
 				'icon'  => 'wu-reply',
 			],
 		];
@@ -148,11 +148,11 @@ class Dashboard_Taxes_Tab {
 
 		$this->dashboard_page = $dashboard_page;
 
-		add_meta_box('wp-ultimo-taxes', __('Taxes', 'multisite-ultimate'), [$this, 'output_widget_taxes'], $screen->id, 'full', 'high');
+		add_meta_box('wp-ultimo-taxes', __('Taxes', 'ultimate-multisite'), [$this, 'output_widget_taxes'], $screen->id, 'full', 'high');
 
-		add_meta_box('wp-ultimo-taxes-by-rate', __('Taxes by Code', 'multisite-ultimate'), [$this, 'output_widget_taxes_by_rate'], $screen->id, 'normal', 'high');
+		add_meta_box('wp-ultimo-taxes-by-rate', __('Taxes by Code', 'ultimate-multisite'), [$this, 'output_widget_taxes_by_rate'], $screen->id, 'normal', 'high');
 
-		add_meta_box('wp-ultimo-taxes-by-day', __('Taxes by Day', 'multisite-ultimate'), [$this, 'output_widget_taxes_by_day'], $screen->id, 'side', 'high');
+		add_meta_box('wp-ultimo-taxes-by-day', __('Taxes by Day', 'ultimate-multisite'), [$this, 'output_widget_taxes_by_day'], $screen->id, 'side', 'high');
 
 		$this->register_scripts();
 	}
@@ -211,8 +211,8 @@ class Dashboard_Taxes_Tab {
 				'today'      => date_i18n('Y-m-d', strtotime('tomorrow')),
 				'month_list' => $month_list,
 				'i18n'       => [
-					'net_profit_label' => __('Net Profit', 'multisite-ultimate'),
-					'taxes_label'      => __('Taxes Collected', 'multisite-ultimate'),
+					'net_profit_label' => __('Net Profit', 'ultimate-multisite'),
+					'taxes_label'      => __('Taxes Collected', 'ultimate-multisite'),
 				],
 			]
 		);

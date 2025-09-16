@@ -98,14 +98,14 @@ class Account_Summary_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Account Summary', 'multisite-ultimate');
+		return __('Account Summary', 'ultimate-multisite');
 	}
 
 	/**
@@ -114,14 +114,14 @@ class Account_Summary_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a account summary block to the page.', 'multisite-ultimate');
+		return __('Adds a account summary block to the page.', 'ultimate-multisite');
 	}
 
 	/**
@@ -146,16 +146,16 @@ class Account_Summary_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'multisite-ultimate'),
-			'desc'  => __('General', 'multisite-ultimate'),
+			'title' => __('General', 'ultimate-multisite'),
+			'desc'  => __('General', 'ultimate-multisite'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Title', 'multisite-ultimate'),
-			'value'   => __('About this Site', 'multisite-ultimate'),
-			'desc'    => __('Leave blank to hide the title completely.', 'multisite-ultimate'),
+			'title'   => __('Title', 'ultimate-multisite'),
+			'value'   => __('About this Site', 'ultimate-multisite'),
+			'desc'    => __('Leave blank to hide the title completely.', 'ultimate-multisite'),
 			'tooltip' => '',
 		];
 
@@ -206,7 +206,7 @@ class Account_Summary_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'title' => __('About this Site', 'multisite-ultimate'),
+			'title' => __('About this Site', 'ultimate-multisite'),
 		];
 	}
 

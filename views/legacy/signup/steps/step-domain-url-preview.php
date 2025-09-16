@@ -23,14 +23,14 @@ if ( ! defined('ABSPATH')) {
 
 <div id="wu-your-site-block">
 
-	<small><?php esc_html_e('Your URL will be', 'multisite-ultimate'); ?></small><br>
+	<small><?php esc_html_e('Your URL will be', 'ultimate-multisite'); ?></small><br>
 
 	<?php
 	/**
 	 * Change the base, if sub-domain or subdirectory
 	 */
 	// This is used on the yoursite.network.com during sign-up
-	$dynamic_part = $signup->results['blogname'] ?? __('yoursite', 'multisite-ultimate');
+	$dynamic_part = $signup->results['blogname'] ?? __('yoursite', 'ultimate-multisite');
 
 	$site_url = preg_replace('#^https?://#', '', WU_Signup()->get_site_url_for_previewer());
 	$site_url = str_replace('www.', '', $site_url);

@@ -144,30 +144,30 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 
 		return [
 			'WU_CLOUDWAYS_EMAIL'         => [
-				'title'       => __('Cloudways Account Email', 'multisite-ultimate'),
-				'desc'        => __('Your Cloudways account email address.', 'multisite-ultimate'),
-				'placeholder' => __('e.g. me@gmail.com', 'multisite-ultimate'),
+				'title'       => __('Cloudways Account Email', 'ultimate-multisite'),
+				'desc'        => __('Your Cloudways account email address.', 'ultimate-multisite'),
+				'placeholder' => __('e.g. me@gmail.com', 'ultimate-multisite'),
 			],
 			'WU_CLOUDWAYS_API_KEY'       => [
-				'title'       => __('Cloudways API Key', 'multisite-ultimate'),
-				'desc'        => __('The API Key retrieved in the previous step.', 'multisite-ultimate'),
-				'placeholder' => __('e.g. eYP0Jo3Fzzm5SOZCi5nLR0Mki2lbYZ', 'multisite-ultimate'),
+				'title'       => __('Cloudways API Key', 'ultimate-multisite'),
+				'desc'        => __('The API Key retrieved in the previous step.', 'ultimate-multisite'),
+				'placeholder' => __('e.g. eYP0Jo3Fzzm5SOZCi5nLR0Mki2lbYZ', 'ultimate-multisite'),
 			],
 			'WU_CLOUDWAYS_SERVER_ID'     => [
-				'title'       => __('Cloudways Server ID', 'multisite-ultimate'),
-				'desc'        => __('The Server ID retrieved in the previous step.', 'multisite-ultimate'),
-				'placeholder' => __('e.g. 11667', 'multisite-ultimate'),
+				'title'       => __('Cloudways Server ID', 'ultimate-multisite'),
+				'desc'        => __('The Server ID retrieved in the previous step.', 'ultimate-multisite'),
+				'placeholder' => __('e.g. 11667', 'ultimate-multisite'),
 			],
 			'WU_CLOUDWAYS_APP_ID'        => [
-				'title'       => __('Cloudways App ID', 'multisite-ultimate'),
-				'desc'        => __('The App ID retrieved in the previous step.', 'multisite-ultimate'),
-				'placeholder' => __('e.g. 940288', 'multisite-ultimate'),
+				'title'       => __('Cloudways App ID', 'ultimate-multisite'),
+				'desc'        => __('The App ID retrieved in the previous step.', 'ultimate-multisite'),
+				'placeholder' => __('e.g. 940288', 'ultimate-multisite'),
 			],
 			'WU_CLOUDWAYS_EXTRA_DOMAINS' => [
-				'title'       => __('Cloudways Extra Domains', 'multisite-ultimate'),
-				'tooltip'     => __('The Cloudways API is a bit strange in that it doesn’t offer a way to add or remove just one domain, only a way to update the whole domain list. That means that Multisite Ultimate will replace all domains you might have there with the list of mapped domains of the network every time a new domain is added.', 'multisite-ultimate'),
-				'desc'        => __('Comma-separated list of additional domains to add to Cloudways.', 'multisite-ultimate'),
-				'placeholder' => __('e.g. *.test.com, test.com', 'multisite-ultimate'),
+				'title'       => __('Cloudways Extra Domains', 'ultimate-multisite'),
+				'tooltip'     => __('The Cloudways API is a bit strange in that it doesn’t offer a way to add or remove just one domain, only a way to update the whole domain list. That means that Multisite Ultimate will replace all domains you might have there with the list of mapped domains of the network every time a new domain is added.', 'ultimate-multisite'),
+				'desc'        => __('Comma-separated list of additional domains to add to Cloudways.', 'ultimate-multisite'),
+				'placeholder' => __('e.g. *.test.com, test.com', 'ultimate-multisite'),
 			],
 		];
 	}
@@ -528,7 +528,7 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('Focus on your business and avoid all the web hosting hassles. Our managed hosting guarantees unmatched performance, reliability and choice with 24/7 support that acts as your extended team, making Cloudways an ultimate choice for growing agencies and e-commerce businesses.', 'multisite-ultimate');
+		return __('Focus on your business and avoid all the web hosting hassles. Our managed hosting guarantees unmatched performance, reliability and choice with 24/7 support that acts as your extended team, making Cloudways an ultimate choice for growing agencies and e-commerce businesses.', 'ultimate-multisite');
 	}
 
 	/**

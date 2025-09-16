@@ -31,8 +31,8 @@ if ( ! defined('ABSPATH')) {
 $nav_links = apply_filters(
 	'wu_signup_form_nav_links',
 	[
-		home_url()     => __('Return to Home', 'multisite-ultimate'),
-		wp_login_url() => sprintf('<strong>%s</strong>', esc_html__('Log In', 'multisite-ultimate')),
+		home_url()     => __('Return to Home', 'ultimate-multisite'),
+		wp_login_url() => sprintf('<strong>%s</strong>', esc_html__('Log In', 'ultimate-multisite')),
 	]
 );
 

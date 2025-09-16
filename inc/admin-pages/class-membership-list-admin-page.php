@@ -88,9 +88,9 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'customer_id'     => [
 				'type'        => 'model',
-				'title'       => __('Customer', 'multisite-ultimate'),
-				'placeholder' => __('Search Customer...', 'multisite-ultimate'),
-				'desc'        => __('The customer to attach this membership to.', 'multisite-ultimate'),
+				'title'       => __('Customer', 'ultimate-multisite'),
+				'placeholder' => __('Search Customer...', 'ultimate-multisite'),
+				'desc'        => __('The customer to attach this membership to.', 'ultimate-multisite'),
 				'html_attr'   => [
 					'data-model'        => 'customer',
 					'data-value-field'  => 'id',
@@ -101,9 +101,9 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 			],
 			'product_ids'     => [
 				'type'        => 'model',
-				'title'       => __('Products', 'multisite-ultimate'),
-				'placeholder' => __('Search Products...', 'multisite-ultimate'),
-				'desc'        => __('You can add multiples products to this membership.', 'multisite-ultimate'),
+				'title'       => __('Products', 'ultimate-multisite'),
+				'placeholder' => __('Search Products...', 'ultimate-multisite'),
+				'desc'        => __('You can add multiples products to this membership.', 'ultimate-multisite'),
 				'tooltip'     => '',
 				'html_attr'   => [
 					'data-model'        => 'product',
@@ -115,25 +115,25 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 			],
 			'status'          => [
 				'type'        => 'select',
-				'title'       => __('Status', 'multisite-ultimate'),
-				'placeholder' => __('Status', 'multisite-ultimate'),
-				'desc'        => __('The membership status.', 'multisite-ultimate'),
+				'title'       => __('Status', 'ultimate-multisite'),
+				'placeholder' => __('Status', 'ultimate-multisite'),
+				'desc'        => __('The membership status.', 'ultimate-multisite'),
 				'tooltip'     => '',
 				'value'       => Membership_Status::PENDING,
 				'options'     => Membership_Status::to_array(),
 			],
 			'lifetime'        => [
 				'type'      => 'toggle',
-				'title'     => __('Lifetime', 'multisite-ultimate'),
-				'desc'      => __('Activate this toggle to mark the newly created membership as lifetime.', 'multisite-ultimate'),
+				'title'     => __('Lifetime', 'ultimate-multisite'),
+				'desc'      => __('Activate this toggle to mark the newly created membership as lifetime.', 'ultimate-multisite'),
 				'value'     => 1,
 				'html_attr' => [
 					'v-model' => 'lifetime',
 				],
 			],
 			'date_expiration' => [
-				'title'             => __('Expiration Date', 'multisite-ultimate'),
-				'desc'              => __('Set the expiration date of the membership to be created.', 'multisite-ultimate'),
+				'title'             => __('Expiration Date', 'ultimate-multisite'),
+				'desc'              => __('Set the expiration date of the membership to be created.', 'ultimate-multisite'),
 				'type'              => 'text',
 				'date'              => true,
 				'value'             => gmdate('Y-m-d', strtotime('+1 month')),
@@ -150,7 +150,7 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 			],
 			'submit_button'   => [
 				'type'            => 'submit',
-				'title'           => __('Create Membership', 'multisite-ultimate'),
+				'title'           => __('Create Membership', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -197,7 +197,7 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 			wp_send_json_error(
 				new \WP_Error(
 					'empty-products',
-					__('Products can not be empty.', 'multisite-ultimate')
+					__('Products can not be empty.', 'ultimate-multisite')
 				)
 			);
 		}
@@ -208,7 +208,7 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 			wp_send_json_error(
 				new \WP_Error(
 					'customer-not-found',
-					__('The selected customer does not exist.', 'multisite-ultimate')
+					__('The selected customer does not exist.', 'ultimate-multisite')
 				)
 			);
 		}
@@ -263,8 +263,8 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Membership removed successfully.', 'multisite-ultimate'),
-			'search_label'    => __('Search Membership', 'multisite-ultimate'),
+			'deleted_message' => __('Membership removed successfully.', 'ultimate-multisite'),
+			'search_label'    => __('Search Membership', 'ultimate-multisite'),
 		];
 	}
 
@@ -276,7 +276,7 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Memberships', 'multisite-ultimate');
+		return __('Memberships', 'ultimate-multisite');
 	}
 
 	/**
@@ -287,7 +287,7 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Memberships', 'multisite-ultimate');
+		return __('Memberships', 'ultimate-multisite');
 	}
 
 	/**
@@ -298,7 +298,7 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Memberships', 'multisite-ultimate');
+		return __('Memberships', 'ultimate-multisite');
 	}
 
 	/**
@@ -311,7 +311,7 @@ class Membership_List_Admin_Page extends List_Admin_Page {
 
 		return [
 			[
-				'label'   => __('Add Membership', 'multisite-ultimate'),
+				'label'   => __('Add Membership', 'ultimate-multisite'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('add_new_membership'),

@@ -46,7 +46,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<span class="wu-uppercase wu-text-sm wu-block">
 
-				<?php esc_html_e('Order ID', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Order ID', 'ultimate-multisite'); ?>
 
 			</span>
 
@@ -70,7 +70,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<span class="wu-uppercase wu-text-sm wu-block">
 
-				<?php esc_html_e('Email', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Email', 'ultimate-multisite'); ?>
 
 			</span>
 
@@ -88,7 +88,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<span class="wu-uppercase wu-text-sm wu-block">
 
-				<?php esc_html_e('Total', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Total', 'ultimate-multisite'); ?>
 
 			</span>
 
@@ -142,7 +142,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<span class="wu-uppercase wu-text-sm wu-block">
 
-				<?php esc_html_e('Order ID', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Order ID', 'ultimate-multisite'); ?>
 
 			</span>
 
@@ -160,7 +160,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<span class="wu-uppercase wu-text-sm wu-block">
 
-				<?php esc_html_e('Date', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Date', 'ultimate-multisite'); ?>
 
 			</span>
 
@@ -178,7 +178,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<span class="wu-uppercase wu-text-sm wu-block">
 
-				<?php esc_html_e('Email', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Email', 'ultimate-multisite'); ?>
 
 			</span>
 
@@ -196,7 +196,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<span class="wu-uppercase wu-text-sm wu-block">
 
-				<?php esc_html_e('Total', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Total', 'ultimate-multisite'); ?>
 
 			</span>
 
@@ -228,7 +228,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<h4 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
-			<?php esc_html_e('Site', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Site', 'ultimate-multisite'); ?>
 
 			</h4>
 
@@ -278,7 +278,7 @@ defined( 'ABSPATH' ) || exit;
 					<?php else : ?>
 
 						<span class="wu-align-middle wu-inline-block wu-rounded wu-px-2 wu-py-1 wu-uppercase wu-text-xs wu-font-bold wu-bg-green-300 wu-text-green-700">
-						<?php esc_html_e('Ready!', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Ready!', 'ultimate-multisite'); ?>
 						</span>
 
 					<?php endif; ?>
@@ -303,23 +303,23 @@ defined( 'ABSPATH' ) || exit;
 
 					<a v-if="!creating" href="<?php echo esc_attr(wu_get_current_url()); ?>" class="wu-block sm:wu-inline-block wu-no-underline">
 						<span class="dashicons-wu-cycle wu-align-middle wu-mr-1"></span>
-						<?php esc_html_e('Check Status', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Check Status', 'ultimate-multisite'); ?>
 					</a>
 					<div v-else class="wu-block sm:wu-inline-block wu-no-underline">
 						<span class="dashicons-wu-loader wu-align-middle wu-mr-1 wu-spin" style="display: inline-block;"></span>
-						<?php esc_html_e('Creating', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Creating', 'ultimate-multisite'); ?>
 					</div>
 
 					<?php else : ?>
 
 					<a href="<?php echo esc_attr(get_admin_url($site->get_id())); ?>" class="wu-block sm:wu-inline-block wu-no-underline sm:wu-mr-4">
 						<span class="dashicons-wu-gauge wu-align-middle wu-mr-1"></span>
-						<?php esc_html_e('Admin Panel', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Admin Panel', 'ultimate-multisite'); ?>
 					</a>
 
 					<a href="<?php echo esc_attr(wu_with_sso(get_site_url($site->get_id()))); ?>" class="wu-block sm:wu-inline-block wu-no-underline" target="_blank">
 						<span class="dashicons-wu-browser wu-align-middle wu-mr-1"></span>
-						<?php esc_html_e('Visit', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Visit', 'ultimate-multisite'); ?>
 					</a>
 
 					<?php endif; ?>
@@ -358,7 +358,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<h4 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
-			<?php esc_html_e('Order Details', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Order Details', 'ultimate-multisite'); ?>
 
 			</h4>
 
@@ -375,8 +375,8 @@ defined( 'ABSPATH' ) || exit;
 			<thead class="wu-bg-gray-100">
 
 			<tr>
-				<th class="wu-text-left wu-py-2 wu-px-4"><?php esc_html_e('Product', 'multisite-ultimate'); ?></th>
-				<th class="wu-text-left wu-py-2 wu-px-4"><?php esc_html_e('Total', 'multisite-ultimate'); ?></th>
+				<th class="wu-text-left wu-py-2 wu-px-4"><?php esc_html_e('Product', 'ultimate-multisite'); ?></th>
+				<th class="wu-text-left wu-py-2 wu-px-4"><?php esc_html_e('Total', 'ultimate-multisite'); ?></th>
 			</tr>
 
 			</thead>
@@ -405,7 +405,7 @@ defined( 'ABSPATH' ) || exit;
 			<tfoot class="wu-bg-gray-100">
 
 			<tr>
-				<th class="wu-text-left wu-py-2 wu-px-4"><?php esc_html_e('Subtotal', 'multisite-ultimate'); ?></th>
+				<th class="wu-text-left wu-py-2 wu-px-4"><?php esc_html_e('Subtotal', 'ultimate-multisite'); ?></th>
 				<th class="wu-text-left wu-py-2 wu-px-4"><?php echo esc_html(wu_format_currency($payment->get_subtotal(), $payment->get_currency())); ?></th>
 			</tr>
 
@@ -413,7 +413,7 @@ defined( 'ABSPATH' ) || exit;
 
 				<tr>
 				<?php // translators: %s: Tax rate. ?>
-				<th class="wu-text-left wu-py-2 wu-px-4"><?php printf(esc_html__('Tax (%s%%)', 'multisite-ultimate'), esc_html($rate)); ?></th>
+				<th class="wu-text-left wu-py-2 wu-px-4"><?php printf(esc_html__('Tax (%s%%)', 'ultimate-multisite'), esc_html($rate)); ?></th>
 				<th class="wu-text-left wu-py-2 wu-px-4"><?php echo esc_html(wu_format_currency($total, $payment->get_currency())); ?></th>
 				</tr>
 
@@ -422,13 +422,13 @@ defined( 'ABSPATH' ) || exit;
 			<?php if ($payment->get_discount_total()) : ?>
 				<tr>
 					<?php // translators: %s: Discount code. ?>
-					<th class="wu-text-left wu-py-2 wu-px-4"><?php printf(esc_html__('Discount (%s)', 'multisite-ultimate'), esc_html($payment->get_discount_code())); ?></th>
+					<th class="wu-text-left wu-py-2 wu-px-4"><?php printf(esc_html__('Discount (%s)', 'ultimate-multisite'), esc_html($payment->get_discount_code())); ?></th>
 					<th class="wu-text-left wu-py-2 wu-px-4"><?php echo esc_html(wu_format_currency($payment->get_discount_total(), $payment->get_currency())); ?></th>
 				</tr>
 			<?php endif; ?>
 
 			<tr>
-				<th class="wu-text-left wu-py-2 wu-px-4"><?php esc_html_e('Total', 'multisite-ultimate'); ?></th>
+				<th class="wu-text-left wu-py-2 wu-px-4"><?php esc_html_e('Total', 'ultimate-multisite'); ?></th>
 				<th class="wu-text-left wu-py-2 wu-px-4"><?php echo esc_html(wu_format_currency($payment->get_total(), $payment->get_currency())); ?></th>
 			</tr>
 
@@ -452,7 +452,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<h4 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
-			<?php esc_html_e('Billing Address', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Billing Address', 'ultimate-multisite'); ?>
 
 			</h4>
 

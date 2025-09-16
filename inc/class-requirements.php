@@ -327,7 +327,7 @@ class Requirements {
 	 */
 	public static function notice_not_multisite(): void {
 
-		printf('<div class="notice notice-error"><p>%s <a href="https://wordpress.org/support/article/create-a-network/">%s &rarr;</a></p></div>', esc_html__('Multisite Ultimate requires a multisite install to run properly. To know more about WordPress Networks, visit this link:', 'multisite-ultimate'), esc_html__('Create a Network', 'multisite-ultimate'));
+		printf('<div class="notice notice-error"><p>%s <a href="https://wordpress.org/support/article/create-a-network/">%s &rarr;</a></p></div>', esc_html__('Multisite Ultimate requires a multisite install to run properly. To know more about WordPress Networks, visit this link:', 'ultimate-multisite'), esc_html__('Create a Network', 'ultimate-multisite'));
 	}
 
 	/**
@@ -342,8 +342,8 @@ class Requirements {
 			'<div class="notice notice-error"><p>%s</p></div>',
 			sprintf(
 				// translators: %s is a placeholder for the Network Admin plugins page URL with link text.
-				esc_html__('Multisite Ultimate needs to be network active to run properly. You can "Network Activate" it %s', 'multisite-ultimate'),
-				'<a href="' . esc_attr(network_admin_url('plugins.php')) . '">' . esc_html__('here', 'multisite-ultimate') . '</a>'
+				esc_html__('Multisite Ultimate needs to be network active to run properly. You can "Network Activate" it %s', 'ultimate-multisite'),
+				'<a href="' . esc_attr(network_admin_url('plugins.php')) . '">' . esc_html__('here', 'ultimate-multisite') . '</a>'
 			)
 		);
 	}

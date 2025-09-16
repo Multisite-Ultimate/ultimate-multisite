@@ -20,47 +20,47 @@ defined('ABSPATH') || exit;
  */
 return [
 	'slug'                => [
-		'description' => __('The checkout form slug. It needs to be unique and preferably make it clear what it is about. E.g. my_checkout_form.', 'multisite-ultimate'),
+		'description' => __('The checkout form slug. It needs to be unique and preferably make it clear what it is about. E.g. my_checkout_form.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'name'                => [
-		'description' => __('Your checkout form name, which is used as checkout form title as well.', 'multisite-ultimate'),
+		'description' => __('Your checkout form name, which is used as checkout form title as well.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'active'              => [
-		'description' => __('Set this checkout form as active (true), which means available to be used, or inactive (false).', 'multisite-ultimate'),
+		'description' => __('Set this checkout form as active (true), which means available to be used, or inactive (false).', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'custom_css'          => [
-		'description' => __('Custom CSS code for the checkout form.', 'multisite-ultimate'),
+		'description' => __('Custom CSS code for the checkout form.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'settings'            => [
-		'description' => __('The checkout form settings and configurations.', 'multisite-ultimate'),
+		'description' => __('The checkout form settings and configurations.', 'ultimate-multisite'),
 		'type'        => 'array',
 		'required'    => false,
 	],
 	'allowed_countries'   => [
-		'description' => __('The allowed countries that can access this checkout.', 'multisite-ultimate'),
+		'description' => __('The allowed countries that can access this checkout.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'thank_you_page_id'   => [
-		'description' => __('The thank you page ID. This page is shown after a successful purchase.', 'multisite-ultimate'),
+		'description' => __('The thank you page ID. This page is shown after a successful purchase.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'conversion_snippets' => [
-		'description' => __('Snippets to run on thank you page.', 'multisite-ultimate'),
+		'description' => __('Snippets to run on thank you page.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'template'            => [
-		'description' => __("Template mode. Can be either 'blank', 'single-step' or 'multi-step'.", 'multisite-ultimate'),
+		'description' => __("Template mode. Can be either 'blank', 'single-step' or 'multi-step'.", 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -70,22 +70,22 @@ return [
 		],
 	],
 	'date_created'        => [
-		'description' => __('Model creation date.', 'multisite-ultimate'),
+		'description' => __('Model creation date.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_modified'       => [
-		'description' => __('Model last modification date.', 'multisite-ultimate'),
+		'description' => __('Model last modification date.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'migrated_from_id'    => [
-		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'multisite-ultimate'),
+		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'skip_validation'     => [
-		'description' => __('Set true to have field information validation bypassed when saving this event.', 'multisite-ultimate'),
+		'description' => __('Set true to have field information validation bypassed when saving this event.', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],

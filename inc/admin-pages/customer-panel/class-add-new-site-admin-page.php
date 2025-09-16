@@ -209,7 +209,7 @@ class Add_New_Site_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Add New Site', 'multisite-ultimate');
+		return __('Add New Site', 'ultimate-multisite');
 	}
 
 	/**
@@ -220,7 +220,7 @@ class Add_New_Site_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Add New Site', 'multisite-ultimate');
+		return __('Add New Site', 'ultimate-multisite');
 	}
 
 	/**
@@ -231,7 +231,7 @@ class Add_New_Site_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Add New Site', 'multisite-ultimate');
+		return __('Add New Site', 'ultimate-multisite');
 	}
 
 	/**

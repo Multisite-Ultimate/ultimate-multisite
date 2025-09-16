@@ -549,13 +549,13 @@ class Payment extends Base_Model implements Notable {
 		$gateway = $this->get_gateway();
 
 		if ( ! $gateway) {
-			return __('None', 'multisite-ultimate');
+			return __('None', 'ultimate-multisite');
 		}
 
 		$gateway_class = wu_get_gateway($gateway);
 
 		if ( ! $gateway_class) {
-			return __('None', 'multisite-ultimate');
+			return __('None', 'ultimate-multisite');
 		}
 
 		$title = $gateway_class->get_public_title();
@@ -938,7 +938,7 @@ class Payment extends Base_Model implements Notable {
 
 		$prefix = str_replace($search, $replace, (string) $prefix);
 
-		return sprintf('%s%s %s', $prefix, $this->invoice_number, $provisional ? __('(provisional)', 'multisite-ultimate') : '');
+		return sprintf('%s%s %s', $prefix, $this->invoice_number, $provisional ? __('(provisional)', 'ultimate-multisite') : '');
 	}
 
 	/**
@@ -1058,11 +1058,11 @@ class Payment extends Base_Model implements Notable {
 		 * it is a partial refund.
 		 */
 		if ($amount >= $this->get_total()) {
-			$title = __('Full Refund', 'multisite-ultimate');
+			$title = __('Full Refund', 'ultimate-multisite');
 
 			$new_status = Payment_Status::REFUND;
 		} else {
-			$title = __('Partial Refund', 'multisite-ultimate');
+			$title = __('Partial Refund', 'ultimate-multisite');
 
 			$new_status = Payment_Status::PARTIAL_REFUND;
 		}
@@ -1072,7 +1072,7 @@ class Payment extends Base_Model implements Notable {
 		$formatted_value = date_i18n(get_option('date_format'), $time);
 
 		// translators: %s is the date of processing.
-		$description = sprintf(__('Processed on %s', 'multisite-ultimate'), $formatted_value);
+		$description = sprintf(__('Processed on %s', 'ultimate-multisite'), $formatted_value);
 
 		$line_item_data = [
 			'type'         => 'refund',

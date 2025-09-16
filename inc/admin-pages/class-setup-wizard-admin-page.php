@@ -239,7 +239,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		global $wpdb;
 
 		if ( ! current_user_can('manage_network')) {
-			wp_send_json_error(new \WP_Error('not-allowed', __('Permission denied.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-allowed', __('Permission denied.', 'ultimate-multisite')));
 
 			exit;
 		}
@@ -293,7 +293,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 	 */
 	public function get_title(): string {
 
-		return sprintf(__('Installation', 'multisite-ultimate'));
+		return sprintf(__('Installation', 'ultimate-multisite'));
 	}
 
 	/**
@@ -304,7 +304,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return WP_Ultimo()->is_loaded() ? __('Multisite Ultimate Install', 'multisite-ultimate') : __('Multisite Ultimate', 'multisite-ultimate');
+		return WP_Ultimo()->is_loaded() ? __('Multisite Ultimate Install', 'ultimate-multisite') : __('Multisite Ultimate', 'ultimate-multisite');
 	}
 
 	/**
@@ -317,22 +317,22 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 
 		$sections = [
 			'welcome'      => [
-				'title'       => __('Welcome', 'multisite-ultimate'),
+				'title'       => __('Welcome', 'ultimate-multisite'),
 				'description' => implode(
 					'<br><br>',
 					[
-						__('...and thanks for choosing Multisite Ultimate!', 'multisite-ultimate'),
-						__('This quick setup wizard will make sure your server is correctly setup, help you configure your new network, and migrate data from previous Multisite Ultimate versions if necessary.', 'multisite-ultimate'),
-						__('You will also have the option of importing default content. It should take 10 minutes or less!', 'multisite-ultimate'),
+						__('...and thanks for choosing Multisite Ultimate!', 'ultimate-multisite'),
+						__('This quick setup wizard will make sure your server is correctly setup, help you configure your new network, and migrate data from previous Multisite Ultimate versions if necessary.', 'ultimate-multisite'),
+						__('You will also have the option of importing default content. It should take 10 minutes or less!', 'ultimate-multisite'),
 					]
 				),
-				'next_label'  => __('Get Started &rarr;', 'multisite-ultimate'),
+				'next_label'  => __('Get Started &rarr;', 'ultimate-multisite'),
 				'back'        => false,
 			],
 			'checks'       => [
-				'title'       => __('Pre-install Checks', 'multisite-ultimate'),
-				'description' => __('Now it is time to see if this machine has what it takes to run Multisite Ultimate well!', 'multisite-ultimate'),
-				'next_label'  => Requirements::met() ? __('Go to the Next Step &rarr;', 'multisite-ultimate') : __('Check Again', 'multisite-ultimate'),
+				'title'       => __('Pre-install Checks', 'ultimate-multisite'),
+				'description' => __('Now it is time to see if this machine has what it takes to run Multisite Ultimate well!', 'ultimate-multisite'),
+				'next_label'  => Requirements::met() ? __('Go to the Next Step &rarr;', 'ultimate-multisite') : __('Check Again', 'ultimate-multisite'),
 				'handler'     => [$this, 'handle_checks'],
 				'back'        => false,
 				'fields'      => [
@@ -343,9 +343,9 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 				],
 			],
 			'installation' => [
-				'title'        => __('Installation', 'multisite-ultimate'),
-				'description'  => __('Now, let\'s update your database and install the Sunrise.php file, which are necessary for the correct functioning of Multisite Ultimate.', 'multisite-ultimate'),
-				'next_label'   => Core_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'multisite-ultimate') : __('Install', 'multisite-ultimate'),
+				'title'        => __('Installation', 'ultimate-multisite'),
+				'description'  => __('Now, let\'s update your database and install the Sunrise.php file, which are necessary for the correct functioning of Multisite Ultimate.', 'ultimate-multisite'),
+				'next_label'   => Core_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'ultimate-multisite') : __('Install', 'ultimate-multisite'),
 				'disable_next' => true,
 				'fields'       => [
 					'terms' => [
@@ -368,14 +368,14 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 
 			$back_traces = Migrator::get_instance()->get_back_traces();
 
-			$next_label = __('Migrate!', 'multisite-ultimate');
+			$next_label = __('Migrate!', 'ultimate-multisite');
 
-			$description = __('No errors found during dry run! Now it is time to actually migrate! <br><br><strong>We strongly recommend creating a backup of your database before moving forward with the migration.</strong>', 'multisite-ultimate');
+			$description = __('No errors found during dry run! Now it is time to actually migrate! <br><br><strong>We strongly recommend creating a backup of your database before moving forward with the migration.</strong>', 'ultimate-multisite');
 
 			if ($dry_run) {
-				$next_label = __('Run Check', 'multisite-ultimate');
+				$next_label = __('Run Check', 'ultimate-multisite');
 
-				$description = __('It seems that you were running Multisite Ultimate 1.X on this network. This migrator will convert the data from the old version to the new one.', 'multisite-ultimate') . '<br><br>' . __('First, let\'s run a test migration to see if we can spot any potential errors.', 'multisite-ultimate');
+				$description = __('It seems that you were running Multisite Ultimate 1.X on this network. This migrator will convert the data from the old version to the new one.', 'ultimate-multisite') . '<br><br>' . __('First, let\'s run a test migration to see if we can spot any potential errors.', 'ultimate-multisite');
 			}
 
 			$fields = [
@@ -402,17 +402,17 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 
 				$message = implode(PHP_EOL . PHP_EOL, $message_lines);
 
-				$description = __('The dry run test detected issues during the test migration. Please, <a class="wu-trigger-support" href="#">contact our support team</a> to get help migrating from 1.X to version 2.', 'multisite-ultimate');
+				$description = __('The dry run test detected issues during the test migration. Please, <a class="wu-trigger-support" href="#">contact our support team</a> to get help migrating from 1.X to version 2.', 'ultimate-multisite');
 
 				$next = true;
 
-				$next_label = __('Try Again!', 'multisite-ultimate');
+				$next_label = __('Try Again!', 'ultimate-multisite');
 
-				$error_list = '<strong>' . __('List of errors detected:', 'multisite-ultimate') . '</strong><br><br>';
+				$error_list = '<strong>' . __('List of errors detected:', 'ultimate-multisite') . '</strong><br><br>';
 
 				$errors[] = sprintf(
 					'<br><a href="%2$s" class="wu-no-underline wu-text-red-500 wu-font-bold"><span class="dashicons-wu-download wu-mr-2"></span>%1$s</a>',
-					__('Download migration error log', 'multisite-ultimate'),
+					__('Download migration error log', 'ultimate-multisite'),
 					add_query_arg(
 						[
 							'action' => 'download_migration_logs',
@@ -424,7 +424,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 
 				$errors[] = sprintf(
 					'<br><a href="%2$s" class="wu-no-underline wu-text-red-500 wu-font-bold"><span class="dashicons-wu-back-in-time wu-mr-2"></span>%1$s</a>',
-					__('Rollback to version 1.10.13', 'multisite-ultimate'),
+					__('Rollback to version 1.10.13', 'ultimate-multisite'),
 					add_query_arg(
 						[
 							'page'    => 'wp-ultimo-rollback',
@@ -456,7 +456,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 			}
 
 			$sections['migration'] = [
-				'title'       => __('Migration', 'multisite-ultimate'),
+				'title'       => __('Migration', 'ultimate-multisite'),
 				'description' => $description,
 				'next_label'  => $next_label,
 				'skip'        => false,
@@ -466,16 +466,16 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 			];
 		} else {
 			$sections['your-company'] = [
-				'title'       => __('Your Company', 'multisite-ultimate'),
-				'description' => __('Before we move on, let\'s configure the basic settings of your network, shall we?', 'multisite-ultimate'),
+				'title'       => __('Your Company', 'ultimate-multisite'),
+				'description' => __('Before we move on, let\'s configure the basic settings of your network, shall we?', 'ultimate-multisite'),
 				'handler'     => [$this, 'handle_save_settings'],
 				'fields'      => [$this, 'get_general_settings'],
 			];
 
 			$sections['defaults'] = [
-				'title'        => __('Default Content', 'multisite-ultimate'),
-				'description'  => __('Starting from scratch can be scarry, specially when first starting out. In this step, you can create default content to have a starting point for your network. Everything can be customized later.', 'multisite-ultimate'),
-				'next_label'   => Default_Content_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'multisite-ultimate') : __('Install', 'multisite-ultimate'),
+				'title'        => __('Default Content', 'ultimate-multisite'),
+				'description'  => __('Starting from scratch can be scarry, specially when first starting out. In this step, you can create default content to have a starting point for your network. Everything can be customized later.', 'ultimate-multisite'),
+				'next_label'   => Default_Content_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'ultimate-multisite') : __('Install', 'ultimate-multisite'),
 				'disable_next' => true,
 				'fields'       => [
 					'terms' => [
@@ -487,7 +487,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		}
 
 		$sections['done'] = [
-			'title' => __('Ready!', 'multisite-ultimate'),
+			'title' => __('Ready!', 'ultimate-multisite'),
 			'view'  => [$this, 'section_ready'],
 		];
 
@@ -585,7 +585,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 			'wu_setup_settings',
 			[
 				'dry_run'               => wu_request('dry-run', true),
-				'generic_error_message' => __('A server error happened while processing this item.', 'multisite-ultimate'),
+				'generic_error_message' => __('A server error happened while processing this item.', 'ultimate-multisite'),
 			]
 		);
 
@@ -624,7 +624,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 
 		$requirements = [
 			'php'       => [
-				'name'                => __('PHP', 'multisite-ultimate'),
+				'name'                => __('PHP', 'ultimate-multisite'),
 				'help'                => wu_get_documentation_url('wp-ultimo-requirements'),
 				'required_version'    => Requirements::$php_version,
 				'recommended_version' => Requirements::$php_recommended_version,
@@ -633,7 +633,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 				'pass_recommendation' => version_compare(phpversion(), Requirements::$php_recommended_version, '>='),
 			],
 			'wordpress' => [
-				'name'                => __('WordPress', 'multisite-ultimate'),
+				'name'                => __('WordPress', 'ultimate-multisite'),
 				'help'                => wu_get_documentation_url('wp-ultimo-requirements'),
 				'required_version'    => Requirements::$wp_version,
 				'recommended_version' => Requirements::$wp_recommended_version,
@@ -645,21 +645,21 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 
 		$plugin_requirements = [
 			'multisite' => [
-				'name'              => __('WordPress Multisite', 'multisite-ultimate'),
+				'name'              => __('WordPress Multisite', 'ultimate-multisite'),
 				'help'              => wu_get_documentation_url('wp-ultimo-requirements'),
-				'condition'         => __('Installed & Activated', 'multisite-ultimate'),
+				'condition'         => __('Installed & Activated', 'ultimate-multisite'),
 				'pass_requirements' => is_multisite(),
 			],
 			'wp-ultimo' => [
-				'name'              => __('Multisite Ultimate', 'multisite-ultimate'),
+				'name'              => __('Multisite Ultimate', 'ultimate-multisite'),
 				'help'              => wu_get_documentation_url('wp-ultimo-requirements'),
-				'condition'         => apply_filters('wp_ultimo_skip_network_active_check', false) ? __('Bypassed via filter', 'multisite-ultimate') : __('Network Activated', 'multisite-ultimate'),
+				'condition'         => apply_filters('wp_ultimo_skip_network_active_check', false) ? __('Bypassed via filter', 'ultimate-multisite') : __('Network Activated', 'ultimate-multisite'),
 				'pass_requirements' => Requirements::is_network_active(),
 			],
 			'wp-cron'   => [
-				'name'              => __('WordPress Cron', 'multisite-ultimate'),
+				'name'              => __('WordPress Cron', 'ultimate-multisite'),
 				'help'              => wu_get_documentation_url('wp-ultimo-requirements'),
-				'condition'         => __('Activated', 'multisite-ultimate'),
+				'condition'         => __('Activated', 'ultimate-multisite'),
 				'pass_requirements' => Requirements::check_wp_cron(),
 			],
 		];
@@ -749,14 +749,14 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		if (! defined('SUNRISE') || ! SUNRISE) {
 			$message = sprintf(__('The SUNRISE constant is missing. Domain mapping and plugin/theme limits will not function until `%s` is added to wp-config.php. Please complete the setup to attempt to do this automatically.'), 'define( SUNRISE, \'1\' );');
 		} else {
-			$message = __('Multisite Ultimate installation is incomplete. The sunrise.php file is missing. Please complete the setup to ensure proper functionality.', 'multisite-ultimate');
+			$message = __('Multisite Ultimate installation is incomplete. The sunrise.php file is missing. Please complete the setup to ensure proper functionality.', 'ultimate-multisite');
 		}
 
 
 
 		$actions = [
 			'complete_setup' => [
-				'title' => __('Complete Setup', 'multisite-ultimate'),
+				'title' => __('Complete Setup', 'ultimate-multisite'),
 				'url'   => wu_network_admin_url('wp-ultimo-setup'),
 			],
 		];
@@ -872,8 +872,8 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 				'wu_fields',
 				[
 					'l10n' => [
-						'image_picker_title'       => __('Select an Image.', 'multisite-ultimate'),
-						'image_picker_button_text' => __('Use this image', 'multisite-ultimate'),
+						'image_picker_title'       => __('Select an Image.', 'ultimate-multisite'),
+						'image_picker_button_text' => __('Use this image', 'ultimate-multisite'),
 					],
 				]
 			);

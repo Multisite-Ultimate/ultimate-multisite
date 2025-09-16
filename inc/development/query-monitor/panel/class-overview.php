@@ -43,7 +43,7 @@ class Overview extends \QM_Output_Html {
 	 */
 	public function name() {
 
-		return __('Multisite Ultimate', 'multisite-ultimate');
+		return __('Multisite Ultimate', 'ultimate-multisite');
 	}
 
 	/**
@@ -105,7 +105,7 @@ class Overview extends \QM_Output_Html {
 		$new_menu = [
 			'wp-ultimo' => $this->menu(
 				[
-					'title' => esc_html__('Multisite Ultimate', 'multisite-ultimate'),
+					'title' => esc_html__('Multisite Ultimate', 'ultimate-multisite'),
 					'id'    => 'wp-ultimo',
 				]
 			),

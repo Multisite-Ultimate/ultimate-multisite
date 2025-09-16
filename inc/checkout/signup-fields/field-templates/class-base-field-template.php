@@ -78,7 +78,7 @@ class Base_Field_Template {
 	 */
 	public function get_title() {
 
-		return __('Field Template', 'multisite-ultimate');
+		return __('Field Template', 'ultimate-multisite');
 	}
 
 	/**
@@ -91,7 +91,7 @@ class Base_Field_Template {
 	 */
 	public function get_description() {
 
-		return __('Description', 'multisite-ultimate');
+		return __('Description', 'ultimate-multisite');
 	}
 
 	/**

@@ -95,7 +95,7 @@ class Checkout_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer_Facing_Ad
 	 */
 	public function get_title() {
 
-		return __('Checkout', 'multisite-ultimate');
+		return __('Checkout', 'ultimate-multisite');
 	}
 
 	/**
@@ -106,7 +106,7 @@ class Checkout_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer_Facing_Ad
 	 */
 	public function get_menu_title() {
 
-		return __('Checkout', 'multisite-ultimate');
+		return __('Checkout', 'ultimate-multisite');
 	}
 
 	/**
@@ -143,7 +143,7 @@ class Checkout_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer_Facing_Ad
 
 		$sections = [
 			'plan' => [
-				'title' => __('Change Membership', 'multisite-ultimate'),
+				'title' => __('Change Membership', 'ultimate-multisite'),
 				'view'  => [$this, 'display_checkout_form'],
 			],
 		];

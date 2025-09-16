@@ -161,7 +161,7 @@ class Template_Placeholders {
 			wp_send_json(
 				[
 					'code'    => 'not-enough-permissions',
-					'message' => __('You don\'t have permission to alter placeholders.', 'multisite-ultimate'),
+					'message' => __('You don\'t have permission to alter placeholders.', 'ultimate-multisite'),
 				]
 			);
 		}
@@ -177,7 +177,7 @@ class Template_Placeholders {
 			wp_send_json(
 				[
 					'code'    => 'invalid-input',
-					'message' => __('The JSON provided is invalid', 'multisite-ultimate'),
+					'message' => __('The JSON provided is invalid', 'ultimate-multisite'),
 				]
 			);
 		}
@@ -195,7 +195,7 @@ class Template_Placeholders {
 		wp_send_json(
 			[
 				'code'    => 'success',
-				'message' => __('Placeholders successfully updated!', 'multisite-ultimate'),
+				'message' => __('Placeholders successfully updated!', 'ultimate-multisite'),
 			]
 		);
 	}

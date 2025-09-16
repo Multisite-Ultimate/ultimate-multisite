@@ -62,11 +62,11 @@ class Domain_Stage extends Enum {
 	protected function labels() {
 
 		return [
-			static::FAILED           => __('DNS Failed', 'multisite-ultimate'),
-			static::CHECKING_DNS     => __('Checking DNS', 'multisite-ultimate'),
-			static::CHECKING_SSL     => __('Checking SSL', 'multisite-ultimate'),
-			static::DONE             => __('Ready', 'multisite-ultimate'),
-			static::DONE_WITHOUT_SSL => __('Ready (without SSL)', 'multisite-ultimate'),
+			static::FAILED           => __('DNS Failed', 'ultimate-multisite'),
+			static::CHECKING_DNS     => __('Checking DNS', 'ultimate-multisite'),
+			static::CHECKING_SSL     => __('Checking SSL', 'ultimate-multisite'),
+			static::DONE             => __('Ready', 'ultimate-multisite'),
+			static::DONE_WITHOUT_SSL => __('Ready (without SSL)', 'ultimate-multisite'),
 		];
 	}
 }

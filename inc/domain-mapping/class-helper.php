@@ -231,7 +231,7 @@ class Helper {
 			wu_log_add(
 				'domain-ssl-checks',
 				// translators: % error message
-				sprintf(__('Certificate Invalid: %s', 'multisite-ultimate'), $e->getMessage()),
+				sprintf(__('Certificate Invalid: %s', 'ultimate-multisite'), $e->getMessage()),
 				LogLevel::ERROR
 			);
 		}

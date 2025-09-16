@@ -56,9 +56,9 @@ class Product_Type extends Enum {
 	protected function labels() {
 
 		return [
-			static::PLAN    => __('Plan', 'multisite-ultimate'),
-			static::PACKAGE => __('Package', 'multisite-ultimate'),
-			static::SERVICE => __('Service', 'multisite-ultimate'),
+			static::PLAN    => __('Plan', 'ultimate-multisite'),
+			static::PACKAGE => __('Package', 'ultimate-multisite'),
+			static::SERVICE => __('Service', 'ultimate-multisite'),
 		];
 	}
 }

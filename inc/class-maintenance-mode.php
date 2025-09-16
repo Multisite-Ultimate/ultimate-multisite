@@ -84,11 +84,11 @@ class Maintenance_Mode {
 			$args = [
 				'id'     => 'wu-maintenance-mode',
 				'parent' => 'top-secondary',
-				'title'  => __('Maintenance Mode - Active', 'multisite-ultimate'),
+				'title'  => __('Maintenance Mode - Active', 'ultimate-multisite'),
 				'href'   => '#wp-ultimo-site-maintenance-element',
 				'meta'   => [
 					'class' => 'wu-maintenance-mode ' . (self::check_maintenance_mode() ? '' : 'hidden'),
-					'title' => __('This means that your site is not available for visitors at the moment. Only you and other logged users have access to it. Click here to toggle this option.', 'multisite-ultimate'),
+					'title' => __('This means that your site is not available for visitors at the moment. Only you and other logged users have access to it. Click here to toggle this option.', 'ultimate-multisite'),
 				],
 			];
 
@@ -110,12 +110,12 @@ class Maintenance_Mode {
 
 		$text = apply_filters(
 			'wu_maintenance_mode_text',
-			__('Website under planned maintenance. Please check back later.', 'multisite-ultimate')
+			__('Website under planned maintenance. Please check back later.', 'ultimate-multisite')
 		);
 
 		$title = apply_filters(
 			'wu_maintenance_mode_title',
-			__('Under Maintenance', 'multisite-ultimate')
+			__('Under Maintenance', 'ultimate-multisite')
 		);
 
 		wp_die(esc_html($text), esc_html($title), 503);
@@ -143,7 +143,7 @@ class Maintenance_Mode {
 		if ( ! check_ajax_referer('wu_toggle_maintenance_mode', '_wpnonce', false)) {
 			wp_send_json_error(
 				[
-					'message' => __('Request failed, please refresh and try again.', 'multisite-ultimate'),
+					'message' => __('Request failed, please refresh and try again.', 'ultimate-multisite'),
 					'value'   => false,
 				]
 			);
@@ -154,7 +154,7 @@ class Maintenance_Mode {
 		if ( ! current_user_can_for_site($site_id, 'manage_options')) {
 			wp_send_json_error(
 				[
-					'message' => __('You do not have the necessary permissions to perform this option.', 'multisite-ultimate'),
+					'message' => __('You do not have the necessary permissions to perform this option.', 'ultimate-multisite'),
 					'value'   => false,
 				]
 			);
@@ -167,7 +167,7 @@ class Maintenance_Mode {
 		update_site_meta($site_id, 'wu_maintenance_mode', $value);
 
 		$return = [
-			'message' => __('New maintenance settings saved.', 'multisite-ultimate'),
+			'message' => __('New maintenance settings saved.', 'ultimate-multisite'),
 			'value'   => $value,
 		];
 
@@ -189,8 +189,8 @@ class Maintenance_Mode {
 			'sites',
 			'maintenance_mode',
 			[
-				'title'   => __('Site Maintenance Mode', 'multisite-ultimate'),
-				'desc'    => __('Allow your customers and super admins to quickly take sites offline via a toggle on the site dashboard.', 'multisite-ultimate'),
+				'title'   => __('Site Maintenance Mode', 'ultimate-multisite'),
+				'desc'    => __('Allow your customers and super admins to quickly take sites offline via a toggle on the site dashboard.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 				'order'   => 23,

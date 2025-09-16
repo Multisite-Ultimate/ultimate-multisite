@@ -215,7 +215,7 @@ class Legacy_Shortcodes {
 		$atts['plan_id'] = ! empty($atts['product_id']) ? $atts['product_id'] : $atts['plan_id'];
 
 		if (empty($atts) || ! $atts['plan_id']) {
-			return __('You need to pass a valid plan ID.', 'multisite-ultimate');
+			return __('You need to pass a valid plan ID.', 'ultimate-multisite');
 		}
 
 		$query_products = get_query_var('products', []);
@@ -349,17 +349,17 @@ class Legacy_Shortcodes {
 					[
 						'duration'      => 1,
 						'duration_unit' => 'month',
-						'label'         => __('Monthly', 'multisite-ultimate'),
+						'label'         => __('Monthly', 'ultimate-multisite'),
 					],
 					[
 						'duration'      => 3,
 						'duration_unit' => 'month',
-						'label'         => __('Quarterly', 'multisite-ultimate'),
+						'label'         => __('Quarterly', 'ultimate-multisite'),
 					],
 					[
 						'duration'      => 1,
 						'duration_unit' => 'year',
-						'label'         => __('Yearly', 'multisite-ultimate'),
+						'label'         => __('Yearly', 'ultimate-multisite'),
 					],
 				],
 			];
@@ -369,7 +369,7 @@ class Legacy_Shortcodes {
 
 		$fields[] = [
 			'step'                   => 'checkout',
-			'name'                   => __('Plans', 'multisite-ultimate'),
+			'name'                   => __('Plans', 'ultimate-multisite'),
 			'type'                   => 'pricing_table',
 			'id'                     => 'pricing_table',
 			'required'               => true,
@@ -385,7 +385,7 @@ class Legacy_Shortcodes {
 		if ('legacy' !== $layout) {
 			$fields[] = [
 				'step' => 'checkout',
-				'name' => __('Get Started &rarr;', 'multisite-ultimate'),
+				'name' => __('Get Started &rarr;', 'ultimate-multisite'),
 				'type' => 'submit_button',
 				'id'   => 'checkout',
 			];
@@ -394,7 +394,7 @@ class Legacy_Shortcodes {
 		$steps = [
 			[
 				'id'     => 'checkout',
-				'name'   => __('Checkout', 'multisite-ultimate'),
+				'name'   => __('Checkout', 'ultimate-multisite'),
 				'desc'   => '',
 				'fields' => $fields,
 			],
@@ -522,7 +522,7 @@ class Legacy_Shortcodes {
 
 		$fields[] = [
 			'step'                        => 'checkout',
-			'name'                        => __('Templates', 'multisite-ultimate'),
+			'name'                        => __('Templates', 'ultimate-multisite'),
 			'type'                        => 'template_selection',
 			'id'                          => 'template_selection',
 			'template_selection_sites'    => implode(',', $templates ?: wu_get_site_templates($search_arguments)),
@@ -534,7 +534,7 @@ class Legacy_Shortcodes {
 		$steps = [
 			[
 				'id'     => 'checkout',
-				'name'   => __('Checkout', 'multisite-ultimate'),
+				'name'   => __('Checkout', 'ultimate-multisite'),
 				'desc'   => '',
 				'fields' => $fields,
 			],

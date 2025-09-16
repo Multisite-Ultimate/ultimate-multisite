@@ -55,7 +55,7 @@ defined( 'ABSPATH' ) || exit;
 	<?php if (wu_request('updated')) : ?>
 
 	<div id="message" class="updated notice wu-admin-notice notice-success is-dismissible below-h2">
-		<p><?php esc_html_e('Settings successfully saved.', 'multisite-ultimate'); ?></p>
+		<p><?php esc_html_e('Settings successfully saved.', 'ultimate-multisite'); ?></p>
 	</div>
 
 	<?php endif; ?>
@@ -90,7 +90,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<li class="md:wu-hidden wu-p-4 wu-font-bold wu-uppercase wu-text-xs wu-text-gray-700">
 
-				<?php esc_html_e('Menu', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Menu', 'ultimate-multisite'); ?>
 
 			</li>
 
@@ -185,7 +185,7 @@ defined( 'ABSPATH' ) || exit;
 			<ul class="wu-pt-4">
 
 				<li class="wu-px-4 wu-font-bold wu-uppercase wu-text-xs wu-text-gray-700">
-				<?php esc_html_e('Add-ons', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Add-ons', 'ultimate-multisite'); ?>
 				</li>
 
 				<?php foreach ($addons as $section_name => $section) : ?>

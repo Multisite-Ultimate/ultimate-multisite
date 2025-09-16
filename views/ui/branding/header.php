@@ -59,7 +59,7 @@ defined( 'ABSPATH' ) || exit;
 		<small class="wu-ticker-container wu-hidden md:wu-inline-block">
 		<strong>
 			<span class="wu-inline-block wu-bg-gray-200 wu-rounded-full wu-py-1 wu-pl-2 wu-pr-3 wu-uppercase">
-			<span title="<?php esc_attr_e('Server Clock', 'multisite-ultimate'); ?>" class="dashicons dashicons-wu-clock wu-text-sm wu-w-auto wu-h-auto wu-align-text-top wu-mr-1 wu-relative"></span>
+			<span title="<?php esc_attr_e('Server Clock', 'ultimate-multisite'); ?>" class="dashicons dashicons-wu-clock wu-text-sm wu-w-auto wu-h-auto wu-align-text-top wu-mr-1 wu-relative"></span>
 			<span id="wu-ticker" class="wu-font-mono wu-font-normal">
 				<?php echo esc_html(gmdate('Y-m-d H:i:s', wu_get_current_time('timestamp'))); ?>
 			</span>

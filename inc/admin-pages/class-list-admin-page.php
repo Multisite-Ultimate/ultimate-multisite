@@ -123,8 +123,8 @@ abstract class List_Admin_Page extends Base_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Object removed successfully.', 'multisite-ultimate'),
-			'search_label'    => __('Search Object', 'multisite-ultimate'),
+			'deleted_message' => __('Object removed successfully.', 'ultimate-multisite'),
+			'search_label'    => __('Search Object', 'ultimate-multisite'),
 		];
 	}
 

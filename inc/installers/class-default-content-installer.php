@@ -147,55 +147,55 @@ class Default_Content_Installer extends Base_Installer {
 
 		$steps['create_template_site'] = [
 			'done'        => $this->done_creating_template_site(),
-			'title'       => __('Create Example Template Site', 'multisite-ultimate'),
-			'description' => __('This will create a template site on your network that you can use as a starting point.', 'multisite-ultimate'),
-			'pending'     => __('Pending', 'multisite-ultimate'),
-			'installing'  => __('Creating Template Site...', 'multisite-ultimate'),
-			'success'     => __('Success!', 'multisite-ultimate'),
+			'title'       => __('Create Example Template Site', 'ultimate-multisite'),
+			'description' => __('This will create a template site on your network that you can use as a starting point.', 'ultimate-multisite'),
+			'pending'     => __('Pending', 'ultimate-multisite'),
+			'installing'  => __('Creating Template Site...', 'ultimate-multisite'),
+			'success'     => __('Success!', 'ultimate-multisite'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 			'checked'     => true,
 		];
 
 		$steps['create_products'] = [
 			'done'        => $this->done_creating_products(),
-			'title'       => __('Create Example Products', 'multisite-ultimate'),
-			'description' => __('This action will create example products (plans, packages, and services), so you have an starting point.', 'multisite-ultimate'),
-			'pending'     => __('Pending', 'multisite-ultimate'),
-			'installing'  => __('Creating Products...', 'multisite-ultimate'),
-			'success'     => __('Success!', 'multisite-ultimate'),
+			'title'       => __('Create Example Products', 'ultimate-multisite'),
+			'description' => __('This action will create example products (plans, packages, and services), so you have an starting point.', 'ultimate-multisite'),
+			'pending'     => __('Pending', 'ultimate-multisite'),
+			'installing'  => __('Creating Products...', 'ultimate-multisite'),
+			'success'     => __('Success!', 'ultimate-multisite'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 			'checked'     => true,
 		];
 
 		$steps['create_checkout'] = [
 			'done'        => $this->done_creating_checkout_forms(),
-			'title'       => __('Create a Checkout Form', 'multisite-ultimate'),
-			'description' => __('This action will create a single-step checkout form that your customers will use to place purchases, as well as the page that goes with it.', 'multisite-ultimate'),
-			'pending'     => __('Pending', 'multisite-ultimate'),
-			'installing'  => __('Creating Checkout Form and Registration Page...', 'multisite-ultimate'),
-			'success'     => __('Success!', 'multisite-ultimate'),
+			'title'       => __('Create a Checkout Form', 'ultimate-multisite'),
+			'description' => __('This action will create a single-step checkout form that your customers will use to place purchases, as well as the page that goes with it.', 'ultimate-multisite'),
+			'pending'     => __('Pending', 'ultimate-multisite'),
+			'installing'  => __('Creating Checkout Form and Registration Page...', 'ultimate-multisite'),
+			'success'     => __('Success!', 'ultimate-multisite'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 			'checked'     => true,
 		];
 
 		$steps['create_emails'] = [
 			'done'        => $this->done_creating_emails(),
-			'title'       => __('Create the System Emails', 'multisite-ultimate'),
-			'description' => __('This action will create all emails sent by Multisite Ultimate.', 'multisite-ultimate'),
-			'pending'     => __('Pending', 'multisite-ultimate'),
-			'installing'  => __('Creating System Emails...', 'multisite-ultimate'),
-			'success'     => __('Success!', 'multisite-ultimate'),
+			'title'       => __('Create the System Emails', 'ultimate-multisite'),
+			'description' => __('This action will create all emails sent by Multisite Ultimate.', 'ultimate-multisite'),
+			'pending'     => __('Pending', 'ultimate-multisite'),
+			'installing'  => __('Creating System Emails...', 'ultimate-multisite'),
+			'success'     => __('Success!', 'ultimate-multisite'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 			'checked'     => true,
 		];
 
 		$steps['create_login_page'] = [
 			'done'        => $this->done_creating_login_page(),
-			'title'       => __('Create Custom Login Page', 'multisite-ultimate'),
-			'description' => __('This action will create a custom login page and replace the default one.', 'multisite-ultimate'),
-			'pending'     => __('Pending', 'multisite-ultimate'),
-			'installing'  => __('Creating Custom Login Page...', 'multisite-ultimate'),
-			'success'     => __('Success!', 'multisite-ultimate'),
+			'title'       => __('Create Custom Login Page', 'ultimate-multisite'),
+			'description' => __('This action will create a custom login page and replace the default one.', 'ultimate-multisite'),
+			'pending'     => __('Pending', 'ultimate-multisite'),
+			'installing'  => __('Creating Custom Login Page...', 'ultimate-multisite'),
+			'success'     => __('Success!', 'ultimate-multisite'),
 			'help'        => wu_get_documentation_url('installation-errors'),
 			'checked'     => true,
 		];
@@ -219,7 +219,7 @@ class Default_Content_Installer extends Base_Installer {
 		$template_site = [
 			'domain' => $d->domain,
 			'path'   => $d->path,
-			'title'  => __('Template Site', 'multisite-ultimate'),
+			'title'  => __('Template Site', 'ultimate-multisite'),
 			'type'   => 'site_template',
 		];
 
@@ -230,7 +230,7 @@ class Default_Content_Installer extends Base_Installer {
 		}
 
 		if ( ! $status) {
-			$error_message = __('Template Site was not created. Maybe a site with the /template path already exists?', 'multisite-ultimate');
+			$error_message = __('Template Site was not created. Maybe a site with the /template path already exists?', 'ultimate-multisite');
 
 			throw new \Exception(esc_html($error_message));
 		}
@@ -261,8 +261,8 @@ class Default_Content_Installer extends Base_Installer {
 		 * Free Plan
 		 */
 		$products[] = [
-			'name'           => __('Free', 'multisite-ultimate'),
-			'description'    => __('This is an example of a free plan.', 'multisite-ultimate'),
+			'name'           => __('Free', 'ultimate-multisite'),
+			'description'    => __('This is an example of a free plan.', 'ultimate-multisite'),
 			'currency'       => wu_get_setting('currency_symbol', 'USD'),
 			'pricing_type'   => 'free',
 			'duration'       => 1,
@@ -281,8 +281,8 @@ class Default_Content_Installer extends Base_Installer {
 		 * Premium Plan
 		 */
 		$products[] = [
-			'name'           => __('Premium', 'multisite-ultimate'),
-			'description'    => __('This is an example of a paid plan.', 'multisite-ultimate'),
+			'name'           => __('Premium', 'ultimate-multisite'),
+			'description'    => __('This is an example of a paid plan.', 'ultimate-multisite'),
 			'currency'       => wu_get_setting('currency_symbol', 'USD'),
 			'pricing_type'   => 'paid',
 			'type'           => 'plan',
@@ -301,8 +301,8 @@ class Default_Content_Installer extends Base_Installer {
 		 * Service
 		 */
 		$products[] = [
-			'name'           => __('SEO Consulting', 'multisite-ultimate'),
-			'description'    => __('This is an example of a service that you can create and charge customers for.', 'multisite-ultimate'),
+			'name'           => __('SEO Consulting', 'ultimate-multisite'),
+			'description'    => __('This is an example of a service that you can create and charge customers for.', 'ultimate-multisite'),
 			'currency'       => wu_get_setting('currency_symbol', 'USD'),
 			'pricing_type'   => 'paid',
 			'type'           => 'service',
@@ -340,7 +340,7 @@ class Default_Content_Installer extends Base_Installer {
 	public function _install_create_checkout(): void {
 
 		$checkout_form = [
-			'name'     => __('Registration Form', 'multisite-ultimate'),
+			'name'     => __('Registration Form', 'ultimate-multisite'),
 			'slug'     => 'main-form',
 			'settings' => [],
 		];
@@ -366,7 +366,7 @@ class Default_Content_Installer extends Base_Installer {
 		 */
 		$post_details = [
 			'post_name'    => 'register',
-			'post_title'   => __('Register', 'multisite-ultimate'),
+			'post_title'   => __('Register', 'ultimate-multisite'),
 			'post_content' => sprintf($post_content, $status->get_slug()),
 			'post_status'  => 'publish',
 			'post_type'    => 'page',
@@ -413,7 +413,7 @@ class Default_Content_Installer extends Base_Installer {
 	  ';
 
 		$page_args = [
-			'post_title'   => __('Login', 'multisite-ultimate'),
+			'post_title'   => __('Login', 'ultimate-multisite'),
 			'post_content' => $page_content,
 			'post_status'  => 'publish',
 			'post_author'  => get_current_user_id(),

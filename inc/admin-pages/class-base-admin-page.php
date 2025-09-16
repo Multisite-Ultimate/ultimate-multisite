@@ -626,7 +626,7 @@ abstract class Base_Admin_Page {
 		if (wu_get_documentation_url($this->get_id(), false)) {
 			$this->action_links[] = [
 				'url'   => wu_get_documentation_url($this->get_id()),
-				'label' => __('Documentation', 'multisite-ultimate'),
+				'label' => __('Documentation', 'ultimate-multisite'),
 				'icon'  => 'wu-open-book',
 			];
 		}

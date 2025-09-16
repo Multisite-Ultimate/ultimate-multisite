@@ -100,7 +100,7 @@ defined( 'ABSPATH' ) || exit;
 
 						<h3 class="wu-m-0 wu-widget-title">
 
-							<?php esc_html_e('Change Membership', 'multisite-ultimate'); ?>
+							<?php esc_html_e('Change Membership', 'ultimate-multisite'); ?>
 
 						</h3>
 

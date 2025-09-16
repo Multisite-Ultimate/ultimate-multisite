@@ -120,14 +120,14 @@ class Current_Membership_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Membership', 'multisite-ultimate');
+		return __('Membership', 'ultimate-multisite');
 	}
 
 	/**
@@ -136,14 +136,14 @@ class Current_Membership_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
+		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
 	}
 
 	/**
@@ -168,31 +168,31 @@ class Current_Membership_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'multisite-ultimate'),
-			'desc'  => __('General', 'multisite-ultimate'),
+			'title' => __('General', 'ultimate-multisite'),
+			'desc'  => __('General', 'ultimate-multisite'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Title', 'multisite-ultimate'),
-			'value'   => __('Your Membership', 'multisite-ultimate'),
-			'desc'    => __('Leave blank to hide the title completely.', 'multisite-ultimate'),
+			'title'   => __('Title', 'ultimate-multisite'),
+			'value'   => __('Your Membership', 'ultimate-multisite'),
+			'desc'    => __('Leave blank to hide the title completely.', 'ultimate-multisite'),
 			'tooltip' => '',
 		];
 
 		$fields['display_images'] = [
 			'type'    => 'toggle',
-			'title'   => __('Display Product Images?', 'multisite-ultimate'),
-			'desc'    => __('Toggle to show/hide the product images on the element.', 'multisite-ultimate'),
+			'title'   => __('Display Product Images?', 'ultimate-multisite'),
+			'desc'    => __('Toggle to show/hide the product images on the element.', 'ultimate-multisite'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
 
 		$fields['columns'] = [
 			'type'    => 'number',
-			'title'   => __('Columns', 'multisite-ultimate'),
-			'desc'    => __('How many columns to use.', 'multisite-ultimate'),
+			'title'   => __('Columns', 'ultimate-multisite'),
+			'desc'    => __('How many columns to use.', 'ultimate-multisite'),
 			'tooltip' => '',
 			'value'   => 2,
 			'min'     => 1,
@@ -247,7 +247,7 @@ class Current_Membership_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'title'          => __('Your Membership', 'multisite-ultimate'),
+			'title'          => __('Your Membership', 'ultimate-multisite'),
 			'display_images' => 1,
 			'columns'        => 2,
 		];
@@ -365,19 +365,19 @@ class Current_Membership_Element extends Base_Element {
 		$error = '';
 
 		if ( ! $membership) {
-			$error = __('Membership not selected.', 'multisite-ultimate');
+			$error = __('Membership not selected.', 'ultimate-multisite');
 		}
 
 		$product = wu_get_product_by_slug(wu_request('product'));
 
 		if ( ! $product) {
-			$error = __('Product not selected.', 'multisite-ultimate');
+			$error = __('Product not selected.', 'ultimate-multisite');
 		}
 
 		$customer = wu_get_current_customer();
 
 		if (empty($error) && ! is_super_admin() && (! $customer || $customer->get_id() !== $membership->get_customer_id())) {
-			$error = __('You are not allowed to do this.', 'multisite-ultimate');
+			$error = __('You are not allowed to do this.', 'ultimate-multisite');
 		}
 
 		if ( ! empty($error)) {
@@ -434,7 +434,7 @@ class Current_Membership_Element extends Base_Element {
 			],
 			'quantity'      => [
 				'type'              => 'number',
-				'title'             => __('Quantity to Cancel', 'multisite-ultimate'),
+				'title'             => __('Quantity to Cancel', 'ultimate-multisite'),
 				'value'             => 1,
 				'placeholder'       => 1,
 				'wrapper_classes'   => 'wu-w-1/2',
@@ -450,8 +450,8 @@ class Current_Membership_Element extends Base_Element {
 			],
 			'confirm'       => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Product Cancellation', 'multisite-ultimate'),
-				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
+				'title'     => __('Confirm Product Cancellation', 'ultimate-multisite'),
+				'desc'      => __('This action can not be undone.', 'ultimate-multisite'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
@@ -463,8 +463,8 @@ class Current_Membership_Element extends Base_Element {
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Cancel Product Subscription', 'multisite-ultimate'),
-				'placeholder'     => __('Cancel Product Subscription', 'multisite-ultimate'),
+				'title'           => __('Cancel Product Subscription', 'ultimate-multisite'),
+				'placeholder'     => __('Cancel Product Subscription', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'wu-w-full button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -508,7 +508,7 @@ class Current_Membership_Element extends Base_Element {
 	public function handle_edit_membership_product_modal(): void {
 
 		if ( ! wu_request('confirm')) {
-			$error = new \WP_Error('not-confirmed', __('Please confirm the cancellation.', 'multisite-ultimate'));
+			$error = new \WP_Error('not-confirmed', __('Please confirm the cancellation.', 'ultimate-multisite'));
 
 			wp_send_json_error($error);
 		}
@@ -516,7 +516,7 @@ class Current_Membership_Element extends Base_Element {
 		$membership = wu_get_membership_by_hash(wu_request('membership'));
 
 		if ( ! $membership) {
-			$error = new \WP_Error('membership-not-found', __('Membership not found.', 'multisite-ultimate'));
+			$error = new \WP_Error('membership-not-found', __('Membership not found.', 'ultimate-multisite'));
 
 			wp_send_json_error($error);
 		}
@@ -524,7 +524,7 @@ class Current_Membership_Element extends Base_Element {
 		$product = wu_get_product_by_slug(wu_request('product'));
 
 		if ( ! $product) {
-			$error = new \WP_Error('product-not-found', __('Product not found.', 'multisite-ultimate'));
+			$error = new \WP_Error('product-not-found', __('Product not found.', 'ultimate-multisite'));
 
 			wp_send_json_error($error);
 		}
@@ -532,7 +532,7 @@ class Current_Membership_Element extends Base_Element {
 		$customer = wu_get_current_customer();
 
 		if ( ! is_super_admin() && (! $customer || $customer->get_id() !== $membership->get_customer_id())) {
-			$error = __('You are not allowed to do this.', 'multisite-ultimate');
+			$error = __('You are not allowed to do this.', 'ultimate-multisite');
 
 			wp_send_json_error($error);
 		}
@@ -582,7 +582,7 @@ class Current_Membership_Element extends Base_Element {
 		$removed_quantity = $quantity + $existing_difference;
 
 		// translators: %1$s is the quantity removed, %2$s is the product name.
-		$description = sprintf(__('remove %1$s %2$s from membership', 'multisite-ultimate'), $removed_quantity, $product->get_name());
+		$description = sprintf(__('remove %1$s %2$s from membership', 'ultimate-multisite'), $removed_quantity, $product->get_name());
 
 		$cart->set_cart_descriptor($description);
 

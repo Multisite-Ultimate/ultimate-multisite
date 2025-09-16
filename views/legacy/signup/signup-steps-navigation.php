@@ -72,7 +72,7 @@ $percent     = 100 / $count;
 
 	<a class="wu-signup-back-link" href="<?php echo esc_attr($prev_link); ?>">
 
-		<?php esc_html_e('&larr; Go Back to Previous Step', 'multisite-ultimate'); ?>
+		<?php esc_html_e('&larr; Go Back to Previous Step', 'ultimate-multisite'); ?>
 
 	</a>
 

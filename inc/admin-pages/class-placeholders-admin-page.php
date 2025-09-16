@@ -70,7 +70,7 @@ class Placeholders_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Edit Template Placeholders', 'multisite-ultimate');
+		return __('Edit Template Placeholders', 'ultimate-multisite');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Placeholders_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Template Placeholders', 'multisite-ultimate');
+		return __('Edit Template Placeholders', 'ultimate-multisite');
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Placeholders_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Edit Template Placeholders', 'multisite-ultimate');
+		return __('Edit Template Placeholders', 'ultimate-multisite');
 	}
 
 	/**
@@ -108,8 +108,8 @@ class Placeholders_Admin_Page extends Base_Admin_Page {
 		$columns = apply_filters(
 			'wu_edit_placeholders_columns',
 			[
-				'placeholder' => __('Placeholder', 'multisite-ultimate'),
-				'content'     => __('Content', 'multisite-ultimate'),
+				'placeholder' => __('Placeholder', 'ultimate-multisite'),
+				'content'     => __('Content', 'ultimate-multisite'),
 			]
 		);
 
@@ -138,9 +138,9 @@ class Placeholders_Admin_Page extends Base_Admin_Page {
 			'wu-edit-placeholders',
 			'wu_placeholdersl10n',
 			[
-				'name'                                => __('Tax', 'multisite-ultimate'),
-				'confirm_message'                     => __('Are you sure you want to delete this rows?', 'multisite-ultimate'),
-				'confirm_delete_tax_category_message' => __('Are you sure you want to delete this tax category?', 'multisite-ultimate'),
+				'name'                                => __('Tax', 'ultimate-multisite'),
+				'confirm_message'                     => __('Are you sure you want to delete this rows?', 'ultimate-multisite'),
+				'confirm_delete_tax_category_message' => __('Are you sure you want to delete this tax category?', 'ultimate-multisite'),
 			]
 		);
 

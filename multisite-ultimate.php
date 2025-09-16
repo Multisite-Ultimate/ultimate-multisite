@@ -91,7 +91,7 @@ try {
 					<?php
 					printf(
 					/* translators: 1: is a link to a support document. 2: closing link */
-						esc_html__('Your installation of Multisite Ultimate is incomplete. If you installed from GitHub, %1$splease refer to this document%2$s to set up your development environment or download a pre-packaged ZIP release.', 'multisite-ultimate'),
+						esc_html__('Your installation of Multisite Ultimate is incomplete. If you installed from GitHub, %1$splease refer to this document%2$s to set up your development environment or download a pre-packaged ZIP release.', 'ultimate-multisite'),
 						'<a href="' . esc_url('https://github.com/superdav42/wp-multisite-waas?tab=readme-ov-file#method-2-using-git-and-composer-for-developers') . '" target="_blank" rel="noopener noreferrer">',
 						'</a>'
 					);

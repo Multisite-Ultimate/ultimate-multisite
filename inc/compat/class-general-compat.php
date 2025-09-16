@@ -248,7 +248,7 @@ class General_Compat {
 	 */
 	public function add_wp_typography_warning_message(): void {
 
-		WP_Ultimo()->notices->add(__('WP Typography "Smart Quotes" replacement is not compatible with Multisite Ultimate and will be automatically disabled.', 'multisite-ultimate'), 'warning');
+		WP_Ultimo()->notices->add(__('WP Typography "Smart Quotes" replacement is not compatible with Multisite Ultimate and will be automatically disabled.', 'ultimate-multisite'), 'warning');
 	}
 
 	/**

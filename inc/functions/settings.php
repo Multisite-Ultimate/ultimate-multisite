@@ -109,7 +109,7 @@ function wu_register_settings_side_panel($section_slug, $atts) {
 	$atts = wp_parse_args(
 		$atts,
 		[
-			'title'  => __('Side Panel', 'multisite-ultimate'),
+			'title'  => __('Side Panel', 'ultimate-multisite'),
 			'render' => '__return_false',
 			'show'   => '__return_true',
 		]

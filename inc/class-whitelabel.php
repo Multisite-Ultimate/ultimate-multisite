@@ -197,8 +197,8 @@ class Whitelabel {
 		wu_register_settings_section(
 			'whitelabel',
 			[
-				'title' => __('Whitelabel', 'multisite-ultimate'),
-				'desc'  => __('Basic Whitelabel', 'multisite-ultimate'),
+				'title' => __('Whitelabel', 'ultimate-multisite'),
+				'desc'  => __('Basic Whitelabel', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-eye',
 			]
 		);
@@ -207,8 +207,8 @@ class Whitelabel {
 			'whitelabel',
 			'whitelabel_header',
 			[
-				'title' => __('Whitelabel', 'multisite-ultimate'),
-				'desc'  => __('Hide a couple specific WordPress elements and rename others.', 'multisite-ultimate'),
+				'title' => __('Whitelabel', 'ultimate-multisite'),
+				'desc'  => __('Hide a couple specific WordPress elements and rename others.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -219,8 +219,8 @@ class Whitelabel {
 			'whitelabel',
 			'hide_wordpress_logo',
 			[
-				'title'   => __('Hide WordPress Logo', 'multisite-ultimate') . $preview_image,
-				'desc'    => __('Hide the WordPress logo from the top-bar and replace the same logo on the My Sites top-bar item with a more generic icon.', 'multisite-ultimate'),
+				'title'   => __('Hide WordPress Logo', 'ultimate-multisite') . $preview_image,
+				'desc'    => __('Hide the WordPress logo from the top-bar and replace the same logo on the My Sites top-bar item with a more generic icon.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -230,8 +230,8 @@ class Whitelabel {
 			'whitelabel',
 			'hide_sites_menu',
 			[
-				'title'   => __('Hide Sites Admin Menu', 'multisite-ultimate'),
-				'desc'    => __('We recommend that you manage all of your sites using the Multisite Ultimate &rarr; Sites page. To avoid confusion, you can hide the default "Sites" item from the WordPress admin menu by toggling this option.', 'multisite-ultimate'),
+				'title'   => __('Hide Sites Admin Menu', 'ultimate-multisite'),
+				'desc'    => __('We recommend that you manage all of your sites using the Multisite Ultimate &rarr; Sites page. To avoid confusion, you can hide the default "Sites" item from the WordPress admin menu by toggling this option.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]
@@ -241,9 +241,9 @@ class Whitelabel {
 			'whitelabel',
 			'rename_wordpress',
 			[
-				'title'       => __('Replace the word "WordPress"', 'multisite-ultimate'),
-				'placeholder' => __('e.g. My App', 'multisite-ultimate'),
-				'desc'        => __('Replace all occurrences of the word "WordPress" with a different word.', 'multisite-ultimate'),
+				'title'       => __('Replace the word "WordPress"', 'ultimate-multisite'),
+				'placeholder' => __('e.g. My App', 'ultimate-multisite'),
+				'desc'        => __('Replace all occurrences of the word "WordPress" with a different word.', 'ultimate-multisite'),
 				'type'        => 'text',
 				'default'     => '',
 			]
@@ -253,9 +253,9 @@ class Whitelabel {
 			'whitelabel',
 			'rename_site_singular',
 			[
-				'title'           => __('Replace the word "Site" (singular)', 'multisite-ultimate'),
-				'placeholder'     => __('e.g. App', 'multisite-ultimate'),
-				'desc'            => __('Replace all occurrences of the word "Site" with a different word.', 'multisite-ultimate'),
+				'title'           => __('Replace the word "Site" (singular)', 'ultimate-multisite'),
+				'placeholder'     => __('e.g. App', 'ultimate-multisite'),
+				'desc'            => __('Replace all occurrences of the word "Site" with a different word.', 'ultimate-multisite'),
 				'type'            => 'text',
 				'default'         => '',
 				'wrapper_classes' => 'wu-w-1/2',
@@ -266,9 +266,9 @@ class Whitelabel {
 			'whitelabel',
 			'rename_site_plural',
 			[
-				'title'           => __('Replace the word "Sites" (plural)', 'multisite-ultimate'),
-				'placeholder'     => __('e.g. Apps', 'multisite-ultimate'),
-				'desc'            => __('Replace all occurrences of the word "Sites" with a different word.', 'multisite-ultimate'),
+				'title'           => __('Replace the word "Sites" (plural)', 'ultimate-multisite'),
+				'placeholder'     => __('e.g. Apps', 'ultimate-multisite'),
+				'desc'            => __('Replace all occurrences of the word "Sites" with a different word.', 'ultimate-multisite'),
 				'type'            => 'text',
 				'default'         => '',
 				'wrapper_classes' => 'wu-w-1/2',

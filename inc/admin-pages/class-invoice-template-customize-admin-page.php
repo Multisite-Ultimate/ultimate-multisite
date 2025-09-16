@@ -167,7 +167,7 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 				'fields' => [
 					'note' => [
 						'type' => 'note',
-						'desc' => __('Changes to this template will be applied to all PDF invoices generated after the change. <br><br>Existing PDF Invoices will not be affected unless explicitly re-generated', 'multisite-ultimate'),
+						'desc' => __('Changes to this template will be applied to all PDF invoices generated after the change. <br><br>Existing PDF Invoices will not be affected unless explicitly re-generated', 'ultimate-multisite'),
 					],
 				],
 			]
@@ -190,17 +190,17 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 					'v-model' => 'tab',
 				],
 				'options'           => [
-					'general' => __('General', 'multisite-ultimate'),
-					'colors'  => __('Colors', 'multisite-ultimate'),
-					'images'  => __('Images', 'multisite-ultimate'),
+					'general' => __('General', 'ultimate-multisite'),
+					'colors'  => __('Colors', 'ultimate-multisite'),
+					'images'  => __('Images', 'ultimate-multisite'),
 				],
 			],
 
 			'paid_tag_text'   => [
 				'type'              => 'text',
-				'title'             => __('Paid Tag', 'multisite-ultimate'),
-				'placeholder'       => __('e.g. Paid.', 'multisite-ultimate'),
-				'value'             => wu_get_isset($settings, 'paid_tag_text', __('Paid', 'multisite-ultimate')),
+				'title'             => __('Paid Tag', 'ultimate-multisite'),
+				'placeholder'       => __('e.g. Paid.', 'ultimate-multisite'),
+				'value'             => wu_get_isset($settings, 'paid_tag_text', __('Paid', 'ultimate-multisite')),
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "general")',
 					'v-cloak' => 1,
@@ -211,12 +211,12 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 			],
 			'font'            => [
 				'type'              => 'select',
-				'title'             => __('Font-Family', 'multisite-ultimate'),
+				'title'             => __('Font-Family', 'ultimate-multisite'),
 				'value'             => wu_get_isset($settings, 'font', ''),
 				'options'           => [
-					'DejaVuSansCondensed'  => __('Sans-Serif', 'multisite-ultimate'),
-					'DejaVuSerifCondensed' => __('Serif', 'multisite-ultimate'),
-					'FreeMono'             => __('Mono', 'multisite-ultimate'),
+					'DejaVuSansCondensed'  => __('Sans-Serif', 'ultimate-multisite'),
+					'DejaVuSerifCondensed' => __('Serif', 'ultimate-multisite'),
+					'FreeMono'             => __('Mono', 'ultimate-multisite'),
 				],
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "general")',
@@ -228,8 +228,8 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 			],
 			'footer_message'  => [
 				'type'              => 'textarea',
-				'title'             => __('Footer Content', 'multisite-ultimate'),
-				'placeholder'       => __('e.g. Extra Info about the Invoice.', 'multisite-ultimate'),
+				'title'             => __('Footer Content', 'ultimate-multisite'),
+				'placeholder'       => __('e.g. Extra Info about the Invoice.', 'ultimate-multisite'),
 				'value'             => wu_get_isset($settings, 'footer_message', ''),
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "general")',
@@ -242,7 +242,7 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 
 			'primary_color'   => [
 				'type'              => 'color-picker',
-				'title'             => __('Primary Color', 'multisite-ultimate'),
+				'title'             => __('Primary Color', 'ultimate-multisite'),
 				'value'             => '#00a1ff',
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "colors")',
@@ -255,8 +255,8 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 
 			'use_custom_logo' => [
 				'type'              => 'toggle',
-				'title'             => __('Use Custom Logo', 'multisite-ultimate'),
-				'desc'              => __('You can set a different logo to be used on the invoice.', 'multisite-ultimate'),
+				'title'             => __('Use Custom Logo', 'ultimate-multisite'),
+				'desc'              => __('You can set a different logo to be used on the invoice.', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "images")',
 					'v-cloak' => 1,
@@ -267,8 +267,8 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 			],
 			'custom_logo'     => [
 				'type'              => 'image',
-				'title'             => __('Custom Logo', 'multisite-ultimate'),
-				'desc'              => __('This will be added to the top of the generated PDF.', 'multisite-ultimate'),
+				'title'             => __('Custom Logo', 'ultimate-multisite'),
+				'desc'              => __('This will be added to the top of the generated PDF.', 'ultimate-multisite'),
 				'value'             => $custom_logo,
 				'img'               => $custom_logo_url,
 				'stacked'           => true,
@@ -284,7 +284,7 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 
 		$settings = [
 			'footer_message'  => wu_get_isset($settings, 'footer_message', ''),
-			'paid_tag_text'   => wu_get_isset($settings, 'paid_tag_text', __('Paid', 'multisite-ultimate')),
+			'paid_tag_text'   => wu_get_isset($settings, 'paid_tag_text', __('Paid', 'ultimate-multisite')),
 			'primary_color'   => wu_get_isset($settings, 'primary_color', '00a1ff'),
 			'use_custom_logo' => wu_get_isset($settings, 'use_custom_logo'),
 			'custom_logo'     => wu_get_isset($settings, 'custom_logo'),
@@ -302,7 +302,7 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 		$this->add_fields_widget(
 			'customizer',
 			[
-				'title'     => __('Customizer', 'multisite-ultimate'),
+				'title'     => __('Customizer', 'ultimate-multisite'),
 				'position'  => 'side',
 				'fields'    => $fields,
 				'html_attr' => [
@@ -323,7 +323,7 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Customize Invoice Template', 'multisite-ultimate');
+		return __('Customize Invoice Template', 'ultimate-multisite');
 	}
 
 	/**
@@ -334,7 +334,7 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Customize Invoice Template', 'multisite-ultimate');
+		return __('Customize Invoice Template', 'ultimate-multisite');
 	}
 
 	/**
@@ -357,14 +357,14 @@ class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'customize_label'   => __('Customize Invoice Template', 'multisite-ultimate'),
-			'add_new_label'     => __('Customize Invoice Template', 'multisite-ultimate'),
-			'edit_label'        => __('Edit Invoice Template', 'multisite-ultimate'),
-			'updated_message'   => __('Invoice Template updated with success!', 'multisite-ultimate'),
-			'title_placeholder' => __('Enter Invoice Template Name', 'multisite-ultimate'),
-			'title_description' => __('This name is used for internal reference only.', 'multisite-ultimate'),
-			'save_button_label' => __('Save Invoice Template', 'multisite-ultimate'),
-			'save_description'  => __('Save Invoice Template', 'multisite-ultimate'),
+			'customize_label'   => __('Customize Invoice Template', 'ultimate-multisite'),
+			'add_new_label'     => __('Customize Invoice Template', 'ultimate-multisite'),
+			'edit_label'        => __('Edit Invoice Template', 'ultimate-multisite'),
+			'updated_message'   => __('Invoice Template updated with success!', 'ultimate-multisite'),
+			'title_placeholder' => __('Enter Invoice Template Name', 'ultimate-multisite'),
+			'title_description' => __('This name is used for internal reference only.', 'ultimate-multisite'),
+			'save_button_label' => __('Save Invoice Template', 'ultimate-multisite'),
+			'save_description'  => __('Save Invoice Template', 'ultimate-multisite'),
 		];
 	}
 

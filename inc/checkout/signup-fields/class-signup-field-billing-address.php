@@ -69,7 +69,7 @@ class Signup_Field_Billing_Address extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Address', 'multisite-ultimate');
+		return __('Address', 'ultimate-multisite');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Signup_Field_Billing_Address extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds billing address fields such as country, zip code.', 'multisite-ultimate');
+		return __('Adds billing address fields such as country, zip code.', 'ultimate-multisite');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Signup_Field_Billing_Address extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds billing address fields such as country, zip code.', 'multisite-ultimate');
+		return __('Adds billing address fields such as country, zip code.', 'ultimate-multisite');
 	}
 
 	/**
@@ -165,8 +165,8 @@ class Signup_Field_Billing_Address extends Base_Signup_Field {
 		return [
 			'zip_and_country' => [
 				'type'  => 'toggle',
-				'title' => __('Display only ZIP and Country?', 'multisite-ultimate'),
-				'desc'  => __('Checking this option will only add the ZIP and country fields, instead of all the normal billing address fields.', 'multisite-ultimate'),
+				'title' => __('Display only ZIP and Country?', 'ultimate-multisite'),
+				'desc'  => __('Checking this option will only add the ZIP and country fields, instead of all the normal billing address fields.', 'ultimate-multisite'),
 				'value' => true,
 			],
 		];

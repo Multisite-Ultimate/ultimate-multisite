@@ -175,7 +175,7 @@ class Signup_Field_Password extends Base_Signup_Field {
 			'password_confirm_field'  => [
 				'type'  => 'toggle',
 				'title' => __('Display Password Confirm Field', 'multisite-ultimate'),
-				'desc'  => __('Adds a "Confirm your Password" field below the default password field to reduce the chance or making a mistake.', 'multisite-ultimate'),
+				'desc'  => __('Adds a "Confirm your Password" field below the default password field to reduce the chance of making a mistake.', 'multisite-ultimate'),
 				'value' => 1,
 			],
 		];

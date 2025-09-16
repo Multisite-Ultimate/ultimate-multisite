@@ -116,7 +116,9 @@ class Signup_Field_Email extends Base_Signup_Field {
 	public function defaults() {
 
 		return [
-			'display_notices' => true,
+			'display_notices'     => true,
+			'email_confirm_field' => false,
+			'email_confirm_label' => __('Confirm Email', 'multisite-ultimate'),
 		];
 	}
 
@@ -158,7 +160,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 	public function get_fields() {
 
 		return [
-			'display_notices' => [
+			'display_notices'     => [
 				'type'      => 'toggle',
 				'title'     => __('Display Notices', 'multisite-ultimate'),
 				'desc'      => __('When the customer is already logged in, a box with the customer\'s username and a link to logout is displayed instead of the email field. Disable this option if you do not want that box to show up.', 'multisite-ultimate'),
@@ -167,6 +169,12 @@ class Signup_Field_Email extends Base_Signup_Field {
 				'html_attr' => [
 					'v-model' => 'display_notices',
 				],
+			],
+			'email_confirm_field' => [
+				'type'  => 'toggle',
+				'title' => __('Display Email Confirm Field', 'multisite-ultimate'),
+				'desc'  => __('Adds a "Confirm Email" field below email field to reduce the chance of making a mistake.', 'multisite-ultimate'),
+				'value' => 1,
 			],
 		];
 	}
@@ -222,6 +230,22 @@ class Signup_Field_Email extends Base_Signup_Field {
 					'style' => $this->calculate_style_attr(),
 				],
 			];
+			if ($attributes['email_confirm_field']) {
+				$checkout_fields['email_address_conf'] = [
+					'type'              => 'text',
+					'id'                => 'email_address_conf',
+					'name'              => $attributes['email_confirm_label'],
+					'placeholder'       => '',
+					'tooltip'           => '',
+					'meter'             => false,
+					'required'          => true,
+					'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
+					'classes'           => wu_get_isset($attributes, 'element_classes', ''),
+					'wrapper_html_attr' => [
+						'style' => $this->calculate_style_attr(),
+					],
+				];
+			}
 		}
 
 		return $checkout_fields;

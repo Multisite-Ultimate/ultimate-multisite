@@ -374,7 +374,8 @@ function wu_kses_allowed_html(): array {
 		'v-on:input'                => true,
 		'v-on:change'               => true,
 		'@click'                    => true,
-		'@click.prevent'                    => true,
+		'@click.prevent'            => true,
+		'v-on:click.prevent'        => true,
 		'@submit'                   => true,
 		'@change'                   => true,
 		// Common data attributes

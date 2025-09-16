@@ -679,29 +679,24 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		ob_start();
 
 		$stripe_form->render();
-
-		// phpcs:disable
-
 		?>
 
 		<div v-if="payment_method == 'add-new'">
 
 			<div id="card-element" class="wu-mb-4">
-        <!-- A Stripe Element will be inserted here. -->
-      </div>
+				<!-- A Stripe Element will be inserted here. -->
+			</div>
 
-      <div class="" id="ideal-bank-element">
-        <!-- A Stripe iDEAL Element will be inserted here. -->
-      </div>
+			<div class="" id="ideal-bank-element">
+				<!-- A Stripe iDEAL Element will be inserted here. -->
+			</div>
 
-      <!-- Used to display Element errors. -->
+			<!-- Used to display Element errors. -->
 			<div id="card-errors" role="alert"></div>
 
 		</div>
 
 		<?php
-
-		// phpcs:enable
 
 		return ob_get_clean();
 	}

@@ -356,9 +356,9 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('template_selection', $attributes['template_selection_template']);
 
-		$desc = function() use($template_attributes, $template_class) {
+		$desc = function () use ($template_attributes, $template_class) {
 			if ($template_class) {
-				$template_class->render_container($template_attributes);
+				$template_class->render_container($template_attributes, $this);
 			} else {
 				esc_html_e('Template does not exist.', 'multisite-ultimate');
 			}

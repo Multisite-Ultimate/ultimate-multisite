@@ -215,7 +215,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 					'type'            => 'html',
 					'wrapper_classes' => 'md:wu-w-1/2 wu-box-border wu-float-left wu--mt-4',
 					'id'              => $attributes['id'] . '_go_back',
-					'content'         => sprintf('<a href="#" class="button wu-go-back" v-on:click.prevent="go_back()">%s</a>', esc_html($attributes['back_button_label'])),
+					'content'         => fn() => printf('<a href="#" class="button wu-go-back" v-on:click.prevent="go_back()">%s</a>', esc_html($attributes['back_button_label'])) && null,
 				];
 
 				$button_wrapper_classes .= ' md:wu-w-1/2 wu-box-border wu-float-left wu-text-right';

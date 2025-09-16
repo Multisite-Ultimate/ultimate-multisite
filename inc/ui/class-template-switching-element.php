@@ -349,9 +349,9 @@ class Template_Switching_Element extends Base_Element {
 
 			$template_class = Field_Templates_Manager::get_instance()->get_template_class('template_selection', $atts['template_selection_template']);
 
-			$desc = function() use($template_attributes, $template_class) {
+			$desc = function () use ($template_attributes, $template_class, $reducer_class) {
 				if ($template_class) {
-					$template_class->render_container($template_attributes);
+					$template_class->render_container($template_attributes, $reducer_class);
 				} else {
 					esc_html_e('Template does not exist.', 'multisite-ultimate');
 				}

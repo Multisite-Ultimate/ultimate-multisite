@@ -32,6 +32,6 @@ defined('ABSPATH') || exit;
 
 <?php else : ?>
 
-	</<?php esc_attr($form->wrap_tag); ?>>
+	</<?php echo esc_attr($form->wrap_tag); ?>>
 
 <?php endif; ?>

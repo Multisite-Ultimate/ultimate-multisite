@@ -670,7 +670,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	public function swap($order) {
 
 		if ( ! is_a($order, Cart::class)) {
-			return new \WP_Error('invalid-date', __('Swap Cart is invalid.', 'multisite-ultimate'));
+			return new \WP_Error('invalid-date', __('Swap Cart is invalid.', 'ultimate-multisite'));
 		}
 
 		// clear the current addons.
@@ -743,11 +743,11 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 		}
 
 		if ( ! wu_validate_date($schedule_date)) {
-			return new \WP_Error('invalid-date', __('Schedule date is invalid.', 'multisite-ultimate'));
+			return new \WP_Error('invalid-date', __('Schedule date is invalid.', 'ultimate-multisite'));
 		}
 
 		if ( ! is_a($order, Cart::class)) {
-			return new \WP_Error('invalid-date', __('Swap Cart is invalid.', 'multisite-ultimate'));
+			return new \WP_Error('invalid-date', __('Swap Cart is invalid.', 'ultimate-multisite'));
 		}
 
 		$date_instance = wu_date($schedule_date);
@@ -831,7 +831,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 
 		$description = sprintf(
 			// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
-			_n('every %2$s', 'every %1$s %2$s', $this->get_duration(), 'multisite-ultimate'), // phpcs:ignore
+			_n('every %2$s', 'every %1$s %2$s', $this->get_duration(), 'ultimate-multisite'), // phpcs:ignore
 			$this->get_duration(),
 			wu_get_translatable_string(($this->get_duration() <= 1 ? $this->get_duration_unit() : $this->get_duration_unit() . 's'))
 		);
@@ -847,12 +847,12 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	public function get_times_billed_description(): string {
 
 		// translators: times billed / subscription duration in cycles. e.g. 1/12 cycles
-		$description = __('%1$s / %2$s cycles', 'multisite-ultimate');
+		$description = __('%1$s / %2$s cycles', 'ultimate-multisite');
 
 		if ($this->is_forever_recurring()) {
 
 			// translators: the place holder is the number of times the membership was billed.
-			$description = __('%1$s / until cancelled', 'multisite-ultimate');
+			$description = __('%1$s / until cancelled', 'ultimate-multisite');
 		}
 
 		return sprintf($description, $this->get_times_billed(), $this->get_billing_cycles());
@@ -872,7 +872,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 
 			$message = sprintf(
 				// translators: %1$s is the formatted price, %2$s the duration, and %3$s the duration unit (day, week, month, etc)
-				_n('%1$s every %3$s', '%1$s every %2$s %3$s', $duration, 'multisite-ultimate'), // phpcs:ignore
+				_n('%1$s every %3$s', '%1$s every %2$s %3$s', $duration, 'ultimate-multisite'), // phpcs:ignore
 				wu_format_currency($this->get_amount(), $this->get_currency()),
 				$duration,
 				wu_get_translatable_string($duration <= 1 ? $this->get_duration_unit() : $this->get_duration_unit() . 's')
@@ -883,7 +883,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			if ( ! $this->is_forever_recurring()) {
 				$billing_cycles_message = sprintf(
 					// translators: %s is the number of billing cycles.
-					_n('for %s cycle', 'for %s cycles', $this->get_billing_cycles(), 'multisite-ultimate'),
+					_n('for %s cycle', 'for %s cycles', $this->get_billing_cycles(), 'ultimate-multisite'),
 					$this->get_billing_cycles()
 				);
 
@@ -892,13 +892,13 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 		} else {
 			$pricing['subscription'] = sprintf(
 				// translators: %1$s is the formatted price of the product
-				__('%1$s one time payment', 'multisite-ultimate'),
+				__('%1$s one time payment', 'ultimate-multisite'),
 				wu_format_currency($this->get_initial_amount(), $this->get_currency())
 			);
 		}
 
 		if ($this->is_free()) {
-			$pricing['subscription'] = __('Free!', 'multisite-ultimate');
+			$pricing['subscription'] = __('Free!', 'ultimate-multisite');
 		}
 
 		return implode(' + ', $pricing);

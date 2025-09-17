@@ -122,7 +122,7 @@ abstract class Base_Customer_Facing_Admin_Page extends Base_Admin_Page {
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Page & Menu Title', 'multisite-ultimate'),
+			'title'   => __('Page & Menu Title', 'ultimate-multisite'),
 			'value'   => wu_get_isset($settings, 'title', ''),
 			'tooltip' => '',
 		];
@@ -130,14 +130,14 @@ abstract class Base_Customer_Facing_Admin_Page extends Base_Admin_Page {
 		if ($this->menu_settings) {
 			$fields['position'] = [
 				'type'    => 'number',
-				'title'   => __('Menu', 'multisite-ultimate'),
+				'title'   => __('Menu', 'ultimate-multisite'),
 				'value'   => wu_get_isset($settings, 'position', ''),
 				'tooltip' => '',
 			];
 
 			$fields['menu_icon'] = [
 				'type'    => 'dashicon',
-				'title'   => __('Menu Icon', 'multisite-ultimate'),
+				'title'   => __('Menu Icon', 'ultimate-multisite'),
 				'value'   => wu_get_isset($settings, 'menu_icon', ''),
 				'tooltip' => '',
 			];
@@ -150,14 +150,14 @@ abstract class Base_Customer_Facing_Admin_Page extends Base_Admin_Page {
 			'fields'          => [
 				'reset'  => [
 					'type'            => 'submit',
-					'title'           => __('Reset Settings', 'multisite-ultimate'),
+					'title'           => __('Reset Settings', 'ultimate-multisite'),
 					'value'           => 'edit',
 					'classes'         => 'button',
 					'wrapper_classes' => 'wu-mb-0',
 				],
 				'submit' => [
 					'type'            => 'submit',
-					'title'           => __('Save Changes', 'multisite-ultimate'),
+					'title'           => __('Save Changes', 'ultimate-multisite'),
 					'value'           => 'edit',
 					'classes'         => 'button button-primary',
 					'wrapper_classes' => 'wu-mb-0',
@@ -376,9 +376,9 @@ abstract class Base_Customer_Facing_Admin_Page extends Base_Admin_Page {
 					'customize_link'      => add_query_arg('customize', 1),
 					'close_link'          => remove_query_arg('customize'),
 					'i18n'                => [
-						'page_customize_label' => __('Customize Page', 'multisite-ultimate'),
-						'customize_label'      => __('Customize Elements', 'multisite-ultimate'),
-						'close_label'          => __('Exit Customize Mode', 'multisite-ultimate'),
+						'page_customize_label' => __('Customize Page', 'ultimate-multisite'),
+						'customize_label'      => __('Customize Elements', 'ultimate-multisite'),
+						'close_label'          => __('Exit Customize Mode', 'ultimate-multisite'),
 					],
 				]
 			);

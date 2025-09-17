@@ -270,7 +270,7 @@ function wu_print_signup_field($field_slug, $field, $results) {
         <input <?php echo $attributes; ?> <?php echo isset($field['required']) && $field['required'] ? 'required' : ''; ?> type="<?php echo $field['type']; ?>" name="<?php echo $field_slug; ?>" id="<?php echo $field_slug; ?>" class="input" value="<?php echo $results[$field_slug] ?? ''; ?>"  data-reveal="1" data-pw="<?php echo esc_attr( wp_generate_password( 16 ) ); ?>" class="input" size="20" autocomplete="off" aria-describedby="pass-strength-result" />
       </span>
 
-      <span style="display: block; margin-top: -16px; opacity: 1; height: 36px;" id="pass-strength-result" class="hide-if-no-js" aria-live="polite"><?php esc_html_e( 'Strength indicator', 'multisite-ultimate' ); ?></span>
+      <span style="display: block; margin-top: -16px; opacity: 1; height: 36px;" id="pass-strength-result" class="hide-if-no-js" aria-live="polite"><?php esc_html_e('Strength indicator', 'ultimate-multisite'); ?></span>
 
       <?php
       wp_add_inline_script('jquery', sprintf('
@@ -405,7 +405,7 @@ function wu_print_signup_field($field_slug, $field, $results) {
 
 }
 /**
- * Alias function to allow creation of users for Multisite Ultimate.
+ * Alias function to allow creation of users for Ultimate Multisite.
  *
  * User Data should contain: user_login, user_email, user_pass;
  * Plan Data should contain: plan_id, plan_freq;
@@ -423,7 +423,7 @@ function wu_create_user(array $user_data, array $plan_data, array $user_meta = [
 }
 
 /**
- * Alias function to allow creation of sites for Multisite Ultimate.
+ * Alias function to allow creation of sites for Ultimate Multisite.
  *
  * Site Data should contain: blog_title, blogname, and role;
  * Site Meta is an associative array containing key => value pairs to be saved as meta fields on that site.

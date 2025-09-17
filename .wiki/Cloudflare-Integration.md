@@ -1,13 +1,13 @@
 # Cloudflare Integration
 
 ## Overview
-Cloudflare is a leading content delivery network (CDN) and security provider that helps protect and accelerate websites. This integration enables automatic domain management between Multisite Ultimate and Cloudflare, particularly for subdomain multisite installations.
+Cloudflare is a leading content delivery network (CDN) and security provider that helps protect and accelerate websites. This integration enables automatic domain management between Ultimate Multisite and Cloudflare, particularly for subdomain multisite installations.
 
 ## Features
 - Automatic subdomain creation in Cloudflare
 - Proxied subdomain support
 - DNS record management
-- Enhanced DNS record display in the Multisite Ultimate admin
+- Enhanced DNS record display in the Ultimate Multisite admin
 
 ## Requirements
 The following constants must be defined in your `wp-config.php` file:
@@ -46,7 +46,7 @@ define('WU_CLOUDFLARE_ZONE_ID', 'your_zone_id');
 
 ### 4. Enable the Integration
 
-1. In your WordPress admin, go to Multisite Ultimate > Settings
+1. In your WordPress admin, go to Ultimate Multisite > Settings
 2. Navigate to the "Domain Mapping" tab
 3. Scroll down to "Host Integrations"
 4. Enable the Cloudflare integration
@@ -64,7 +64,7 @@ When a new site is created in a subdomain multisite installation:
 
 ### DNS Record Display
 
-The integration enhances the DNS record display in the Multisite Ultimate admin by:
+The integration enhances the DNS record display in the Ultimate Multisite admin by:
 
 1. Fetching DNS records directly from Cloudflare
 2. Displaying whether records are proxied or not
@@ -82,7 +82,7 @@ As of Cloudflare's recent updates, wildcard proxying is now available for all cu
 - Ensure that your Cloudflare account has the necessary permissions
 
 ### Subdomain Not Added
-- Check the Multisite Ultimate logs for any error messages
+- Check the Ultimate Multisite logs for any error messages
 - Verify that the subdomain is not already added to Cloudflare
 - Ensure that your Cloudflare plan supports the number of DNS records you're creating
 

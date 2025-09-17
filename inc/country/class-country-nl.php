@@ -75,7 +75,7 @@ class Country_NL extends Country {
 	 */
 	public function get_name() {
 
-		return __('Netherlands', 'multisite-ultimate');
+		return __('Netherlands', 'ultimate-multisite');
 	}
 
 	/**
@@ -87,21 +87,21 @@ class Country_NL extends Country {
 	protected function states() {
 
 		return [
-			'BQ1' => __('Bonaire', 'multisite-ultimate'),
-			'DR'  => __('Drenthe', 'multisite-ultimate'),
-			'FL'  => __('Flevoland', 'multisite-ultimate'),
-			'FR'  => __('Friesland', 'multisite-ultimate'),
-			'GE'  => __('Gelderland', 'multisite-ultimate'),
-			'GR'  => __('Groningen', 'multisite-ultimate'),
-			'LI'  => __('Limburg', 'multisite-ultimate'),
-			'NB'  => __('North Brabant', 'multisite-ultimate'),
-			'NH'  => __('North Holland', 'multisite-ultimate'),
-			'OV'  => __('Overijssel', 'multisite-ultimate'),
-			'BQ2' => __('Saba', 'multisite-ultimate'),
-			'BQ3' => __('Sint Eustatius', 'multisite-ultimate'),
-			'ZH'  => __('South Holland', 'multisite-ultimate'),
-			'UT'  => __('Utrecht', 'multisite-ultimate'),
-			'ZE'  => __('Zeeland', 'multisite-ultimate'),
+			'BQ1' => __('Bonaire', 'ultimate-multisite'),
+			'DR'  => __('Drenthe', 'ultimate-multisite'),
+			'FL'  => __('Flevoland', 'ultimate-multisite'),
+			'FR'  => __('Friesland', 'ultimate-multisite'),
+			'GE'  => __('Gelderland', 'ultimate-multisite'),
+			'GR'  => __('Groningen', 'ultimate-multisite'),
+			'LI'  => __('Limburg', 'ultimate-multisite'),
+			'NB'  => __('North Brabant', 'ultimate-multisite'),
+			'NH'  => __('North Holland', 'ultimate-multisite'),
+			'OV'  => __('Overijssel', 'ultimate-multisite'),
+			'BQ2' => __('Saba', 'ultimate-multisite'),
+			'BQ3' => __('Sint Eustatius', 'ultimate-multisite'),
+			'ZH'  => __('South Holland', 'ultimate-multisite'),
+			'UT'  => __('Utrecht', 'ultimate-multisite'),
+			'ZE'  => __('Zeeland', 'ultimate-multisite'),
 		];
 	}
 }

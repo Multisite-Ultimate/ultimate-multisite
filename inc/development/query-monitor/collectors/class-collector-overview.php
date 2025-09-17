@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate overview collector.
+ * Ultimate Multisite overview collector.
  *
  * @package query-monitor
  * @since 2.0.11

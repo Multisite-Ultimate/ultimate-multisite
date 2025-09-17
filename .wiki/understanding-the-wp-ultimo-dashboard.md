@@ -1,18 +1,18 @@
-# Understanding the Multisite Ultimate Dashboard
+# Understanding the Ultimate Multisite Dashboard
 
-Before we immerse ourselves in more advanced configuration options and the operational aspects of Multisite Ultimate let us take a look at the dashboard.
+Before we immerse ourselves in more advanced configuration options and the operational aspects of Ultimate Multisite let us take a look at the dashboard.
 
-Like many WordPress plugins, Multisite Ultimate creates a network-level menu entry titled ‘Multisite Ultimate’ with a number of children entries underneath.
+Like many WordPress plugins, Ultimate Multisite creates a network-level menu entry titled ‘Ultimate Multisite’ with a number of children entries underneath.
 
 ## Network Dashboard Widgets
 
-Multisite Ultimate injects a few useful widgets into the network-level dashboard. This dashboard is found by navigating to My Sites > Network Admin > Dashboard. The widgets are designed to provide easy access to information and common operations for the network administrator.
+Ultimate Multisite injects a few useful widgets into the network-level dashboard. This dashboard is found by navigating to My Sites > Network Admin > Dashboard. The widgets are designed to provide easy access to information and common operations for the network administrator.
 
 ### First Steps
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-srqWv5VyzOrGTkof9L9a_Mmm8mdsbxSU8znvqjPFOav6rT_fzn3VQRxqqSU6m1216mVWYZTPpY-_1dBufyyPuaWQihxTrAYrwm8gPSN1XqLPuOZEzxC5O992EVxksgF2vy_5wRc0=s0)
 
-This widget predominantly appears on a fresh installation of Multisite Ultimate such as ours and reminds the network administrator to complete additional tasks.
+This widget predominantly appears on a fresh installation of Ultimate Multisite such as ours and reminds the network administrator to complete additional tasks.
 
 ### Summary
 
@@ -24,7 +24,7 @@ The summary widget reports on the number of signups and their revenue for the da
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-Y8E31QvWTL_xAFuo2fCqibJzQAUu_JZpF5v9g-iPqmnX1YoRgKcshwGup7oLkvPiJLoj1OhWDF3bp8yKR3A5xOAMEYkP2drb1NBDQUDThoPqUCYwhqcVr16CU71D6dHpx66fvmUj=s0)
 
-This widget reports on events across Multisite Ultimate for which there is a variety to report on. Events could include aspects such as signups, cancellations, creations, and deletions of sites and other activities.
+This widget reports on events across Ultimate Multisite for which there is a variety to report on. Events could include aspects such as signups, cancellations, creations, and deletions of sites and other activities.
 
 Please refer to the events section of the documentation for a more detailed description.
 
@@ -38,25 +38,25 @@ This utility widget displays a short summary of users and sites in the network. 
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-Ovcqef6K5qSXNE6w80HoQGbR7XsJVp3TYicPsbEnn41LuA_USpQj5DGSZScB8oEsbsa7Bsfcl7s1-4BF1sD9axFfJE8Lt5Jg4LiuSSJujJiSP316BDvhyHl5k_WnzI3Endv33F5g=s0)
 
-This widget fetches and displays the latest Multisite Ultimate news. It is advantageous to keep an eye on this widget for information about updates, critical bugs, and security fixes.
+This widget fetches and displays the latest Ultimate Multisite news. It is advantageous to keep an eye on this widget for information about updates, critical bugs, and security fixes.
 
-## Multisite Ultimate Dashboard
+## Ultimate Multisite Dashboard
 
-Where the network-level dashboard presents holistic information about the network the Multisite Ultimate dashboard located at the top-level of the Multisite Ultimate menu presents information about the service.
+Where the network-level dashboard presents holistic information about the network the Ultimate Multisite dashboard located at the top-level of the Ultimate Multisite menu presents information about the service.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-Wz5dIEwYk16TZwTWFxYpQdMaUDrm1-I_zmx5d1vHUoJX1ZE38MZYWLaK9QaOTfDKU-J0hTQ_VlEflxKJ9YT3227K8h4XHiZzDVyFFQ-3kLz2klP5j2lZUhxDTRGgvYls8CNS0w0s=s0)
 
 ## Welcome Tour
 
-On a fresh installation of Multisite Ultimate a brief welcome tour is displayed familiarizing the network administrator with the dashboard and its new functions. Customers of Multisite Ultimate 1.x will notice the dashboard as a new addition as well as more intuitive navigation and options.
+On a fresh installation of Ultimate Multisite a brief welcome tour is displayed familiarizing the network administrator with the dashboard and its new functions. Customers of Ultimate Multisite 1.x will notice the dashboard as a new addition as well as more intuitive navigation and options.
 
 ### Documentation
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-RYcf2DQi6AnVgd85FoU7p4l_F_TVNCVDiERXdjgcYLVwFpA7agYRlewopnQk-MWh6ynKRaM-E7fJYo7IaZHzu-KXtsoIMz9PpMOOV1ixKD-51Moy5n40h-95tQxHNFRW77FCyWnA=s0)
 
-At the top of the dashboard lies the ‘Documentation’ link. The documentation (this documentation) contains a wealth of information regarding the installation, operation, support, and maintenance of Multisite Ultimate as well as ancillary information designed to be helpful to the network administrator.
+At the top of the dashboard lies the ‘Documentation’ link. The documentation (this documentation) contains a wealth of information regarding the installation, operation, support, and maintenance of Ultimate Multisite as well as ancillary information designed to be helpful to the network administrator.
 
-The documentation link is prevalent on most Multisite Ultimate pages providing contextual help when called upon. Thus when working with sites, for example, the documentation link will provide help related to the creation and management of network sites.
+The documentation link is prevalent on most Ultimate Multisite pages providing contextual help when called upon. Thus when working with sites, for example, the documentation link will provide help related to the creation and management of network sites.
 
 ### Monthly Recurring Revenue Growth
 

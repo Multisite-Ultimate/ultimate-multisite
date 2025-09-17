@@ -20,22 +20,22 @@ defined('ABSPATH') || exit;
  */
 return [
 	'severity'         => [
-		'description' => __('Severity of the problem.', 'multisite-ultimate'),
+		'description' => __('Severity of the problem.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => true,
 	],
 	'date_created'     => [
-		'description' => __('Date when the event was created.', 'multisite-ultimate'),
+		'description' => __('Date when the event was created.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'payload'          => [
-		'description' => __('Payload of the event.', 'multisite-ultimate'),
+		'description' => __('Payload of the event.', 'ultimate-multisite'),
 		'type'        => 'object',
 		'required'    => true,
 	],
 	'initiator'        => [
-		'description' => __('The type of user responsible for initiating the event. There are two options: Manual and System. By default, the event is saved as manual.', 'multisite-ultimate'),
+		'description' => __('The type of user responsible for initiating the event. There are two options: Manual and System. By default, the event is saved as manual.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => true,
 		'enum'        => [
@@ -44,32 +44,32 @@ return [
 		],
 	],
 	'object_type'      => [
-		'description' => __("The type of object related to this event. It's usually the model name.", 'multisite-ultimate'),
+		'description' => __("The type of object related to this event. It's usually the model name.", 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => true,
 	],
 	'slug'             => [
-		'description' => __('The event slug. It needs to be unique and preferably make it clear what it is about. Example: account_created is about creating an account.', 'multisite-ultimate'),
+		'description' => __('The event slug. It needs to be unique and preferably make it clear what it is about. Example: account_created is about creating an account.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => true,
 	],
 	'object_id'        => [
-		'description' => __('The ID of the related objects.', 'multisite-ultimate'),
+		'description' => __('The ID of the related objects.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'date_modified'    => [
-		'description' => __('Model last modification date.', 'multisite-ultimate'),
+		'description' => __('Model last modification date.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'migrated_from_id' => [
-		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'multisite-ultimate'),
+		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'skip_validation'  => [
-		'description' => __('Set true to have field information validation bypassed when saving this event.', 'multisite-ultimate'),
+		'description' => __('Set true to have field information validation bypassed when saving this event.', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],

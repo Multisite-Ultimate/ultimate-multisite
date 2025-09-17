@@ -239,7 +239,7 @@ We recommend running this in a staging environment before updating your producti
 
 ### Version [2.3.3] - Released on 2024-01-29
 
-- Improved: Plugin renamed to Multisite Ultimate
+- Improved: Plugin renamed to Ultimate Multisite
 - Removed: Enforcement of paid license
 - Fixed: Incompatibilities with WordPress 6.7 and i18n timing
 - Improved: Reduced plugin size by removing many unnecessary files and shrinking images

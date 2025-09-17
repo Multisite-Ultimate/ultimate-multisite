@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/steps/step-domain-url-preview.php.
  *
- * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
+ * HOWEVER, on occasion Ultimate Multisite will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -23,14 +23,14 @@ if ( ! defined('ABSPATH')) {
 
 <div id="wu-your-site-block">
 
-	<small><?php esc_html_e('Your URL will be', 'multisite-ultimate'); ?></small><br>
+	<small><?php esc_html_e('Your URL will be', 'ultimate-multisite'); ?></small><br>
 
 	<?php
 	/**
 	 * Change the base, if sub-domain or subdirectory
 	 */
 	// This is used on the yoursite.network.com during sign-up
-	$dynamic_part = $signup->results['blogname'] ?? __('yoursite', 'multisite-ultimate');
+	$dynamic_part = $signup->results['blogname'] ?? __('yoursite', 'ultimate-multisite');
 
 	$site_url = preg_replace('#^https?://#', '', WU_Signup()->get_site_url_for_previewer());
 	$site_url = str_replace('www.', '', $site_url);

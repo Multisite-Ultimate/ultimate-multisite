@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<span class="wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">
 			<?php // translators: %1$s: number of steps, %2$s: number of fields ?>
-			<?php echo esc_html(sprintf(__('%1$s steps and %2$s fields', 'multisite-ultimate'), '{{ steps.length }}', '{{ field_count }}')); ?>
+			<?php echo esc_html(sprintf(__('%1$s steps and %2$s fields', 'ultimate-multisite'), '{{ steps.length }}', '{{ field_count }}')); ?>
 
 		</span>
 
@@ -30,27 +30,27 @@ defined( 'ABSPATH' ) || exit;
 
 			<li class="wu-m-0 wu-ml-4">
 			<a
-				title="<?php esc_attr_e('Preview', 'multisite-ultimate'); ?>"
+				title="<?php esc_attr_e('Preview', 'ultimate-multisite'); ?>"
 				href="#"
 				type="button"
 				class="wu-uppercase wu-text-2xs wu-font-semibold wu-no-underline wu-outline-none hover:wu-shadow-none focus:wu-shadow-none wu-text-gray-600 hover:wu-text-gray-800"
 				@click.prevent="get_preview()"
 			>
 				<span class="dashicons-wu-eye wu-align-middle"></span>
-				<span v-show="!preview"><?php esc_html_e('Preview', 'multisite-ultimate'); ?></span>
-				<span v-cloak v-show="preview"><?php esc_html_e('Editor', 'multisite-ultimate'); ?></span>
+				<span v-show="!preview"><?php esc_html_e('Preview', 'ultimate-multisite'); ?></span>
+				<span v-cloak v-show="preview"><?php esc_html_e('Editor', 'ultimate-multisite'); ?></span>
 			</a>
 			</li>
 
 			<li class="wu-m-0 wu-ml-4" v-show="!preview">
 			<a
-				title="<?php esc_attr_e('Add new Checkout Step', 'multisite-ultimate'); ?>"
+				title="<?php esc_attr_e('Add new Checkout Step', 'ultimate-multisite'); ?>"
 				href="<?php echo esc_url(wu_get_form_url('add_new_form_step', array('checkout_form' => $checkout_form))); ?>"
 				type="button"
 				class="wubox wu-uppercase wu-text-2xs wu-font-semibold wu-no-underline wu-outline-none hover:wu-shadow-none focus:wu-shadow-none wu-text-gray-600 hover:wu-text-gray-800"
 			>
 				<span class="dashicons-wu-circle-with-plus wu-align-middle"></span>
-				<?php esc_html_e('Add new Checkout Step', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Add new Checkout Step', 'ultimate-multisite'); ?>
 			</a>
 			</li>
 
@@ -94,7 +94,7 @@ defined( 'ABSPATH' ) || exit;
 			<h2 class="hndle ui-sortable-handle">
 			<span class="wu-text-gray-700 ">
 				<?php // translators: % name of the step ?>
-				<span class="wu-text-2xs wu-font-mono wu-uppercase wu-mr-4"><?php printf(esc_html__('Step %s', 'multisite-ultimate'), '{{ idx + 1 }}'); ?></span> {{ step.name }}
+				<span class="wu-text-2xs wu-font-mono wu-uppercase wu-mr-4"><?php printf(esc_html__('Step %s', 'ultimate-multisite'), '{{ idx + 1 }}'); ?></span> {{ step.name }}
 			</span>
 			</h2>
 		</div>
@@ -107,11 +107,11 @@ defined( 'ABSPATH' ) || exit;
 				<span class="dashicons-wu-eye wu-mr-1 wu-align-middle"></span>
 
 				<span v-if="step.logged == 'guests_only'">
-				<?php echo wp_kses_post(__('This step is only visible for <strong>guests</strong>', 'multisite-ultimate')); ?>
+				<?php echo wp_kses_post(__('This step is only visible for <strong>guests</strong>', 'ultimate-multisite')); ?>
 				</span>
 
 				<span v-else>
-				<?php echo wp_kses_post(__('This step is only visible for <strong>logged-in users</strong>', 'multisite-ultimate')); ?>
+				<?php echo wp_kses_post(__('This step is only visible for <strong>logged-in users</strong>', 'ultimate-multisite')); ?>
 				</span>
 
 			</div>
@@ -141,28 +141,28 @@ defined( 'ABSPATH' ) || exit;
 				<a
 					v-show="delete_step_id !== step.id"
 					v-on:click.prevent="delete_step_id = step.id"
-					title="<?php esc_html_e('Delete', 'multisite-ultimate'); ?>"
+					title="<?php esc_html_e('Delete', 'ultimate-multisite'); ?>"
 					href="#"
 					class="wu-text-red-500 wu-uppercase wu-text-2xs wu-font-semibold wu-no-underline wu-outline-none hover:wu-shadow-none focus:wu-shadow-none wu-p-4 md:wu-p-0 wu-inline-block"
 				>
-					<?php esc_html_e('Delete Step', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Delete Step', 'ultimate-multisite'); ?>
 				</a>
 
 				<a
 					v-show="delete_step_id === step.id"
 					v-on:click.prevent="remove_step(step.id)"
-					title="<?php esc_html_e('Delete', 'multisite-ultimate'); ?>"
+					title="<?php esc_html_e('Delete', 'ultimate-multisite'); ?>"
 					href="#"
 					class="wu-text-red-700 wu-uppercase wu-text-2xs wu-font-bold wu-no-underline wu-outline-none hover:wu-shadow-none focus:wu-shadow-none wu-p-4 md:wu-p-0 wu-inline-block"
 				>
-					<?php esc_html_e('Confirm?', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Confirm?', 'ultimate-multisite'); ?>
 				</a>
 
 				</li>
 
 				<li class="wu-m-0 md:wu-ml-4 wu-text-center">
 
-				<a title="<?php esc_html_e('Edit Section', 'multisite-ultimate'); ?>"
+				<a title="<?php esc_html_e('Edit Section', 'ultimate-multisite'); ?>"
 					:href="'<?php // phpcs:ignore Squiz.PHP.EmbeddedPhp
 					echo esc_attr(
 						wu_get_form_url(
@@ -177,14 +177,14 @@ defined( 'ABSPATH' ) || exit;
 					type="button" 
 					class="wu-uppercase wu-text-2xs wu-font-semibold wu-no-underline wu-outline-none hover:wu-shadow-none focus:wu-shadow-none wu-text-gray-600 hover:wu-text-gray-800 wubox wu-p-4 md:wu-p-0 wu-inline-block"
 				>
-					<?php esc_html_e('Edit Section', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Edit Section', 'ultimate-multisite'); ?>
 				</a>
 
 				</li>
 
 				<li class="wu-m-0 md:wu-ml-4 wu-text-center">
 
-				<a title="<?php esc_html_e('Add new Field', 'multisite-ultimate'); ?>"
+				<a title="<?php esc_html_e('Add new Field', 'ultimate-multisite'); ?>"
 					:href="'<?php // phpcs:ignore Squiz.PHP.EmbeddedPhp
 					echo esc_attr(
 						wu_get_form_url(
@@ -199,7 +199,7 @@ defined( 'ABSPATH' ) || exit;
 					?>=' + step.id" <?php // phpcs:ignore Squiz.PHP.EmbeddedPhp ?>
 					type="button" class="wu-uppercase wu-text-2xs wu-font-semibold wu-no-underline wu-outline-none hover:wu-shadow-none focus:wu-shadow-none wu-text-gray-600 hover:wu-text-gray-800 wubox wu-p-4 md:wu-p-0 wu-inline-block">
 					<span class="dashicons-wu-circle-with-plus wu-align-text-bottom"></span>
-					<?php esc_html_e('Add new Field', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Add new Field', 'ultimate-multisite'); ?>
 				</a>
 
 				</li>
@@ -221,11 +221,11 @@ defined( 'ABSPATH' ) || exit;
 		<div v-show="!loading_preview && !preview_error" class="wu-text-center wu-mt-3">
 
 		<a @click.prevent="get_preview('user')" href="#" class="wu-m-2 wu-uppercase wu-text-2xs wu-font-semibold wu-no-underline wu-outline-none hover:wu-shadow-none focus:wu-shadow-none wu-text-gray-600 hover:wu-text-gray-800">
-			<?php esc_html_e('See as existing user', 'multisite-ultimate'); ?>
+			<?php esc_html_e('See as existing user', 'ultimate-multisite'); ?>
 		</a>
 
 		<a @click.prevent="get_preview('visitor')" href="#" class="wu-m-2 wu-uppercase wu-text-2xs wu-font-semibold wu-no-underline wu-outline-none hover:wu-shadow-none focus:wu-shadow-none wu-text-gray-600 hover:wu-text-gray-800">
-			<?php esc_html_e('See as visitor', 'multisite-ultimate'); ?>
+			<?php esc_html_e('See as visitor', 'ultimate-multisite'); ?>
 		</a>
 
 		</div>
@@ -234,7 +234,7 @@ defined( 'ABSPATH' ) || exit;
 		<div v-show="loading_preview" class="wu-block wu-p-4 wu-py-8 wu-bg-white wu-text-center wu-my-4 wu-border wu-border-solid wu-rounded wu-border-gray-400">
 
 		<span class="wu-blinking-animation wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">
-			<?php esc_html_e('Loading Preview...', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Loading Preview...', 'ultimate-multisite'); ?>
 		</span>
 
 		</div>
@@ -244,7 +244,7 @@ defined( 'ABSPATH' ) || exit;
 		<div v-show="preview_error" class="wu-block wu-p-4 wu-py-8 wu-bg-white wu-text-center wu-my-4 wu-border wu-border-solid wu-rounded wu-border-gray-400">
 
 		<span class="wu-text-red-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">
-			<?php esc_html_e('Something wrong happened along the way =(', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Something wrong happened along the way =(', 'ultimate-multisite'); ?>
 		</span>
 
 		</div>
@@ -255,7 +255,7 @@ defined( 'ABSPATH' ) || exit;
 		<div v-show="!loading_preview && !preview_error" id="wu-iframe-content" class="wu-w-full wu-relative">
 
 		<iframe id="wp-ultimo-checkout-preview" v-bind:src="iframe_preview_url" referrerpolicy="unsafe-url" class="wu-w-full wu-h-full wu-m-0 wu-mt-4 wu-mb-2 wu-p-0 wu-overflow-hidden wu-border-radius wu-border wu-border-solid wu-rounded wu-border-gray-400">
-			<?php esc_html_e('Your browser doesn\'t support iframes', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Your browser doesn\'t support iframes', 'ultimate-multisite'); ?>
 		</iframe>
 
 		</div>
@@ -276,7 +276,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<span class="wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">
 			<?php // translators: %1$s: number of steps, %2$s: number of fields ?>
-			<?php echo esc_html(sprintf(__('%1$s steps and %2$s fields', 'multisite-ultimate'), '{{ steps.length }}', '{{ field_count }}')); ?>
+			<?php echo esc_html(sprintf(__('%1$s steps and %2$s fields', 'ultimate-multisite'), '{{ steps.length }}', '{{ field_count }}')); ?>
 
 		</span>
 
@@ -288,27 +288,27 @@ defined( 'ABSPATH' ) || exit;
 
 			<li class="wu-m-0 wu-ml-4">
 			<a
-				title="<?php esc_attr_e('Preview', 'multisite-ultimate'); ?>"
+				title="<?php esc_attr_e('Preview', 'ultimate-multisite'); ?>"
 				href="#"
 				type="button"
 				class="wu-uppercase wu-text-2xs wu-font-semibold wu-no-underline wu-outline-none hover:wu-shadow-none focus:wu-shadow-none wu-text-gray-600 hover:wu-text-gray-800"
 				@click.prevent="get_preview('user')"
 			>
 				<span class="dashicons-wu-eye wu-align-middle"></span>
-				<span v-show="!preview"><?php esc_html_e('Preview', 'multisite-ultimate'); ?></span>
-				<span v-cloak v-show="preview"><?php esc_html_e('Editor', 'multisite-ultimate'); ?></span>
+				<span v-show="!preview"><?php esc_html_e('Preview', 'ultimate-multisite'); ?></span>
+				<span v-cloak v-show="preview"><?php esc_html_e('Editor', 'ultimate-multisite'); ?></span>
 			</a>
 			</li>
 
 			<li class="wu-m-0 wu-ml-4" v-show="!preview">
 			<a
-				title="<?php esc_attr_e('Add new Checkout Step', 'multisite-ultimate'); ?>"
+				title="<?php esc_attr_e('Add new Checkout Step', 'ultimate-multisite'); ?>"
 				href="<?php echo esc_url(wu_get_form_url('add_new_form_step', array('checkout_form' => $checkout_form))); ?>"
 				type="button"
 				class="wubox wu-uppercase wu-text-2xs wu-font-semibold wu-no-underline wu-outline-none hover:wu-shadow-none focus:wu-shadow-none wu-text-gray-600 hover:wu-text-gray-800"
 			>
 				<span class="dashicons-wu-circle-with-plus wu-align-middle"></span>
-				<?php esc_html_e('Add new Checkout Step', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Add new Checkout Step', 'ultimate-multisite'); ?>
 			</a>
 			</li>
 

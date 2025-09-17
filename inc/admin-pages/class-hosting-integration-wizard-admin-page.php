@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  */
 class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 
@@ -109,7 +109,7 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 	 */
 	public function get_title(): string {
 
-		return sprintf(__('Integration Setup', 'multisite-ultimate'));
+		return sprintf(__('Integration Setup', 'ultimate-multisite'));
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Host Provider Integration', 'multisite-ultimate');
+		return __('Host Provider Integration', 'ultimate-multisite');
 	}
 
 	/**
@@ -133,25 +133,25 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 
 		$sections = [
 			'activation'   => [
-				'title'   => __('Activation', 'multisite-ultimate'),
+				'title'   => __('Activation', 'ultimate-multisite'),
 				'view'    => [$this, 'section_activation'],
 				'handler' => [$this, 'handle_activation'],
 			],
 			'instructions' => [
-				'title' => __('Instructions', 'multisite-ultimate'),
+				'title' => __('Instructions', 'ultimate-multisite'),
 				'view'  => [$this, 'section_instructions'],
 			],
 			'config'       => [
-				'title'   => __('Configuration', 'multisite-ultimate'),
+				'title'   => __('Configuration', 'ultimate-multisite'),
 				'view'    => [$this, 'section_configuration'],
 				'handler' => [$this, 'handle_configuration'],
 			],
 			'testing'      => [
-				'title' => __('Testing Integration', 'multisite-ultimate'),
+				'title' => __('Testing Integration', 'ultimate-multisite'),
 				'view'  => [$this, 'section_test'],
 			],
 			'done'         => [
-				'title' => __('Ready!', 'multisite-ultimate'),
+				'title' => __('Ready!', 'ultimate-multisite'),
 				'view'  => [$this, 'section_ready'],
 			],
 		];

@@ -37,8 +37,8 @@ def process_html_files():
     """Process HTML files and convert them to Markdown."""
     # Create a Home.md file for the wiki
     with open(os.path.join(OUTPUT_DIR, 'Home.md'), 'w', encoding='utf-8') as home_file:
-        home_file.write("# Multisite Ultimate Documentation\n\n")
-        home_file.write("Welcome to the Multisite Ultimate documentation. This wiki contains all the information you need to get started with Multisite Ultimate.\n\n")
+        home_file.write("# Ultimate Multisite Documentation\n\n")
+        home_file.write("Welcome to the Ultimate Multisite documentation. This wiki contains all the information you need to get started with Ultimate Multisite.\n\n")
         home_file.write("## Articles\n\n")
 
     # Create a sidebar file for the wiki

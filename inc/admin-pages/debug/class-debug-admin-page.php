@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Debug Admin Page.
+ * Ultimate Multisite Debug Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages\Debug
@@ -16,7 +16,7 @@ use WP_Ultimo\Admin_Pages\Base_Admin_Page;
 use WP_Ultimo\Debug\Debug;
 
 /**
- * Multisite Ultimate Debug Admin Page.
+ * Ultimate Multisite Debug Admin Page.
  */
 class Debug_Admin_Page extends Base_Admin_Page {
 
@@ -83,7 +83,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 
 		add_meta_box(
 			'wp-ultimo-debug-pages',
-			__('All Registered Pages', 'multisite-ultimate'),
+			__('All Registered Pages', 'ultimate-multisite'),
 			[$this, 'render_debug_pages'],
 			get_current_screen()->id,
 			'normal',
@@ -92,7 +92,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	}
 
 	/**
-	 * Renders the list of Multisite Ultimate registered pages.
+	 * Renders the list of Ultimate Multisite registered pages.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -126,7 +126,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Registered Pages', 'multisite-ultimate');
+		return __('Registered Pages', 'ultimate-multisite');
 	}
 
 	/**
@@ -137,7 +137,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Registered Pages', 'multisite-ultimate');
+		return __('Registered Pages', 'ultimate-multisite');
 	}
 
 	/**
@@ -148,7 +148,7 @@ class Debug_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Registered Pages', 'multisite-ultimate');
+		return __('Registered Pages', 'ultimate-multisite');
 	}
 
 	/**

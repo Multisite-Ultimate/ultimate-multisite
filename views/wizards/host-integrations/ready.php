@@ -11,11 +11,11 @@ defined( 'ABSPATH' ) || exit;
 	<div class="wu-self-center wu-text-center wu-w-full">
 	<span class="dashicons dashicons-yes-alt wu-text-green-400 wu-w-auto wu-h-auto wu-text-5xl wu-mb-2"></span>
 	<h1>
-		<?php esc_html_e('That\'s it! We are ready!', 'multisite-ultimate'); ?>
+		<?php esc_html_e('That\'s it! We are ready!', 'ultimate-multisite'); ?>
 	</h1>
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">
 		<?php // translators: % site title ?>
-		<?php esc_html(sprintf(__('The integration with %s was correctly setup and is now ready! Now, every time a new domain is added to your platform, Multisite Ultimate will sync that with your application automatically.', 'multisite-ultimate'), $integration->get_title())); ?>
+		<?php esc_html(sprintf(__('The integration with %s was correctly setup and is now ready! Now, every time a new domain is added to your platform, Ultimate Multisite will sync that with your application automatically.', 'ultimate-multisite'), $integration->get_title())); ?>
 	</p>
 	</div>
 
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
 	<span class="wu-float-right">
 
 	<a href="<?php echo esc_url(wu_network_admin_url('wp-ultimo')); ?>" class="button button-primary button-large" data-testid="button-primary">
-	<?php esc_html_e('Finish!', 'multisite-ultimate'); ?>
+	<?php esc_html_e('Finish!', 'ultimate-multisite'); ?>
 	</a>
 
 	</span>

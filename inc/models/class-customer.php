@@ -203,7 +203,7 @@ class Customer extends Base_Model implements Billable, Notable {
 		$user = $this->get_user();
 
 		if (empty($user)) {
-			return __('User Deleted', 'multisite-ultimate');
+			return __('User Deleted', 'ultimate-multisite');
 		}
 
 		return $user->display_name;
@@ -259,7 +259,7 @@ class Customer extends Base_Model implements Billable, Notable {
 		$user = $this->get_user();
 
 		if (empty($user)) {
-			return __('none', 'multisite-ultimate');
+			return __('none', 'ultimate-multisite');
 		}
 
 		return $user->user_login;
@@ -276,7 +276,7 @@ class Customer extends Base_Model implements Billable, Notable {
 		$user = $this->get_user();
 
 		if (empty($user)) {
-			return __('none', 'multisite-ultimate');
+			return __('none', 'ultimate-multisite');
 		}
 
 		return $user->user_email;

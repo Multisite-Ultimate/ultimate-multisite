@@ -79,7 +79,7 @@ class Country_DE extends Country {
 	 */
 	public function get_name() {
 
-		return __('Germany', 'multisite-ultimate');
+		return __('Germany', 'ultimate-multisite');
 	}
 
 	/**
@@ -91,22 +91,22 @@ class Country_DE extends Country {
 	protected function states() {
 
 		return [
-			'BW' => __('Baden-Württemberg', 'multisite-ultimate'),
-			'BY' => __('Bavaria', 'multisite-ultimate'),
-			'BE' => __('Berlin', 'multisite-ultimate'),
-			'BB' => __('Brandenburg', 'multisite-ultimate'),
-			'HB' => __('Bremen', 'multisite-ultimate'),
-			'HH' => __('Hamburg', 'multisite-ultimate'),
-			'HE' => __('Hesse', 'multisite-ultimate'),
-			'NI' => __('Lower Saxony', 'multisite-ultimate'),
-			'MV' => __('Mecklenburg-Vorpommern', 'multisite-ultimate'),
-			'NW' => __('North Rhine-Westphalia', 'multisite-ultimate'),
-			'RP' => __('Rhineland-Palatinate', 'multisite-ultimate'),
-			'SL' => __('Saarland', 'multisite-ultimate'),
-			'SN' => __('Saxony', 'multisite-ultimate'),
-			'ST' => __('Saxony-Anhalt', 'multisite-ultimate'),
-			'SH' => __('Schleswig-Holstein', 'multisite-ultimate'),
-			'TH' => __('Thuringia', 'multisite-ultimate'),
+			'BW' => __('Baden-Württemberg', 'ultimate-multisite'),
+			'BY' => __('Bavaria', 'ultimate-multisite'),
+			'BE' => __('Berlin', 'ultimate-multisite'),
+			'BB' => __('Brandenburg', 'ultimate-multisite'),
+			'HB' => __('Bremen', 'ultimate-multisite'),
+			'HH' => __('Hamburg', 'ultimate-multisite'),
+			'HE' => __('Hesse', 'ultimate-multisite'),
+			'NI' => __('Lower Saxony', 'ultimate-multisite'),
+			'MV' => __('Mecklenburg-Vorpommern', 'ultimate-multisite'),
+			'NW' => __('North Rhine-Westphalia', 'ultimate-multisite'),
+			'RP' => __('Rhineland-Palatinate', 'ultimate-multisite'),
+			'SL' => __('Saarland', 'ultimate-multisite'),
+			'SN' => __('Saxony', 'ultimate-multisite'),
+			'ST' => __('Saxony-Anhalt', 'ultimate-multisite'),
+			'SH' => __('Schleswig-Holstein', 'ultimate-multisite'),
+			'TH' => __('Thuringia', 'ultimate-multisite'),
 		];
 	}
 }

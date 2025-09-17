@@ -24,7 +24,7 @@ defined('ABSPATH') || exit;
 
 	<?php endif; ?>
 
-	<?php echo wp_kses($rendered_fields, wu_kses_allowed_html()); ?>
+	<?php $form->render_fields(); ?>
 
 <?php if ($form->wrap_in_form_tag) : ?>
 
@@ -32,6 +32,6 @@ defined('ABSPATH') || exit;
 
 <?php else : ?>
 
-	</<?php esc_attr($form->wrap_tag); ?>>
+	</<?php echo esc_attr($form->wrap_tag); ?>>
 
 <?php endif; ?>

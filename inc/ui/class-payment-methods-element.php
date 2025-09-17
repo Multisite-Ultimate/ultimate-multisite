@@ -58,14 +58,14 @@ class Payment_Methods_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Payment Methods', 'multisite-ultimate');
+		return __('Payment Methods', 'ultimate-multisite');
 	}
 
 	/**
@@ -74,14 +74,14 @@ class Payment_Methods_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
+		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
 	}
 
 	/**
@@ -106,23 +106,23 @@ class Payment_Methods_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'multisite-ultimate'),
-			'desc'  => __('General', 'multisite-ultimate'),
+			'title' => __('General', 'ultimate-multisite'),
+			'desc'  => __('General', 'ultimate-multisite'),
 			'type'  => 'header',
 		];
 
 		$fields['password_strength'] = [
 			'type'    => 'toggle',
-			'title'   => __('Password Strength Meter', 'multisite-ultimate'),
-			'desc'    => __('Set this customer as a VIP.', 'multisite-ultimate'),
+			'title'   => __('Password Strength Meter', 'ultimate-multisite'),
+			'desc'    => __('Set this customer as a VIP.', 'ultimate-multisite'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
 
 		$fields['apply_styles'] = [
 			'type'    => 'toggle',
-			'title'   => __('Apply Styles', 'multisite-ultimate'),
-			'desc'    => __('Set this customer as a VIP.', 'multisite-ultimate'),
+			'title'   => __('Apply Styles', 'ultimate-multisite'),
+			'desc'    => __('Set this customer as a VIP.', 'ultimate-multisite'),
 			'tooltip' => '',
 			'value'   => 1,
 		];
@@ -138,7 +138,7 @@ class Payment_Methods_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Payment Methods',
 	 *  'Form',
 	 *  'Cart',
@@ -151,7 +151,7 @@ class Payment_Methods_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'Payment Methods',
 			'Form',
 			'Cart',

@@ -64,7 +64,7 @@ class Form_Manager extends Base_Manager {
 	 */
 	public function display_form_unavailable($error = false): void {
 
-		$message = __('Form not available', 'multisite-ultimate');
+		$message = __('Form not available', 'ultimate-multisite');
 
 		if (is_wp_error($error)) {
 			$message = $error->get_error_message();
@@ -352,7 +352,7 @@ class Form_Manager extends Base_Manager {
 			$object = apply_filters("wu_delete_form_get_object_{$model}", $object, $id, $model);
 
 			if ( ! $object) {
-				$this->display_form_unavailable(new \WP_Error('not-found', __('Object not found.', 'multisite-ultimate')));
+				$this->display_form_unavailable(new \WP_Error('not-found', __('Object not found.', 'ultimate-multisite')));
 
 				return;
 			}
@@ -362,16 +362,16 @@ class Form_Manager extends Base_Manager {
 				[
 					'confirm'       => [
 						'type'      => 'toggle',
-						'title'     => __('Confirm Deletion', 'multisite-ultimate'),
-						'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
+						'title'     => __('Confirm Deletion', 'ultimate-multisite'),
+						'desc'      => __('This action can not be undone.', 'ultimate-multisite'),
 						'html_attr' => [
 							'v-model' => 'confirmed',
 						],
 					],
 					'submit_button' => [
 						'type'            => 'submit',
-						'title'           => __('Delete', 'multisite-ultimate'),
-						'placeholder'     => __('Delete', 'multisite-ultimate'),
+						'title'           => __('Delete', 'ultimate-multisite'),
+						'placeholder'     => __('Delete', 'ultimate-multisite'),
 						'value'           => 'save',
 						'classes'         => 'button button-primary wu-w-full',
 						'wrapper_classes' => 'wu-items-end',
@@ -471,7 +471,7 @@ class Form_Manager extends Base_Manager {
 			$object = apply_filters("wu_delete_form_get_object_{$model}", $object, $id, $model);
 
 			if ( ! $object) {
-				wp_send_json_error(new \WP_Error('not-found', __('Object not found.', 'multisite-ultimate')));
+				wp_send_json_error(new \WP_Error('not-found', __('Object not found.', 'ultimate-multisite')));
 			}
 
 			/*
@@ -496,7 +496,7 @@ class Form_Manager extends Base_Manager {
 
 			wp_send_json_success($data_json_success);
 		} else {
-			wp_send_json_error(new \WP_Error('model-not-found', __('Something went wrong.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('model-not-found', __('Something went wrong.', 'ultimate-multisite')));
 		}
 	}
 
@@ -517,8 +517,8 @@ class Form_Manager extends Base_Manager {
 			[
 				'confirm'       => [
 					'type'      => 'toggle',
-					'title'     => __('Confirm Action', 'multisite-ultimate'),
-					'desc'      => __('Review this action carefully.', 'multisite-ultimate'),
+					'title'     => __('Confirm Action', 'ultimate-multisite'),
+					'desc'      => __('Review this action carefully.', 'ultimate-multisite'),
 					'html_attr' => [
 						'v-model' => 'confirmed',
 					],

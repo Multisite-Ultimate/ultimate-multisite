@@ -7,11 +7,11 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <h1>
-	<?php esc_html_e('We are almost there!', 'multisite-ultimate'); ?>
+	<?php esc_html_e('We are almost there!', 'ultimate-multisite'); ?>
 </h1>
 
 <p class="wu-text-lg wu-text-gray-600 wu-my-4">
-	<?php esc_html_e('You should have all the information we need in hand right now. The next step is to configure it.', 'multisite-ultimate'); ?>
+	<?php esc_html_e('You should have all the information we need in hand right now. The next step is to configure it.', 'ultimate-multisite'); ?>
 </p>
 
 <div class="wu-mt-6 wu--mx-4">
@@ -34,17 +34,17 @@ defined( 'ABSPATH' ) || exit;
 	href="<?php echo esc_url(wu_network_admin_url('wp-ultimo-settings', ['tab' => 'integrations'])); ?>"
 	class="wu-self-center button button-large wu-float-left"
 	>
-	<?php esc_html_e('&larr; Cancel', 'multisite-ultimate'); ?>
+	<?php esc_html_e('&larr; Cancel', 'ultimate-multisite'); ?>
 	</a>
 
 	<span class="wu-self-center wu-content-center">
 
 	<button name="submit" value="0" class="button button-large">
-		<?php esc_html_e('Add manually', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Add manually', 'ultimate-multisite'); ?>
 	</button>
 
 	<button name="submit" value="1" class="wu-ml-2 button button-primary button-large" data-testid="button-primary">
-		<?php esc_html_e('Add automatically', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Add automatically', 'ultimate-multisite'); ?>
 	</button>
 
 	</span>

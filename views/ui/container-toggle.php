@@ -8,16 +8,16 @@ defined( 'ABSPATH' ) || exit;
 ?>
 <small>
 	<strong>
-	<a id="wu-container-toggle" role="tooltip" aria-label='<?php esc_html_e('Toggle container', 'multisite-ultimate'); ?>' href="#" class="wu-tooltip wu-inline-block wu-py-1 wu-pl-2 md:wu-pr-3 wu-uppercase wu-text-gray-600 wu-no-underline">
+	<a id="wu-container-toggle" role="tooltip" aria-label='<?php esc_html_e('Toggle container', 'ultimate-multisite'); ?>' href="#" class="wu-tooltip wu-inline-block wu-py-1 wu-pl-2 md:wu-pr-3 wu-uppercase wu-text-gray-600 wu-no-underline">
 
-		<span title="<?php esc_attr_e('Boxed', 'multisite-ultimate'); ?>" class="wu-use-container dashicons dashicons-wu-arrow-with-circle-left wu-text-sm wu-w-auto wu-h-auto wu-align-text-bottom wu-relative"></span>
+		<span title="<?php esc_attr_e('Boxed', 'ultimate-multisite'); ?>" class="wu-use-container dashicons dashicons-wu-arrow-with-circle-left wu-text-sm wu-w-auto wu-h-auto wu-align-text-bottom wu-relative"></span>
 		<span class="wu-font-bold wu-use-container">
-		<?php esc_attr_e('Boxed', 'multisite-ultimate'); ?>
+		<?php esc_attr_e('Boxed', 'ultimate-multisite'); ?>
 		</span>
 
-		<span title="<?php esc_attr_e('Boxed', 'multisite-ultimate'); ?>" class="wu-no-container dashicons dashicons-wu-arrow-with-circle-right wu-text-sm wu-w-auto wu-h-auto wu-align-text-bottom wu-relative"></span>
+		<span title="<?php esc_attr_e('Boxed', 'ultimate-multisite'); ?>" class="wu-no-container dashicons dashicons-wu-arrow-with-circle-right wu-text-sm wu-w-auto wu-h-auto wu-align-text-bottom wu-relative"></span>
 		<span class="wu-font-bold wu-no-container">
-		<?php esc_attr_e('Wide', 'multisite-ultimate'); ?>
+		<?php esc_attr_e('Wide', 'ultimate-multisite'); ?>
 		</span>
 
 	</a>

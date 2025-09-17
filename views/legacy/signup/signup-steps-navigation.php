@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/signup-steps-navigation.php.
  *
- * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
+ * HOWEVER, on occasion Ultimate Multisite will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -72,7 +72,7 @@ $percent     = 100 / $count;
 
 	<a class="wu-signup-back-link" href="<?php echo esc_attr($prev_link); ?>">
 
-		<?php esc_html_e('&larr; Go Back to Previous Step', 'multisite-ultimate'); ?>
+		<?php esc_html_e('&larr; Go Back to Previous Step', 'ultimate-multisite'); ?>
 
 	</a>
 

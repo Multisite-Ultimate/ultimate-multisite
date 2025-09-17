@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate custom Autoloader.
+ * Ultimate Multisite custom Autoloader.
  *
  * @package WP_Ultimo
  * @subpackage Autoloader

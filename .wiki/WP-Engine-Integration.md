@@ -1,7 +1,7 @@
 # WP Engine Integration
 
 ## Overview
-WP Engine is a premium managed WordPress hosting platform that provides optimized performance, security, and scalability for WordPress sites. This integration enables automatic domain syncing between Multisite Ultimate and WP Engine.
+WP Engine is a premium managed WordPress hosting platform that provides optimized performance, security, and scalability for WordPress sites. This integration enables automatic domain syncing between Ultimate Multisite and WP Engine.
 
 ## Features
 - Automatic domain syncing
@@ -30,7 +30,7 @@ If you're hosting on WP Engine, the WP Engine plugin should already be installed
 
 ### 2. Enable the Integration
 
-1. In your WordPress admin, go to Multisite Ultimate > Settings
+1. In your WordPress admin, go to Ultimate Multisite > Settings
 2. Navigate to the "Domain Mapping" tab
 3. Scroll down to "Host Integrations"
 4. Enable the WP Engine integration
@@ -40,7 +40,7 @@ If you're hosting on WP Engine, the WP Engine plugin should already be installed
 
 ### Domain Syncing
 
-When a domain is mapped in Multisite Ultimate:
+When a domain is mapped in Ultimate Multisite:
 
 1. The integration uses the WP Engine API to add the domain to your WP Engine installation
 2. WP Engine handles the domain configuration and SSL certificate issuance
@@ -72,7 +72,7 @@ WP Engine automatically handles SSL certificate issuance and renewal for all dom
 - Contact WP Engine support if you're having trouble with the API
 
 ### Domain Not Added
-- Check the Multisite Ultimate logs for any error messages
+- Check the Ultimate Multisite logs for any error messages
 - Verify that the domain is not already added to WP Engine
 - Ensure that your WP Engine plan supports the number of domains you're adding
 

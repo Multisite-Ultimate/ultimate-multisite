@@ -1,8 +1,8 @@
 {
   "$schema": "https://playground.wordpress.net/blueprint-schema.json",
   "meta": {
-    "title": "Multisite Ultimate Demo",
-    "description": "A demo of Multisite Ultimate running in your browser.",
+    "title": "Ultimate Multisite Demo",
+    "description": "A demo of Ultimate Multisite running in your browser.",
     "author": "superdav42",
     "categories": ["Multisite", "Site"]
   },

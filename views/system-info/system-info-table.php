@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<tr>
 			<td colspan="2" class="wu-px-4 wu-py-2">
-				<?php esc_html_e('No items found.', 'multisite-ultimate'); ?>
+				<?php esc_html_e('No items found.', 'ultimate-multisite'); ?>
 			</td>
 		</tr>
 

@@ -55,7 +55,7 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Templates', 'multisite-ultimate');
+		return __('Templates', 'ultimate-multisite');
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a template selection section. This allows the customer to choose a pre-built site to be used as a template for the site being currently created.', 'multisite-ultimate');
+		return __('Adds a template selection section. This allows the customer to choose a pre-built site to be used as a template for the site being currently created.', 'ultimate-multisite');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a template selection section. This allows the customer to choose a pre-built site to be used as a template for the site being currently created.', 'multisite-ultimate');
+		return __('Adds a template selection section. This allows the customer to choose a pre-built site to be used as a template for the site being currently created.', 'ultimate-multisite');
 	}
 
 	/**
@@ -139,7 +139,7 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 
 		return [
 			'id'       => 'template_selection',
-			'name'     => __('Template Selection', 'multisite-ultimate'),
+			'name'     => __('Template Selection', 'ultimate-multisite'),
 			'required' => true,
 		];
 	}
@@ -173,13 +173,13 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 
 		$editor_fields['template_selection_type'] = [
 			'type'      => 'select',
-			'title'     => __('Available templates', 'multisite-ultimate'),
-			'desc'      => __('How do you want to choose available which templates will be available.', 'multisite-ultimate'),
+			'title'     => __('Available templates', 'ultimate-multisite'),
+			'desc'      => __('How do you want to choose available which templates will be available.', 'ultimate-multisite'),
 			'order'     => 20,
 			'options'   => [
-				'name'       => __('Select by names', 'multisite-ultimate'),
-				'categories' => __('Select by categories', 'multisite-ultimate'),
-				'all'        => __('All templates', 'multisite-ultimate'),
+				'name'       => __('Select by names', 'ultimate-multisite'),
+				'categories' => __('Select by categories', 'ultimate-multisite'),
+				'all'        => __('All templates', 'ultimate-multisite'),
 			],
 			'html_attr' => [
 				'v-model' => 'template_selection_type',
@@ -188,9 +188,9 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 
 		$editor_fields['template_selection_categories'] = [
 			'type'              => 'select',
-			'title'             => __('Template Categories', 'multisite-ultimate'),
-			'placeholder'       => __('e.g.: Landing Page, Health...', 'multisite-ultimate'),
-			'desc'              => __('Customers will be able to filter by categories during signup.', 'multisite-ultimate'),
+			'title'             => __('Template Categories', 'ultimate-multisite'),
+			'placeholder'       => __('e.g.: Landing Page, Health...', 'ultimate-multisite'),
+			'desc'              => __('Customers will be able to filter by categories during signup.', 'ultimate-multisite'),
 			'order'             => 21,
 			'options'           => Site::get_all_categories(),
 			'html_attr'         => [
@@ -204,9 +204,9 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 
 		$editor_fields['template_selection_sites'] = [
 			'type'              => 'model',
-			'title'             => __('Template Sites', 'multisite-ultimate'),
-			'placeholder'       => __('e.g. Template Site 1, My Agency', 'multisite-ultimate'),
-			'desc'              => __('Be sure to add the templates in the order you want them to show up.', 'multisite-ultimate'),
+			'title'             => __('Template Sites', 'ultimate-multisite'),
+			'placeholder'       => __('e.g. Template Site 1, My Agency', 'ultimate-multisite'),
+			'desc'              => __('Be sure to add the templates in the order you want them to show up.', 'ultimate-multisite'),
 			'order'             => 22,
 			'html_attr'         => [
 				'v-model'           => 'template_selection_sites',
@@ -231,9 +231,9 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 
 		$editor_fields['hide_template_selection_when_pre_selected'] = [
 			'type'      => 'toggle',
-			'title'     => __('Hide when Pre-Selected', 'multisite-ultimate'),
-			'desc'      => __('Prevent customers from seeing this field when a template was already selected via the URL.', 'multisite-ultimate'),
-			'tooltip'   => __('If the template selection field is the only field in the current step, the step will be skipped.', 'multisite-ultimate'),
+			'title'     => __('Hide when Pre-Selected', 'ultimate-multisite'),
+			'desc'      => __('Prevent customers from seeing this field when a template was already selected via the URL.', 'ultimate-multisite'),
+			'tooltip'   => __('If the template selection field is the only field in the current step, the step will be skipped.', 'ultimate-multisite'),
 			'value'     => 0,
 			'order'     => 23,
 			'html_attr' => [
@@ -248,8 +248,8 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 			'fields' => [
 				'template_selection_template' => [
 					'type'            => 'select',
-					'title'           => __('Template Selector Template', 'multisite-ultimate'),
-					'placeholder'     => __('Select your Template', 'multisite-ultimate'),
+					'title'           => __('Template Selector Template', 'ultimate-multisite'),
+					'placeholder'     => __('Select your Template', 'ultimate-multisite'),
 					'options'         => [$this, 'get_template_selection_templates'],
 					'wrapper_classes' => 'wu-flex-grow',
 					'html_attr'       => [
@@ -265,7 +265,7 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 		// 'order'           => 99,
 		// 'wrapper_classes' => 'sm:wu-p-0 sm:wu-block',
 		// 'classes'         => '',
-		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized template selection templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'multisite-ultimate')),
+		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized template selection templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'ultimate-multisite')),
 		// );
 
 		return $editor_fields;
@@ -356,11 +356,17 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('template_selection', $attributes['template_selection_template']);
 
-		$content = $template_class ? $template_class->render_container($template_attributes, $this) : __('Template does not exist.', 'multisite-ultimate');
+		$desc = function () use ($template_attributes, $template_class) {
+			if ($template_class) {
+				$template_class->render_container($template_attributes, $this);
+			} else {
+				esc_html_e('Template does not exist.', 'ultimate-multisite');
+			}
+		};
 
 		$checkout_fields[ $attributes['id'] ] = [
 			'type'            => 'note',
-			'desc'            => $content,
+			'desc'            => $desc,
 			'wrapper_classes' => $attributes['element_classes'],
 		];
 

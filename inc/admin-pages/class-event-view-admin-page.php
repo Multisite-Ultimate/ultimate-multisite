@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Event View Admin Page.
+ * Ultimate Multisite Event View Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Models\Event;
 
 /**
- * Multisite Ultimate Event View Admin Page.
+ * Ultimate Multisite Event View Admin Page.
  */
 class Event_View_Admin_Page extends Edit_Admin_Page {
 
@@ -128,16 +128,16 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 
 		parent::register_widgets();
 
-		add_meta_box('wp-ultimo-message', __('Event Message', 'multisite-ultimate'), [$this, 'output_default_widget_message'], get_current_screen()->id, 'normal', 'default');
+		add_meta_box('wp-ultimo-message', __('Event Message', 'ultimate-multisite'), [$this, 'output_default_widget_message'], get_current_screen()->id, 'normal', 'default');
 
-		add_meta_box('wp-ultimo-initiator', __('Event', 'multisite-ultimate'), [$this, 'output_default_widget_initiator'], get_current_screen()->id, 'side', 'default');
+		add_meta_box('wp-ultimo-initiator', __('Event', 'ultimate-multisite'), [$this, 'output_default_widget_initiator'], get_current_screen()->id, 'side', 'default');
 
-		add_meta_box('wp-ultimo-payload', __('Event Payload', 'multisite-ultimate'), [$this, 'output_default_widget_payload'], get_current_screen()->id, 'normal', 'default');
+		add_meta_box('wp-ultimo-payload', __('Event Payload', 'ultimate-multisite'), [$this, 'output_default_widget_payload'], get_current_screen()->id, 'normal', 'default');
 
 		$this->add_info_widget(
 			'info',
 			[
-				'title'    => __('Timestamps', 'multisite-ultimate'),
+				'title'    => __('Timestamps', 'ultimate-multisite'),
 				'position' => 'side',
 				'modified' => false,
 			]
@@ -176,8 +176,8 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 		wu_get_template(
 			'events/widget-payload',
 			[
-				'title'        => __('Event Payload', 'multisite-ultimate'),
-				'loading_text' => __('Loading Payload', 'multisite-ultimate'),
+				'title'        => __('Event Payload', 'ultimate-multisite'),
+				'loading_text' => __('Loading Payload', 'ultimate-multisite'),
 				'payload'      => wp_json_encode($object->get_payload(), JSON_PRETTY_PRINT),
 			]
 		);
@@ -208,7 +208,7 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Event', 'multisite-ultimate') : __('Add new Event', 'multisite-ultimate');
+		return $this->edit ? __('Edit Event', 'ultimate-multisite') : __('Add new Event', 'ultimate-multisite');
 	}
 
 	/**
@@ -219,7 +219,7 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Event', 'multisite-ultimate');
+		return __('Edit Event', 'ultimate-multisite');
 	}
 
 	/**
@@ -242,15 +242,15 @@ class Event_View_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Event', 'multisite-ultimate'),
-			'add_new_label'       => __('Add new Event', 'multisite-ultimate'),
-			'updated_message'     => __('Event updated with success!', 'multisite-ultimate'),
-			'title_placeholder'   => __('Enter Event', 'multisite-ultimate'),
+			'edit_label'          => __('Edit Event', 'ultimate-multisite'),
+			'add_new_label'       => __('Add new Event', 'ultimate-multisite'),
+			'updated_message'     => __('Event updated with success!', 'ultimate-multisite'),
+			'title_placeholder'   => __('Enter Event', 'ultimate-multisite'),
 			'title_description'   => '',
-			'save_button_label'   => __('Save Event', 'multisite-ultimate'),
+			'save_button_label'   => __('Save Event', 'ultimate-multisite'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Event', 'multisite-ultimate'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
+			'delete_button_label' => __('Delete Event', 'ultimate-multisite'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'ultimate-multisite'),
 		];
 	}
 

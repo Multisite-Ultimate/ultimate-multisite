@@ -33,7 +33,7 @@ function wu_get_main_site_upload_dir() {
 }
 
 /**
- * Creates a Multisite Ultimate folder inside the uploads folder - if needed - and return its path.
+ * Creates a Ultimate Multisite folder inside the uploads folder - if needed - and return its path.
  *
  * @since 2.0.11
  *

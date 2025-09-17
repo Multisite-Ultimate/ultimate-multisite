@@ -102,14 +102,14 @@ class Checkout_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Checkout', 'multisite-ultimate');
+		return __('Checkout', 'ultimate-multisite');
 	}
 
 	/**
@@ -118,14 +118,14 @@ class Checkout_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
+		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
 	}
 
 	/**
@@ -150,14 +150,14 @@ class Checkout_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'multisite-ultimate'),
-			'desc'  => __('General', 'multisite-ultimate'),
+			'title' => __('General', 'ultimate-multisite'),
+			'desc'  => __('General', 'ultimate-multisite'),
 			'type'  => 'header',
 		];
 
 		$fields['slug'] = [
-			'title' => __('Slug', 'multisite-ultimate'),
-			'desc'  => __('The checkout form slug.', 'multisite-ultimate'),
+			'title' => __('Slug', 'ultimate-multisite'),
+			'desc'  => __('The checkout form slug.', 'ultimate-multisite'),
 			'type'  => 'text',
 		];
 
@@ -172,7 +172,7 @@ class Checkout_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Checkout',
 	 *  'Form',
 	 *  'Cart',
@@ -185,7 +185,7 @@ class Checkout_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'Checkout',
 			'Form',
 			'Cart',
@@ -271,7 +271,7 @@ class Checkout_Element extends Base_Element {
 			wp_add_inline_style('wu-checkout', $custom_css);
 		} catch (SassException $e) {
 			// translators: %s the error message.
-			wu_log_add('checkout', sprintf(__('An error occurred while compiling scss: %s', 'multisite-ultimate'), $e->getMessage()), LogLevel::ERROR);
+			wu_log_add('checkout', sprintf(__('An error occurred while compiling scss: %s', 'ultimate-multisite'), $e->getMessage()), LogLevel::ERROR);
 		}
 	}
 
@@ -344,7 +344,7 @@ class Checkout_Element extends Base_Element {
 				 */
 				echo '<p>';
 				// Translators: Placeholder receives the customer display name
-				printf(esc_html__('Hi %s. You have a pending payment for your membership!', 'multisite-ultimate'), esc_html($customer->get_display_name()));
+				printf(esc_html__('Hi %s. You have a pending payment for your membership!', 'ultimate-multisite'), esc_html($customer->get_display_name()));
 
 				$payment_url = add_query_arg(
 					[
@@ -354,7 +354,7 @@ class Checkout_Element extends Base_Element {
 				);
 
 				// Translators: The link to registration url with payment hash
-				echo '<br>' . sprintf(esc_html__('Click <a href="%s">here</a> to pay.', 'multisite-ultimate'), esc_attr($payment_url));
+				echo '<br>' . sprintf(esc_html__('Click <a href="%s">here</a> to pay.', 'ultimate-multisite'), esc_attr($payment_url));
 
 				echo '</p>';
 				return;
@@ -367,7 +367,7 @@ class Checkout_Element extends Base_Element {
 			if ( ! $membership->is_active() && $membership->get_status() !== Membership_Status::TRIALING && in_array($atts['slug'], $membership_blocked_forms, true)) {
 
 				// Translators: Placeholder receives the customer display name
-				printf(esc_html__('Hi %s. You cannot take action on your membership while it is not active!', 'multisite-ultimate'), esc_html($customer->get_display_name()));
+				printf(esc_html__('Hi %s. You cannot take action on your membership while it is not active!', 'ultimate-multisite'), esc_html($customer->get_display_name()));
 
 				if ($membership->get_status() === Membership_Status::PENDING && $customer->get_email_verification() === 'pending') {
 					/**
@@ -383,17 +383,17 @@ class Checkout_Element extends Base_Element {
 							'resend_verification_email_nonce' => wp_create_nonce('wu_resend_verification_email_nonce'),
 							'membership_hash' => $membership->get_hash(),
 							'i18n'            => [
-								'resending_verification_email' => __('Resending verification email...', 'multisite-ultimate'),
-								'email_sent' => __('Verification email sent!', 'multisite-ultimate'),
+								'resending_verification_email' => __('Resending verification email...', 'ultimate-multisite'),
+								'email_sent' => __('Verification email sent!', 'ultimate-multisite'),
 							],
 						]
 					);
 
 					wp_enqueue_script('wu-thank-you');
 
-					echo '<p>' . esc_html__('Check your inbox and verify your email address.', 'multisite-ultimate') . '</p>';
+					echo '<p>' . esc_html__('Check your inbox and verify your email address.', 'ultimate-multisite') . '</p>';
 					echo '<span class="wu-styling">';
-					printf('<a href="#" class="wu-mr-2 wu-resend-verification-email wu-no-underline button button-primary">%s</a>', esc_html__('Resend verification email', 'multisite-ultimate'));
+					printf('<a href="#" class="wu-mr-2 wu-resend-verification-email wu-no-underline button button-primary">%s</a>', esc_html__('Resend verification email', 'ultimate-multisite'));
 					echo '</span>';
 				}
 
@@ -416,13 +416,13 @@ class Checkout_Element extends Base_Element {
 				);
 
 				if ( ! in_array($slug, $allowed_forms, true) && ! wu_request('payment')) {
-					printf('<p>%s</p>', esc_html__('You already have a membership!', 'multisite-ultimate'));
+					printf('<p>%s</p>', esc_html__('You already have a membership!', 'ultimate-multisite'));
 
 					if (isset($published_sites[0])) {
 						printf(
 							'<p><a class="wu-no-underline button button-primary" href="%s">%s</a><p>',
 							esc_attr(get_admin_url($published_sites[0]->get_id(), 'admin.php?page=account')),
-							esc_html__('Go to my account', 'multisite-ultimate')
+							esc_html__('Go to my account', 'ultimate-multisite')
 						);
 					}
 
@@ -431,7 +431,7 @@ class Checkout_Element extends Base_Element {
 			}
 
 			if ($membership && $membership->get_customer_id() !== $customer->get_id()) {
-				printf('<p>%s</p>', esc_html__('You are not allowed to change this membership!', 'multisite-ultimate'));
+				printf('<p>%s</p>', esc_html__('You are not allowed to change this membership!', 'ultimate-multisite'));
 
 				return;
 			}
@@ -463,7 +463,7 @@ class Checkout_Element extends Base_Element {
 					if ($used_limit >= $limit_max) {
 
 						// Translators: Placeholder receives the limit name
-						echo '<p>' . sprintf(esc_html__('You reached your membership %s limit!', 'multisite-ultimate'), esc_html($limitation)) . '</p>';
+						echo '<p>' . sprintf(esc_html__('You reached your membership %s limit!', 'ultimate-multisite'), esc_html($limitation)) . '</p>';
 
 						echo '<span class="wu-styling">';
 
@@ -471,7 +471,7 @@ class Checkout_Element extends Base_Element {
 							printf(
 								'<a class="wu-no-underline button button-primary wu-mr-2" href="%s">%s</a>',
 								esc_url(wu_get_registration_url()),
-								esc_html(__('Buy a new membership', 'multisite-ultimate'))
+								esc_html(__('Buy a new membership', 'ultimate-multisite'))
 							);
 						}
 
@@ -496,7 +496,7 @@ class Checkout_Element extends Base_Element {
 							}
 
 							if ( ! empty($update_link)) {
-								$button_text = __('Upgrade your account', 'multisite-ultimate');
+								$button_text = __('Upgrade your account', 'ultimate-multisite');
 
 								printf('<a class="wu-no-underline button button-primary wu-mr-2" href="%s">%s</a>', esc_attr($update_link), esc_html($button_text));
 							}
@@ -511,12 +511,12 @@ class Checkout_Element extends Base_Element {
 		} elseif ( ! $customer && 'wu-finish-checkout' === $slug) {
 			echo '<p>';
 			if (is_user_logged_in()) {
-				esc_html_e('You need to be the account owner to complete this payment.', 'multisite-ultimate');
+				esc_html_e('You need to be the account owner to complete this payment.', 'ultimate-multisite');
 			} else {
-				esc_html_e('You need to be logged in to complete a payment', 'multisite-ultimate');
+				esc_html_e('You need to be logged in to complete a payment', 'ultimate-multisite');
 
 				// Translators: The link to login url with redirect_to url
-				echo '<br>' . sprintf(esc_html__('Click <a href="%s">here</a> sign in.', 'multisite-ultimate'), esc_attr(wp_login_url(wu_get_current_url())));
+				echo '<br>' . sprintf(esc_html__('Click <a href="%s">here</a> sign in.', 'ultimate-multisite'), esc_attr(wp_login_url(wu_get_current_url())));
 			}
 
 			echo '</p>';
@@ -529,19 +529,19 @@ class Checkout_Element extends Base_Element {
 		if ( ! $checkout_form) {
 
 			// translators: %s is the id of the form. e.g. main-form
-			printf(esc_html__('Checkout form %s not found.', 'multisite-ultimate'), esc_html($slug));
+			printf(esc_html__('Checkout form %s not found.', 'ultimate-multisite'), esc_html($slug));
 			return;
 		}
 
 		if ($checkout_form->get_field_count() === 0) {
 
 			// translators: %s is the id of the form. e.g. main-form
-			printf(esc_html__('Checkout form %s contains no fields.', 'multisite-ultimate'), esc_html($slug));
+			printf(esc_html__('Checkout form %s contains no fields.', 'ultimate-multisite'), esc_html($slug));
 			return;
 		}
 
 		if ( ! $checkout_form->is_active() || ! wu_get_setting('enable_registration', true)) {
-			printf('<p>%s</p>', esc_html__('Registration is not available at this time.', 'multisite-ultimate'));
+			printf('<p>%s</p>', esc_html__('Registration is not available at this time.', 'ultimate-multisite'));
 			return;
 		}
 
@@ -549,7 +549,7 @@ class Checkout_Element extends Base_Element {
 			$geolocation = \WP_Ultimo\Geolocation::geolocate_ip('', true);
 
 			if ( ! in_array($geolocation['country'], $checkout_form->get_allowed_countries(), true)) {
-				printf('<p>%s</p>', esc_html__('Registration is closed for your location.', 'multisite-ultimate'));
+				printf('<p>%s</p>', esc_html__('Registration is closed for your location.', 'ultimate-multisite'));
 				return;
 			}
 		}

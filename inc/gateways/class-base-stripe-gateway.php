@@ -150,7 +150,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$this->setup_api_keys($id);
 
 		if (method_exists(Stripe\Stripe::class, 'setAppInfo')) {
-			Stripe\Stripe::setAppInfo('WordPress Multisite Ultimate', wu_get_version(), esc_url(site_url()));
+			Stripe\Stripe::setAppInfo('WordPress Ultimate Multisite', wu_get_version(), esc_url(site_url()));
 		}
 	}
 
@@ -574,7 +574,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	/**
 	 * Installs webhook urls onto Stripe.
 	 *
-	 * Multisite Ultimate will call this whenever settings for this api changes.
+	 * Ultimate Multisite will call this whenever settings for this api changes.
 	 * That being said, it might be a good idea to check if the webhook already exists
 	 * before trying to re-create it.
 	 *
@@ -655,7 +655,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				[
 					'enabled_events' => ['*'],
 					'url'            => $webhook_url,
-					'description'    => 'Added by Multisite Ultimate. Required to correctly handle changes in subscription status.',
+					'description'    => 'Added by Ultimate Multisite. Required to correctly handle changes in subscription status.',
 				]
 			);
 
@@ -850,7 +850,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param integer $customer_id Multisite Ultimate customer ID.
+	 * @param integer $customer_id Ultimate Multisite customer ID.
 	 * @param integer $user_id The WordPress user ID.
 	 * @param integer $stripe_customer_id The Stripe Customer ID.
 	 * @return \Stripe\Customer|\WP_Error
@@ -863,7 +863,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$customer_exists = false;
 
 		/*
-		 * Use the Multisite Ultimate customer ID to search on the
+		 * Use the Ultimate Multisite customer ID to search on the
 		 * database for an existing Stripe customer id.
 		 */
 		if (empty($stripe_customer_id)) {
@@ -949,7 +949,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 *
 	 * @since 2.0.11
 	 *
-	 * @param \WP_Ultimo\Objects\Billing_Address $billing_address The Multisite Ultimate billing address.
+	 * @param \WP_Ultimo\Objects\Billing_Address $billing_address The Ultimate Multisite billing address.
 	 * @return array
 	 */
 	public function convert_to_stripe_address($billing_address) {
@@ -1390,7 +1390,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	}
 
 	/**
-	 * Converts the Multisite Ultimate cart into Stripe Sub arguments.
+	 * Converts the Ultimate Multisite cart into Stripe Sub arguments.
 	 *
 	 * @since 2.0.0
 	 *
@@ -1487,7 +1487,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	}
 
 	/**
-	 * Converts the Stripe invoice line items into Multisite Ultimate line items.
+	 * Converts the Stripe invoice line items into Ultimate Multisite line items.
 	 *
 	 * @since 2.0.19
 	 *
@@ -1651,7 +1651,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				if ( ! empty($subscription->metadata) ) {
 					$customer_id = (int) $subscription->metadata['customer_id'];
 
-					// Legacy Multisite Ultimate uses user_id
+					// Legacy Ultimate Multisite uses user_id
 					$user_id = (int) $subscription->metadata['user_id'];
 
 					if (0 === $customer_id && 0 === $user_id) {
@@ -2058,7 +2058,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		}
 
 		/*
-		 * Set the Multisite Ultimate customer.
+		 * Set the Ultimate Multisite customer.
 		 */
 		$customer = $membership->get_customer();
 

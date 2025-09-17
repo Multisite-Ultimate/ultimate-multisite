@@ -346,7 +346,7 @@ class Toolkit {
 	}
 
 	/**
-	 * Manually enqueues query monitor and Multisite Ultimate styles.
+	 * Manually enqueues query monitor and Ultimate Multisite styles.
 	 *
 	 * @since 2.0.11
 	 *

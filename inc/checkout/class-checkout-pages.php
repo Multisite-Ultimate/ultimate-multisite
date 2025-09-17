@@ -107,8 +107,8 @@ class Checkout_Pages {
 
 	<div class="misc-pub-section misc-pub-section-last" style="margin-top: 12px; margin-bottom: 6px; display: flex; align-items: center;">
 		<label for="wu-compat-mode">
-				<span style="display: block; font-weight: 600; margin-bottom: 3px;"><?php esc_html_e('Multisite Ultimate Compatibility Mode', 'ultimate-multisite'); ?></span>
-				<small style="display: block; line-height: 1.8em;"><?php esc_html_e('Toggle this option on if Multisite Ultimate elements are not loading correctly or at all.', 'ultimate-multisite'); ?></small>
+				<span style="display: block; font-weight: 600; margin-bottom: 3px;"><?php esc_html_e('Ultimate Multisite Compatibility Mode', 'ultimate-multisite'); ?></span>
+				<small style="display: block; line-height: 1.8em;"><?php esc_html_e('Toggle this option on if Ultimate Multisite elements are not loading correctly or at all.', 'ultimate-multisite'); ?></small>
 		</label>
 		<div style="margin-left: 6px;">
 			<input id="wu-compat-mode" type="checkbox" value="1" <?php checked($value, true, true); ?> name="_wu_force_elements_loading" />
@@ -555,7 +555,7 @@ class Checkout_Pages {
 	}
 
 	/**
-	 * Returns the ID of the pages being used for each Multisite Ultimate purpose.
+	 * Returns the ID of the pages being used for each Ultimate Multisite purpose.
 	 *
 	 * @since 2.0.0
 	 * @return array
@@ -610,7 +610,7 @@ class Checkout_Pages {
 	}
 
 	/**
-	 * Tags the Multisite Ultimate pages on the main site.
+	 * Tags the Ultimate Multisite pages on the main site.
 	 *
 	 * @since 2.0.0
 	 *
@@ -625,11 +625,11 @@ class Checkout_Pages {
 		}
 
 		$labels = [
-			'register'       => __('Multisite Ultimate - Register Page', 'ultimate-multisite'),
-			'login'          => __('Multisite Ultimate - Login Page', 'ultimate-multisite'),
-			'block_frontend' => __('Multisite Ultimate - Site Blocked Page', 'ultimate-multisite'),
-			'update'         => __('Multisite Ultimate - Membership Update Page', 'ultimate-multisite'),
-			'new_site'       => __('Multisite Ultimate - New Site Page', 'ultimate-multisite'),
+			'register'       => __('Ultimate Multisite - Register Page', 'ultimate-multisite'),
+			'login'          => __('Ultimate Multisite - Login Page', 'ultimate-multisite'),
+			'block_frontend' => __('Ultimate Multisite - Site Blocked Page', 'ultimate-multisite'),
+			'update'         => __('Ultimate Multisite - Membership Update Page', 'ultimate-multisite'),
+			'new_site'       => __('Ultimate Multisite - New Site Page', 'ultimate-multisite'),
 		];
 
 		$pages = array_map('absint', $this->get_signup_pages());

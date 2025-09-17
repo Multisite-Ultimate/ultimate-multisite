@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -16,7 +16,7 @@ use WP_Ultimo\Models\Domain;
 use WP_Ultimo\Database\Domains\Domain_Stage;
 
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  */
 class Domain_List_Admin_Page extends List_Admin_Page {
 
@@ -93,7 +93,7 @@ class Domain_List_Admin_Page extends List_Admin_Page {
 		);
 
 		// translators: %s is the URL to the add-on.
-		$note_desc = sprintf(__('To activate this feature you need to install the <a href="%s" target="_blank" class="wu-no-underline">Multisite Ultimate: Domain Seller</a> add-on.', 'ultimate-multisite'), $addon_url);
+		$note_desc = sprintf(__('To activate this feature you need to install the <a href="%s" target="_blank" class="wu-no-underline">Ultimate Multisite: Domain Seller</a> add-on.', 'ultimate-multisite'), $addon_url);
 
 		$fields = [
 			'type'                   => [
@@ -135,7 +135,7 @@ class Domain_List_Admin_Page extends List_Admin_Page {
 				'type'        => 'select',
 				'title'       => __('Stage', 'ultimate-multisite'),
 				'placeholder' => __('Select Stage', 'ultimate-multisite'),
-				'desc'        => __('The stage in the domain check lifecycle. Leave "Checking DNS" to have the domain go through Multisite Ultimate\'s automated tests.', 'ultimate-multisite'),
+				'desc'        => __('The stage in the domain check lifecycle. Leave "Checking DNS" to have the domain go through Ultimate Multisite\'s automated tests.', 'ultimate-multisite'),
 				'options'     => Domain_Stage::to_array(),
 				'value'       => Domain_Stage::CHECKING_DNS,
 			],

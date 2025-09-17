@@ -231,7 +231,7 @@ class Whitelabel {
 			'hide_sites_menu',
 			[
 				'title'   => __('Hide Sites Admin Menu', 'ultimate-multisite'),
-				'desc'    => __('We recommend that you manage all of your sites using the Multisite Ultimate &rarr; Sites page. To avoid confusion, you can hide the default "Sites" item from the WordPress admin menu by toggling this option.', 'ultimate-multisite'),
+				'desc'    => __('We recommend that you manage all of your sites using the Ultimate Multisite &rarr; Sites page. To avoid confusion, you can hide the default "Sites" item from the WordPress admin menu by toggling this option.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]

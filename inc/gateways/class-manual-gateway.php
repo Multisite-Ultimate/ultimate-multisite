@@ -6,7 +6,7 @@
  * It doesn't do anything with the payments,
  * as they need to be manually approved by the super admin
  * but it serves as a good example of how
- * to implement a custom gateway for Multisite Ultimate.
+ * to implement a custom gateway for Ultimate Multisite.
  *
  * @package WP_Ultimo
  * @subpackage Gateways
@@ -212,7 +212,7 @@ class Manual_Gateway extends Base_Gateway {
 		 *
 		 * If you wish to stop the process at any point
 		 * due to some error, API failure or such,
-		 * simply throw a exception and Multisite Ultimate will
+		 * simply throw a exception and Ultimate Multisite will
 		 * catch it and rollback any changes.
 		 */
 		if ('new' === $type) {
@@ -273,7 +273,7 @@ class Manual_Gateway extends Base_Gateway {
 		 * for a possible wp_error.
 		 *
 		 * If that happens, we need to throw an exception
-		 * Multisite Ultimate will capture that exception and
+		 * Ultimate Multisite will capture that exception and
 		 * rollback database changes for us,
 		 * to avoid problems with data integrity.
 		 *
@@ -298,7 +298,7 @@ class Manual_Gateway extends Base_Gateway {
 		/*
 		 * You don't need to return anything,
 		 * but if you return false from this method,
-		 * Multisite Ultimate will assume that you want to handle redirection
+		 * Ultimate Multisite will assume that you want to handle redirection
 		 * and such by yourself.
 		 *
 		 * This can be useful for some gateways that require

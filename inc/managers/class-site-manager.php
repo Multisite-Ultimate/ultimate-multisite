@@ -387,7 +387,7 @@ class Site_Manager extends Base_Manager {
 	}
 
 	/**
-	 * Add the additional sizes required by Multisite Ultimate.
+	 * Add the additional sizes required by Ultimate Multisite.
 	 *
 	 * Add for the main site only.
 	 *
@@ -411,7 +411,7 @@ class Site_Manager extends Base_Manager {
 	public function add_no_index_warning(): void {
 
 		if (wu_get_setting('stop_template_indexing', false)) {
-			add_meta_box('wu-warnings', __('Multisite Ultimate - Search Engines', 'ultimate-multisite'), [$this, 'render_no_index_warning'], 'dashboard-network', 'normal', 'high');
+			add_meta_box('wu-warnings', __('Ultimate Multisite - Search Engines', 'ultimate-multisite'), [$this, 'render_no_index_warning'], 'dashboard-network', 'normal', 'high');
 		}
 	}
 
@@ -428,7 +428,7 @@ class Site_Manager extends Base_Manager {
 
 			<div class="wu-border-l-4 wu-border-yellow-500 wu-border-solid wu-border-0 wu-px-4 wu-py-2 wu--m-3">
 
-				<p><?php echo wp_kses_post(__('Your Multisite Ultimate settings are configured to <strong>prevent search engines such as Google from indexing your template sites</strong>.', 'ultimate-multisite')); ?></p>
+				<p><?php echo wp_kses_post(__('Your Ultimate Multisite settings are configured to <strong>prevent search engines such as Google from indexing your template sites</strong>.', 'ultimate-multisite')); ?></p>
 
 				<?php // translators: %s: link to the settings page ?>
 				<p><?php echo wp_kses_post(sprintf(__('If you are experiencing negative SEO impacts on other sites in your network, consider disabling this setting <a href="%s">here</a>.', 'ultimate-multisite'), wu_network_admin_url('wp-ultimo-settings', ['tab' => 'sites']))); ?></p>
@@ -521,14 +521,14 @@ class Site_Manager extends Base_Manager {
 	}
 
 	/**
-	 * Add notices to default site page, recommending the Multisite Ultimate option.
+	 * Add notices to default site page, recommending the Ultimate Multisite option.
 	 *
 	 * @since 2.0.0
 	 * @return void
 	 */
 	public function add_notices_to_default_site_page(): void {
 
-		$notice = __('Hey there! We highly recommend managing your network sites using the Multisite Ultimate &rarr; Sites page. <br>If you want to avoid confusion, you can also hide this page from the admin panel completely on the Multisite Ultimate &rarr; Settings &rarr; Whitelabel options.', 'ultimate-multisite');
+		$notice = __('Hey there! We highly recommend managing your network sites using the Ultimate Multisite &rarr; Sites page. <br>If you want to avoid confusion, you can also hide this page from the admin panel completely on the Ultimate Multisite &rarr; Settings &rarr; Whitelabel options.', 'ultimate-multisite');
 
 		WP_Ultimo()->notices->add(
 			$notice,
@@ -537,7 +537,7 @@ class Site_Manager extends Base_Manager {
 			'wu-sites-use-wp-ultimo',
 			[
 				[
-					'title' => __('Go to the Multisite Ultimate Sites page &rarr;', 'ultimate-multisite'),
+					'title' => __('Go to the Ultimate Multisite Sites page &rarr;', 'ultimate-multisite'),
 					'url'   => wu_network_admin_url('wp-ultimo-sites'),
 				],
 				[

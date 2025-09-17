@@ -47,7 +47,7 @@ class Documentation {
 
 		$links = [];
 
-		// Multisite Ultimate Dashboard
+		// Ultimate Multisite Dashboard
 		$links['wp-ultimo'] = 'https://github.com/superdav42/wp-multisite-waas/wiki';
 
 		// Settings Page

@@ -10,7 +10,7 @@
 defined('ABSPATH') || exit;
 
 /**
- * Get all the currencies we use in Multisite Ultimate
+ * Get all the currencies we use in Ultimate Multisite
  *
  * @return array Return the currencies array.
  */
@@ -401,7 +401,7 @@ function wu_format_currency($value, $currency = null, $format = null, $thousands
 }
 
 /**
- * Determines if Multisite Ultimate is using a zero-decimal currency.
+ * Determines if Ultimate Multisite is using a zero-decimal currency.
  *
  * @param  string $currency The currency code to check.
  *

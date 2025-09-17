@@ -2,7 +2,7 @@
 /**
  * Gutenberg Support
  *
- * Allows Multisite Ultimate to filter Gutenberg thingys.
+ * Allows Ultimate Multisite to filter Gutenberg thingys.
  *
  * @since       1.9.14
  * @author      Arindo Duque

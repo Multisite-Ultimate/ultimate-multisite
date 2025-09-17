@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate About Admin Page.
+ * Ultimate Multisite About Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\Tax\Tax;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate About Admin Page.
+ * Ultimate Multisite About Admin Page.
  */
 class Tax_Rates_Admin_Page extends Base_Admin_Page {
 

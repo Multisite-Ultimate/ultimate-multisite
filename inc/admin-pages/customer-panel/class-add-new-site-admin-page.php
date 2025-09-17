@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Add New Site Admin Page.
+ * Ultimate Multisite Add New Site Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Admin_Pages\Base_Customer_Facing_Admin_Page;
 
 /**
- * Multisite Ultimate Add New Site Admin Page.
+ * Ultimate Multisite Add New Site Admin Page.
  */
 class Add_New_Site_Admin_Page extends Base_Customer_Facing_Admin_Page {
 

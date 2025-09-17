@@ -811,7 +811,7 @@ class Limitation_Manager {
 	}
 
 	/**
-	 * Returns a list of all plugins available as options, excluding Multisite Ultimate.
+	 * Returns a list of all plugins available as options, excluding Ultimate Multisite.
 	 *
 	 * We also exclude a couple more.
 	 *
@@ -854,7 +854,7 @@ class Limitation_Manager {
 	/**
 	 * Returns the exclusion list for plugins.
 	 *
-	 * We don't want people forcing Multisite Ultimate to be deactivated, do we?
+	 * We don't want people forcing Ultimate Multisite to be deactivated, do we?
 	 *
 	 * @since 2.0.0
 	 * @return array

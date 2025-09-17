@@ -425,7 +425,7 @@ class WU_Multi_Network {
  * There is plans to re-add something like this in the future.
  * For now, this is deprecated and declaring it have no side-effects.
  * This class is here to prevent fatal errors when plugin developers
- * used it on their Multisite Ultimate extensions.
+ * used it on their Ultimate Multisite extensions.
  *
  * @deprecated 2.0.0
  */

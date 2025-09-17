@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Customer Edit/Add New Admin Page.
+ * Ultimate Multisite Customer Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Database\Memberships\Membership_Status;
 
 /**
- * Multisite Ultimate Customer Edit/Add New Admin Page.
+ * Ultimate Multisite Customer Edit/Add New Admin Page.
  */
 class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
@@ -531,7 +531,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 				'title'           => __('Display unset fields', 'ultimate-multisite'),
 				'desc'            => __(
 					'If fields were added after the customer creation or onto a different form, they will not have a set value for this customer. You can manually set those here.',
-					'multisite-ultimate'
+					'ultimate-multisite'
 				),
 				'type'            => 'toggle',
 				'wrapper_classes' => 'wu-bg-gray-100',
@@ -702,7 +702,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						'type'          => 'text-edit',
 						'value'         => $this->edit ? $this->get_object()->get_last_login(false) : __(
 							'No date',
-							'multisite-ultimate'
+							'ultimate-multisite'
 						),
 						'display_value' => $this->edit ? $this->get_object()->get_last_login(false) : false,
 					],
@@ -755,7 +755,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						],
 						'custom_meta'  => [
 							'title'  => __('Custom Meta', 'ultimate-multisite'),
-							'desc'   => __('Custom data collected via Multisite Ultimate forms.', 'ultimate-multisite'),
+							'desc'   => __('Custom data collected via Ultimate Multisite forms.', 'ultimate-multisite'),
 							'icon'   => 'dashicons-wu-database wu-pt-px',
 							'fields' => $this->generate_customer_meta_fields(),
 							'state'  => [
@@ -858,7 +858,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						'type'              => 'note',
 						'desc'              => __(
 							'Changing the user will transfer the customer and all its assets to the new user.',
-							'multisite-ultimate'
+							'ultimate-multisite'
 						),
 						'classes'           => 'wu-p-2 wu-bg-red-100 wu-text-red-600 wu-rounded wu-w-full',
 						'wrapper_html_attr' => [
@@ -872,7 +872,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						'placeholder'       => __('Select Status', 'ultimate-multisite'),
 						'desc'              => __(
 							'The email verification status. This gets automatically switched to Verified when the customer verifies their email address.',
-							'multisite-ultimate'
+							'ultimate-multisite'
 						),
 						'options'           => [
 							'none'     => __('None', 'ultimate-multisite'),
@@ -893,7 +893,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						'title'             => __('Activate Memberships', 'ultimate-multisite'),
 						'desc'              => __(
 							'If you toggle this option, this change in status will also activate the related pending memberships. If any sites are pending, they are also going to be published automatically.',
-							'multisite-ultimate'
+							'ultimate-multisite'
 						),
 						'value'             => 0,
 						'wrapper_html_attr' => [
@@ -958,7 +958,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						'date'          => true,
 						'value'         => $this->edit ? $this->get_object()->get_last_login(false) : __(
 							'No date',
-							'multisite-ultimate'
+							'ultimate-multisite'
 						),
 						'display_value' => $this->edit ? $this->get_object()->get_last_login(false) : false,
 						'placeholder'   => '2020-04-04 12:00:00',

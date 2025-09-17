@@ -165,7 +165,7 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 			],
 			'WU_CLOUDWAYS_EXTRA_DOMAINS' => [
 				'title'       => __('Cloudways Extra Domains', 'ultimate-multisite'),
-				'tooltip'     => __('The Cloudways API is a bit strange in that it doesn’t offer a way to add or remove just one domain, only a way to update the whole domain list. That means that Multisite Ultimate will replace all domains you might have there with the list of mapped domains of the network every time a new domain is added.', 'ultimate-multisite'),
+				'tooltip'     => __('The Cloudways API is a bit strange in that it doesn’t offer a way to add or remove just one domain, only a way to update the whole domain list. That means that Ultimate Multisite will replace all domains you might have there with the list of mapped domains of the network every time a new domain is added.', 'ultimate-multisite'),
 				'desc'        => __('Comma-separated list of additional domains to add to Cloudways.', 'ultimate-multisite'),
 				'placeholder' => __('e.g. *.test.com, test.com', 'ultimate-multisite'),
 			],

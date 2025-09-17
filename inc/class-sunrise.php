@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate activation and deactivation hooks
+ * Ultimate Multisite activation and deactivation hooks
  *
  * @package WP_Ultimo
  * @subpackage Sunrise
@@ -15,7 +15,7 @@ use Psr\Log\LogLevel;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate activation and deactivation hooks
+ * Ultimate Multisite activation and deactivation hooks
  *
  * @since 2.0.0
  */
@@ -209,7 +209,7 @@ class Sunrise {
 			\WP_Ultimo\Limits\Theme_Limits::get_instance();
 
 			/**
-			 * Define the Multisite Ultimate main debug constant.
+			 * Define the Ultimate Multisite main debug constant.
 			 */
 			! defined('WP_ULTIMO_DEBUG') && define('WP_ULTIMO_DEBUG', false);
 
@@ -223,7 +223,7 @@ class Sunrise {
 					wu_save_setting_early('security_mode', false);
 				} else {
 					/**
-					 *  Disable all plugins except Multisite Ultimate
+					 *  Disable all plugins except Ultimate Multisite
 					 */
 					add_filter('option_active_plugins', fn() => []);
 
@@ -327,7 +327,7 @@ class Sunrise {
 	 * Method for imputing Sunrise data at wp-ultimo-system-info table.
 	 *
 	 * @since 2.0.11
-	 * @param array $sys_info Array containing Multisite Ultimate installation info.
+	 * @param array $sys_info Array containing Ultimate Multisite installation info.
 	 * @return array Returns the array, modified with the sunrise data.
 	 */
 	public static function system_info($sys_info) {

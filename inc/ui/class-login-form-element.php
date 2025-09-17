@@ -311,7 +311,7 @@ class Login_Form_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Billing_Address',
 	 *  'Form',
 	 *  'Cart',
@@ -324,7 +324,7 @@ class Login_Form_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'Login',
 			'Reset Password',
 		];

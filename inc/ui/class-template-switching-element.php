@@ -186,7 +186,7 @@ class Template_Switching_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'Template',
 			'Template Switching',
 		];

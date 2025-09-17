@@ -184,7 +184,7 @@ class Billing_Info_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Billing Information',
 	 *  'Form',
 	 *  'Cart',
@@ -197,7 +197,7 @@ class Billing_Info_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'Billing Information',
 			'Form',
 			'Cart',

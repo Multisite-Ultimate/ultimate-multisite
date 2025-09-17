@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate 1.X to 2.X migrator.
+ * Ultimate Multisite 1.X to 2.X migrator.
  *
  * @package WP_Ultimo
  * @subpackage Installers
@@ -32,7 +32,7 @@ defined('ABSPATH') || exit;
 // phpcs:disable WordPress.DB.DirectDatabaseQuery
 
 /**
- * Multisite Ultimate 1.X to 2.X migrator.
+ * Ultimate Multisite 1.X to 2.X migrator.
  *
  * @since 2.0.0
  */
@@ -569,7 +569,7 @@ class Migrator extends Base_Installer {
 	 * @since 2.0.7
 	 *
 	 * @param \Throwable|null $e The exception thrown.
-	 * @param Session         $session THe Multisite Ultimate session object.
+	 * @param Session         $session THe Ultimate Multisite session object.
 	 * @param boolean         $dry_run If we are on a dry run or not.
 	 * @param string          $installer The name of the installer.
 	 * @return WP_Error

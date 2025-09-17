@@ -66,7 +66,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Displays the content of a given WordPress shortcode. Can be useful to inset content from other plugins inside a Multisite Ultimate checkout form.', 'ultimate-multisite');
+		return __('Displays the content of a given WordPress shortcode. Can be useful to inset content from other plugins inside a Ultimate Multisite checkout form.', 'ultimate-multisite');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Displays the content of a given WordPress shortcode. Can be useful to insert content from other plugins inside a Multisite Ultimate checkout form.', 'ultimate-multisite');
+		return __('Displays the content of a given WordPress shortcode. Can be useful to insert content from other plugins inside a Ultimate Multisite checkout form.', 'ultimate-multisite');
 	}
 
 	/**

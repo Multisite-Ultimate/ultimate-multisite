@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Dashboard Widgets
+ * Ultimate Multisite Dashboard Widgets
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -15,7 +15,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Dashboard Widgets
+ * Ultimate Multisite Dashboard Widgets
  *
  * @since 2.0.0
  */
@@ -87,11 +87,11 @@ class Dashboard_Widgets {
 	 */
 	public function register_network_widgets(): void {
 
-		add_meta_box('wp-ultimo-setup', __('Multisite Ultimate - First Steps', 'ultimate-multisite'), [$this, 'output_widget_first_steps'], $this->screen_id, 'normal', 'high');
+		add_meta_box('wp-ultimo-setup', __('Ultimate Multisite - First Steps', 'ultimate-multisite'), [$this, 'output_widget_first_steps'], $this->screen_id, 'normal', 'high');
 
-		add_meta_box('wp-ultimo-summary', __('Multisite Ultimate - Summary', 'ultimate-multisite'), [$this, 'output_widget_summary'], $this->screen_id, 'normal', 'high');
+		add_meta_box('wp-ultimo-summary', __('Ultimate Multisite - Summary', 'ultimate-multisite'), [$this, 'output_widget_summary'], $this->screen_id, 'normal', 'high');
 
-		add_meta_box('wp-ultimo-activity-stream', __('Multisite Ultimate - Activity Stream', 'ultimate-multisite'), [$this, 'output_widget_activity_stream'], $this->screen_id, 'normal', 'high');
+		add_meta_box('wp-ultimo-activity-stream', __('Ultimate Multisite - Activity Stream', 'ultimate-multisite'), [$this, 'output_widget_activity_stream'], $this->screen_id, 'normal', 'high');
 
 		\WP_Ultimo\UI\Tours::get_instance()->create_tour(
 			'dashboard',
@@ -101,7 +101,7 @@ class Dashboard_Widgets {
 					'title' => __('Welcome!', 'ultimate-multisite'),
 					'text'  => [
 						__('Welcome to your new network dashboard!', 'ultimate-multisite'),
-						__('You will notice that <strong>Multisite Ultimate</strong> adds a couple of useful widgets here so you can keep an eye on how your network is doing.', 'ultimate-multisite'),
+						__('You will notice that <strong>Ultimate Multisite</strong> adds a couple of useful widgets here so you can keep an eye on how your network is doing.', 'ultimate-multisite'),
 					],
 				],
 				[
@@ -119,7 +119,7 @@ class Dashboard_Widgets {
 					'id'       => 'wp-ultimo-menu',
 					'title'    => __('Our home', 'ultimate-multisite'),
 					'text'     => [
-						__('You can always find Multisite Ultimate settings and other pages under our menu item, here on the Network-level dashboard. 😃', 'ultimate-multisite'),
+						__('You can always find Ultimate Multisite settings and other pages under our menu item, here on the Network-level dashboard. 😃', 'ultimate-multisite'),
 					],
 					'attachTo' => [
 						'element' => '.toplevel_page_wp-ultimo',

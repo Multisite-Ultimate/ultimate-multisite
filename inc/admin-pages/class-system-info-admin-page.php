@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate System Info Admin Page.
+ * Ultimate Multisite System Info Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\Logger;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate System Info Admin Page.
+ * Ultimate Multisite System Info Admin Page.
  */
 class System_Info_Admin_Page extends Base_Admin_Page {
 
@@ -314,8 +314,8 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 			[
 				'WordPress and System Settings'      => [
 					'wp-ultimo-version'      => [
-						'tooltip' => 'Multisite Ultimate current version installed locally',
-						'title'   => 'Multisite Ultimate Version',
+						'tooltip' => 'Ultimate Multisite current version installed locally',
+						'title'   => 'Ultimate Multisite Version',
 						'value'   => wu_get_version(),
 					],
 					'wordpress-version'      => [
@@ -536,9 +536,9 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 				'Active Plugins'                     => $array_active_plugins,
 				'Active Plugins on Main Site'        => $array_active_plugins_main_site,
 
-				'Multisite Ultimate Database Status' => $array_wu_tables,
+				'Ultimate Multisite Database Status' => $array_wu_tables,
 
-				'Multisite Ultimate Core Settings'   => array_merge(
+				'Ultimate Multisite Core Settings'   => array_merge(
 					[
 						'logs-directory' => [
 							'tooltip' => '',
@@ -712,7 +712,7 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 	}
 
 	/**
-	 * Return all the desired Multisite Ultimate Settings
+	 * Return all the desired Ultimate Multisite Settings
 	 *
 	 * @since 1.1.5
 	 * @return array

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Product Edit/Add New Admin Page.
+ * Ultimate Multisite Product Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -16,7 +16,7 @@ use WP_Ultimo\Models\Product;
 use WP_Ultimo\Database\Products\Product_Type;
 
 /**
- * Multisite Ultimate Product Edit/Add New Admin Page.
+ * Ultimate Multisite Product Edit/Add New Admin Page.
  */
 class Product_Edit_Admin_Page extends Edit_Admin_Page {
 
@@ -118,7 +118,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 						'id'       => 'new-product-warning',
 						'title'    => __('On adding a new product...', 'ultimate-multisite'),
 						'text'     => [
-							__("You just successfully added a new product to your Multisite Ultimate network and that's awesome!", 'ultimate-multisite'),
+							__("You just successfully added a new product to your Ultimate Multisite network and that's awesome!", 'ultimate-multisite'),
 							__('Keep in mind that newly created products do not appear automatically in your checkout forms.', 'ultimate-multisite'),
 							__('To make a product available on registration, you will need to manually add it to the pricing table field of your checkout forms.', 'ultimate-multisite'),
 						],
@@ -653,7 +653,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'modules[customer_user_role][limit]' => [
 						'title'             => __('Customer Role', 'ultimate-multisite'),
-						'desc'              => __('Select the role Multisite Ultimate should use when adding the user to their newly created site.', 'ultimate-multisite'),
+						'desc'              => __('Select the role Ultimate Multisite should use when adding the user to their newly created site.', 'ultimate-multisite'),
 						'type'              => 'select',
 						'value'             => $this->get_object()->get_customer_role(),
 						'default'           => 'administrator',

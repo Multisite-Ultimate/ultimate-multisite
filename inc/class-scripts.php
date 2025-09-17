@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate helper class to handle global registering of scripts and styles.
+ * Ultimate Multisite helper class to handle global registering of scripts and styles.
  *
  * @package WP_Ultimo
  * @subpackage Scripts
@@ -13,7 +13,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate helper class to handle global registering of scripts and styles.
+ * Ultimate Multisite helper class to handle global registering of scripts and styles.
  *
  * @since 2.0.0
  */
@@ -99,7 +99,7 @@ class Scripts {
 	}
 
 	/**
-	 * Registers the default Multisite Ultimate scripts.
+	 * Registers the default Ultimate Multisite scripts.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -291,7 +291,7 @@ class Scripts {
 			[
 				'LT'   => $time_format,
 				'LTS'  => str_replace(':i', ':i:s', (string) $time_format),
-				/* translators: the day/month/year date format used by Multisite Ultimate. You can changed it to localize this date format to your language. the default value is d/m/Y, which is the format 31/12/2021. */
+				/* translators: the day/month/year date format used by Ultimate Multisite. You can changed it to localize this date format to your language. the default value is d/m/Y, which is the format 31/12/2021. */
 				'L'    => __('d/m/Y', 'ultimate-multisite'),
 				'LL'   => $date_format,
 				'LLL'  => sprintf('%s %s', $date_format, $time_format),
@@ -336,7 +336,7 @@ class Scripts {
 	}
 
 	/**
-	 * Registers the default Multisite Ultimate styles.
+	 * Registers the default Ultimate Multisite styles.
 	 *
 	 * @since 2.0.0
 	 * @return void

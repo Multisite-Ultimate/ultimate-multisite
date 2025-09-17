@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Shortcodes Admin Page.
+ * Ultimate Multisite Shortcodes Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\UI\Base_Element;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Shortcodes Admin Page.
+ * Ultimate Multisite Shortcodes Admin Page.
  */
 class Shortcodes_Admin_Page extends Base_Admin_Page {
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Tax Class.
+ * Ultimate Multisite Tax Class.
  *
  * @package WP_Ultimo
  * @subpackage Tax
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Tax;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Tax Class.
+ * Ultimate Multisite Tax Class.
  *
  * @since 2.0.0
  */
@@ -124,7 +124,7 @@ class Tax {
 			'inclusive_tax',
 			[
 				'title'   => __('Inclusive Tax', 'ultimate-multisite'),
-				'desc'    => __('Enable this option if your prices include taxes. In that case, Multisite Ultimate will calculate the included tax instead of adding taxes to the price.', 'ultimate-multisite'),
+				'desc'    => __('Enable this option if your prices include taxes. In that case, Ultimate Multisite will calculate the included tax instead of adding taxes to the price.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 				'require' => [

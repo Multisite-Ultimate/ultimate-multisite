@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles Domain Mapping in Multisite Ultimate.
+ * Handles Domain Mapping in Ultimate Multisite.
  *
  * @package WP_Ultimo
  * @subpackage Domain_Mapping
@@ -15,7 +15,7 @@ use WP_Ultimo\Models\Domain;
 defined('ABSPATH') || exit;
 
 /**
- * Handles Domain Mapping in Multisite Ultimate.
+ * Handles Domain Mapping in Ultimate Multisite.
  *
  * @since 2.0.0
  */

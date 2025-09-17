@@ -2,7 +2,7 @@
 /**
  * Legacy Shortcodes
  *
- * Handles Multisite Ultimate 1.X Legacy Shortcodes
+ * Handles Ultimate Multisite 1.X Legacy Shortcodes
  *
  * @package WP_Ultimo
  * @subpackage Compat
@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Database\Memberships\Membership_Status;
 
 /**
- * Handles Multisite Ultimate 1.X Legacy Shortcodes
+ * Handles Ultimate Multisite 1.X Legacy Shortcodes
  *
  * @since 2.0.0
  */

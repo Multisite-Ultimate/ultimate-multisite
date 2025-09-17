@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate faker
+ * Ultimate Multisite faker
  *
  * @package WP_Ultimo
  * @subpackage Helper
@@ -18,7 +18,7 @@ use WP_Ultimo\Models\Product;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate faker
+ * Ultimate Multisite faker
  *
  * @since 2.0.0
  */

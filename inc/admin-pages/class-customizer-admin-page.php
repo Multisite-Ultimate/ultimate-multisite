@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Customize/Add New Template Previewer Page.
+ * Ultimate Multisite Customize/Add New Template Previewer Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Template Previewer Customize/Add New Admin Page.
+ * Ultimate Multisite Template Previewer Customize/Add New Admin Page.
  */
 abstract class Customizer_Admin_Page extends Edit_Admin_Page {
 

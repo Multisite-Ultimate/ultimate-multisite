@@ -1,6 +1,6 @@
 <?php
 /**
- * The Multisite Ultimate Overview QM Panel
+ * The Ultimate Multisite Overview QM Panel
  *
  * @package WP_Ultimo
  * @subpackage Development\Query_Monitor\Panel
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Development\Query_Monitor\Panel;
 defined('ABSPATH') || exit;
 
 /**
- * The Multisite Ultimate Overview QM Panel
+ * The Ultimate Multisite Overview QM Panel
  *
  * @since 2.0.11
  */
@@ -43,7 +43,7 @@ class Overview extends \QM_Output_Html {
 	 */
 	public function name() {
 
-		return __('Multisite Ultimate', 'ultimate-multisite');
+		return __('Ultimate Multisite', 'ultimate-multisite');
 	}
 
 	/**
@@ -105,7 +105,7 @@ class Overview extends \QM_Output_Html {
 		$new_menu = [
 			'wp-ultimo' => $this->menu(
 				[
-					'title' => esc_html__('Multisite Ultimate', 'ultimate-multisite'),
+					'title' => esc_html__('Ultimate Multisite', 'ultimate-multisite'),
 					'id'    => 'wp-ultimo',
 				]
 			),

@@ -4,7 +4,7 @@
  *
  * Abstract class that makes it easy to create new admin pages.
  *
- * Most of Multisite Ultimate pages are implemented using this class, which means that the filters and hooks
+ * Most of Ultimate Multisite pages are implemented using this class, which means that the filters and hooks
  * listed below can be used to append content to all of our pages at once.
  *
  * @package WP_Ultimo
@@ -214,7 +214,7 @@ abstract class List_Admin_Page extends Base_Admin_Page {
 	}
 
 	/**
-	 * Dumb function. Child classes need to implement this to set the table that Multisite Ultimate will use
+	 * Dumb function. Child classes need to implement this to set the table that Ultimate Multisite will use
 	 *
 	 * @since 1.8.2
 	 * @return WP_List_Table

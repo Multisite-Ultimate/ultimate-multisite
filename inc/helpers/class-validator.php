@@ -1,6 +1,6 @@
 <?php
 /**
- * Wraps the validation library being used by Multisite Ultimate.
+ * Wraps the validation library being used by Ultimate Multisite.
  *
  * @package WP_Ultimo
  * @subpackage Helper
@@ -26,7 +26,7 @@ use WP_Ultimo\Helpers\Validation_Rules\City;
 defined('ABSPATH') || exit;
 
 /**
- * Wraps the validation library being used by Multisite Ultimate.
+ * Wraps the validation library being used by Ultimate Multisite.
  *
  * @since 2.0.0
  */

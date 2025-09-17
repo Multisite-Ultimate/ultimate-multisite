@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate My_Account Admin Page.
+ * Ultimate Multisite My_Account Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Admin_Pages\Base_Customer_Facing_Admin_Page;
 
 /**
- * Multisite Ultimate My_Account Admin Page.
+ * Ultimate Multisite My_Account Admin Page.
  */
 class Account_Admin_Page extends Base_Customer_Facing_Admin_Page {
 

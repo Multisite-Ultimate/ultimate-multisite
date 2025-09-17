@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate main class.
+ * Ultimate Multisite main class.
  *
  * @package WP_Ultimo
  * @since 2.0.0
@@ -12,7 +12,7 @@ use WP_Ultimo\Addon_Repository;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate main class
+ * Ultimate Multisite main class
  *
  * This class instantiates our dependencies and loads the things
  * our plugin needs to run.
@@ -42,16 +42,16 @@ final class WP_Ultimo {
 	public $version = self::VERSION;
 
 	/**
-	 * Tables registered by Multisite Ultimate.
+	 * Tables registered by Ultimate Multisite.
 	 *
 	 * @var array
 	 */
 	public $tables = [];
 
 	/**
-	 * Checks if Multisite Ultimate was loaded or not.
+	 * Checks if Ultimate Multisite was loaded or not.
 	 *
-	 * This is set to true when all the Multisite Ultimate requirements are met.
+	 * This is set to true when all the Ultimate Multisite requirements are met.
 	 *
 	 * @since 2.0.0
 	 * @var boolean
@@ -141,14 +141,14 @@ final class WP_Ultimo {
 		new WP_Ultimo\Admin_Pages\Setup_Wizard_Admin_Page();
 
 		/*
-		 * Loads the Multisite Ultimate settings helper class.
+		 * Loads the Ultimate Multisite settings helper class.
 		 */
 		$this->settings = WP_Ultimo\Settings::get_instance();
 
 		WP_Ultimo\Newsletter::get_instance();
 
 		/*
-		 * Check if the Multisite Ultimate requirements are present.
+		 * Check if the Ultimate Multisite requirements are present.
 		 *
 		 * Everything we need to run our setup install needs top be loaded before this
 		 * and have no dependencies outside of the classes loaded so far.
@@ -165,12 +165,12 @@ final class WP_Ultimo {
 		$this->currents = WP_Ultimo\Current::get_instance();
 
 		/*
-		 * Loads the Multisite Ultimate admin notices helper class.
+		 * Loads the Ultimate Multisite admin notices helper class.
 		 */
 		$this->notices = WP_Ultimo\Admin_Notices::get_instance();
 
 		/*
-		 * Loads the Multisite Ultimate scripts handler
+		 * Loads the Ultimate Multisite scripts handler
 		 */
 		$this->scripts = WP_Ultimo\Scripts::get_instance();
 
@@ -249,7 +249,7 @@ final class WP_Ultimo {
 	 * Loads public apis that should be on the global scope
 	 *
 	 * This method is responsible for loading and exposing public apis that
-	 * plugin developers will use when creating extensions for Multisite Ultimate.
+	 * plugin developers will use when creating extensions for Ultimate Multisite.
 	 * Things like render functions, helper methods, etc.
 	 *
 	 * @since 2.0.0
@@ -358,7 +358,7 @@ final class WP_Ultimo {
 		 * Checkout and Registration.
 		 *
 		 * Loads functions that interact with the checkout
-		 * and the registration elements of Multisite Ultimate.
+		 * and the registration elements of Ultimate Multisite.
 		 *
 		 * @see wu_is_registration_page()
 		 */
@@ -416,7 +416,7 @@ final class WP_Ultimo {
 	}
 
 	/**
-	 * Load extra the Multisite Ultimate elements
+	 * Load extra the Ultimate Multisite elements
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -599,8 +599,8 @@ final class WP_Ultimo {
 		/*
 		 * Adds support to multiple accounts.
 		 *
-		 * This used to be an add-on on Multisite Ultimate 1.X
-		 * Now it is native, but needs to be activated on Multisite Ultimate settings.
+		 * This used to be an add-on on Ultimate Multisite 1.X
+		 * Now it is native, but needs to be activated on Ultimate Multisite settings.
 		 */
 		\WP_Ultimo\Compat\Multiple_Accounts_Compat::get_instance();
 		\WP_Ultimo\Compat\Edit_Users_Compat::get_instance();
@@ -611,7 +611,7 @@ final class WP_Ultimo {
 		\WP_Ultimo\Dashboard_Widgets::get_instance();
 
 		/*
-		 *  Admin Themes Compatibility for Multisite Ultimate
+		 *  Admin Themes Compatibility for Ultimate Multisite
 		 */
 		\WP_Ultimo\Admin_Themes_Compatibility::get_instance();
 
@@ -622,7 +622,7 @@ final class WP_Ultimo {
 	}
 
 	/**
-	 * Load the Multisite Ultimate Admin Pages.
+	 * Load the Ultimate Multisite Admin Pages.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -783,7 +783,7 @@ final class WP_Ultimo {
 	}
 
 	/**
-	 * Load extra the Multisite Ultimate managers.
+	 * Load extra the Ultimate Multisite managers.
 	 *
 	 * @since 2.0.0
 	 * @return void

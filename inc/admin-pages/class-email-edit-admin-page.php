@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Email Edit/Add New Admin Page.
+ * Ultimate Multisite Email Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -16,7 +16,7 @@ use WP_Ultimo\Models\Email;
 use WP_Ultimo\Managers\Email_Manager;
 
 /**
- * Multisite Ultimate Email Edit/Add New Admin Page.
+ * Ultimate Multisite Email Edit/Add New Admin Page.
  */
 class Email_Edit_Admin_Page extends Edit_Admin_Page {
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Logger
+ * Ultimate Multisite Logger
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -18,7 +18,7 @@ use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
 
 /**
- * Multisite Ultimate Logger
+ * Ultimate Multisite Logger
  *
  * @since 2.0.0
  */

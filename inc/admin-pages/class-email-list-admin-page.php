@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Broadcast Admin Page.
+ * Ultimate Multisite Broadcast Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Broadcast Admin Page.
+ * Ultimate Multisite Broadcast Admin Page.
  */
 class Email_List_Admin_Page extends List_Admin_Page {
 
@@ -380,7 +380,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields['import_emails'] = [
 			'type'      => 'toggle',
 			'title'     => __('Import System Emails', 'ultimate-multisite'),
-			'desc'      => __('Add new system emails based on Multisite Ultimate presets.', 'ultimate-multisite'),
+			'desc'      => __('Add new system emails based on Ultimate Multisite presets.', 'ultimate-multisite'),
 			'tooltip'   => '',
 			'value'     => 0,
 			'html_attr' => [

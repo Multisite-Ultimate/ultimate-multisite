@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Customer Checkout Admin Page.
+ * Ultimate Multisite Customer Checkout Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages\Customer_Panel;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  */
 class Checkout_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer_Facing_Admin_Page {
 

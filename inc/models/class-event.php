@@ -50,7 +50,7 @@ class Event extends Base_Model {
 	/**
 	 * Initiator of this event.
 	 *
-	 * Events can be run by Multisite Ultimate, saved as 'system', or
+	 * Events can be run by Ultimate Multisite, saved as 'system', or
 	 * by people (admins, customers), saved as 'manual'.
 	 *
 	 * @since 2.0.0

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Switch Template Admin Page.
+ * Ultimate Multisite Switch Template Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages\Customer_Panel;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Switch Template Admin Page.
+ * Ultimate Multisite Switch Template Admin Page.
  */
 class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer_Facing_Admin_Page {
 

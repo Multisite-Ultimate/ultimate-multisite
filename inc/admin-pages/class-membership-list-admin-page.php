@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Membership Admin Page.
+ * Ultimate Multisite Membership Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -16,7 +16,7 @@ use WP_Ultimo\Models\Membership;
 use WP_Ultimo\Database\Memberships\Membership_Status;
 
 /**
- * Multisite Ultimate Membership Admin Page.
+ * Ultimate Multisite Membership Admin Page.
  */
 class Membership_List_Admin_Page extends List_Admin_Page {
 

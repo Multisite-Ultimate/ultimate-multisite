@@ -240,7 +240,7 @@ class Webhook_Manager extends Base_Manager {
 		$message = sprintf('Sent a %s event to the URL %s with data: %s ', $event_name, $url, wp_json_encode($data));
 
 		if ( ! $is_error) {
-			$message .= empty($response) ? sprintf('Got response: %s', $response) : 'To debug the remote server response, turn the "Wait for Response" option on the Multisite Ultimate Settings > API & Webhooks Tab';
+			$message .= empty($response) ? sprintf('Got response: %s', $response) : 'To debug the remote server response, turn the "Wait for Response" option on the Ultimate Multisite Settings > API & Webhooks Tab';
 		} else {
 			$message .= sprintf('Got error: %s', $response);
 		}

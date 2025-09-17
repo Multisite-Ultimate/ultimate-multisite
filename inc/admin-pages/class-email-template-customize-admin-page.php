@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Customize/Add New Email Template Page.
+ * Ultimate Multisite Customize/Add New Email Template Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Email Template Customize/Add New Admin Page.
+ * Ultimate Multisite Email Template Customize/Add New Admin Page.
  */
 class Email_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 

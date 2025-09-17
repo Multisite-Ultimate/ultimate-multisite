@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Product Admin Page.
+ * Ultimate Multisite Product Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Product Admin Page.
+ * Ultimate Multisite Product Admin Page.
  */
 class Product_List_Admin_Page extends List_Admin_Page {
 

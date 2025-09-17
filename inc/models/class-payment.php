@@ -1020,7 +1020,7 @@ class Payment extends Base_Model implements Notable {
 	 * An example of how that would work:
 	 * 1. Admin issues a refund on the admin panel;
 	 * 2. PayPal (for example), process the refund request
-	 *    and sends back a IPN (webhook call) telling Multisite Ultimate
+	 *    and sends back a IPN (webhook call) telling Ultimate Multisite
 	 *    that the refund was issued successfully;
 	 * 3. The IPN handler listens for that event and calls this
 	 *    to reflect the refund in the original WU payment.

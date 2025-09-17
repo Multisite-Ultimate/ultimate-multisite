@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Broadcast Edit/Add New Admin Page.
+ * Ultimate Multisite Broadcast Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Models\Broadcast;
 
 /**
- * Multisite Ultimate Broadcast Edit/Add New Admin Page.
+ * Ultimate Multisite Broadcast Edit/Add New Admin Page.
  */
 class Broadcast_Edit_Admin_Page extends Edit_Admin_Page {
 

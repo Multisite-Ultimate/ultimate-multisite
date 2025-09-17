@@ -783,7 +783,7 @@ class Checkout_Form extends Base_Model {
 	}
 
 	/**
-	 * Converts the steps from classic Multisite Ultimate 1.X to the 2.0 format.
+	 * Converts the steps from classic Ultimate Multisite 1.X to the 2.0 format.
 	 *
 	 * @since 2.0.0
 	 *

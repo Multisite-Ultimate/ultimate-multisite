@@ -482,7 +482,7 @@ class Domain_Manager extends Base_Manager {
 			'sso_header',
 			[
 				'title' => __('Single Sign-On Settings', 'ultimate-multisite'),
-				'desc'  => __('Settings to configure the Single Sign-On functionality of Multisite Ultimate, responsible for keeping customers and admins logged in across all network domains.', 'ultimate-multisite'),
+				'desc'  => __('Settings to configure the Single Sign-On functionality of Ultimate Multisite, responsible for keeping customers and admins logged in across all network domains.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);

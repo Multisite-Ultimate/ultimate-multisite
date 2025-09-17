@@ -229,7 +229,7 @@ class Email_Manager extends Base_Manager {
 			'from_name',
 			[
 				'title'       => __('"From" Name', 'ultimate-multisite'),
-				'desc'        => __('How the sender name will appear in emails sent by Multisite Ultimate.', 'ultimate-multisite'),
+				'desc'        => __('How the sender name will appear in emails sent by Ultimate Multisite.', 'ultimate-multisite'),
 				'type'        => 'text',
 				'placeholder' => get_network_option(null, 'site_name'),
 				'default'     => get_network_option(null, 'site_name'),
@@ -244,7 +244,7 @@ class Email_Manager extends Base_Manager {
 			'from_email',
 			[
 				'title'       => __('"From" E-mail', 'ultimate-multisite'),
-				'desc'        => __('How the sender email will appear in emails sent by Multisite Ultimate.', 'ultimate-multisite'),
+				'desc'        => __('How the sender email will appear in emails sent by Ultimate Multisite.', 'ultimate-multisite'),
 				'type'        => 'email',
 				'placeholder' => get_network_option(null, 'admin_email'),
 				'default'     => get_network_option(null, 'admin_email'),

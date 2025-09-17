@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Domain Edit/Add New Admin Page.
+ * Ultimate Multisite Domain Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Database\Domains\Domain_Stage;
 
 /**
- * Multisite Ultimate Domain Edit/Add New Admin Page.
+ * Ultimate Multisite Domain Edit/Add New Admin Page.
  */
 class Domain_Edit_Admin_Page extends Edit_Admin_Page {
 

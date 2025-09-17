@@ -4,7 +4,7 @@
  *
  * Adds the shortcuts menu to the admin bar.
  *
- * @category   Multisite Ultimate
+ * @category   Ultimate Multisite
  * @package    WP_Ultimo
  * @author     Gustavo Modesto <gustavo@wpultimo.com>
  * @since      2.0.0
@@ -36,7 +36,7 @@ class Top_Admin_Nav_Menu {
 	}
 
 	/**
-	 * Adds the Multisite Ultimate top-bar shortcut menu
+	 * Adds the Ultimate Multisite top-bar shortcut menu
 	 *
 	 * @since 1.1.0
 	 * @param \WP_Admin_Bar $wp_admin_bar The admin bar identifier.
@@ -52,7 +52,7 @@ class Top_Admin_Nav_Menu {
 		// Add Parent element
 		$parent = [
 			'id'    => 'wp-ultimo',
-			'title' => __('Multisite Waas', 'ultimate-multisite'),
+			'title' => __('Ultimate Multisite', 'ultimate-multisite'),
 			'href'  => current_user_can('wu_read_dashboard') ? network_admin_url('admin.php?page=wp-ultimo') : '#',
 			'meta'  => [
 				'class' => 'wp-ultimo-top-menu',

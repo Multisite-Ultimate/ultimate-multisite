@@ -24,7 +24,7 @@ class Default_Content_Installer extends Base_Installer {
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
-	 * Loads dependencies for when Multisite Ultimate is not yet loaded.
+	 * Loads dependencies for when Ultimate Multisite is not yet loaded.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -181,7 +181,7 @@ class Default_Content_Installer extends Base_Installer {
 		$steps['create_emails'] = [
 			'done'        => $this->done_creating_emails(),
 			'title'       => __('Create the System Emails', 'ultimate-multisite'),
-			'description' => __('This action will create all emails sent by Multisite Ultimate.', 'ultimate-multisite'),
+			'description' => __('This action will create all emails sent by Ultimate Multisite.', 'ultimate-multisite'),
 			'pending'     => __('Pending', 'ultimate-multisite'),
 			'installing'  => __('Creating System Emails...', 'ultimate-multisite'),
 			'success'     => __('Success!', 'ultimate-multisite'),

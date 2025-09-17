@@ -234,7 +234,7 @@ class Payment_List_Table_Widget extends Base_List_Table {
 	public function get_filters() {}
 
 	/**
-	 * Overrides the parent method to include the custom ajax functionality for Multisite Ultimate.
+	 * Overrides the parent method to include the custom ajax functionality for Ultimate Multisite.
 	 *
 	 * @since 2.0.0
 	 * @return void

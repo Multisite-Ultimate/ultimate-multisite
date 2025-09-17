@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate User_Switching
+ * Ultimate Multisite User_Switching
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -15,7 +15,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate User_Switching
+ * Ultimate Multisite User_Switching
  *
  * @since 2.0.0
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Customize/Add New Invoice Template Page.
+ * Ultimate Multisite Customize/Add New Invoice Template Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\Invoices\Invoice;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Invoice Template Customize/Add New Admin Page.
+ * Ultimate Multisite Invoice Template Customize/Add New Admin Page.
  */
 class Invoice_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 

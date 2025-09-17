@@ -13,7 +13,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Adds a lighter ajax option to Multisite Ultimate.
+ * Adds a lighter ajax option to Ultimate Multisite.
  *
  * @since 1.9.14
  */
@@ -137,7 +137,7 @@ class API {
 	public function add_settings(): void {
 		/*
 		 * API & Webhooks
-		 * This section holds the API settings of the Multisite Ultimate Plugin.
+		 * This section holds the API settings of the Ultimate Multisite Plugin.
 		 */
 		wu_register_settings_section(
 			'api',
@@ -154,7 +154,7 @@ class API {
 			'api_header',
 			[
 				'title' => __('API Settings', 'ultimate-multisite'),
-				'desc'  => __('Options related to Multisite Ultimate API endpoints.', 'ultimate-multisite'),
+				'desc'  => __('Options related to Ultimate Multisite API endpoints.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -164,7 +164,7 @@ class API {
 			'enable_api',
 			[
 				'title'   => __('Enable API', 'ultimate-multisite'),
-				'desc'    => __('Tick this box if you want Multisite Ultimate to add its own endpoints to the WordPress REST API. This is required for some integrations to work, most notabily, Zapier.', 'ultimate-multisite'),
+				'desc'    => __('Tick this box if you want Ultimate Multisite to add its own endpoints to the WordPress REST API. This is required for some integrations to work, most notabily, Zapier.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -258,7 +258,7 @@ class API {
 			'api_log_calls',
 			[
 				'title'   => __('Log API calls (Advanced)', 'ultimate-multisite'),
-				'desc'    => __('Tick this box if you want to log all calls received via Multisite Ultimate API endpoints. You can access the logs on Multisite Ultimate &rarr; System Info &rarr; Logs.', 'ultimate-multisite'),
+				'desc'    => __('Tick this box if you want to log all calls received via Ultimate Multisite API endpoints. You can access the logs on Ultimate Multisite &rarr; System Info &rarr; Logs.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 				'require' => [
@@ -272,7 +272,7 @@ class API {
 			'webhook_header',
 			[
 				'title' => __('Webhook Settings', 'ultimate-multisite'),
-				'desc'  => __('Options related to Multisite Ultimate API webhooks.', 'ultimate-multisite'),
+				'desc'  => __('Options related to Ultimate Multisite API webhooks.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -282,7 +282,7 @@ class API {
 			'webhook_calls_blocking',
 			[
 				'title'   => __('Wait for Response (Advanced)', 'ultimate-multisite'),
-				'desc'    => __('Tick this box if you want the Multisite Ultimate\'s webhook calls to wait for the remote server to respond. Keeping this option enabled can have huge effects on your network\'s performance, only enable it if you know what you are doing and need to debug webhook calls.', 'ultimate-multisite'),
+				'desc'    => __('Tick this box if you want the Ultimate Multisite\'s webhook calls to wait for the remote server to respond. Keeping this option enabled can have huge effects on your network\'s performance, only enable it if you know what you are doing and need to debug webhook calls.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]

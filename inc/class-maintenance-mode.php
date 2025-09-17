@@ -178,7 +178,7 @@ class Maintenance_Mode {
 	}
 
 	/**
-	 * Filter the Multisite Ultimate settings to add Jumper options
+	 * Filter the Ultimate Multisite settings to add Jumper options
 	 *
 	 * @since 2.0.0
 	 * @return void

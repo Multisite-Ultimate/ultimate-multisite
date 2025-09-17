@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate System Info Admin Page.
+ * Ultimate Multisite System Info Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\Logger;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate System Info Admin Page.
+ * Ultimate Multisite System Info Admin Page.
  */
 class View_Logs_Admin_Page extends Edit_Admin_Page {
 
@@ -163,7 +163,7 @@ class View_Logs_Admin_Page extends Edit_Admin_Page {
 
 		// Security check
 		if ($file && ! stristr((string) $file, Logger::get_logs_folder())) {
-			wp_die(esc_html__('You can see files that are not Multisite Ultimate\'s logs', 'ultimate-multisite'));
+			wp_die(esc_html__('You can see files that are not Ultimate Multisite\'s logs', 'ultimate-multisite'));
 		}
 
 		if ( ! $file && ! empty($logs_list)) {

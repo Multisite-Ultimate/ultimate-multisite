@@ -170,7 +170,7 @@ class Account_Summary_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Checkout',
 	 *  'Form',
 	 *  'Cart',
@@ -185,7 +185,7 @@ class Account_Summary_Element extends Base_Element {
 			'WP Ultimo',
 			'Account',
 			'Summary',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 		];
 	}
 

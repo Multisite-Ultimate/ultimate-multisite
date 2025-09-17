@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Membership Edit/Add New Admin Page.
+ * Ultimate Multisite Membership Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -16,7 +16,7 @@ use WordPressCS\WordPress\Sniffs\Security\NonceVerificationSniff;
 use WP_Ultimo\Database\Memberships\Membership_Status;
 
 /**
- * Multisite Ultimate Membership Edit/Add New Admin Page.
+ * Ultimate Multisite Membership Edit/Add New Admin Page.
  */
 class Membership_Edit_Admin_Page extends Edit_Admin_Page {
 

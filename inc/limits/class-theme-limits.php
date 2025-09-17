@@ -57,7 +57,7 @@ class Theme_Limits {
 		 * We need to bail if we're inside the WP CLI context and the
 		 * `skip-plugins` flag is present.
 		 *
-		 * This is due to the fact that without Multisite Ultimate being loaded,
+		 * This is due to the fact that without Ultimate Multisite being loaded,
 		 * the functions and classes we'll need to perform any kind of proper
 		 * checks won't be available. To validate if we're being loaded or not,
 		 * we check for the function `wu_get_product`.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Dashboard_Statistics;
 
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  */
 class Dashboard_Admin_Page extends Base_Admin_Page {
 
@@ -209,7 +209,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 		 *
 		 * @param string $tab The current tab.
 		 * @param \WP_Screen $screen The screen object.
-		 * @param \WP_Ultimo\Admin_Pages\Dashboard_Admin_Page $page Multisite Ultimate admin page instance.
+		 * @param \WP_Ultimo\Admin_Pages\Dashboard_Admin_Page $page Ultimate Multisite admin page instance.
 		 */
 		do_action("wu_dashboard_{$this->tab}_widgets", $this->tab, $screen, $this);
 
@@ -220,7 +220,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 		 *
 		 * @param string $tab The current tab.
 		 * @param \WP_Screen $screen The screen object.
-		 * @param \WP_Ultimo\Admin_Pages\Dashboard_Admin_Page $page Multisite Ultimate admin page instance.
+		 * @param \WP_Ultimo\Admin_Pages\Dashboard_Admin_Page $page Ultimate Multisite admin page instance.
 		 */
 		do_action('wu_dashboard_widgets', $this->tab, $screen, $this);
 
@@ -232,14 +232,14 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 						'id'    => 'your-dashboard',
 						'title' => __('Our dashboard', 'ultimate-multisite'),
 						'text'  => [
-							__('This is the <strong>Multisite Ultimate Dashboard</strong>, where you will find most of the important information you will need regarding your business\' performance.', 'ultimate-multisite'),
+							__('This is the <strong>Ultimate Multisite Dashboard</strong>, where you will find most of the important information you will need regarding your business\' performance.', 'ultimate-multisite'),
 						],
 					],
 					[
 						'id'       => 'documentation',
 						'title'    => __('Learning more', 'ultimate-multisite'),
 						'text'     => [
-							__('Most of the Multisite Ultimate admin pages will contain a link like this one at the top. These will link directly to the relevant knowledge base page on the Multisite Ultimate site.', 'ultimate-multisite'),
+							__('Most of the Ultimate Multisite admin pages will contain a link like this one at the top. These will link directly to the relevant knowledge base page on the Ultimate Multisite site.', 'ultimate-multisite'),
 						],
 						'attachTo' => [
 							'element' => '#wp-ultimo-wrap > h1 > a:last-child',
@@ -548,7 +548,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Multisite WaaS', 'ultimate-multisite');
+		return __('Ultimate Multisite', 'ultimate-multisite');
 	}
 
 	/**

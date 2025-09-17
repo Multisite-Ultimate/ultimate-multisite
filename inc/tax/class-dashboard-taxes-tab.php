@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Dashboard Tax Admin Panel
+ * Ultimate Multisite Dashboard Tax Admin Panel
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Tax;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Dashboard Tax Admin Panel
+ * Ultimate Multisite Dashboard Tax Admin Panel
  */
 class Dashboard_Taxes_Tab {
 
@@ -79,7 +79,7 @@ class Dashboard_Taxes_Tab {
 		wu_render_empty_state(
 			[
 				'message'     => __('You do not have tax support enabled yet...', 'ultimate-multisite'),
-				'sub_message' => __('If you need to collect taxes, you\'ll be glad to hear that Multisite Ultimate offers tax support!', 'ultimate-multisite'),
+				'sub_message' => __('If you need to collect taxes, you\'ll be glad to hear that Ultimate Multisite offers tax support!', 'ultimate-multisite'),
 				'link_label'  => __('Enable Tax Support', 'ultimate-multisite'),
 				'link_url'    => wu_network_admin_url(
 					'wp-ultimo-settings',

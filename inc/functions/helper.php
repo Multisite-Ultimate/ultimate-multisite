@@ -13,7 +13,7 @@ use WP_Ultimo\Exception\Runtime_Exception;
 use Psr\Log\LogLevel;
 
 /**
- * Returns the Multisite Ultimate version.
+ * Returns the Ultimate Multisite version.
  *
  * @since 2.0.0
  * @return string
@@ -35,7 +35,7 @@ function wu_is_debug() {
 }
 
 /**
- * Checks if Multisite Ultimate is being loaded as a must-use plugin.
+ * Checks if Ultimate Multisite is being loaded as a must-use plugin.
  *
  * @since 2.0.0
  * @return bool

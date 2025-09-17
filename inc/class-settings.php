@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate settings helper class.
+ * Ultimate Multisite settings helper class.
  *
  * @package WP_Ultimo
  * @subpackage Settings
@@ -16,7 +16,7 @@ use WP_Ultimo\UI\Field;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate settings helper class.
+ * Ultimate Multisite settings helper class.
  *
  * @since 2.0.0
  */
@@ -141,7 +141,7 @@ class Settings {
 	}
 
 	/**
-	 * Get all the settings from Multisite Ultimate
+	 * Get all the settings from Ultimate Multisite
 	 *
 	 * @param bool $check_caps If we should remove the settings the user does not have rights to see.
 	 * @return array Array containing all the settings
@@ -228,7 +228,7 @@ class Settings {
 	}
 
 	/**
-	 * Save Multisite Ultimate Settings
+	 * Save Ultimate Multisite Settings
 	 *
 	 * This function loops through the settings sections and saves the settings
 	 * after validating them.
@@ -236,7 +236,7 @@ class Settings {
 	 * @since 2.0.0
 	 *
 	 * @param array   $settings_to_save Array containing the settings to save.
-	 * @param boolean $reset If true, Multisite Ultimate will override the saved settings with the default values.
+	 * @param boolean $reset If true, Ultimate Multisite will override the saved settings with the default values.
 	 * @return array
 	 */
 	public function save_settings($settings_to_save = [], $reset = false) {
@@ -277,7 +277,7 @@ class Settings {
 		}
 
 		/**
-		 * Allow developers to filter settings before save by Multisite Ultimate.
+		 * Allow developers to filter settings before save by Ultimate Multisite.
 		 *
 		 * @since 2.0.18
 		 *
@@ -522,7 +522,7 @@ class Settings {
 	}
 
 	/**
-	 * Register the Multisite Ultimate default sections and fields.
+	 * Register the Ultimate Multisite default sections and fields.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -530,7 +530,7 @@ class Settings {
 	public function default_sections(): void {
 		/*
 		 * General Settings
-		 * This section holds the General settings of the Multisite Ultimate Plugin.
+		 * This section holds the General settings of the Ultimate Multisite Plugin.
 		 */
 
 		// Comma separated string of page ids that are already being used as default option
@@ -636,7 +636,7 @@ class Settings {
 			'currency_symbol',
 			[
 				'title'   => __('Currency', 'ultimate-multisite'),
-				'desc'    => __('Select the currency to be used in Multisite Ultimate.', 'ultimate-multisite'),
+				'desc'    => __('Select the currency to be used in Ultimate Multisite.', 'ultimate-multisite'),
 				'type'    => 'select',
 				'default' => 'USD',
 				'options' => 'wu_get_currencies',
@@ -702,7 +702,7 @@ class Settings {
 
 		/*
 		 * Login & Registration
-		 * This section holds the Login & Registration settings of the Multisite Ultimate Plugin.
+		 * This section holds the Login & Registration settings of the Ultimate Multisite Plugin.
 		 */
 
 		$this->add_section(
@@ -893,7 +893,7 @@ class Settings {
 			'main_site_default_role',
 			[
 				'title'   => __('Add to Main Site with Role...', 'ultimate-multisite'),
-				'desc'    => __('Select the role Multisite Ultimate should use when adding the user to the main site of your network. Be careful.', 'ultimate-multisite'),
+				'desc'    => __('Select the role Ultimate Multisite should use when adding the user to the main site of your network. Be careful.', 'ultimate-multisite'),
 				'type'    => 'select',
 				'default' => 'subscriber',
 				'options' => 'wu_get_roles_as_options',
@@ -907,7 +907,7 @@ class Settings {
 
 		/*
 		 * Memberships
-		 * This section holds the Membership  settings of the Multisite Ultimate Plugin.
+		 * This section holds the Membership  settings of the Ultimate Multisite Plugin.
 		 */
 
 		$this->add_section(
@@ -957,7 +957,7 @@ class Settings {
 			'block_frontend_grace_period',
 			[
 				'title'   => __('Frontend Block Grace Period', 'ultimate-multisite'),
-				'desc'    => __('Select the number of days Multisite Ultimate should wait after the membership goes inactive before blocking the frontend access. Leave 0 to block immediately after the membership becomes inactive.', 'ultimate-multisite'),
+				'desc'    => __('Select the number of days Ultimate Multisite should wait after the membership goes inactive before blocking the frontend access. Leave 0 to block immediately after the membership becomes inactive.', 'ultimate-multisite'),
 				'type'    => 'number',
 				'default' => 0,
 				'min'     => 0,
@@ -1015,7 +1015,7 @@ class Settings {
 			'block_sites_on_downgrade',
 			[
 				'title'   => __('Block Sites on Downgrade', 'ultimate-multisite'),
-				'desc'    => __('Choose how Multisite Ultimate should handle client sites above their plan quota on downgrade.', 'ultimate-multisite'),
+				'desc'    => __('Choose how Ultimate Multisite should handle client sites above their plan quota on downgrade.', 'ultimate-multisite'),
 				'type'    => 'select',
 				'default' => 'none',
 				'options' => [
@@ -1061,7 +1061,7 @@ class Settings {
 			'emulated_post_types_explanation',
 			[
 				'type'            => 'note',
-				'desc'            => __('By default, Multisite Ultimate only allows super admins to limit post types that are registered on the main site. This makes sense from a technical stand-point but it also forces you to have plugins network-activated in order to be able to set limitations for their custom post types. Using this option, you can emulate the registering of a post type. This will register them on the main site and allow you to create limits for them on your products.', 'ultimate-multisite'),
+				'desc'            => __('By default, Ultimate Multisite only allows super admins to limit post types that are registered on the main site. This makes sense from a technical stand-point but it also forces you to have plugins network-activated in order to be able to set limitations for their custom post types. Using this option, you can emulate the registering of a post type. This will register them on the main site and allow you to create limits for them on your products.', 'ultimate-multisite'),
 				'classes'         => '',
 				'wrapper_classes' => '',
 			]
@@ -1152,7 +1152,7 @@ class Settings {
 
 		/*
 		 * Site Templates
-		 * This section holds the Site Templates settings of the Multisite Ultimate Plugin.
+		 * This section holds the Site Templates settings of the Ultimate Multisite Plugin.
 		 */
 
 		$this->add_section(
@@ -1211,7 +1211,7 @@ class Settings {
 			'enable_screenshot_generator',
 			[
 				'title'   => __('Enable Screenshot Generator', 'ultimate-multisite'),
-				'desc'    => __('With this option is enabled, Multisite Ultimate will take a screenshot for every newly created site on your network and set the resulting image as that site\'s featured image. This features requires a valid license key to work and it is not supported for local sites.', 'ultimate-multisite'),
+				'desc'    => __('With this option is enabled, Ultimate Multisite will take a screenshot for every newly created site on your network and set the resulting image as that site\'s featured image. This features requires a valid license key to work and it is not supported for local sites.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -1312,7 +1312,7 @@ class Settings {
 
 		/*
 		 * Payment Gateways
-		 * This section holds the Payment Gateways settings of the Multisite Ultimate Plugin.
+		 * This section holds the Payment Gateways settings of the Ultimate Multisite Plugin.
 		 */
 
 		$this->add_section(
@@ -1352,7 +1352,7 @@ class Settings {
 			'allow_trial_without_payment_method',
 			[
 				'title'   => __('Allow Trials without Payment Method', 'ultimate-multisite'),
-				'desc'    => __('By default, Multisite Ultimate asks customers to add a payment method on sign-up even if a trial period is present. Enable this option to only ask for a payment method when the trial period is over.', 'ultimate-multisite'),
+				'desc'    => __('By default, Ultimate Multisite asks customers to add a payment method on sign-up even if a trial period is present. Enable this option to only ask for a payment method when the trial period is over.', 'ultimate-multisite'),
 				'tooltip' => '',
 				'type'    => 'toggle',
 				'default' => 0,
@@ -1376,7 +1376,7 @@ class Settings {
 			'invoice_numbering_scheme',
 			[
 				'title'   => __('Invoice Numbering Scheme', 'ultimate-multisite'),
-				'desc'    => __('What should Multisite Ultimate use as the invoice number?', 'ultimate-multisite'),
+				'desc'    => __('What should Ultimate Multisite use as the invoice number?', 'ultimate-multisite'),
 				'type'    => 'select',
 				'default' => 'reference_code',
 				'tooltip' => '',
@@ -1434,7 +1434,7 @@ class Settings {
 
 		/*
 		 * Emails
-		 * This section holds the Email settings of the Multisite Ultimate Plugin.
+		 * This section holds the Email settings of the Ultimate Multisite Plugin.
 		 */
 		$this->add_section(
 			'emails',
@@ -1449,7 +1449,7 @@ class Settings {
 
 		/*
 		 * Domain Mapping
-		 * This section holds the Domain Mapping settings of the Multisite Ultimate Plugin.
+		 * This section holds the Domain Mapping settings of the Ultimate Multisite Plugin.
 		 */
 
 		$this->add_section(
@@ -1481,7 +1481,7 @@ class Settings {
 
 		/*
 		 * Integrations
-		 * This section holds the Integrations settings of the Multisite Ultimate Plugin.
+		 * This section holds the Integrations settings of the Ultimate Multisite Plugin.
 		 */
 
 		$this->add_section(
@@ -1508,7 +1508,7 @@ class Settings {
 
 		/*
 		 * Other Options
-		 * This section holds the Other Options settings of the Multisite Ultimate Plugin.
+		 * This section holds the Other Options settings of the Ultimate Multisite Plugin.
 		 */
 
 		$this->add_section(
@@ -1538,7 +1538,7 @@ class Settings {
 			'hide_tours',
 			[
 				'title'   => __('Hide UI Tours', 'ultimate-multisite') . $preview_image,
-				'desc'    => __('The UI tours showed by Multisite Ultimate should permanently hide themselves after being seen but if they persist for whatever reason, toggle this option to force them into their viewed state - which will prevent them from showing up again.', 'ultimate-multisite'),
+				'desc'    => __('The UI tours showed by Ultimate Multisite should permanently hide themselves after being seen but if they persist for whatever reason, toggle this option to force them into their viewed state - which will prevent them from showing up again.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]
@@ -1551,7 +1551,7 @@ class Settings {
 			'disable_image_zoom',
 			[
 				'title'   => __('Disable "Hover to Zoom"', 'ultimate-multisite') . $preview_image_2,
-				'desc'    => __('By default, Multisite Ultimate adds a "hover to zoom" feature, allowing network admins to see larger version of site screenshots and other images across the UI in full-size when hovering over them. You can disable that feature here. Preview tags like the above are not affected.', 'ultimate-multisite'),
+				'desc'    => __('By default, Ultimate Multisite adds a "hover to zoom" feature, allowing network admins to see larger version of site screenshots and other images across the UI in full-size when hovering over them. You can disable that feature here. Preview tags like the above are not affected.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]
@@ -1562,7 +1562,7 @@ class Settings {
 			'error_reporting_header',
 			[
 				'title' => __('Logging', 'ultimate-multisite'),
-				'desc'  => __('Log Multisite Ultimate data. This is useful for debugging purposes.', 'ultimate-multisite'),
+				'desc'  => __('Log Ultimate Multisite data. This is useful for debugging purposes.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -1588,8 +1588,8 @@ class Settings {
 			'other',
 			'enable_error_reporting',
 			[
-				'title'   => __('Send Error Data to Multisite Ultimate Developers', 'ultimate-multisite'),
-				'desc'    => __('With this option enabled, every time your installation runs into an error related to Multisite Ultimate, that error data will be sent to us. No sensitive data gets collected, only environmental stuff (e.g. if this is this is a subdomain network, etc).', 'ultimate-multisite'),
+				'title'   => __('Send Error Data to Ultimate Multisite Developers', 'ultimate-multisite'),
+				'desc'    => __('With this option enabled, every time your installation runs into an error related to Ultimate Multisite, that error data will be sent to us. No sensitive data gets collected, only environmental stuff (e.g. if this is this is a subdomain network, etc).', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -1648,7 +1648,7 @@ class Settings {
 				[
 					'title'   => __('Security Mode', 'ultimate-multisite'),
 					// Translators: Placeholder adds the security mode key and current site url with query string
-					'desc'    => sprintf(__('Only Multisite Ultimate and other must-use plugins will run on your WordPress install while this option is enabled.<div class="wu-mt-2"><b>Important:</b> Copy the following URL to disable security mode if something goes wrong and this page becomes unavailable:<code>%2$s</code></div>', 'ultimate-multisite'), $security_mode_key, get_site_url() . $security_mode_key),
+					'desc'    => sprintf(__('Only Ultimate Multisite and other must-use plugins will run on your WordPress install while this option is enabled.<div class="wu-mt-2"><b>Important:</b> Copy the following URL to disable security mode if something goes wrong and this page becomes unavailable:<code>%2$s</code></div>', 'ultimate-multisite'), $security_mode_key, get_site_url() . $security_mode_key),
 					'type'    => 'toggle',
 					'default' => 0,
 				]
@@ -1660,7 +1660,7 @@ class Settings {
 			'uninstall_wipe_tables',
 			[
 				'title'   => __('Remove Data on Uninstall', 'ultimate-multisite'),
-				'desc'    => __('Remove all saved data for Multisite Ultimate when the plugin is uninstalled.', 'ultimate-multisite'),
+				'desc'    => __('Remove all saved data for Ultimate Multisite when the plugin is uninstalled.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]

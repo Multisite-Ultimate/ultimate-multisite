@@ -192,11 +192,11 @@ class Jumper {
 	}
 
 	/**
-	 * Add Multisite Ultimate settings links to the Jumper menu.
+	 * Add Ultimate Multisite settings links to the Jumper menu.
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array $links Multisite Ultimate settings array.
+	 * @param array $links Ultimate Multisite settings array.
 	 * @return array
 	 */
 	public function add_wp_ultimo_extra_links($links) {
@@ -475,7 +475,7 @@ class Jumper {
 	}
 
 	/**
-	 * Filter the Multisite Ultimate settings to add Jumper options
+	 * Filter the Ultimate Multisite settings to add Jumper options
 	 *
 	 * @since 2.0.0
 	 *

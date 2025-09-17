@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate 1.X to 2.X migrator.
+ * Ultimate Multisite 1.X to 2.X migrator.
  *
  * @package WP_Ultimo
  * @subpackage Installers/Core_Installer
@@ -15,7 +15,7 @@ use WP_Ultimo\Integrations\Host_Providers\Closte_Host_Provider;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate 1.X to 2.X migrator.
+ * Ultimate Multisite 1.X to 2.X migrator.
  *
  * @since 2.0.0
  */
@@ -67,7 +67,7 @@ class Core_Installer extends Base_Installer {
 		$steps['database_tables'] = [
 			'done'        => $has_tables_installed,
 			'title'       => __('Create Database Tables', 'ultimate-multisite'),
-			'description' => __('Multisite Ultimate uses custom tables for performance reasons. We need to create those tables and make sure they are setup properly before we can activate the plugin.', 'ultimate-multisite'),
+			'description' => __('Ultimate Multisite uses custom tables for performance reasons. We need to create those tables and make sure they are setup properly before we can activate the plugin.', 'ultimate-multisite'),
 			'pending'     => __('Pending', 'ultimate-multisite'),
 			'installing'  => __('Creating default tables...', 'ultimate-multisite'),
 			'success'     => __('Success!', 'ultimate-multisite'),
@@ -140,7 +140,7 @@ class Core_Installer extends Base_Installer {
 		/**
 		 * Allow host providers to install the constant differently.
 		 *
-		 * Returning true will prevent Multisite Ultimate from trying to write to the wp-config file.
+		 * Returning true will prevent Ultimate Multisite from trying to write to the wp-config file.
 		 *
 		 * @since 2.0.0
 		 * @param bool $short_circuit

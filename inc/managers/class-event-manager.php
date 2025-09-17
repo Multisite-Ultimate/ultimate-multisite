@@ -449,7 +449,7 @@ class Event_Manager extends Base_Manager {
 			'renewal_payment_created',
 			[
 				'name'            => __('New Renewal Payment Created', 'ultimate-multisite'),
-				'desc'            => __('This event is fired every time a new renewal payment is created by Multisite Ultimate.', 'ultimate-multisite'),
+				'desc'            => __('This event is fired every time a new renewal payment is created by Ultimate Multisite.', 'ultimate-multisite'),
 				'payload'         => fn() => array_merge(
 					[
 						'default_payment_url' => 'https://linktopayment.com',
@@ -472,7 +472,7 @@ class Event_Manager extends Base_Manager {
 						// translators: %1$s is the model name, %2$s is the event type.
 						'name'            => sprintf(__('%1$s %2$s', 'ultimate-multisite'), $params['label'], ucfirst($type)),
 						// translators: %1$s is the model name, %2$s is the event type.
-						'desc'            => sprintf(__('This event is fired every time a %1$s is %2$s by Multisite Ultimate.', 'ultimate-multisite'), $params['label'], $type),
+						'desc'            => sprintf(__('This event is fired every time a %1$s is %2$s by Ultimate Multisite.', 'ultimate-multisite'), $params['label'], $type),
 						'deprecated_args' => [],
 						'payload'         => fn() => $this->get_model_payload($model),
 					]

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Event Admin Page.
+ * Ultimate Multisite Event Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\Models\Event;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Event Admin Page.
+ * Ultimate Multisite Event Admin Page.
  */
 class Event_List_Admin_Page extends List_Admin_Page {
 

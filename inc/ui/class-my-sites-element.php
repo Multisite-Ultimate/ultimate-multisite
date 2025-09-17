@@ -217,7 +217,7 @@ class My_Sites_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Site',
 	 *  'Form',
 	 *  'Cart',
@@ -230,7 +230,7 @@ class My_Sites_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'Site',
 			'Form',
 			'Cart',

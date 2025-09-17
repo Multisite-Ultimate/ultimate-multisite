@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Site Edit New Admin Page.
+ * Ultimate Multisite Site Edit New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -16,7 +16,7 @@ use WP_Ultimo\Database\Sites\Site_Type;
 use WP_Ultimo\Models\Site;
 
 /**
- * Multisite Ultimate Site Edit New Admin Page.
+ * Ultimate Multisite Site Edit New Admin Page.
  */
 class Site_Edit_Admin_Page extends Edit_Admin_Page {
 
@@ -154,7 +154,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 						'id'       => 'new-site-template-warning',
 						'title'    => __('On adding a new Site Template...', 'ultimate-multisite'),
 						'text'     => [
-							__("You just successfully added a new site template to your Multisite Ultimate network and that's awesome!", 'ultimate-multisite'),
+							__("You just successfully added a new site template to your Ultimate Multisite network and that's awesome!", 'ultimate-multisite'),
 							__('Keep in mind that newly created site templates do not appear automatically in your checkout forms.', 'ultimate-multisite'),
 							__('To make a site template available on registration, you will need to manually add it to the template selection field of your checkout forms.', 'ultimate-multisite'),
 						],
@@ -577,7 +577,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'scraper_message'   => [
 						'type'            => 'note',
-						'desc'            => sprintf('<span class="wu-p-2 wu-bg-red-100 wu-text-red-600 wu-rounded wu-block">%s</span>', __('We detected that this network might be running locally. If that\'s the case, Multisite Ultimate will not be able to take a screenshot of the site. A site needs to be publicly available to the outside world in order for this feature to work.', 'ultimate-multisite')),
+						'desc'            => sprintf('<span class="wu-p-2 wu-bg-red-100 wu-text-red-600 wu-rounded wu-block">%s</span>', __('We detected that this network might be running locally. If that\'s the case, Ultimate Multisite will not be able to take a screenshot of the site. A site needs to be publicly available to the outside world in order for this feature to work.', 'ultimate-multisite')),
 						'wrapper_classes' => \WP_Ultimo\Domain_Mapping\Helper::is_development_mode() ? '' : 'wu-hidden',
 					],
 					'scraper'           => [

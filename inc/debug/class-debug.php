@@ -24,7 +24,7 @@ class Debug {
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
-	 * The registry of Multisite Ultimate admin pages.
+	 * The registry of Ultimate Multisite admin pages.
 	 *
 	 * @since 2.0.0
 	 * @var array
@@ -401,7 +401,7 @@ class Debug {
 		$fields = [
 			'reset_only_fake_data' => [
 				'title'     => __('Only reset generated data.', 'ultimate-multisite'),
-				'desc'      => __('Toggle this option to only remove data that was added by the generator previously. Untoggling this option will reset ALL data in Multisite Ultimate tables.', 'ultimate-multisite'),
+				'desc'      => __('Toggle this option to only remove data that was added by the generator previously. Untoggling this option will reset ALL data in Ultimate Multisite tables.', 'ultimate-multisite'),
 				'type'      => 'toggle',
 				'value'     => true,
 				'html_attr' => [
@@ -486,7 +486,7 @@ class Debug {
 		$fields = [
 			'reset_note'    => [
 				'type' => 'note',
-				'desc' => __('This action will drop the Multisite Ultimate database tables and is irreversable.', 'ultimate-multisite'),
+				'desc' => __('This action will drop the Ultimate Multisite database tables and is irreversable.', 'ultimate-multisite'),
 			],
 			'submit_button' => [
 				'title'           => __('Drop Database Tables &rarr;', 'ultimate-multisite'),
@@ -581,7 +581,7 @@ class Debug {
 	}
 
 	/**
-	 * Add a Multisite Ultimate page to the registry.
+	 * Add a Ultimate Multisite page to the registry.
 	 *
 	 * @since 2.0.0
 	 *
@@ -956,7 +956,7 @@ class Debug {
 		$the_prefix = 'wp-ultimo_';
 
 		/*
-		 * List of Multisite Ultimate options.
+		 * List of Ultimate Multisite options.
 		 * Format: $option_name => $should_use_prefix
 		 */
 		$options = [

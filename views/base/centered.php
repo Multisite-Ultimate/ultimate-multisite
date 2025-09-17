@@ -47,7 +47,7 @@ defined( 'ABSPATH' ) || exit;
 		 * Allow plugin developers to add additional buttons to list pages
 		 *
 		 * @since 1.8.2
-		 * @param WU_Page $page Multisite Ultimate Page instance
+		 * @param WU_Page $page Ultimate Multisite Page instance
 		 */
 		do_action('wu_page_centered_after_title', $page);
 		?>
@@ -144,7 +144,7 @@ defined( 'ABSPATH' ) || exit;
 					 * Allow plugin developers to add additional buttons to list pages
 					 *
 					 * @since 1.8.2
-					 * @param WU_Page $page Multisite Ultimate Page instance
+					 * @param WU_Page $page Ultimate Multisite Page instance
 					 */
 					do_action('wu_centered_content', $page);
 
@@ -161,7 +161,7 @@ defined( 'ABSPATH' ) || exit;
 					 * Allow plugin developers to add additional buttons to list pages
 					 *
 					 * @since 1.8.2
-					 * @param WU_Page $page Multisite Ultimate Page instance
+					 * @param WU_Page $page Ultimate Multisite Page instance
 					 */
 					do_action('wu_centered_right', $page);
 

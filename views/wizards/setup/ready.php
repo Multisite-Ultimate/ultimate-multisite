@@ -19,17 +19,17 @@ defined( 'ABSPATH' ) || exit;
 
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">
 		<?php // translators: %1$s developer's name, %2$s company name ?>
-		<?php printf(esc_html__('Multisite Ultimate would not be possible without the work of %1$s and %2$s.', 'ultimate-multisite'), '<a href="https://wpultimo.com/" target="_blank">Arindo Duque</a>', '<a href="https://nextpress.co" target="_blank">NextPress</a>'); ?>
+		<?php printf(esc_html__('Ultimate Multisite would not be possible without the work of %1$s and %2$s.', 'ultimate-multisite'), '<a href="https://wpultimo.com/" target="_blank">Arindo Duque</a>', '<a href="https://nextpress.co" target="_blank">NextPress</a>'); ?>
 	</p>
 
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">
 		<?php // translators: %s GitHub link ?>
-		<?php printf(esc_html__('Multisite Ultimate is maintained by volunteer open source developers. Please consider sponsoring the project on %s.', 'ultimate-multisite'), '<a href="https://github.com/superdav42/wp-multisite-waas" target="_blank">GitHub</a>'); ?>
+		<?php printf(esc_html__('Ultimate Multisite is maintained by volunteer open source developers. Please consider sponsoring the project on %s.', 'ultimate-multisite'), '<a href="https://github.com/superdav42/wp-multisite-waas" target="_blank">GitHub</a>'); ?>
 	</p>
 
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">
 		<?php // translators: %s support page link ?>
-		<?php printf(esc_html__('Paid support is available. Go to %s to find an expert who can assist in setting up Multisite Ultimate or custom development.', 'ultimate-multisite'), sprintf('<a href="https://multisiteultimate.com/support" target="_blank">%s</a>', esc_html__('The Support Page', 'ultimate-multisite'))); ?>
+		<?php printf(esc_html__('Paid support is available. Go to %s to find an expert who can assist in setting up Ultimate Multisite or custom development.', 'ultimate-multisite'), sprintf('<a href="https://multisiteultimate.com/support" target="_blank">%s</a>', esc_html__('The Support Page', 'ultimate-multisite'))); ?>
 	</p>
 
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">

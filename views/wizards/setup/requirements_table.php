@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 <div class="wu-block">
 
 	<div class="wu-block wu-text-gray-700 wu-font-bold wu-uppercase wu-text-xs wu-py-2">
-	<?php esc_html_e('Multisite Ultimate Requires:', 'ultimate-multisite'); ?>
+	<?php esc_html_e('Ultimate Multisite Requires:', 'ultimate-multisite'); ?>
 	</div>
 
 	<div class="wu-advanced-filters">
@@ -88,7 +88,7 @@ defined( 'ABSPATH' ) || exit;
 	<?php if (\WP_Ultimo\Requirements::met() === false) : ?>
 
 	<div class="wu-mt-4 wu-p-4 wu-bg-red-100 wu-border wu-border-solid wu-border-red-200 wu-rounded-sm wu-text-red-500">
-		<?php esc_html_e('It looks like your hosting environment does not support the current version of Multisite Ultimate. Visit the <strong>Read More</strong> links on each item to see what steps you need to take to bring your environment up to the Multisite Ultimate current requirements.', 'ultimate-multisite'); ?>
+		<?php esc_html_e('It looks like your hosting environment does not support the current version of Ultimate Multisite. Visit the <strong>Read More</strong> links on each item to see what steps you need to take to bring your environment up to the Ultimate Multisite current requirements.', 'ultimate-multisite'); ?>
 	</div>
 
 	<?php endif; ?>

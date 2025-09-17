@@ -32,7 +32,7 @@ defined( 'ABSPATH' ) || exit;
 	<img class="wu-w-full" src="<?php echo esc_url(wu_get_asset('runcloud-2.webp', 'img/hosts')); ?>">
 </div>
 <p class="wu-text-center"><i><?php esc_html_e('API Key page link', 'ultimate-multisite'); ?></i></p>
-<p class="wu-text-sm"> <?php esc_html_e('Copy the', 'ultimate-multisite'); ?> <b> <?php esc_html_e('API Key and Secret values', 'ultimate-multisite'); ?> </b>, <?php esc_html_e('we will need them in the next steps', 'ultimate-multisite'); ?>. <b> <?php esc_html_e('Make sure the RunCloud API toggle is turned ON', 'ultimate-multisite'); ?>, </b> <?php esc_html_e('otherwise RunCloud won’t accept Multisite Ultimate API calls', 'ultimate-multisite'); ?>.</p>
+<p class="wu-text-sm"> <?php esc_html_e('Copy the', 'ultimate-multisite'); ?> <b> <?php esc_html_e('API Key and Secret values', 'ultimate-multisite'); ?> </b>, <?php esc_html_e('we will need them in the next steps', 'ultimate-multisite'); ?>. <b> <?php esc_html_e('Make sure the RunCloud API toggle is turned ON', 'ultimate-multisite'); ?>, </b> <?php esc_html_e('otherwise RunCloud won’t accept Ultimate Multisite API calls', 'ultimate-multisite'); ?>.</p>
 <div class="">
 	<img class="wu-w-full" src="<?php echo esc_url(wu_get_asset('runcloud-3.webp', 'img/hosts')); ?>">
 </div>

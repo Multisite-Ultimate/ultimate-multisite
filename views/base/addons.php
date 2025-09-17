@@ -70,7 +70,7 @@ if ( ! defined('ABSPATH') ) {
 		</div>
 	<?php else : ?>
 		<div class="notice wu-hidden wu-admin-notice wu-styling hover:wu-styling notice-warning">
-			<p class="wu-py-2"><?php esc_html_e('Multisite Ultimate might be at risk because it’s unable to automatically update add-ons. Please complete the connection to get updates and streamlined support.', 'ultimate-multisite'); ?></p>
+			<p class="wu-py-2"><?php esc_html_e('Ultimate Multisite might be at risk because it’s unable to automatically update add-ons. Please complete the connection to get updates and streamlined support.', 'ultimate-multisite'); ?></p>
 			<div>
 				<ul class="wu-m-0">
 					<li class="">

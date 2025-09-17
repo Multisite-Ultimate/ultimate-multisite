@@ -113,7 +113,7 @@
     <rule ref="WordPress.WP.I18n.MissingArgDomain">
         <properties>
             <property name="text_domain" type="array">
-                <element value="multisite-ultimate"/>
+                <element value="ultimate-multisite"/>
             </property>
         </properties>
     </rule>

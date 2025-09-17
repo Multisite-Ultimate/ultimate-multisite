@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Multisite Ultimate
- * Description: The WordPress Multisite Website as a Service (WaaS) plugin.
+ * Plugin Name: Ultimate Multisite
+ * Description: Transform your WordPress Multisite into a Website as a Service (WaaS) platform supporting site cloning, re-selling, and domain mapping integrations with many hosting providers.
  * Plugin URI: https://multisiteultimate.com
- * Text Domain: multisite-ultimate
+ * Text Domain: ultimate-multisite
  * Version: 2.4.4
- * Author: Multisite Ultimate Community
+ * Author: Ultimate Multisite Community
  * Author URI: https://github.com/superdav42/wp-multisite-waas
  * GitHub Plugin URI: https://github.com/superdav42/wp-multisite-waas
  * Network: true
@@ -15,19 +15,19 @@
  * Requires at least: 5.3
  * Requires PHP: 7.4.30
  *
- * Multisite Ultimate is distributed under the terms of the GNU General Public License as published by
+ * Ultimate Multisite is distributed under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * any later version.
  *
- * Multisite Ultimate is distributed in the hope that it will be useful,
+ * Ultimate Multisite is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Multisite Ultimate. If not, see <http://www.gnu.org/licenses/>.
+ * along with Ultimate Multisite. If not, see <http://www.gnu.org/licenses/>.
  *
- * @author   Arindo Duque and NextPress and the Multisite Ultimate Community
+ * @author   Arindo Duque and NextPress and the Ultimate Multisite Community
  * @category Core
  * @package  WP_Ultimo
  * @version  2.4.4
@@ -39,7 +39,7 @@ defined('ABSPATH') || exit;
 if (defined('WP_SANDBOX_SCRAPING') && WP_SANDBOX_SCRAPING) {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	$wu_possible_conflicts = false;
-	foreach ( ['wp-ultimo/wp-ultimo.php', 'wp-multisite-waas/wp-multisite-waas.php'] as $plugin_file ) {
+	foreach ( ['wp-ultimo/wp-ultimo.php', 'wp-multisite-waas/wp-multisite-waas.php', 'multisite-ultimate/multisite-ultimate.php'] as $plugin_file ) {
 		if ( is_plugin_active($plugin_file) ) {
 			// old plugin still installed and active with the old name and path
 			// and the user is trying to activate this plugin. So deactivate and return.
@@ -79,7 +79,7 @@ try {
 	if ( defined('WP_DEBUG') && WP_DEBUG ) {
 		// This message is not translated as at this point it's too early to load translations.
 		error_log(  // phpcs:ignore
-			esc_html('Your installation of Multisite Ultimate is incomplete. If you installed Multisite Ultimate from GitHub, please refer to this document to set up your development environment: https://github.com/superdav42/wp-multisite-waas?tab=readme-ov-file#method-2-using-git-and-composer-for-developers')
+			esc_html('Your installation of Ultimate Multisite is incomplete. If you installed Ultimate Multisite from GitHub, please refer to this document to set up your development environment: https://github.com/superdav42/wp-multisite-waas?tab=readme-ov-file#method-2-using-git-and-composer-for-developers')
 		);
 	}
 	add_action(
@@ -91,7 +91,7 @@ try {
 					<?php
 					printf(
 					/* translators: 1: is a link to a support document. 2: closing link */
-						esc_html__('Your installation of Multisite Ultimate is incomplete. If you installed from GitHub, %1$splease refer to this document%2$s to set up your development environment or download a pre-packaged ZIP release.', 'ultimate-multisite'),
+						esc_html__('Your installation of Ultimate Multisite is incomplete. If you installed from GitHub, %1$splease refer to this document%2$s to set up your development environment or download a pre-packaged ZIP release.', 'ultimate-multisite'),
 						'<a href="' . esc_url('https://github.com/superdav42/wp-multisite-waas?tab=readme-ov-file#method-2-using-git-and-composer-for-developers') . '" target="_blank" rel="noopener noreferrer">',
 						'</a>'
 					);

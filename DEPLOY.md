@@ -1,6 +1,6 @@
-# Multisite Ultimate - WordPress.org Deploy Tool
+# Ultimate Multisite - WordPress.org Deploy Tool
 
-This document explains how to use the automated deploy tool for deploying Multisite Ultimate to the WordPress.org plugin repository.
+This document explains how to use the automated deploy tool for deploying Ultimate Multisite to the WordPress.org plugin repository.
 
 ## Prerequisites
 
@@ -38,7 +38,7 @@ Before using the deploy tool, ensure you have:
 
 Before deployment, ensure version consistency across all files:
 
-- `multisite-ultimate.php` - Line 7: `Version: 2.4.3`
+- `ultimate-multisite.php` - Line 7: `Version: 2.4.3`
 - `readme.txt` - Line 9: `Stable tag: 2.4.3`  
 - `package.json` - Line 2: `"version": "2.4.3"`
 
@@ -72,7 +72,7 @@ The script performs these steps automatically:
 2. **Version Validation**
    - Extracts versions from all relevant files
    - Ensures version consistency across:
-     - `multisite-ultimate.php`
+     - `ultimate-multisite.php`
      - `readme.txt`
      - `package.json`
    - Validates provided version argument (if any)
@@ -143,7 +143,7 @@ The following files and directories are automatically excluded:
 - Update version numbers in all files to match before deploying
 
 **"Main plugin file not found"**
-- Run the script from the `/home/dave/multisite/multisite-ultimate/` directory
+- Run the script from the `/home/dave/multisite/ultimate-multisite/` directory
 
 **"SVN authentication failed"**
 - Verify your WordPress.org credentials
@@ -158,7 +158,7 @@ If deployment fails partway through:
 
 1. Check the SVN status:
    ```bash
-   cd /tmp/multisite-ultimate-deploy/svn
+   cd /tmp/ultimate-multisite-deploy/svn
    svn status
    ```
 
@@ -169,7 +169,7 @@ If deployment fails partway through:
 
 3. Clean up:
    ```bash
-   rm -rf /tmp/multisite-ultimate-deploy
+   rm -rf /tmp/ultimate-multisite-deploy
    ```
 
 ## Security Notes
@@ -184,7 +184,7 @@ If deployment fails partway through:
 Recommended workflow for releases:
 
 1. **Update Version Numbers**:
-   - Update `multisite-ultimate.php`
+   - Update `ultimate-multisite.php`
    - Update `readme.txt` (stable tag and changelog)
    - Update `package.json`
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Multisite Ultimate - WordPress.org SVN Deploy Script
+# Ultimate Multisite - WordPress.org SVN Deploy Script
 # Builds the plugin and deploys it to the WordPress.org plugin repository
 # 
 # Usage: ./deploy.sh [version]
@@ -27,13 +27,13 @@ NC='\033[0m' # No Color
 # Plugin configuration
 PLUGIN_SLUG="ultimate-multisite"
 SVN_URL="https://plugins.svn.wordpress.org/$PLUGIN_SLUG"
-MAIN_PLUGIN_FILE="multisite-ultimate.php"
+MAIN_PLUGIN_FILE="ultimate-multisite.php"
 README_TXT="readme.txt"
 PACKAGE_JSON="package.json"
 
 # Directory paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEMP_DIR="/tmp/multisite-ultimate-deploy"
+TEMP_DIR="/tmp/ultimate-multisite-deploy"
 SVN_DIR="$TEMP_DIR/svn"
 BUILD_DIR="$TEMP_DIR/build"
 
@@ -306,7 +306,7 @@ main() {
     local provided_version=$1
     
     print_status "Starting WordPress.org deployment process..."
-    print_status "Plugin: Multisite Ultimate"
+    print_status "Plugin: Ultimate Multisite"
     print_status "SVN URL: $SVN_URL"
     
     # Validate environment

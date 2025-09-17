@@ -47,12 +47,12 @@ class Inside_Events_List_Table extends Event_List_Table {
 		$first_row = [
 			'id'   => [
 				'icon'  => 'dashicons-wu-hash wu-align-middle wu-mr-1',
-				'label' => __('Event ID', 'multisite-ultimate'),
+				'label' => __('Event ID', 'ultimate-multisite'),
 				'value' => $item->get_id(),
 			],
 			'slug' => [
 				'icon'  => 'dashicons-wu-bookmark1 wu-align-middle wu-mr-1',
-				'label' => __('Event Type', 'multisite-ultimate'),
+				'label' => __('Event Type', 'ultimate-multisite'),
 				'value' => wu_slug_to_name($item->get_slug()),
 			],
 		];
@@ -60,7 +60,7 @@ class Inside_Events_List_Table extends Event_List_Table {
 		$object_initiator = $item->get_initiator();
 
 		if ('system' === $object_initiator) {
-			$value = sprintf('<span class="dashicons-wu-wp-ultimo wu-align-middle wu-mr-1 wu-text-lg"></span><span class="wu-text-gray-600">%s</span>', __('Automatically processed by Multisite Ultimate', 'multisite-ultimate'));
+			$value = sprintf('<span class="dashicons-wu-wp-ultimo wu-align-middle wu-mr-1 wu-text-lg"></span><span class="wu-text-gray-600">%s</span>', __('Automatically processed by Ultimate Multisite', 'ultimate-multisite'));
 		} elseif ('manual' === $object_initiator) {
 			$avatar = get_avatar(
 				$item->get_author_id(),
@@ -96,7 +96,7 @@ class Inside_Events_List_Table extends Event_List_Table {
 					'icon'  => 'dashicons-wu-calendar1 wu-align-middle wu-mr-1',
 					'label' => '',
 					// translators: %s is a placeholder for the human-readable time difference, e.g., "2 hours ago"
-					'value' => sprintf(__('Processed %s', 'multisite-ultimate'), wu_human_time_diff($item->get_date_created(), '-1 day')),
+					'value' => sprintf(__('Processed %s', 'ultimate-multisite'), wu_human_time_diff($item->get_date_created(), '-1 day')),
 				],
 			]
 		);

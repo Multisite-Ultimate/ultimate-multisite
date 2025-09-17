@@ -133,7 +133,7 @@ class Email_Manager extends Base_Manager {
 			$to = $email->get_target_list($payload);
 
 			if (empty($to)) {
-				wu_log_add('mailer', __('No targets found.', 'multisite-ultimate'));
+				wu_log_add('mailer', __('No targets found.', 'ultimate-multisite'));
 
 				return;
 			}
@@ -218,8 +218,8 @@ class Email_Manager extends Base_Manager {
 			'emails',
 			'sender_header',
 			[
-				'title' => __('Sender Settings', 'multisite-ultimate'),
-				'desc'  => __('Change the settings of the email headers, like from and name.', 'multisite-ultimate'),
+				'title' => __('Sender Settings', 'ultimate-multisite'),
+				'desc'  => __('Change the settings of the email headers, like from and name.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -228,8 +228,8 @@ class Email_Manager extends Base_Manager {
 			'emails',
 			'from_name',
 			[
-				'title'       => __('"From" Name', 'multisite-ultimate'),
-				'desc'        => __('How the sender name will appear in emails sent by Multisite Ultimate.', 'multisite-ultimate'),
+				'title'       => __('"From" Name', 'ultimate-multisite'),
+				'desc'        => __('How the sender name will appear in emails sent by Ultimate Multisite.', 'ultimate-multisite'),
 				'type'        => 'text',
 				'placeholder' => get_network_option(null, 'site_name'),
 				'default'     => get_network_option(null, 'site_name'),
@@ -243,8 +243,8 @@ class Email_Manager extends Base_Manager {
 			'emails',
 			'from_email',
 			[
-				'title'       => __('"From" E-mail', 'multisite-ultimate'),
-				'desc'        => __('How the sender email will appear in emails sent by Multisite Ultimate.', 'multisite-ultimate'),
+				'title'       => __('"From" E-mail', 'ultimate-multisite'),
+				'desc'        => __('How the sender email will appear in emails sent by Ultimate Multisite.', 'ultimate-multisite'),
 				'type'        => 'email',
 				'placeholder' => get_network_option(null, 'admin_email'),
 				'default'     => get_network_option(null, 'admin_email'),
@@ -258,8 +258,8 @@ class Email_Manager extends Base_Manager {
 			'emails',
 			'template_header',
 			[
-				'title' => __('Template Settings', 'multisite-ultimate'),
-				'desc'  => __('Change the settings of the email templates.', 'multisite-ultimate'),
+				'title' => __('Template Settings', 'ultimate-multisite'),
+				'desc'  => __('Change the settings of the email templates.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -268,13 +268,13 @@ class Email_Manager extends Base_Manager {
 			'emails',
 			'email_template_type',
 			[
-				'title'     => __('Email Templates Style', 'multisite-ultimate'),
-				'desc'      => __('Choose if email body will be sent using the HTML template or in plain text.', 'multisite-ultimate'),
+				'title'     => __('Email Templates Style', 'ultimate-multisite'),
+				'desc'      => __('Choose if email body will be sent using the HTML template or in plain text.', 'ultimate-multisite'),
 				'type'      => 'select',
 				'default'   => 'html',
 				'options'   => [
-					'html'  => __('HTML Emails', 'multisite-ultimate'),
-					'plain' => __('Plain Emails', 'multisite-ultimate'),
+					'html'  => __('HTML Emails', 'ultimate-multisite'),
+					'plain' => __('Plain Emails', 'ultimate-multisite'),
 				],
 				'html_attr' => [
 					'v-model' => 'emails_template',
@@ -286,8 +286,8 @@ class Email_Manager extends Base_Manager {
 			'emails',
 			'expiring_header',
 			[
-				'title' => __('Expiring Notification Settings', 'multisite-ultimate'),
-				'desc'  => __('Change the settings for the expiring notification (trials and subscriptions) emails.', 'multisite-ultimate'),
+				'title' => __('Expiring Notification Settings', 'ultimate-multisite'),
+				'desc'  => __('Change the settings for the expiring notification (trials and subscriptions) emails.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -296,10 +296,10 @@ class Email_Manager extends Base_Manager {
 			'emails',
 			'expiring_days',
 			[
-				'title'       => __('Days to Expire', 'multisite-ultimate'),
-				'desc'        => __('Select when we should send the notification email. If you select 3 days, for example, a notification email will be sent to every membership (or trial period) expiring in the next 3 days. Memberships are checked hourly.', 'multisite-ultimate'),
+				'title'       => __('Days to Expire', 'ultimate-multisite'),
+				'desc'        => __('Select when we should send the notification email. If you select 3 days, for example, a notification email will be sent to every membership (or trial period) expiring in the next 3 days. Memberships are checked hourly.', 'ultimate-multisite'),
 				'type'        => 'number',
-				'placeholder' => __('e.g. 3', 'multisite-ultimate'),
+				'placeholder' => __('e.g. 3', 'ultimate-multisite'),
 				'html_attr'   => [
 					'v-model' => 'expiring_days',
 				],
@@ -394,7 +394,7 @@ class Email_Manager extends Base_Manager {
 				'event'   => 'payment_received',
 				'slug'    => 'payment_received_admin',
 				'target'  => 'admin',
-				'title'   => __('You got a new payment!', 'multisite-ultimate'),
+				'title'   => __('You got a new payment!', 'ultimate-multisite'),
 				'content' => wu_get_template_contents('emails/admin/payment-received'),
 			]
 		);
@@ -407,7 +407,7 @@ class Email_Manager extends Base_Manager {
 				'event'   => 'payment_received',
 				'slug'    => 'payment_received_customer',
 				'target'  => 'customer',
-				'title'   => __('We got your payment!', 'multisite-ultimate'),
+				'title'   => __('We got your payment!', 'ultimate-multisite'),
 				'content' => wu_get_template_contents('emails/customer/payment-received'),
 			]
 		);
@@ -420,7 +420,7 @@ class Email_Manager extends Base_Manager {
 				'event'   => 'site_published',
 				'target'  => 'admin',
 				'slug'    => 'site_published_admin',
-				'title'   => __('A new site was created on your Network!', 'multisite-ultimate'),
+				'title'   => __('A new site was created on your Network!', 'ultimate-multisite'),
 				'content' => wu_get_template_contents('emails/admin/site-published'),
 			]
 		);
@@ -433,7 +433,7 @@ class Email_Manager extends Base_Manager {
 				'event'   => 'site_published',
 				'target'  => 'customer',
 				'slug'    => 'site_published_customer',
-				'title'   => __('Your site is ready!', 'multisite-ultimate'),
+				'title'   => __('Your site is ready!', 'ultimate-multisite'),
 				'content' => wu_get_template_contents('emails/customer/site-published'),
 			]
 		);
@@ -446,7 +446,7 @@ class Email_Manager extends Base_Manager {
 				'event'   => 'confirm_email_address',
 				'target'  => 'customer',
 				'slug'    => 'confirm_email_address',
-				'title'   => __('Confirm your email address!', 'multisite-ultimate'),
+				'title'   => __('Confirm your email address!', 'ultimate-multisite'),
 				'content' => wu_get_template_contents('emails/customer/confirm-email-address'),
 			]
 		);
@@ -459,7 +459,7 @@ class Email_Manager extends Base_Manager {
 				'event'   => 'domain_created',
 				'target'  => 'admin',
 				'slug'    => 'domain_created_admin',
-				'title'   => __('A new domain was added to your Network!', 'multisite-ultimate'),
+				'title'   => __('A new domain was added to your Network!', 'ultimate-multisite'),
 				'content' => wu_get_template_contents('emails/admin/domain-created'),
 			]
 		);
@@ -472,7 +472,7 @@ class Email_Manager extends Base_Manager {
 				'event'   => 'renewal_payment_created',
 				'target'  => 'customer',
 				'slug'    => 'renewal_payment_created',
-				'title'   => __('You have a new pending payment!', 'multisite-ultimate'),
+				'title'   => __('You have a new pending payment!', 'ultimate-multisite'),
 				'content' => wu_get_template_contents('emails/customer/renewal-payment-created'),
 			]
 		);

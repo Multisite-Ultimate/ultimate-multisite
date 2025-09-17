@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Switch Template Admin Page.
+ * Ultimate Multisite Switch Template Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages\Customer_Panel;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Switch Template Admin Page.
+ * Ultimate Multisite Switch Template Admin Page.
  */
 class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer_Facing_Admin_Page {
 
@@ -103,7 +103,7 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 	 */
 	public function get_title() {
 
-		return __('Switch Template', 'multisite-ultimate');
+		return __('Switch Template', 'ultimate-multisite');
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 	 */
 	public function get_menu_title() {
 
-		return __('Switch Template', 'multisite-ultimate');
+		return __('Switch Template', 'ultimate-multisite');
 	}
 
 	/**
@@ -158,7 +158,7 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 				'page'    => $this,
 				'content' => '',
 				'labels'  => [
-					'updated_message' => __('Template switched successfully!', 'multisite-ultimate'),
+					'updated_message' => __('Template switched successfully!', 'ultimate-multisite'),
 				],
 			]
 		);

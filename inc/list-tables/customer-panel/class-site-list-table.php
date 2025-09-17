@@ -31,7 +31,7 @@ class Site_List_Table extends Parent_Site_List_Table {
 		parent::__construct();
 
 		$this->modes = [
-			'grid' => __('Grid View', 'multisite-ultimate'),
+			'grid' => __('Grid View', 'ultimate-multisite'),
 		];
 
 		$this->current_mode = 'grid';
@@ -73,7 +73,7 @@ class Site_List_Table extends Parent_Site_List_Table {
 			'all' => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'all'),
-				'label' => __('Your Sites', 'multisite-ultimate'),
+				'label' => __('Your Sites', 'ultimate-multisite'),
 				'count' => 0,
 			],
 		];

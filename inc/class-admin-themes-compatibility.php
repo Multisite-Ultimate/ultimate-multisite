@@ -13,7 +13,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Adds a Admin Themes Compatibility for Multisite Ultimate.
+ * Adds a Admin Themes Compatibility for Ultimate Multisite.
  *
  * @since 1.9.14
  */

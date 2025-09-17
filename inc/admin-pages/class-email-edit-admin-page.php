@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Email Edit/Add New Admin Page.
+ * Ultimate Multisite Email Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -16,7 +16,7 @@ use WP_Ultimo\Models\Email;
 use WP_Ultimo\Managers\Email_Manager;
 
 /**
- * Multisite Ultimate Email Edit/Add New Admin Page.
+ * Ultimate Multisite Email Edit/Add New Admin Page.
  */
 class Email_Edit_Admin_Page extends Edit_Admin_Page {
 
@@ -124,10 +124,10 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 		$object = $this->get_object();
 
 		// translators: %s is replaced with the number of days.
-		$days_text = sprintf(__('Send %s day(s) after the event.', 'multisite-ultimate'), '{{ days }}');
+		$days_text = sprintf(__('Send %s day(s) after the event.', 'ultimate-multisite'), '{{ days }}');
 
 		// translators: %1$s is replaced with the number of hours, %2$s is replaced with the number of minutes.
-		$hour_text = sprintf(__('Send %1$s hour(s) and %2$s minute(s) after the event.', 'multisite-ultimate'), '{{ hours.split(":").shift() }}', '{{ hours.split(":").pop() }}');
+		$hour_text = sprintf(__('Send %1$s hour(s) and %2$s minute(s) after the event.', 'ultimate-multisite'), '{{ hours.split(":").shift() }}', '{{ hours.split(":").pop() }}');
 
 		$desc = sprintf(
 			'<span v-show="schedule && schedule_type == \'days\'">%s</span>
@@ -155,8 +155,8 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 				'fields'    => [
 					'slug'               => [
 						'type'      => 'text',
-						'title'     => __('Slug', 'multisite-ultimate'),
-						'desc'      => __('An unique identifier for this system email.', 'multisite-ultimate'),
+						'title'     => __('Slug', 'ultimate-multisite'),
+						'desc'      => __('An unique identifier for this system email.', 'ultimate-multisite'),
 						'value'     => $this->edit ? $object->get_slug() : '',
 						'html_attr' => [
 							'required'     => 'required',
@@ -166,9 +166,9 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'event'              => [
 						'type'        => 'select',
-						'title'       => __('Event', 'multisite-ultimate'),
-						'desc'        => __('The event that will trigger the sending of this email.', 'multisite-ultimate'),
-						'placeholder' => __('Event', 'multisite-ultimate'),
+						'title'       => __('Event', 'ultimate-multisite'),
+						'desc'        => __('The event that will trigger the sending of this email.', 'ultimate-multisite'),
+						'placeholder' => __('Event', 'ultimate-multisite'),
 						'options'     => 'wu_get_event_types_as_options',
 						'value'       => $this->edit ? $object->get_event() : 0,
 						'html_attr'   => [
@@ -177,13 +177,13 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'target'             => [
 						'type'        => 'select',
-						'title'       => __('Target', 'multisite-ultimate'),
-						'desc'        => __('To whom this email should be sent.', 'multisite-ultimate'),
-						'placeholder' => __('Network Administrators', 'multisite-ultimate'),
+						'title'       => __('Target', 'ultimate-multisite'),
+						'desc'        => __('To whom this email should be sent.', 'ultimate-multisite'),
+						'placeholder' => __('Network Administrators', 'ultimate-multisite'),
 						'value'       => $this->edit ? $object->get_target() : 'admin',
 						'options'     => [
-							'admin'    => __('Network Administrators', 'multisite-ultimate'),
-							'customer' => __('Customer', 'multisite-ultimate'),
+							'admin'    => __('Network Administrators', 'ultimate-multisite'),
+							'customer' => __('Customer', 'ultimate-multisite'),
 						],
 						'html_attr'   => [
 							'v-model' => 'target',
@@ -191,8 +191,8 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'send_copy_to_admin' => [
 						'type'              => 'toggle',
-						'title'             => __('Send Copy to Admins?', 'multisite-ultimate'),
-						'desc'              => __('Checking this options will add the network admins as bcc every time this email is sent to a customer.', 'multisite-ultimate'),
+						'title'             => __('Send Copy to Admins?', 'ultimate-multisite'),
+						'desc'              => __('Checking this options will add the network admins as bcc every time this email is sent to a customer.', 'ultimate-multisite'),
 						'value'             => $this->edit ? $object->get_send_copy_to_admin() : false,
 						'wrapper_html_attr' => [
 							'v-show'  => 'target == "customer"',
@@ -201,8 +201,8 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'schedule'           => [
 						'type'      => 'toggle',
-						'title'     => __('Schedule?', 'multisite-ultimate'),
-						'desc'      => __('You can define when the email is sent after the event triggers.', 'multisite-ultimate'),
+						'title'     => __('Schedule?', 'ultimate-multisite'),
+						'desc'      => __('You can define when the email is sent after the event triggers.', 'ultimate-multisite'),
 						'value'     => $this->edit ? $this->get_object()->has_schedule() : 0,
 						'html_attr' => [
 							'v-model' => 'schedule',
@@ -210,8 +210,8 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'send_date'          => [
 						'type'              => 'group',
-						'title'             => __('Scheduling Options', 'multisite-ultimate'),
-						'tooltip'           => __('When this email will be sent after the event?', 'multisite-ultimate'),
+						'title'             => __('Scheduling Options', 'ultimate-multisite'),
+						'tooltip'           => __('When this email will be sent after the event?', 'ultimate-multisite'),
 						'desc'              => $desc,
 						'desc_id'           => 'send_date_desc',
 						'wrapper_html_attr' => [
@@ -225,8 +225,8 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 								'wrapper_classes' => 'wu-w-2/3',
 								'value'           => $this->edit ? $object->get_schedule_type() : 'days',
 								'options'         => [
-									'hours' => __('Delay for hours', 'multisite-ultimate'),
-									'days'  => __('Delay for days', 'multisite-ultimate'),
+									'hours' => __('Delay for hours', 'ultimate-multisite'),
+									'days'  => __('Delay for days', 'ultimate-multisite'),
 								],
 								'html_attr'       => [
 									'v-model' => 'schedule_type',
@@ -271,17 +271,17 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 			]
 		);
 
-		add_meta_box('wp-ultimo-placeholders', __('Placeholders', 'multisite-ultimate'), [$this, 'output_default_widget_placeholders'], get_current_screen()->id, 'normal', null, []);
+		add_meta_box('wp-ultimo-placeholders', __('Placeholders', 'ultimate-multisite'), [$this, 'output_default_widget_placeholders'], get_current_screen()->id, 'normal', null, []);
 
 		$this->add_fields_widget(
 			'active',
 			[
-				'title'  => __('Active', 'multisite-ultimate'),
+				'title'  => __('Active', 'ultimate-multisite'),
 				'fields' => [
 					'active' => [
 						'type'  => 'toggle',
-						'title' => __('Active', 'multisite-ultimate'),
-						'desc'  => __('Use this option to manually enable or disable this email.', 'multisite-ultimate'),
+						'title' => __('Active', 'ultimate-multisite'),
+						'desc'  => __('Use this option to manually enable or disable this email.', 'ultimate-multisite'),
 						'value' => $this->get_object()->is_active(),
 					],
 				],
@@ -291,40 +291,40 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_tabs_widget(
 			'email_edit_options',
 			[
-				'title'    => __('Advanced Options', 'multisite-ultimate'),
+				'title'    => __('Advanced Options', 'ultimate-multisite'),
 				'position' => 'normal',
 				'sections' => [
 					'general' => [
-						'title'  => __('General', 'multisite-ultimate'),
+						'title'  => __('General', 'ultimate-multisite'),
 						'icon'   => 'dashicons-wu-lock',
-						'desc'   => __('Rules and limitations to the applicability of this discount code.', 'multisite-ultimate'),
+						'desc'   => __('Rules and limitations to the applicability of this discount code.', 'ultimate-multisite'),
 						'state'  => [
 							'sender' => $this->edit ? $object->get_custom_sender() : 0,
 						],
 						'fields' => [
 							'style' => [
 								'type'        => 'select',
-								'title'       => __('Email Style', 'multisite-ultimate'),
-								'desc'        => __('Choose if email body will be sent using the HTML template or in plain text.', 'multisite-ultimate'),
-								'placeholder' => __('Style', 'multisite-ultimate'),
+								'title'       => __('Email Style', 'ultimate-multisite'),
+								'desc'        => __('Choose if email body will be sent using the HTML template or in plain text.', 'ultimate-multisite'),
+								'placeholder' => __('Style', 'ultimate-multisite'),
 								'options'     => [
-									'default' => __('Use Default', 'multisite-ultimate'),
-									'html'    => __('HTML Emails', 'multisite-ultimate'),
-									'plain'   => __('Plain Emails', 'multisite-ultimate'),
+									'default' => __('Use Default', 'ultimate-multisite'),
+									'html'    => __('HTML Emails', 'ultimate-multisite'),
+									'plain'   => __('Plain Emails', 'ultimate-multisite'),
 								],
 								'value'       => $this->edit ? $object->get_style() : 'html',
 							],
 						],
 					],
 					'sender'  => [
-						'title'  => __('Custom Sender', 'multisite-ultimate'),
+						'title'  => __('Custom Sender', 'ultimate-multisite'),
 						'icon'   => 'dashicons-wu-mail',
-						'desc'   => __('You can define an email and a name that will only be used when this email is sent.', 'multisite-ultimate'),
+						'desc'   => __('You can define an email and a name that will only be used when this email is sent.', 'ultimate-multisite'),
 						'fields' => [
 							'custom_sender'       => [
 								'type'      => 'toggle',
-								'title'     => __('Use a custom sender?', 'multisite-ultimate'),
-								'desc'      => __('You can define an email and a name that will only be used when this email is sent.', 'multisite-ultimate'),
+								'title'     => __('Use a custom sender?', 'ultimate-multisite'),
+								'desc'      => __('You can define an email and a name that will only be used when this email is sent.', 'ultimate-multisite'),
 								'value'     => $this->edit ? $object->get_custom_sender() : 0,
 								'html_attr' => [
 									'v-model' => 'sender',
@@ -332,8 +332,8 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 							],
 							'custom_sender_name'  => [
 								'type'              => 'text',
-								'title'             => __('From "Name"', 'multisite-ultimate'),
-								'desc'              => __('Override the global from name for this particular email.', 'multisite-ultimate'),
+								'title'             => __('From "Name"', 'ultimate-multisite'),
+								'desc'              => __('Override the global from name for this particular email.', 'ultimate-multisite'),
 								'wrapper_classes'   => 'wu-full',
 								'value'             => $this->edit ? $object->get_custom_sender_name() : '',
 								'wrapper_html_attr' => [
@@ -343,8 +343,8 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 							],
 							'custom_sender_email' => [
 								'type'              => 'email',
-								'title'             => __('From "Email"', 'multisite-ultimate'),
-								'desc'              => __('Override the global from email for this particular email.', 'multisite-ultimate'),
+								'title'             => __('From "Email"', 'ultimate-multisite'),
+								'desc'              => __('Override the global from email for this particular email.', 'ultimate-multisite'),
 								'wrapper_classes'   => 'wu-full',
 								'value'             => $this->edit ? $object->get_custom_sender_email() : '',
 								'wrapper_html_attr' => [
@@ -373,8 +373,8 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 		wu_get_template(
 			'email/widget-placeholders',
 			[
-				'title'        => __('Event Payload', 'multisite-ultimate'),
-				'loading_text' => __('Loading Payload', 'multisite-ultimate'),
+				'title'        => __('Event Payload', 'ultimate-multisite'),
+				'loading_text' => __('Loading Payload', 'ultimate-multisite'),
 			]
 		);
 	}
@@ -387,7 +387,7 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Email', 'multisite-ultimate') : __('Add new Email', 'multisite-ultimate');
+		return $this->edit ? __('Edit Email', 'ultimate-multisite') : __('Add new Email', 'ultimate-multisite');
 	}
 
 	/**
@@ -398,7 +398,7 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Email', 'multisite-ultimate');
+		return __('Edit Email', 'ultimate-multisite');
 	}
 
 	/**
@@ -420,12 +420,12 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 		return [
 			[
 				'url'   => wu_network_admin_url('wp-ultimo-emails'),
-				'label' => __('Go Back', 'multisite-ultimate'),
+				'label' => __('Go Back', 'ultimate-multisite'),
 				'icon'  => 'wu-reply',
 			],
 			[
 				'url'     => $send_test_link,
-				'label'   => __('Send Test Email', 'multisite-ultimate'),
+				'label'   => __('Send Test Email', 'ultimate-multisite'),
 				'icon'    => 'wu-mail',
 				'classes' => 'wubox',
 			],
@@ -441,15 +441,15 @@ class Email_Edit_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Email', 'multisite-ultimate'),
-			'add_new_label'       => __('Add new Email', 'multisite-ultimate'),
-			'updated_message'     => __('Email updated with success!', 'multisite-ultimate'),
-			'title_placeholder'   => __('Enter Email Subject', 'multisite-ultimate'),
-			'title_description'   => __('This will be used as the email subject line.', 'multisite-ultimate'),
-			'save_button_label'   => __('Save Email', 'multisite-ultimate'),
+			'edit_label'          => __('Edit Email', 'ultimate-multisite'),
+			'add_new_label'       => __('Add new Email', 'ultimate-multisite'),
+			'updated_message'     => __('Email updated with success!', 'ultimate-multisite'),
+			'title_placeholder'   => __('Enter Email Subject', 'ultimate-multisite'),
+			'title_description'   => __('This will be used as the email subject line.', 'ultimate-multisite'),
+			'save_button_label'   => __('Save Email', 'ultimate-multisite'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Email', 'multisite-ultimate'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
+			'delete_button_label' => __('Delete Email', 'ultimate-multisite'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'ultimate-multisite'),
 		];
 	}
 

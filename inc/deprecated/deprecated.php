@@ -171,8 +171,8 @@ class WU_Page extends \WP_Ultimo\Admin_Pages\Base_Admin_Page {
 				'parent'        => 'wp-ultimo',
 				'capability'    => 'manage_network',
 				'menu_icon'     => 'dashicons-menu',
-				'title'         => __('Admin Page', 'multisite-ultimate'),
-				'menu_title'    => __('Admin Page', 'multisite-ultimate'),
+				'title'         => __('Admin Page', 'ultimate-multisite'),
+				'menu_title'    => __('Admin Page', 'ultimate-multisite'),
 			]
 		);
 
@@ -425,7 +425,7 @@ class WU_Multi_Network {
  * There is plans to re-add something like this in the future.
  * For now, this is deprecated and declaring it have no side-effects.
  * This class is here to prevent fatal errors when plugin developers
- * used it on their Multisite Ultimate extensions.
+ * used it on their Ultimate Multisite extensions.
  *
  * @deprecated 2.0.0
  */

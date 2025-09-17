@@ -81,7 +81,7 @@ class Country_ES extends Country {
 	 */
 	public function get_name() {
 
-		return __('Spain', 'multisite-ultimate');
+		return __('Spain', 'ultimate-multisite');
 	}
 
 	/**
@@ -93,34 +93,34 @@ class Country_ES extends Country {
 	protected function states() {
 
 		return [
-			'AN' => __('Andalusia', 'multisite-ultimate'),
-			'AR' => __('Aragon', 'multisite-ultimate'),
-			'AS' => __('Asturias', 'multisite-ultimate'),
-			'PM' => __('Balearic Islands', 'multisite-ultimate'),
-			'PV' => __('Basque Country', 'multisite-ultimate'),
-			'BU' => __('Burgos Province', 'multisite-ultimate'),
-			'CN' => __('Canary Islands', 'multisite-ultimate'),
-			'CB' => __('Cantabria', 'multisite-ultimate'),
-			'CL' => __('Castile and León', 'multisite-ultimate'),
-			'CM' => __('Castilla La Mancha', 'multisite-ultimate'),
-			'CT' => __('Catalonia', 'multisite-ultimate'),
-			'CE' => __('Ceuta', 'multisite-ultimate'),
-			'EX' => __('Extremadura', 'multisite-ultimate'),
-			'GA' => __('Galicia', 'multisite-ultimate'),
-			'RI' => __('La Rioja', 'multisite-ultimate'),
-			'LE' => __('Léon', 'multisite-ultimate'),
-			'MD' => __('Madrid', 'multisite-ultimate'),
-			'ML' => __('Melilla', 'multisite-ultimate'),
-			'MC' => __('Murcia', 'multisite-ultimate'),
-			'NC' => __('Navarra', 'multisite-ultimate'),
-			'P'  => __('Palencia Province', 'multisite-ultimate'),
-			'SA' => __('Salamanca Province', 'multisite-ultimate'),
-			'SG' => __('Segovia Province', 'multisite-ultimate'),
-			'SO' => __('Soria Province', 'multisite-ultimate'),
-			'VC' => __('Valencia', 'multisite-ultimate'),
-			'VA' => __('Valladolid Province', 'multisite-ultimate'),
-			'ZA' => __('Zamora Province', 'multisite-ultimate'),
-			'AV' => __('Ávila', 'multisite-ultimate'),
+			'AN' => __('Andalusia', 'ultimate-multisite'),
+			'AR' => __('Aragon', 'ultimate-multisite'),
+			'AS' => __('Asturias', 'ultimate-multisite'),
+			'PM' => __('Balearic Islands', 'ultimate-multisite'),
+			'PV' => __('Basque Country', 'ultimate-multisite'),
+			'BU' => __('Burgos Province', 'ultimate-multisite'),
+			'CN' => __('Canary Islands', 'ultimate-multisite'),
+			'CB' => __('Cantabria', 'ultimate-multisite'),
+			'CL' => __('Castile and León', 'ultimate-multisite'),
+			'CM' => __('Castilla La Mancha', 'ultimate-multisite'),
+			'CT' => __('Catalonia', 'ultimate-multisite'),
+			'CE' => __('Ceuta', 'ultimate-multisite'),
+			'EX' => __('Extremadura', 'ultimate-multisite'),
+			'GA' => __('Galicia', 'ultimate-multisite'),
+			'RI' => __('La Rioja', 'ultimate-multisite'),
+			'LE' => __('Léon', 'ultimate-multisite'),
+			'MD' => __('Madrid', 'ultimate-multisite'),
+			'ML' => __('Melilla', 'ultimate-multisite'),
+			'MC' => __('Murcia', 'ultimate-multisite'),
+			'NC' => __('Navarra', 'ultimate-multisite'),
+			'P'  => __('Palencia Province', 'ultimate-multisite'),
+			'SA' => __('Salamanca Province', 'ultimate-multisite'),
+			'SG' => __('Segovia Province', 'ultimate-multisite'),
+			'SO' => __('Soria Province', 'ultimate-multisite'),
+			'VC' => __('Valencia', 'ultimate-multisite'),
+			'VA' => __('Valladolid Province', 'ultimate-multisite'),
+			'ZA' => __('Zamora Province', 'ultimate-multisite'),
+			'AV' => __('Ávila', 'ultimate-multisite'),
 		];
 	}
 }

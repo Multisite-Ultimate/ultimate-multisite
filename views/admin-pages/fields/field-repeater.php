@@ -140,7 +140,7 @@ if (is_array($field->values)) {
 
 	<a class="button wu-w-full wu-text-center" href="#"
 		v-on:click.prevent="duplicate_and_clean($event, '.field-repeater')">
-		<?php esc_html_e('Add new Line', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Add new Line', 'ultimate-multisite'); ?>
 	</a>
 
 </li>

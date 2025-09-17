@@ -10,12 +10,12 @@
 defined('ABSPATH') || exit;
 
 return [
-	'day'    => __('day', 'multisite-ultimate'),
-	'days'   => __('days', 'multisite-ultimate'),
-	'week'   => __('week', 'multisite-ultimate'),
-	'weeks'  => __('weeks', 'multisite-ultimate'),
-	'month'  => __('month', 'multisite-ultimate'),
-	'months' => __('months', 'multisite-ultimate'),
-	'year'   => __('year', 'multisite-ultimate'),
-	'years'  => __('years', 'multisite-ultimate'),
+	'day'    => __('day', 'ultimate-multisite'),
+	'days'   => __('days', 'ultimate-multisite'),
+	'week'   => __('week', 'ultimate-multisite'),
+	'weeks'  => __('weeks', 'ultimate-multisite'),
+	'month'  => __('month', 'ultimate-multisite'),
+	'months' => __('months', 'ultimate-multisite'),
+	'year'   => __('year', 'ultimate-multisite'),
+	'years'  => __('years', 'ultimate-multisite'),
 ];

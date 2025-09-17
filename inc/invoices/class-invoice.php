@@ -103,7 +103,7 @@ class Invoice {
 
 		$this->printer->SetProtection(['print']);
 
-		$this->printer->SetTitle(__('Invoice', 'multisite-ultimate'));
+		$this->printer->SetTitle(__('Invoice', 'ultimate-multisite'));
 
 		$this->printer->SetAuthor($this->company_name);
 
@@ -257,7 +257,7 @@ class Invoice {
 				'use_custom_logo' => false,
 				'custom_logo'     => false,
 				'footer_message'  => '',
-				'paid_tag_text'   => __('Paid', 'multisite-ultimate'),
+				'paid_tag_text'   => __('Paid', 'ultimate-multisite'),
 			]
 		);
 

@@ -20,12 +20,12 @@ defined('ABSPATH') || exit;
  */
 return [
 	'migrated_from_id' => [
-		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'multisite-ultimate'),
+		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'notice_type'      => [
-		'description' => __('Can be info, success, warning or error.', 'multisite-ultimate'),
+		'description' => __('Can be info, success, warning or error.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -36,57 +36,57 @@ return [
 		],
 	],
 	'name'             => [
-		'description' => __('This broadcast name, which is used as broadcast title as well.', 'multisite-ultimate'),
+		'description' => __('This broadcast name, which is used as broadcast title as well.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'type'             => [
-		'description' => __('The type being set.', 'multisite-ultimate'),
+		'description' => __('The type being set.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => true,
 	],
 	'status'           => [
-		'description' => __('The status being set.', 'multisite-ultimate'),
+		'description' => __('The status being set.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'author_id'        => [
-		'description' => __('The author ID.', 'multisite-ultimate'),
+		'description' => __('The author ID.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'title'            => [
-		'description' => __('Post title.', 'multisite-ultimate'),
+		'description' => __('Post title.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => true,
 	],
 	'content'          => [
-		'description' => __('Post content.', 'multisite-ultimate'),
+		'description' => __('Post content.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => true,
 	],
 	'excerpt'          => [
-		'description' => __('Post excerpt.', 'multisite-ultimate'),
+		'description' => __('Post excerpt.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_created'     => [
-		'description' => __('Post creation date.', 'multisite-ultimate'),
+		'description' => __('Post creation date.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_modified'    => [
-		'description' => __('Post last modification date.', 'multisite-ultimate'),
+		'description' => __('Post last modification date.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'slug'             => [
-		'description' => __('The slug.', 'multisite-ultimate'),
+		'description' => __('The slug.', 'ultimate-multisite'),
 		'type'        => 'mixed',
 		'required'    => false,
 	],
 	'skip_validation'  => [
-		'description' => __('Set true to have field information validation bypassed when saving this event.', 'multisite-ultimate'),
+		'description' => __('Set true to have field information validation bypassed when saving this event.', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],

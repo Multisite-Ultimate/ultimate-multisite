@@ -22,9 +22,9 @@ function wu_render_empty_state($args = []) {
 	$args = wp_parse_args(
 		$args,
 		[
-			'message'                  => __('This is not yet available...', 'multisite-ultimate'),
-			'sub_message'              => __('We\'re still working on this part of the product.', 'multisite-ultimate'),
-			'link_label'               => __('&larr; Go Back', 'multisite-ultimate'),
+			'message'                  => __('This is not yet available...', 'ultimate-multisite'),
+			'sub_message'              => __('We\'re still working on this part of the product.', 'ultimate-multisite'),
+			'link_label'               => __('&larr; Go Back', 'ultimate-multisite'),
 			'link_url'                 => 'javascript:history.go(-1)',
 			'link_classes'             => '',
 			'link_icon'                => '',
@@ -61,7 +61,7 @@ function wu_responsive_table_row($args = [], $first_row = [], $second_row = []) 
 		$args,
 		[
 			'id'     => '',
-			'title'  => __('No Title', 'multisite-ultimate'),
+			'title'  => __('No Title', 'ultimate-multisite'),
 			'url'    => '#',
 			'status' => '',
 			'image'  => '',

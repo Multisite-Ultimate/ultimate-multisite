@@ -12,10 +12,10 @@ defined( 'ABSPATH' ) || exit;
 
 	<thead>
 		<tr>
-		<th class="wu-w-4/12"><?php esc_html_e('Host', 'multisite-ultimate'); ?></th>
-		<th class="wu-w-2/12"><?php esc_html_e('Type', 'multisite-ultimate'); ?></th>
-		<th class="wu-w-4/12"><?php esc_html_e('IP / Target', 'multisite-ultimate'); ?></th>
-		<th class="wu-w-2/12"><?php esc_html_e('TTL', 'multisite-ultimate'); ?></th>
+		<th class="wu-w-4/12"><?php esc_html_e('Host', 'ultimate-multisite'); ?></th>
+		<th class="wu-w-2/12"><?php esc_html_e('Type', 'ultimate-multisite'); ?></th>
+		<th class="wu-w-4/12"><?php esc_html_e('IP / Target', 'ultimate-multisite'); ?></th>
+		<th class="wu-w-2/12"><?php esc_html_e('TTL', 'ultimate-multisite'); ?></th>
 		</tr>
 	</thead>
 
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<td colspan="4">
 
-			<?php esc_html_e('Loading DNS entries...', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Loading DNS entries...', 'ultimate-multisite'); ?>
 
 		</td>
 
@@ -71,7 +71,7 @@ defined( 'ABSPATH' ) || exit;
 		</tr>
 
 		<tr>
-		<td colspan="2"><?php esc_html_e('Your Network IP', 'multisite-ultimate'); ?></td>
+		<td colspan="2"><?php esc_html_e('Your Network IP', 'ultimate-multisite'); ?></td>
 		<td colspan="2" class="wu-text-left">{{ results.network_ip }}</td>
 		</tr>
 

@@ -1,6 +1,6 @@
 # How can I access my account page for the first time?
 
-Welcome to Multisite Ultimate!
+Welcome to Ultimate Multisite!
 
 Access your account page through the link you received in your e-mail after buying our plugin:
 

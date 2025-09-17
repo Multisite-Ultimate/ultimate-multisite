@@ -63,17 +63,17 @@ class Orphaned_Users_Manager {
 			'other',
 			'cleanup_orphaned_users',
 			[
-				'title'             => __('Cleanup Orphaned User Accounts', 'multisite-ultimate'),
-				'desc'              => __('Remove user accounts that are not members of any site and are not super administrators.', 'multisite-ultimate'),
+				'title'             => __('Cleanup Orphaned User Accounts', 'ultimate-multisite'),
+				'desc'              => __('Remove user accounts that are not members of any site and are not super administrators.', 'ultimate-multisite'),
 				'type'              => 'link',
-				'display_value'     => __('Check for Orphaned Users', 'multisite-ultimate'),
+				'display_value'     => __('Check for Orphaned Users', 'ultimate-multisite'),
 				'classes'           => 'button button-secondary wu-ml-0 wubox',
 				'wrapper_html_attr' => [
 					'style' => 'margin-bottom: 20px;',
 				],
 				'html_attr'         => [
 					'href'       => wu_get_form_url('orphaned_users_delete'),
-					'wu-tooltip' => __('Scan and cleanup user accounts with no site memberships', 'multisite-ultimate'),
+					'wu-tooltip' => __('Scan and cleanup user accounts with no site memberships', 'ultimate-multisite'),
 				],
 			]
 		);
@@ -96,8 +96,8 @@ class Orphaned_Users_Manager {
 						<h3 class="wu-mt-0 wu-mb-2">%s</h3>
 						<p>%s</p>
 					</div>',
-				esc_html__('No Issues Found', 'multisite-ultimate'),
-				esc_html__('No orphaned user accounts found.', 'multisite-ultimate')
+				esc_html__('No Issues Found', 'ultimate-multisite'),
+				esc_html__('No orphaned user accounts found.', 'ultimate-multisite')
 			);
 			return;
 		}
@@ -125,19 +125,19 @@ class Orphaned_Users_Manager {
 					</div>',
 					sprintf(
 						/* translators: %d: number of orphaned users */
-						esc_html(_n('Confirm Deletion of %d Orphaned User', 'Confirm Deletion of %d Orphaned Users', $user_count, 'multisite-ultimate')),
+						esc_html(_n('Confirm Deletion of %d Orphaned User', 'Confirm Deletion of %d Orphaned Users', $user_count, 'ultimate-multisite')),
 						$user_count
 					),
-					esc_html__('You are about to permanently delete the following user accounts:', 'multisite-ultimate'),
+					esc_html__('You are about to permanently delete the following user accounts:', 'ultimate-multisite'),
 					$user_list,
-					esc_html__('Warning:', 'multisite-ultimate'),
-					esc_html__('This action cannot be undone and will result in permanent data loss. Please ensure you have a complete database backup before proceeding.', 'multisite-ultimate')
+					esc_html__('Warning:', 'ultimate-multisite'),
+					esc_html__('This action cannot be undone and will result in permanent data loss. Please ensure you have a complete database backup before proceeding.', 'ultimate-multisite')
 				),
 				'wrapper_classes' => 'wu-w-full',
 			],
 			'submit'       => [
 				'type'            => 'submit',
-				'title'           => __('Yes, Delete These Users', 'multisite-ultimate'),
+				'title'           => __('Yes, Delete These Users', 'ultimate-multisite'),
 				'value'           => 'delete',
 				'classes'         => 'button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -184,7 +184,7 @@ class Orphaned_Users_Manager {
 	public function handle_orphaned_users_delete_modal(): void {
 
 		if (! current_user_can('manage_network')) {
-			wp_die(esc_html__('You do not have the required permissions.', 'multisite-ultimate'));
+			wp_die(esc_html__('You do not have the required permissions.', 'ultimate-multisite'));
 		}
 
 		$start_time = microtime(true);
@@ -192,7 +192,7 @@ class Orphaned_Users_Manager {
 		$orphaned_users = $this->find_orphaned_users();
 
 		if (empty($orphaned_users)) {
-			wp_send_json_error(['message' => __('No orphaned users found.', 'multisite-ultimate')]);
+			wp_send_json_error(['message' => __('No orphaned users found.', 'ultimate-multisite')]);
 		}
 
 		$deleted_count = $this->delete_orphaned_users($orphaned_users);
@@ -215,7 +215,7 @@ class Orphaned_Users_Manager {
 				'redirect_url' => $redirect_to,
 				'message'      => sprintf(
 					/* translators: %1$d: number of deleted users, %2$s: execution time */
-					__('Successfully deleted %1$d orphaned users in %2$s seconds.', 'multisite-ultimate'),
+					__('Successfully deleted %1$d orphaned users in %2$s seconds.', 'ultimate-multisite'),
 					$deleted_count,
 					$execution_time
 				),

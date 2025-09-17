@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/signup-nav-links.php.
  *
- * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
+ * HOWEVER, on occasion Ultimate Multisite will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -31,8 +31,8 @@ if ( ! defined('ABSPATH')) {
 $nav_links = apply_filters(
 	'wu_signup_form_nav_links',
 	[
-		home_url()     => __('Return to Home', 'multisite-ultimate'),
-		wp_login_url() => sprintf('<strong>%s</strong>', esc_html__('Log In', 'multisite-ultimate')),
+		home_url()     => __('Return to Home', 'ultimate-multisite'),
+		wp_login_url() => sprintf('<strong>%s</strong>', esc_html__('Log In', 'ultimate-multisite')),
 	]
 );
 

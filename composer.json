@@ -1,8 +1,8 @@
 {
-    "name": "devstone/multisite-ultimate",
+    "name": "devstone/ultimate-multisite",
     "url": "https://MultisiteUltimate.com",
     "description": "The Multisite Website as a Service (WaaS) plugin.",
-    "version": "2.4.1",
+    "version": "2.4.4",
     "authors": [
         {
             "name": "Arindo Duque",
@@ -136,7 +136,10 @@
             ".distignore",
             "encrypt-sectrets.php",
             "scripts",
-            "mu-plugins"
+            "mu-plugins",
+            "DEPLOY.md",
+            "deploy.sh",
+            ".vscode"
         ]
     },
     "extra": {

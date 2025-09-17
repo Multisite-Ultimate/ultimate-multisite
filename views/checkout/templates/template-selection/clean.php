@@ -30,7 +30,7 @@ $sites = array_map('wu_get_site', $sites ?? []);
 
 $categories ??= [];
 
-$customer_sites_category = __('Your Sites', 'multisite-ultimate');
+$customer_sites_category = __('Your Sites', 'ultimate-multisite');
 
 $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) : [];
 
@@ -47,7 +47,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 					:class="$parent.template_category === '' ? 'current wu-font-semibold' : ''"
 					v-on:click.prevent="$parent.template_category = ''"
 			>
-				<?php esc_html_e('All', 'multisite-ultimate'); ?>
+				<?php esc_html_e('All', 'ultimate-multisite'); ?>
 			</a>
 		</li>
 
@@ -109,7 +109,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 				<div class="wu-site-template-image-container wu-relative">
 
 					<a
-					title="<?php esc_attr_e('View Template Preview', 'multisite-ultimate'); ?>"
+					title="<?php esc_attr_e('View Template Preview', 'ultimate-multisite'); ?>"
 					class="wu-site-template-selector wu-cursor-pointer wu-no-underline"
 					<?php $is_template ? $site_template->get_preview_url_attrs() : printf('href="%s" target="_blank"', esc_attr($site_template->get_active_site_url())); ?>
 					>
@@ -136,9 +136,9 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 					<button v-on:click.prevent="$parent.template_id = <?php echo esc_attr($site_template->get_id()); ?>" type="button" class="wu-site-template-selector button btn button-primary btn-primary wu-w-full wu-text-center wu-cursor-pointer">
 
-						<span v-if="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?>"><?php esc_html_e('Selected', 'multisite-ultimate'); ?></span>
+						<span v-if="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?>"><?php esc_html_e('Selected', 'ultimate-multisite'); ?></span>
 
-						<span v-else><?php esc_html_e('Select', 'multisite-ultimate'); ?></span>
+						<span v-else><?php esc_html_e('Select', 'ultimate-multisite'); ?></span>
 
 					</button>
 

@@ -1,8 +1,8 @@
 # Managing Memberships (v2)
 
-_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Ultimate Multisite version 2.x.**_
 
-In Multisite Ultimate 2.0 you can manage memberships and access all the subscriptions on your network.
+In Ultimate Multisite 2.0 you can manage memberships and access all the subscriptions on your network.
 
 There you can review and edit members subscription details such as plans and products included in their subscription, the number of sites, billing amount and frequency, payment history of each member and timestamps.
 

@@ -27,7 +27,7 @@ defined('ABSPATH') || exit;
 
 	<ul id="wp-ultimo-form-<?php echo esc_attr($form->id); ?>" class="wu-flex-grow <?php echo esc_attr(trim($form->classes)); ?>" <?php $form->print_html_attributes(); ?>>
 
-		<?php echo wp_kses($rendered_fields, wu_kses_allowed_html()); ?>
+		<?php $form->render_fields(); ?>
 
 	</ul>
 

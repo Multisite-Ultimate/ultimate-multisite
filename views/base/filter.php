@@ -49,11 +49,11 @@ defined( 'ABSPATH' ) || exit;
 			class="button drawer-toggle"
 			v-bind:aria-expanded="open ? 'true' : 'false'"
 		>
-			<?php esc_html_e('Advanced Filters', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Advanced Filters', 'ultimate-multisite'); ?>
 		</button>
 
 		<div class="wu-py-3 wu-px-2 wu-inline-block wu-uppercase wu-font-semibold wu-text-gray-600 wu-text-xs" v-show="open" v-cloak>
-			<?php esc_html_e('Advanced Filters', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Advanced Filters', 'ultimate-multisite'); ?>
 		</div>
 
 		<button
@@ -62,7 +62,7 @@ defined( 'ABSPATH' ) || exit;
 			type="button"
 			class="button drawer-toggle"
 		>
-			<?php esc_html_e('Close', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Close', 'ultimate-multisite'); ?>
 		</button>
 
 	<?php endif; ?>
@@ -112,7 +112,7 @@ defined( 'ABSPATH' ) || exit;
 						class="wu-uppercase wu-font-semibold wu-text-gray-600 wu-text-xs"
 						v-if="index === 0"
 					>
-						<?php esc_html_e('Where', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Where', 'ultimate-multisite'); ?>
 					</span>
 
 					<select
@@ -120,16 +120,16 @@ defined( 'ABSPATH' ) || exit;
 						v-if="index === 1"
 						v-model="relation"
 					>
-						<option value="and"><?php esc_html_e('and', 'multisite-ultimate'); ?></option>
-						<option value="or"><?php esc_html_e('or', 'multisite-ultimate'); ?></option>
+						<option value="and"><?php esc_html_e('and', 'ultimate-multisite'); ?></option>
+						<option value="or"><?php esc_html_e('or', 'ultimate-multisite'); ?></option>
 					</select>
 
 					<span
 						class="wu-uppercase wu-font-semibold wu-text-gray-600 wu-text-xs"
 						v-if="index > 1"
 					>
-						<span v-show="relation === 'and'"><?php esc_html_e('and', 'multisite-ultimate'); ?></span>
-						<span v-show="relation === 'or'"><?php esc_html_e('or', 'multisite-ultimate'); ?></span>
+						<span v-show="relation === 'and'"><?php esc_html_e('and', 'ultimate-multisite'); ?></span>
+						<span v-show="relation === 'or'"><?php esc_html_e('or', 'ultimate-multisite'); ?></span>
 					</span>
 
 				</div>
@@ -153,24 +153,24 @@ defined( 'ABSPATH' ) || exit;
 				<div class="wu-w-2/12 wu-mx-2">
 
 					<select class="form-control wu-w-full" v-if="get_filter_type(filter.field) == 'bool'" v-model="filter.value">
-						<option value="1"><?php esc_html_e('is true.', 'multisite-ultimate'); ?></option>
-						<option value="0"><?php esc_html_e('is false.', 'multisite-ultimate'); ?></option>
+						<option value="1"><?php esc_html_e('is true.', 'ultimate-multisite'); ?></option>
+						<option value="0"><?php esc_html_e('is false.', 'ultimate-multisite'); ?></option>
 					</select>
 
 					<select class="form-control wu-w-full" v-if="get_filter_type(filter.field) == 'text'" v-bind:value="get_filter_rule(filter.field)">
-						<option value="is"><?php esc_html_e('is', 'multisite-ultimate'); ?></option>
-						<option value="is_not"><?php esc_html_e('is not', 'multisite-ultimate'); ?></option>
-						<option value="contains"><?php esc_html_e('contains', 'multisite-ultimate'); ?></option>
-						<option value="does_not_contain"><?php esc_html_e('does not contain', 'multisite-ultimate'); ?></option>
-						<option value="starts_with"><?php esc_html_e('starts with', 'multisite-ultimate'); ?></option>
-						<option value="ends_with"><?php esc_html_e('ends with', 'multisite-ultimate'); ?></option>
-						<option value="is_empty"><?php esc_html_e('is empty.', 'multisite-ultimate'); ?></option>
-						<option value="is_not_empty"><?php esc_html_e('is not empty.', 'multisite-ultimate'); ?></option>
+						<option value="is"><?php esc_html_e('is', 'ultimate-multisite'); ?></option>
+						<option value="is_not"><?php esc_html_e('is not', 'ultimate-multisite'); ?></option>
+						<option value="contains"><?php esc_html_e('contains', 'ultimate-multisite'); ?></option>
+						<option value="does_not_contain"><?php esc_html_e('does not contain', 'ultimate-multisite'); ?></option>
+						<option value="starts_with"><?php esc_html_e('starts with', 'ultimate-multisite'); ?></option>
+						<option value="ends_with"><?php esc_html_e('ends with', 'ultimate-multisite'); ?></option>
+						<option value="is_empty"><?php esc_html_e('is empty.', 'ultimate-multisite'); ?></option>
+						<option value="is_not_empty"><?php esc_html_e('is not empty.', 'ultimate-multisite'); ?></option>
 					</select>
 
 					<select class="form-control wu-w-full" v-if="get_filter_type(filter.field) == 'date'" v-bind:value="get_filter_rule(filter.field)">
-						<option value="before"><?php esc_html_e('is before', 'multisite-ultimate'); ?></option>
-						<option value="after"><?php esc_html_e('is after', 'multisite-ultimate'); ?></option>
+						<option value="before"><?php esc_html_e('is before', 'ultimate-multisite'); ?></option>
+						<option value="after"><?php esc_html_e('is after', 'ultimate-multisite'); ?></option>
 					</select>
 
 				</div>
@@ -180,7 +180,7 @@ defined( 'ABSPATH' ) || exit;
 					<input
 						type="text"
 						class="form-control wu-w-full"
-						placeholder="<?php esc_attr_e('Value', 'multisite-ultimate'); ?>"
+						placeholder="<?php esc_attr_e('Value', 'ultimate-multisite'); ?>"
 						v-if="_.contains(['text', 'date'], get_filter_type(filter.field)) && !_.contains(['is_empty', 'is_not_empty'], filter.rule)"
 						v-model="filter.value"
 					/>
@@ -195,7 +195,7 @@ defined( 'ABSPATH' ) || exit;
 						class="button"
 						v-show="index > 0"
 					>
-						<?php esc_html_e('Remove Filter', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Remove Filter', 'ultimate-multisite'); ?>
 					</a>
 
 				</div>
@@ -208,7 +208,7 @@ defined( 'ABSPATH' ) || exit;
 						class="button button-primary wu-float-right"
 						v-show="index === filters.length - 1"
 					>
-						<?php esc_html_e('Add new Filter', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Add new Filter', 'ultimate-multisite'); ?>
 					</a>
 
 				</div>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate uninstall script.
+ * Ultimate Multisite uninstall script.
  *
  * @package WP_Ultimo
  * @since 2.0.0

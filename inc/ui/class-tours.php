@@ -97,8 +97,8 @@ class Tours {
 					'ajaxurl' => wu_ajax_url(),
 					'nonce'   => wp_create_nonce('wu_tour_finished'),
 					'i18n'    => [
-						'next'   => __('Next', 'multisite-ultimate'),
-						'finish' => __('Close', 'multisite-ultimate'),
+						'next'   => __('Next', 'ultimate-multisite'),
+						'finish' => __('Close', 'ultimate-multisite'),
 					],
 				]
 			);

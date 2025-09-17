@@ -949,7 +949,7 @@ class SSO {
 		try {
 			$int_version = (int) \DateTime::createFromFormat('Y-m-d H:i:s', $date, $tz)->format('mdisY');
 		} catch (\Throwable $exception) {
-			throw new SSO_Exception(esc_html__('SSO secret creation failed.', 'multisite-ultimate'), 500);
+			throw new SSO_Exception(esc_html__('SSO secret creation failed.', 'ultimate-multisite'), 500);
 		}
 
 		return wp_hash($int_version);

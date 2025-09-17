@@ -109,7 +109,7 @@ class Notification_Manager {
 	}
 
 	/**
-	 * Filter the Multisite Ultimate settings to add Notifications Options
+	 * Filter the Ultimate Multisite settings to add Notifications Options
 	 *
 	 * @since 2.0.0
 	 *
@@ -121,8 +121,8 @@ class Notification_Manager {
 			'sites',
 			'hide_notifications_subsites',
 			[
-				'title'   => __('Hide Admin Notices on Sites', 'multisite-ultimate'),
-				'desc'    => __('Hide all admin notices on network sites, except for Multisite Ultimate broadcasts.', 'multisite-ultimate'),
+				'title'   => __('Hide Admin Notices on Sites', 'ultimate-multisite'),
+				'desc'    => __('Hide all admin notices on network sites, except for Ultimate Multisite broadcasts.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 				'order'   => 25,

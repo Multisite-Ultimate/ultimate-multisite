@@ -43,7 +43,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<span class="wu-mt-2 wu-block wu-text-xs">
 
-				<?php echo ! $site_template->get_categories() ? esc_html__('No categories', 'multisite-ultimate') : esc_html(implode(', ', $site_template->get_categories())); ?>
+				<?php echo ! $site_template->get_categories() ? esc_html__('No categories', 'ultimate-multisite') : esc_html(implode(', ', $site_template->get_categories())); ?>
 
 			</span>
 
@@ -53,7 +53,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<h3 class="wu-my-1 wu-text-2xs wu-uppercase wu-text-gray-600">
 
-				<?php esc_html_e('Behavior', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Behavior', 'ultimate-multisite'); ?>
 
 			</h3>
 
@@ -62,9 +62,9 @@ defined( 'ABSPATH' ) || exit;
 				name="modules[site_templates][limit][<?php echo esc_attr($site_template->get_id()); ?>][behavior]"
 				class="wu-w-full"
 			>
-				<option <?php selected('available' === $template_settings->behavior); ?> value="available"><?php esc_html_e('Available', 'multisite-ultimate'); ?></option>
-				<option <?php selected('not_available' === $template_settings->behavior); ?> value="not_available"><?php esc_html_e('Not Available', 'multisite-ultimate'); ?></option>
-				<option :disabled="pre_selected_template !== '' && pre_selected_template !== false && pre_selected_template != '<?php echo esc_attr($site_template->get_id()); ?>'" <?php selected('pre_selected' === $template_settings->behavior); ?> value="pre_selected"><?php esc_html_e('Pre-Selected', 'multisite-ultimate'); ?></option>
+				<option <?php selected('available' === $template_settings->behavior); ?> value="available"><?php esc_html_e('Available', 'ultimate-multisite'); ?></option>
+				<option <?php selected('not_available' === $template_settings->behavior); ?> value="not_available"><?php esc_html_e('Not Available', 'ultimate-multisite'); ?></option>
+				<option :disabled="pre_selected_template !== '' && pre_selected_template !== false && pre_selected_template != '<?php echo esc_attr($site_template->get_id()); ?>'" <?php selected('pre_selected' === $template_settings->behavior); ?> value="pre_selected"><?php esc_html_e('Pre-Selected', 'ultimate-multisite'); ?></option>
 			</select>
 
 			</div>

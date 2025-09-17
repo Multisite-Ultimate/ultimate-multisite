@@ -1,6 +1,6 @@
-# Multisite Ultimate Translation System
+# Ultimate Multisite Translation System
 
-This directory contains the automated translation system for Multisite Ultimate using potrans and DeepL API.
+This directory contains the automated translation system for Ultimate Multisite using potrans and DeepL API.
 
 ## Overview
 
@@ -109,7 +109,7 @@ php scripts/translate.php --help
 
 ## What the Script Does
 
-1. **Reads the source POT file** (`lang/multisite-ultimate.pot`)
+1. **Reads the source POT file** (`lang/ultimate-multisite.pot`)
 2. **Translates to each DeepL language** using the potrans library
 3. **Generates PO files** with WordPress-compatible locale names
 4. **Creates MO files** from the PO files using msgfmt
@@ -119,13 +119,13 @@ php scripts/translate.php --help
 
 The script generates files following WordPress naming conventions:
 
-- `multisite-ultimate-{wp_locale}.po` - Translation files
-- `multisite-ultimate-{wp_locale}.mo` - Compiled translation files
+- `ultimate-multisite-{wp_locale}.po` - Translation files
+- `ultimate-multisite-{wp_locale}.mo` - Compiled translation files
 
 Examples:
-- `multisite-ultimate-fr_FR.po` - French translation
-- `multisite-ultimate-de_DE.po` - German translation
-- `multisite-ultimate-pt_BR.po` - Brazilian Portuguese translation
+- `ultimate-multisite-fr_FR.po` - French translation
+- `ultimate-multisite-de_DE.po` - German translation
+- `ultimate-multisite-pt_BR.po` - Brazilian Portuguese translation
 
 ## Integration with Build Process
 
@@ -189,4 +189,4 @@ The script provides detailed output showing:
 
 ## License
 
-This translation system is part of Multisite Ultimate and follows the same GPL-3.0-or-later license.
+This translation system is part of Ultimate Multisite and follows the same GPL-3.0-or-later license.

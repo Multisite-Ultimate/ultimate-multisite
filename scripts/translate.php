@@ -96,7 +96,7 @@ class MultisiteUltimateTranslator {
     private $vendor_dir;
 
     public function __construct($api_key = null, $force = false) {
-        $this->source_pot_file = dirname(__DIR__) . '/lang/multisite-ultimate.pot';
+        $this->source_pot_file = dirname(__DIR__) . '/lang/ultimate-multisite.pot';
         $this->lang_dir = dirname(__DIR__) . '/lang';
         $this->vendor_dir = dirname(__DIR__) . '/vendor';
         $this->api_key = $api_key ?: getenv('DEEPL_API_KEY');
@@ -116,7 +116,7 @@ class MultisiteUltimateTranslator {
     }
 
     public function translateAll() {
-        echo "Starting translation process for Multisite Ultimate\n";
+        echo "Starting translation process for Ultimate Multisite\n";
         echo "Source POT: {$this->source_pot_file}\n";
         echo "Output directory: {$this->lang_dir}\n\n";
 
@@ -130,7 +130,7 @@ class MultisiteUltimateTranslator {
             }
 
             $wp_locale = $this->wp_locale_mapping[$deepl_code];
-            $output_file = $this->lang_dir . '/multisite-ultimate-' . $wp_locale . '.po';
+            $output_file = $this->lang_dir . '/ultimate-multisite-' . $wp_locale . '.po';
 
             echo "Translating to {$language_name} ({$deepl_code} -> {$wp_locale})... ";
 
@@ -200,7 +200,7 @@ class MultisiteUltimateTranslator {
     public function generateMoFiles() {
         echo "Generating .mo files from .po files...\n";
 
-        $po_files = glob($this->lang_dir . '/multisite-ultimate-*.po');
+        $po_files = glob($this->lang_dir . '/ultimate-multisite-*.po');
         $success_count = 0;
 
         foreach ($po_files as $po_file) {
@@ -292,7 +292,7 @@ for ($i = 1; $i < $argc; $i++) {
 }
 
 if ($help) {
-    echo "Multisite Ultimate Translation Script\n";
+    echo "Ultimate Multisite Translation Script\n";
     echo "=====================================\n\n";
     echo "Usage: php scripts/translate.php [options]\n\n";
     echo "Options:\n";

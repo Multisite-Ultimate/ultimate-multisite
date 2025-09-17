@@ -6,7 +6,7 @@ Requires at least: 5.3
 
 Requires PHP: 7.4.30
 Tested up to: 6.8
-Stable tag: 2.4.3
+Stable tag: 2.4.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -288,7 +288,7 @@ We recommend running this in a staging environment before updating your producti
 
 == Changelog ==
 
-Version [2.4.4] - Released on 2025-08-XX
+Version [2.4.4] - Released on 2025-09-17
 - Fixed: Saving email templates without stripping html
 - New: Option to allow site owners to edit users on their site
 - Fixed: Invoices not loading when logo is not set

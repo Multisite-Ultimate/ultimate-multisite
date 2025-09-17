@@ -1,7 +1,7 @@
-# Multisite Ultimate
+# Ultimate Multisite
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/superdav42/wp-multisite-waas/refs/heads/main/assets/img/logo.png" alt="Multisite Ultimate Logo" width="300">
+  <img src="https://raw.githubusercontent.com/superdav42/wp-multisite-waas/refs/heads/main/assets/img/logo.png" alt="Ultimate Multisite Logo" width="300">
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
 
 ## 🌟 Overview
 
-**Multisite Ultimate** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
+**Ultimate Multisite** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
 
 This plugin was formerly known as WP Ultimo and is now community maintained.
 
@@ -47,7 +47,7 @@ This plugin was formerly known as WP Ultimo and is now community maintained.
 
 ## 🔧 Installation
 
-There are two recommended ways to install Multisite Ultimate:
+There are two recommended ways to install Ultimate Multisite:
 
 ### Method 1: Using the pre-packaged release (Recommended)
 
@@ -94,7 +94,7 @@ This method requires command-line access to your server and familiarity with Git
 <details>
 <summary><strong>"Cannot declare class ComposerAutoloaderInitWPUltimoDependencies, because the name is already in use"</strong></summary>
 <p>This error usually occurs when updating from an older version of WP Ultimo or when multiple versions of the plugin are installed.</p>
-<p><strong>Solution:</strong> Deactivate and remove any older versions of WP Ultimo or Multisite Ultimate before activating the new version.</p>
+<p><strong>Solution:</strong> Deactivate and remove any older versions of WP Ultimo or Ultimate Multisite before activating the new version.</p>
 </details>
 
 <details>
@@ -105,7 +105,7 @@ This method requires command-line access to your server and familiarity with Git
 
 ## 🚀 Contributing
 
-We welcome contributions to Multisite Ultimate! Here's how you can contribute effectively:
+We welcome contributions to Ultimate Multisite! Here's how you can contribute effectively:
 
 ### Development Workflow
 
@@ -180,6 +180,16 @@ We recommend running this in a staging environment before updating your producti
 
 ## 📝 Recent Changes
 
+### Version [2.4.4] - Released on 2025-09-17
+- Fixed: Saving email templates without stripping html
+- New: Option to allow site owners to edit users on their site
+- Fixed: Invoices not loading when logo is not set
+- Fixed: Verify DNS settings when using a reverse proxy
+- Improved: Lazy load limitations for better performance and compatibility
+- New: Add Admin Notice if sunrise.php is not setup
+- New: Option to not always create www. subdomains with hosting integrations
+- Improved: Plugin renamed to Ultimate Multisite
+
 ### Version [2.4.3] - Released on 2025-08-15
 - Fixed: Bug in Slim SEO plugin
 - New: Addon Marketplace
@@ -238,7 +248,7 @@ For the complete changelog, please see [readme.txt](readme.txt).
 
 ## 👥 Contributors
 
-Multisite Ultimate is an open-source project with contributions from:
+Ultimate Multisite is an open-source project with contributions from:
 
 - [aanduque](https://github.com/aanduque)
 - [superdav42](https://github.com/superdav42)
@@ -246,9 +256,9 @@ Multisite Ultimate is an open-source project with contributions from:
 
 ## 📄 License
 
-Multisite Ultimate is licensed under the GPL v2 or later.
+Ultimate Multisite is licensed under the GPL v2 or later.
 
-Copyright © 2024 [Multisite Ultimate Contributors](https://github.com/superdav42/wp-multisite-waas/graphs/contributors)
+Copyright © 2024 [Ultimate Multisite Contributors](https://github.com/superdav42/wp-multisite-waas/graphs/contributors)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as

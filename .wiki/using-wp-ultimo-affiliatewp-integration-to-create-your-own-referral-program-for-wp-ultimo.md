@@ -1,20 +1,20 @@
-# Using Multisite Ultimate: AffiliateWP Integration to create your own referral program for Multisite Ultimate
+# Using Ultimate Multisite: AffiliateWP Integration to create your own referral program for Ultimate Multisite
 
-[AffiliateWP](https://affiliatewp.com/) has become the go-to solution when building an affiliate program for your online business. Multisite Ultimate: AffiliateWP is the bridge that will enable you to build the same thing for your premium network.
+[AffiliateWP](https://affiliatewp.com/) has become the go-to solution when building an affiliate program for your online business. Ultimate Multisite: AffiliateWP is the bridge that will enable you to build the same thing for your premium network.
 
 ## Getting Started
 
 First of all, you **need to have** [**AffiliateWP**](https://affiliatewp.com/) **active**! You won't be able to use our add-on if you don't have **the plugin that integrates with it**. In case you don’t plan to let your clients use it on their sites as well, AffiliateWP should be active only on your main site.
 
-Also, you’ll need both **Multisite Ultimate** and **Multisite Ultimate: AffiliateWP** **activated** **network-wide**.
+Also, you’ll need both **Ultimate Multisite** and **Ultimate Multisite: AffiliateWP** **activated** **network-wide**.
 
-## Adding Multisite Ultimate as an AffiliateWP Integration
+## Adding Ultimate Multisite as an AffiliateWP Integration
 
-On your main site, head to Affiliates Settings, and on the Integrations tab, check Multisite Ultimate. This will tell [AffiliateWP](https://affiliatewp.com/) to start tracking visits and conversions from the Multisite Ultimate sign-up flow.
+On your main site, head to Affiliates Settings, and on the Integrations tab, check Ultimate Multisite. This will tell [AffiliateWP](https://affiliatewp.com/) to start tracking visits and conversions from the Ultimate Multisite sign-up flow.
 
 [![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-602126536867724dfc6f0a54-zkWh3TFms-1F9087E6-928C-4043-94B9-F85966AF05DA.png)](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-602126536867724dfc6f0a54-zkWh3TFms-1F9087E6-928C-4043-94B9-F85966AF05DA.png)
 
-_Check the Multisite Ultimate box at the bottom and save_
+_Check the Ultimate Multisite box at the bottom and save_
 
 That’s pretty much all that it takes. Visits coming from referral links will be tracked and when that user later makes his first payment, the conversion will be created and a commission will be put aside to the affiliate responsible for the conversion.
 

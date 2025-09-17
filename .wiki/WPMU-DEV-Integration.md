@@ -1,7 +1,7 @@
 # WPMU DEV Integration
 
 ## Overview
-WPMU DEV is a comprehensive WordPress platform that offers hosting, plugins, and services for WordPress sites. This integration enables automatic domain syncing and SSL certificate management between Multisite Ultimate and WPMU DEV hosting.
+WPMU DEV is a comprehensive WordPress platform that offers hosting, plugins, and services for WordPress sites. This integration enables automatic domain syncing and SSL certificate management between Ultimate Multisite and WPMU DEV hosting.
 
 ## Features
 - Automatic domain syncing
@@ -24,7 +24,7 @@ If you're hosting on WPMU DEV, the necessary constants should already be defined
 
 ### 2. Enable the Integration
 
-1. In your WordPress admin, go to Multisite Ultimate > Settings
+1. In your WordPress admin, go to Ultimate Multisite > Settings
 2. Navigate to the "Domain Mapping" tab
 3. Scroll down to "Host Integrations"
 4. Enable the WPMU DEV integration
@@ -34,7 +34,7 @@ If you're hosting on WPMU DEV, the necessary constants should already be defined
 
 ### Domain Syncing
 
-When a domain is mapped in Multisite Ultimate:
+When a domain is mapped in Ultimate Multisite:
 
 1. The integration uses the WPMU DEV API to add the domain to your hosting account
 2. It also adds the www version of the domain automatically
@@ -48,7 +48,7 @@ The integration is configured to increase the number of SSL certificate verifica
 
 ### Domain Removal
 
-Currently, the WPMU DEV API does not provide a way to remove domains. When a domain mapping is removed in Multisite Ultimate, the domain will remain in your WPMU DEV hosting account. You will need to manually remove it from the WPMU DEV hosting dashboard if necessary.
+Currently, the WPMU DEV API does not provide a way to remove domains. When a domain mapping is removed in Ultimate Multisite, the domain will remain in your WPMU DEV hosting account. You will need to manually remove it from the WPMU DEV hosting dashboard if necessary.
 
 ### API Authentication
 
@@ -67,6 +67,6 @@ The integration uses the WPMU DEV API key that is stored in your WordPress datab
 - If SSL certificates are still not being issued after multiple attempts, contact WPMU DEV support
 
 ### Domain Not Added
-- Check the Multisite Ultimate logs for any error messages
+- Check the Ultimate Multisite logs for any error messages
 - Verify that the domain is not already added to WPMU DEV
 - Ensure that your WPMU DEV hosting plan supports the number of domains you're adding

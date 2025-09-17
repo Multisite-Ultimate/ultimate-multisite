@@ -1,7 +1,7 @@
 # GridPane Integration
 
 ## Overview
-GridPane is a specialized WordPress hosting control panel built for serious WordPress professionals. This integration enables automatic domain syncing and SSL certificate management between Multisite Ultimate and GridPane.
+GridPane is a specialized WordPress hosting control panel built for serious WordPress professionals. This integration enables automatic domain syncing and SSL certificate management between Ultimate Multisite and GridPane.
 
 ## Features
 - Automatic domain syncing
@@ -48,7 +48,7 @@ define('WU_GRIDPANE_APP_ID', 'your_site_id');
 
 ### 4. Enable the Integration
 
-1. In your WordPress admin, go to Multisite Ultimate > Settings
+1. In your WordPress admin, go to Ultimate Multisite > Settings
 2. Navigate to the "Domain Mapping" tab
 3. Scroll down to "Host Integrations"
 4. Enable the GridPane integration
@@ -56,7 +56,7 @@ define('WU_GRIDPANE_APP_ID', 'your_site_id');
 
 ## How It Works
 
-When a domain is mapped in Multisite Ultimate:
+When a domain is mapped in Ultimate Multisite:
 
 1. The integration sends a request to GridPane's API to add the domain to your site
 2. GridPane automatically handles SSL certificate provisioning
@@ -81,6 +81,6 @@ One unique feature of the GridPane integration is that it automatically reverts 
 - Check the GridPane SSL settings for your site
 
 ### Domain Not Added
-- Check the Multisite Ultimate logs for any error messages
+- Check the Ultimate Multisite logs for any error messages
 - Verify that the domain is not already added to GridPane
 - Ensure that your domain's DNS records are properly configured

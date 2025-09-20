@@ -202,22 +202,31 @@ class Webhook_Manager extends Base_Manager {
 		}
 
 		check_ajax_referer('wu_webhook_send_test', 'nonce');
-		$event = wu_get_event_type(sanitize_text_field(wp_unslash($_POST['webhook_event'] ?? '')));
+		$webhook_id = absint(wu_request('webhook_id'));
 
-		$webhook_data = [
-			'active'      => true,
-			'id'          => wu_request('webhook_id'),
-			'webhook_url' => wu_request('webhook_url'),
-		];
+		// Load the webhook from the database to ensure we have its saved URL and settings
+		$webhook = Webhook::get_by_id($webhook_id);
 
-		$webhook = new Webhook($webhook_data);
+		if ( ! $webhook) {
+			wp_send_json(
+				[
+					'response' => __('Webhook not found.', 'ultimate-multisite'),
+					'id'       => $webhook_id,
+				]
+			);
+		}
+
+		// Determine event: prefer provided value if present, otherwise use the stored event
+		$requested_event = sanitize_text_field(wp_unslash($_POST['webhook_event'] ?? ''));
+		$event_key       = $requested_event ?: (string) $webhook->get_event();
+		$event           = wu_get_event_type($event_key);
 
 		$response = $this->send_webhook($webhook, wu_maybe_lazy_load_payload($event['payload']), true, false);
 
 		wp_send_json(
 			[
 				'response' => htmlentities2($response),
-				'id'       => wu_request('webhook_id'),
+				'id'       => $webhook_id,
 			]
 		);
 	}

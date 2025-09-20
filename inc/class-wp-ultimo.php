@@ -597,6 +597,11 @@ final class WP_Ultimo {
 		\WP_Ultimo\Whitelabel::get_instance();
 
 		/*
+		 * Optional Footer Credits (opt-in, defaults OFF)
+		 */
+		\WP_Ultimo\Credits::get_instance();
+
+		/*
 		 * Adds support to multiple accounts.
 		 *
 		 * This used to be an add-on on Ultimate Multisite 1.X

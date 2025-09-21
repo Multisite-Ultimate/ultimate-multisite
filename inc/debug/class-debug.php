@@ -24,7 +24,7 @@ class Debug {
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
-	 * The registry of Multisite Ultimate admin pages.
+	 * The registry of Ultimate Multisite admin pages.
 	 *
 	 * @since 2.0.0
 	 * @var array
@@ -71,37 +71,37 @@ class Debug {
 			<a  
 				href="<?php wu_network_admin_url('wp-ultimo-debug-pages'); ?>" 
 				class="wu-ml-2 wu-no-underline wu-text-gray-600"
-				title="<?php esc_html_e('Pages', 'multisite-ultimate'); ?>"
+				title="<?php esc_html_e('Pages', 'ultimate-multisite'); ?>"
 			>
 				<span class="dashicons-wu-documents"></span>
-				<?php esc_html_e('Pages', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Pages', 'ultimate-multisite'); ?>
 			</a>
 
 			<a  
 				href="<?php echo esc_attr(wu_get_form_url('add_debug_generator_form')); ?>"
 				class="wubox wu-ml-2 wu-no-underline wu-relative wu-text-gray-600"
-				title="<?php esc_html_e('Generator', 'multisite-ultimate'); ?>"
+				title="<?php esc_html_e('Generator', 'ultimate-multisite'); ?>"
 			>
 				<span class="dashicons-wu-rocket"></span>
-				<?php esc_html_e('Generator', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Generator', 'ultimate-multisite'); ?>
 			</a>
 
 			<a  
 				href="<?php echo esc_attr(wu_get_form_url('add_debug_reset_database_form')); ?>"
 				class="wubox wu-ml-2 wu-no-underline wu-text-gray-600"
-				title="<?php esc_html_e('Reset Database', 'multisite-ultimate'); ?>"
+				title="<?php esc_html_e('Reset Database', 'ultimate-multisite'); ?>"
 			>
 				<span class="dashicons-wu-back-in-time"></span>
-				<?php esc_html_e('Reset Database', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Reset Database', 'ultimate-multisite'); ?>
 			</a>
 
 			<a  
 				href="<?php echo esc_attr(wu_get_form_url('add_debug_drop_database_form')); ?>"
 				class="wubox wu-ml-2 wu-no-underline wu-text-gray-600"
-				title="<?php esc_html_e('Drop Database', 'multisite-ultimate'); ?>"
+				title="<?php esc_html_e('Drop Database', 'ultimate-multisite'); ?>"
 			>
 				<span class="dashicons-wu-database"></span>
-				<?php esc_html_e('Drop Database', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Drop Database', 'ultimate-multisite'); ?>
 			</a>
 
 		<?php
@@ -158,15 +158,15 @@ class Debug {
 
 		$fields = [
 			'customers'             => [
-				'title'     => __('Customers', 'multisite-ultimate'),
-				'desc'      => __('Toggle to generate customers.', 'multisite-ultimate'),
+				'title'     => __('Customers', 'ultimate-multisite'),
+				'desc'      => __('Toggle to generate customers.', 'ultimate-multisite'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'customers',
 				],
 			],
 			'customers_number'      => [
-				'title'             => __('Number of Customers', 'multisite-ultimate'),
+				'title'             => __('Number of Customers', 'ultimate-multisite'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -175,15 +175,15 @@ class Debug {
 				],
 			],
 			'products'              => [
-				'title'     => __('Products', 'multisite-ultimate'),
-				'desc'      => __('Toggle to generate products.', 'multisite-ultimate'),
+				'title'     => __('Products', 'ultimate-multisite'),
+				'desc'      => __('Toggle to generate products.', 'ultimate-multisite'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'products',
 				],
 			],
 			'products_number'       => [
-				'title'             => __('Number of Products', 'multisite-ultimate'),
+				'title'             => __('Number of Products', 'ultimate-multisite'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -192,15 +192,15 @@ class Debug {
 				],
 			],
 			'memberships'           => [
-				'title'     => __('Memberships', 'multisite-ultimate'),
-				'desc'      => __('Toggle to generate memberships.', 'multisite-ultimate'),
+				'title'     => __('Memberships', 'ultimate-multisite'),
+				'desc'      => __('Toggle to generate memberships.', 'ultimate-multisite'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'memberships',
 				],
 			],
 			'memberships_number'    => [
-				'title'             => __('Number of Memberships', 'multisite-ultimate'),
+				'title'             => __('Number of Memberships', 'ultimate-multisite'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -209,15 +209,15 @@ class Debug {
 				],
 			],
 			'sites'                 => [
-				'title'     => __('Sites', 'multisite-ultimate'),
-				'desc'      => __('Toggle to generate sites.', 'multisite-ultimate'),
+				'title'     => __('Sites', 'ultimate-multisite'),
+				'desc'      => __('Toggle to generate sites.', 'ultimate-multisite'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'sites',
 				],
 			],
 			'sites_number'          => [
-				'title'             => __('Number of Sites', 'multisite-ultimate'),
+				'title'             => __('Number of Sites', 'ultimate-multisite'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -226,15 +226,15 @@ class Debug {
 				],
 			],
 			'domains'               => [
-				'title'     => __('Domains', 'multisite-ultimate'),
-				'desc'      => __('Toggle to generate domains.', 'multisite-ultimate'),
+				'title'     => __('Domains', 'ultimate-multisite'),
+				'desc'      => __('Toggle to generate domains.', 'ultimate-multisite'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'domains',
 				],
 			],
 			'domains_number'        => [
-				'title'             => __('Number of Domains', 'multisite-ultimate'),
+				'title'             => __('Number of Domains', 'ultimate-multisite'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -243,15 +243,15 @@ class Debug {
 				],
 			],
 			'discount_codes'        => [
-				'title'     => __('Discount Codes', 'multisite-ultimate'),
-				'desc'      => __('Toggle to generate discount codes.', 'multisite-ultimate'),
+				'title'     => __('Discount Codes', 'ultimate-multisite'),
+				'desc'      => __('Toggle to generate discount codes.', 'ultimate-multisite'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'discount_codes',
 				],
 			],
 			'discount_codes_number' => [
-				'title'             => __('Number of Discount Codes', 'multisite-ultimate'),
+				'title'             => __('Number of Discount Codes', 'ultimate-multisite'),
 				'type'              => 'number',
 				'value'             => 10,
 				'wrapper_html_attr' => [
@@ -260,15 +260,15 @@ class Debug {
 				],
 			],
 			'payments'              => [
-				'title'     => __('Payments', 'multisite-ultimate'),
-				'desc'      => __('Toggle to generate payments.', 'multisite-ultimate'),
+				'title'     => __('Payments', 'ultimate-multisite'),
+				'desc'      => __('Toggle to generate payments.', 'ultimate-multisite'),
 				'type'      => 'toggle',
 				'html_attr' => [
 					'v-model' => 'payments',
 				],
 			],
 			'payments_number'       => [
-				'title'             => __('Number of Payments', 'multisite-ultimate'),
+				'title'             => __('Number of Payments', 'ultimate-multisite'),
 				'type'              => 'number',
 				'value'             => 30,
 				'wrapper_html_attr' => [
@@ -277,7 +277,7 @@ class Debug {
 				],
 			],
 			'submit_button'         => [
-				'title'           => __('Generate Data &rarr;', 'multisite-ultimate'),
+				'title'           => __('Generate Data &rarr;', 'ultimate-multisite'),
 				'type'            => 'submit',
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
@@ -400,8 +400,8 @@ class Debug {
 
 		$fields = [
 			'reset_only_fake_data' => [
-				'title'     => __('Only reset generated data.', 'multisite-ultimate'),
-				'desc'      => __('Toggle this option to only remove data that was added by the generator previously. Untoggling this option will reset ALL data in Multisite Ultimate tables.', 'multisite-ultimate'),
+				'title'     => __('Only reset generated data.', 'ultimate-multisite'),
+				'desc'      => __('Toggle this option to only remove data that was added by the generator previously. Untoggling this option will reset ALL data in Ultimate Multisite tables.', 'ultimate-multisite'),
 				'type'      => 'toggle',
 				'value'     => true,
 				'html_attr' => [
@@ -409,7 +409,7 @@ class Debug {
 				],
 			],
 			'submit_button'        => [
-				'title'           => __('Reset Database &rarr;', 'multisite-ultimate'),
+				'title'           => __('Reset Database &rarr;', 'ultimate-multisite'),
 				'type'            => 'submit',
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
@@ -486,10 +486,10 @@ class Debug {
 		$fields = [
 			'reset_note'    => [
 				'type' => 'note',
-				'desc' => __('This action will drop the Multisite Ultimate database tables and is irreversable.', 'multisite-ultimate'),
+				'desc' => __('This action will drop the Ultimate Multisite database tables and is irreversable.', 'ultimate-multisite'),
 			],
 			'submit_button' => [
-				'title'           => __('Drop Database Tables &rarr;', 'multisite-ultimate'),
+				'title'           => __('Drop Database Tables &rarr;', 'ultimate-multisite'),
 				'type'            => 'submit',
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
@@ -581,7 +581,7 @@ class Debug {
 	}
 
 	/**
-	 * Add a Multisite Ultimate page to the registry.
+	 * Add a Ultimate Multisite page to the registry.
 	 *
 	 * @since 2.0.0
 	 *
@@ -956,7 +956,7 @@ class Debug {
 		$the_prefix = 'wp-ultimo_';
 
 		/*
-		 * List of Multisite Ultimate options.
+		 * List of Ultimate Multisite options.
 		 * Format: $option_name => $should_use_prefix
 		 */
 		$options = [

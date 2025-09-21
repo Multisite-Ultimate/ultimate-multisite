@@ -151,7 +151,7 @@ class CPanel_API {
 
 		if (is_wp_error($response)) {
 			// translators: %s is the error.
-			$this->log(sprintf(__('cPanel API Error: %s', 'multisite-ultimate'), $response->get_error_message()));
+			$this->log(sprintf(__('cPanel API Error: %s', 'ultimate-multisite'), $response->get_error_message()));
 			return false;
 		}
 
@@ -223,7 +223,7 @@ class CPanel_API {
 			$this->homepage = $this->get_base_url() . $reply['redirect'];
 			$this->ex_page  = $this->get_base_url() . "/{$this->cpsess}/execute/";
 		} else {
-			$this->log(__('Cannot connect to your cPanel server : Invalid Credentials', 'multisite-ultimate'));
+			$this->log(__('Cannot connect to your cPanel server : Invalid Credentials', 'ultimate-multisite'));
 		}
 	}
 

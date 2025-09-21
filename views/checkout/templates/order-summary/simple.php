@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
 
 	<div v-show="!order" class="wu-bg-gray-100 wu-p-4 wu-text-center wu-border wu-border-solid wu-border-gray-300">
 
-	<?php esc_html_e('Generating Order Summary...', 'multisite-ultimate'); ?>
+	<?php esc_html_e('Generating Order Summary...', 'ultimate-multisite'); ?>
 
 	</div>
 
@@ -24,31 +24,31 @@ defined('ABSPATH') || exit;
 		<tr class="">
 
 			<th class="col-description">
-			<?php esc_html_e('Description', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Description', 'ultimate-multisite'); ?>
 			</th>
 
 			<?php if ('simple' === $table_columns) : ?>
 
 			<th class="col-total-gross">
-				<?php esc_html_e('Subtotal', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Subtotal', 'ultimate-multisite'); ?>
 			</th>
 
 			<?php else : ?>
 
 			<th class="col-total-net">
-				<?php esc_html_e('Net Total', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Net Total', 'ultimate-multisite'); ?>
 			</th>
 
 			<th class="col-total-vat-percentage">
-				<?php esc_html_e('Discounts', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Discounts', 'ultimate-multisite'); ?>
 			</th>
 
 			<th class="col-total-tax">
-				<?php esc_html_e('Tax', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Tax', 'ultimate-multisite'); ?>
 			</th>
 
 			<th class="col-total-gross">
-				<?php esc_html_e('Gross Total', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Gross Total', 'ultimate-multisite'); ?>
 			</th>
 
 			<?php endif; ?>
@@ -63,7 +63,7 @@ defined('ABSPATH') || exit;
 
 			<td class="" colspan="<?php echo esc_attr('simple' === $table_columns) ? 2 : 5; ?>" class="col-description">
 
-			<?php esc_html_e('No products in shopping cart.', 'multisite-ultimate'); ?>
+			<?php esc_html_e('No products in shopping cart.', 'ultimate-multisite'); ?>
 
 			</td>
 
@@ -73,13 +73,13 @@ defined('ABSPATH') || exit;
 
 			<td class="wu-py-2 col-description" v-show="line_item.recurring">
 			<?php // translators: %s: name of the subscription ?>
-			<?php printf(esc_html__('Subscription - %s', 'multisite-ultimate'), '{{ line_item.title }}'); ?>
+			<?php printf(esc_html__('Subscription - %s', 'ultimate-multisite'), '{{ line_item.title }}'); ?>
 
 			<small v-if="line_item.type == 'product'" class="wu-ml-3 wu-text-xs">
 
 				<a href="#" class="wu-no-underline" v-on:click.prevent="remove_product(line_item.product_id, line_item.product_slug)">
 
-				<?php esc_html_e('Remove', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Remove', 'ultimate-multisite'); ?>
 
 				</a>
 
@@ -95,7 +95,7 @@ defined('ABSPATH') || exit;
 
 				<a href="#" class="wu-no-underline" v-on:click.prevent="remove_product(line_item.product_id, line_item.product_slug)">
 
-				<?php esc_html_e('Remove', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Remove', 'ultimate-multisite'); ?>
 
 				</a>
 
@@ -169,7 +169,7 @@ defined('ABSPATH') || exit;
 
 			<td>
 
-				<?php esc_html_e('Discounts', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Discounts', 'ultimate-multisite'); ?>
 
 			</td>
 
@@ -185,7 +185,7 @@ defined('ABSPATH') || exit;
 
 			<td>
 
-				<?php esc_html_e('Taxes', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Taxes', 'ultimate-multisite'); ?>
 
 			</td>
 
@@ -203,7 +203,7 @@ defined('ABSPATH') || exit;
 
 			<td class="" colspan="<?php echo esc_attr('simple' === $table_columns) ? 1 : 4; ?>">
 
-			<strong><?php esc_html_e("Today's Grand Total", 'multisite-ultimate'); ?></strong>
+			<strong><?php esc_html_e("Today's Grand Total", 'ultimate-multisite'); ?></strong>
 
 			</td>
 
@@ -227,7 +227,7 @@ defined('ABSPATH') || exit;
 
 			<small>
 				<?php // translators: %1$s relative date string ?>
-				<?php printf(wp_kses_post(__('Total in %1$s - end of trial period.', 'multisite-ultimate')), '{{ $moment.unix(order.dates.date_trial_end).format(`LL`) }}'); ?>
+				<?php printf(wp_kses_post(__('Total in %1$s - end of trial period.', 'ultimate-multisite')), '{{ $moment.unix(order.dates.date_trial_end).format(`LL`) }}'); ?>
 			</small>
 
 			</td>
@@ -248,7 +248,7 @@ defined('ABSPATH') || exit;
 
 		<li v-if="!order.has_trial && order.has_recurring">
 		<?php // translators: %1$s order total, %2$s relative date string. ?>
-		<?php printf(esc_html__('Next fee of %1$s will be billed in %2$s.', 'multisite-ultimate'), '{{ wu_format_money(order.totals.recurring.total) }}', '{{ $moment.unix(order.dates.date_next_charge).format(`LL`) }}'); ?>
+		<?php printf(esc_html__('Next fee of %1$s will be billed in %2$s.', 'ultimate-multisite'), '{{ wu_format_money(order.totals.recurring.total) }}', '{{ $moment.unix(order.dates.date_next_charge).format(`LL`) }}'); ?>
 
 		</li>
 
@@ -256,12 +256,12 @@ defined('ABSPATH') || exit;
 
 		<?php
 		// translators: 1 is the discount name (e.g. Launch Promo). 2 is the coupon code (e.g PROMO10), 3 is the coupon amount and 4 is the discount total.
-		printf(esc_html__('Discount applied: %1$s - %2$s (%3$s) %4$s', 'multisite-ultimate'), '{{ order.discount_code.name }}', '{{ order.discount_code.code }}', '{{ order.discount_code.discount_description }}', '{{ wu_format_money(-order.totals.total_discounts) }}');
+		printf(esc_html__('Discount applied: %1$s - %2$s (%3$s) %4$s', 'ultimate-multisite'), '{{ order.discount_code.name }}', '{{ order.discount_code.code }}', '{{ order.discount_code.discount_description }}', '{{ wu_format_money(-order.totals.total_discounts) }}');
 		?>
 
 		<a class="wu-no-underline wu-ml-2" href="#" v-on:click.prevent="discount_code = ''">
 
-			<?php esc_html_e('Remove', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Remove', 'ultimate-multisite'); ?>
 
 		</a>
 

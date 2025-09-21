@@ -10,10 +10,10 @@ defined('ABSPATH') || exit;
 
 	<li class="wu-p-4 wu-m-0 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-400 wu-border-solid">
 
-	<h3 class="wu-my-1 wu-text-2xs wu-uppercase"><?php echo esc_html__('Message', 'multisite-ultimate'); ?></h3>
+	<h3 class="wu-my-1 wu-text-2xs wu-uppercase"><?php echo esc_html__('Message', 'ultimate-multisite'); ?></h3>
 
 	<span class="wu-my-1 wu-inline-block">
-		<?php echo $object->get_message(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php wp_kses($object->get_message(), wu_kses_allowed_html()); ?>
 	</span>
 
 	</li>

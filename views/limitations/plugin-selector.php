@@ -26,7 +26,7 @@ defined('ABSPATH') || exit;
 					<?php if (is_plugin_active_for_network($plugin_path)) : ?>
 
 					<span class="wu-text-xs wu-normal-case wu-font-normal wu-ml-2 wu-text-green-600">
-						<?php esc_html_e('Network Active', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Network Active', 'ultimate-multisite'); ?>
 					</span>
 
 					<?php endif; ?>
@@ -45,12 +45,12 @@ defined('ABSPATH') || exit;
 
 				<span class="wu-text-xs wu-text-gray-700 wu-my-1 wu-mr-4 wu-block">
 					<?php // translators: %s current version. ?>
-					<?php printf(esc_html__('Version %s', 'multisite-ultimate'), esc_html($plugin_data['Version'])); ?>
+					<?php printf(esc_html__('Version %s', 'ultimate-multisite'), esc_html($plugin_data['Version'])); ?>
 				</span>
 
 				<span class="wu-text-xs wu-text-gray-700 wu-my-1 wu-mr-4 wu-block">
 					<?php // translators: %s name of the author ?>
-					<?php printf(esc_html__('by %s', 'multisite-ultimate'), esc_html(wp_strip_all_tags($plugin_data['Author']))); ?>
+					<?php printf(esc_html__('by %s', 'ultimate-multisite'), esc_html(wp_strip_all_tags($plugin_data['Author']))); ?>
 				</span>
 
 				</div>
@@ -61,27 +61,27 @@ defined('ABSPATH') || exit;
 
 				<h3 class="wu-mb-1 wu-text-2xs wu-uppercase wu-text-gray-600">
 
-				<?php esc_html_e('Visibility', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Visibility', 'ultimate-multisite'); ?>
 
 				</h3>
 
 				<select name="modules[plugins][limit][<?php echo esc_attr($plugin_path); ?>][visibility]" class="wu-w-full">
-				<option <?php selected('visible' === $object->get_limitations()->plugins->{$plugin_path}->visibility); ?> value="visible"><?php esc_html_e('Visible', 'multisite-ultimate'); ?></option>
-				<option <?php selected('hidden' === $object->get_limitations()->plugins->{$plugin_path}->visibility); ?> value="hidden"><?php esc_html_e('Hidden', 'multisite-ultimate'); ?></option>
+				<option <?php selected('visible' === $object->get_limitations()->plugins->{$plugin_path}->visibility); ?> value="visible"><?php esc_html_e('Visible', 'ultimate-multisite'); ?></option>
+				<option <?php selected('hidden' === $object->get_limitations()->plugins->{$plugin_path}->visibility); ?> value="hidden"><?php esc_html_e('Hidden', 'ultimate-multisite'); ?></option>
 				</select>
 
 				<h3 class="wu-my-1 wu-mt-4 wu-text-2xs wu-uppercase wu-text-gray-600">
 
-				<?php esc_html_e('Behavior', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Behavior', 'ultimate-multisite'); ?>
 
 				</h3>
 
 				<select name="modules[plugins][limit][<?php echo esc_attr($plugin_path); ?>][behavior]" class="wu-w-full">
-				<option <?php selected('default' === $object->get_limitations()->plugins->{$plugin_path}->behavior); ?> value="default"><?php esc_html_e('Default', 'multisite-ultimate'); ?></option>
-				<option <?php disabled(is_plugin_active_for_network($plugin_path)); ?> <?php selected('force_active' === $object->get_limitations()->plugins->{$plugin_path}->behavior); ?> value="force_active"><?php esc_html_e('Force Activate', 'multisite-ultimate'); ?></option>
-				<option <?php disabled(is_plugin_active_for_network($plugin_path)); ?> <?php selected('force_inactive' === $object->get_limitations()->plugins->{$plugin_path}->behavior); ?> value="force_inactive"><?php esc_html_e('Force Inactivate', 'multisite-ultimate'); ?></option>
-				<option <?php selected('force_active_locked' === $object->get_limitations()->plugins->{$plugin_path}->behavior); ?> value="force_active_locked"><?php esc_html_e('Force Activate & Lock', 'multisite-ultimate'); ?></option>
-				<option <?php selected('force_inactive_locked' === $object->get_limitations()->plugins->{$plugin_path}->behavior); ?> value="force_inactive_locked"><?php esc_html_e('Force Inactivate & Lock', 'multisite-ultimate'); ?></option>
+				<option <?php selected('default' === $object->get_limitations()->plugins->{$plugin_path}->behavior); ?> value="default"><?php esc_html_e('Default', 'ultimate-multisite'); ?></option>
+				<option <?php disabled(is_plugin_active_for_network($plugin_path)); ?> <?php selected('force_active' === $object->get_limitations()->plugins->{$plugin_path}->behavior); ?> value="force_active"><?php esc_html_e('Force Activate', 'ultimate-multisite'); ?></option>
+				<option <?php disabled(is_plugin_active_for_network($plugin_path)); ?> <?php selected('force_inactive' === $object->get_limitations()->plugins->{$plugin_path}->behavior); ?> value="force_inactive"><?php esc_html_e('Force Inactivate', 'ultimate-multisite'); ?></option>
+				<option <?php selected('force_active_locked' === $object->get_limitations()->plugins->{$plugin_path}->behavior); ?> value="force_active_locked"><?php esc_html_e('Force Activate & Lock', 'ultimate-multisite'); ?></option>
+				<option <?php selected('force_inactive_locked' === $object->get_limitations()->plugins->{$plugin_path}->behavior); ?> value="force_inactive_locked"><?php esc_html_e('Force Inactivate & Lock', 'ultimate-multisite'); ?></option>
 				</select>
 
 			</div>
@@ -93,7 +93,7 @@ defined('ABSPATH') || exit;
 		<?php if ('product' !== $object->model && $object->get_limitations(false)->plugins->exists($plugin_path)) : ?>
 
 			<p class="wu-m-0 wu-mt-4 wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded">
-				<?php esc_html_e('This value is being applied only to this entity. Changes made to the membership or product permissions will not affect this particular value.', 'multisite-ultimate'); ?>
+				<?php esc_html_e('This value is being applied only to this entity. Changes made to the membership or product permissions will not affect this particular value.', 'ultimate-multisite'); ?>
 			</p>
 
 		<?php endif; ?>

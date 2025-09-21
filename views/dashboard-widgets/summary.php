@@ -21,12 +21,12 @@ defined('ABSPATH') || exit;
 		</div>
 
 		<div class="wu-text-md wu-text-gray-600">
-		<span class="wu-block"><?php esc_html_e('Signups today', 'multisite-ultimate'); ?></span>
+		<span class="wu-block"><?php esc_html_e('Signups today', 'ultimate-multisite'); ?></span>
 		</div>
 
 	</li>
 
-	<li class="wu-p-2 wu-w-full md:wu-w-4/12 wu-relative" <?php echo wu_tooltip_text(__('MRR stands for Monthly Recurring Revenue', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<li class="wu-p-2 wu-w-full md:wu-w-4/12 wu-relative" <?php wu_tooltip_text(__('MRR stands for Monthly Recurring Revenue', 'ultimate-multisite')); ?>>
 
 		<div>
 
@@ -37,7 +37,7 @@ defined('ABSPATH') || exit;
 		</div>
 
 		<div class="wu-text-md wu-text-gray-600">
-		<span class="wu-block"><?php esc_html_e('MRR', 'multisite-ultimate'); ?></span>
+		<span class="wu-block"><?php esc_html_e('MRR', 'ultimate-multisite'); ?></span>
 		</div>
 
 	</li>
@@ -53,7 +53,7 @@ defined('ABSPATH') || exit;
 		</div>
 
 		<div class="wu-text-md wu-text-gray-600">
-		<span class="wu-block"><?php esc_html_e('Today\'s gross revenue', 'multisite-ultimate'); ?></span>
+		<span class="wu-block"><?php esc_html_e('Today\'s gross revenue', 'ultimate-multisite'); ?></span>
 		</div>
 
 	</li>

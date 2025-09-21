@@ -29,12 +29,12 @@ defined('ABSPATH') || exit;
 		<div class="wu-ml-auto">
 
 			<a 
-			title="<?php esc_attr_e('Update your membership', 'multisite-ultimate'); ?>"
+			title="<?php esc_attr_e('Update your membership', 'ultimate-multisite'); ?>"
 			class="wu-text-sm wu-no-underline button" 
 			href="<?php echo esc_attr(wu_get_membership_update_url($membership)); ?>"
 			>
 
-			<?php esc_html_e('Change', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Change', 'ultimate-multisite'); ?>
 
 			</a>
 
@@ -95,7 +95,7 @@ defined('ABSPATH') || exit;
 
 				<div class="wu-bg-yellow-200 wu-text-yellow-700 wu-rounded wu-p-2">
 				<?php // translators: %1$s: date, %2$s: amount. ?>
-				<?php printf(esc_html__('There\'s a pending change for this membership, scheduled to take place on %1$s. Changing to %2$s.', 'multisite-ultimate'), '<strong>' . esc_html($pending_change_date) . '</strong>', '<strong>' . esc_html($pending_change) . '</strong>'); ?>
+				<?php printf(esc_html__('There\'s a pending change for this membership, scheduled to take place on %1$s. Changing to %2$s.', 'ultimate-multisite'), '<strong>' . esc_html($pending_change_date) . '</strong>', '<strong>' . esc_html($pending_change) . '</strong>'); ?>
 
 				</div>
 
@@ -118,7 +118,7 @@ defined('ABSPATH') || exit;
 		<div class="sm:wu-col-span-1">
 
 			<div class="wu-text-sm wu-font-medium wu-text-gray-600">
-			<?php esc_html_e('Status', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Status', 'ultimate-multisite'); ?>
 			</div>
 
 			<div class="wu-mt-1 wu-text-sm wu-text-gray-900 wu-mb-4">
@@ -136,7 +136,7 @@ defined('ABSPATH') || exit;
 		<div class="sm:wu-col-span-1">
 
 			<div class="wu-text-sm wu-font-medium wu-text-gray-600">
-			<?php esc_html_e('Initial Amount', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Initial Amount', 'ultimate-multisite'); ?>
 			</div>
 
 			<div class="wu-mt-1 wu-text-sm wu-text-gray-900 wu-mb-4">
@@ -150,7 +150,7 @@ defined('ABSPATH') || exit;
 			<div class="sm:wu-col-span-1">
 
 			<div class="wu-text-sm wu-font-medium wu-text-gray-600">
-				<?php esc_html_e('Times Billed', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Times Billed', 'ultimate-multisite'); ?>
 			</div>
 
 			<div class="wu-mt-1 wu-text-sm wu-text-gray-900 wu-mb-4">
@@ -166,7 +166,7 @@ defined('ABSPATH') || exit;
 			<div class="sm:wu-col-span-1">
 
 			<div class="wu-text-sm wu-font-medium wu-text-gray-600">
-				<?php esc_html_e('Expires', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Expires', 'ultimate-multisite'); ?>
 			</div>
 
 			<div class="wu-mt-1 wu-text-sm wu-text-gray-900 wu-mb-4">
@@ -228,7 +228,7 @@ defined('ABSPATH') || exit;
 
 			<h3 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
-			<?php esc_html_e('Additional Packages & Services', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Additional Packages & Services', 'ultimate-multisite'); ?>
 
 			</h3>
 
@@ -270,7 +270,7 @@ defined('ABSPATH') || exit;
 				<div class="wu-ml-4 wu-flex-shrink-0 wu-flex">
 
 				<a 
-					title="<?php esc_attr_e('Product Details', 'multisite-ultimate'); ?>"
+					title="<?php esc_attr_e('Product Details', 'ultimate-multisite'); ?>"
 					href="
 					<?php
 					echo esc_attr(
@@ -287,14 +287,14 @@ defined('ABSPATH') || exit;
 					class="wubox wu-ml-4 wu-no-underline"
 				>
 
-					<?php esc_html_e('Details', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Details', 'ultimate-multisite'); ?>
 
 				</a>
 
 				<?php if ($addon['product']->is_recurring() && (! $pending_products || wu_get_isset($pending_products, $addon['product']->get_id()))) : ?>
 
 					<a     <?php // Translators: %s is the name of the product being canceled. ?>
-					title="<?php esc_attr(sprintf(__('Cancel %s', 'multisite-ultimate'), $addon['product']->get_name())); ?>"
+					title="<?php esc_attr(sprintf(__('Cancel %s', 'ultimate-multisite'), $addon['product']->get_name())); ?>"
 					href="
 					<?php
 					echo esc_attr(
@@ -312,7 +312,7 @@ defined('ABSPATH') || exit;
 					class="wubox wu-ml-4 wu-no-underline delete wu-text-red-500 hover:wu-text-red-600"
 					>
 
-					<?php esc_html_e('Cancel', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Cancel', 'ultimate-multisite'); ?>
 
 					</a>
 
@@ -331,7 +331,7 @@ defined('ABSPATH') || exit;
 		<?php else : ?>      
 
 			<div class="wu-px-4 wu-py-6 wu-text-center wu-text-gray-600">
-			<?php esc_html_e('No packages or services found.', 'multisite-ultimate'); ?>
+			<?php esc_html_e('No packages or services found.', 'ultimate-multisite'); ?>
 			</div>
 
 		<?php endif; ?>  
@@ -346,7 +346,7 @@ defined('ABSPATH') || exit;
 			<div class="wu-text-lg">
 
 			<small class="wu-block wu-text-xs wu-uppercase wu-font-bold wu-text-gray-600">
-				<?php esc_html_e('Total', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Total', 'ultimate-multisite'); ?>
 			</small>
 
 			<!-- <span class="wu-text-gray-500 wu-line-through">$29</span> -->

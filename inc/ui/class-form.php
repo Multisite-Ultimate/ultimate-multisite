@@ -171,8 +171,13 @@ class Form implements \JsonSerializable {
 			]
 		);
 
-		ob_start();
+		wu_get_template("{$this->views}/form", $variables);
+	}
 
+	/**
+	 * @return void
+	 */
+	public function render_fields(): void {
 		foreach ($this->get_fields() as $field_slug => $field) {
 			$template_name = $field->get_template_name();
 
@@ -193,22 +198,15 @@ class Form implements \JsonSerializable {
 				"{$this->views}/field-text"
 			);
 		}
-
-		$rendered_fields = ob_get_clean();
-
-		$variables['rendered_fields'] = $rendered_fields;
-
-		wu_get_template("{$this->views}/form", $variables);
 	}
 
 	/**
-	 * Return HTML attributes for the field.
+	 * Echos HTML attributes for the field.
 	 *
-	 * @since 2.0.0
-	 * @return string
+	 * @since 2.4.4
+	 * @return void
 	 */
-	public function get_html_attributes() {
-
+	public function print_html_attributes(): void {
 		$attributes = $this->atts['html_attr'];
 
 		unset($this->atts['html_attr']['class']);
@@ -223,7 +221,7 @@ class Form implements \JsonSerializable {
 			}
 		}
 
-		return wu_array_to_html_attrs($attributes);
+		wu_print_html_attributes($attributes);
 	}
 
 	/**

@@ -13,13 +13,13 @@ defined('ABSPATH') || exit;
 			<?php if ($checks) : ?>
 				<th class="check" style="width: 30px;"></th>
 			<?php endif ?>
-			<th class="item"><?php esc_html_e('Item', 'multisite-ultimate'); ?></th>
-			<th class="status" style="width: 40%;"><?php esc_html_e('Status', 'multisite-ultimate'); ?></th>
+			<th class="item"><?php esc_html_e('Item', 'ultimate-multisite'); ?></th>
+			<th class="status" style="width: 40%;"><?php esc_html_e('Status', 'ultimate-multisite'); ?></th>
 		</tr>
 		</thead>
 		<tbody>
 		<?php foreach ($steps as $slug => $default) : ?>
-			<tr <?php echo ! $default['done'] ? 'data-content="' . esc_attr($slug) . '"' : ''; ?> <?php echo wu_array_to_html_attrs(wu_get_isset($default, 'html_attr', [])); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<tr <?php echo ! $default['done'] ? 'data-content="' . esc_attr($slug) . '"' : ''; ?> <?php wu_print_html_attributes(wu_get_isset($default, 'html_attr', [])); ?>>
 				<?php if ($checks) : ?>
 					<td>
 						<?php if ( ! $default['done']) : ?>
@@ -38,7 +38,7 @@ defined('ABSPATH') || exit;
 				<?php if ($default['done']) : ?>
 					<td class="status">
 							<span class="wu-text-green-600">
-								<?php echo esc_html($default['completed'] ?? __('Completed!', 'multisite-ultimate')); ?>
+								<?php echo esc_html($default['completed'] ?? __('Completed!', 'ultimate-multisite')); ?>
 							</span>
 					</td>
 				<?php else : ?>

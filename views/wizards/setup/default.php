@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
 <?php endif; ?>
 
 <div class="wu-bg-white wu-p-4 wu--mx-5">
-	<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php echo wp_kses($content, wu_kses_allowed_html()); ?>
 </div>
 
 <!-- Submit Box -->
@@ -34,7 +34,7 @@ defined('ABSPATH') || exit;
 			</a>
 		<?php endif; ?>
 		<?php if ($next) : ?>
-			<button name="next" value="1" class="wu-next-button button button-primary button-large wu-ml-2" data-testid="button-primary">
+			<button name="next" value="1" class="wu-next-button button button-primary button-large wu-ml-2" data-testid="button-primary" <?php echo $disable_next ? 'disabled="disabled"' : ''; ?>>
 				<?php echo esc_html($next_label); ?>
 			</button>
 		<?php endif; ?>

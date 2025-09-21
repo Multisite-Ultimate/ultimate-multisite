@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
 
 	<div class="wu-jumper-icon-container wu-relative wu-w-full wu-bg-gray-100 wu-rounded">
 
-	<select id="wu-jumper-select" data-placeholder="<?php esc_attr_e('Search Anything...', 'multisite-ultimate'); ?>">
+	<select id="wu-jumper-select" data-placeholder="<?php esc_attr_e('Search Anything...', 'ultimate-multisite'); ?>">
 
 		<option></option>
 
@@ -21,11 +21,11 @@ defined('ABSPATH') || exit;
 
 		<option></option>
 
-		<optgroup label="<?php esc_attr_e('Error', 'multisite-ultimate'); ?>">
+		<optgroup label="<?php esc_attr_e('Error', 'ultimate-multisite'); ?>">
 
 			<option value="<?php echo esc_attr(network_admin_url('?wu-rebuild-jumper=1')); ?>">
 
-			<?php esc_html_e('Click to rebuild menu list', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Click to rebuild menu list', 'ultimate-multisite'); ?>
 
 			</option>
 
@@ -35,7 +35,7 @@ defined('ABSPATH') || exit;
 
 		<?php foreach ($menu_groups as $optgroup => $menus) : ?>
 
-		<optgroup label="<?php esc_attr_e('Menu', 'multisite-ultimate'); ?> - <?php echo esc_attr($optgroup); ?>" value="<?php esc_attr_e('Menu', 'multisite-ultimate'); ?> - <?php echo esc_attr($optgroup); ?>">
+		<optgroup label="<?php esc_attr_e('Menu', 'ultimate-multisite'); ?> - <?php echo esc_attr($optgroup); ?>" value="<?php esc_attr_e('Menu', 'ultimate-multisite'); ?> - <?php echo esc_attr($optgroup); ?>">
 
 			<?php foreach ($menus as $url => $menu) : ?>
 
@@ -51,29 +51,29 @@ defined('ABSPATH') || exit;
 
 		<?php endforeach; ?>
 
-		<optgroup label="<?php esc_attr_e('Settings', 'multisite-ultimate'); ?>" value="setting"></optgroup>
+		<optgroup label="<?php esc_attr_e('Settings', 'ultimate-multisite'); ?>" value="setting"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Users', 'multisite-ultimate'); ?>" value="user"></optgroup>
+		<optgroup label="<?php esc_attr_e('Users', 'ultimate-multisite'); ?>" value="user"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Customers', 'multisite-ultimate'); ?>" value="customer"></optgroup>
+		<optgroup label="<?php esc_attr_e('Customers', 'ultimate-multisite'); ?>" value="customer"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Products', 'multisite-ultimate'); ?>" value="product"></optgroup>
+		<optgroup label="<?php esc_attr_e('Products', 'ultimate-multisite'); ?>" value="product"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Domains', 'multisite-ultimate'); ?>" value="domain"></optgroup>
+		<optgroup label="<?php esc_attr_e('Domains', 'ultimate-multisite'); ?>" value="domain"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Sites', 'multisite-ultimate'); ?>" value="site"></optgroup>
+		<optgroup label="<?php esc_attr_e('Sites', 'ultimate-multisite'); ?>" value="site"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Memberships', 'multisite-ultimate'); ?>" value="membership"></optgroup>
+		<optgroup label="<?php esc_attr_e('Memberships', 'ultimate-multisite'); ?>" value="membership"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Payments', 'multisite-ultimate'); ?>" value="payment"></optgroup>
+		<optgroup label="<?php esc_attr_e('Payments', 'ultimate-multisite'); ?>" value="payment"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Discount Codes', 'multisite-ultimate'); ?>" value="discount-code"></optgroup>
+		<optgroup label="<?php esc_attr_e('Discount Codes', 'ultimate-multisite'); ?>" value="discount-code"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Webhooks', 'multisite-ultimate'); ?>" value="webhook"></optgroup>
+		<optgroup label="<?php esc_attr_e('Webhooks', 'ultimate-multisite'); ?>" value="webhook"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Broadcasts', 'multisite-ultimate'); ?>" value="broadcast"></optgroup>
+		<optgroup label="<?php esc_attr_e('Broadcasts', 'ultimate-multisite'); ?>" value="broadcast"></optgroup>
 
-		<optgroup label="<?php esc_attr_e('Checkout Forms', 'multisite-ultimate'); ?>" value="checkout-form"></optgroup>
+		<optgroup label="<?php esc_attr_e('Checkout Forms', 'ultimate-multisite'); ?>" value="checkout-form"></optgroup>
 
 		<?php
 
@@ -92,13 +92,13 @@ defined('ABSPATH') || exit;
 
 	<div class="wu-jumper-redirecting wu-bg-gray-200">
 
-	<?php esc_html_e('Redirecting you to the target page...', 'multisite-ultimate'); ?>
+	<?php esc_html_e('Redirecting you to the target page...', 'ultimate-multisite'); ?>
 
 	</div>
 
 	<div class="wu-jumper-loading wu-bg-gray-200">
 
-	<?php esc_html_e('Searching Results...', 'multisite-ultimate'); ?>
+	<?php esc_html_e('Searching Results...', 'ultimate-multisite'); ?>
 
 	</div>
 

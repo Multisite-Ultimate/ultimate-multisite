@@ -76,7 +76,7 @@ class Checkout_Steps extends Rule {
 		foreach ($required_fields_list as $field_slug) {
 			if (! in_array($field_slug, $all_fields_list, true)) {
 				// translators: %s is a placeholder for the field name
-				$this->message = sprintf(__('The %s field must be present in at least one of the checkout form steps.', 'multisite-ultimate'), wu_slug_to_name($field_slug));
+				$this->message = sprintf(__('The %s field must be present in at least one of the checkout form steps.', 'ultimate-multisite'), wu_slug_to_name($field_slug));
 
 				return false;
 			}
@@ -113,7 +113,7 @@ class Checkout_Steps extends Rule {
 
 			if (empty($found_submittable_field_types)) {
 				// translators: %s is a placeholder for the step name
-				$this->message = sprintf(__('The %s step is missing a submit field', 'multisite-ultimate'), $step['name']);
+				$this->message = sprintf(__('The %s step is missing a submit field', 'ultimate-multisite'), $step['name']);
 
 				return false;
 			}

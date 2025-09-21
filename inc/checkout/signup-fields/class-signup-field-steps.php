@@ -54,7 +54,7 @@ class Signup_Field_Steps extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Steps', 'multisite-ultimate');
+		return __('Steps', 'ultimate-multisite');
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Signup_Field_Steps extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a list of the steps.', 'multisite-ultimate');
+		return __('Adds a list of the steps.', 'ultimate-multisite');
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Signup_Field_Steps extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a list of the steps.', 'multisite-ultimate');
+		return __('Adds a list of the steps.', 'ultimate-multisite');
 	}
 
 	/**
@@ -163,8 +163,8 @@ class Signup_Field_Steps extends Base_Signup_Field {
 			'fields' => [
 				'steps_template' => [
 					'type'            => 'select',
-					'title'           => __('Layout', 'multisite-ultimate'),
-					'placeholder'     => __('Select your Layout', 'multisite-ultimate'),
+					'title'           => __('Layout', 'ultimate-multisite'),
+					'placeholder'     => __('Select your Layout', 'ultimate-multisite'),
 					'options'         => [$this, 'get_templates'],
 					'wrapper_classes' => 'wu-flex-grow',
 					'html_attr'       => [
@@ -181,7 +181,7 @@ class Signup_Field_Steps extends Base_Signup_Field {
 		// 'order'           => 99,
 		// 'wrapper_classes' => 'sm:wu-p-0 sm:wu-block',
 		// 'classes'         => '',
-		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized steps templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'multisite-ultimate')),
+		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized steps templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'ultimate-multisite')),
 		// );
 		// phpcs:enable
 
@@ -209,12 +209,17 @@ class Signup_Field_Steps extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('steps', $attributes['steps_template']);
 
-		$content = $template_class ? $template_class->render_container($attributes) : __('Template does not exist.', 'multisite-ultimate');
-
+		$desc = function() use($attributes, $template_class) {
+			if ($template_class) {
+				$template_class->render_container($attributes);
+			} else {
+				esc_html_e('Template does not exist.', 'ultimate-multisite');
+			}
+		};
 		return [
 			$attributes['id'] => [
 				'type'            => 'note',
-				'desc'            => $content,
+				'desc'            => $desc,
 				'wrapper_classes' => $attributes['element_classes'],
 			],
 		];

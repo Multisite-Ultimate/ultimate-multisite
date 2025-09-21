@@ -125,8 +125,8 @@ class Edit_Users_Compat {
 			'login-and-registration',
 			'enable_edit_users',
 			[
-				'title'   => __('Enable Edit User Capability', 'multisite-ultimate'),
-				'desc'    => __('Allow site owners to edit the user accounts of users on their own site. Also lets site owners create user accounts without requiring email confirmation.', 'multisite-ultimate'),
+				'title'   => __('Enable Edit User Capability', 'ultimate-multisite'),
+				'desc'    => __('Allow site owners to edit the user accounts of users on their own site. Also lets site owners create user accounts without requiring email confirmation.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]
@@ -154,10 +154,10 @@ class Edit_Users_Compat {
 		?>
 			<table class="form-table">
 				<tr>
-					<th scope="row"><?php esc_Html_e('Skip Confirmation Email'); ?></th>
+					<th scope="row"><?php esc_Html_e('Skip Confirmation Email', 'ultimate-multisite'); ?></th>
 					<td>
 						<input type="checkbox" name="noconfirmation" id="adduser-noconfirmation-<?php echo esc_attr($context); ?>" value="1" />
-						<label for="adduser-noconfirmation-<?php echo esc_attr($context); ?>"><?php esc_html_e('Add the user without sending an email that requires their confirmation', 'multisite-ultimate'); ?></label>
+						<label for="adduser-noconfirmation-<?php echo esc_attr($context); ?>"><?php esc_html_e('Add the user without sending an email that requires their confirmation', 'ultimate-multisite'); ?></label>
 					</td>
 				</tr>
 			</table>

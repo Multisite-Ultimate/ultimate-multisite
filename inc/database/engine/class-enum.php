@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate ENUM base class.
+ * Ultimate Multisite ENUM base class.
  *
  * @package WP_Ultimo
  * @subpackage WP_Ultimo\Database\Engine
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Database\Engine;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate ENUM base class.
+ * Ultimate Multisite ENUM base class.
  *
  * @since 2.0.0
  */

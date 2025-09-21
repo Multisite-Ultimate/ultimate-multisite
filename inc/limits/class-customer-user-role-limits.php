@@ -62,7 +62,7 @@ class Customer_User_Role_Limits {
 			return;
 		}
 
-		$message = __('You reached your membership users limit.', 'multisite-ultimate');
+		$message = __('You reached your membership users limit.', 'ultimate-multisite');
 
 		/**
 		 * Allow developers to change the message about the membership users limit
@@ -71,7 +71,7 @@ class Customer_User_Role_Limits {
 		 */
 		$message = apply_filters('wu_users_membership_limit_message', $message);
 
-		wp_die(esc_html($message), esc_html__('Limit Reached', 'multisite-ultimate'), ['back_link' => true]);
+		wp_die(esc_html($message), esc_html__('Limit Reached', 'ultimate-multisite'), ['back_link' => true]);
 	}
 
 	/**
@@ -83,7 +83,9 @@ class Customer_User_Role_Limits {
 	 * @return array
 	 */
 	public function filter_editable_roles($roles) {
-
+		if ( ! is_admin() || ! is_user_logged_in() ) {
+			return $roles;
+		}
 		if ( ! wu_get_current_site()->has_module_limitation('users') || is_super_admin()) {
 			return $roles;
 		}
@@ -94,13 +96,17 @@ class Customer_User_Role_Limits {
 			$limit = $users_limitation->{$role};
 
 			if (property_exists($limit, 'enabled') && $limit->enabled) {
-				$user_list = get_users(['role' => $role]);
+				$number = (int) $limit->number;
 
-				$count = (int) count($user_list);
+				if (0 === $number) {
+					continue; // 0 is unlimited.
+				}
 
-				$limit = (int) wu_get_current_site()->get_limitations()->users->{$role}->number;
+				if ( ! isset($user_count)) {
+					$user_count = count_users();
+				}
 
-				if (0 !== $limit && $count >= $limit) {
+				if (isset($user_count['avail_roles'][ $role ]) && $user_count['avail_roles'][ $role ] >= $number) {
 					unset($roles[ $role ]);
 				}
 			} else {

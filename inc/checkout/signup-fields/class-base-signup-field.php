@@ -308,7 +308,7 @@ abstract class Base_Signup_Field {
 			$final_field_list[ '_site_notice_field_' . uniqid() ] = [
 				'type'    => 'note',
 				'classes' => 'wu--mt-px',
-				'desc'    => sprintf('<div class="wu-p-4 wu--m-4 wu-bg-blue-100 wu-text-blue-600 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300 wu-border-solid">%s</div>', __('This is a site-related field. For that reason, this field will not show up when no plans are present on the shopping cart.', 'multisite-ultimate')),
+				'desc'    => sprintf('<div class="wu-p-4 wu--m-4 wu-bg-blue-100 wu-text-blue-600 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300 wu-border-solid">%s</div>', __('This is a site-related field. For that reason, this field will not show up when no plans are present on the shopping cart.', 'ultimate-multisite')),
 				'order'   => 98.5,
 			];
 		}
@@ -320,7 +320,7 @@ abstract class Base_Signup_Field {
 			$final_field_list[ '_user_notice_field_' . uniqid() ] = [
 				'type'    => 'note',
 				'classes' => 'wu--mt-px',
-				'desc'    => sprintf('<div class="wu-p-4 wu--m-4 wu-bg-blue-100 wu-text-blue-600 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300 wu-border-solid">%s</div>', __('This is a customer-related field. For that reason, this field will not show up when the user is logged and already has a customer on file.', 'multisite-ultimate')),
+				'desc'    => sprintf('<div class="wu-p-4 wu--m-4 wu-bg-blue-100 wu-text-blue-600 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300 wu-border-solid">%s</div>', __('This is a customer-related field. For that reason, this field will not show up when the user is logged and already has a customer on file.', 'ultimate-multisite')),
 				'order'   => 98.5,
 			];
 		}
@@ -440,10 +440,10 @@ abstract class Base_Signup_Field {
 
 		$fields['id'] = [
 			'type'        => 'text',
-			'title'       => __('Field ID', 'multisite-ultimate'),
-			'placeholder' => __('e.g. info-name', 'multisite-ultimate'),
-			'tooltip'     => __('Only alpha-numeric and hyphens allowed.', 'multisite-ultimate'),
-			'desc'        => __('The ID of the field. This is used to reference the field.', 'multisite-ultimate'),
+			'title'       => __('Field ID', 'ultimate-multisite'),
+			'placeholder' => __('e.g. info-name', 'ultimate-multisite'),
+			'tooltip'     => __('Only alpha-numeric and hyphens allowed.', 'ultimate-multisite'),
+			'desc'        => __('The ID of the field. This is used to reference the field.', 'ultimate-multisite'),
 			'value'       => wu_request('id', ''),
 			'html_attr'   => [
 				'v-on:input'   => 'id = $event.target.value.toLowerCase().replace(/[^a-z0-9-_]+/g, "")',
@@ -453,10 +453,10 @@ abstract class Base_Signup_Field {
 
 		$fields['name'] = [
 			'type'        => 'text',
-			'title'       => __('Field Label', 'multisite-ultimate'),
-			'placeholder' => __('e.g. Your Name', 'multisite-ultimate'),
-			'desc'        => __('This is what your customer see as the field title.', 'multisite-ultimate'),
-			'tooltip'     => __('Leave blank to hide the field label. You can also set a placeholder value and tip in the "Additional Settings" tab.', 'multisite-ultimate'),
+			'title'       => __('Field Label', 'ultimate-multisite'),
+			'placeholder' => __('e.g. Your Name', 'ultimate-multisite'),
+			'desc'        => __('This is what your customer see as the field title.', 'ultimate-multisite'),
+			'tooltip'     => __('Leave blank to hide the field label. You can also set a placeholder value and tip in the "Additional Settings" tab.', 'ultimate-multisite'),
 			'value'       => '',
 			'html_attr'   => [
 				'v-model' => 'name',
@@ -465,9 +465,9 @@ abstract class Base_Signup_Field {
 
 		$fields['placeholder'] = [
 			'type'        => 'text',
-			'title'       => __('Field Placeholder', 'multisite-ultimate'),
-			'placeholder' => __('e.g. Placeholder value', 'multisite-ultimate'),
-			'desc'        => __('This value appears inside the field, as an example of how to fill it.', 'multisite-ultimate'),
+			'title'       => __('Field Placeholder', 'ultimate-multisite'),
+			'placeholder' => __('e.g. Placeholder value', 'ultimate-multisite'),
+			'desc'        => __('This value appears inside the field, as an example of how to fill it.', 'ultimate-multisite'),
 			'tooltip'     => '',
 			'value'       => '',
 			'tab'         => 'advanced',
@@ -476,12 +476,16 @@ abstract class Base_Signup_Field {
 			],
 		];
 
+		ob_start();
+		wu_tooltip(__('Just like this!', 'ultimate-multisite'));
+		$realtooltip = ob_end_clean();
+
 		$fields['tooltip'] = [
 			'type'        => 'textarea',
-			'title'       => __('Field Tooltip', 'multisite-ultimate'),
-			'placeholder' => __('e.g. This field is great, be sure to fill it.', 'multisite-ultimate'),
+			'title'       => __('Field Tooltip', 'ultimate-multisite'),
+			'placeholder' => __('e.g. This field is great, be sure to fill it.', 'ultimate-multisite'),
 			// translators: %is is the icon for a question mark.
-			'desc'        => sprintf(__('Any text entered here will be shown when the customer hovers the %s icon next to the field label.', 'multisite-ultimate'), wu_tooltip(__('Just like this!', 'multisite-ultimate'))),
+			'desc'        => sprintf(__('Any text entered here will be shown when the customer hovers the %s icon next to the field label.', 'ultimate-multisite'), $realtooltip),
 			'tooltip'     => '',
 			'value'       => '',
 			'tab'         => 'advanced',
@@ -493,8 +497,8 @@ abstract class Base_Signup_Field {
 
 		$fields['default_value'] = [
 			'type'        => 'text',
-			'title'       => __('Default Value', 'multisite-ultimate'),
-			'placeholder' => __('e.g. None', 'multisite-ultimate'),
+			'title'       => __('Default Value', 'ultimate-multisite'),
+			'placeholder' => __('e.g. None', 'ultimate-multisite'),
 			'value'       => '',
 			'html_attr'   => [
 				'v-model' => 'default_value',
@@ -503,7 +507,7 @@ abstract class Base_Signup_Field {
 
 		$fields['note'] = [
 			'type'        => 'textarea',
-			'title'       => __('Content', 'multisite-ultimate'),
+			'title'       => __('Content', 'ultimate-multisite'),
 			'placeholder' => '',
 			'tooltip'     => '',
 			'value'       => '',
@@ -514,13 +518,13 @@ abstract class Base_Signup_Field {
 
 		$fields['limits'] = [
 			'type'    => 'group',
-			'title'   => __('Field Length', 'multisite-ultimate'),
+			'title'   => __('Field Length', 'ultimate-multisite'),
 			'tooltip' => '',
 			'fields'  => [
 				'min' => [
 					'type'            => 'number',
 					'value'           => '',
-					'placeholder'     => __('Min', 'multisite-ultimate'),
+					'placeholder'     => __('Min', 'ultimate-multisite'),
 					'wrapper_classes' => 'wu-w-1/2',
 					'html_attr'       => [
 						'v-model' => 'min',
@@ -529,7 +533,7 @@ abstract class Base_Signup_Field {
 				'max' => [
 					'type'            => 'number',
 					'value'           => '',
-					'placeholder'     => __('Max', 'multisite-ultimate'),
+					'placeholder'     => __('Max', 'ultimate-multisite'),
 					'wrapper_classes' => 'wu-ml-2 wu-w-1/2',
 					'html_attr'       => [
 						'v-model' => 'max',
@@ -540,18 +544,18 @@ abstract class Base_Signup_Field {
 
 		$fields['save_as'] = [
 			'type'        => 'select',
-			'title'       => __('Save As', 'multisite-ultimate'),
-			'desc'        => __('Select how you want to save this piece of meta data. You can attach it to the customer or the site as site meta or as site option.', 'multisite-ultimate'),
+			'title'       => __('Save As', 'ultimate-multisite'),
+			'desc'        => __('Select how you want to save this piece of meta data. You can attach it to the customer or the site as site meta or as site option.', 'ultimate-multisite'),
 			'placeholder' => '',
 			'tooltip'     => '',
 			'value'       => 'customer_meta',
 			'order'       => 99.5,
 			'options'     => [
-				'customer_meta' => __('Customer Meta', 'multisite-ultimate'),
-				'user_meta'     => __('User Meta', 'multisite-ultimate'),
-				'site_meta'     => __('Site Meta', 'multisite-ultimate'),
-				'site_option'   => __('Site Option', 'multisite-ultimate'),
-				'nothing'       => __('Do not save', 'multisite-ultimate'),
+				'customer_meta' => __('Customer Meta', 'ultimate-multisite'),
+				'user_meta'     => __('User Meta', 'ultimate-multisite'),
+				'site_meta'     => __('Site Meta', 'ultimate-multisite'),
+				'site_option'   => __('Site Option', 'ultimate-multisite'),
+				'nothing'       => __('Do not save', 'ultimate-multisite'),
 			],
 			'html_attr'   => [
 				'v-model' => 'save_as',
@@ -560,8 +564,8 @@ abstract class Base_Signup_Field {
 
 		$fields['required'] = [
 			'type'      => 'toggle',
-			'title'     => __('Required', 'multisite-ultimate'),
-			'desc'      => __('Mark this field as required. The checkout will not proceed unless this field is filled.', 'multisite-ultimate'),
+			'title'     => __('Required', 'ultimate-multisite'),
+			'desc'      => __('Mark this field as required. The checkout will not proceed unless this field is filled.', 'ultimate-multisite'),
 			'value'     => 0,
 			'order'     => 98,
 			'html_attr' => [

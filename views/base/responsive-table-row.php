@@ -57,7 +57,7 @@ defined('ABSPATH') || exit;
 
 							<?php if (wu_get_isset($item, 'url')) : ?>
 
-				<a title="<?php echo esc_attr(wu_get_isset($item, 'value', '')); ?>" href="<?php echo esc_attr($item['url']); ?>" class="wu-no-underline wu-flex wu-items-center wu-text-xs wp-ui-text-highlight <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?>" <?php echo wu_tooltip_text($item['label']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+				<a title="<?php echo esc_attr(wu_get_isset($item, 'value', '')); ?>" href="<?php echo esc_attr($item['url']); ?>" class="wu-no-underline wu-flex wu-items-center wu-text-xs wp-ui-text-highlight <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?>" <?php wu_tooltip_text($item['label']); ?>>
 
 				<span class="<?php echo esc_attr($item['icon']); ?>"></span>
 
@@ -67,7 +67,7 @@ defined('ABSPATH') || exit;
 
 			<?php else : ?>
 
-				<span class="wu-flex wu-items-center wu-text-xs wu-text-gray-600 <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?>" <?php echo wu_get_isset($item, 'label') ? wu_tooltip_text($item['label']) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+				<span class="wu-flex wu-items-center wu-text-xs wu-text-gray-600 <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?>" <?php wu_get_isset($item, 'label') && wu_tooltip_text($item['label']); ?>>
 
 				<span class="<?php echo esc_attr($item['icon']); ?>"></span>
 
@@ -94,7 +94,7 @@ endforeach;
 
 							<?php if (wu_get_isset($item, 'url')) : ?>
 
-				<a title="<?php echo esc_attr(wu_get_isset($item, 'value', '')); ?>" href="<?php echo esc_attr($item['url']); ?>" class="wu-no-underline wu-flex wu-items-center wu-text-xs wp-ui-text-highlight <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?>" <?php echo wu_tooltip_text($item['label']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+				<a title="<?php echo esc_attr(wu_get_isset($item, 'value', '')); ?>" href="<?php echo esc_attr($item['url']); ?>" class="wu-no-underline wu-flex wu-items-center wu-text-xs wp-ui-text-highlight <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?>" <?php wu_tooltip_text($item['label']); ?>>
 
 				<span class="<?php echo esc_attr($item['icon']); ?>"></span>
 
@@ -104,7 +104,7 @@ endforeach;
 
 			<?php else : ?>
 
-				<span class="wu-flex wu-items-center wu-text-xs wu-text-gray-600 <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?> " <?php echo wu_get_isset($item, 'label') ? wu_tooltip_text($item['label']) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+				<span class="wu-flex wu-items-center wu-text-xs wu-text-gray-600 <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?> " <?php wu_get_isset($item, 'label') && wu_tooltip_text($item['label']); ?>>
 
 				<span class="<?php echo esc_attr($item['icon']); ?>"></span>
 
@@ -129,7 +129,7 @@ endforeach;
 
 		<div class="wu-flex wu-ml-5 wu-flex-shrink-0 wu-items-center wu-justify-between">
 
-		<a href="<?php echo esc_attr($args['url']); ?>" title="<?php esc_attr_e('View', 'multisite-ultimate'); ?>">
+		<a href="<?php echo esc_attr($args['url']); ?>" title="<?php esc_attr_e('View', 'ultimate-multisite'); ?>">
 			<svg class="wu-h-5 wu-w-5 wu-text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
 			<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
 			</svg>

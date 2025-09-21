@@ -9,8 +9,6 @@
 
 namespace WP_Ultimo\UI;
 
-use WP_Ultimo\UI\Base_Element;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -137,8 +135,8 @@ class Thank_You_Element extends Base_Element {
 				'resend_verification_email_nonce' => wp_create_nonce('wu_resend_verification_email_nonce'),
 				'membership_hash'                 => $this->membership ? $this->membership->get_hash() : false,
 				'i18n'                            => [
-					'resending_verification_email' => __('Resending verification email...', 'multisite-ultimate'),
-					'email_sent'                   => __('Verification email sent!', 'multisite-ultimate'),
+					'resending_verification_email' => __('Resending verification email...', 'ultimate-multisite'),
+					'email_sent'                   => __('Verification email sent!', 'ultimate-multisite'),
 				],
 			]
 		);
@@ -151,14 +149,14 @@ class Thank_You_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Thank You', 'multisite-ultimate');
+		return __('Thank You', 'ultimate-multisite');
 	}
 
 	/**
@@ -167,14 +165,14 @@ class Thank_You_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
+		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
 	}
 
 	/**
@@ -199,24 +197,24 @@ class Thank_You_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'multisite-ultimate'),
-			'desc'  => __('General', 'multisite-ultimate'),
+			'title' => __('General', 'ultimate-multisite'),
+			'desc'  => __('General', 'ultimate-multisite'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Title', 'multisite-ultimate'),
-			'value'   => __('Thank You', 'multisite-ultimate'),
-			'desc'    => __('Leave blank to hide the title completely.', 'multisite-ultimate'),
+			'title'   => __('Title', 'ultimate-multisite'),
+			'value'   => __('Thank You', 'ultimate-multisite'),
+			'desc'    => __('Leave blank to hide the title completely.', 'ultimate-multisite'),
 			'tooltip' => '',
 		];
 
 		$fields['thank_you_message'] = [
 			'type'      => 'textarea',
-			'title'     => __('Thank You Message', 'multisite-ultimate'),
-			'desc'      => __('Shortcodes are supported.', 'multisite-ultimate'),
-			'value'     => __('Thank you for your payment! Your transaction has been completed and a receipt for your purchase has been emailed to you.', 'multisite-ultimate'),
+			'title'     => __('Thank You Message', 'ultimate-multisite'),
+			'desc'      => __('Shortcodes are supported.', 'ultimate-multisite'),
+			'value'     => __('Thank you for your payment! Your transaction has been completed and a receipt for your purchase has been emailed to you.', 'ultimate-multisite'),
 			'tooltip'   => '',
 			'html_attr' => [
 				'rows' => 4,
@@ -225,17 +223,17 @@ class Thank_You_Element extends Base_Element {
 
 		$fields['title_pending'] = [
 			'type'    => 'text',
-			'title'   => __('Title (Pending)', 'multisite-ultimate'),
-			'value'   => __('Thank You', 'multisite-ultimate'),
-			'desc'    => __('Leave blank to hide the title completely. This title is used when the payment was not yet confirmed.', 'multisite-ultimate'),
+			'title'   => __('Title (Pending)', 'ultimate-multisite'),
+			'value'   => __('Thank You', 'ultimate-multisite'),
+			'desc'    => __('Leave blank to hide the title completely. This title is used when the payment was not yet confirmed.', 'ultimate-multisite'),
 			'tooltip' => '',
 		];
 
 		$fields['thank_you_message_pending'] = [
 			'type'      => 'textarea',
-			'title'     => __('Thank You Message (Pending)', 'multisite-ultimate'),
-			'desc'      => __('This content is used when the payment was not yet confirmed. Shortcodes are supported.', 'multisite-ultimate'),
-			'value'     => __('Thank you for your order! We are waiting on the payment processor to confirm your payment, which can take up to 5 minutes. We will notify you via email when your site is ready.', 'multisite-ultimate'),
+			'title'     => __('Thank You Message (Pending)', 'ultimate-multisite'),
+			'desc'      => __('This content is used when the payment was not yet confirmed. Shortcodes are supported.', 'ultimate-multisite'),
+			'value'     => __('Thank you for your order! We are waiting on the payment processor to confirm your payment, which can take up to 5 minutes. We will notify you via email when your site is ready.', 'ultimate-multisite'),
 			'tooltip'   => '',
 			'html_attr' => [
 				'rows' => 4,
@@ -244,9 +242,9 @@ class Thank_You_Element extends Base_Element {
 
 		$fields['no_sites_message'] = [
 			'type'      => 'textarea',
-			'title'     => __('No Sites Message', 'multisite-ultimate'),
-			'desc'      => __('A message to show if membership has no sites. Shortcodes are supported.', 'multisite-ultimate'),
-			'value'     => __('No sites found', 'multisite-ultimate'),
+			'title'     => __('No Sites Message', 'ultimate-multisite'),
+			'desc'      => __('A message to show if membership has no sites. Shortcodes are supported.', 'ultimate-multisite'),
+			'value'     => __('No sites found', 'ultimate-multisite'),
 			'tooltip'   => '',
 			'html_attr' => [
 				'rows' => 4,
@@ -264,7 +262,7 @@ class Thank_You_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Billing Information',
 	 *  'Form',
 	 *  'Cart',
@@ -277,7 +275,7 @@ class Thank_You_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'Thank You',
 			'Form',
 			'Cart',
@@ -301,11 +299,11 @@ class Thank_You_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'title'                     => __('Thank You', 'multisite-ultimate'),
-			'thank_you_message'         => __('Thank you for your payment! Your transaction has been completed and a receipt for your purchase has been emailed to you.', 'multisite-ultimate'),
-			'title_pending'             => __('Thank You', 'multisite-ultimate'),
-			'thank_you_message_pending' => __('Thank you for your order! We are waiting on the payment processor to confirm your payment, which can take up to 5 minutes. We will notify you via email when your site is ready.', 'multisite-ultimate'),
-			'no_sites_message'          => __('No sites found', 'multisite-ultimate'),
+			'title'                     => __('Thank You', 'ultimate-multisite'),
+			'thank_you_message'         => __('Thank you for your payment! Your transaction has been completed and a receipt for your purchase has been emailed to you.', 'ultimate-multisite'),
+			'title_pending'             => __('Thank You', 'ultimate-multisite'),
+			'thank_you_message_pending' => __('Thank you for your order! We are waiting on the payment processor to confirm your payment, which can take up to 5 minutes. We will notify you via email when your site is ready.', 'ultimate-multisite'),
+			'no_sites_message'          => __('No sites found', 'ultimate-multisite'),
 		];
 	}
 
@@ -366,9 +364,9 @@ class Thank_You_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$atts['payment'] = $this->payment;
 
@@ -425,6 +423,6 @@ class Thank_You_Element extends Base_Element {
 		 */
 		$atts['className'] = trim('wu-' . $this->id . ' ' . wu_get_isset($atts, 'className', ''));
 
-		return wu_get_template_contents('dashboard-widgets/thank-you', $atts);
+		wu_get_template('dashboard-widgets/thank-you', $atts);
 	}
 }

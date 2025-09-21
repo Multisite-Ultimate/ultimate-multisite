@@ -55,7 +55,7 @@ defined('ABSPATH') || exit;
 
 			<span class='wu-block wu-py-3 wu-text-gray-600 wu-text-2xs wu-font-bold wu-uppercase'>
 
-				<?php echo esc_html(__('No Targets', 'multisite-ultimate')); ?>
+				<?php echo esc_html(__('No Targets', 'ultimate-multisite')); ?>
 
 			</span>
 

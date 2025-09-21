@@ -57,7 +57,7 @@ class Login_WP_Compat {
 			$error_message_field = [
 				'error_message' => [
 					'type' => 'note',
-					'desc' => __('<strong>Error:</strong> Incorrect username or password.', 'multisite-ultimate'),
+					'desc' => __('<strong>Error:</strong> Incorrect username or password.', 'ultimate-multisite'),
 				],
 			];
 

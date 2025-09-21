@@ -59,7 +59,7 @@ class Membership_Manager extends Base_Manager {
 		add_action(
 			'init',
 			function () {
-				Event_Manager::register_model_events('membership', __('Membership', 'multisite-ultimate'), ['created', 'updated']);
+				Event_Manager::register_model_events('membership', __('Membership', 'ultimate-multisite'), ['created', 'updated']);
 			}
 		);
 
@@ -127,7 +127,7 @@ class Membership_Manager extends Base_Manager {
 		$membership = wu_get_membership($membership_id);
 
 		if ( ! $membership) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
+			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
 		}
 
 		$status = $membership->publish_pending_site();
@@ -151,7 +151,7 @@ class Membership_Manager extends Base_Manager {
 		$membership = wu_get_membership_by_hash($membership_id);
 
 		if ( ! $membership) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
+			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
 		}
 
 		$pending_site = $membership->get_pending_site();
@@ -185,13 +185,13 @@ class Membership_Manager extends Base_Manager {
 		$membership = wu_get_membership($membership_id);
 
 		if ( ! $membership) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
+			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
 		}
 
 		$scheduled_swap = $membership->get_scheduled_swap();
 
 		if (empty($scheduled_swap)) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
+			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
 		}
 
 		$order = $scheduled_swap->order;
@@ -206,12 +206,12 @@ class Membership_Manager extends Base_Manager {
 			if (is_wp_error($status)) {
 				$wpdb->query('ROLLBACK');  // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
-				return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
+				return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
 			}
 		} catch (\Throwable $exception) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
-			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
+			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
 		}
 
 		/*
@@ -303,7 +303,7 @@ class Membership_Manager extends Base_Manager {
 		$target_customer = wu_get_customer($target_customer_id);
 
 		if ( ! $membership || ! $target_customer || absint($membership->get_customer_id()) === absint($target_customer->get_id())) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
+			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
 		}
 
 		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -375,7 +375,7 @@ class Membership_Manager extends Base_Manager {
 		$membership = wu_get_membership($membership_id);
 
 		if ( ! $membership) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
+			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
 		}
 
 		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery

@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/plan.php.
  *
- * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
+ * HOWEVER, on occasion Ultimate Multisite will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -21,29 +21,21 @@ if ( ! defined('ABSPATH')) {
 
 ?>
 
+
+<div id="plan-<?php echo esc_attr($plan->get_id()); ?>" data-plan="<?php echo esc_attr($plan->get_id()); ?>" 
 <?php
 
-/**
- * Set plan attributes
- *
- * @var string
- */
-$plan_attrs = '';
-
 foreach ([1, 3, 12] as $type) {
-	$price       = $plan->free ? __('Free!', 'multisite-ultimate') : str_replace(wu_get_currency_symbol(), '', wu_format_currency((((float) $plan->{'price_' . $type}) / $type)));
-	$plan_attrs .= " data-price-$type='$price'";
+	$price = $plan->free ? __('Free!', 'ultimate-multisite') : str_replace(wu_get_currency_symbol(), '', wu_format_currency((((float) $plan->{'price_' . $type}) / $type)));
+	printf(" data-price-%s='%s'", esc_attr($type), esc_attr($price));
 }
 
-$plan_attrs = apply_filters('wu_pricing_table_plan', $plan_attrs, $plan);
-
 ?>
-
-<div id="plan-<?php echo esc_attr($plan->get_id()); ?>" data-plan="<?php echo esc_attr($plan->get_id()); ?>" <?php echo $plan_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="<?php echo esc_attr("wu-product-{$plan->get_id()}"); ?> lift wu-plan plan-tier <?php echo $plan->is_featured_plan() ? 'callout' : ''; ?> wu-col-sm-<?php echo esc_attr($columns); ?> wu-col-xs-12">
+	class="<?php echo esc_attr("wu-product-{$plan->get_id()}"); ?> lift wu-plan plan-tier <?php echo $plan->is_featured_plan() ? 'callout' : ''; ?> wu-col-sm-<?php echo esc_attr($columns); ?> wu-col-xs-12">
 
 	<?php if ($plan->is_featured_plan()) : ?>
 
-	<h6><?php echo esc_html(apply_filters('wu_featured_plan_label', __('Featured Plan', 'multisite-ultimate'), $plan)); ?></h6>
+	<h6><?php echo esc_html(apply_filters('wu_featured_plan_label', __('Featured Plan', 'ultimate-multisite'), $plan)); ?></h6>
 
 	<?php endif; ?>
 
@@ -53,13 +45,13 @@ $plan_attrs = apply_filters('wu_pricing_table_plan', $plan_attrs, $plan);
 	<?php if ($plan->is_free()) : ?>
 
 	<h5>
-		<span class="plan-price"><?php esc_html_e('Free!', 'multisite-ultimate'); ?></span>
+		<span class="plan-price"><?php esc_html_e('Free!', 'ultimate-multisite'); ?></span>
 	</h5>
 
 	<?php elseif ($plan->is_contact_us()) : ?>
 
 	<h5>
-		<span class="plan-price-contact-us"><?php echo esc_html(apply_filters('wu_plan_contact_us_price_line', __('--', 'multisite-ultimate'))); ?></span>
+		<span class="plan-price-contact-us"><?php echo esc_html(apply_filters('wu_plan_contact_us_price_line', __('--', 'ultimate-multisite'))); ?></span>
 	</h5>
 
 	<?php else : ?>
@@ -71,7 +63,7 @@ $plan_attrs = apply_filters('wu_pricing_table_plan', $plan_attrs, $plan);
 			?>
 			<sup class="superscript"><?php echo esc_html(wu_get_currency_symbol()); ?></sup><?php endif; ?>
 		<span class="plan-price"><?php echo esc_html(str_replace(wu_get_currency_symbol(), '', wu_format_currency($plan->price_1))); ?></span>
-		<sub> <?php echo esc_html((! $symbol_left ? wu_get_currency_symbol() : '') . ' ' . __('/mo', 'multisite-ultimate')); ?></sub>
+		<sub> <?php echo esc_html((! $symbol_left ? wu_get_currency_symbol() : '') . ' ' . __('/mo', 'ultimate-multisite')); ?></sub>
 	</h5>
 
 	<?php endif; ?>
@@ -89,13 +81,13 @@ $plan_attrs = apply_filters('wu_pricing_table_plan', $plan_attrs, $plan);
 	 * Display quarterly and Annually plans, to be hidden
 	 */
 	$prices_total = [
-		3  => __('every 3 months', 'multisite-ultimate'),
-		12 => __('yearly', 'multisite-ultimate'),
+		3  => __('every 3 months', 'ultimate-multisite'),
+		12 => __('yearly', 'ultimate-multisite'),
 	];
 
 	foreach ($prices_total as $freq => $string) {
 		// translators: %1$s: the price, %2$s: the period.
-		$text = sprintf(__('%1$s, billed %2$s', 'multisite-ultimate'), wu_format_currency($plan->{"price_$freq"}), $string);
+		$text = sprintf(__('%1$s, billed %2$s', 'ultimate-multisite'), wu_format_currency($plan->{"price_$freq"}), $string);
 
 		if ($plan->free || $plan->is_contact_us()) {
 			echo "<li class='total-price total-price-" . esc_attr($freq) . "'>-</li>";
@@ -110,13 +102,13 @@ $plan_attrs = apply_filters('wu_pricing_table_plan', $plan_attrs, $plan);
 	foreach ($plan->get_pricing_table_lines() as $key => $line) :
 		?>
 
-		<li class="<?php echo esc_attr(str_replace('_', '-', $key)); ?>"><?php echo esc_html($line); ?></li>
+		<li class="<?php echo esc_attr(str_replace('_', '-', $key)); ?>"><?php echo wp_kses_post($line); ?></li>
 
 	<?php endforeach; ?>
 
 	<?php
 	$button_attrubutes = apply_filters('wu_plan_select_button_attributes', '', $plan, $current_plan);
-	$button_label      = null != $current_plan && $plan->get_id() == $current_plan->id ? __('This is your current plan', 'multisite-ultimate') : __('Select Plan', 'multisite-ultimate');
+	$button_label      = null != $current_plan && $plan->get_id() == $current_plan->id ? __('This is your current plan', 'ultimate-multisite') : __('Select Plan', 'ultimate-multisite');
 	$button_label      = apply_filters('wu_plan_select_button_label', $button_label, $plan, $current_plan);
 	?>
 
@@ -131,7 +123,7 @@ $plan_attrs = apply_filters('wu_pricing_table_plan', $plan_attrs, $plan);
 	<?php else : ?>
 
 		<li class="wu-cta">
-		<button type="submit" name="plan_id" class="button button-primary button-next" value="<?php echo esc_attr($plan->get_id()); ?>" <?php echo $button_attrubutes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+		<button type="submit" name="plan_id" class="button button-primary button-next" value="<?php echo esc_attr($plan->get_id()); ?>">
 			<?php echo esc_html($button_label); ?>
 		</button>
 		</li>

@@ -53,7 +53,7 @@ $show_add_new = apply_filters('wp_ultimo_my_sites_show_add_new', $show_add_new);
 					<span
 						class="wu-shadow-sm wu-inline-flex wu-items-center wu-px-2 wu-py-1 wu-rounded wu-text-sm wu-font-medium wu-bg-purple-200 wu-text-purple-700"
 					>
-						<?php esc_html_e('Pending', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Pending', 'ultimate-multisite'); ?>
 					</span>
 
 					<?php endif; ?>
@@ -70,7 +70,7 @@ $show_add_new = apply_filters('wp_ultimo_my_sites_show_add_new', $show_add_new);
 
 					<span
 					class="wu-shadow-sm wu-inline-flex wu-items-center wu-px-2 wu-py-1 wu-rounded wu-text-sm wu-font-medium wu-bg-gray-800 wu-text-gray-300">
-					<?php esc_html_e('Primary', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Primary', 'ultimate-multisite'); ?>
 					</span>
 
 				<?php endif; ?>
@@ -89,7 +89,7 @@ $show_add_new = apply_filters('wp_ultimo_my_sites_show_add_new', $show_add_new);
 					class="wu-h-48 wu-w-full wu-object-cover wu-block"
 					src="<?php echo esc_attr($site->get_featured_image()); ?>"
 					<?php // translators: %s: Site Title ?>
-					alt="<?php printf(esc_attr__('Site Image: %s', 'multisite-ultimate'), esc_attr($site->get_title())); ?>"
+					alt="<?php printf(esc_attr__('Site Image: %s', 'ultimate-multisite'), esc_attr($site->get_title())); ?>"
 					style="background-color: rgba(255, 255, 255, 0.5)"
 				>
 
@@ -108,7 +108,7 @@ $show_add_new = apply_filters('wp_ultimo_my_sites_show_add_new', $show_add_new);
 				<?php if ($site->get_id()) : ?>
 					<a href="<?php echo esc_attr($site->get_active_site_url()); ?>" class="wu-block wu-no-underline">
 
-					<span class="wu-text-base wu-font-semibold wu-text-gray-800 wu-block" <?php echo wu_tooltip_text(__('Visit Site', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+					<span class="wu-text-base wu-font-semibold wu-text-gray-800 wu-block" <?php wu_tooltip_text(__('Visit Site', 'ultimate-multisite')); ?>>
 						<?php echo esc_html($site->get_title()); ?> <span class="wu-text-sm dashicons-wu-popup"></span>
 					</span>
 
@@ -141,7 +141,7 @@ $show_add_new = apply_filters('wp_ultimo_my_sites_show_add_new', $show_add_new);
 					<li class="wu-block wu-my-2">
 					<span
 						class="wu-w-full wu-no-underline <?php echo esc_attr(wu_env_picker('wu-text-sm', 'button button-primary button-disabled')); ?>">
-						<?php esc_html_e('Current Site', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Current Site', 'ultimate-multisite'); ?>
 					</span>
 					</li>
 
@@ -150,7 +150,7 @@ $show_add_new = apply_filters('wp_ultimo_my_sites_show_add_new', $show_add_new);
 					<li class="wu-block wu-my-2">
 					<a href="<?php echo esc_url($element->get_manage_url($site->get_id(), $site_manage_type, $custom_manage_page)); ?>"
 						class="wu-w-full wu-no-underline <?php echo esc_attr(wu_env_picker('wu-text-sm', 'button button-primary')); ?>">
-						<?php esc_html_e('Manage', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Manage', 'ultimate-multisite'); ?>
 					</a>
 					</li>
 
@@ -172,7 +172,7 @@ $show_add_new = apply_filters('wp_ultimo_my_sites_show_add_new', $show_add_new);
 
 			<span class="wu-text-center wu-p-8">
 				<span class="wu-text-3xl dashicons-wu-circle-with-plus"></span>
-				<span class="wu-text-lg wu-mt-2 wu-block"><?php esc_html_e('Add new Site', 'multisite-ultimate'); ?></span>
+				<span class="wu-text-lg wu-mt-2 wu-block"><?php esc_html_e('Add new Site', 'ultimate-multisite'); ?></span>
 			</span>
 
 			</a>

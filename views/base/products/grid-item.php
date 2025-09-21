@@ -63,11 +63,11 @@ defined('ABSPATH') || exit;
 
 		<!-- <label>
 			<input class="wu-rounded-none" type="checkbox" name="bulk-delete[]" value="<?php echo esc_attr($item->get_id()); ?>" />
-			<?php esc_html_e('Select Site', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Select Site', 'ultimate-multisite'); ?>
 		</label> -->
 
 		<a href="<?php echo esc_attr(wu_network_admin_url('wp-ultimo-edit-product', ['id' => $item->get_id()])); ?>" class="button button-primary">
-			<?php esc_html_e('Read More', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Read More', 'ultimate-multisite'); ?>
 		</a>
 
 	</div>

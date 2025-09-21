@@ -79,7 +79,7 @@ class Country_MY extends Country {
 	 */
 	public function get_name() {
 
-		return __('Malaysia', 'multisite-ultimate');
+		return __('Malaysia', 'ultimate-multisite');
 	}
 
 	/**
@@ -91,22 +91,22 @@ class Country_MY extends Country {
 	protected function states() {
 
 		return [
-			'10' => __('Selangor', 'multisite-ultimate'),
-			'11' => __('Terengganu', 'multisite-ultimate'),
-			'12' => __('Sabah', 'multisite-ultimate'),
-			'13' => __('Sarawak', 'multisite-ultimate'),
-			'14' => __('Kuala Lumpur', 'multisite-ultimate'),
-			'15' => __('Labuan', 'multisite-ultimate'),
-			'16' => __('Putrajaya', 'multisite-ultimate'),
-			'01' => __('Johor', 'multisite-ultimate'),
-			'02' => __('Kedah', 'multisite-ultimate'),
-			'03' => __('Kelantan', 'multisite-ultimate'),
-			'04' => __('Malacca', 'multisite-ultimate'),
-			'05' => __('Negeri Sembilan', 'multisite-ultimate'),
-			'06' => __('Pahang', 'multisite-ultimate'),
-			'07' => __('Penang', 'multisite-ultimate'),
-			'08' => __('Perak', 'multisite-ultimate'),
-			'09' => __('Perlis', 'multisite-ultimate'),
+			'10' => __('Selangor', 'ultimate-multisite'),
+			'11' => __('Terengganu', 'ultimate-multisite'),
+			'12' => __('Sabah', 'ultimate-multisite'),
+			'13' => __('Sarawak', 'ultimate-multisite'),
+			'14' => __('Kuala Lumpur', 'ultimate-multisite'),
+			'15' => __('Labuan', 'ultimate-multisite'),
+			'16' => __('Putrajaya', 'ultimate-multisite'),
+			'01' => __('Johor', 'ultimate-multisite'),
+			'02' => __('Kedah', 'ultimate-multisite'),
+			'03' => __('Kelantan', 'ultimate-multisite'),
+			'04' => __('Malacca', 'ultimate-multisite'),
+			'05' => __('Negeri Sembilan', 'ultimate-multisite'),
+			'06' => __('Pahang', 'ultimate-multisite'),
+			'07' => __('Penang', 'ultimate-multisite'),
+			'08' => __('Perak', 'ultimate-multisite'),
+			'09' => __('Perlis', 'ultimate-multisite'),
 		];
 	}
 }

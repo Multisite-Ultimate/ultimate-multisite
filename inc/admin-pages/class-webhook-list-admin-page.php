@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Webhook Admin Page.
+ * Ultimate Multisite Webhook Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Webhook Admin Page.
+ * Ultimate Multisite Webhook Admin Page.
  */
 class Webhook_List_Admin_Page extends List_Admin_Page {
 
@@ -72,9 +72,9 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 			[
 				'nonce' => wp_create_nonce('wu_webhook_send_test'),
 				'i18n'  => [
-					'error_title'   => __('Webhook Test', 'multisite-ultimate'),
-					'error_message' => __('An error occurred when sending the test webhook, please try again.', 'multisite-ultimate'),
-					'copied'        => __('Copied!', 'multisite-ultimate'),
+					'error_title'   => __('Webhook Test', 'ultimate-multisite'),
+					'error_message' => __('An error occurred when sending the test webhook, please try again.', 'ultimate-multisite'),
+					'copied'        => __('Copied!', 'ultimate-multisite'),
 				],
 			]
 		);
@@ -121,25 +121,25 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'name'          => [
 				'type'        => 'text',
-				'title'       => __('Webhook Name', 'multisite-ultimate'),
-				'desc'        => __('A name to easily identify your webhook.', 'multisite-ultimate'),
-				'placeholder' => __('E.g. Zapier Integration', 'multisite-ultimate'),
+				'title'       => __('Webhook Name', 'ultimate-multisite'),
+				'desc'        => __('A name to easily identify your webhook.', 'ultimate-multisite'),
+				'placeholder' => __('E.g. Zapier Integration', 'ultimate-multisite'),
 			],
 			'event'         => [
-				'title'   => __('Event', 'multisite-ultimate'),
+				'title'   => __('Event', 'ultimate-multisite'),
 				'type'    => 'select',
-				'desc'    => __('The event that will trigger the webhook.', 'multisite-ultimate'),
+				'desc'    => __('The event that will trigger the webhook.', 'ultimate-multisite'),
 				'options' => $event_options,
 			],
 			'webhook_url'   => [
 				'type'        => 'url',
-				'title'       => __('Webhook Url', 'multisite-ultimate'),
-				'desc'        => __('The url of your webhook.', 'multisite-ultimate'),
-				'placeholder' => __('E.g. https://example.com/', 'multisite-ultimate'),
+				'title'       => __('Webhook Url', 'ultimate-multisite'),
+				'desc'        => __('The url of your webhook.', 'ultimate-multisite'),
+				'placeholder' => __('E.g. https://example.com/', 'ultimate-multisite'),
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Add New Webhook', 'multisite-ultimate'),
+				'title'           => __('Add New Webhook', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -178,7 +178,7 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function handle_add_new_webhook_modal(): void {
 
-		// Nonce check handled in calling method.
+		// Nonce check handled in Form_Manager::handle_form.
 		$status = wu_create_webhook(
 			[
 				'name'             => ! empty($_POST['name']) ? sanitize_text_field(wp_unslash($_POST['name'])) : false, // phpcs:ignore WordPress.Security.NonceVerification
@@ -225,8 +225,8 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Webhook removed successfully.', 'multisite-ultimate'),
-			'search_label'    => __('Search Webhook', 'multisite-ultimate'),
+			'deleted_message' => __('Webhook removed successfully.', 'ultimate-multisite'),
+			'search_label'    => __('Search Webhook', 'ultimate-multisite'),
 		];
 	}
 
@@ -238,7 +238,7 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Webhooks', 'multisite-ultimate');
+		return __('Webhooks', 'ultimate-multisite');
 	}
 
 	/**
@@ -249,7 +249,7 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Webhooks', 'multisite-ultimate');
+		return __('Webhooks', 'ultimate-multisite');
 	}
 
 	/**
@@ -260,7 +260,7 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Webhooks', 'multisite-ultimate');
+		return __('Webhooks', 'ultimate-multisite');
 	}
 
 	/**
@@ -273,7 +273,7 @@ class Webhook_List_Admin_Page extends List_Admin_Page {
 
 		return [
 			[
-				'label'   => __('Add New Webhook', 'multisite-ultimate'),
+				'label'   => __('Add New Webhook', 'ultimate-multisite'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('add_new_webhook_modal'),

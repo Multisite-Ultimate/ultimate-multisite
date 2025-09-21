@@ -103,7 +103,7 @@ class Invoice {
 
 		$this->printer->SetProtection(['print']);
 
-		$this->printer->SetTitle(__('Invoice', 'multisite-ultimate'));
+		$this->printer->SetTitle(__('Invoice', 'ultimate-multisite'));
 
 		$this->printer->SetAuthor($this->company_name);
 
@@ -168,6 +168,8 @@ class Invoice {
 
 		$atts['billing_address'] = $atts['membership'] ? $atts['membership']->get_billing_address()->to_array() : [];
 
+		wp_enqueue_style('wu-invoice', wu_get_asset('invoice.css', 'css'), [], \WP_Ultimo::VERSION);
+
 		return wu_get_template_contents('invoice/template', $atts);
 	}
 
@@ -186,6 +188,11 @@ class Invoice {
 		wu_try_unlimited_server_limits();
 
 		$this->pdf_setup();
+
+		// Define constant to indicate PDF generation context for templates
+		if ( ! defined('WU_GENERATING_PDF')) {
+			define('WU_GENERATING_PDF', true);
+		}
 
 		$this->printer->WriteHTML($this->render());
 
@@ -250,7 +257,7 @@ class Invoice {
 				'use_custom_logo' => false,
 				'custom_logo'     => false,
 				'footer_message'  => '',
-				'paid_tag_text'   => __('Paid', 'multisite-ultimate'),
+				'paid_tag_text'   => __('Paid', 'ultimate-multisite'),
 			]
 		);
 

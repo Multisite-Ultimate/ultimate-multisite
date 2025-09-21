@@ -1,12 +1,12 @@
 # Creating Discount Codes (v2)
 
-_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Ultimate Multisite version 2.x.**_
 
-With Multisite Ultimate you can create discount codes to give your clients discounts on their subscriptions. And creating them is easy!
+With Ultimate Multisite you can create discount codes to give your clients discounts on their subscriptions. And creating them is easy!
 
 ## Creating and Editing Discount Codes
 
-To create or edit a discount code, go to **Multisite Ultimate > Discount Codes**.
+To create or edit a discount code, go to **Ultimate Multisite > Discount Codes**.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-G2iYAraljI.png)
 
@@ -78,7 +78,7 @@ The coupon is now on your list and, from there, you can click to **edit or delet
 
 If you want to customize your pricing tables or build a nice coupon code page for your website and want to apply a discount code to your checkout form automatically, you can do this via URL parameters.
 
-First, you need to get the shareable link for your plan. To do this, go to **Multisite Ultimate > Products** and select a plan.
+First, you need to get the shareable link for your plan. To do this, go to **Ultimate Multisite > Products** and select a plan.
 
 Click on the **Click to Copy Shareable Link** button. This will give you the shareable link to this specific plan. In our case, the shareable link given was [_**mynetworkdomain.com/register/premium/**_](http://mynetworkdomain.com/register/premium/)_._
 

@@ -16,7 +16,7 @@ defined('ABSPATH') || exit;
 				</strong>
 			</div>
 			<div class="wu-text-sm wu-text-gray-600">
-				<span class="wu-block"><?php esc_html_e('New Memberships', 'multisite-ultimate'); ?></span>
+				<span class="wu-block"><?php esc_html_e('New Memberships', 'ultimate-multisite'); ?></span>
 			</div>
 		</li>
 	</ul>
@@ -24,8 +24,8 @@ defined('ABSPATH') || exit;
 		<table class="wp-list-table widefat fixed striped wu-border-t-1 wu-border-l-0 wu-border-r-0">
 			<thead>
 			<tr>
-				<th><?php esc_html_e('Product Name', 'multisite-ultimate'); ?></th>
-				<th class="wu-text-right"><?php esc_html_e('New Memberships', 'multisite-ultimate'); ?></th>
+				<th><?php esc_html_e('Product Name', 'ultimate-multisite'); ?></th>
+				<th class="wu-text-right"><?php esc_html_e('New Memberships', 'ultimate-multisite'); ?></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -39,7 +39,7 @@ defined('ABSPATH') || exit;
 			<?php else : ?>
 				<tr>
 					<td colspan="2">
-						<?php esc_html_e('No Products found.', 'multisite-ultimate'); ?>
+						<?php esc_html_e('No Products found.', 'ultimate-multisite'); ?>
 					</td>
 				</tr>
 			<?php endif; ?>

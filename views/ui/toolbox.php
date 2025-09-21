@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
 
 	<ul class="wu-inline-block wu-m-0 wu-p-0 wu-align-middle wu-mx-1">
 		<li class="wu-inline-block wu-m-0 wu-p-0">
-		<span id="wu-toolbox-toggle" class="dashicons-before dashicons-wu-wp-ultimo" <?php echo wu_tooltip_text(__('Toggle Toolbox', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>></span>
+		<span id="wu-toolbox-toggle" class="dashicons-before dashicons-wu-wp-ultimo" <?php wu_tooltip_text(__('Toggle Toolbox', 'ultimate-multisite')); ?>></span>
 		</li>
 	</ul>
 
@@ -27,7 +27,7 @@ defined('ABSPATH') || exit;
 
 		<a href="<?php echo esc_attr(wu_network_admin_url('wp-ultimo-edit-site', ['id' => $current_site->get_id()])); ?>"
 			class="wu-inline-block wu-uppercase wu-text-gray-600 wu-no-underline">
-			<span title="<?php esc_attr_e('Current Site', 'multisite-ultimate'); ?>"
+			<span title="<?php esc_attr_e('Current Site', 'ultimate-multisite'); ?>"
 			class="dashicons-wu-browser wu-text-sm wu-w-auto wu-h-auto wu-align-text-bottom wu-relative"></span>
 			<span class="">
 			<?php echo esc_html($current_site->get_title()); ?>
@@ -42,7 +42,7 @@ defined('ABSPATH') || exit;
 
 			<a href="<?php echo esc_attr(wu_network_admin_url('wp-ultimo-edit-customer', ['id' => $customer->get_id()])); ?>"
 			class="wu-inline-block wu-uppercase wu-text-gray-600 wu-no-underline">
-			<span title="<?php esc_attr_e('Current Site', 'multisite-ultimate'); ?>"
+			<span title="<?php esc_attr_e('Current Site', 'ultimate-multisite'); ?>"
 				class="dashicons-wu-user wu-text-sm wu-w-auto wu-h-auto wu-align-text-bottom wu-relative"></span>
 			<span class="">
 				<?php echo esc_html($customer->get_display_name()); ?>
@@ -59,13 +59,13 @@ defined('ABSPATH') || exit;
 
 			<a href="<?php echo esc_attr(wu_network_admin_url('wp-ultimo-edit-membership', ['id' => $membership->get_id()])); ?>"
 			class="wu-inline-block wu-uppercase wu-text-gray-600 wu-no-underline">
-			<span title="<?php esc_attr_e('Current Site', 'multisite-ultimate'); ?>"
+			<span title="<?php esc_attr_e('Current Site', 'ultimate-multisite'); ?>"
 				class="dashicons-wu-circular-graph wu-text-sm wu-w-auto wu-h-auto wu-align-text-bottom wu-relative"></span>
 			<span class="">
 				<?php // translators: %s hash of membership. ?>
-				<?php printf(wp_kses_post('Membership <Strong>%s</strong>', 'multisite-ultimate'), esc_html($membership->get_hash())); ?>
+				<?php printf(wp_kses_post('Membership <Strong>%s</strong>', 'ultimate-multisite'), esc_html($membership->get_hash())); ?>
 			</span>
-			<span id="wu-toolbox-membership-status" class="wu-inline-block wu-w-3 wu-h-3 wu-rounded-full wu-align-text-top <?php echo esc_attr($membership->get_status_class()); ?>" <?php echo wu_tooltip_text($membership->get_status_label()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<span id="wu-toolbox-membership-status" class="wu-inline-block wu-w-3 wu-h-3 wu-rounded-full wu-align-text-top <?php echo esc_attr($membership->get_status_class()); ?>" <?php wu_tooltip_text($membership->get_status_label()); ?>>
 				&nbsp;
 			</span>
 			</a>
@@ -81,10 +81,10 @@ defined('ABSPATH') || exit;
 
 		<a id="wu-jumper-button-trigger" href="#"
 			class="wu-inline-block wu-uppercase wu-text-gray-600 wu-no-underline">
-			<span title="<?php esc_attr_e('Jumper', 'multisite-ultimate'); ?>"
+			<span title="<?php esc_attr_e('Jumper', 'ultimate-multisite'); ?>"
 			class="dashicons dashicons-wu-flash wu-text-sm wu-w-auto wu-h-auto wu-align-text-top wu-relative wu--mr-1"></span>
 			<span class="wu-font-bold">
-			<?php esc_attr_e('Jumper', 'multisite-ultimate'); ?>
+			<?php esc_attr_e('Jumper', 'ultimate-multisite'); ?>
 			</span>
 		</a>
 

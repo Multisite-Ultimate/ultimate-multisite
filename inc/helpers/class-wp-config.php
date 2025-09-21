@@ -37,14 +37,14 @@ class WP_Config {
 		if ( ! is_writable($config_path)) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable
 
 			// translators: %s is the file name.
-			return new \WP_Error('not-writeable', sprintf(__('The file %s is not writable', 'multisite-ultimate'), $config_path));
+			return new \WP_Error('not-writeable', sprintf(__('The file %s is not writable', 'ultimate-multisite'), $config_path));
 		}
 
 		$config = file($config_path);
 
 		$line = $this->find_injected_line($config, $constant);
 
-		$content = str_pad(sprintf("define( '%s', '%s' );", $constant, $value), 50) . '// Automatically injected by Multisite Ultimate;';
+		$content = str_pad(sprintf("define( '%s', '%s' );", $constant, $value), 50) . '// Automatically injected by Ultimate Multisite;';
 
 		if (false === $line) {
 
@@ -52,7 +52,7 @@ class WP_Config {
 			$hook_line = $this->find_reference_hook_line($config);
 
 			if (false === $hook_line) {
-				return new \WP_Error('unknown-wpconfig', __("Multisite Ultimate can't recognize your wp-config.php, please revert it to original state for further process.", 'multisite-ultimate'));
+				return new \WP_Error('unknown-wpconfig', __("Ultimate Multisite can't recognize your wp-config.php, please revert it to original state for further process.", 'ultimate-multisite'));
 			}
 
 			$config = $this->inject_contents($config, $hook_line + 1, PHP_EOL . $content . PHP_EOL);
@@ -180,7 +180,7 @@ class WP_Config {
 		if ( ! is_writable($config_path)) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable
 
 			// translators: %s is the file name.
-			return new \WP_Error('not-writeable', sprintf(__('The file %s is not writable', 'multisite-ultimate'), $config_path));
+			return new \WP_Error('not-writeable', sprintf(__('The file %s is not writable', 'ultimate-multisite'), $config_path));
 		}
 
 		$config = file($config_path);

@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
 ?>
 <li 
 	class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" 
-	<?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php $field->print_wrapper_html_attributes(); ?>
 >
 
 	<div class="wu-w-full">
@@ -74,7 +74,7 @@ defined('ABSPATH') || exit;
 
 				<div class="wu-toggle">
 
-				<input <?php checked(in_array($value, (array) $field->value, true)); ?> value="<?php echo esc_attr($value); ?>" id="<?php echo esc_attr("{$field->id}_{$value}"); ?>" type="checkbox" name="<?php echo esc_attr("{$field->id}[]"); ?>" class="wu-tgl wu-tgl-ios" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+				<input <?php checked(in_array($value, (array) $field->value, true)); ?> value="<?php echo esc_attr($value); ?>" id="<?php echo esc_attr("{$field->id}_{$value}"); ?>" type="checkbox" name="<?php echo esc_attr("{$field->id}[]"); ?>" class="wu-tgl wu-tgl-ios" <?php $field->print_html_attributes(); ?>>
 
 				<label for="<?php echo esc_attr("{$field->id}_{$value}"); ?>" class="wu-tgl-btn wp-ui-highlight"></label>
 

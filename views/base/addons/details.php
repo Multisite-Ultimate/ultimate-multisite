@@ -4,34 +4,22 @@
  *
  * @since 2.0.0
  */
+
+if ( ! defined('ABSPATH') ) {
+	exit; // Exit if accessed directly
+}
+
 ?>
-<style type="text/css">
-	#plugin-information {
-		position: static;
-	}
 
-	#plugin-information-footer {
-		height: auto !important;
-	}
-
-	#plugin-information-title.with-banner {
-		background-position: center;
-		background-image: url("<?php echo esc_attr($addon->images[0]['thumbnail'] ?? ''); ?>");
-	}
-
-	@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-		#plugin-information-title.with-banner {
-		background-position: center;
-		background-image: url("<?php echo esc_attr($addon->images[0]['thumbnail'] ?? ''); ?>");
-		}
-	}
-</style>
-
-<div id="plugin-information">
+<div id="plugin-information" style="position: static">
 
 	<div id="plugin-information-scrollable">
 
-		<div id="plugin-information-title" class="with-banner">
+		<div id="plugin-information-title" class="with-banner" 
+		<?php
+		if ( isset($addon->images[0]['thumbnail'])) :
+			?>
+style="background-image:url(<?php echo esc_url($addon->images[0]['thumbnail']); ?>);background-position:center;"<?php endif; ?>>
 			<div class="vignette"></div>
 			<h2><?php echo esc_html($addon->name); ?></h2>
 		</div>
@@ -40,32 +28,32 @@
 
 			<a name="description" href="#" class="current">
 
-				<?php esc_html_e('Description', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Description', 'ultimate-multisite'); ?>
 
 			</a>
 			<!-- 
 
 			<a name="faq" href="#">
 
-				<?php esc_html_e('FAQ', 'multisite-ultimate'); ?>
+				<?php esc_html_e('FAQ', 'ultimate-multisite'); ?>
 
 			</a>
 
 			<a name="changelog" href="#">
 
-				<?php esc_html_e('Changelog', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Changelog', 'ultimate-multisite'); ?>
 
 			</a>
 
 			<a name="screenshots" href="#">
 
-				<?php esc_html_e('Screenshots', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Screenshots', 'ultimate-multisite'); ?>
 
 			</a>
 
 			<a name="reviews" href="#">
 
-				<?php esc_html_e('Reviews', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Reviews', 'ultimate-multisite'); ?>
 
 			</a>
 
@@ -79,23 +67,23 @@
 
 				<ul>
 					<li>
-						<strong><?php esc_html_e('Author:', 'multisite-ultimate'); ?></strong>
+						<strong><?php esc_html_e('Author:', 'ultimate-multisite'); ?></strong>
 
 							<?php echo esc_html($addon->extensions['wp-update-server-plugin']['author']['display_name']); ?>
 
 					<?php if (isset($addon->requires_version)) : ?>
 
 						<li>
-							<strong><?php esc_html_e('Requires Multisite Ultimate Version:', 'multisite-ultimate'); ?></strong>
+							<strong><?php esc_html_e('Requires Ultimate Multisite Version:', 'ultimate-multisite'); ?></strong>
 							<?php // translators: %s minimun required version number. ?>
-							<?php printf(esc_html__('%s or higher', 'multisite-ultimate'), esc_html($addon->requires_version)); ?>
+							<?php printf(esc_html__('%s or higher', 'ultimate-multisite'), esc_html($addon->requires_version)); ?>
 						</li>
 
 					<?php endif; ?>
 
 					<li>
 						<a class="wu-no-underline" target="_blank" href="<?php echo esc_attr($addon->permalink); ?>">
-						<?php esc_html_e('See on the Official Site »', 'multisite-ultimate'); ?>
+						<?php esc_html_e('See on the Official Site »', 'ultimate-multisite'); ?>
 						</a>
 					</li>
 
@@ -116,13 +104,13 @@
 
 	</div>
 
-	<div id="plugin-information-footer">
+	<div id="plugin-information-footer" style="height: auto !important;">
 
 		<?php if (! $addon->prices['price'] > 0) : ?>
 
 		<span class="wu-text-green-800 wu-inline-block wu-py-1">
 
-			<?php esc_html_e('This is a Premium Add-on.', 'multisite-ultimate'); ?>
+			<?php esc_html_e('This is a Premium Add-on.', 'ultimate-multisite'); ?>
 
 		</span>
 
@@ -135,7 +123,7 @@
 			data-slug="<?php echo esc_attr($addon_slug); ?>"
 			class="button button-disabled right"
 			>
-			<?php esc_html_e('Already Installed', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Already Installed', 'ultimate-multisite'); ?>
 			</button>
 
 		<?php else : ?>
@@ -150,7 +138,7 @@
 				data-slug="<?php echo esc_attr($addon_slug); ?>"
 				class="button button-primary right"
 				>
-					<?php esc_html_e('Install Now', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Install Now', 'ultimate-multisite'); ?>
 				</button>
 
 			<?php else : ?>
@@ -159,7 +147,7 @@
 				href="<?php echo esc_attr($addon->permalink . '?add-to-cart=' . $addon->id); ?>"
 				class="button button-primary right"
 				>
-				<?php esc_html_e('Purchase', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Purchase', 'ultimate-multisite'); ?>
 				</a>
 
 			<?php endif; ?>

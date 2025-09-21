@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Dashboard Widgets
+ * Ultimate Multisite Dashboard Widgets
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -15,7 +15,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Dashboard Widgets
+ * Ultimate Multisite Dashboard Widgets
  *
  * @since 2.0.0
  */
@@ -87,28 +87,28 @@ class Dashboard_Widgets implements \WP_Ultimo\Interfaces\Singleton {
 	 */
 	public function register_network_widgets(): void {
 
-		add_meta_box('wp-ultimo-setup', __('Multisite Ultimate - First Steps', 'multisite-ultimate'), [$this, 'output_widget_first_steps'], $this->screen_id, 'normal', 'high');
+		add_meta_box('wp-ultimo-setup', __('Ultimate Multisite - First Steps', 'ultimate-multisite'), [$this, 'output_widget_first_steps'], $this->screen_id, 'normal', 'high');
 
-		add_meta_box('wp-ultimo-summary', __('Multisite Ultimate - Summary', 'multisite-ultimate'), [$this, 'output_widget_summary'], $this->screen_id, 'normal', 'high');
+		add_meta_box('wp-ultimo-summary', __('Ultimate Multisite - Summary', 'ultimate-multisite'), [$this, 'output_widget_summary'], $this->screen_id, 'normal', 'high');
 
-		add_meta_box('wp-ultimo-activity-stream', __('Multisite Ultimate - Activity Stream', 'multisite-ultimate'), [$this, 'output_widget_activity_stream'], $this->screen_id, 'normal', 'high');
+		add_meta_box('wp-ultimo-activity-stream', __('Ultimate Multisite - Activity Stream', 'ultimate-multisite'), [$this, 'output_widget_activity_stream'], $this->screen_id, 'normal', 'high');
 
 		\WP_Ultimo\UI\Tours::get_instance()->create_tour(
 			'dashboard',
 			[
 				[
 					'id'    => 'welcome',
-					'title' => __('Welcome!', 'multisite-ultimate'),
+					'title' => __('Welcome!', 'ultimate-multisite'),
 					'text'  => [
-						__('Welcome to your new network dashboard!', 'multisite-ultimate'),
-						__('You will notice that <strong>Multisite Ultimate</strong> adds a couple of useful widgets here so you can keep an eye on how your network is doing.', 'multisite-ultimate'),
+						__('Welcome to your new network dashboard!', 'ultimate-multisite'),
+						__('You will notice that <strong>Ultimate Multisite</strong> adds a couple of useful widgets here so you can keep an eye on how your network is doing.', 'ultimate-multisite'),
 					],
 				],
 				[
 					'id'       => 'finish-your-setup',
-					'title'    => __('Finish your setup', 'multisite-ultimate'),
+					'title'    => __('Finish your setup', 'ultimate-multisite'),
 					'text'     => [
-						__('You still have a couple of things to do configuration-wise. Check the steps on this list and make sure you complete them all.', 'multisite-ultimate'),
+						__('You still have a couple of things to do configuration-wise. Check the steps on this list and make sure you complete them all.', 'ultimate-multisite'),
 					],
 					'attachTo' => [
 						'element' => '#wp-ultimo-setup',
@@ -117,9 +117,9 @@ class Dashboard_Widgets implements \WP_Ultimo\Interfaces\Singleton {
 				],
 				[
 					'id'       => 'wp-ultimo-menu',
-					'title'    => __('Our home', 'multisite-ultimate'),
+					'title'    => __('Our home', 'ultimate-multisite'),
 					'text'     => [
-						__('You can always find Multisite Ultimate settings and other pages under our menu item, here on the Network-level dashboard. 😃', 'multisite-ultimate'),
+						__('You can always find Ultimate Multisite settings and other pages under our menu item, here on the Network-level dashboard. 😃', 'ultimate-multisite'),
 					],
 					'attachTo' => [
 						'element' => '.toplevel_page_wp-ultimo',
@@ -182,16 +182,16 @@ class Dashboard_Widgets implements \WP_Ultimo\Interfaces\Singleton {
 
 		$steps = [
 			'inital-setup'        => [
-				'title'        => __('Initial Setup', 'multisite-ultimate'),
-				'desc'         => __('Go through the initial Setup Wizard to configure the basic settings of your network.', 'multisite-ultimate'),
-				'action_label' => __('Finish the Setup Wizard', 'multisite-ultimate'),
+				'title'        => __('Initial Setup', 'ultimate-multisite'),
+				'desc'         => __('Go through the initial Setup Wizard to configure the basic settings of your network.', 'ultimate-multisite'),
+				'action_label' => __('Finish the Setup Wizard', 'ultimate-multisite'),
 				'action_link'  => wu_network_admin_url('wp-ultimo-setup'),
 				'done'         => wu_string_to_bool($initial_setup_done),
 			],
 			'payment-method'      => [
-				'title'        => __('Payment Method', 'multisite-ultimate'),
-				'desc'         => __('You will need to configure at least one payment gateway to be able to receive money from your customers.', 'multisite-ultimate'),
-				'action_label' => __('Add a Payment Method', 'multisite-ultimate'),
+				'title'        => __('Payment Method', 'ultimate-multisite'),
+				'desc'         => __('You will need to configure at least one payment gateway to be able to receive money from your customers.', 'ultimate-multisite'),
+				'action_label' => __('Add a Payment Method', 'ultimate-multisite'),
 				'action_link'  => wu_network_admin_url(
 					'wp-ultimo-settings',
 					[
@@ -202,10 +202,10 @@ class Dashboard_Widgets implements \WP_Ultimo\Interfaces\Singleton {
 			],
 			'your-first-customer' => [
 				'done'         => ! empty(wu_get_customers()),
-				'title'        => __('Your First Customer', 'multisite-ultimate'),
-				'desc'         => __('Open the link below in an incognito tab and go through your newly created signup form.', 'multisite-ultimate'),
+				'title'        => __('Your First Customer', 'ultimate-multisite'),
+				'desc'         => __('Open the link below in an incognito tab and go through your newly created signup form.', 'ultimate-multisite'),
 				'action_link'  => wp_registration_url(),
-				'action_label' => __('Create a test Account', 'multisite-ultimate'),
+				'action_label' => __('Create a test Account', 'ultimate-multisite'),
 			],
 		];
 
@@ -284,7 +284,7 @@ class Dashboard_Widgets implements \WP_Ultimo\Interfaces\Singleton {
 			$_GET, // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			[
 				'url'          => 'https://community.wpultimo.com/topics/feed',
-				'title'        => __('Forum Discussions', 'multisite-ultimate'),
+				'title'        => __('Forum Discussions', 'ultimate-multisite'),
 				'items'        => 3,
 				'show_summary' => 1,
 				'show_author'  => 0,

@@ -30,6 +30,13 @@ class Orphaned_Tables_Manager {
 	 */
 	public function init(): void {
 
+		global $wp_version;
+
+		// Only run if WordPress version is 6.2 or greater
+		if (version_compare($wp_version, '6.2', '<')) {
+			return;
+		}
+
 		add_action('plugins_loaded', [$this, 'register_forms']);
 		add_action('wu_settings_other', [$this, 'register_settings_field']);
 	}
@@ -66,17 +73,17 @@ class Orphaned_Tables_Manager {
 			'other',
 			'cleanup_orphaned_tables',
 			[
-				'title'             => __('Cleanup Orphaned Database Tables', 'multisite-ultimate'),
-				'desc'              => __('Remove database tables from deleted sites that were not properly cleaned up.', 'multisite-ultimate'),
+				'title'             => __('Cleanup Orphaned Database Tables', 'ultimate-multisite'),
+				'desc'              => __('Remove database tables from deleted sites that were not properly cleaned up.', 'ultimate-multisite'),
 				'type'              => 'link',
-				'display_value'     => __('Check for Orphaned Tables', 'multisite-ultimate'),
+				'display_value'     => __('Check for Orphaned Tables', 'ultimate-multisite'),
 				'classes'           => 'button button-secondary wu-ml-0 wubox',
 				'wrapper_html_attr' => [
 					'style' => 'margin-bottom: 20px;',
 				],
 				'html_attr'         => [
 					'href'       => wu_get_form_url('orphaned_tables_delete'),
-					'wu-tooltip' => __('Scan and cleanup database tables from deleted sites', 'multisite-ultimate'),
+					'wu-tooltip' => __('Scan and cleanup database tables from deleted sites', 'ultimate-multisite'),
 				],
 			]
 		);
@@ -99,8 +106,8 @@ class Orphaned_Tables_Manager {
 							<h3 class="wu-mt-0 wu-mb-2">%s</h3>
 							<p>%s</p>
 						</div>',
-				esc_html__('Not Found', 'multisite-ultimate'),
-				esc_html__('No Orphaned Tables found.', 'multisite-ultimate')
+				esc_html__('Not Found', 'ultimate-multisite'),
+				esc_html__('No Orphaned Tables found.', 'ultimate-multisite')
 			);
 			return;
 		}
@@ -125,19 +132,19 @@ class Orphaned_Tables_Manager {
 					</div>',
 					sprintf(
 						/* translators: %d: number of orphaned tables */
-						esc_html(_n('Confirm Deletion of %d Orphaned Table', 'Confirm Deletion of %d Orphaned Tables', $table_count, 'multisite-ultimate')),
+						esc_html(_n('Confirm Deletion of %d Orphaned Table', 'Confirm Deletion of %d Orphaned Tables', $table_count, 'ultimate-multisite')),
 						$table_count
 					),
-					esc_html__('You are about to permanently delete the following database tables:', 'multisite-ultimate'),
+					esc_html__('You are about to permanently delete the following database tables:', 'ultimate-multisite'),
 					$table_list,
-					esc_html__('Warning:', 'multisite-ultimate'),
-					esc_html__('This action cannot be undone. Please ensure you have a database backup before proceeding.', 'multisite-ultimate')
+					esc_html__('Warning:', 'ultimate-multisite'),
+					esc_html__('This action cannot be undone. Please ensure you have a database backup before proceeding.', 'ultimate-multisite')
 				),
 				'wrapper_classes' => 'wu-w-full',
 			],
 			'submit'       => [
 				'type'            => 'submit',
-				'title'           => __('Yes, Delete These Tables', 'multisite-ultimate'),
+				'title'           => __('Yes, Delete These Tables', 'ultimate-multisite'),
 				'value'           => 'delete',
 				'classes'         => 'button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -175,7 +182,7 @@ class Orphaned_Tables_Manager {
 	public function handle_orphaned_tables_delete_modal(): void {
 
 		if (! current_user_can('manage_network')) {
-			wp_die(esc_html__('You do not have the required permissions.', 'multisite-ultimate'));
+			wp_die(esc_html__('You do not have the required permissions.', 'ultimate-multisite'));
 		}
 
 		if (empty($orphaned_tables) || ! is_array($orphaned_tables)) {
@@ -269,7 +276,7 @@ class Orphaned_Tables_Manager {
 			}
 
 			// Use DROP TABLE IF EXISTS for safety
-			$result = $wpdb->query($wpdb->prepare('DROP TABLE IF EXISTS %i', $table)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$result = $wpdb->query($wpdb->prepare('DROP TABLE IF EXISTS %i', $table)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQLPlaceholders.UnsupportedIdentifierPlaceholder
 
 			if (false !== $result) {
 				++$deleted_count;

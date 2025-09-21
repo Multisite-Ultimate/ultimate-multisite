@@ -236,6 +236,7 @@ class Limit_Site_Templates extends Limit {
 	 */
 	public function handle_others($module) {
 
+		// Nonce check happened in Edit_Admin_Page::process_save().
 		$_module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		$module['mode'] = wu_get_isset($_module, 'mode', 'default');

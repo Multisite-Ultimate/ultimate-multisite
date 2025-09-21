@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
 require_once wu_path('inc/functions/options.php');
 
 /**
- * Returns an array with all the Multisite Ultimate settings.
+ * Returns an array with all the Ultimate Multisite settings.
  *
  * @since 2.0.0
  * @return array
@@ -110,7 +110,7 @@ function wu_register_settings_side_panel($section_slug, $atts) {
 	$atts = wp_parse_args(
 		$atts,
 		[
-			'title'  => __('Side Panel', 'multisite-ultimate'),
+			'title'  => __('Side Panel', 'ultimate-multisite'),
 			'render' => '__return_false',
 			'show'   => '__return_true',
 		]

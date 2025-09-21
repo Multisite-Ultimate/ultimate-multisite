@@ -161,7 +161,7 @@ class Addon_Repository {
 
 			if (empty($access_token)) {
 				// translators: %s the url for login.
-				return new \WP_Error('noauth', sprintf(__('You must <a href="%s" target="_parent">Login</a> first.', 'multisite-ultimate'), $this->get_oauth_url()));
+				return new \WP_Error('noauth', sprintf(__('You must <a href="%s" target="_parent">Login</a> first.', 'ultimate-multisite'), $this->get_oauth_url()));
 			}
 			$this->authorization_header = 'Bearer ' . $access_token;
 
@@ -180,7 +180,7 @@ class Addon_Repository {
 			}
 
 			if (! in_array(absint($code), [200, 302, 301], true)) {
-				return new \WP_Error('http_request_failed', esc_html__('Failed to connect to the update server. Please try again later.', 'multisite-ultimate'));
+				return new \WP_Error('http_request_failed', esc_html__('Failed to connect to the update server. Please try again later.', 'ultimate-multisite'));
 			}
 		}
 		return $reply;
@@ -226,7 +226,7 @@ class Addon_Repository {
 			set_transient('wu-access-token', $response['access_token'], $response['expires_in']);
 			wu_save_option('wu-refresh-token', $response['refresh_token']);
 			wp_admin_notice(
-				__('Successfully connected your site to MultisiteUltimate.com.', 'multisite-ultimate'),
+				__('Successfully connected your site to MultisiteUltimate.com.', 'ultimate-multisite'),
 				[
 					'type'        => 'success',
 					'dismissible' => true,
@@ -234,7 +234,7 @@ class Addon_Repository {
 			);
 		} else {
 			wp_admin_notice(
-				__('Failed to authenticate with MultisiteUltimate.com.', 'multisite-ultimate'),
+				__('Failed to authenticate with MultisiteUltimate.com.', 'ultimate-multisite'),
 				[
 					'type'        => 'error',
 					'dismissible' => true,

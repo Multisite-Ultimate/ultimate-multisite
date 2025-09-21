@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
 		'product-fields',
 		$product_fields,
 		[
-			'title' => __('Products', 'multisite-ultimate'),
+			'title' => __('Products', 'ultimate-multisite'),
 			'views' => 'checkout/fields',
 		]
 	);

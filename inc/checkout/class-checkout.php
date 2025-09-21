@@ -651,7 +651,7 @@ class Checkout {
 		if ($cart->should_collect_payment() === false) {
 			$gateway = wu_get_gateway('free');
 		} elseif ( ! $gateway || $gateway->get_id() === 'free') {
-			$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
+			$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'ultimate-multisite'));
 
 			return false;
 		}
@@ -661,7 +661,7 @@ class Checkout {
 		 * we need to bail.
 		 */
 		if ( ! $gateway) {
-			return new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
+			return new \WP_Error('no-gateway', __('Payment gateway not registered.', 'ultimate-multisite'));
 		}
 
 		$this->gateway_id = $gateway->get_id();
@@ -812,7 +812,7 @@ class Checkout {
 			/*
 			 * Checks for free memberships.
 			 */
-			if ($this->order->is_free() && $this->order->get_recurring_total() === 0.0 && (! wu_get_setting('enable_email_verification', true) || $this->customer->get_email_verification() !== 'pending')) {
+			if ($this->order->is_free() && $this->order->get_recurring_total() === 0.0 && $this->customer->get_email_verification() !== 'pending') {
 				if ($this->order->get_plan_id() === $this->membership->get_plan_id()) {
 					$this->membership->set_status(Membership_Status::ACTIVE);
 
@@ -829,7 +829,7 @@ class Checkout {
 				$this->membership->set_date_trial_end(gmdate('Y-m-d 23:59:59', $this->order->get_billing_start_date()));
 				$this->membership->set_date_expiration(gmdate('Y-m-d 23:59:59', $this->order->get_billing_start_date()));
 
-				if (wu_get_setting('allow_trial_without_payment_method') && (! wu_get_setting('enable_email_verification', true) || $this->customer->get_email_verification() !== 'pending')) {
+				if (wu_get_setting('allow_trial_without_payment_method') && $this->customer->get_email_verification() !== 'pending') {
 					/*
 					 * In this particular case, we need to set the status to trialing here as we will not update the membership after and then, publish the site.
 					 */
@@ -975,7 +975,7 @@ class Checkout {
 					'email_verification' => 'verified',
 				];
 			} elseif (isset($customer_data['email']) && get_user_by('email', $customer_data['email'])) {
-				return new \WP_Error('email_exists', __('The email address you entered is already in use.', 'multisite-ultimate'));
+				return new \WP_Error('email_exists', __('The email address you entered is already in use.', 'ultimate-multisite'));
 			}
 
 			/*
@@ -1027,7 +1027,7 @@ class Checkout {
 		 * wrong with the customer update, we return a general error.
 		 */
 		if ( ! $address_saved) {
-			return new \WP_Error('address_failure', __('Something wrong happened while attempting to save the customer billing address', 'multisite-ultimate'));
+			return new \WP_Error('address_failure', __('Something wrong happened while attempting to save the customer billing address', 'ultimate-multisite'));
 		}
 
 		/*
@@ -1101,7 +1101,7 @@ class Checkout {
 			 *
 			 * @since 2.0.0
 			 * @param array $meta_repository The list of meta fields, key => value structured.
-			 * @param Customer $customer The Multisite Ultimate customer object.
+			 * @param Customer $customer The Ultimate Multisite customer object.
 			 * @param Checkout $this The checkout class.
 			 */
 			do_action('wu_handle_customer_meta_fields', $meta_repository, $customer, $this);
@@ -1134,7 +1134,7 @@ class Checkout {
 			 * @since 2.0.4
 			 * @param array $meta_repository The list of meta fields, key => value structured.
 			 * @param \WP_User $user The WordPress user object.
-			 * @param Customer $customer The Multisite Ultimate customer object.
+			 * @param Customer $customer The Ultimate Multisite customer object.
 			 * @param Checkout $this The checkout class.
 			 */
 			do_action('wu_handle_user_meta_fields', $user_meta_repository, $user, $customer, $this);
@@ -1556,9 +1556,9 @@ class Checkout {
 		 * Localized strings.
 		 */
 		$i18n = [
-			'loading'        => __('Loading...', 'multisite-ultimate'),
-			'added_to_order' => __('The item was added!', 'multisite-ultimate'),
-			'weak_password'  => __('The Password entered is too weak.', 'multisite-ultimate'),
+			'loading'        => __('Loading...', 'ultimate-multisite'),
+			'added_to_order' => __('The item was added!', 'ultimate-multisite'),
+			'weak_password'  => __('The Password entered is too weak.', 'ultimate-multisite'),
 		];
 
 		/*
@@ -1717,18 +1717,19 @@ class Checkout {
 		 * First, let's set upm the general rules:
 		 */
 		$rules = [
-			'email_address'    => 'required_without:user_id|email|unique:\WP_User,email',
-			'username'         => 'required_without:user_id|alpha_dash|min:4|lowercase|unique:\WP_User,login',
-			'password'         => 'required_without:user_id|min:6',
-			'password_conf'    => 'same:password',
-			'template_id'      => 'integer|site_template',
-			'products'         => 'products',
-			'gateway'          => '',
-			'valid_password'   => 'accepted',
-			'billing_country'  => 'country|required_with:billing_country',
-			'billing_zip_code' => 'required_with:billing_zip_code',
-			'billing_state'    => 'state',
-			'billing_city'     => 'city',
+			'email_address'              => 'required_without:user_id|email|unique:\WP_User,email',
+			'email_address_confirmation' => 'same:email_address',
+			'username'                   => 'required_without:user_id|alpha_dash|min:4|lowercase|unique:\WP_User,login',
+			'password'                   => 'required_without:user_id|min:6',
+			'password_conf'              => 'same:password',
+			'template_id'                => 'integer|site_template',
+			'products'                   => 'products',
+			'gateway'                    => '',
+			'valid_password'             => 'accepted',
+			'billing_country'            => 'country|required_with:billing_country',
+			'billing_zip_code'           => 'required_with:billing_zip_code',
+			'billing_state'              => 'state',
+			'billing_city'               => 'city',
 		];
 
 		/*
@@ -1835,7 +1836,7 @@ class Checkout {
 		if (is_array($session)) {
 			$stack = array_merge($session, $_REQUEST); // phpcs:ignore WordPress.Security.NonceVerification
 		} else {
-			$stack = $_REQUEST;
+			$stack = $_REQUEST; // phpcs:ignore WordPress.Security.NonceVerification
 		}
 
 		if (null === $rules) {
@@ -1859,11 +1860,12 @@ class Checkout {
 		// Add some hidden or compound fields ids
 		$validation_aliases = array_merge(
 			[
-				'password_conf'  => __('Password confirmation', 'multisite-ultimate'),
-				'template_id'    => __('Template ID', 'multisite-ultimate'),
-				'valid_password' => __('Valid password', 'multisite-ultimate'),
-				'products'       => __('Products', 'multisite-ultimate'),
-				'gateway'        => __('Payment Gateway', 'multisite-ultimate'),
+				'password_conf'              => __('Password confirmation', 'ultimate-multisite'),
+				'email_address_confirmation' => __('Email confirmation', 'ultimate-multisite'),
+				'template_id'                => __('Template ID', 'ultimate-multisite'),
+				'valid_password'             => __('Valid password', 'ultimate-multisite'),
+				'products'                   => __('Products', 'ultimate-multisite'),
+				'gateway'                    => __('Payment Gateway', 'ultimate-multisite'),
 			],
 			$base_aliases
 		);
@@ -1921,7 +1923,7 @@ class Checkout {
 		/*
 		 * Checks if we are in the last step.
 		 *
-		 * Multisite Ultimate supports multi-step checkout
+		 * Ultimate Multisite supports multi-step checkout
 		 * flows. That means that we do different
 		 * things on the intermediary steps (mostly
 		 * add things to the session) and on the final,
@@ -2080,13 +2082,13 @@ class Checkout {
 			} elseif ($this->order->should_collect_payment() === false) {
 				$gateway = wu_get_gateway('free');
 			} elseif ($gateway->get_id() === 'free') {
-					$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
+					$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'ultimate-multisite'));
 
 					return false;
 			}
 
 			if ( ! $gateway) {
-				$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'multisite-ultimate'));
+				$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'ultimate-multisite'));
 
 				return false;
 			}
@@ -2108,7 +2110,7 @@ class Checkout {
 			 *
 			 * The gateway takes in the info about the transaction
 			 * and perform the necessary steps to make sure the
-			 * data on the gateway correctly reflects the data on Multisite Ultimate.
+			 * data on the gateway correctly reflects the data on Ultimate Multisite.
 			 */
 			$status = $gateway->process_checkout($payment, $membership, $customer, $this->order, $type);
 
@@ -2184,7 +2186,7 @@ class Checkout {
 			$membership_id = $this->order->get_membership() ? $this->order->get_membership()->get_id() : 'unknown';
 
 			// translators: %s is the membership ID
-			$log_message  = sprintf(__('Checkout failed for customer %s: ', 'multisite-ultimate'), $membership_id);
+			$log_message  = sprintf(__('Checkout failed for customer %s: ', 'ultimate-multisite'), $membership_id);
 			$log_message .= $e->getMessage();
 
 			wu_log_add('checkout', $log_message, LogLevel::ERROR);
@@ -2259,9 +2261,23 @@ class Checkout {
 	 */
 	public function get_customer_email_verification_status() {
 
-		$should_confirm_email = wu_get_setting('enable_email_verification', true);
+		$email_verification_setting = wu_get_setting('enable_email_verification', 'free_only');
 
-		return $this->order->should_collect_payment() === false && $should_confirm_email ? 'pending' : 'none';
+		switch ($email_verification_setting) {
+			case 'never':
+				return 'none';
+
+			case 'always':
+				return 'pending';
+
+			case 'free_only':
+				return $this->order->should_collect_payment() === false ? 'pending' : 'none';
+
+			default:
+				// Legacy behavior - handle boolean values
+				$should_confirm_email = (bool) $email_verification_setting;
+				return $this->order->should_collect_payment() === false && $should_confirm_email ? 'pending' : 'none';
+		}
 	}
 
 	/**

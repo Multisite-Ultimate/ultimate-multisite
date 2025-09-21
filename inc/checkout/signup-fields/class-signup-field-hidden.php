@@ -55,7 +55,7 @@ class Signup_Field_Hidden extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Hidden Field', 'multisite-ultimate');
+		return __('Hidden Field', 'ultimate-multisite');
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Signup_Field_Hidden extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a hidden field. This is useful when coupled with the "Fill from the Request" option, to load values from the URL, for example.', 'multisite-ultimate');
+		return __('Adds a hidden field. This is useful when coupled with the "Fill from the Request" option, to load values from the URL, for example.', 'ultimate-multisite');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Signup_Field_Hidden extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a hidden field. This is useful when coupled with the "Fill from the Request" option, to load values from the URL, for example.', 'multisite-ultimate');
+		return __('Adds a hidden field. This is useful when coupled with the "Fill from the Request" option, to load values from the URL, for example.', 'ultimate-multisite');
 	}
 
 	/**
@@ -150,9 +150,9 @@ class Signup_Field_Hidden extends Base_Signup_Field {
 			'fixed_value' => [
 				'order'       => 12,
 				'type'        => 'text',
-				'title'       => __('Pre-filled Value', 'multisite-ultimate'),
-				'desc'        => __('The field will be populated with this value. Can be overridden if the pre-fill from request option is enabled.', 'multisite-ultimate'),
-				'placeholder' => __('e.g. blue', 'multisite-ultimate'),
+				'title'       => __('Pre-filled Value', 'ultimate-multisite'),
+				'desc'        => __('The field will be populated with this value. Can be overridden if the pre-fill from request option is enabled.', 'ultimate-multisite'),
+				'placeholder' => __('e.g. blue', 'ultimate-multisite'),
 				'tooltip'     => '',
 				'value'       => '',
 			],

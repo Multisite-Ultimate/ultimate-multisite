@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
 $active_gateways = wu_get_active_gateway_as_options();
 
 ?>
-<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" v-cloak v-show="order && order.should_collect_payment" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" v-cloak v-show="order && order.should_collect_payment" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<?php
 
@@ -37,7 +37,7 @@ $active_gateways = wu_get_active_gateway_as_options();
 					name="gateway"
 					value="<?php echo esc_attr($option_value); ?>"
 					v-model="gateway"
-				<?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php $field->print_html_attributes(); ?>
 			>
 
 		<?php else : ?>
@@ -51,7 +51,7 @@ $active_gateways = wu_get_active_gateway_as_options();
 						value="<?php echo esc_attr($option_value); ?>"
 						v-model="gateway"
 						class="<?php echo esc_attr(trim($field->classes)); ?>"
-					<?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php $field->print_html_attributes(); ?>
 					<?php checked((string) $field->value === (string) $option_value, true); ?>
 				>
 

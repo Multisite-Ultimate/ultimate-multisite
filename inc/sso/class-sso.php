@@ -455,19 +455,19 @@ class SSO {
 		}
 
 		if ('jsonp' === $response_type) {
-			$data = wp_json_encode(
-				$error ?? [ // phpcs:ignore
-					'code'       => 200,
-					'verify'     => $verification_code,
-					'return_url' => $this->input('return_url', ''),
-				]
+			printf(
+				'wu.sso(%s, %d]);',
+				wp_json_encode(
+					$error ?? [
+						'code'       => 200,
+						'verify'     => $verification_code,
+						'return_url' => $this->input('return_url', ''),
+					]
+				),
+				200
 			);
 
-			$response_code = 200; // phpcs:ignore
-
-			echo "wu.sso($data, $response_code);"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-			status_header($response_code);
+			status_header(200);
 
 			exit;
 		} elseif ('redirect' === $response_type) {
@@ -946,7 +946,7 @@ class SSO {
 		try {
 			$int_version = (int) \DateTime::createFromFormat('Y-m-d H:i:s', $date, $tz)->format('mdisY');
 		} catch (\Throwable $exception) {
-			throw new SSO_Exception(esc_html__('SSO secret creation failed.', 'multisite-ultimate'), 500);
+			throw new SSO_Exception(esc_html__('SSO secret creation failed.', 'ultimate-multisite'), 500);
 		}
 
 		return wp_hash($int_version);

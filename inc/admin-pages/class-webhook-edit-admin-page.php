@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Webhook Edit/Add New Admin Page.
+ * Ultimate Multisite Webhook Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Models\Webhook;
 
 /**
- * Multisite Ultimate Webhook Edit/Add New Admin Page.
+ * Ultimate Multisite Webhook Edit/Add New Admin Page.
  */
 class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 
@@ -98,9 +98,9 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 			[
 				'nonce' => wp_create_nonce('wu_webhook_send_test'),
 				'i18n'  => [
-					'error_title'   => __('Webhook Test', 'multisite-ultimate'),
-					'error_message' => __('An error occurred when sending the test webhook, please try again.', 'multisite-ultimate'),
-					'copied'        => __('Copied!', 'multisite-ultimate'),
+					'error_title'   => __('Webhook Test', 'ultimate-multisite'),
+					'error_message' => __('An error occurred when sending the test webhook, please try again.', 'ultimate-multisite'),
+					'copied'        => __('Copied!', 'ultimate-multisite'),
 				],
 			]
 		);
@@ -139,22 +139,22 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'domain-url',
 			[
-				'title'    => __('Webhook URL', 'multisite-ultimate'),
+				'title'    => __('Webhook URL', 'ultimate-multisite'),
 				'position' => 'normal',
 				'fields'   => [
 					'webhook_url' => [
 						'type'        => 'url',
-						'title'       => __('Webhook URL', 'multisite-ultimate'),
-						'desc'        => __('The URL where we will send the payload when the event triggers.', 'multisite-ultimate'),
-						'placeholder' => __('https://example.com', 'multisite-ultimate'),
+						'title'       => __('Webhook URL', 'ultimate-multisite'),
+						'desc'        => __('The URL where we will send the payload when the event triggers.', 'ultimate-multisite'),
+						'placeholder' => __('https://example.com', 'ultimate-multisite'),
 						'value'       => $this->get_object()->get_webhook_url(),
 					],
 					'actions'     => [
 						'type'            => 'actions',
-						'tooltip'         => __('The event .', 'multisite-ultimate'),
+						'tooltip'         => __('The event .', 'ultimate-multisite'),
 						'actions'         => [
 							'send_test_event' => [
-								'title'        => __('Send Test Event', 'multisite-ultimate'),
+								'title'        => __('Send Test Event', 'ultimate-multisite'),
 								'action'       => 'wu_send_test_event',
 								'object_id'    => $this->get_object()->get_id(),
 								'loading_text' => 'Sending Test...',
@@ -169,12 +169,12 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 			]
 		);
 
-		add_meta_box('wp-ultimo-payload', __('Event Payload', 'multisite-ultimate'), [$this, 'output_default_widget_payload'], get_current_screen()->id, 'normal');
+		add_meta_box('wp-ultimo-payload', __('Event Payload', 'ultimate-multisite'), [$this, 'output_default_widget_payload'], get_current_screen()->id, 'normal');
 
 		$this->add_list_table_widget(
 			'events',
 			[
-				'title'        => __('Events', 'multisite-ultimate'),
+				'title'        => __('Events', 'ultimate-multisite'),
 				'table'        => new \WP_Ultimo\List_Tables\Inside_Events_List_Table(),
 				'query_filter' => [$this, 'query_filter'],
 			]
@@ -192,9 +192,9 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 				'fields' => [
 					'event' => [
 						'type'        => 'select',
-						'title'       => __('Event', 'multisite-ultimate'),
-						'desc'        => __('The event that triggers this webhook.', 'multisite-ultimate'),
-						'placeholder' => __('Select Event', 'multisite-ultimate'),
+						'title'       => __('Event', 'ultimate-multisite'),
+						'desc'        => __('The event that triggers this webhook.', 'ultimate-multisite'),
+						'placeholder' => __('Select Event', 'ultimate-multisite'),
 						'options'     => $event_list,
 						'value'       => $this->get_object()->get_event(),
 					],
@@ -205,13 +205,13 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'active',
 			[
-				'title'  => __('Active', 'multisite-ultimate'),
+				'title'  => __('Active', 'ultimate-multisite'),
 				'fields' => [
 					'active' => [
 						'type'    => 'toggle',
-						'title'   => __('Active', 'multisite-ultimate'),
-						'tooltip' => __('Deactivate will end the event trigger for this webhook.', 'multisite-ultimate'),
-						'desc'    => __('Use this option to manually enable or disable this webhook.', 'multisite-ultimate'),
+						'title'   => __('Active', 'ultimate-multisite'),
+						'tooltip' => __('Deactivate will end the event trigger for this webhook.', 'ultimate-multisite'),
+						'desc'    => __('Use this option to manually enable or disable this webhook.', 'ultimate-multisite'),
 						'value'   => $this->get_object()->is_active(),
 					],
 				],
@@ -221,27 +221,27 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'options',
 			[
-				'title'  => __('Options', 'multisite-ultimate'),
+				'title'  => __('Options', 'ultimate-multisite'),
 				'fields' => [
 					'integration' => [
 						'edit'          => true,
-						'title'         => __('Integration', 'multisite-ultimate'),
+						'title'         => __('Integration', 'ultimate-multisite'),
 						'type'          => 'text-edit',
 						'placeholder'   => 'manual',
 						'value'         => $this->get_object()->get_integration(),
 						'display_value' => ucwords((string) $this->get_object()->get_integration()),
-						'tooltip'       => __('Name of the service responsible for creating this webhook. If you are manually creating this webhook, use the value "manual".', 'multisite-ultimate'),
+						'tooltip'       => __('Name of the service responsible for creating this webhook. If you are manually creating this webhook, use the value "manual".', 'ultimate-multisite'),
 					],
 					'event_count' => [
-						'title'         => __('Run Count', 'multisite-ultimate'),
+						'title'         => __('Run Count', 'ultimate-multisite'),
 						'type'          => 'text-edit',
 						'min'           => 0,
 						'placeholder'   => 0,
 						'edit'          => true,
 						'value'         => $this->get_object()->get_event_count(),
 						// translators: %d is the number of times that this webhook was triggered.
-						'display_value' => sprintf(__('This webhook was triggered %d time(s).', 'multisite-ultimate'), $this->get_object()->get_event_count()),
-						'tooltip'       => __('The number of times that this webhook was triggered so far. It includes test runs.', 'multisite-ultimate'),
+						'display_value' => sprintf(__('This webhook was triggered %d time(s).', 'ultimate-multisite'), $this->get_object()->get_event_count()),
+						'tooltip'       => __('The number of times that this webhook was triggered so far. It includes test runs.', 'ultimate-multisite'),
 					],
 				],
 			]
@@ -265,8 +265,8 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 		wu_get_template(
 			'events/widget-payload',
 			[
-				'title'        => __('Event Payload', 'multisite-ultimate'),
-				'loading_text' => __('Loading Payload', 'multisite-ultimate'),
+				'title'        => __('Event Payload', 'ultimate-multisite'),
+				'loading_text' => __('Loading Payload', 'ultimate-multisite'),
 				'payload'      => $payload,
 			]
 		);
@@ -298,7 +298,7 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Webhook', 'multisite-ultimate') : __('Add new Webhook', 'multisite-ultimate');
+		return $this->edit ? __('Edit Webhook', 'ultimate-multisite') : __('Add new Webhook', 'ultimate-multisite');
 	}
 
 	/**
@@ -309,7 +309,7 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Webhook', 'multisite-ultimate');
+		return __('Edit Webhook', 'ultimate-multisite');
 	}
 
 	/**
@@ -332,15 +332,15 @@ class Webhook_Edit_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Webhook', 'multisite-ultimate'),
-			'add_new_label'       => __('Add new Webhook', 'multisite-ultimate'),
-			'updated_message'     => __('Webhook updated successfully!', 'multisite-ultimate'),
-			'title_placeholder'   => __('Enter Webhook', 'multisite-ultimate'),
+			'edit_label'          => __('Edit Webhook', 'ultimate-multisite'),
+			'add_new_label'       => __('Add new Webhook', 'ultimate-multisite'),
+			'updated_message'     => __('Webhook updated successfully!', 'ultimate-multisite'),
+			'title_placeholder'   => __('Enter Webhook', 'ultimate-multisite'),
 			'title_description'   => '',
-			'save_button_label'   => __('Save Webhook', 'multisite-ultimate'),
+			'save_button_label'   => __('Save Webhook', 'ultimate-multisite'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Webhook', 'multisite-ultimate'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
+			'delete_button_label' => __('Delete Webhook', 'ultimate-multisite'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'ultimate-multisite'),
 		];
 	}
 

@@ -42,7 +42,7 @@ defined('ABSPATH') || exit;
 
 		<span class="wu-text-xs wu-font-bold wu-uppercase wu-text-gray-600">
 
-		<?php esc_html_e('Refunds:', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Refunds:', 'ultimate-multisite'); ?>
 
 		</span>
 
@@ -58,7 +58,7 @@ defined('ABSPATH') || exit;
 
 		<span class="wu-text-xs wu-font-bold wu-uppercase wu-text-gray-700">
 
-		<?php esc_html_e('Total:', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Total:', 'ultimate-multisite'); ?>
 
 		</span>
 

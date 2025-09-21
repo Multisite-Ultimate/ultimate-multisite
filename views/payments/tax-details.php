@@ -22,7 +22,7 @@ defined('ABSPATH') || exit;
 
 			<?php if ( ! empty($payment)) : ?>
 			<tr>
-			<td><span class="wu-font-bold wu-uppercase wu-text-xs wu-text-gray-700"><?php esc_html_e('Total', 'multisite-ultimate'); ?></span></td>
+			<td><span class="wu-font-bold wu-uppercase wu-text-xs wu-text-gray-700"><?php esc_html_e('Total', 'ultimate-multisite'); ?></span></td>
 			<td><?php echo esc_html(wu_format_currency($payment->get_tax_total())); ?></td>
 			</tr>
 		<?php endif; ?>
@@ -31,7 +31,7 @@ defined('ABSPATH') || exit;
 
 		<tr>
 			<td colspan="2">
-			<?php esc_html_e('No tax rates.', 'multisite-ultimate'); ?>
+			<?php esc_html_e('No tax rates.', 'ultimate-multisite'); ?>
 			</td>
 		</tr>
 

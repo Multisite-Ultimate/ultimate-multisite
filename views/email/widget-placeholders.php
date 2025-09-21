@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
 
 			<div class="wu-p-2 wu-border wu-border-solid wu-border-gray-400 wu-border-t-0 wu-border-l-0 wu-border-r-0 wu-bg-gray-100">
 
-				<input class="wu-w-full wu-border-gray-400" type="text" placeholder="<?php esc_attr_e('Search Placeholders', 'multisite-ultimate'); ?>" v-model="search" />
+				<input class="wu-w-full wu-border-gray-400" type="text" placeholder="<?php esc_attr_e('Search Placeholders', 'ultimate-multisite'); ?>" v-model="search" />
 
 			</div>
 
@@ -26,9 +26,9 @@ defined('ABSPATH') || exit;
 
 					<tr>
 
-						<th style="width: 30%;"><?php echo esc_html__('Name', 'multisite-ultimate'); ?></th>
+						<th style="width: 30%;"><?php echo esc_html__('Name', 'ultimate-multisite'); ?></th>
 
-						<th style="width: 30%;"><?php echo esc_html__('Placeholder', 'multisite-ultimate'); ?></th>
+						<th style="width: 30%;"><?php echo esc_html__('Placeholder', 'ultimate-multisite'); ?></th>
 
 					</tr>
 
@@ -46,7 +46,7 @@ defined('ABSPATH') || exit;
 
 						<td class="wu-align-middle wu-text-xs">
 
-									<a @click.prevent="" <?php echo wu_tooltip_text(__('Copy', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="wu-no-underline wp-ui-text-highlight wu-copy" href="#" data-clipboard-action="copy" :data-clipboard-target="'#payload_event_placeholder_' + placeholder.placeholder">
+									<a @click.prevent="" <?php wu_tooltip_text(__('Copy', 'ultimate-multisite')); ?> class="wu-no-underline wp-ui-text-highlight wu-copy" href="#" data-clipboard-action="copy" :data-clipboard-target="'#payload_event_placeholder_' + placeholder.placeholder">
 
 										<span class="dashicons-wu-copy wu-align-middle"></span>
 

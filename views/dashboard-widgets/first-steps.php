@@ -14,11 +14,11 @@ defined('ABSPATH') || exit;
 	<div class="wu-w-full sm:wu-w-8/12">
 
 		<span class="wu-block wu-my-1 wu-text-base wu-font-semibold wu-text-gray-700">
-		<?php esc_html_e('Your network is taking shape!', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Your network is taking shape!', 'ultimate-multisite'); ?>
 		</span>
 
 		<span class="wu-block wu-my-1 wu-text-gray-600">
-		<?php esc_html_e('Here are the next steps to keep you on that streak!', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Here are the next steps to keep you on that streak!', 'ultimate-multisite'); ?>
 		</span>
 
 	</div>
@@ -26,7 +26,7 @@ defined('ABSPATH') || exit;
 	<div class="wu-w-4/12 wu-text-right wu-hidden sm:wu-inline-block">
 
 		<span class="wu-inline-block wu-bg-green-100 wu-text-center wu-align-middle wu-p-2 wu-font-mono wu-px-3 wu-border wu-border-green-300 wu-text-green-700 wu-border-solid wu-rounded">
-		<?php echo esc_html($percentage) . '% ' . esc_html__('done', 'multisite-ultimate'); ?>
+		<?php echo esc_html($percentage) . '% ' . esc_html__('done', 'ultimate-multisite'); ?>
 		</span>
 
 	</div>
@@ -94,7 +94,7 @@ endforeach;
 		class="button wu-text-center hide-postbox-tog"
 		id="wp-ultimo-setup-hide"
 		>
-		<?php esc_html_e('Dismiss', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Dismiss', 'ultimate-multisite'); ?>
 		</button>
 
 	</div>

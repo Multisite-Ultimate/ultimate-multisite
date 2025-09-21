@@ -38,8 +38,8 @@ class Event_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Event', 'multisite-ultimate'),  // singular name of the listed records
-				'plural'   => __('Events', 'multisite-ultimate'), // plural name of the listed records
+				'singular' => __('Event', 'ultimate-multisite'),  // singular name of the listed records
+				'plural'   => __('Events', 'ultimate-multisite'), // plural name of the listed records
 				'ajax'     => true,                       // does this table support ajax?
 			]
 		);
@@ -93,7 +93,7 @@ class Event_List_Table extends Base_List_Table {
 				</div>
 				<div class=''>
 					<strong class='wu-block'>{$system_text}</strong>
-					<small>" . __('Automatically started', 'multisite-ultimate') . "</small>
+					<small>" . __('Automatically started', 'ultimate-multisite') . "</small>
 				</div>
 			</div>";
 			// phpcs:enable
@@ -137,7 +137,7 @@ class Event_List_Table extends Base_List_Table {
 				</div>
 			</a>";
 		} else {
-			$not_found = __('No initiator found', 'multisite-ultimate');
+			$not_found = __('No initiator found', 'ultimate-multisite');
 
 			$html = "<div class='wu-table-card  wu-text-gray-700 wu-py-1 wu-px-2 wu-flex wu-flex-grow wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-relative wu-overflow-hidden'>
 				<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
@@ -182,15 +182,15 @@ class Event_List_Table extends Base_List_Table {
 		];
 
 		$actions = [
-			'view'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-view-event', $url_atts), __('View', 'multisite-ultimate')),
+			'view'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-view-event', $url_atts), __('View', 'ultimate-multisite')),
 			'delete' => sprintf(
 				'<a title="%s" class="wubox" href="%s">%s</a>',
-				__('Delete', 'multisite-ultimate'),
+				__('Delete', 'ultimate-multisite'),
 				wu_get_form_url(
 					'delete_modal',
 					$url_atts
 				),
-				__('Delete', 'multisite-ultimate')
+				__('Delete', 'ultimate-multisite')
 			),
 		];
 
@@ -207,12 +207,12 @@ class Event_List_Table extends Base_List_Table {
 
 		$columns = [
 			'cb'           => '<input type="checkbox" />',
-			'initiator'    => __('Initiator', 'multisite-ultimate'),
-			'message'      => __('Event Message', 'multisite-ultimate'),
-			'slug'         => __('SLug', 'multisite-ultimate'),
-			'object_type'  => __('Type', 'multisite-ultimate'),
-			'date_created' => __('Created at', 'multisite-ultimate'),
-			'id'           => __('ID', 'multisite-ultimate'),
+			'initiator'    => __('Initiator', 'ultimate-multisite'),
+			'message'      => __('Event Message', 'ultimate-multisite'),
+			'slug'         => __('SLug', 'ultimate-multisite'),
+			'object_type'  => __('Type', 'ultimate-multisite'),
+			'date_created' => __('Created at', 'ultimate-multisite'),
+			'id'           => __('ID', 'ultimate-multisite'),
 		];
 
 		return apply_filters('wu_events_list_table_get_columns', $columns, $this);
@@ -228,19 +228,19 @@ class Event_List_Table extends Base_List_Table {
 		return [
 			'filters'      => [
 				'severity' => [
-					'label'   => __('Severity', 'multisite-ultimate'),
+					'label'   => __('Severity', 'ultimate-multisite'),
 					'options' => [
-						Event::SEVERITY_SUCCESS => __('Success', 'multisite-ultimate'),
-						Event::SEVERITY_NEUTRAL => __('Neutral', 'multisite-ultimate'),
-						Event::SEVERITY_INFO    => __('Info', 'multisite-ultimate'),
-						Event::SEVERITY_WARNING => __('Warning', 'multisite-ultimate'),
-						Event::SEVERITY_FATAL   => __('Fatal', 'multisite-ultimate'),
+						Event::SEVERITY_SUCCESS => __('Success', 'ultimate-multisite'),
+						Event::SEVERITY_NEUTRAL => __('Neutral', 'ultimate-multisite'),
+						Event::SEVERITY_INFO    => __('Info', 'ultimate-multisite'),
+						Event::SEVERITY_WARNING => __('Warning', 'ultimate-multisite'),
+						Event::SEVERITY_FATAL   => __('Fatal', 'ultimate-multisite'),
 					],
 				],
 			],
 			'date_filters' => [
 				'date_created' => [
-					'label'   => __('Created At', 'multisite-ultimate'),
+					'label'   => __('Created At', 'ultimate-multisite'),
 					'options' => $this->get_default_date_filter_options(),
 				],
 			],

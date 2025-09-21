@@ -62,6 +62,8 @@ class Domain_Manager extends Base_Manager {
 	 * @return bool
 	 */
 	public static function is_main_domain(string $domain) {
+		// Normalize: lowercase, trim spaces, drop trailing dot
+		$domain = strtolower(trim(rtrim($domain, '.')));
 		// Check if this is a main domain (no subdomain parts)
 		// A main domain has only 2 parts when split by dots (e.g., example.com)
 		// or 3 parts if it's a known TLD structure (e.g., example.co.uk)

@@ -10,6 +10,8 @@
 namespace WP_Ultimo\Limitations;
 
 // Exit if accessed directly
+use WP_Ultimo\Managers\Domain_Manager;
+
 defined('ABSPATH') || exit;
 
 /**
@@ -167,7 +169,12 @@ class Limit_Domain_Mapping extends Limit {
 
 		$active_count = 0;
 		foreach ($domains as $domain) {
-			if ($domain->is_active()) {
+			$domain_url = $domain->get_domain();
+			if (str_starts_with($domain_url, 'www.')) {
+				$domain_url = substr($domain_url, 4);
+			}
+
+			if (Domain_Manager::is_main_domain($domain_url) && $domain->is_active()) {
 				++$active_count;
 			}
 		}

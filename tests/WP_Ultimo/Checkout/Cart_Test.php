@@ -275,7 +275,7 @@ class Cart_Test extends WP_UnitTestCase {
 		$domain1 = wu_create_domain(
 			[
 				'blog_id'        => $site->get_id(),
-				'domain'         => 'custom1.example.com',
+				'domain'         => 'www.example.com',
 				'active'         => true,
 				'primary_domain' => true,
 				'stage'          => 'done',
@@ -285,7 +285,7 @@ class Cart_Test extends WP_UnitTestCase {
 		$domain2 = wu_create_domain(
 			[
 				'blog_id'        => $site->get_id(),
-				'domain'         => 'custom2.example.com',
+				'domain'         => 'www.example.co.uk',
 				'active'         => true,
 				'primary_domain' => false,
 				'stage'          => 'done',
@@ -295,7 +295,7 @@ class Cart_Test extends WP_UnitTestCase {
 		$domain3 = wu_create_domain(
 			[
 				'blog_id'        => $site->get_id(),
-				'domain'         => 'custom3.example.com',
+				'domain'         => 'example.co',
 				'active'         => true,
 				'primary_domain' => false,
 				'stage'          => 'done',
@@ -534,7 +534,7 @@ class Cart_Test extends WP_UnitTestCase {
 		$site = wu_create_site(
 			[
 				'title'       => 'Test Site for Domain Validation 3',
-				'domain'      => 'domain-test-3.example.com',
+				'domain'      => 'sub.example.ro',
 				'template_id' => 1,
 			]
 		);
@@ -561,7 +561,7 @@ class Cart_Test extends WP_UnitTestCase {
 		$domain1 = wu_create_domain(
 			[
 				'blog_id'        => $site->get_id(),
-				'domain'         => 'custom-disabled.example.com',
+				'domain'         => 'example.eu',
 				'active'         => true,
 				'primary_domain' => true,
 				'stage'          => 'done',

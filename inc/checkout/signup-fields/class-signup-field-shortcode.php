@@ -118,10 +118,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	 */
 	public function default_fields() {
 
-		return [
-			// 'id',
-			// 'name',
-		];
+		return [];
 	}
 
 	/**

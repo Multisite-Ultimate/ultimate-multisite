@@ -42,16 +42,7 @@
         <exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited" />
         <exclude name="Generic.Commenting.DocComment.MissingShort" />
         <exclude name="Squiz.Commenting.FileComment.MissingPackageTag" />
-	</rule>
-	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
-		<properties>
-			<!-- Value: replace the function, class, and variable prefixes used. Separate multiple prefixes with a comma. -->
-			<property name="prefixes" type="array">
-                <element value="wu_"/>
-                <element value="wp_ultimo"/>
-            </property>
-		</properties>
-		<exclude-pattern>/views/</exclude-pattern>
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals" />
 	</rule>
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
 		<properties>
@@ -100,6 +91,15 @@
                 <element key="12" value="wu_transfer_sites"/>
                 <element key="13" value="wu_read_financial" />
                 <element key="14" value="wu_manage_invoice" />
+                <element key="15" value="wu_delete_memberships" />
+                <element key="16" value="read_tax_rates" />
+                <element key="17" value="wu_read_dashboard" />
+                <element key="18" value="wu_read_memberships" />
+                <element key="19" value="wu_read_customers" />
+                <element key="20" value="wu_read_products" />
+                <element key="21" value="wu_read_payments" />
+                <element key="22" value="wu_read_discount_codes" />
+                <element key="23" value="wu_read_settings" />
             </property>
         </properties>
     </rule>

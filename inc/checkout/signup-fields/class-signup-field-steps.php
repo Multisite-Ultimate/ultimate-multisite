@@ -174,6 +174,7 @@ class Signup_Field_Steps extends Base_Signup_Field {
 			],
 		];
 
+		// phpcs:disable
 		// @todo: re-add developer notes.
 		// $editor_fields['_dev_note_develop_your_own_template_steps'] = array(
 		// 'type'            => 'note',
@@ -182,6 +183,7 @@ class Signup_Field_Steps extends Base_Signup_Field {
 		// 'classes'         => '',
 		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized steps templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'ultimate-multisite')),
 		// );
+		// phpcs:enable
 
 		return $editor_fields;
 	}

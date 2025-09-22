@@ -245,9 +245,6 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
-				'html_attr'       => [
-					// 'v-bind:disabled' => '!confirmed',
-				],
 			],
 		];
 

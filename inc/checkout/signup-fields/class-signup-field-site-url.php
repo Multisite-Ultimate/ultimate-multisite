@@ -250,7 +250,6 @@ class Signup_Field_Site_Url extends Base_Signup_Field {
 
 		$templates = [
 			'legacy/signup/steps/step-domain-url-preview' => __('New URL Preview', 'ultimate-multisite'),
-			// 'legacy/signup/steps/step-domain-url-preview' => __('Legacy Template', 'ultimate-multisite'),
 		];
 
 		return apply_filters('wu_get_pricing_table_templates', $templates);
@@ -336,7 +335,6 @@ class Signup_Field_Site_Url extends Base_Signup_Field {
 				'required'          => true,
 				'id'                => 'site_domain',
 				'type'              => 'select',
-				'classes'           => 'input',
 				'html_attr'         => [
 					'v-model' => 'site_domain',
 				],

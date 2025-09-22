@@ -14,7 +14,7 @@ namespace WP_Ultimo\SSO;
 
 use Jasny\SSO\Broker\Broker;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * The SSO Broker implementation.

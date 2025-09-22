@@ -71,7 +71,7 @@ class Base_Installer {
 	 * @param object         $wizard Wizard class.
 	 * @return bool|\WP_Error
 	 */
-	public function handle($status, $installer, $wizard) {
+	public function handle($status, $installer, $wizard) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		global $wpdb;
 

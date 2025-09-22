@@ -2,7 +2,7 @@
 /**
  * No php code in this file.
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <div id="general" data-type="heading"
 	class="wu-bg-gray-100 wu--mt-1 wu--mx-3 wu-p-4 wu-border-solid wu-border-b wu-border-l-0 wu-border-r-0 wu-border-t-0 wu-border-gray-300">

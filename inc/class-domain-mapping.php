@@ -251,7 +251,7 @@ class Domain_Mapping {
 	 *
 	 * @return void
 	 */
-	public function verify_dns_mapping($current_site, $domain, $path) {
+	public function verify_dns_mapping($current_site, $domain, $path) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		// Nonce functions are unavailable and the wp_hash is basically the same.
 		if (isset($_REQUEST['async_check_dns_nonce'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended

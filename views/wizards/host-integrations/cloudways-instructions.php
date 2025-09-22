@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <article id="fullArticle">
 	<h1 id="step-1-getting-a-cloudways-api-key" class="intercom-align-left" data-post-processed="true">Step 1: Getting a Cloudways API Key</h1>

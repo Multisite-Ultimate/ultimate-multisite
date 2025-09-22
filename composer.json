@@ -167,7 +167,17 @@
         ],
         "post-update-cmd": [
             "@php scripts/remove-mpdf-fonts.php"
-        ]
+        ],
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-html=coverage-html --coverage-clover=coverage.xml",
+        "lint": "phpcs",
+        "lint:fix": "phpcbf",
+        "stan": "phpstan analyse",
+        "quality": [
+            "@lint",
+            "@stan"
+        ],
+        "setup-hooks": "bash bin/setup-hooks.sh"
     },
     "autoload-dev": {
         "psr-4": {

@@ -20,7 +20,7 @@ defined('ABSPATH') || exit;
  *
  * @since 2.0.0
  */
-class Settings {
+class Settings implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 	use \WP_Ultimo\Traits\WP_Ultimo_Settings_Deprecated;
@@ -239,7 +239,7 @@ class Settings {
 	 * @param boolean $reset If true, Ultimate Multisite will override the saved settings with the default values.
 	 * @return array
 	 */
-	public function save_settings($settings_to_save = [], $reset = false) {
+	public function save_settings($settings_to_save = [], $reset = false) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		$settings = [];
 

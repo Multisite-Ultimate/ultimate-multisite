@@ -7,7 +7,7 @@
 /**
  * @package MyPlugin
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <li class="wu-bg-gray-100 <?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>

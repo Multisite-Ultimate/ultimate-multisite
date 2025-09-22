@@ -67,5 +67,15 @@ jobs:
           rm -rf /tmp/wordpress-tests-lib /tmp/wordpress/
           bash bin/install-wp-tests.sh wordpress_test root root mysql latest
 
-      - name: Run PHPUnit Tests
-        run: vendor/bin/phpunit
+      - name: Run PHPUnit Tests with Coverage
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

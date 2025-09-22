@@ -420,6 +420,7 @@ class General_Compat {
 	 * images not loading due lazy loading functionality
 	 *
 	 * @since 2.0.11
+	 * @param array $data Data containing blog_id to switch context.
 	 */
 	public function clear_avada_cache($data): void {
 

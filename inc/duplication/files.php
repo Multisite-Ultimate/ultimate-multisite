@@ -1,8 +1,14 @@
 <?php
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 if ( ! class_exists('MUCD_Files') ) {
 
+	/**
+	 * Multisite Ultimate Clone Duplicator Files class.
+	 *
+	 * Handles file operations for site duplication, including copying
+	 * uploads and other media files between sites.
+	 */
 	class MUCD_Files {
 
 		/**

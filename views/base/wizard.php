@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div id="wp-ultimo-wrap" class="wrap wu-wrap <?php echo esc_attr($classes); ?>">
@@ -47,10 +47,10 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php
 		/**
-		 * Allow plugin developers to add additional buttons to list pages
+		 * Allow plugin developers to add additional buttons to list pages.
 		 *
 		 * @since 1.8.2
-		 * @param WU_Page Ultimate Multisite Page instance
+		 * @param WU_Page $page Ultimate Multisite Page instance
 		 */
 		do_action('wu_page_wizard_after_title', $page);
 		?>
@@ -159,10 +159,10 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php
 	/**
-	 * Allow plugin developers to add scripts to the bottom of the page
+	 * Allow plugin developers to add scripts to the bottom of the page.
 	 *
 	 * @since 1.8.2
-	 * @param WU_Page Ultimate Multisite Page instance
+	 * @param WU_Page $page Ultimate Multisite Page instance
 	 */
 	do_action('wu_page_wizard_footer', $page);
 	?>

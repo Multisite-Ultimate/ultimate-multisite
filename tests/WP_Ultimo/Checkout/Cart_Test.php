@@ -6,7 +6,12 @@ use WP_Error;
 use WP_Ultimo\Models\Customer;
 use WP_UnitTestCase;
 
-
+/**
+ * Test class for Checkout Cart functionality.
+ *
+ * Tests cart initialization, attribute handling, validation, membership-based carts,
+ * domain mapping limitations, and downgrade/upgrade scenarios.
+ */
 class Cart_Test extends WP_UnitTestCase {
 
 	private static Customer $customer;
@@ -199,7 +204,7 @@ class Cart_Test extends WP_UnitTestCase {
 		wp_set_current_user($customer->get_user_id(), $customer->get_username());
 
 		// Create a high-tier product with unlimited domains
-		$high_tier_product = wu_create_product(
+		$high_tier_product                         = wu_create_product(
 			[
 				'name'          => 'High Tier Product',
 				'slug'          => 'high-tier-product',
@@ -234,8 +239,8 @@ class Cart_Test extends WP_UnitTestCase {
 				'active'        => true,
 			]
 		);
-		
-		// Set limitations manually 
+
+		// Set limitations manually
 		$low_tier_product->meta['wu_limitations'] = [
 			'domain_mapping' => [
 				'enabled' => true,
@@ -317,7 +322,6 @@ class Cart_Test extends WP_UnitTestCase {
 		$is_valid          = $cart->is_valid();
 		$validation_errors = $cart->get_errors();
 
-
 		// Cart should have validation errors due to domain limit
 		$this->assertFalse($is_valid);
 		$this->assertInstanceOf(\WP_Error::class, $validation_errors);
@@ -334,13 +338,25 @@ class Cart_Test extends WP_UnitTestCase {
 		$this->assertTrue($domain_error_found, 'Domain mapping validation error not found');
 
 		// Clean up - skip site deletion to avoid core table corruption
-		if ($domain1) $domain1->delete();
-		if ($domain2) $domain2->delete();
-		if ($domain3) $domain3->delete();
+		if ($domain1) {
+			$domain1->delete();
+		}
+		if ($domain2) {
+			$domain2->delete();
+		}
+		if ($domain3) {
+			$domain3->delete();
+		}
 		// Skip: $site->delete(); - causes core table deletion issues
-		if ($membership) $membership->delete();
-		if ($high_tier_product) $high_tier_product->delete();
-		if ($low_tier_product) $low_tier_product->delete();
+		if ($membership) {
+			$membership->delete();
+		}
+		if ($high_tier_product) {
+			$high_tier_product->delete();
+		}
+		if ($low_tier_product) {
+			$low_tier_product->delete();
+		}
 	}
 
 	/**
@@ -351,7 +367,7 @@ class Cart_Test extends WP_UnitTestCase {
 		wp_set_current_user($customer->get_user_id(), $customer->get_username());
 
 		// Create a high-tier product with unlimited domains
-		$high_tier_product = wu_create_product(
+		$high_tier_product                         = wu_create_product(
 			[
 				'name'          => 'High Tier Product 2',
 				'slug'          => 'high-tier-product-2',
@@ -373,7 +389,7 @@ class Cart_Test extends WP_UnitTestCase {
 		$high_tier_product->save();
 
 		// Create a mid-tier product with 3 domain limit
-		$mid_tier_product = wu_create_product(
+		$mid_tier_product                         = wu_create_product(
 			[
 				'name'          => 'Mid Tier Product',
 				'slug'          => 'mid-tier-product',
@@ -471,12 +487,22 @@ class Cart_Test extends WP_UnitTestCase {
 		}
 
 		// Clean up - skip site deletion to avoid core table corruption
-		if ($domain1) $domain1->delete();
-		if ($domain2) $domain2->delete();
+		if ($domain1) {
+			$domain1->delete();
+		}
+		if ($domain2) {
+			$domain2->delete();
+		}
 		// Skip: $site->delete(); - causes core table deletion issues
-		if ($membership) $membership->delete();
-		if ($high_tier_product) $high_tier_product->delete();
-		if ($mid_tier_product) $mid_tier_product->delete();
+		if ($membership) {
+			$membership->delete();
+		}
+		if ($high_tier_product) {
+			$high_tier_product->delete();
+		}
+		if ($mid_tier_product) {
+			$mid_tier_product->delete();
+		}
 	}
 
 	/**
@@ -487,7 +513,7 @@ class Cart_Test extends WP_UnitTestCase {
 		wp_set_current_user($customer->get_user_id(), $customer->get_username());
 
 		// Create a high-tier product with unlimited domains
-		$high_tier_product = wu_create_product(
+		$high_tier_product                         = wu_create_product(
 			[
 				'name'          => 'High Tier Product 3',
 				'slug'          => 'high-tier-product-3',
@@ -509,7 +535,7 @@ class Cart_Test extends WP_UnitTestCase {
 		$high_tier_product->save();
 
 		// Create a basic product with no domains allowed
-		$basic_product = wu_create_product(
+		$basic_product                         = wu_create_product(
 			[
 				'name'          => 'Basic Product',
 				'slug'          => 'basic-product',
@@ -598,11 +624,19 @@ class Cart_Test extends WP_UnitTestCase {
 		$this->assertTrue($domain_error_found, 'Domain mapping validation error not found for disabled domains');
 
 		// Clean up - skip site deletion to avoid core table corruption
-		if ($domain1) $domain1->delete();
+		if ($domain1) {
+			$domain1->delete();
+		}
 		// Skip: $site->delete(); - causes core table deletion issues
-		if ($membership) $membership->delete();
-		if ($high_tier_product) $high_tier_product->delete();
-		if ($basic_product) $basic_product->delete();
+		if ($membership) {
+			$membership->delete();
+		}
+		if ($high_tier_product) {
+			$high_tier_product->delete();
+		}
+		if ($basic_product) {
+			$basic_product->delete();
+		}
 	}
 
 	public static function tear_down_after_class() {

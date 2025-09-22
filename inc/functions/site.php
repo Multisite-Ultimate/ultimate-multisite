@@ -20,7 +20,7 @@ function wu_get_current_site() {
 	static $sites = array();
 	$blog_id      = get_current_blog_id();
 
-	if ( ! isset( $sites[ $blog_id ] ) ) {
+	if ( ! isset($sites[ $blog_id ]) ) {
 		$sites[ $blog_id ] = new \WP_Ultimo\Models\Site(get_blog_details($blog_id));
 	}
 	return $sites[ $blog_id ];

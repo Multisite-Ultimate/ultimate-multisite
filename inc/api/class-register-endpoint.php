@@ -80,8 +80,8 @@ class Register_Endpoint {
 	 * @param \WP_REST_Request $request WP Request Object.
 	 * @return array
 	 */
-	public function handle_get($request) {
-
+	public function handle_get($request) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+		/** @var $request */
 		return [
 			'registration_status' => wu_get_setting('enable_registration', true) ? 'open' : 'closed',
 		];

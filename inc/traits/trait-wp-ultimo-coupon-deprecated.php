@@ -9,7 +9,7 @@
 
 namespace WP_Ultimo\Traits;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * WP_Ultimo_Coupon_Deprecated trait.
@@ -58,8 +58,6 @@ trait WP_Ultimo_Coupon_Deprecated {
 
 			// translators: the placeholder is the key.
 			$message = sprintf(__('Discount Codes do not have a %s parameter', 'ultimate-multisite'), $key);
-
-			// throw new \Exception($message);
 
 			return false;
 		}

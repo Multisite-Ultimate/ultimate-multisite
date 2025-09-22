@@ -5,7 +5,7 @@
  * @since 2.0.0
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 // We need to get the media scripts
 wp_enqueue_media();

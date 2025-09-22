@@ -1937,7 +1937,8 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 * Process webhooks
 	 *
 	 * @since 2.0.0
-	 * @throws Ignorable_Exception|Stripe\Exception\ApiErrorException
+	 * @throws Ignorable_Exception When the webhook should be ignored (duplicate payments, wrong gateway, etc.).
+	 * @throws Stripe\Exception\ApiErrorException When Stripe API calls fail.
 	 * @return bool
 	 */
 	public function process_webhooks() {

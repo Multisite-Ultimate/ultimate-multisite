@@ -326,9 +326,6 @@ class SSO {
 
 		$broker = $this->get_broker();
 
-		if ( ! $broker) {
-		}
-
 		if ($broker->is_must_redirect_call()) {
 			return false;
 		}
@@ -656,7 +653,7 @@ class SSO {
 			 * on if we are not able to validate the customer.
 			 *
 			 * @throws ServerException
-			 * @throws SsoException
+			 * @throws SSO_Exception
 			 * @throws BrokerException
 			 * @throws NotAttachedException
 			 */

@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  *
  * @since 2.0.0
  */
-class Current {
+class Current implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 

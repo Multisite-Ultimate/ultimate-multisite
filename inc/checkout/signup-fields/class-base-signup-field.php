@@ -167,7 +167,7 @@ abstract class Base_Signup_Field {
 	 * @param string $field_name Field name.
 	 * @return array
 	 */
-	public function get_editor_fields_html_attr($html_attr, $field_name) {
+	public function get_editor_fields_html_attr($html_attr, $field_name) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		return $html_attr;
 	}

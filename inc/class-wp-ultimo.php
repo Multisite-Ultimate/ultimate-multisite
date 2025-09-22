@@ -902,6 +902,15 @@ final class WP_Ultimo {
 		WP_Ultimo\Views::get_instance();
 	}
 
+	/**
+	 * Gets the addon repository instance.
+	 *
+	 * Returns a singleton instance of the Addon_Repository class that manages
+	 * addon installations and updates for WP Ultimo.
+	 *
+	 * @since 2.0.0
+	 * @return Addon_Repository The addon repository instance.
+	 */
 	public function get_addon_repository(): Addon_Repository {
 		if (! isset($this->addon_repository)) {
 			$this->addon_repository = new Addon_Repository();

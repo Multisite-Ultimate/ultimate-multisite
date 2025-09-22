@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?> wu-bg-gray-200" style="margin-bottom: -1px;" <?php $field->print_wrapper_html_attributes(); ?>>

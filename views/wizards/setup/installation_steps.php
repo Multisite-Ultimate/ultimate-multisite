@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <div class="wu-advanced-filters">
 	<table class="widefat fixed striped wu-border-b" data-id="<?php echo esc_attr($page->get_current_section()); ?>">

@@ -321,7 +321,7 @@ class Toolkit {
 	 * @param \QueryMonitor $qm The Query Monitor instance.
 	 * @return array
 	 */
-	public function register_collector_overview(array $collectors, \QueryMonitor $qm) {
+	public function register_collector_overview(array $collectors, \QueryMonitor $qm) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		$collectors['wp-ultimo'] = new Query_Monitor\Collectors\Collector_Overview();
 

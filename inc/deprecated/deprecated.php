@@ -1032,7 +1032,8 @@ class WU_Signup extends \WP_Ultimo\Checkout\Legacy_Checkout {
 	 *
 	 * @deprecated 2.0.0
 	 */
-	public function __construct() {
+	public function init(): void {
+		parent::init();
 
 		_deprecated_function(self::class, '2.0.0', esc_html(\WP_Ultimo\Checkout\Legacy_Checkout::class));
 	}

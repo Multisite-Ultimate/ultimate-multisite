@@ -12,7 +12,7 @@ namespace WP_Ultimo\Integrations\Host_Providers;
 use Psr\Log\LogLevel;
 use WP_Ultimo\Domain_Mapping\Helper;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * This base class should be extended to implement new host integrations for SSL and domains.

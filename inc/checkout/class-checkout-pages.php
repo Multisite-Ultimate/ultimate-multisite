@@ -475,7 +475,12 @@ class Checkout_Pages {
 
 			$wp_query->set_404();
 
-			include get_404_template();
+			$four_oh_four = get_404_template();
+
+			// Apparently not all themes have a 404 template.
+			if ($four_oh_four) {
+				include $four_oh_four;
+			}
 
 			die;
 		} else {

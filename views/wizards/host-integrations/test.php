@@ -77,15 +77,3 @@ defined('ABSPATH') || exit;
 	</div>
 
 </div>
-
-<?php
-wp_enqueue_script('wu-integration-test', wu_get_asset('integration-test.js', 'js'), ['jquery', 'vue'], wu_get_version(), true);
-wp_add_inline_script(
-	'wu-integration-test',
-	'var wu_integration_test_data = {
-	integration_id: "' . esc_js($integration->get_id()) . '",
-	waiting_message: "' . esc_js(__('Waiting for results...', 'ultimate-multisite')) . '"
-};',
-	'before'
-);
-?>

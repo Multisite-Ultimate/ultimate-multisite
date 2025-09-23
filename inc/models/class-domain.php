@@ -452,7 +452,7 @@ class Domain extends Base_Model {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return bool
+	 * @return bool|\WP_Error
 	 */
 	public function save() {
 
@@ -473,8 +473,7 @@ class Domain extends Base_Model {
 					 * Deprecated: Mercator created domain.
 					 *
 					 * @since 2.0.0
-					 * @param self The domain object after saving.
-					 * @param self The domain object before the changes.
+					 * @param self $domain The domain object after saving.
 					 * @return void.
 					 */
 					do_action_deprecated('mercator.mapping.created', $deprecated_args, '2.0.0', 'wu_domain_post_save');
@@ -489,8 +488,8 @@ class Domain extends Base_Model {
 					 * Deprecated: Mercator updated domain.
 					 *
 					 * @since 2.0.0
-					 * @param self The domain object after saving.
-					 * @param self The domain object before the changes.
+					 * @param self $domain The domain object after saving.
+					 * @param self $before_changes The domain object before the changes.
 					 * @return void.
 					 */
 					do_action_deprecated('mercator.mapping.updated', $deprecated_args, '2.0.0', 'wu_domain_post_save');

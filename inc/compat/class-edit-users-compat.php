@@ -154,7 +154,7 @@ class Edit_Users_Compat {
 		?>
 			<table class="form-table">
 				<tr>
-					<th scope="row"><?php esc_Html_e('Skip Confirmation Email', 'ultimate-multisite'); ?></th>
+					<th scope="row"><?php esc_html_e('Skip Confirmation Email', 'ultimate-multisite'); ?></th>
 					<td>
 						<input type="checkbox" name="noconfirmation" id="adduser-noconfirmation-<?php echo esc_attr($context); ?>" value="1" />
 						<label for="adduser-noconfirmation-<?php echo esc_attr($context); ?>"><?php esc_html_e('Add the user without sending an email that requires their confirmation', 'ultimate-multisite'); ?></label>
@@ -191,7 +191,7 @@ class Edit_Users_Compat {
 	 * @param array $args    Arguments that accompany the requested capability check.
 	 * @return array Modified capabilities.
 	 */
-	public function grant_temp_network_capability($allcaps, $caps, $args) {  // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public function grant_temp_network_capability($allcaps, $caps, $args) {  // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 		// Only grant during adduser action and if user can create users
 		if (! empty($allcaps['create_users']) && ! isset($allcaps['manage_network_users'])) {
 			$allcaps['manage_network_users'] = true;

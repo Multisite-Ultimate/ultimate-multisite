@@ -390,10 +390,9 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 			'wu-integration-test',
 			'var wu_integration_test_data = {
 				integration_id: "' . esc_js($this->integration->get_id()) . '",
-				waiting_message: "' . esc_js(__('Waiting for results...', 'multisite-ultimate')) . '"
+				waiting_message: "' . esc_js(__('Waiting for results...', 'ultimate-multisite')) . '"
 			};',
 			'before'
 		);
 	}
-
 }

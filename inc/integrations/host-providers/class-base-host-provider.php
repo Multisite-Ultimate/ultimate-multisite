@@ -81,7 +81,6 @@ abstract class Base_Host_Provider {
 			 * Adds an admin notice telling the admin that they should probably enable this integration.
 			 */
 			$this->alert_provider_detected();
-			return;
 		}
 
 		/*
@@ -96,7 +95,6 @@ abstract class Base_Host_Provider {
 				 * Adds an admin notice telling the admin that the provider is not correctly setup.
 				 */
 				$this->alert_provider_not_setup();
-				return;
 			}
 
 			/*

@@ -54,7 +54,7 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Order Summary', 'multisite-ultimate');
+		return __('Order Summary', 'ultimate-multisite');
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a summary table with prices, key subscription dates, discounts, and taxes.', 'multisite-ultimate');
+		return __('Adds a summary table with prices, key subscription dates, discounts, and taxes.', 'ultimate-multisite');
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a summary table with prices, key subscription dates, discounts, and taxes.', 'multisite-ultimate');
+		return __('Adds a summary table with prices, key subscription dates, discounts, and taxes.', 'ultimate-multisite');
 	}
 
 	/**
@@ -163,11 +163,11 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 
 		$editor_fields['table_columns'] = [
 			'type'    => 'select',
-			'title'   => __('Table Columns', 'multisite-ultimate'),
-			'desc'    => __('"Simplified" will condense all discount and tax info into separate rows to keep the table with only two columns. "Display All" adds a discounts and taxes column to each product row.', 'multisite-ultimate'),
+			'title'   => __('Table Columns', 'ultimate-multisite'),
+			'desc'    => __('"Simplified" will condense all discount and tax info into separate rows to keep the table with only two columns. "Display All" adds a discounts and taxes column to each product row.', 'ultimate-multisite'),
 			'options' => [
-				'simple' => __('Simplified', 'multisite-ultimate'),
-				'full'   => __('Display All', 'multisite-ultimate'),
+				'simple' => __('Simplified', 'ultimate-multisite'),
+				'full'   => __('Display All', 'ultimate-multisite'),
 			],
 		];
 
@@ -177,8 +177,8 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 			'fields' => [
 				'order_summary_template' => [
 					'type'            => 'select',
-					'title'           => __('Layout', 'multisite-ultimate'),
-					'placeholder'     => __('Select your Layout', 'multisite-ultimate'),
+					'title'           => __('Layout', 'ultimate-multisite'),
+					'placeholder'     => __('Select your Layout', 'ultimate-multisite'),
 					'options'         => [$this, 'get_templates'],
 					'wrapper_classes' => 'wu-flex-grow',
 					'html_attr'       => [
@@ -188,14 +188,16 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 			],
 		];
 
+		// phpcs:disable
 		// @todo: re-add developer notes.
 		// $editor_fields['_dev_note_develop_your_own_template_order_summary'] = array(
 		// 'type'            => 'note',
 		// 'order'           => 99,
 		// 'wrapper_classes' => 'sm:wu-p-0 sm:wu-block',
 		// 'classes'         => '',
-		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized order summary templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'multisite-ultimate')),
+		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized order summary templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'ultimate-multisite')),
 		// );
+		// phpcs:enable
 
 		return $editor_fields;
 	}
@@ -221,11 +223,17 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('order_summary', $attributes['order_summary_template']);
 
-		$content = $template_class ? $template_class->render_container($attributes) : __('Template does not exist.', 'multisite-ultimate');
+		$desc = function() use($attributes, $template_class) {
+			if ($template_class) {
+				$template_class->render_container($attributes);
+			} else {
+				esc_html_e('Template does not exist.', 'ultimate-multisite');
+			}
+		};
 
 		$checkout_fields[ $attributes['id'] ] = [
 			'type'              => 'note',
-			'desc'              => $content,
+			'desc'              => $desc,
 			'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
 			'classes'           => wu_get_isset($attributes, 'element_classes', ''),
 			'wrapper_html_attr' => [

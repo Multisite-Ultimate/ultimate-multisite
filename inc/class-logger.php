@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Logger
+ * Ultimate Multisite Logger
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -18,7 +18,7 @@ use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
 
 /**
- * Multisite Ultimate Logger
+ * Ultimate Multisite Logger
  *
  * @since 2.0.0
  */
@@ -180,7 +180,7 @@ class Logger extends AbstractLogger {
 		$time_elapsed = microtime(true) - $start;
 
 		// translators: the placeholder %s will be replaced by the time in seconds (float).
-		$message .= ' - ' . sprintf(__('This action took %s seconds.', 'multisite-ultimate'), $time_elapsed);
+		$message .= ' - ' . sprintf(__('This action took %s seconds.', 'ultimate-multisite'), $time_elapsed);
 
 		self::add($handle, $message);
 

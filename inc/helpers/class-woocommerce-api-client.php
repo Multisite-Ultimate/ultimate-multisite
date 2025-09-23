@@ -88,7 +88,7 @@ class WooCommerce_API_Client {
 				'woocommerce_api_error',
 				sprintf(
 					/* translators: %1$s: HTTP response code, %2$s: response body */
-					__('WooCommerce API request failed with status %1$s: %2$s', 'multisite-ultimate'),
+					__('WooCommerce API request failed with status %1$s: %2$s', 'ultimate-multisite'),
 					$response_code,
 					$response_body
 				)
@@ -100,7 +100,7 @@ class WooCommerce_API_Client {
 		if (null === $data) {
 			return new WP_Error(
 				'json_decode_error',
-				__('Failed to decode API response JSON', 'multisite-ultimate')
+				__('Failed to decode API response JSON', 'ultimate-multisite')
 			);
 		}
 

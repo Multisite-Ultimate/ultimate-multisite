@@ -73,11 +73,11 @@ class Notification_Manager {
 		$cleaner = [$this, 'clear_callback_list'];
 
 		if (wu_get_isset($wp_filter, 'admin_notices')) {
-			$wp_filter['admin_notices']->callbacks = array_filter($wp_filter['admin_notices']->callbacks, $cleaner ?? fn($v, $k): bool => ! empty($v), null === $cleaner ? ARRAY_FILTER_USE_BOTH : 0);
+			$wp_filter['admin_notices']->callbacks = array_filter($wp_filter['admin_notices']->callbacks, $cleaner ?? fn($v, $k): bool => ! empty($v), null === $cleaner ? ARRAY_FILTER_USE_BOTH : 0); // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 		}
 
 		if (wu_get_isset($wp_filter, 'all_admin_notices')) {
-			$wp_filter['all_admin_notices']->callbacks = array_filter($wp_filter['all_admin_notices']->callbacks, $cleaner ?? fn($v, $k): bool => ! empty($v), null === $cleaner ? ARRAY_FILTER_USE_BOTH : 0);
+			$wp_filter['all_admin_notices']->callbacks = array_filter($wp_filter['all_admin_notices']->callbacks, $cleaner ?? fn($v, $k): bool => ! empty($v), null === $cleaner ? ARRAY_FILTER_USE_BOTH : 0); // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 		}
 	}
 
@@ -109,7 +109,7 @@ class Notification_Manager {
 	}
 
 	/**
-	 * Filter the Multisite Ultimate settings to add Notifications Options
+	 * Filter the Ultimate Multisite settings to add Notifications Options
 	 *
 	 * @since 2.0.0
 	 *
@@ -121,8 +121,8 @@ class Notification_Manager {
 			'sites',
 			'hide_notifications_subsites',
 			[
-				'title'   => __('Hide Admin Notices on Sites', 'multisite-ultimate'),
-				'desc'    => __('Hide all admin notices on network sites, except for Multisite Ultimate broadcasts.', 'multisite-ultimate'),
+				'title'   => __('Hide Admin Notices on Sites', 'ultimate-multisite'),
+				'desc'    => __('Hide all admin notices on network sites, except for Ultimate Multisite broadcasts.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 				'order'   => 25,

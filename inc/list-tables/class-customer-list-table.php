@@ -36,15 +36,15 @@ class Customer_List_Table extends Base_List_Table {
 	public function __construct($args = []) {
 
 		$this->modes = [
-			'grid' => __('Grid View', 'multisite-ultimate'),
-			'list' => __('List View', 'multisite-ultimate'),
+			'grid' => __('Grid View', 'ultimate-multisite'),
+			'list' => __('List View', 'ultimate-multisite'),
 		];
 
 		$args = wp_parse_args(
 			$args,
 			[
-				'singular' => __('Customer', 'multisite-ultimate'),  // singular name of the listed records
-				'plural'   => __('Customers', 'multisite-ultimate'), // plural name of the listed records
+				'singular' => __('Customer', 'ultimate-multisite'),  // singular name of the listed records
+				'plural'   => __('Customers', 'ultimate-multisite'), // plural name of the listed records
 				'ajax'     => true,                         // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_get_form_url('add_new_customer'),
@@ -122,10 +122,10 @@ class Customer_List_Table extends Base_List_Table {
 		// Check if user exists
 		if ( ! $user) {
 			$actions = [
-				'delete' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'multisite-ultimate'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'multisite-ultimate')),
+				'delete' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'ultimate-multisite'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'ultimate-multisite')),
 			];
 
-			return sprintf('<strong>#%s</strong> - %s', $item->get_user_id(), __('User not found', 'multisite-ultimate')) . $this->row_actions($actions);
+			return sprintf('<strong>#%s</strong> - %s', $item->get_user_id(), __('User not found', 'ultimate-multisite')) . $this->row_actions($actions);
 		}
 
 		$customer_id = sprintf('<a href="?page=wp-ultimo-edit-customer&id=%s"><strong>#%s</strong></a>', $item->get_id(), $item->get_id());
@@ -144,19 +144,19 @@ class Customer_List_Table extends Base_List_Table {
 		// Concatenate the two blocks
 		$title = "<strong>$customer_user</strong>";
 
-		$desc = sprintf('<a %s href="mailto:%s" class="description wu-ml-1 wu-text-xs">(%s)</a>', wu_tooltip_text(__('Send an email to this customer', 'multisite-ultimate')), $user->user_email, $user->user_email);
+		$desc = sprintf('<a role="tooltip" aria-label="%s" href="mailto:%s" class="description wu-ml-1 wu-text-xs">(%s)</a>', esc_attr__('Send an email to this customer', 'ultimate-multisite'), esc_attr($user->user_email), esc_html($user->user_email));
 
 		// Concatenate switch to url
 		$is_modal_switch_to = \WP_Ultimo\User_Switching::get_instance()->check_user_switching_is_activated() ? '' : 'wubox';
 
-		$url_switch_to = sprintf('<a title="%s" class="%s" href="%s">%s</a>', __('Switch To', 'multisite-ultimate'), $is_modal_switch_to, \WP_Ultimo\User_Switching::get_instance()->render($item->get_user_id()), __('Switch To', 'multisite-ultimate'));
+		$url_switch_to = sprintf('<a title="%s" class="%s" href="%s">%s</a>', __('Switch To', 'ultimate-multisite'), $is_modal_switch_to, \WP_Ultimo\User_Switching::get_instance()->render($item->get_user_id()), __('Switch To', 'ultimate-multisite'));
 
 		$actions = [
-			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-customer', $url_atts), __('Edit', 'multisite-ultimate')),
+			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-customer', $url_atts), __('Edit', 'ultimate-multisite')),
 			'switch-to' => $item->get_user_id() !== get_current_user_id() ? $url_switch_to : false,
 			'delete'    => sprintf(
 				'<a title="%s" class="wubox" href="%s">%s</a>',
-				__('Delete', 'multisite-ultimate'),
+				__('Delete', 'ultimate-multisite'),
 				wu_get_form_url(
 					'delete_modal',
 					[
@@ -164,7 +164,7 @@ class Customer_List_Table extends Base_List_Table {
 						'id'    => $item->get_id(),
 					]
 				),
-				__('Delete', 'multisite-ultimate')
+				__('Delete', 'ultimate-multisite')
 			),
 		];
 
@@ -186,7 +186,7 @@ class Customer_List_Table extends Base_List_Table {
 		$html = '<div class="wu-status-container">';
 
 		if ($item->is_vip()) {
-			$html .= sprintf('<span class="wu-tag wu-customer-vip">%s</span>', __('VIP', 'multisite-ultimate'));
+			$html .= sprintf('<span class="wu-tag wu-customer-vip">%s</span>', __('VIP', 'ultimate-multisite'));
 		}
 
 		$html .= get_avatar(
@@ -221,7 +221,7 @@ class Customer_List_Table extends Base_List_Table {
 		];
 
 		$actions = [
-			'view' => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-memberships', $url_atts), __('View', 'multisite-ultimate')),
+			'view' => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-memberships', $url_atts), __('View', 'ultimate-multisite')),
 		];
 
 		return $subscription_count . $this->row_actions($actions);
@@ -238,11 +238,11 @@ class Customer_List_Table extends Base_List_Table {
 		$columns = [
 			'cb'              => '<input type="checkbox" />',
 			'customer_status' => '',
-			'name'            => __('Name', 'multisite-ultimate'),
-			'last_login'      => __('Last Login', 'multisite-ultimate'),
-			'date_registered' => __('Customer Since', 'multisite-ultimate'),
-			'memberships'     => __('Memberships', 'multisite-ultimate'),
-			'id'              => __('ID', 'multisite-ultimate'),
+			'name'            => __('Name', 'ultimate-multisite'),
+			'last_login'      => __('Last Login', 'ultimate-multisite'),
+			'date_registered' => __('Customer Since', 'ultimate-multisite'),
+			'memberships'     => __('Memberships', 'ultimate-multisite'),
+			'id'              => __('ID', 'ultimate-multisite'),
 		];
 
 		return $columns;
@@ -331,19 +331,19 @@ class Customer_List_Table extends Base_List_Table {
 						'filter' => 'all',
 					]
 				),
-				'label' => __('All Customers', 'multisite-ultimate'),
+				'label' => __('All Customers', 'ultimate-multisite'),
 				'count' => 0,
 			],
 			'vip'    => [
 				'field' => 'filter',
 				'url'   => add_query_arg('filter', 'vip'),
-				'label' => __('VIP Customers', 'multisite-ultimate'),
+				'label' => __('VIP Customers', 'ultimate-multisite'),
 				'count' => 0,
 			],
 			'online' => [
 				'field' => 'filter',
 				'url'   => add_query_arg('filter', 'online'),
-				'label' => __('Online Customers', 'multisite-ultimate'),
+				'label' => __('Online Customers', 'ultimate-multisite'),
 				'count' => 0,
 			],
 		];
@@ -360,7 +360,7 @@ class Customer_List_Table extends Base_List_Table {
 	public function column_last_login($item) {
 
 		if ($item->is_online()) {
-			return '<span class="wu-inline-block wu-mr-1 wu-rounded-full wu-h-2 wu-w-2 wu-bg-green-500"></span>' . __('Online', 'multisite-ultimate');
+			return '<span class="wu-inline-block wu-mr-1 wu-rounded-full wu-h-2 wu-w-2 wu-bg-green-500"></span>' . __('Online', 'ultimate-multisite');
 		}
 
 		return $this->_column_datetime($item->get_last_login());

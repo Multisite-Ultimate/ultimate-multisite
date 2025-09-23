@@ -38,7 +38,7 @@ class Limit_Domain_Mapping_Test extends WP_UnitTestCase {
 		parent::tear_down_after_class();
 
 		if (self::$test_site) {
-//			self::$test_site->delete();
+			// self::$test_site->delete();
 		}
 	}
 

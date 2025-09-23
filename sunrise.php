@@ -1,14 +1,14 @@
 <?php
 // WP Ultimo Starts #
 /**
- * Multisite Ultimate Sunrise
+ * Ultimate Multisite Sunrise
  * Plugin URI: https://multisiteultimate.com
- * Version: 2.0.0.8
+ * Version: 2.0.0.10
  * License: GPLv2
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
  * WordPress Core has a few ways of allowing plugin developers to run things earlier in the app lifecycle.
- * One of this ways is to place a sunrise.php file inside the wp-content directory while setting
+ * One of the ways is to place a sunrise.php file inside the wp-content directory while setting
  * The SUNRISE constant to true.
  *
  * This tells WordPress that it should load our sunrise file before plugins get loaded and
@@ -17,24 +17,25 @@
  * @since 2.0.0.5 Adds a network admin notice warning that sunrise is still active when Ultimo is deactivated.
  * @since 2.0.0.5 Change return statement to a continue statement to prevent an early exit from the file.
  * @since 2.0.0.9 Rename plugin file.
+ * @since 2.0.0.10 Rename plugin file, again!
  *
  * @author      Arindo Duque
  * @category    WP_Ultimo
  * @package     WP_Ultimo/Sunrise
- * @version     2.0.0.9
+ * @version     2.0.0.10
  */
 
 defined('ABSPATH') || exit;
 
-const WP_ULTIMO_SUNRISE_VERSION = '2.0.0.9';
+const WP_ULTIMO_SUNRISE_VERSION = '2.0.0.10';
 
 $wu_sunrise = defined('WP_PLUGIN_DIR')
-	? WP_PLUGIN_DIR . '/multisite-ultimate/inc/class-sunrise.php'
-	: WP_CONTENT_DIR . '/plugins/multisite-ultimate/inc/class-sunrise.php';
+	? WP_PLUGIN_DIR . '/ultimate-multisite/inc/class-sunrise.php'
+	: WP_CONTENT_DIR . '/plugins/ultimate-multisite/inc/class-sunrise.php';
 
 $wu_mu_sunrise = defined('WPMU_PLUGIN_DIR')
-	? WPMU_PLUGIN_DIR . '/multisite-ultimate/inc/class-sunrise.php'
-	: WP_CONTENT_DIR . '/mu-plugins/multisite-ultimate/inc/class-sunrise.php';
+	? WPMU_PLUGIN_DIR . '/ultimate-multisite/inc/class-sunrise.php'
+	: WP_CONTENT_DIR . '/mu-plugins/ultimate-multisite/inc/class-sunrise.php';
 
 /**
  * We search for the sunrise class file
@@ -71,7 +72,7 @@ unset($wu_mu_sunrise);
 unset($wu_sunrise);
 
 /**
- * Adds a warning when Multisite Ultimate is not present but the sunrise file is.
+ * Adds a warning when Ultimate Multisite is not present but the sunrise file is.
  *
  * @since 2.0.0
  * @return void
@@ -83,7 +84,7 @@ function wu_remove_sunrise_warning() {
 		?>
 	<div class="notice notice-warning">
 		<p>
-			Multisite Ultimate is deactivated, yet its <strong>sunrise.php</strong> file is still being loaded. If you have no intentions of continuing to use Multisite Ultimate and this was not a temporary deactivation, we recommend removing the <code>define('SUNRISE', true);</code> line from your <strong>wp-config.php</strong> file. Keeping Multisite Ultimate <strong>sunrise.php</strong> file active without Multisite Ultimate can lead to unexpected behaviors and it is not advised.
+			Ultimate Multisite is deactivated, yet its <strong>sunrise.php</strong> file is still being loaded. If you have no intentions of continuing to use Ultimate Multisite and this was not a temporary deactivation, we recommend removing the <code>define('SUNRISE', true);</code> line from your <strong>wp-config.php</strong> file. Keeping Ultimate Multisite <strong>sunrise.php</strong> file active without Ultimate Multisite can lead to unexpected behaviors and it is not advised.
 		</p>
 	</div>
 

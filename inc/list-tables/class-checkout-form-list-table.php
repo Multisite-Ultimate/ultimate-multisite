@@ -36,8 +36,8 @@ class Checkout_Form_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Checkout Form', 'multisite-ultimate'),  // singular name of the listed records
-				'plural'   => __('Checkout Forms', 'multisite-ultimate'), // plural name of the listed records
+				'singular' => __('Checkout Form', 'ultimate-multisite'),  // singular name of the listed records
+				'plural'   => __('Checkout Forms', 'ultimate-multisite'), // plural name of the listed records
 				'ajax'     => true,                              // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_get_form_url('add_new_checkout_form'),
@@ -65,7 +65,7 @@ class Checkout_Form_List_Table extends Base_List_Table {
 		$title = sprintf('<strong><a href="%s">%s</a></strong>', wu_network_admin_url('wp-ultimo-edit-checkout-form', $url_atts), $item->get_name());
 
 		$actions = [
-			'edit'          => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-checkout-form', $url_atts), __('Edit', 'multisite-ultimate')),
+			'edit'          => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-checkout-form', $url_atts), __('Edit', 'ultimate-multisite')),
 			'duplicate'     => sprintf(
 				'<a href="%s">%s</a>',
 				wu_network_admin_url(
@@ -75,10 +75,10 @@ class Checkout_Form_List_Table extends Base_List_Table {
 						'id'     => $item->get_id(),
 					]
 				),
-				__('Duplicate', 'multisite-ultimate')
+				__('Duplicate', 'ultimate-multisite')
 			),
-			'get_shortcode' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Shortcode', 'multisite-ultimate'), wu_get_form_url('shortcode_checkout', $url_atts), __('Shortcode', 'multisite-ultimate')),
-			'delete'        => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'multisite-ultimate'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'multisite-ultimate')),
+			'get_shortcode' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Shortcode', 'ultimate-multisite'), wu_get_form_url('shortcode_checkout', $url_atts), __('Shortcode', 'ultimate-multisite')),
+			'delete'        => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'ultimate-multisite'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'ultimate-multisite')),
 		];
 
 		return $title . $this->row_actions($actions);
@@ -108,7 +108,7 @@ class Checkout_Form_List_Table extends Base_List_Table {
 	 */
 	public function column_steps($item): string {
 		// translators: %1$d: number of steps, %2$d: number of fields
-		return sprintf(__('%1$d Step(s) and %2$d Field(s)', 'multisite-ultimate'), $item->get_step_count(), $item->get_field_count());
+		return sprintf(__('%1$d Step(s) and %2$d Field(s)', 'ultimate-multisite'), $item->get_step_count(), $item->get_field_count());
 	}
 
 	/**
@@ -125,7 +125,7 @@ class Checkout_Form_List_Table extends Base_List_Table {
 		<button type="button" data-clipboard-action="copy" data-clipboard-target="#hidden_textarea" class="btn-clipboard" title="%s">
       <span class="dashicons-wu-copy"></span>
     </button>',
-			__('Copy to the Clipboard', 'multisite-ultimate')
+			__('Copy to the Clipboard', 'ultimate-multisite')
 		);
 
 		return sprintf('<input class="wu-bg-gray-200 wu-border-none wu-text-gray-700 wu-py-1 wu-px-2 wu-rounded-sm wu-text-xs wu-font-mono" value="%s">', esc_attr($item->get_shortcode()), '');
@@ -147,7 +147,7 @@ class Checkout_Form_List_Table extends Base_List_Table {
 			$checkout_form = wu_get_checkout_form($checkout_form_id);
 
 			if ( ! $checkout_form) {
-				WP_Ultimo()->notices->add(__('Checkout form not found.', 'multisite-ultimate'), 'error', 'network-admin');
+				WP_Ultimo()->notices->add(__('Checkout form not found.', 'ultimate-multisite'), 'error', 'network-admin');
 
 				return;
 			}
@@ -155,7 +155,7 @@ class Checkout_Form_List_Table extends Base_List_Table {
 			$new_checkout_form = $checkout_form->duplicate();
 
 			// translators: the %s is the thing copied.
-			$new_name = sprintf(__('Copy of %s', 'multisite-ultimate'), $checkout_form->get_name());
+			$new_name = sprintf(__('Copy of %s', 'ultimate-multisite'), $checkout_form->get_name());
 
 			$new_checkout_form->set_name($new_name);
 
@@ -195,10 +195,10 @@ class Checkout_Form_List_Table extends Base_List_Table {
 
 		$columns = [
 			'cb'    => '<input type="checkbox" />',
-			'name'  => __('Form Name', 'multisite-ultimate'),
-			'slug'  => __('Form Slug', 'multisite-ultimate'),
-			'steps' => __('Steps', 'multisite-ultimate'),
-			'id'    => __('ID', 'multisite-ultimate'),
+			'name'  => __('Form Name', 'ultimate-multisite'),
+			'slug'  => __('Form Slug', 'ultimate-multisite'),
+			'steps' => __('Steps', 'ultimate-multisite'),
+			'id'    => __('ID', 'ultimate-multisite'),
 		];
 
 		return $columns;

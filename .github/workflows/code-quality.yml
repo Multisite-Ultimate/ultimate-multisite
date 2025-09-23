@@ -1,0 +1,57 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mysqli, gd, bcmath
+          tools: composer
+
+      - name: Install PHP Dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Get changed PHP files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            **/*.php
+
+      - name: Run PHP CodeSniffer
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+          vendor/bin/phpcs --report=checkstyle --report-file=phpcs-report.xml ${{ steps.changed-files.outputs.all_changed_files }} || true
+
+      - name: Run PHPStan
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          echo "Running PHPStan on changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+          vendor/bin/phpstan analyse --error-format=checkstyle --no-progress ${{ steps.changed-files.outputs.all_changed_files }} > phpstan-report.xml || true
+
+      - name: Annotate PR with PHPCS results
+        uses: staabm/annotate-pull-request-from-checkstyle-action@v1
+        if: github.event_name == 'pull_request'
+        with:
+          files: phpcs-report.xml
+          notices-as-failures: false
+
+      - name: Annotate PR with PHPStan results
+        uses: staabm/annotate-pull-request-from-checkstyle-action@v1
+        if: github.event_name == 'pull_request'
+        with:
+          files: phpstan-report.xml
+          notices-as-failures: false

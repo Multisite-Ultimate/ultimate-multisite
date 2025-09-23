@@ -109,7 +109,7 @@ class Notes_Manager extends Base_Manager {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array  $sections Array sections.
+	 * @param array                                $sections Array sections.
 	 * @param \WP_Ultimo\Models\Interfaces\Notable $obj   The object.
 	 *
 	 * @return array
@@ -142,7 +142,7 @@ class Notes_Manager extends Base_Manager {
 		if (current_user_can('delete_notes')) {
 			$fields_buttons['button_clear_notes'] = [
 				'type'            => 'link',
-				'display_value'   => __('Clear Notes', 'multisite-ultimate'),
+				'display_value'   => __('Clear Notes', 'ultimate-multisite'),
 				'wrapper_classes' => 'wu-mb-0',
 				'classes'         => 'button wubox',
 				'html_attr'       => [
@@ -153,7 +153,7 @@ class Notes_Manager extends Base_Manager {
 							'model'     => $obj->model,
 						]
 					),
-					'title' => __('Clear Notes', 'multisite-ultimate'),
+					'title' => __('Clear Notes', 'ultimate-multisite'),
 				],
 			];
 		}
@@ -161,7 +161,7 @@ class Notes_Manager extends Base_Manager {
 		if (current_user_can('edit_notes')) {
 			$fields_buttons['button_add_note'] = [
 				'type'            => 'link',
-				'display_value'   => __('Add new Note', 'multisite-ultimate'),
+				'display_value'   => __('Add new Note', 'ultimate-multisite'),
 				'wrapper_classes' => 'wu-mb-0',
 				'classes'         => 'button button-primary wubox wu-absolute wu-right-5',
 				'html_attr'       => [
@@ -173,7 +173,7 @@ class Notes_Manager extends Base_Manager {
 							'height'    => 306,
 						]
 					),
-					'title' => __('Add new Note', 'multisite-ultimate'),
+					'title' => __('Add new Note', 'ultimate-multisite'),
 				],
 			];
 		}
@@ -185,8 +185,8 @@ class Notes_Manager extends Base_Manager {
 		];
 
 		$sections['notes'] = [
-			'title'  => __('Notes', 'multisite-ultimate'),
-			'desc'   => __('Add notes to this model.', 'multisite-ultimate'),
+			'title'  => __('Notes', 'ultimate-multisite'),
+			'desc'   => __('Add notes to this model.', 'ultimate-multisite'),
 			'icon'   => 'dashicons-wu-text-document',
 			'order'  => 1001,
 			'fields' => $fields,
@@ -207,8 +207,8 @@ class Notes_Manager extends Base_Manager {
 			'content'         => [
 				'id'        => 'content',
 				'type'      => 'wp-editor',
-				'title'     => __('Note Content', 'multisite-ultimate'),
-				'desc'      => __('Basic formatting is supported.', 'multisite-ultimate'),
+				'title'     => __('Note Content', 'ultimate-multisite'),
+				'desc'      => __('Basic formatting is supported.', 'ultimate-multisite'),
 				'settings'  => [
 					'tinymce' => [
 						'toolbar1' => 'bold,italic,strikethrough,link,unlink,undo,redo,pastetext',
@@ -220,8 +220,8 @@ class Notes_Manager extends Base_Manager {
 			],
 			'submit_add_note' => [
 				'type'            => 'submit',
-				'title'           => __('Add Note', 'multisite-ultimate'),
-				'placeholder'     => __('Add Note', 'multisite-ultimate'),
+				'title'           => __('Add Note', 'ultimate-multisite'),
+				'placeholder'     => __('Add Note', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'wu-w-full button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -308,16 +308,16 @@ class Notes_Manager extends Base_Manager {
 		$fields = [
 			'confirm_clear_notes' => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm clear all notes?', 'multisite-ultimate'),
-				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
+				'title'     => __('Confirm clear all notes?', 'ultimate-multisite'),
+				'desc'      => __('This action can not be undone.', 'ultimate-multisite'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_clear_notes'  => [
 				'type'            => 'submit',
-				'title'           => __('Clear Notes', 'multisite-ultimate'),
-				'placeholder'     => __('Clear Notes', 'multisite-ultimate'),
+				'title'           => __('Clear Notes', 'ultimate-multisite'),
+				'placeholder'     => __('Clear Notes', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'wu-w-full button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -403,16 +403,16 @@ class Notes_Manager extends Base_Manager {
 		$fields = [
 			'confirm_delete_note' => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm clear the note?', 'multisite-ultimate'),
-				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
+				'title'     => __('Confirm clear the note?', 'ultimate-multisite'),
+				'desc'      => __('This action can not be undone.', 'ultimate-multisite'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_delete_note'  => [
 				'type'            => 'submit',
-				'title'           => __('Clear Note', 'multisite-ultimate'),
-				'placeholder'     => __('Clear Note', 'multisite-ultimate'),
+				'title'           => __('Clear Note', 'ultimate-multisite'),
+				'placeholder'     => __('Clear Note', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'wu-w-full button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -475,7 +475,7 @@ class Notes_Manager extends Base_Manager {
 		$status = $object->delete_note($note_id);
 
 		if (is_wp_error($status) || false === $status) {
-			wp_send_json_error(new \WP_Error('not-found', __('Note not found', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('Note not found', 'ultimate-multisite')));
 		}
 
 		wp_send_json_success(

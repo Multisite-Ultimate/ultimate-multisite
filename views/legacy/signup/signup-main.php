@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/signup-header.php.
  *
- * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
+ * HOWEVER, on occasion Ultimate Multisite will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -61,7 +61,7 @@ do_action('wu_checkout_scripts');
 
 	<title>
 		<?php // translators: %s title of the current site ?>
-		<?php echo esc_html(apply_filters('wu_signup_page_title', sprintf(__('%s - Signup', 'multisite-ultimate'), get_bloginfo('Name'), get_bloginfo('Name')))); ?>
+		<?php echo esc_html(apply_filters('wu_signup_page_title', sprintf(__('%s - Signup', 'ultimate-multisite'), get_bloginfo('Name'), get_bloginfo('Name')))); ?>
 	</title>
 
 	<?php // Signup do action, like the default ?>
@@ -99,7 +99,7 @@ do_action('wu_checkout_scripts');
 			<h1 id="wu-setup-logo">
 			<a href="<?php echo esc_attr(get_site_url(get_current_site()->site_id)); ?>">
 				<?php // translators: %s title of the current site ?>
-				<?php printf(esc_html__('%s - Signup', 'multisite-ultimate'), esc_html(get_bloginfo('Name'))); ?>
+				<?php printf(esc_html__('%s - Signup', 'ultimate-multisite'), esc_html(get_bloginfo('Name'))); ?>
 			</a>
 			</h1>
 
@@ -163,6 +163,7 @@ do_action('wu_checkout_scripts');
 
 		global $wp_scripts;
 
+		// $wp_scripts will output and format the tag correctly and safely.
 		echo $wp_scripts->get_inline_script_tag('wu-checkout'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 	?>

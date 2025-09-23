@@ -16,10 +16,24 @@
 
 namespace WP_Ultimo\Compat;
 
+/**
+ * Edit Users compatibility class.
+ *
+ * Allows site administrators to edit user accounts for users on their site
+ * in multisite environments where normally only super admins can edit users.
+ */
 class Edit_Users_Compat {
 
 	use \WP_Ultimo\Traits\Singleton;
 
+	/**
+	 * Initialize the Edit Users compatibility functionality.
+	 *
+	 * Sets up hooks and actions to enable site administrators to edit users
+	 * and adds settings to control this feature.
+	 *
+	 * @since 2.4.4
+	 */
 	public function init(): void {
 		// Add the settings to enable or disable this feature.
 		add_action('wu_settings_login', [$this, 'add_settings'], 10);
@@ -111,8 +125,8 @@ class Edit_Users_Compat {
 			'login-and-registration',
 			'enable_edit_users',
 			[
-				'title'   => __('Enable Edit User Capability', 'multisite-ultimate'),
-				'desc'    => __('Allow site owners to edit the user accounts of users on their own site. Also lets site owners create user accounts without requiring email confirmation.', 'multisite-ultimate'),
+				'title'   => __('Enable Edit User Capability', 'ultimate-multisite'),
+				'desc'    => __('Allow site owners to edit the user accounts of users on their own site. Also lets site owners create user accounts without requiring email confirmation.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]
@@ -140,10 +154,10 @@ class Edit_Users_Compat {
 		?>
 			<table class="form-table">
 				<tr>
-					<th scope="row"><?php esc_Html_e('Skip Confirmation Email'); ?></th>
+					<th scope="row"><?php esc_html_e('Skip Confirmation Email', 'ultimate-multisite'); ?></th>
 					<td>
 						<input type="checkbox" name="noconfirmation" id="adduser-noconfirmation-<?php echo esc_attr($context); ?>" value="1" />
-						<label for="adduser-noconfirmation-<?php echo esc_attr($context); ?>"><?php esc_html_e('Add the user without sending an email that requires their confirmation', 'multisite-ultimate'); ?></label>
+						<label for="adduser-noconfirmation-<?php echo esc_attr($context); ?>"><?php esc_html_e('Add the user without sending an email that requires their confirmation', 'ultimate-multisite'); ?></label>
 					</td>
 				</tr>
 			</table>
@@ -177,7 +191,7 @@ class Edit_Users_Compat {
 	 * @param array $args    Arguments that accompany the requested capability check.
 	 * @return array Modified capabilities.
 	 */
-	public function grant_temp_network_capability($allcaps, $caps, $args) {
+	public function grant_temp_network_capability($allcaps, $caps, $args) {  // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 		// Only grant during adduser action and if user can create users
 		if (! empty($allcaps['create_users']) && ! isset($allcaps['manage_network_users'])) {
 			$allcaps['manage_network_users'] = true;

@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 
@@ -40,7 +40,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<span class="wu-text-xs wu-uppercase wu-font-bold wu-block">
 
-		<?php esc_html_e('Product Description:', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Product Description:', 'ultimate-multisite'); ?>
 
 	</span>
 
@@ -50,7 +50,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<span class="wu-text-xs wu-uppercase wu-font-bold wu-block">
 
-	<?php esc_html_e('Product Characteristics:', 'multisite-ultimate'); ?>
+	<?php esc_html_e('Product Characteristics:', 'ultimate-multisite'); ?>
 
 	</span>
 
@@ -58,7 +58,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php foreach ($product->get_pricing_table_lines() as $key => $line) : ?>
 
-		<li class="<?php echo esc_attr(str_replace('_', '-', $key)); ?>"><?php echo $line; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></li>
+		<li class="<?php echo esc_attr(str_replace('_', '-', $key)); ?>"><?php echo wp_kses($line, wu_kses_allowed_html()); ?></li>
 
 	<?php endforeach; ?>
 

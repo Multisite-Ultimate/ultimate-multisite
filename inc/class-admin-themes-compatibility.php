@@ -13,11 +13,11 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Adds a Admin Themes Compatibility for Multisite Ultimate.
+ * Adds a Admin Themes Compatibility for Ultimate Multisite.
  *
  * @since 1.9.14
  */
-class Admin_Themes_Compatibility {
+class Admin_Themes_Compatibility implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 
@@ -26,7 +26,7 @@ class Admin_Themes_Compatibility {
 	 *
 	 * @since 2.0.0
 	 */
-	public function __construct() {
+	public function init(): void {
 
 		add_filter('admin_body_class', [$this, 'add_body_classes']);
 	}

@@ -69,7 +69,7 @@ class Signup_Field_Checkbox extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Checkbox', 'multisite-ultimate');
+		return __('Checkbox', 'ultimate-multisite');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Signup_Field_Checkbox extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout box that can be checked by the customer.', 'multisite-ultimate');
+		return __('Adds a checkout box that can be checked by the customer.', 'ultimate-multisite');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Signup_Field_Checkbox extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a checkout box that can be checked by the customer.', 'multisite-ultimate');
+		return __('Adds a checkout box that can be checked by the customer.', 'ultimate-multisite');
 	}
 
 	/**
@@ -166,8 +166,8 @@ class Signup_Field_Checkbox extends Base_Signup_Field {
 		return [
 			'default_state' => [
 				'type'  => 'toggle',
-				'title' => __('Default State', 'multisite-ultimate'),
-				'desc'  => __('Use the toggle to the set the default state of the checkbox.', 'multisite-ultimate'),
+				'title' => __('Default State', 'ultimate-multisite'),
+				'desc'  => __('Use the toggle to the set the default state of the checkbox.', 'ultimate-multisite'),
 				'value' => 0,
 				'order' => 12,
 			],

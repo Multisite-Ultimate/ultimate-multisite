@@ -53,7 +53,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Shortcode', 'multisite-ultimate');
+		return __('Shortcode', 'ultimate-multisite');
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Displays the content of a given WordPress shortcode. Can be useful to inset content from other plugins inside a Multisite Ultimate checkout form.', 'multisite-ultimate');
+		return __('Displays the content of a given WordPress shortcode. Can be useful to inset content from other plugins inside a Ultimate Multisite checkout form.', 'ultimate-multisite');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Displays the content of a given WordPress shortcode. Can be useful to insert content from other plugins inside a Multisite Ultimate checkout form.', 'multisite-ultimate');
+		return __('Displays the content of a given WordPress shortcode. Can be useful to insert content from other plugins inside a Ultimate Multisite checkout form.', 'ultimate-multisite');
 	}
 
 	/**
@@ -118,10 +118,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	 */
 	public function default_fields() {
 
-		return [
-			// 'id',
-			// 'name',
-		];
+		return [];
 	}
 
 	/**
@@ -133,7 +130,7 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 	public function force_attributes() {
 
 		return [
-			'name' => __('Shortcode', 'multisite-ultimate'),
+			'name' => __('Shortcode', 'ultimate-multisite'),
 		];
 	}
 
@@ -148,9 +145,9 @@ class Signup_Field_Shortcode extends Base_Signup_Field {
 		return [
 			'shortcode_code' => [
 				'type'        => 'text',
-				'title'       => __('Shortcode', 'multisite-ultimate'),
-				'placeholder' => __('e.g. [shortcode]', 'multisite-ultimate'),
-				'desc'        => __('Please, enter the full shortcode, including [].', 'multisite-ultimate'),
+				'title'       => __('Shortcode', 'ultimate-multisite'),
+				'placeholder' => __('e.g. [shortcode]', 'ultimate-multisite'),
+				'desc'        => __('Please, enter the full shortcode, including [].', 'ultimate-multisite'),
 			],
 		];
 	}

@@ -4,17 +4,17 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 
 <?php if (empty($notes)) : ?>
 
 	<?php
-	echo wu_render_empty_state( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	wu_render_empty_state(
 		[
-			'message'                  => __('No notes yet.', 'multisite-ultimate'),
-			'sub_message'              => __('Use the "Add new Note" to create the first one.', 'multisite-ultimate'),
+			'message'                  => __('No notes yet.', 'ultimate-multisite'),
+			'sub_message'              => __('Use the "Add new Note" to create the first one.', 'ultimate-multisite'),
 			'link_url'                 => false,
 			'display_background_image' => false,
 		]
@@ -79,7 +79,7 @@ defined( 'ABSPATH' ) || exit;
 						<span class="wu-ml-2">
 
 							<a class="dashicons-wu-trash wu-p-0 wu-border-none wu-text-red-600 wu-button-delete wu-no-underline wubox" href="<?php echo esc_url(wu_get_form_url('delete_note', $modal_atts)); ?>"
-							title="<?php echo esc_attr__('Clear Note', 'multisite-ultimate'); ?>"></a>
+							title="<?php echo esc_attr__('Clear Note', 'ultimate-multisite'); ?>"></a>
 
 						</span>
 

@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 if ( ! class_exists('MUCD_Duplicate') ) {
 	require_once WP_ULTIMO_PLUGIN_DIR . '/inc/duplication/option.php';
@@ -8,6 +8,12 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 	require_once WP_ULTIMO_PLUGIN_DIR . '/inc/duplication/log.php';
 	require_once WP_ULTIMO_PLUGIN_DIR . '/inc/duplication/functions.php';
 
+	/**
+	 * Multisite Ultimate Clone Duplicator main class.
+	 *
+	 * Coordinates the site duplication process by orchestrating file copying,
+	 * database operations, and configuration updates.
+	 */
 	class MUCD_Duplicate {
 
 		public static $log;

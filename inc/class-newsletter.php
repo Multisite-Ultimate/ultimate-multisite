@@ -2,25 +2,48 @@
 
 namespace WP_Ultimo;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
+/**
+ * Newsletter subscription management class.
+ *
+ * Handles newsletter opt-in settings and subscription management
+ * for the WP Ultimo plugin.
+ */
 class Newsletter {
 	use \WP_Ultimo\Traits\Singleton;
 
 	const SETTING_FIELD_SLUG = 'newsletter_optin';
 
+	/**
+	 * Initializes the newsletter functionality.
+	 *
+	 * Sets up hooks for adding settings and handling newsletter subscription updates.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
 	public function init(): void {
 		add_action('wu_settings_login', [$this, 'add_settings'], 20);
 		add_filter('wu_pre_save_settings', [$this, 'maybe_update_newsletter_subscription'], 10, 3);
 	}
 
+	/**
+	 * Adds the newsletter subscription setting field.
+	 *
+	 * Registers a toggle setting that allows users to opt-in to the
+	 * Multisite Ultimate newsletter for updates and information.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
 	public function add_settings(): void {
 		wu_register_settings_field(
 			'general',
 			self::SETTING_FIELD_SLUG,
 			[
-				'title' => __('Signup for Multisite Ultimate Newsletter', 'multisite-ultimate'),
-				'desc'  => __('Be informed of new releases and all things related to running a WaaS Network.', 'multisite-ultimate'),
+				'title' => __('Signup for Ultimate Multisite Newsletter', 'ultimate-multisite'),
+				'desc'  => __('Be informed of new releases and all things related to running a WaaS Network.', 'ultimate-multisite'),
 				'type'  => 'toggle',
 				'value' => '1',
 			],

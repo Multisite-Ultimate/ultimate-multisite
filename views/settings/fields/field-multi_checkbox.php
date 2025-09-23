@@ -4,10 +4,10 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <tr id="multiselect-<?php echo esc_attr($field_slug); ?>">
-	<th scope="row"><label for="<?php echo esc_attr($field_slug); ?>"><?php echo esc_html($field['title']); ?></label> <?php echo wu_tooltip($field['tooltip']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></th>
+	<th scope="row"><label for="<?php echo esc_attr($field_slug); ?>"><?php echo esc_html($field['title']); ?></label> <?php wu_tooltip($field['tooltip']); ?></th>
 	<td>
 		<?php
 		// Check if it was selected
@@ -58,7 +58,7 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 
 		<button type="button" data-select-all="multiselect-<?php echo esc_attr($field_slug); ?>" class="button wu-select-all">
-			<?php esc_html_e('Check / Uncheck All', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Check / Uncheck All', 'ultimate-multisite'); ?>
 		</button>
 
 		<br>

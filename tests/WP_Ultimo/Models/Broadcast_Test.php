@@ -4,6 +4,12 @@ namespace WP_Ultimo\Models;
 
 use WP_UnitTestCase;
 
+/**
+ * Test class for Broadcast model functionality.
+ *
+ * Tests broadcast creation, type validation, status handling,
+ * notice types, message targets, and migration functionality.
+ */
 class Broadcast_Test extends WP_UnitTestCase {
 
 	/**

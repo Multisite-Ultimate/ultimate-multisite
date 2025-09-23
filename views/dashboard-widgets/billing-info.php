@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div class="wu-styling <?php echo esc_attr($className); ?>">
@@ -31,12 +31,12 @@ defined( 'ABSPATH' ) || exit;
 		<div class="wu-ml-auto">
 
 			<a 
-			title="<?php esc_attr_e('Update Billing Address', 'multisite-ultimate'); ?>"
+			title="<?php esc_attr_e('Update Billing Address', 'ultimate-multisite'); ?>"
 			class="wu-text-sm wu-no-underline wubox button" 
 			href="<?php echo esc_attr($update_billing_address_link); ?>"
 			>
 
-			<?php esc_html_e('Update', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Update', 'ultimate-multisite'); ?>
 
 			</a>
 
@@ -52,7 +52,7 @@ defined( 'ABSPATH' ) || exit;
 			<div class="wu-p-4 wu-bg-gray-100 wu-rounded">
 
 			<?php // translators: %s: Billing address link. ?>
-			<?php printf(wp_kses_post(__('No billing address found. Click <a title="%1$s" href="%2$s" class="wubox wu-no-underline">here</a> to add one.', 'multisite-ultimate')), esc_html__('Update Billing Address', 'multisite-ultimate'), esc_url($update_billing_address_link)); ?>
+			<?php printf(wp_kses_post(__('No billing address found. Click <a title="%1$s" href="%2$s" class="wubox wu-no-underline">here</a> to add one.', 'ultimate-multisite')), esc_html__('Update Billing Address', 'ultimate-multisite'), esc_url($update_billing_address_link)); ?>
 
 			</div>
 
@@ -102,7 +102,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<h3 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
-				<?php esc_html_e('Payment Method', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Payment Method', 'ultimate-multisite'); ?>
 
 			</h3>
 
@@ -111,12 +111,12 @@ defined( 'ABSPATH' ) || exit;
 			<div class="wu-ml-auto">
 
 			<a 
-				title="<?php esc_attr_e('Update Billing Address', 'multisite-ultimate'); ?>"
+				title="<?php esc_attr_e('Update Billing Address', 'ultimate-multisite'); ?>"
 				class="wu-text-sm wu-no-underline wubox button" 
 				href="<?php echo esc_attr($update_billing_address_link); ?>"
 			>
 
-				<?php esc_html_e('Update', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Update', 'ultimate-multisite'); ?>
 
 			</a>
 

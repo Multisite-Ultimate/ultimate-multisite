@@ -171,8 +171,8 @@ class WU_Page extends \WP_Ultimo\Admin_Pages\Base_Admin_Page {
 				'parent'        => 'wp-ultimo',
 				'capability'    => 'manage_network',
 				'menu_icon'     => 'dashicons-menu',
-				'title'         => __('Admin Page', 'multisite-ultimate'),
-				'menu_title'    => __('Admin Page', 'multisite-ultimate'),
+				'title'         => __('Admin Page', 'ultimate-multisite'),
+				'menu_title'    => __('Admin Page', 'ultimate-multisite'),
 			]
 		);
 
@@ -425,7 +425,7 @@ class WU_Multi_Network {
  * There is plans to re-add something like this in the future.
  * For now, this is deprecated and declaring it have no side-effects.
  * This class is here to prevent fatal errors when plugin developers
- * used it on their Multisite Ultimate extensions.
+ * used it on their Ultimate Multisite extensions.
  *
  * @deprecated 2.0.0
  */
@@ -503,13 +503,13 @@ class WU_Util {
 	 *
 	 * @param string $text The tooltip text.
 	 * @param string $icon The tooltip icon.
-	 * @return string
+	 * @return void
 	 */
 	public static function tooltip($text, $icon = 'dashicons-editor-help') {
 
 		_deprecated_function(__METHOD__, '2.0.0', 'wu_tooltip()');
 
-		return wu_tooltip($text, $icon);
+		wu_tooltip($text, $icon);
 	}
 
 	/**
@@ -1032,7 +1032,8 @@ class WU_Signup extends \WP_Ultimo\Checkout\Legacy_Checkout {
 	 *
 	 * @deprecated 2.0.0
 	 */
-	public function __construct() {
+	public function init(): void {
+		parent::init();
 
 		_deprecated_function(self::class, '2.0.0', esc_html(\WP_Ultimo\Checkout\Legacy_Checkout::class));
 	}

@@ -258,38 +258,38 @@ class Billing_Address {
 
 		$fields['company_name'] = [
 			'type'                => 'text',
-			'title'               => __('Company Name', 'multisite-ultimate'),
-			'default_placeholder' => __('E.g. Google (optional)', 'multisite-ultimate'),
+			'title'               => __('Company Name', 'ultimate-multisite'),
+			'default_placeholder' => __('E.g. Google (optional)', 'ultimate-multisite'),
 			'wrapper_classes'     => 'sm:wu-col-span-1',
 		];
 
 		$fields['billing_email'] = [
 			'type'                => 'text',
-			'title'               => __('Billing Email', 'multisite-ultimate'),
-			'default_placeholder' => __('E.g. john@company.com', 'multisite-ultimate'),
+			'title'               => __('Billing Email', 'ultimate-multisite'),
+			'default_placeholder' => __('E.g. john@company.com', 'ultimate-multisite'),
 			'wrapper_classes'     => 'sm:wu-col-span-1',
 			'required'            => true,
 		];
 
 		$fields['billing_address_line_1'] = [
 			'type'                => 'text',
-			'title'               => __('Address Line 1', 'multisite-ultimate'),
-			'default_placeholder' => __('E.g. 555 1st Avenue', 'multisite-ultimate'),
+			'title'               => __('Address Line 1', 'ultimate-multisite'),
+			'default_placeholder' => __('E.g. 555 1st Avenue', 'ultimate-multisite'),
 			'wrapper_classes'     => 'wu-col-span-2',
 			'required'            => true,
 		];
 
 		$fields['billing_address_line_2'] = [
 			'type'                => 'text',
-			'title'               => __('Address Line 2', 'multisite-ultimate'),
-			'default_placeholder' => __('E.g. Apartment 10a', 'multisite-ultimate'),
+			'title'               => __('Address Line 2', 'ultimate-multisite'),
+			'default_placeholder' => __('E.g. Apartment 10a', 'ultimate-multisite'),
 			'wrapper_classes'     => 'wu-col-span-2',
 		];
 
 		$fields['billing_country'] = [
 			'type'                => 'select',
-			'title'               => __('Country', 'multisite-ultimate'),
-			'default_placeholder' => __('E.g. US', 'multisite-ultimate'),
+			'title'               => __('Country', 'ultimate-multisite'),
+			'default_placeholder' => __('E.g. US', 'ultimate-multisite'),
 			'wrapper_classes'     => 'sm:wu-col-span-1',
 			'value'               => ' ',
 			'options'             => $countries,
@@ -298,22 +298,22 @@ class Billing_Address {
 
 		$fields['billing_state'] = [
 			'type'                => 'text',
-			'title'               => __('State / Province', 'multisite-ultimate'),
-			'default_placeholder' => __('E.g. NY', 'multisite-ultimate'),
+			'title'               => __('State / Province', 'ultimate-multisite'),
+			'default_placeholder' => __('E.g. NY', 'ultimate-multisite'),
 			'wrapper_classes'     => 'sm:wu-col-span-1',
 		];
 
 		$fields['billing_city'] = [
 			'type'                => 'text',
-			'title'               => __('City / Town', 'multisite-ultimate'),
-			'default_placeholder' => __('E.g. New York City', 'multisite-ultimate'),
+			'title'               => __('City / Town', 'ultimate-multisite'),
+			'default_placeholder' => __('E.g. New York City', 'ultimate-multisite'),
 			'wrapper_classes'     => 'sm:wu-col-span-1',
 		];
 
 		$fields['billing_zip_code'] = [
 			'type'                => 'text',
-			'title'               => __('ZIP / Postal Code', 'multisite-ultimate'),
-			'default_placeholder' => __('E.g. 10009', 'multisite-ultimate'),
+			'title'               => __('ZIP / Postal Code', 'ultimate-multisite'),
+			'default_placeholder' => __('E.g. 10009', 'ultimate-multisite'),
 			'wrapper_classes'     => 'sm:wu-col-span-1',
 			'required'            => true,
 		];

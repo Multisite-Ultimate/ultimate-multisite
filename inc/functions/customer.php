@@ -149,18 +149,17 @@ function wu_create_customer($customer_data) {
 	}
 
 	if ( ! $user) {
-
 		$sanitized_username = '';
-		if (!empty($customer_data['username'])) {
+		if (! empty($customer_data['username'])) {
 			$sanitized_username = sanitize_user($customer_data['username'], true);
 			$sanitized_username = strtolower($sanitized_username);
 		}
 
 		$customer_data['email'] = sanitize_email($customer_data['email']);
-		if (!is_email($customer_data['email'])) {
+		if (! is_email($customer_data['email'])) {
 			return new \WP_Error(
 				'invalid_email',
-				__('The email address is invalid.', 'multisite-ultimate'),
+				__('The email address is invalid.', 'ultimate-multisite'),
 				$customer_data
 			);
 		}
@@ -176,14 +175,14 @@ function wu_create_customer($customer_data) {
 		}
 
 		if (false === $user_id) {
-			return new \WP_Error('user', __('We were not able to create a new user with the provided username and email address combination.', 'multisite-ultimate'), $customer_data);
+			return new \WP_Error('user', __('We were not able to create a new user with the provided username and email address combination.', 'ultimate-multisite'), $customer_data);
 		}
 	} else {
 		$user_id = $user->ID;
 	}
 
 	if ( ! get_userdata($user_id)) {
-		return new \WP_Error('user_id', __('We were not able to find a user with the given user_id.', 'multisite-ultimate'), $customer_data);
+		return new \WP_Error('user_id', __('We were not able to find a user with the given user_id.', 'ultimate-multisite'), $customer_data);
 	}
 
 	$customer = new Customer(

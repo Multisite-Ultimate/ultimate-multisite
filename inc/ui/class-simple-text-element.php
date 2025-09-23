@@ -9,8 +9,6 @@
 
 namespace WP_Ultimo\UI;
 
-use WP_Ultimo\UI\Base_Element;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -76,14 +74,14 @@ class Simple_Text_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Simple Text', 'multisite-ultimate');
+		return __('Simple Text', 'ultimate-multisite');
 	}
 
 	/**
@@ -92,14 +90,14 @@ class Simple_Text_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a simple text block to the page.', 'multisite-ultimate');
+		return __('Adds a simple text block to the page.', 'ultimate-multisite');
 	}
 
 	/**
@@ -124,16 +122,16 @@ class Simple_Text_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'multisite-ultimate'),
-			'desc'  => __('General', 'multisite-ultimate'),
+			'title' => __('General', 'ultimate-multisite'),
+			'desc'  => __('General', 'ultimate-multisite'),
 			'type'  => 'header',
 		];
 
 		$fields['simple_text'] = [
 			'type'        => 'textarea',
-			'title'       => __('Content', 'multisite-ultimate'),
-			'placeholder' => __('E.g. Text, HTML or shortcode.', 'multisite-ultimate'),
-			'desc'        => __('You can insert plain text, HTML or a shortcode in this block.', 'multisite-ultimate'),
+			'title'       => __('Content', 'ultimate-multisite'),
+			'placeholder' => __('E.g. Text, HTML or shortcode.', 'ultimate-multisite'),
+			'desc'        => __('You can insert plain text, HTML or a shortcode in this block.', 'ultimate-multisite'),
 			'tooltip'     => '',
 			'html_attr'   => [
 				'rows' => 6,
@@ -162,7 +160,7 @@ class Simple_Text_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Billing_Address',
 	 *  'Form',
 	 *  'Cart',
@@ -175,7 +173,7 @@ class Simple_Text_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'text',
 			'simple text',
 			'shortcode',
@@ -200,7 +198,7 @@ class Simple_Text_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'simple_text' => __('Text, HTML or shortcode.', 'multisite-ultimate'),
+			'simple_text' => __('Text, HTML or shortcode.', 'ultimate-multisite'),
 		];
 	}
 
@@ -215,10 +213,10 @@ class Simple_Text_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
-		return wu_get_template_contents('dashboard-widgets/simple-text', $atts);
+		wu_get_template('dashboard-widgets/simple-text', $atts);
 	}
 }

@@ -427,19 +427,14 @@ class Site extends Base_Model implements Limitable, Notable {
 	 *
 	 * @since 2.0.0
 	 */
-	public function get_preview_url_attrs(): string {
+	public function get_preview_url_attrs(): void {
 
-		$is_enabled = Template_Previewer::get_instance()->get_setting('enabled', true);
-
-		$href = 'href="%s" target="_blank"';
-
-		if ( ! $is_enabled) {
-			return sprintf($href, $this->get_active_site_url());
+		if ( ! Template_Previewer::get_instance()->get_setting('enabled', true)) {
+			printf('href="%s" target="_blank"', esc_attr($this->get_active_site_url()));
+			return;
 		}
 
-		$onclick = 'onclick="window.open(\'%s\')"';
-
-		return sprintf($onclick, add_query_arg('open', 1, $this->get_preview_url()));
+		printf('onclick="window.open(\'%s\')"', esc_attr(add_query_arg('open', 1, $this->get_preview_url())));
 	}
 
 	/**
@@ -1437,7 +1432,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	public function delete() {
 
 		if ( ! $this->get_id()) {
-			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'multisite-ultimate'));
+			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'ultimate-multisite'));
 		}
 
 		/**
@@ -1485,7 +1480,7 @@ class Site extends Base_Model implements Limitable, Notable {
 		if ($transient) {
 			add_filter(
 				'wu_search_and_replace_on_duplication',
-				function ($replace_list, $from_site_id, $to_site_id) use ($transient) {
+				function ($replace_list, $from_site_id, $to_site_id) use ($transient) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 					foreach ($transient as $transient_key => $transient_value) {
 						$key = sprintf('{{%s}}', $transient_key);

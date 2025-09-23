@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php endif; ?>
 
-	<?php echo wu_tooltip($field->tooltip); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php wu_tooltip($field->tooltip); ?>
 
 	</label>
 

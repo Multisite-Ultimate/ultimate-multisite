@@ -2,10 +2,16 @@
 
 use Psr\Log\LogLevel;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 if ( ! class_exists('MUCD_Data') ) {
 
+	/**
+	 * Multisite Ultimate Clone Duplicator Data class.
+	 *
+	 * Handles database operations for site duplication, including copying
+	 * and updating table data between sites.
+	 */
 	class MUCD_Data {
 
 		private static $to_site_id;
@@ -14,8 +20,8 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Copy and Update tables from a site to another
 		 *
 		 * @since 0.2.0
-		 * @param  int $from_site_id duplicated site id
-		 * @param  int $to_site_id   new site id
+		 * @param  int $from_site_id Duplicated site id.
+		 * @param  int $to_site_id   New site id.
 		 */
 		public static function copy_data($from_site_id, $to_site_id): void {
 			self::$to_site_id = $to_site_id;
@@ -27,6 +33,16 @@ if ( ! class_exists('MUCD_Data') ) {
 			self::db_update_data($from_site_id, $to_site_id, $saved_options);
 		}
 
+		/**
+		 * Copy blog meta data from source site to target site.
+		 *
+		 * Deletes existing meta data for the target site and copies all
+		 * meta data from the source site.
+		 *
+		 * @since 0.2.0
+		 * @param int $from_site_id Source site ID.
+		 * @param int $to_site_id   Target site ID.
+		 */
 		public static function db_copy_blog_meta($from_site_id, $to_site_id): void {
 
 			global $wpdb;
@@ -52,8 +68,8 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Copy tables from a site to another
 		 *
 		 * @since 0.2.0
-		 * @param  int $from_site_id duplicated site id
-		 * @param  int $to_site_id   new site id
+		 * @param  int $from_site_id Duplicated site id.
+		 * @param  int $to_site_id   New site id.
 		 */
 		public static function db_copy_tables($from_site_id, $to_site_id) {
 			global $wpdb;
@@ -133,9 +149,8 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Get tables to copy if duplicated site is primary site
 		 *
 		 * @since 0.2.0
-		 * @param  array of string $from_site_tables all tables of duplicated site
-		 * @param  string          $from_site_prefix db prefix of duplicated site
-		 * @return array of strings : the tables
+		 * @param  string $from_site_prefix DB prefix of duplicated site.
+		 * @return array  Array of table names to copy.
 		 */
 		public static function get_primary_tables($from_site_prefix) {
 
@@ -153,8 +168,9 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Updated tables from a site to another
 		 *
 		 * @since 0.2.0
-		 * @param  int $from_site_id duplicated site id
-		 * @param  int $to_site_id   new site id
+		 * @param  int   $from_site_id  Duplicated site id.
+		 * @param  int   $to_site_id    New site id.
+		 * @param  array $saved_options Saved options from source site.
 		 */
 		public static function db_update_data($from_site_id, $to_site_id, $saved_options): void {
 
@@ -232,8 +248,8 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Restore options that should be preserved in the new blog
 		 *
 		 * @since 0.2.0
-		 * @param  int $from_site_id duplicated site id
-		 * @param  int $to_site_id   new site id
+		 * @param  int   $to_site_id    Target site id.
+		 * @param  array $saved_options Saved options to restore.
 		 */
 		public static function db_restore_data($to_site_id, $saved_options): void {
 
@@ -254,10 +270,10 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Updates a table
 		 *
 		 * @since 0.2.0
-		 * @param  string          $table to update
-		 * @param  array of string $fields to update
-		 * @param  string          $from_string original string to replace
-		 * @param  string          $to_string new string
+		 * @param  string $table       Table to update.
+		 * @param  array  $fields      Fields to update.
+		 * @param  string $from_string Original string to replace.
+		 * @param  string $to_string   New string.
 		 */
 		public static function update($table, $fields, $from_string, $to_string): void {
 			if (is_array($fields) || ! empty($fields)) {
@@ -297,10 +313,10 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Warning : if $to_string already in $val, no replacement is made
 		 *
 		 * @since 0.2.0
-		 * @param  string $val
-		 * @param  string $from_string
-		 * @param  string $to_string
-		 * @return string the new string
+		 * @param  string $val         Original value to modify.
+		 * @param  string $from_string String to replace.
+		 * @param  string $to_string   Replacement string.
+		 * @return string The new string.
 		 */
 		public static function replace($val, $from_string, $to_string) {
 			$new = $val;
@@ -318,10 +334,10 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Replace recursively $from_string with $to_string in $val
 		 *
 		 * @since 0.2.0
-		 * @param  mixte (string|array) $val
-		 * @param  string               $from_string
-		 * @param  string               $to_string
-		 * @return string the new string
+		 * @param  mixed  $val         Original value (string or array) to modify.
+		 * @param  string $from_string String to replace.
+		 * @param  string $to_string   Replacement string.
+		 * @return mixed  The modified value.
 		 */
 		public static function replace_recursive($val, $from_string, $to_string) {
 			$unset = [];
@@ -344,11 +360,11 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Try to replace $from_string with $to_string in a row
 		 *
 		 * @since 0.2.0
-		 * @param  array  $row the row
-		 * @param  array  $field the field
-		 * @param  string $from_string
-		 * @param  string $to_string
-		 * @return the new data
+		 * @param  array  $row         The row data.
+		 * @param  string $field       The field name.
+		 * @param  string $from_string String to replace.
+		 * @param  string $to_string   Replacement string.
+		 * @return mixed  The modified data.
 		 */
 		public static function try_replace($row, $field, $from_string, $to_string) {
 			if (is_serialized($row[ $field ])) {
@@ -394,10 +410,10 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Runs a WPDB query
 		 *
 		 * @since 0.2.0
-		 * @param  string  $sql_query the query
-		 * @param  string  $type type of result
-		 * @param  boolean $log log the query, or not
-		 * @return $results of the query
+		 * @param  string $sql_query The SQL query to execute.
+		 * @param  string $type      Type of result to return.
+		 * @param  bool   $log       Whether to log the query.
+		 * @return mixed  Results of the query.
 		 */
 		public static function do_sql_query($sql_query, $type = '', $log = true) {
 			global $wpdb;
@@ -443,8 +459,8 @@ if ( ! class_exists('MUCD_Data') ) {
 		 * Stop process on SQL Error, print and log error, removes the new blog
 		 *
 		 * @since 0.2.0
-		 * @param  string $sql_query the query
-		 * @param  string $sql_error the error
+		 * @param  string $sql_query The SQL query that failed.
+		 * @param  string $sql_error The error message.
 		 */
 		public static function sql_error($sql_query, $sql_error): void {
 			wu_log_add('site-duplication-errors', sprintf('Got error "%s" while running: %s', $sql_error, $sql_query), LogLevel::ERROR);

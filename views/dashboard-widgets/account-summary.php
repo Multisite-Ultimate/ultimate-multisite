@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div class="wu-styling <?php echo esc_attr($className); ?>">
@@ -29,12 +29,12 @@ defined( 'ABSPATH' ) || exit;
 		<div class="wu-ml-auto">
 
 			<a 
-			title="<?php esc_attr_e('See More', 'multisite-ultimate'); ?>"
+			title="<?php esc_attr_e('See More', 'ultimate-multisite'); ?>"
 			class="wu-text-sm wu-no-underline button" 
 			href="<?php echo esc_attr($element->get_manage_url($site->get_id())); ?>"
 			>
 
-			<?php esc_html_e('See More', 'multisite-ultimate'); ?>
+			<?php esc_html_e('See More', 'ultimate-multisite'); ?>
 
 			</a>
 
@@ -62,8 +62,8 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 
 		<div class="wu-text-sm wu-text-gray-600">
-			<span class="wu-block"><?php esc_html_e('Your current plan', 'multisite-ultimate'); ?></span>
-			<!-- <a href="#" class="wu-no-underline"><?php esc_html_e('Manage →', 'multisite-ultimate'); ?></a> -->
+			<span class="wu-block"><?php esc_html_e('Your current plan', 'ultimate-multisite'); ?></span>
+			<!-- <a href="#" class="wu-no-underline"><?php esc_html_e('Manage →', 'ultimate-multisite'); ?></a> -->
 		</div>
 
 		</li>
@@ -78,14 +78,14 @@ defined( 'ABSPATH' ) || exit;
 
 		<strong class="wu-text-gray-800 wu-text-base">
 			<?php // translators: %s: Number of days. ?>
-			<?php printf(esc_html(_n('%s day', '%s days', $site_trial, 'multisite-ultimate')), esc_html($site_trial)); ?>
+			<?php printf(esc_html(_n('%s day', '%s days', $site_trial, 'ultimate-multisite')), esc_html($site_trial)); ?>
 		</strong>
 
 		</div>
 
 		<div class="wu-text-sm wu-text-gray-600">
-		<span class="wu-block"><?php esc_html_e('Remaining time in trial', 'multisite-ultimate'); ?></span>
-		<!-- <a href="#" class="wu-no-underline"><?php esc_html_e('Upgrade →', 'multisite-ultimate'); ?></a> -->
+		<span class="wu-block"><?php esc_html_e('Remaining time in trial', 'ultimate-multisite'); ?></span>
+		<!-- <a href="#" class="wu-no-underline"><?php esc_html_e('Upgrade →', 'ultimate-multisite'); ?></a> -->
 		</div>
 
 	</li>
@@ -116,8 +116,8 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 
 		<div class="wu-text-sm wu-text-gray-600">
-		<span class="wu-block"><?php esc_html_e('Disk space used', 'multisite-ultimate'); ?></span>
-		<!-- <a href="#" class="wu-no-underline"><?php esc_html_e('Upgrade →', 'multisite-ultimate'); ?></a> -->
+		<span class="wu-block"><?php esc_html_e('Disk space used', 'ultimate-multisite'); ?></span>
+		<!-- <a href="#" class="wu-no-underline"><?php esc_html_e('Upgrade →', 'ultimate-multisite'); ?></a> -->
 		</div>
 
 	</li>

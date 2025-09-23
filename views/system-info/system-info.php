@@ -4,14 +4,14 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <?php wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false); ?>
 <?php wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false); ?>
 
 <div id="wp-ultimo-wrap" class="<?php wu_wrap_use_container(); ?> wrap">
 
-	<h1 class="wp-heading-inline"><?php esc_html_e('System Info', 'multisite-ultimate'); ?></h1>
+	<h1 class="wp-heading-inline"><?php esc_html_e('System Info', 'ultimate-multisite'); ?></h1>
 
 	<textarea cols="100" rows="40" aria-hidden="true" class="screen-reader-text" id="hidden_textarea">
 
@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<span class="dashicons dashicons-admin-page wu-text-sm wu-align-middle wu-h-4 wu-w-4">&nbsp;</span>
 
-	<?php esc_html_e('Copy Data to Clipboard', 'multisite-ultimate'); ?>
+	<?php esc_html_e('Copy Data to Clipboard', 'ultimate-multisite'); ?>
 
 	</button>
 
@@ -36,7 +36,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<span class="dashicons dashicons-download wu-text-sm wu-align-middle wu-h-4 wu-w-4">&nbsp;</span>
 
-	<?php esc_html_e('Download File', 'multisite-ultimate'); ?>
+	<?php esc_html_e('Download File', 'ultimate-multisite'); ?>
 
 	</a>
 

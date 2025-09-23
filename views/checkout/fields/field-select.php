@@ -4,10 +4,11 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
+/** @var $field \WP_Ultimo\UI\Field */
 
 ?>
-<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<?php
 
@@ -30,7 +31,7 @@ defined( 'ABSPATH' ) || exit;
 	id="field-<?php echo esc_attr($field->id); ?>"
 	name="<?php echo esc_attr($field->id); ?>"
 	value="<?php echo esc_attr($field->value); ?>"
-	<?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php $field->print_html_attributes(); ?>
 	>
 
 	<?php if ($field->placeholder) : ?>
@@ -52,7 +53,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php if ($field->options_template) : ?>
 
-		<?php echo $field->options_template; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php echo wp_kses($field->options_template, wu_kses_allowed_html()); ?>
 
 	<?php endif; ?>
 

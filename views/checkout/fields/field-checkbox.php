@@ -4,18 +4,19 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
+/** @var $field \WP_Ultimo\UI\Field */
 
 ?>
-<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<label class="wu-block wu-my-4" for="field-<?php echo esc_attr($field->id); ?>">
 
-		<?php echo $field->title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php echo wp_kses($field->title, wu_kses_allowed_html()); ?>
 
-		<?php echo wu_tooltip($field->tooltip); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php wu_tooltip($field->tooltip); ?>
 
-		<?php echo $field->desc; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php echo wp_kses($field->desc, wu_kses_allowed_html()); ?>
 	</label>
 
 	<?php

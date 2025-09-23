@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div id="wp-ultimo-wrap" class="wrap wu-styling">
@@ -47,7 +47,7 @@ defined( 'ABSPATH' ) || exit;
 		 * Allow plugin developers to add additional buttons to list pages
 		 *
 		 * @since 1.8.2
-		 * @param WU_Page $page Multisite Ultimate Page instance
+		 * @param WU_Page $page Ultimate Multisite Page instance
 		 */
 		do_action('wu_page_centered_after_title', $page);
 		?>
@@ -100,7 +100,7 @@ defined( 'ABSPATH' ) || exit;
 
 						<h3 class="wu-m-0 wu-widget-title">
 
-							<?php esc_html_e('Change Membership', 'multisite-ultimate'); ?>
+							<?php esc_html_e('Change Membership', 'ultimate-multisite'); ?>
 
 						</h3>
 
@@ -110,7 +110,7 @@ defined( 'ABSPATH' ) || exit;
 
 						<div class="inside">
 
-							<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<?php echo do_shortcode($content); ?>
 
 						</div>
 
@@ -144,7 +144,7 @@ defined( 'ABSPATH' ) || exit;
 					 * Allow plugin developers to add additional buttons to list pages
 					 *
 					 * @since 1.8.2
-					 * @param WU_Page $page Multisite Ultimate Page instance
+					 * @param WU_Page $page Ultimate Multisite Page instance
 					 */
 					do_action('wu_centered_content', $page);
 
@@ -161,7 +161,7 @@ defined( 'ABSPATH' ) || exit;
 					 * Allow plugin developers to add additional buttons to list pages
 					 *
 					 * @since 1.8.2
-					 * @param WU_Page $page Multisite Ultimate Page instance
+					 * @param WU_Page $page Ultimate Multisite Page instance
 					 */
 					do_action('wu_centered_right', $page);
 

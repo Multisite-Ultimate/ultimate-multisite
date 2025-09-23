@@ -4,10 +4,10 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
-<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<div class="wu-block wu-w-full">
 
@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
 
 	?>
 
-	<textarea class="form-control wu-w-full wu-my-1 <?php echo esc_attr(trim($field->classes)); ?>" name="<?php echo esc_attr($field->id); ?>" placeholder="<?php echo esc_attr($field->placeholder); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_attr($field->value); ?></textarea>
+	<textarea class="form-control wu-w-full wu-my-1 <?php echo esc_attr(trim($field->classes)); ?>" name="<?php echo esc_attr($field->id); ?>" placeholder="<?php echo esc_attr($field->placeholder); ?>" <?php $field->print_html_attributes(); ?>><?php echo esc_attr($field->value); ?></textarea>
 
 	<?php
 

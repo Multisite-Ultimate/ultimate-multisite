@@ -4,12 +4,12 @@
  *
  * @since 2.0.24
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 
 <div id="wp-ultimo-wrap" class="<?php wu_wrap_use_container(); ?> wrap">
 
-	<h1 class="wp-heading-inline"><?php esc_html_e('Available Shortcodes', 'multisite-ultimate'); ?></h1>
+	<h1 class="wp-heading-inline"><?php esc_html_e('Available Shortcodes', 'ultimate-multisite'); ?></h1>
 
 	<div id="poststuff">
 	<div id="post-body" class="">
@@ -25,17 +25,17 @@ defined( 'ABSPATH' ) || exit;
 					<a  
 					href="<?php echo esc_url($shortcode['generator_form_url']); ?>" 
 					class="wu-float-right wubox wu-no-underline wu-text-gray-600"
-					title="<?php esc_html_e('Generator', 'multisite-ultimate'); ?>"
+					title="<?php esc_html_e('Generator', 'ultimate-multisite'); ?>"
 					>
 					<span class="dashicons-wu-rocket"></span>
-					<?php esc_html_e('Generator', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Generator', 'ultimate-multisite'); ?>
 					</a>  
 					<div class="wu-block">
 					<h3 class="wu-my-1 wu-text-base wu-text-gray-800">
 						<?php echo esc_html($shortcode['title']); ?> <code>[<?php echo esc_html($shortcode['shortcode']); ?>]</code>
 					</h3>
 					<p class="wu-mt-1 wu-mb-0 wu-text-gray-700">
-						<?php echo $shortcode['description']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<?php echo esc_html($shortcode['description']); ?>
 					</p>
 					</div>
 				</div>
@@ -44,16 +44,16 @@ defined( 'ABSPATH' ) || exit;
 					<table class="wu-table-auto striped wu-w-full">
 					<tr>
 						<th class="wu-px-4 wu-py-2 wu-w-3/12 wu-text-left">
-						<?php esc_html_e('Parameter', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Parameter', 'ultimate-multisite'); ?>
 						</th>
 						<th class="wu-px-4 wu-py-2 wu-w-4/12 wu-text-left">
-						<?php esc_html_e('Description', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Description', 'ultimate-multisite'); ?>
 						</th>
 						<th class="wu-px-4 wu-py-2 wu-w-3/12 wu-text-left">
-						<?php esc_html_e('Accepted Values', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Accepted Values', 'ultimate-multisite'); ?>
 						</th>
 						<th class="wu-px-4 wu-py-2 wu-w-2/12 wu-text-left">
-						<?php esc_html_e('Default Value', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Default Value', 'ultimate-multisite'); ?>
 						</th>
 					</tr>
 					<?php foreach ($shortcode['params'] as $param => $value) { ?>
@@ -62,7 +62,7 @@ defined( 'ABSPATH' ) || exit;
 							<?php echo esc_html($param); ?>
 						</td>
 						<td class="wu-px-4 wu-py-2 wu-text-left">
-							<?php echo $value['desc']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<?php echo esc_html($value['desc']); ?>
 						</td>
 						<td class="wu-px-4 wu-py-2 wu-text-left">
 							<?php echo esc_html($value['options']); ?>

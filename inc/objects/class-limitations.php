@@ -299,7 +299,7 @@ class Limitations {
 				$original_value = wu_get_isset($array1, $key);
 
 				// If the value is 0 or '' it can be an unlimited value
-				$is_unlimited = (is_numeric($value) || '' === $value) && (int) $value === 0;
+				$is_unlimited = (is_numeric($value) || '' === $value) && 0 === (int) $value;
 
 				if ($should_sum && ('' === $original_value || 0 === $original_value)) {
 					/**

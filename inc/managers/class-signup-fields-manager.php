@@ -54,7 +54,6 @@ class Signup_Fields_Manager extends Base_Manager {
 			'template_selection' => \WP_Ultimo\Checkout\Signup_Fields\Signup_Field_Template_Selection::class,
 			'username'           => \WP_Ultimo\Checkout\Signup_Fields\Signup_Field_Username::class,
 			'email'              => \WP_Ultimo\Checkout\Signup_Fields\Signup_Field_Email::class,
-			'email_confirmation' => \WP_Ultimo\Checkout\Signup_Fields\Signup_Field_Email_Confirmation::class,
 			'password'           => \WP_Ultimo\Checkout\Signup_Fields\Signup_Field_Password::class,
 			'site_title'         => \WP_Ultimo\Checkout\Signup_Fields\Signup_Field_Site_Title::class,
 			'site_url'           => \WP_Ultimo\Checkout\Signup_Fields\Signup_Field_Site_Url::class,

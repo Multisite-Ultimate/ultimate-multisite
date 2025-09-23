@@ -9,7 +9,7 @@
 
 namespace WP_Ultimo\Traits;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * WP_Ultimo_Subscription_Deprecated trait.
@@ -40,7 +40,7 @@ trait WP_Ultimo_Subscription_Deprecated {
 		 *
 		 * @since 2.0.0
 		 */
-		_doing_it_wrong(esc_html($key), esc_html__('Membership keys should not be accessed directly', 'multisite-ultimate'), '2.0.0');
+		_doing_it_wrong(esc_html($key), esc_html__('Membership keys should not be accessed directly', 'ultimate-multisite'), '2.0.0');
 
 		return $value;
 	}

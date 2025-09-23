@@ -1,7 +1,7 @@
-# Multisite Ultimate
+# Ultimate Multisite
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/superdav42/wp-multisite-waas/refs/heads/main/assets/img/logo.png" alt="Multisite Ultimate Logo" width="300">
+  <img src="https://raw.githubusercontent.com/superdav42/wp-multisite-waas/refs/heads/main/assets/img/logo.png" alt="Ultimate Multisite Logo" width="300">
 </p>
 
 <p align="center">
@@ -18,12 +18,13 @@
 <p align="center">
   <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/tests.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/tests.yml/badge.svg" alt="Unit & Integration Tests"></a>
   <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/e2e.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/e2e.yml/badge.svg" alt="E2E Tests"></a>
-  <a href="https://img.shields.io/coderabbit/prs/github/Multisite-Ultimate/multisite-ultimate?utm_source=oss&utm_medium=github&utm_campaign=Multisite-Ultimate%2Fmultisite-ultimate&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews"><img src="https://img.shields.io/coderabbit/prs/github/Multisite-Ultimate/multisite-ultimate?utm_source=oss&utm_medium=github&utm_campaign=Multisite-Ultimate%2Fmultisite-ultimate&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews" alt="Code Rabbit"></a>
+  <a href="https://codecov.io/gh/superdav42/wp-multisite-waas"><img src="https://codecov.io/gh/superdav42/wp-multisite-waas/branch/main/graph/badge.svg" alt="Code Coverage"></a>
+  <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/code-quality.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/code-quality.yml/badge.svg" alt="Code Quality"></a>
 </p>
 
 ## 🌟 Overview
 
-**Multisite Ultimate** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
+**Ultimate Multisite** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
 
 This plugin was formerly known as WP Ultimo and is now community maintained.
 
@@ -47,7 +48,7 @@ This plugin was formerly known as WP Ultimo and is now community maintained.
 
 ## 🔧 Installation
 
-There are two recommended ways to install Multisite Ultimate:
+There are two recommended ways to install Ultimate Multisite:
 
 ### Method 1: Using the pre-packaged release (Recommended)
 
@@ -94,7 +95,7 @@ This method requires command-line access to your server and familiarity with Git
 <details>
 <summary><strong>"Cannot declare class ComposerAutoloaderInitWPUltimoDependencies, because the name is already in use"</strong></summary>
 <p>This error usually occurs when updating from an older version of WP Ultimo or when multiple versions of the plugin are installed.</p>
-<p><strong>Solution:</strong> Deactivate and remove any older versions of WP Ultimo or Multisite Ultimate before activating the new version.</p>
+<p><strong>Solution:</strong> Deactivate and remove any older versions of WP Ultimo or Ultimate Multisite before activating the new version.</p>
 </details>
 
 <details>
@@ -105,28 +106,47 @@ This method requires command-line access to your server and familiarity with Git
 
 ## 🚀 Contributing
 
-We welcome contributions to Multisite Ultimate! Here's how you can contribute effectively:
+We welcome contributions to Ultimate Multisite! Here's how you can contribute effectively:
 
 ### Development Workflow
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Run `npm install` and `composer install` to set up dependencies
-4. Make your changes
-5. Before committing, run `npm run build` to:
-   - Generate translation POT files
-   - Minify CSS and JS assets
-   - Process and optimize other assets
-6. **Important:** Update both README.md and readme.txt files when making changes that affect:
-   - Version numbers
-   - Required WordPress/PHP versions
-   - Feature additions or changes
-   - Installation instructions
-   - Documentation
-   - Changelog entries
-7. Commit your changes (`git commit -m 'Add some amazing feature'`)
-8. Push to the branch (`git push origin feature/amazing-feature`)
-9. Open a Pull Request
+1. **Quick Setup:**
+   ```bash
+   git clone https://github.com/superdav42/wp-multisite-waas.git
+   cd wp-multisite-waas
+   npm run dev:setup  # Installs dependencies and sets up Git hooks
+   ```
+
+2. **Development Commands:**
+   ```bash
+   npm test              # Run tests
+   npm run test:coverage # Run tests with coverage
+   npm run lint         # Check code style (PHPCS)
+   npm run lint:fix     # Fix code style automatically
+   npm run stan         # Run static analysis (PHPStan)
+   npm run quality      # Run lint + stan
+   npm run check        # Run all quality checks
+   npm run build        # Production build
+   npm run build:dev    # Development build
+   npm run clean        # Clean build artifacts
+   ```
+
+3. **Making Changes:**
+   - Create your feature branch (`git checkout -b feat/amazing-feature`)
+   - Make your changes with tests
+   - Git hooks will automatically run PHPCS and PHPStan on changed files
+   - Commit using conventional format: `feat(scope): description`
+   - Run `npm run check` before pushing
+   - Push and create a Pull Request
+
+4. **Code Quality:**
+   - Pre-commit hooks run automatically
+   - Follow WordPress coding standards
+   - Include tests for new features
+   - Maintain >80% code coverage
+   - Use conventional commit messages
+
+5. **Important:** Update both README.md and readme.txt files when making changes that affect versions, features, or documentation.
 
 ### Pull Request Guidelines
 
@@ -180,6 +200,16 @@ We recommend running this in a staging environment before updating your producti
 
 ## 📝 Recent Changes
 
+### Version [2.4.4] - Released on 2025-09-17
+- Fixed: Saving email templates without stripping html
+- New: Option to allow site owners to edit users on their site
+- Fixed: Invoices not loading when logo is not set
+- Fixed: Verify DNS settings when using a reverse proxy
+- Improved: Lazy load limitations for better performance and compatibility
+- New: Add Admin Notice if sunrise.php is not setup
+- New: Option to not always create www. subdomains with hosting integrations
+- Improved: Plugin renamed to Ultimate Multisite
+
 ### Version [2.4.3] - Released on 2025-08-15
 - Fixed: Bug in Slim SEO plugin
 - New: Addon Marketplace
@@ -229,7 +259,7 @@ We recommend running this in a staging environment before updating your producti
 
 ### Version [2.3.3] - Released on 2024-01-29
 
-- Improved: Plugin renamed to Multisite Ultimate
+- Improved: Plugin renamed to Ultimate Multisite
 - Removed: Enforcement of paid license
 - Fixed: Incompatibilities with WordPress 6.7 and i18n timing
 - Improved: Reduced plugin size by removing many unnecessary files and shrinking images
@@ -238,7 +268,7 @@ For the complete changelog, please see [readme.txt](readme.txt).
 
 ## 👥 Contributors
 
-Multisite Ultimate is an open-source project with contributions from:
+Ultimate Multisite is an open-source project with contributions from:
 
 - [aanduque](https://github.com/aanduque)
 - [superdav42](https://github.com/superdav42)
@@ -246,9 +276,9 @@ Multisite Ultimate is an open-source project with contributions from:
 
 ## 📄 License
 
-Multisite Ultimate is licensed under the GPL v2 or later.
+Ultimate Multisite is licensed under the GPL v2 or later.
 
-Copyright © 2024 [Multisite Ultimate Contributors](https://github.com/superdav42/wp-multisite-waas/graphs/contributors)
+Copyright © 2024 [Ultimate Multisite Contributors](https://github.com/superdav42/wp-multisite-waas/graphs/contributors)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as

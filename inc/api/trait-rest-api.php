@@ -12,7 +12,7 @@ namespace WP_Ultimo\Apis;
 use WP_REST_Request;
 use WP_Ultimo\Managers\Base_Manager;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * REST API trait.
@@ -171,7 +171,7 @@ trait Rest_Api {
 		$item = $this->model_class::get_by_id($request['id']);
 
 		if (empty($item)) {
-			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'multisite-ultimate'), ['status' => 404]);
+			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'ultimate-multisite'), ['status' => 404]);
 		}
 
 		return rest_ensure_response($item);
@@ -223,7 +223,7 @@ trait Rest_Api {
 		}
 
 		if ( ! $saved) {
-			return new \WP_Error("wu_rest_{$this->slug}", __('Something went wrong (Code 1).', 'multisite-ultimate'), ['status' => 400]);
+			return new \WP_Error("wu_rest_{$this->slug}", __('Something went wrong (Code 1).', 'ultimate-multisite'), ['status' => 400]);
 		}
 
 		return rest_ensure_response($item);
@@ -244,7 +244,7 @@ trait Rest_Api {
 		$item = $this->model_class::get_by_id($id);
 
 		if (empty($item)) {
-			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'multisite-ultimate'), ['status' => 404]);
+			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'ultimate-multisite'), ['status' => 404]);
 		}
 
 		$params = array_filter(
@@ -263,7 +263,7 @@ trait Rest_Api {
 			} else {
 				$error_message = sprintf(
 					/* translators: 1. Object class name; 2. Set method name */
-					__('The %1$s object does not have a %2$s method', 'multisite-ultimate'),
+					__('The %1$s object does not have a %2$s method', 'ultimate-multisite'),
 					get_class($item),
 					$set_method
 				);
@@ -283,7 +283,7 @@ trait Rest_Api {
 		}
 
 		if ( ! $saved) {
-			return new \WP_Error("wu_rest_{$this->slug}", __('Something went wrong (Code 2).', 'multisite-ultimate'));
+			return new \WP_Error("wu_rest_{$this->slug}", __('Something went wrong (Code 2).', 'ultimate-multisite'));
 		}
 
 		return rest_ensure_response($item);
@@ -302,7 +302,7 @@ trait Rest_Api {
 		$item = $this->model_class::get_by_id($request['id']);
 
 		if (empty($item)) {
-			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'multisite-ultimate'), ['status' => 404]);
+			return new \WP_Error("wu_rest_{$this->slug}_invalid_id", __('Item not found.', 'ultimate-multisite'), ['status' => 404]);
 		}
 
 		$result = $item->delete();

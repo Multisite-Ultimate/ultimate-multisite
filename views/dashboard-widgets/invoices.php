@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div class="wu-styling <?php echo esc_attr($className); ?>">
@@ -49,19 +49,19 @@ defined( 'ABSPATH' ) || exit;
 
                 </a>',
 					$payment->get_invoice_url(),
-					esc_html__('Download Invoice', 'multisite-ultimate')
+					esc_html__('Download Invoice', 'ultimate-multisite')
 				);
 
 				$payment_column = $payment->get_status() === 'pending' ? [
 					'pay_now' => [
 						'url'   => add_query_arg(['payment' => $payment->get_hash()], wu_get_registration_url()),
 						'icon'  => 'dashicons-wu-credit-card wu-align-middle wu-mr-1',
-						'label' => esc_html__('Go to payment', 'multisite-ultimate'),
-						'value' => esc_html__('Pay Now', 'multisite-ultimate'),
+						'label' => esc_html__('Go to payment', 'ultimate-multisite'),
+						'value' => esc_html__('Pay Now', 'ultimate-multisite'),
 					],
 				] : [];
 
-				echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				wu_responsive_table_row(
 					[
 						'url'    => false,
 						'title'  => $payment->get_invoice_number() . $download_link,

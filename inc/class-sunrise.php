@@ -27,7 +27,7 @@ class Sunrise {
 	 * @var string
 	 */
 
-	public static $version = '2.0.0.9';
+	public static $version = '2.0.0.10';
 
 	/**
 	 * Keeps the sunrise meta cached after the first read.
@@ -114,6 +114,7 @@ class Sunrise {
 		require_once __DIR__ . '/functions/number-helpers.php';
 		require_once __DIR__ . '/functions/array-helpers.php';
 		require_once __DIR__ . '/traits/trait-singleton.php';
+		require_once __DIR__ . '/interfaces/interface-singleton.php';
 		require_once __DIR__ . '/objects/class-limitations.php';
 		require_once __DIR__ . '/models/interfaces/interface-limitable.php';
 		require_once __DIR__ . '/models/interfaces/interface-notable.php';

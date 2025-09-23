@@ -8,7 +8,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  *
  * WordPress Core has a few ways of allowing plugin developers to run things earlier in the app lifecycle.
- * One of this ways is to place a sunrise.php file inside the wp-content directory while setting
+ * One of the ways is to place a sunrise.php file inside the wp-content directory while setting
  * The SUNRISE constant to true.
  *
  * This tells WordPress that it should load our sunrise file before plugins get loaded and
@@ -17,7 +17,7 @@
  * @since 2.0.0.5 Adds a network admin notice warning that sunrise is still active when Ultimo is deactivated.
  * @since 2.0.0.5 Change return statement to a continue statement to prevent an early exit from the file.
  * @since 2.0.0.9 Rename plugin file.
- * @since 2.0.0.9 Rename plugin file, again!
+ * @since 2.0.0.10 Rename plugin file, again!
  *
  * @author      Arindo Duque
  * @category    WP_Ultimo

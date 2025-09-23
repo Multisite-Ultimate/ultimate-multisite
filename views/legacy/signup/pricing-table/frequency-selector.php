@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/pricing-table/frequency-selector.php.
  *
- * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
+ * HOWEVER, on occasion Ultimate Multisite will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -28,9 +28,9 @@ if ( ! defined('ABSPATH')) {
 	<?php
 
 	$prices = [
-		1  => __('Monthly', 'multisite-ultimate'),
-		3  => __('Quarterly', 'multisite-ultimate'),
-		12 => __('Yearly', 'multisite-ultimate'),
+		1  => __('Monthly', 'ultimate-multisite'),
+		3  => __('Quarterly', 'ultimate-multisite'),
+		12 => __('Yearly', 'ultimate-multisite'),
 	];
 
 	$first = true;

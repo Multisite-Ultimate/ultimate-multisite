@@ -13,7 +13,7 @@ use WP_Ultimo\Exception\Runtime_Exception;
 use Psr\Log\LogLevel;
 
 /**
- * Returns the Multisite Ultimate version.
+ * Returns the Ultimate Multisite version.
  *
  * @since 2.0.0
  * @return string
@@ -35,7 +35,7 @@ function wu_is_debug() {
 }
 
 /**
- * Checks if Multisite Ultimate is being loaded as a must-use plugin.
+ * Checks if Ultimate Multisite is being loaded as a must-use plugin.
  *
  * @since 2.0.0
  * @return bool
@@ -290,7 +290,7 @@ function wu_cli_is_plugin_skipped($plugin = null): bool {
  *
  * @return void
  */
-function wu_ignore_errors($func, $log = false) {
+function wu_ignore_errors($func, $log = false) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 	try {
 		call_user_func($func);
@@ -353,56 +353,83 @@ function wu_kses_allowed_html(): array {
 
 	$vue_and_data_attributes = [
 		// Vue.js directives
-		'v-html'            => true,
-		'v-show'            => true,
-		'v-if'              => true,
-		'v-else'            => true,
-		'v-else-if'         => true,
-		'v-for'             => true,
-		'v-model'           => true,
-		'v-bind'            => true,
-		'v-bind:class'      => true,
-		'v-on'              => true,
-		'v-cloak'           => true,
-		'v-pre'             => true,
-		'v-once'            => true,
-		'v-text'            => true,
+		'v-html'                    => true,
+		'v-show'                    => true,
+		'v-if'                      => true,
+		'v-else'                    => true,
+		'v-else-if'                 => true,
+		'v-for'                     => true,
+		'v-model'                   => true,
+		'v-bind'                    => true,
+		'v-bind:class'              => true,
+		'v-on'                      => true,
+		'v-cloak'                   => true,
+		'v-pre'                     => true,
+		'v-once'                    => true,
+		'v-text'                    => true,
 		// Vue.js shorthand attributes
-		':class'            => true,
-		':style'            => true,
-		'v-on:click'        => true,
-		'v-on:input'        => true,
-		'v-on:change'       => true,
-		'@click'            => true,
-		'@submit'           => true,
-		'@change'           => true,
+		':class'                    => true,
+		':style'                    => true,
+		'v-on:click'                => true,
+		'v-on:input'                => true,
+		'v-on:change'               => true,
+		'@click'                    => true,
+		'@click.prevent'            => true,
+		'v-on:click.prevent'        => true,
+		'@submit'                   => true,
+		'@change'                   => true,
 		// Common data attributes
-		'data-image'        => true,
-		'data-src'          => true,
-		'data-id'           => true,
-		'data-value'        => true,
-		'data-target'       => true,
-		'data-toggle'       => true,
-		'data-dismiss'      => true,
-		'data-placement'    => true,
-		'data-content'      => true,
-		'data-title'        => true,
-		'data-delay'        => true,
-		'data-animation'    => true,
-		'data-container'    => true,
-		'data-trigger'      => true,
-		'data-model'        => true,
-		'data-value-field'  => true,
-		'data-label-field'  => true,
-		'data-search-field' => true,
-		'data-max-items'    => true,
-		'data-init'         => true,
-		'tabindex'          => true,
-
+		'data-image'                => true,
+		'data-src'                  => true,
+		'data-id'                   => true,
+		'data-value'                => true,
+		'data-target'               => true,
+		'data-toggle'               => true,
+		'data-dismiss'              => true,
+		'data-placement'            => true,
+		'data-content'              => true,
+		'data-title'                => true,
+		'data-delay'                => true,
+		'data-animation'            => true,
+		'data-container'            => true,
+		'data-trigger'              => true,
+		'data-model'                => true,
+		'data-value-field'          => true,
+		'data-label-field'          => true,
+		'data-search-field'         => true,
+		'data-max-items'            => true,
+		'data-frame'                => true,
+		'data-selectize'            => true,
+		'data-selectize-categories' => true,
+		'data-selected'             => true,
+		'data-init'                 => true,
+		'data-wu-customizer-panel'  => true,
+		'data-editor'               => true,
+		'data-code-editor'          => true,
+		'data-frequency-selector'   => true,
+		'data-wu-app'               => true,
+		'data-loading'              => true,
+		'data-state'                => true,
+		'tabindex'                  => true,
+		'data-base-link'            => true,
+		'data-exclude'              => true,
+		'data-field-value'          => true,
+		'data-on-load'              => true,
+		'data-format'               => true,
+		'data-allow-time'           => true,
+		'data-no-calendar'          => true,
+		'data-clipboard-text'       => true,
+		'data-page'                 => true,
+		'data-testid'               => true,
+		'data-confirm-email'        => true,
+		'data-include'              => true,
+		'data-clipboard-action'     => true,
+		'data-action'               => true,
 		// others
-		'style'             => true,
-		'class'             => true,
-		'id'                => true,
+		'style'                     => true,
+		'class'                     => true,
+		'id'                        => true,
+		'data-price'                => true,
 	];
 
 	$allowed_html             = wp_kses_allowed_html('post');
@@ -414,6 +441,7 @@ function wu_kses_allowed_html(): array {
 		'placeholder' => true,
 		'name'        => true,
 		'disabled'    => true,
+		'checked'     => true,
 	];
 	$allowed_html['textarea'] = [
 		'name'     => true,
@@ -435,6 +463,10 @@ function wu_kses_allowed_html(): array {
 		'disabled' => true,
 		'name'     => true,
 		'value'    => true,
+	];
+	$allowed_html['dynamic']  = [
+		':template' => true,
+		'template'  => true,
 	];
 
 	return [

@@ -20,32 +20,32 @@ defined('ABSPATH') || exit;
  */
 return [
 	'domain'           => [
-		'description' => __("Your Domain name. You don't need to put http or https in front of your domain in this field. e.g: example.com.", 'multisite-ultimate'),
+		'description' => __("Your Domain name. You don't need to put http or https in front of your domain in this field. e.g: example.com.", 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => true,
 	],
 	'blog_id'          => [
-		'description' => __('The blog ID attached to this domain.', 'multisite-ultimate'),
+		'description' => __('The blog ID attached to this domain.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => true,
 	],
 	'active'           => [
-		'description' => __('Set this domain as active (true), which means available to be used, or inactive (false).', 'multisite-ultimate'),
+		'description' => __('Set this domain as active (true), which means available to be used, or inactive (false).', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'primary_domain'   => [
-		'description' => __("Define true to set this as primary domain of a site, meaning it's the main url, or set false.", 'multisite-ultimate'),
+		'description' => __("Define true to set this as primary domain of a site, meaning it's the main url, or set false.", 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'secure'           => [
-		'description' => __('If this domain has some SSL security or not.', 'multisite-ultimate'),
+		'description' => __('If this domain has some SSL security or not.', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'stage'            => [
-		'description' => __('The state of the domain model object. Can be one of this options: checking-dns, checking-ssl-cert, done-without-ssl, done and failed.', 'multisite-ultimate'),
+		'description' => __('The state of the domain model object. Can be one of this options: checking-dns, checking-ssl-cert, done-without-ssl, done and failed.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => true,
 		'enum'        => [
@@ -57,22 +57,22 @@ return [
 		],
 	],
 	'date_created'     => [
-		'description' => __('Date when the domain was created. If no date is set, the current date and time will be used.', 'multisite-ultimate'),
+		'description' => __('Date when the domain was created. If no date is set, the current date and time will be used.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_modified'    => [
-		'description' => __('Model last modification date.', 'multisite-ultimate'),
+		'description' => __('Model last modification date.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'migrated_from_id' => [
-		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'multisite-ultimate'),
+		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'skip_validation'  => [
-		'description' => __('Set true to have field information validation bypassed when saving this event.', 'multisite-ultimate'),
+		'description' => __('Set true to have field information validation bypassed when saving this event.', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],

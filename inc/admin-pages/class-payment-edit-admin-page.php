@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Payment Edit/Add New Admin Page.
+ * Ultimate Multisite Payment Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -16,7 +16,7 @@ use WP_Ultimo\Models\Payment;
 use WP_Ultimo\Database\Payments\Payment_Status;
 
 /**
- * Multisite Ultimate Payment Edit/Add New Admin Page.
+ * Ultimate Multisite Payment Edit/Add New Admin Page.
  */
 class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 
@@ -142,7 +142,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		 */
 		add_filter(
 			'wu_data_json_success_delete_payment_modal',
-			fn($data_json) => [
+			fn($data_json) => [ // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 				'redirect_url' => wu_network_admin_url('wp-ultimo-payments', ['deleted' => 1]),
 			]
 		);
@@ -167,15 +167,15 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = [
 			'confirm'       => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Deletion', 'multisite-ultimate'),
-				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
+				'title'     => __('Confirm Deletion', 'ultimate-multisite'),
+				'desc'      => __('This action can not be undone.', 'ultimate-multisite'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Delete', 'multisite-ultimate'),
+				'title'           => __('Delete', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -227,7 +227,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$line_item = wu_get_line_item(wu_request('line_item_id'), $payment->get_id());
 
 		if ( ! $payment || ! $line_item) {
-			wp_send_json_error(new \WP_Error('not-found', __('Payment not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('Payment not found.', 'ultimate-multisite')));
 		}
 
 		$line_items = $payment->get_line_items();
@@ -267,8 +267,8 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = [
 			'_amount'                   => [
 				'type'              => 'text',
-				'title'             => __('Refund Amount', 'multisite-ultimate'),
-				'placeholder'       => __('Refund Amount', 'multisite-ultimate'),
+				'title'             => __('Refund Amount', 'ultimate-multisite'),
+				'placeholder'       => __('Refund Amount', 'ultimate-multisite'),
 				'money'             => true,
 				'min'               => 0,
 				'html_attr'         => [
@@ -288,15 +288,15 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'cancel_membership'         => [
 				'type'              => 'toggle',
-				'title'             => __('Cancel Related Membership?', 'multisite-ultimate'),
-				'desc'              => __('Checking this option will cancel the membership as well.', 'multisite-ultimate'),
+				'title'             => __('Cancel Related Membership?', 'ultimate-multisite'),
+				'desc'              => __('Checking this option will cancel the membership as well.', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show' => 'step === 1',
 				],
 			],
 			'refund_not_immediate_note' => [
 				'type'              => 'note',
-				'desc'              => __('Confirming the refund might not immediately change the status of the payment, as each gateway handles refunds differently and Multisite Ultimate relies on the gateway reporting a successful refund before changing the status.', 'multisite-ultimate'),
+				'desc'              => __('Confirming the refund might not immediately change the status of the payment, as each gateway handles refunds differently and Ultimate Multisite relies on the gateway reporting a successful refund before changing the status.', 'ultimate-multisite'),
 				'classes'           => 'wu-p-2 wu-bg-yellow-200 wu-text-yellow-700 wu-rounded wu-w-full',
 				'wrapper_html_attr' => [
 					'v-show'  => 'step === 2',
@@ -305,8 +305,8 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'confirm'                   => [
 				'type'              => 'toggle',
-				'title'             => __('Confirm Refund', 'multisite-ultimate'),
-				'desc'              => __('This action can not be undone.', 'multisite-ultimate'),
+				'title'             => __('Confirm Refund', 'ultimate-multisite'),
+				'desc'              => __('This action can not be undone.', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show' => 'step === 2',
 				],
@@ -316,8 +316,8 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'submit_button'             => [
 				'type'              => 'submit',
-				'title'             => __('Next Step', 'multisite-ultimate'),
-				'placeholder'       => __('Next Step', 'multisite-ultimate'),
+				'title'             => __('Next Step', 'ultimate-multisite'),
+				'placeholder'       => __('Next Step', 'ultimate-multisite'),
 				'value'             => 'save',
 				'classes'           => 'button button-primary wu-w-full',
 				'wrapper_classes'   => 'wu-items-end',
@@ -331,8 +331,8 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'submit_button_2'           => [
 				'type'              => 'submit',
-				'title'             => __('Issue Refund', 'multisite-ultimate'),
-				'placeholder'       => __('Issue Refund', 'multisite-ultimate'),
+				'title'             => __('Issue Refund', 'ultimate-multisite'),
+				'placeholder'       => __('Issue Refund', 'ultimate-multisite'),
 				'value'             => 'save',
 				'classes'           => 'button button-primary wu-w-full',
 				'wrapper_classes'   => 'wu-items-end',
@@ -386,14 +386,14 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$payment = wu_get_payment(wu_request('id'));
 
 		if ( ! $payment) {
-			wp_send_json_error(new \WP_Error('not-found', __('Payment not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('Payment not found.', 'ultimate-multisite')));
 		}
 
 		/*
 		 * Checks for a valid amount.
 		 */
 		if (empty($amount) || $amount > $payment->get_total()) {
-			wp_send_json_error(new \WP_Error('invalid-amount', __('The refund amount is out of bounds.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('invalid-amount', __('The refund amount is out of bounds.', 'ultimate-multisite')));
 		}
 
 		/*
@@ -403,7 +403,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$is_refundable = in_array($payment->get_status(), wu_get_refundable_payment_types(), true);
 
 		if ( ! $is_refundable) {
-			wp_send_json_error(new \WP_Error('payment-not-refunded', __('This payment is not in a refundable state.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('payment-not-refunded', __('This payment is not in a refundable state.', 'ultimate-multisite')));
 		}
 
 		/*
@@ -454,7 +454,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$gateway = wu_get_gateway($gateway_id);
 
 		if ( ! $gateway) {
-			wp_send_json_error(new \WP_Error('gateway-not-found', __('Payment gateway not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('gateway-not-found', __('Payment gateway not found.', 'ultimate-multisite')));
 		}
 
 		/*
@@ -483,14 +483,14 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			if (is_wp_error($status)) {
 
 				// translators: %s is the exception error message.
-				$error = new \WP_Error('refund-error', sprintf(__('An error occurred: %s', 'multisite-ultimate'), $status->get_error_message()));
+				$error = new \WP_Error('refund-error', sprintf(__('An error occurred: %s', 'ultimate-multisite'), $status->get_error_message()));
 
 				wp_send_json_error($error);
 			}
 		} catch (\Throwable $e) {
 
 			// translators: %s is the exception error message.
-			$error = new \WP_Error('refund-error', sprintf(__('An error occurred: %s', 'multisite-ultimate'), $e->getMessage()));
+			$error = new \WP_Error('refund-error', sprintf(__('An error occurred: %s', 'ultimate-multisite'), $e->getMessage()));
 
 			wp_send_json_error($error);
 		}
@@ -542,7 +542,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			$product = wu_get_product(wu_request('product_id'));
 
 			if (empty($product)) {
-				$error = new \WP_Error('missing-product', __('The product was not found.', 'multisite-ultimate'));
+				$error = new \WP_Error('missing-product', __('The product was not found.', 'ultimate-multisite'));
 
 				wp_send_json_error($error);
 			}
@@ -579,7 +579,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			);
 
 			if ( ! in_array($type, $allowed_types, true)) {
-				$error = new \WP_Error('invalid-type', __('The line item type is invalid.', 'multisite-ultimate'));
+				$error = new \WP_Error('invalid-type', __('The line item type is invalid.', 'ultimate-multisite'));
 
 				wp_send_json_error($error);
 			}
@@ -611,7 +611,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$saved = $payment->recalculate_totals()->save();
 
 		if ( ! $saved) {
-			wp_send_json_error(new \WP_Error('error', __('Something wrong happened.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('error', __('Something wrong happened.', 'ultimate-multisite')));
 		}
 
 		if (is_wp_error($saved)) {
@@ -650,9 +650,9 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			'tab'                => [
 				'type'      => 'tab-select',
 				'options'   => [
-					'type' => __('Type', 'multisite-ultimate'),
-					'info' => __('Additional Info', 'multisite-ultimate'),
-					'tax'  => __('Tax Info', 'multisite-ultimate'),
+					'type' => __('Type', 'ultimate-multisite'),
+					'info' => __('Additional Info', 'ultimate-multisite'),
+					'tax'  => __('Tax Info', 'ultimate-multisite'),
 				],
 				'html_attr' => [
 					'v-model' => 'tab',
@@ -660,13 +660,13 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'type'               => [
 				'type'              => 'select',
-				'title'             => __('Line Item Type', 'multisite-ultimate'),
-				'desc'              => __('Select the line item type.', 'multisite-ultimate'),
+				'title'             => __('Line Item Type', 'ultimate-multisite'),
+				'desc'              => __('Select the line item type.', 'ultimate-multisite'),
 				'options'           => [
-					'product' => __('Product', 'multisite-ultimate'),
-					'refund'  => __('Refund', 'multisite-ultimate'),
-					'fee'     => __('Fee', 'multisite-ultimate'),
-					'credit'  => __('Credit', 'multisite-ultimate'),
+					'product' => __('Product', 'ultimate-multisite'),
+					'refund'  => __('Refund', 'ultimate-multisite'),
+					'fee'     => __('Fee', 'ultimate-multisite'),
+					'credit'  => __('Credit', 'ultimate-multisite'),
 				],
 				'wrapper_html_attr' => [
 					'v-show' => 'tab === "type"',
@@ -677,9 +677,9 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'product_id'         => [
 				'type'              => 'model',
-				'title'             => __('Product', 'multisite-ultimate'),
-				'desc'              => __('Product associated with this line item.', 'multisite-ultimate'),
-				'placeholder'       => __('Search Products', 'multisite-ultimate'),
+				'title'             => __('Product', 'ultimate-multisite'),
+				'desc'              => __('Product associated with this line item.', 'ultimate-multisite'),
+				'placeholder'       => __('Search Products', 'ultimate-multisite'),
 				'value'             => $line_item->get_product_id(),
 				'tooltip'           => '',
 				'wrapper_html_attr' => [
@@ -696,9 +696,9 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'title'              => [
 				'type'              => 'text',
-				'title'             => __('Line Item Title', 'multisite-ultimate'),
-				'placeholder'       => __('E.g. Extra Charge', 'multisite-ultimate'),
-				'desc'              => __('This is used when generating invoices.', 'multisite-ultimate'),
+				'title'             => __('Line Item Title', 'ultimate-multisite'),
+				'placeholder'       => __('E.g. Extra Charge', 'ultimate-multisite'),
+				'desc'              => __('This is used when generating invoices.', 'ultimate-multisite'),
 				'value'             => $line_item->get_title(),
 				'wrapper_html_attr' => [
 					'v-show' => 'tab === "info"',
@@ -706,9 +706,9 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'description'        => [
 				'type'              => 'textarea',
-				'title'             => __('Line Item Description', 'multisite-ultimate'),
-				'placeholder'       => __('E.g. This service was done to improve performance.', 'multisite-ultimate'),
-				'desc'              => __('This is used when generating invoices.', 'multisite-ultimate'),
+				'title'             => __('Line Item Description', 'ultimate-multisite'),
+				'placeholder'       => __('E.g. This service was done to improve performance.', 'ultimate-multisite'),
+				'desc'              => __('This is used when generating invoices.', 'ultimate-multisite'),
 				'value'             => $line_item->get_description(),
 				'html_attr'         => [
 					'rows' => 4,
@@ -719,10 +719,10 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'quantity'           => [
 				'type'              => 'number',
-				'title'             => __('Quantity', 'multisite-ultimate'),
-				'desc'              => __('Item quantity.', 'multisite-ultimate'),
+				'title'             => __('Quantity', 'ultimate-multisite'),
+				'desc'              => __('Item quantity.', 'ultimate-multisite'),
 				'value'             => $line_item->get_quantity(),
-				'placeholder'       => __('E.g. 1', 'multisite-ultimate'),
+				'placeholder'       => __('E.g. 1', 'ultimate-multisite'),
 				'wrapper_classes'   => 'wu-w-1/2',
 				'wrapper_html_attr' => [
 					'v-show' => 'type === "product" && tab === "type"',
@@ -740,10 +740,10 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'_unit_price'        => [
 				'type'              => 'text',
-				'title'             => __('Unit Price', 'multisite-ultimate'),
-				'desc'              => __('Item unit price. This is multiplied by the quantity to calculate the sub-total.', 'multisite-ultimate'),
+				'title'             => __('Unit Price', 'ultimate-multisite'),
+				'desc'              => __('Item unit price. This is multiplied by the quantity to calculate the sub-total.', 'ultimate-multisite'),
 				// translators: %s is a price placeholder value.
-				'placeholder'       => sprintf(__('E.g. %s', 'multisite-ultimate'), wu_format_currency(99)),
+				'placeholder'       => sprintf(__('E.g. %s', 'ultimate-multisite'), wu_format_currency(99)),
 				'value'             => $line_item->get_unit_price(),
 				'money'             => true,
 				'wrapper_classes'   => 'wu-w-1/2',
@@ -758,10 +758,10 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'_unit_price_amount' => [
 				'type'              => 'text',
-				'title'             => __('Amount', 'multisite-ultimate'),
-				'desc'              => __('Refund, credit or fee amount.', 'multisite-ultimate'),
+				'title'             => __('Amount', 'ultimate-multisite'),
+				'desc'              => __('Refund, credit or fee amount.', 'ultimate-multisite'),
 				// translators: %s is a price placeholder value.
-				'placeholder'       => sprintf(__('E.g. %s', 'multisite-ultimate'), wu_format_currency(99)),
+				'placeholder'       => sprintf(__('E.g. %s', 'ultimate-multisite'), wu_format_currency(99)),
 				'value'             => $line_item->get_unit_price(),
 				'money'             => true,
 				'wrapper_classes'   => 'wu-w-1/2',
@@ -776,8 +776,8 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'taxable'            => [
 				'type'              => 'toggle',
-				'title'             => __('Is Taxable?', 'multisite-ultimate'),
-				'desc'              => __('Checking this box will toggle the tax controls.', 'multisite-ultimate'),
+				'title'             => __('Is Taxable?', 'ultimate-multisite'),
+				'desc'              => __('Checking this box will toggle the tax controls.', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-bind:class' => 'type !== "product" ? "wu-opacity-50" : ""',
 					'v-show'       => 'tab === "tax"',
@@ -789,9 +789,9 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'tax_label'          => [
 				'type'              => 'text',
-				'title'             => __('Tax Label', 'multisite-ultimate'),
-				'placeholder'       => __('E.g. ES VAT', 'multisite-ultimate'),
-				'desc'              => __('Tax description. This is shown on invoices to end customers.', 'multisite-ultimate'),
+				'title'             => __('Tax Label', 'ultimate-multisite'),
+				'placeholder'       => __('E.g. ES VAT', 'ultimate-multisite'),
+				'desc'              => __('Tax description. This is shown on invoices to end customers.', 'ultimate-multisite'),
 				'value'             => $line_item->get_tax_label(),
 				'wrapper_html_attr' => [
 					'v-show' => 'taxable &&  tab === "tax"',
@@ -799,8 +799,8 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'tax_rate_group'     => [
 				'type'              => 'group',
-				'title'             => __('Tax Rate', 'multisite-ultimate'),
-				'desc'              => __('Tax rate and type to apply to this item.', 'multisite-ultimate'),
+				'title'             => __('Tax Rate', 'ultimate-multisite'),
+				'desc'              => __('Tax rate and type to apply to this item.', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show' => 'taxable && tab === "tax"',
 				],
@@ -821,16 +821,16 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 						'placeholder'     => '',
 						'wrapper_classes' => 'wu-w-2/3',
 						'options'         => [
-							'percentage' => __('Percentage (%)', 'multisite-ultimate'),
-							'absolute'   => __('Flat Rate ($)', 'multisite-ultimate'),
+							'percentage' => __('Percentage (%)', 'ultimate-multisite'),
+							'absolute'   => __('Flat Rate ($)', 'ultimate-multisite'),
 						],
 					],
 				],
 			],
 			'submit_button'      => [
 				'type'            => 'submit',
-				'title'           => __('Save', 'multisite-ultimate'),
-				'placeholder'     => __('Save', 'multisite-ultimate'),
+				'title'           => __('Save', 'ultimate-multisite'),
+				'placeholder'     => __('Save', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'wu-w-full button button-primary',
 				'wrapper_classes' => 'wu-items-end',
@@ -883,7 +883,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 
 		if ($is_refundable) {
 			$actions['refund_payment'] = [
-				'label'        => __('Refund Payment', 'multisite-ultimate'),
+				'label'        => __('Refund Payment', 'ultimate-multisite'),
 				'icon_classes' => 'dashicons-wu-ccw wu-align-text-bottom',
 				'classes'      => 'button wubox',
 				'href'         => wu_get_form_url(
@@ -896,7 +896,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		}
 
 		$actions['add_line_item'] = [
-			'label'        => __('Add Line Item', 'multisite-ultimate'),
+			'label'        => __('Add Line Item', 'ultimate-multisite'),
 			'icon_classes' => 'dashicons-wu-circle-with-plus wu-align-text-bottom',
 			'classes'      => 'button wubox',
 			'href'         => wu_get_form_url(
@@ -954,26 +954,26 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'at_a_glance',
 			[
-				'title'                 => __('At a Glance', 'multisite-ultimate'),
+				'title'                 => __('At a Glance', 'ultimate-multisite'),
 				'position'              => 'normal',
 				'classes'               => 'wu-overflow-hidden wu-widget-inset',
 				'field_wrapper_classes' => 'wu-w-1/3 wu-box-border wu-items-center wu-flex wu-justify-between wu-p-4 wu-m-0 wu-border-t-0 wu-border-l-0 wu-border-r wu-border-b-0 wu-border-gray-300 wu-border-solid wu-float-left wu-relative',
 				'fields'                => [
 					'status' => [
 						'type'          => 'text-display',
-						'title'         => __('Payment Status', 'multisite-ultimate'),
+						'title'         => __('Payment Status', 'ultimate-multisite'),
 						'display_value' => $tag,
 						'tooltip'       => '',
 					],
 					'hash'   => [
 						'copy'          => true,
 						'type'          => 'text-display',
-						'title'         => __('Reference ID', 'multisite-ultimate'),
+						'title'         => __('Reference ID', 'ultimate-multisite'),
 						'display_value' => $this->get_object()->get_hash(),
 					],
 					'total'  => [
 						'type'            => 'text-display',
-						'title'           => __('Total', 'multisite-ultimate'),
+						'title'           => __('Total', 'ultimate-multisite'),
 						'display_value'   => wu_format_currency($this->get_object()->get_total(), $this->get_object()->get_currency()),
 						'wrapper_classes' => 'sm:wu-border-r-0',
 					],
@@ -984,7 +984,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'line-items',
 			[
-				'title'        => __('Line Items', 'multisite-ultimate'),
+				'title'        => __('Line Items', 'ultimate-multisite'),
 				'table'        => new \WP_Ultimo\List_Tables\Payment_Line_Item_List_Table(),
 				'position'     => 'normal',
 				'query_filter' => [$this, 'payments_query_filter'],
@@ -995,7 +995,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_widget(
 			'tax-rates',
 			[
-				'title'    => __('Tax Rate Breakthrough', 'multisite-ultimate'),
+				'title'    => __('Tax Rate Breakthrough', 'ultimate-multisite'),
 				'position' => 'normal',
 				'display'  => [$this, 'display_tax_breakthrough'],
 			]
@@ -1004,7 +1004,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_tabs_widget(
 			'options',
 			[
-				'title'    => __('Payment Options', 'multisite-ultimate'),
+				'title'    => __('Payment Options', 'ultimate-multisite'),
 				'position' => 'normal',
 				'sections' => apply_filters('wu_payments_options_sections', [], $this->get_object()),
 			]
@@ -1013,7 +1013,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'events',
 			[
-				'title'        => __('Events', 'multisite-ultimate'),
+				'title'        => __('Events', 'ultimate-multisite'),
 				'table'        => new \WP_Ultimo\List_Tables\Inside_Events_List_Table(),
 				'query_filter' => [$this, 'events_query_filter'],
 			]
@@ -1039,9 +1039,9 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 				'fields'    => [
 					'status'                   => [
 						'type'              => 'select',
-						'title'             => __('Status', 'multisite-ultimate'),
-						'placeholder'       => __('Status', 'multisite-ultimate'),
-						'desc'              => __('The payment current status.', 'multisite-ultimate'),
+						'title'             => __('Status', 'ultimate-multisite'),
+						'placeholder'       => __('Status', 'ultimate-multisite'),
+						'desc'              => __('The payment current status.', 'ultimate-multisite'),
 						'value'             => $this->get_object()->get_status(),
 						'options'           => Payment_Status::to_array(),
 						'tooltip'           => '',
@@ -1054,8 +1054,8 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'confirm_membership'       => [
 						'type'              => 'toggle',
-						'title'             => __('Activate Membership?', 'multisite-ultimate'),
-						'desc'              => __('This payment belongs to a pending membership. If you toggle this option, this change in status will also apply to the membership. If any sites are pending, they are also going to be published automatically.', 'multisite-ultimate'),
+						'title'             => __('Activate Membership?', 'ultimate-multisite'),
+						'desc'              => __('This payment belongs to a pending membership. If you toggle this option, this change in status will also apply to the membership. If any sites are pending, they are also going to be published automatically.', 'ultimate-multisite'),
 						'value'             => 0,
 						'wrapper_html_attr' => [
 							'v-if'    => 'status !== original_status && status === "completed" && membership_status === "pending"',
@@ -1064,8 +1064,8 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'membership_id'            => [
 						'type'              => 'model',
-						'title'             => __('Membership', 'multisite-ultimate'),
-						'desc'              => __('The membership associated with this payment.', 'multisite-ultimate'),
+						'title'             => __('Membership', 'ultimate-multisite'),
+						'desc'              => __('The membership associated with this payment.', 'ultimate-multisite'),
 						'value'             => $this->get_object()->get_membership_id(),
 						'tooltip'           => '',
 						'html_attr'         => [
@@ -1083,10 +1083,10 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'gateway'                  => [
 						'type'              => 'text',
-						'title'             => __('Gateway', 'multisite-ultimate'),
-						'placeholder'       => __('e.g. stripe', 'multisite-ultimate'),
-						'description'       => __('e.g. stripe', 'multisite-ultimate'),
-						'desc'              => __('Payment gateway used to process the payment.', 'multisite-ultimate'),
+						'title'             => __('Gateway', 'ultimate-multisite'),
+						'placeholder'       => __('e.g. stripe', 'ultimate-multisite'),
+						'description'       => __('e.g. stripe', 'ultimate-multisite'),
+						'desc'              => __('Payment gateway used to process the payment.', 'ultimate-multisite'),
 						'value'             => $this->get_object()->get_gateway(),
 						'wrapper_classes'   => 'wu-w-full',
 						'html_attr'         => [
@@ -1110,7 +1110,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 							$url = apply_filters("wu_{$gateway_id}_remote_payment_url", $this->get_object()->get_gateway_payment_id());
 
 							if ($url) {
-								return sprintf('<a class="wu-text-gray-800 wu-text-center wu-w-full wu-no-underline" href="%s" target="_blank">%s</a>', esc_attr($url), __('View on Gateway &rarr;', 'multisite-ultimate'));
+								return sprintf('<a class="wu-text-gray-800 wu-text-center wu-w-full wu-no-underline" href="%s" target="_blank">%s</a>', esc_attr($url), __('View on Gateway &rarr;', 'ultimate-multisite'));
 							}
 
 							return '';
@@ -1122,10 +1122,10 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 						'fields'            => [
 							'gateway_payment_id' => [
 								'type'              => 'text',
-								'title'             => __('Gateway Payment ID', 'multisite-ultimate'),
-								'placeholder'       => __('e.g. EX897540987913', 'multisite-ultimate'),
-								'description'       => __('e.g. EX897540987913', 'multisite-ultimate'),
-								'tooltip'           => __('This will usually be set automatically by the payment gateway.', 'multisite-ultimate'),
+								'title'             => __('Gateway Payment ID', 'ultimate-multisite'),
+								'placeholder'       => __('e.g. EX897540987913', 'ultimate-multisite'),
+								'description'       => __('e.g. EX897540987913', 'ultimate-multisite'),
+								'tooltip'           => __('This will usually be set automatically by the payment gateway.', 'ultimate-multisite'),
 								'value'             => $this->get_object()->get_gateway_payment_id(),
 								'wrapper_classes'   => 'wu-w-full',
 								'html_attr'         => [],
@@ -1136,10 +1136,10 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 					'invoice_number'           => [
 						'type'              => 'number',
 						'min'               => 0,
-						'title'             => __('Invoice Number', 'multisite-ultimate'),
-						'placeholder'       => __('e.g. 20', 'multisite-ultimate'),
-						'tooltip'           => __('This number gets saved automatically when a payment transitions to a complete state. You can change it to generate invoices with a particular number. The number chosen here has no effect on other invoices in the platform.', 'multisite-ultimate'),
-						'desc'              => __('The invoice number for this particular payment.', 'multisite-ultimate'),
+						'title'             => __('Invoice Number', 'ultimate-multisite'),
+						'placeholder'       => __('e.g. 20', 'ultimate-multisite'),
+						'tooltip'           => __('This number gets saved automatically when a payment transitions to a complete state. You can change it to generate invoices with a particular number. The number chosen here has no effect on other invoices in the platform.', 'ultimate-multisite'),
+						'desc'              => __('The invoice number for this particular payment.', 'ultimate-multisite'),
 						'value'             => $this->get_object()->get_saved_invoice_number(),
 						'wrapper_classes'   => 'wu-w-full',
 						'wrapper_html_attr' => [
@@ -1160,7 +1160,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Payment', 'multisite-ultimate') : __('Add new Payment', 'multisite-ultimate');
+		return $this->edit ? __('Edit Payment', 'ultimate-multisite') : __('Add new Payment', 'ultimate-multisite');
 	}
 
 	/**
@@ -1171,7 +1171,7 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Payment', 'multisite-ultimate');
+		return __('Edit Payment', 'ultimate-multisite');
 	}
 
 	/**
@@ -1189,14 +1189,14 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 		if ($payment) {
 			$actions[] = [
 				'url'   => $payment->get_invoice_url(),
-				'label' => __('Generate Invoice', 'multisite-ultimate'),
+				'label' => __('Generate Invoice', 'ultimate-multisite'),
 				'icon'  => 'wu-attachment',
 			];
 
 			if ($payment->is_payable()) {
 				$actions[] = [
 					'url'   => $payment->get_payment_url(),
-					'label' => __('Payment URL', 'multisite-ultimate'),
+					'label' => __('Payment URL', 'ultimate-multisite'),
 					'icon'  => 'wu-credit-card',
 				];
 			}
@@ -1214,15 +1214,15 @@ class Payment_Edit_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Payment', 'multisite-ultimate'),
-			'add_new_label'       => __('Add new Payment', 'multisite-ultimate'),
-			'updated_message'     => __('Payment updated with success!', 'multisite-ultimate'),
-			'title_placeholder'   => __('Enter Payment Name', 'multisite-ultimate'),
-			'title_description'   => __('This name will be used on pricing tables, invoices, and more.', 'multisite-ultimate'),
-			'save_button_label'   => __('Save Payment', 'multisite-ultimate'),
+			'edit_label'          => __('Edit Payment', 'ultimate-multisite'),
+			'add_new_label'       => __('Add new Payment', 'ultimate-multisite'),
+			'updated_message'     => __('Payment updated with success!', 'ultimate-multisite'),
+			'title_placeholder'   => __('Enter Payment Name', 'ultimate-multisite'),
+			'title_description'   => __('This name will be used on pricing tables, invoices, and more.', 'ultimate-multisite'),
+			'save_button_label'   => __('Save Payment', 'ultimate-multisite'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Payment', 'multisite-ultimate'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
+			'delete_button_label' => __('Delete Payment', 'ultimate-multisite'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'ultimate-multisite'),
 		];
 	}
 

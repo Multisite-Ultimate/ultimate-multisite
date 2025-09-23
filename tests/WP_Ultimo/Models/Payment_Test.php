@@ -7,6 +7,12 @@ use WP_Ultimo\Database\Memberships\Membership_Status;
 use WP_Ultimo\Database\Payments\Payment_Status;
 use WP_UnitTestCase;
 
+/**
+ * Test class for Payment model functionality.
+ *
+ * Tests payment creation, line items management, financial calculations,
+ * status handling, gateway functionality, and invoice features.
+ */
 class Payment_Test extends WP_UnitTestCase {
 
 	private static Customer $customer;

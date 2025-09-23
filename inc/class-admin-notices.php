@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles the Admin Notices added by Multisite Ultimate.
+ * Handles the Admin Notices added by Ultimate Multisite.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Notices
@@ -17,12 +17,12 @@ defined('ABSPATH') || exit;
  *
  * @since 2.0.0
  */
-class Admin_Notices {
+class Admin_Notices implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
-	 * Holds the notices added by Multisite Ultimate.
+	 * Holds the notices added by Ultimate Multisite.
 	 *
 	 * @since 2.0.0
 	 * @var array
@@ -107,7 +107,7 @@ class Admin_Notices {
 		}
 
 		/**
-		 * Allow developers to filter admin notices added by Multisite Ultimate.
+		 * Allow developers to filter admin notices added by Ultimate Multisite.
 		 *
 		 * @since 2.0.0
 		 *

@@ -191,19 +191,19 @@ class Event_Manager extends Base_Manager {
 	public function event_payload_preview(): void {
 
 		if ( ! wu_request('event')) {
-			wp_send_json_error(new \WP_Error('error', __('No event was selected.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('error', __('No event was selected.', 'ultimate-multisite')));
 		}
 
 		$slug = wu_request('event');
 
 		if ( ! $slug) {
-			wp_send_json_error(new \WP_Error('not-found', __('Event was not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('Event was not found.', 'ultimate-multisite')));
 		}
 
 		$event = wu_get_event_type($slug);
 
 		if ( ! $event) {
-			wp_send_json_error(new \WP_Error('not-found', __('Data not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('Data not found.', 'ultimate-multisite')));
 		} else {
 			$payload = isset($event['payload']) ? wu_maybe_lazy_load_payload($event['payload']) : '{}';
 
@@ -366,8 +366,8 @@ class Event_Manager extends Base_Manager {
 		wu_register_event_type(
 			'payment_received',
 			[
-				'name'            => __('Payment Received', 'multisite-ultimate'),
-				'desc'            => __('This event is fired every time a new payment is received, regardless of the payment status.', 'multisite-ultimate'),
+				'name'            => __('Payment Received', 'ultimate-multisite'),
+				'desc'            => __('This event is fired every time a new payment is received, regardless of the payment status.', 'ultimate-multisite'),
 				'payload'         => fn() => array_merge(
 					wu_generate_event_payload('payment'),
 					wu_generate_event_payload('membership'),
@@ -389,8 +389,8 @@ class Event_Manager extends Base_Manager {
 		wu_register_event_type(
 			'site_published',
 			[
-				'name'            => __('Site Published', 'multisite-ultimate'),
-				'desc'            => __('This event is fired every time a new site is created tied to a membership, or transitions from a pending state to a published state.', 'multisite-ultimate'),
+				'name'            => __('Site Published', 'ultimate-multisite'),
+				'desc'            => __('This event is fired every time a new site is created tied to a membership, or transitions from a pending state to a published state.', 'ultimate-multisite'),
 				'payload'         => fn() => array_merge(
 					wu_generate_event_payload('site'),
 					wu_generate_event_payload('customer'),
@@ -406,8 +406,8 @@ class Event_Manager extends Base_Manager {
 		wu_register_event_type(
 			'confirm_email_address',
 			[
-				'name'            => __('Email Verification Needed', 'multisite-ultimate'),
-				'desc'            => __('This event is fired every time a new customer is added with an email verification status of pending.', 'multisite-ultimate'),
+				'name'            => __('Email Verification Needed', 'ultimate-multisite'),
+				'desc'            => __('This event is fired every time a new customer is added with an email verification status of pending.', 'ultimate-multisite'),
 				'payload'         => fn() => array_merge(
 					[
 						'verification_link' => 'https://linktoverifyemail.com',
@@ -424,8 +424,8 @@ class Event_Manager extends Base_Manager {
 		wu_register_event_type(
 			'domain_created',
 			[
-				'name'            => __('New Domain Mapping Added', 'multisite-ultimate'),
-				'desc'            => __('This event is fired every time a new domain mapping is added by a customer.', 'multisite-ultimate'),
+				'name'            => __('New Domain Mapping Added', 'ultimate-multisite'),
+				'desc'            => __('This event is fired every time a new domain mapping is added by a customer.', 'ultimate-multisite'),
 				'payload'         => fn() => array_merge(
 					wu_generate_event_payload('domain'),
 					wu_generate_event_payload('site'),
@@ -448,8 +448,8 @@ class Event_Manager extends Base_Manager {
 		wu_register_event_type(
 			'renewal_payment_created',
 			[
-				'name'            => __('New Renewal Payment Created', 'multisite-ultimate'),
-				'desc'            => __('This event is fired every time a new renewal payment is created by Multisite Ultimate.', 'multisite-ultimate'),
+				'name'            => __('New Renewal Payment Created', 'ultimate-multisite'),
+				'desc'            => __('This event is fired every time a new renewal payment is created by Ultimate Multisite.', 'ultimate-multisite'),
 				'payload'         => fn() => array_merge(
 					[
 						'default_payment_url' => 'https://linktopayment.com',
@@ -470,9 +470,9 @@ class Event_Manager extends Base_Manager {
 					$model . '_' . $type,
 					[
 						// translators: %1$s is the model name, %2$s is the event type.
-						'name'            => sprintf(__('%1$s %2$s', 'multisite-ultimate'), $params['label'], ucfirst($type)),
+						'name'            => sprintf(__('%1$s %2$s', 'ultimate-multisite'), $params['label'], ucfirst($type)),
 						// translators: %1$s is the model name, %2$s is the event type.
-						'desc'            => sprintf(__('This event is fired every time a %1$s is %2$s by Multisite Ultimate.', 'multisite-ultimate'), $params['label'], $type),
+						'desc'            => sprintf(__('This event is fired every time a %1$s is %2$s by Ultimate Multisite.', 'ultimate-multisite'), $params['label'], $type),
 						'deprecated_args' => [],
 						'payload'         => fn() => $this->get_model_payload($model),
 					]
@@ -623,7 +623,7 @@ class Event_Manager extends Base_Manager {
 		}
 
 		// Translators:  1: Number of successfully removed events.  2: Number of failed events to remove.
-		wu_log_add('wu-cron', sprintf(__('Removed %1$d events successfully. Failed to remove %2$d events.', 'multisite-ultimate'), $success_count, count($events_to_remove) - $success_count));
+		wu_log_add('wu-cron', sprintf(__('Removed %1$d events successfully. Failed to remove %2$d events.', 'ultimate-multisite'), $success_count, count($events_to_remove) - $success_count));
 
 		return true;
 	}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Customer Edit/Add New Admin Page.
+ * Ultimate Multisite Customer Edit/Add New Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Database\Memberships\Membership_Status;
 
 /**
- * Multisite Ultimate Customer Edit/Add New Admin Page.
+ * Ultimate Multisite Customer Edit/Add New Admin Page.
  */
 class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
@@ -112,7 +112,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 			// Verify nonce for security
 			if ( ! wp_verify_nonce($nonce, 'delete_customer_meta_' . $meta_key)) {
-				wp_die(__('Security check failed. Please try again.', 'multisite-ultimate'));
+				wp_die(__('Security check failed. Please try again.', 'ultimate-multisite'));
 			}
 
 			$customer = $this->get_object();
@@ -200,16 +200,16 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = [
 			'confirm'        => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Transfer', 'multisite-ultimate'),
-				'desc'      => __('This will start the transfer of assets from one user to another.', 'multisite-ultimate'),
+				'title'     => __('Confirm Transfer', 'ultimate-multisite'),
+				'desc'      => __('This will start the transfer of assets from one user to another.', 'ultimate-multisite'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_button'  => [
 				'type'            => 'submit',
-				'title'           => __('Start Transfer', 'multisite-ultimate'),
-				'placeholder'     => __('Start Transfer', 'multisite-ultimate'),
+				'title'           => __('Start Transfer', 'ultimate-multisite'),
+				'placeholder'     => __('Start Transfer', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -262,11 +262,11 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		$target_user = get_user_by('id', wu_request('target_user_id'));
 
 		if ( ! $customer) {
-			wp_send_json_error(new \WP_Error('not-found', __('Customer not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('Customer not found.', 'ultimate-multisite')));
 		}
 
 		if ( ! $target_user) {
-			wp_send_json_error(new \WP_Error('not-found', __('User not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('User not found.', 'ultimate-multisite')));
 		}
 
 		$customer->set_user_id($target_user->ID);
@@ -302,8 +302,8 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		$custom_fields = [
 			'delete_all'                => [
 				'type'      => 'toggle',
-				'title'     => __('Delete everything', 'multisite-ultimate'),
-				'desc'      => __('Sites, payments and memberships.', 'multisite-ultimate'),
+				'title'     => __('Delete everything', 'ultimate-multisite'),
+				'desc'      => __('Sites, payments and memberships.', 'ultimate-multisite'),
 				'html_attr' => [
 					'v-bind:value' => 'delete_all_confirmed',
 					'v-model'      => 'delete_all_confirmed',
@@ -311,8 +311,8 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			're_assignment_customer_id' => [
 				'type'              => 'model',
-				'title'             => __('Re-assignment to customer', 'multisite-ultimate'),
-				'placeholder'       => __('Select Customer...', 'multisite-ultimate'),
+				'title'             => __('Re-assignment to customer', 'ultimate-multisite'),
+				'placeholder'       => __('Select Customer...', 'ultimate-multisite'),
 				'html_attr'         => [
 					'data-model'        => 'customer',
 					'data-value-field'  => 'id',
@@ -450,7 +450,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 		foreach ($custom_meta_keys as $key => $value) {
 			$field_location_breadcrumbs = [
-				__('Custom field', 'multisite-ultimate'),
+				__('Custom field', 'ultimate-multisite'),
 			];
 
 			$form = wu_get_isset($value, 'form');
@@ -465,7 +465,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 			$location = sprintf(
 				'<small><strong>%s</strong> %s</small>',
-				__('Location:', 'multisite-ultimate'),
+				__('Location:', 'ultimate-multisite'),
 				implode(' &rarr; ', array_filter($field_location_breadcrumbs))
 			);
 
@@ -491,7 +491,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 				$delete_link = sprintf(
 					'<small style="float: right;"><a href="%s" style="color: red; text-decoration: none;">%s</a></small>',
 					esc_url($delete_url),
-					__('Delete', 'multisite-ultimate')
+					__('Delete', 'ultimate-multisite')
 				);
 			}
 
@@ -528,10 +528,10 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 		if ($meta_fields_unset) {
 			$collapsible_header['display_unset_fields'] = [
-				'title'           => __('Display unset fields', 'multisite-ultimate'),
+				'title'           => __('Display unset fields', 'ultimate-multisite'),
 				'desc'            => __(
 					'If fields were added after the customer creation or onto a different form, they will not have a set value for this customer. You can manually set those here.',
-					'multisite-ultimate'
+					'ultimate-multisite'
 				),
 				'type'            => 'toggle',
 				'wrapper_classes' => 'wu-bg-gray-100',
@@ -546,14 +546,14 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		if (empty($final_fields)) {
 			$final_fields['empty'] = [
 				'type'    => 'note',
-				'desc'    => __('No custom meta data collected and no custom fields found.', 'multisite-ultimate'),
+				'desc'    => __('No custom meta data collected and no custom fields found.', 'ultimate-multisite'),
 				'classes' => 'wu-text-center',
 			];
 		}
 
 		$final_fields['display_new_meta_repeater'] = [
-			'title'           => __('Manually add custom meta fields', 'multisite-ultimate'),
-			'desc'            => __('Add new custom meta fields to this customer.', 'multisite-ultimate'),
+			'title'           => __('Manually add custom meta fields', 'ultimate-multisite'),
+			'desc'            => __('Add new custom meta fields to this customer.', 'ultimate-multisite'),
 			'type'            => 'toggle',
 			'wrapper_classes' => 'wu-bg-gray-100',
 			'html_attr'       => [
@@ -562,7 +562,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		];
 
 		$default_meta_value = fn(string $type, $value = '', bool $is_default = false) => [
-			'title'             => __('Value', 'multisite-ultimate'),
+			'title'             => __('Value', 'ultimate-multisite'),
 			'type'              => $type,
 			'value'             => $value,
 			'wrapper_classes'   => 'wu-w-1/4 wu-ml-2',
@@ -587,12 +587,12 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						'type'            => 'note',
 						'desc'            => sprintf(
 							'<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600" href="#" @click.prevent="() => new_meta_fields.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>',
-							__('Remove', 'multisite-ultimate')
+							__('Remove', 'ultimate-multisite')
 						),
 						'wrapper_classes' => 'wu-absolute wu-top-0 wu-right-0',
 					],
 					'new_meta_slug'           => [
-						'title'           => __('Slug', 'multisite-ultimate'),
+						'title'           => __('Slug', 'ultimate-multisite'),
 						'type'            => 'text',
 						'value'           => '',
 						'wrapper_classes' => 'wu-w-1/4',
@@ -603,7 +603,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						],
 					],
 					'new_meta_title'          => [
-						'title'           => __('Title', 'multisite-ultimate'),
+						'title'           => __('Title', 'ultimate-multisite'),
 						'type'            => 'text',
 						'value'           => '',
 						'wrapper_classes' => 'wu-w-1/4 wu-ml-2',
@@ -612,14 +612,14 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						],
 					],
 					'new_meta_type'           => [
-						'title'           => __('Type', 'multisite-ultimate'),
+						'title'           => __('Type', 'ultimate-multisite'),
 						'type'            => 'select',
 						'options'         => [
-							'text'     => __('Text', 'multisite-ultimate'),
-							'textarea' => __('Textarea', 'multisite-ultimate'),
-							'checkbox' => __('Checkbox', 'multisite-ultimate'),
-							'color'    => __('Color', 'multisite-ultimate'),
-							'image'    => __('Image', 'multisite-ultimate'),
+							'text'     => __('Text', 'ultimate-multisite'),
+							'textarea' => __('Textarea', 'ultimate-multisite'),
+							'checkbox' => __('Checkbox', 'ultimate-multisite'),
+							'color'    => __('Color', 'ultimate-multisite'),
+							'image'    => __('Image', 'ultimate-multisite'),
 						],
 						'wrapper_classes' => 'wu-w-1/4 wu-ml-2',
 						'html_attr'       => [
@@ -642,7 +642,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 			],
 			'repeat_option'   => [
 				'type'            => 'submit',
-				'title'           => __('+ Add meta field', 'multisite-ultimate'),
+				'title'           => __('+ Add meta field', 'ultimate-multisite'),
 				'classes'         => 'button wu-self-end',
 				'wrapper_classes' => 'wu-bg-whiten wu-items-end',
 				'html_attr'       => [
@@ -681,7 +681,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'at_a_glance',
 			[
-				'title'                 => __('At a Glance', 'multisite-ultimate'),
+				'title'                 => __('At a Glance', 'ultimate-multisite'),
 				'position'              => 'normal',
 				'classes'               => 'wu-overflow-hidden wu-m-0 wu--mt-1 wu--mx-3 wu--mb-3',
 				'field_wrapper_classes' => 'wu-w-1/3 wu-box-border wu-items-center wu-flex wu-justify-between wu-p-4 wu-m-0 wu-border-t-0 wu-border-l-0 wu-border-r wu-border-b-0 wu-border-gray-300 wu-border-solid wu-float-left wu-relative',
@@ -692,23 +692,23 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 					'id'            => [
 						'type'          => 'text-display',
 						'copy'          => true,
-						'title'         => __('Customer ID', 'multisite-ultimate'),
+						'title'         => __('Customer ID', 'ultimate-multisite'),
 						'display_value' => $this->get_object()->get_id(),
 						'tooltip'       => '',
 					],
 					'last_login'    => [
 						'edit'          => false,
-						'title'         => __('Last Login', 'multisite-ultimate'),
+						'title'         => __('Last Login', 'ultimate-multisite'),
 						'type'          => 'text-edit',
 						'value'         => $this->edit ? $this->get_object()->get_last_login(false) : __(
 							'No date',
-							'multisite-ultimate'
+							'ultimate-multisite'
 						),
 						'display_value' => $this->edit ? $this->get_object()->get_last_login(false) : false,
 					],
 					'total_grossed' => [
 						'type'          => 'text-display',
-						'title'         => __('Total Grossed', 'multisite-ultimate'),
+						'title'         => __('Total Grossed', 'ultimate-multisite'),
 						'display_value' => wu_format_currency($this->get_object()->get_total_grossed()),
 						'tooltip'       => '',
 					],
@@ -719,7 +719,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'memberships',
 			[
-				'title'        => __('Memberships', 'multisite-ultimate'),
+				'title'        => __('Memberships', 'ultimate-multisite'),
 				'table'        => new \WP_Ultimo\List_Tables\Customers_Membership_List_Table(),
 				'query_filter' => [$this, 'memberships_query_filter'],
 			]
@@ -728,34 +728,34 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_tabs_widget(
 			'options',
 			[
-				'title'    => __('Customer Options', 'multisite-ultimate'),
+				'title'    => __('Customer Options', 'ultimate-multisite'),
 				'position' => 'normal',
 				'sections' => apply_filters(
 					'wu_customer_options_sections',
 					[
 						'general'      => [
-							'title'  => __('General', 'multisite-ultimate'),
-							'desc'   => __('General options for the customer.', 'multisite-ultimate'),
+							'title'  => __('General', 'ultimate-multisite'),
+							'desc'   => __('General options for the customer.', 'ultimate-multisite'),
 							'icon'   => 'dashicons-wu-globe',
 							'fields' => [
 								'vip' => [
 									'type'    => 'toggle',
-									'title'   => __('VIP', 'multisite-ultimate'),
-									'desc'    => __('Set this customer as a VIP.', 'multisite-ultimate'),
+									'title'   => __('VIP', 'ultimate-multisite'),
+									'desc'    => __('Set this customer as a VIP.', 'ultimate-multisite'),
 									'tooltip' => '',
 									'value'   => $this->get_object()->is_vip(),
 								],
 							],
 						],
 						'billing_info' => [
-							'title'  => __('Billing Info', 'multisite-ultimate'),
-							'desc'   => __('Billing information for this particular customer', 'multisite-ultimate'),
+							'title'  => __('Billing Info', 'ultimate-multisite'),
+							'desc'   => __('Billing information for this particular customer', 'ultimate-multisite'),
 							'icon'   => 'dashicons-wu-address',
 							'fields' => $this->get_object()->get_billing_address()->get_fields(),
 						],
 						'custom_meta'  => [
-							'title'  => __('Custom Meta', 'multisite-ultimate'),
-							'desc'   => __('Custom data collected via Multisite Ultimate forms.', 'multisite-ultimate'),
+							'title'  => __('Custom Meta', 'ultimate-multisite'),
+							'desc'   => __('Custom data collected via Ultimate Multisite forms.', 'ultimate-multisite'),
 							'icon'   => 'dashicons-wu-database wu-pt-px',
 							'fields' => $this->generate_customer_meta_fields(),
 							'state'  => [
@@ -769,11 +769,11 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 								],
 							],
 						],
-						// @todo: bring these back
 				// phpcs:disable
+                // @todo: bring these back
 				// 'payment_methods' => array(
-				// 	'title'  => __('Payment Methods', 'multisite-ultimate'),
-				// 	'desc'   => __('Add extra information to this customer.', 'multisite-ultimate'),
+				// 	'title'  => __('Payment Methods', 'ultimate-multisite'),
+				// 	'desc'   => __('Add extra information to this customer.', 'ultimate-multisite'),
 				// 	'icon'   => 'dashicons-wu-credit-card',
 				// 	'fields' => apply_filters('wu_customer_payment_methods', array(), $this->get_object(), $this),
 				// ),
@@ -787,7 +787,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'payments',
 			[
-				'title'        => __('Payments', 'multisite-ultimate'),
+				'title'        => __('Payments', 'ultimate-multisite'),
 				'table'        => new \WP_Ultimo\List_Tables\Customers_Payment_List_Table(),
 				'query_filter' => [$this, 'memberships_query_filter'],
 			]
@@ -796,7 +796,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'sites',
 			[
-				'title'        => __('Sites', 'multisite-ultimate'),
+				'title'        => __('Sites', 'ultimate-multisite'),
 				'table'        => new \WP_Ultimo\List_Tables\Customers_Site_List_Table(),
 				'query_filter' => [$this, 'sites_query_filter'],
 			]
@@ -805,7 +805,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_list_table_widget(
 			'events',
 			[
-				'title'        => __('Events', 'multisite-ultimate'),
+				'title'        => __('Events', 'ultimate-multisite'),
 				'table'        => new \WP_Ultimo\List_Tables\Inside_Events_List_Table(),
 				'query_filter' => [$this, 'events_query_filter'],
 			]
@@ -835,9 +835,9 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 				'fields'    => [
 					'user_id'            => [
 						'type'              => 'model',
-						'title'             => __('User', 'multisite-ultimate'),
-						'placeholder'       => __('Search WordPress user...', 'multisite-ultimate'),
-						'desc'              => __('The WordPress user associated to this customer.', 'multisite-ultimate'),
+						'title'             => __('User', 'ultimate-multisite'),
+						'placeholder'       => __('Search WordPress user...', 'ultimate-multisite'),
+						'desc'              => __('The WordPress user associated to this customer.', 'ultimate-multisite'),
 						'value'             => $this->get_object()->get_user_id(),
 						'tooltip'           => '',
 						'min'               => 1,
@@ -858,7 +858,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						'type'              => 'note',
 						'desc'              => __(
 							'Changing the user will transfer the customer and all its assets to the new user.',
-							'multisite-ultimate'
+							'ultimate-multisite'
 						),
 						'classes'           => 'wu-p-2 wu-bg-red-100 wu-text-red-600 wu-rounded wu-w-full',
 						'wrapper_html_attr' => [
@@ -868,16 +868,16 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'email_verification' => [
 						'type'              => 'select',
-						'title'             => __('Email Verification', 'multisite-ultimate'),
-						'placeholder'       => __('Select Status', 'multisite-ultimate'),
+						'title'             => __('Email Verification', 'ultimate-multisite'),
+						'placeholder'       => __('Select Status', 'ultimate-multisite'),
 						'desc'              => __(
 							'The email verification status. This gets automatically switched to Verified when the customer verifies their email address.',
-							'multisite-ultimate'
+							'ultimate-multisite'
 						),
 						'options'           => [
-							'none'     => __('None', 'multisite-ultimate'),
-							'pending'  => __('Pending', 'multisite-ultimate'),
-							'verified' => __('Verified', 'multisite-ultimate'),
+							'none'     => __('None', 'ultimate-multisite'),
+							'pending'  => __('Pending', 'ultimate-multisite'),
+							'verified' => __('Verified', 'ultimate-multisite'),
 						],
 						'value'             => $this->get_object()->get_email_verification(),
 						'tooltip'           => '',
@@ -890,10 +890,10 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'confirm_membership' => [
 						'type'              => 'toggle',
-						'title'             => __('Activate Memberships', 'multisite-ultimate'),
+						'title'             => __('Activate Memberships', 'ultimate-multisite'),
 						'desc'              => __(
 							'If you toggle this option, this change in status will also activate the related pending memberships. If any sites are pending, they are also going to be published automatically.',
-							'multisite-ultimate'
+							'ultimate-multisite'
 						),
 						'value'             => 0,
 						'wrapper_html_attr' => [
@@ -903,7 +903,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'send_verification'  => [
 						'type'              => 'submit',
-						'title'             => __('Re-send Verification Email &rarr;', 'multisite-ultimate'),
+						'title'             => __('Re-send Verification Email &rarr;', 'ultimate-multisite'),
 						'value'             => 'send_verification',
 						'classes'           => 'button wu-w-full',
 						'wrapper_html_attr' => [
@@ -924,7 +924,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 					],
 					'transfer'           => [
 						'type'              => 'link',
-						'display_value'     => __('Transfer Customer', 'multisite-ultimate'),
+						'display_value'     => __('Transfer Customer', 'ultimate-multisite'),
 						'wrapper_classes'   => 'wu-bg-gray-200',
 						'classes'           => 'button wubox wu-w-full wu-text-center',
 						'wrapper_html_attr' => [
@@ -939,7 +939,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 									'target_user_id' => '',
 								]
 							) . "=' + user_id",
-							'title'       => __('Transfer Customer', 'multisite-ultimate'),
+							'title'       => __('Transfer Customer', 'ultimate-multisite'),
 						],
 					],
 				],
@@ -949,16 +949,16 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		$this->add_fields_widget(
 			'last-login',
 			[
-				'title'  => __('Last Login & IPs', 'multisite-ultimate'),
+				'title'  => __('Last Login & IPs', 'ultimate-multisite'),
 				'fields' => [
 					'last_login' => [
 						'edit'          => true,
-						'title'         => __('Last Login', 'multisite-ultimate'),
+						'title'         => __('Last Login', 'ultimate-multisite'),
 						'type'          => 'text-edit',
 						'date'          => true,
 						'value'         => $this->edit ? $this->get_object()->get_last_login(false) : __(
 							'No date',
-							'multisite-ultimate'
+							'ultimate-multisite'
 						),
 						'display_value' => $this->edit ? $this->get_object()->get_last_login(false) : false,
 						'placeholder'   => '2020-04-04 12:00:00',
@@ -969,12 +969,12 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 						],
 					],
 					'ips'        => [
-						'title'         => __('IP Address', 'multisite-ultimate'),
+						'title'         => __('IP Address', 'ultimate-multisite'),
 						'type'          => 'text-edit',
 						'display_value' => $this->get_object()->get_last_ip(),
 					],
 					'country'    => [
-						'title'         => __('IP Address Country', 'multisite-ultimate'),
+						'title'         => __('IP Address Country', 'ultimate-multisite'),
 						'type'          => 'text-edit',
 						'display_value' => [$this, 'render_country'],
 					],
@@ -1017,7 +1017,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_title() {
 
-		return $this->edit ? __('Edit Customer', 'multisite-ultimate') : __('Add new Customer', 'multisite-ultimate');
+		return $this->edit ? __('Edit Customer', 'ultimate-multisite') : __('Add new Customer', 'ultimate-multisite');
 	}
 
 	/**
@@ -1028,7 +1028,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Edit Customer', 'multisite-ultimate');
+		return __('Edit Customer', 'ultimate-multisite');
 	}
 
 	/**
@@ -1051,15 +1051,15 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'edit_label'          => __('Edit Customer', 'multisite-ultimate'),
-			'add_new_label'       => __('Add new Customer', 'multisite-ultimate'),
-			'updated_message'     => __('Customer updated with success!', 'multisite-ultimate'),
-			'title_placeholder'   => __('Enter Customer', 'multisite-ultimate'),
+			'edit_label'          => __('Edit Customer', 'ultimate-multisite'),
+			'add_new_label'       => __('Add new Customer', 'ultimate-multisite'),
+			'updated_message'     => __('Customer updated with success!', 'ultimate-multisite'),
+			'title_placeholder'   => __('Enter Customer', 'ultimate-multisite'),
 			'title_description'   => '',
-			'save_button_label'   => __('Save Customer', 'multisite-ultimate'),
+			'save_button_label'   => __('Save Customer', 'ultimate-multisite'),
 			'save_description'    => '',
-			'delete_button_label' => __('Delete Customer', 'multisite-ultimate'),
-			'delete_description'  => __('Be careful. This action is irreversible.', 'multisite-ultimate'),
+			'delete_button_label' => __('Delete Customer', 'ultimate-multisite'),
+			'delete_description'  => __('Be careful. This action is irreversible.', 'ultimate-multisite'),
 		];
 	}
 
@@ -1187,7 +1187,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 		$billing_address = $object->get_billing_address();
 
-        $billing_address->load_attributes_from_post();
+		$billing_address->load_attributes_from_post();
 
 		$valid_address = $billing_address->validate();
 
@@ -1278,7 +1278,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		if (isset($_GET['notice_verification_sent'])) : // phpcs:ignore WordPress.Security.NonceVerification ?>
 
 			<div id="message" class="updated notice wu-admin-notice notice-success is-dismissible below-h2">
-				<p><?php esc_html_e('Verification email sent!', 'multisite-ultimate'); ?></p>
+				<p><?php esc_html_e('Verification email sent!', 'ultimate-multisite'); ?></p>
 			</div>
 
 			<?php

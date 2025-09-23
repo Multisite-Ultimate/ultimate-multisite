@@ -1,6 +1,6 @@
 # Canceling a Membership (v2)
 
-_**IMPORTANT NOTE: This article refers to Multisite Ultimate version 2.x.**_
+_**IMPORTANT NOTE: This article refers to Ultimate Multisite version 2.x.**_
 
 Canceling a membership on your customers side is pretty easy.
 

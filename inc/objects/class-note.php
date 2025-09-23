@@ -195,17 +195,17 @@ class Note {
 
 		$fields['text'] = [
 			'type'  => 'text',
-			'title' => __('Text', 'multisite-ultimate'),
+			'title' => __('Text', 'ultimate-multisite'),
 		];
 
 		$fields['author_id'] = [
 			'type'  => 'number',
-			'title' => __('Author ID', 'multisite-ultimate'),
+			'title' => __('Author ID', 'ultimate-multisite'),
 		];
 
 		$fields['note_id'] = [
 			'type'  => 'text',
-			'title' => __('Note ID', 'multisite-ultimate'),
+			'title' => __('Note ID', 'ultimate-multisite'),
 		];
 
 		uasort($fields, 'wu_sort_by_order');

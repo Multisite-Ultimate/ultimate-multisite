@@ -10,7 +10,7 @@ defined('ABSPATH') || exit;
 ?>
 <div class="wu-styling">
 
-	<?php echo wp_kses($form->before, wu_kses_allowed_html()); ?>
+	<?php echo wp_kses($form->before ?? '', wu_kses_allowed_html()); ?>
 
 	<div class="wu-flex wu-flex-wrap">
 
@@ -27,7 +27,7 @@ defined('ABSPATH') || exit;
 
 	<ul id="wp-ultimo-form-<?php echo esc_attr($form->id); ?>" class="wu-flex-grow <?php echo esc_attr(trim($form->classes)); ?>" <?php $form->print_html_attributes(); ?>>
 
-		<?php echo wp_kses($rendered_fields, wu_kses_allowed_html()); ?>
+		<?php $form->render_fields(); ?>
 
 	</ul>
 
@@ -37,7 +37,7 @@ defined('ABSPATH') || exit;
 
 	<?php endif; ?>
 
-	<?php echo wp_kses($form->after, wu_kses_allowed_html()); ?>
+	<?php echo wp_kses($form->after ?? '', wu_kses_allowed_html()); ?>
 
 	</div>
 

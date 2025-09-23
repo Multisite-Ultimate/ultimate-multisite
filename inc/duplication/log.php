@@ -1,8 +1,14 @@
 <?php
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 if ( ! class_exists('MUCD_Log') ) {
 
+	/**
+	 * Multisite Ultimate Clone Duplicator Log class.
+	 *
+	 * Handles logging operations during site duplication to track
+	 * progress, errors, and debug information.
+	 */
 	class MUCD_Log {
 
 		/**
@@ -36,9 +42,9 @@ if ( ! class_exists('MUCD_Log') ) {
 		 * Constructor
 		 *
 		 * @since 0.2.0
-		 * @param boolean $mod is log active
-		 * @param string  $log_dir_path log directory
-		 * @param string  $log_file_name log file name
+		 * @param bool   $mod           Whether logging is active.
+		 * @param string $log_dir_path  Log directory path.
+		 * @param string $log_file_name Log file name.
 		 */
 		public function __construct($mod, $log_dir_path = '', $log_file_name = '') {
 			$this->mod           = $mod;
@@ -136,8 +142,8 @@ if ( ! class_exists('MUCD_Log') ) {
 		 * Writes a message in log file
 		 *
 		 * @since 0.2.0
-		 * @param  string $message the message to write
-		 * @return boolean True on success, False on failure
+		 * @param  string $message The message to write to the log.
+		 * @return bool   True on success, False on failure.
 		 */
 		public function write_log($message): bool {
 			if (false !== $this->mod && $this->can_write() ) {

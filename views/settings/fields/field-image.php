@@ -5,7 +5,7 @@
  * @since 2.0.0
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 // We need to get the media scripts
 wp_enqueue_media();
@@ -44,7 +44,7 @@ wp_enqueue_script('wu-field-button-upload', wu_get_asset('wu-field-image.js', 'j
 	</a>
 
 	<a data-default="<?php echo esc_attr($field['default']); ?>" href="#" class="button wu-field-button-upload-remove" data-target="<?php echo esc_attr($field_slug); ?>">
-		<?php esc_html_e('Remove Image', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Remove Image', 'ultimate-multisite'); ?>
 	</a>
 
 	<?php if ( ! empty($field['desc'])) : ?>

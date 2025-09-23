@@ -1,4 +1,4 @@
-=== Multisite Ultimate ===
+=== Ultimate Multisite ===
 Contributors: aanduque, superdav42 
 Donate link: https://github.com/sponsors/superdav42/
 Tags: multisite, waas, membership, domain-mapping, subscription
@@ -6,7 +6,7 @@ Requires at least: 5.3
 
 Requires PHP: 7.4.30
 Tested up to: 6.8
-Stable tag: 2.4.3
+Stable tag: 2.4.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ The Complete Network Solution for transforming your WordPress Multisite into a W
 
 == Description ==
 
-**Multisite Ultimate** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
+**Ultimate Multisite** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
 
 This plugin was formerly known as WP Ultimo and is now community maintained.
 
@@ -31,113 +31,18 @@ This plugin was formerly known as WP Ultimo and is now community maintained.
 
 = Where to find help =
 
-* [GitHub Repository](https://github.com/superdav42/wp-multisite-waas)
 * [Issue Tracker](https://github.com/superdav42/wp-multisite-waas/issues)
+* Paid support at [the official Ultimate Multisite website](https://ultimatemultisite.com)
 
 = Contributing =
 
-We welcome contributions to Multisite Ultimate! To contribute effectively:
-
-**Development Workflow:**
-
-1. Fork the repository on GitHub
-2. Create a feature branch from main
-3. Run `npm install` and `composer install` to set up dependencies
-4. Make your changes
-5. Before committing, run `npm run build` to:
-   * Generate translation POT files
-   * Minify CSS and JS assets
-   * Process and optimize other assets
-6. **Important:** Update both README.md and readme.txt files when making changes that affect:
-   * Version numbers
-   * Required WordPress/PHP versions
-   * Feature additions or changes
-   * Installation instructions
-   * Documentation
-   * Changelog entries
-7. Open a Pull Request with your changes
-
-**Pull Request Guidelines:**
-
-Please include a clear description of your changes and their purpose, reference any related issues, and ensure your code follows existing style conventions. Always verify that both README.md and readme.txt are updated and synchronized before submitting your PR.
-
-**Release Process:**
-
-Releases are automated using GitHub Actions workflows that trigger when a version tag is pushed. 
-
-To trigger a new release build, push a tag following the semantic versioning format:
-`git tag v2.3.5` (for version 2.3.5) and then `git push origin v2.3.5`
-
-The tag must begin with "v" followed by the version number (v*.*.*).
-
-When preparing for a release:
-1. Update the version number in the main plugin file and readme.txt
-2. Update the changelog in readme.txt
-3. Ensure README.md and readme.txt are synchronized with the latest information
-4. Create and push the appropriate version tag
-
-For more detailed contribution guidelines, see the [GitHub repository](https://github.com/superdav42/wp-multisite-waas).
-
-== Installation ==
-
-There are two recommended ways to install Multisite Ultimate:
-
-= Method 1: Using the pre-packaged release (Recommended) =
-
-1. Download the latest release ZIP from the [Releases page](https://github.com/superdav42/wp-multisite-waas/releases)
-2. Log in to your WordPress Network Admin dashboard
-3. Navigate to Plugins > Add New > Upload Plugin
-4. Choose the downloaded ZIP file and click "Install Now"
-5. Network Activate the plugin through the 'Plugins' menu in WordPress
-6. Follow the step by step Wizard to set the plugin up
-
-= Method 2: Using Git and Composer (For developers) =
-
-This method requires command-line access to your server and familiarity with Git and Composer.
-
-1. Clone the repository to your plugins directory:
-   ```
-   cd wp-content/plugins/
-   git clone https://github.com/superdav42/wp-multisite-waas.git
-   cd wp-multisite-waas
-   ```
-
-2. Install the required dependencies using Composer:
-   ```
-   composer install
-   ```
-
-3. Network Activate the plugin in your WordPress Network Admin dashboard
-4. Follow the setup wizard to complete the installation
-
-= Common Installation Issues =
-
-**"Failed opening required [...]/vendor/autoload_packages.php"**
-
-This error occurs when the required vendor files are missing. This typically happens when:
-- You've downloaded the repository directly from GitHub without using a release package
-- The composer dependencies haven't been installed
-
-Solution: Use the pre-packaged release from the [Releases page](https://github.com/superdav42/wp-multisite-waas/releases) or run `composer install` in the plugin directory.
-
-**"Cannot declare class ComposerAutoloaderInitWPUltimoDependencies, because the name is already in use"**
-
-This error usually occurs when updating from an older version of WP Ultimo or when multiple versions of the plugin are installed.
-
-Solution: Deactivate and remove any older versions of WP Ultimo or Multisite Ultimate before activating the new version.
-
-**"Class 'WP_Ultimo\Database\Sites\Site_Query' not found"**
-
-This error can occur if the plugin's autoloader isn't properly loading all the necessary classes.
-
-Solution: Use the pre-packaged release from the [Releases page](https://github.com/superdav42/wp-multisite-waas/releases) which includes all required files.
+We welcome contributions to Ultimate Multisite! To contribute see the [GitHub repository](https://github.com/superdav42/wp-multisite-waas).
 
 == Requirements ==
 
 * WordPress Multisite 5.3 or higher
 * PHP 7.4.30 or higher
 * MySQL 5.6 or higher
-* HTTPS enabled (recommended for secure checkout)
 
 == Frequently Asked Questions ==
 
@@ -147,7 +52,7 @@ No, this plugin specifically requires WordPress Multisite to function properly. 
 
 = Does this plugin support custom domains? =
 
-Yes, Multisite Ultimate includes robust domain mapping functionality that allows your customers to use their own domains for their websites within your network.
+Yes, Ultimate Multisite includes robust domain mapping functionality that allows your customers to use their own domains for their websites within your network.
 
 = Which payment gateways are supported? =
 
@@ -155,7 +60,7 @@ The plugin supports multiple payment gateways including Stripe, PayPal, and manu
 
 = Can I migrate from WP Ultimo to this plugin? =
 
-Yes, Multisite Ultimate is a community-maintained fork of WP Ultimo. The plugin includes migration tools to help you transition from WP Ultimo.
+Yes, Ultimate Multisite is a community-maintained fork of WP Ultimo. The plugin includes migration tools to help you transition from WP Ultimo.
 
 == External Services ==
 
@@ -185,7 +90,7 @@ This plugin connects to several external services to provide its functionality. 
 
 = Plugin Updates and Add-ons =
 
-**Multisite Ultimate Update Server**
+**Ultimate Multisite Update Server**
 - Service: Official update server for the plugin and its add-ons (multisiteultimate.com)
 - Data sent: Site URL, plugin version, license keys, authentication tokens
 - When: During plugin/add-on updates and license checks
@@ -259,7 +164,7 @@ This plugin connects to several external services to provide its functionality. 
 
 = Newsletter and Analytics =
 
-**Multisite Ultimate Newsletter Service**
+**Ultimate Multisite Newsletter Service**
 - Service: Newsletter subscription for product updates (multisiteultimate.com)
 - Data sent: Company email, name, country information
 - When: During initial plugin setup (optional)
@@ -288,7 +193,7 @@ We recommend running this in a staging environment before updating your producti
 
 == Changelog ==
 
-Version [2.4.4] - Released on 2025-08-XX
+Version [2.4.4] - Released on 2025-09-17
 - Fixed: Saving email templates without stripping html
 - New: Option to allow site owners to edit users on their site
 - Fixed: Invoices not loading when logo is not set
@@ -296,6 +201,7 @@ Version [2.4.4] - Released on 2025-08-XX
 - Improved: Lazy load limitations for better performance and compatibility
 - New: Add Admin Notice if sunrise.php is not setup
 - New: Option to not always create www. subdomains with hosting integrations
+- Improved: Plugin renamed to Ultimate Multisite
 
 Version [2.4.3] - Released on 2025-08-15
 - Fixed: Bug in Slim SEO plugin

@@ -8,4 +8,22 @@
       <directory suffix="Test.php">./tests/</directory>
     </testsuite>
   </testsuites>
+  <coverage includeUncoveredFiles="true" processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">./inc</directory>
+      <file>./multisite-ultimate.php</file>
+    </include>
+    <exclude>
+      <directory>./inc/ui</directory>
+      <directory>./inc/views</directory>
+      <directory>./inc/assets</directory>
+      <directory>./vendor</directory>
+      <file>./inc/stuff.php</file>
+    </exclude>
+    <report>
+      <html outputDirectory="coverage-html"/>
+      <clover outputFile="coverage.xml"/>
+      <text outputFile="php://stdout" showUncoveredFiles="false"/>
+    </report>
+  </coverage>
 </phpunit>

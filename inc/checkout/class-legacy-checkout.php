@@ -13,7 +13,7 @@ namespace WP_Ultimo\Checkout;
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
-use \WP_Ultimo\Checkout\Cart;
+use WP_Ultimo\Checkout\Cart;
 use WU_Gateway;
 use WU_Site_Template;
 
@@ -96,7 +96,7 @@ class Legacy_Checkout {
 		$this->session = wu_get_session('signup');
 
 		$this->templates = [
-			'signup-main.php' => __('Multisite Ultimate Legacy Signup', 'multisite-ultimate'),
+			'signup-main.php' => __('Ultimate Multisite Legacy Signup', 'ultimate-multisite'),
 		];
 
 		// add_filter('request', array($this, 'maybe_render_legacy_signup'));
@@ -111,7 +111,6 @@ class Legacy_Checkout {
 		// Add a filter to the template include to determine if the page has our
 		// template assigned and return it's path
 		add_filter('template_include', [$this, 'view_legacy_template']);
-
 	}
 
 	/**
@@ -125,13 +124,10 @@ class Legacy_Checkout {
 	public function add_new_template($posts_templates) {
 
 		if (is_main_site()) {
-
 			$posts_templates = array_merge($posts_templates, $this->templates);
-
 		}
 
 		return $posts_templates;
-
 	}
 
 	/**
@@ -153,9 +149,7 @@ class Legacy_Checkout {
 		$templates = wp_get_theme()->get_page_templates();
 
 		if (empty($templates)) {
-
 			$templates = [];
-
 		}
 
 		// New cache, therefore remove the old one
@@ -170,7 +164,6 @@ class Legacy_Checkout {
 		wp_cache_add($cache_key, $templates, 'themes', 1800);
 
 		return $atts;
-
 	}
 
 	/**
@@ -185,42 +178,33 @@ class Legacy_Checkout {
 
 		// Return the search template if we're searching (instead of the template for the first result)
 		if (is_search()) {
-
 			return $template;
-
 		}
 
 		// Get global post
 		global $post, $signup;
 
 		// Return template if post is empty
-		if (!$post) {
-
+		if (! $post) {
 			return $template;
-
 		}
 
 		$template_slug = get_post_meta($post->ID, '_wp_page_template', true);
 
 		// Return default template if we don't have a custom one defined
-		if (!isset($this->templates[$template_slug])) {
-
+		if (! isset($this->templates[ $template_slug ])) {
 			return $template;
-
 		}
 
 		$file = wu_path("views/legacy/signup/$template_slug");
 
 		// Just to be safe, we check if the file exist first
 		if (file_exists($file)) {
-
 			return $file;
-
 		}
 
 		// Return template
 		return $template;
-
 	}
 
 	/**
@@ -235,9 +219,13 @@ class Legacy_Checkout {
 
 		wp_register_script('wu-legacy-signup', wu_get_asset('legacy-signup.js', 'js'), ['wu-functions'], \WP_Ultimo::VERSION, true);
 
-		wp_localize_script('wu-legacy-signup', 'wpu', [
-			'default_pricing_option' => 1,
-		]);
+		wp_localize_script(
+			'wu-legacy-signup',
+			'wpu',
+			[
+				'default_pricing_option' => 1,
+			]
+		);
 
 		wp_enqueue_script('wu-legacy-signup');
 
@@ -248,19 +236,23 @@ class Legacy_Checkout {
 		if (isset($_GET['coupon']) && wu_get_coupon(sanitize_text_field(wp_unslash($_GET['coupon']))) !== false && isset($_GET['step']) && 'plan' === $_GET['step']) { // phpcs:ignore WordPress.Security.NonceVerification
 			$coupon = wu_get_coupon(sanitize_text_field(wp_unslash($_GET['coupon']))); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-			wp_localize_script('wu-coupon-code', 'wu_coupon_data', [
-				'coupon' => $coupon,
-				'type' => get_post_meta($coupon->id, 'wpu_type', true),
-				'value' => get_post_meta($coupon->id, 'wpu_value', true),
-				'applies_to_setup_fee' => get_post_meta($coupon->id, 'wpu_applies_to_setup_fee', true),
-				'setup_fee_discount_value' => get_post_meta($coupon->id, 'wpu_setup_fee_discount_value', true),
-				'setup_fee_discount_type' => get_post_meta($coupon->id, 'wpu_setup_fee_discount_type', true),
-				'allowed_plans' => get_post_meta($coupon->id, 'wpu_allowed_plans', true),
-				'allowed_freqs' => get_post_meta($coupon->id, 'wpu_allowed_freqs', true),
-				'off_text' => __('OFF', 'multisite-ultimate'),
-				'free_text' => __('Free!', 'multisite-ultimate'),
-				'no_setup_fee_text' => __('No Setup Fee', 'multisite-ultimate'),
-			]);
+			wp_localize_script(
+				'wu-coupon-code',
+				'wu_coupon_data',
+				[
+					'coupon'                   => $coupon,
+					'type'                     => get_post_meta($coupon->id, 'wpu_type', true),
+					'value'                    => get_post_meta($coupon->id, 'wpu_value', true),
+					'applies_to_setup_fee'     => get_post_meta($coupon->id, 'wpu_applies_to_setup_fee', true),
+					'setup_fee_discount_value' => get_post_meta($coupon->id, 'wpu_setup_fee_discount_value', true),
+					'setup_fee_discount_type'  => get_post_meta($coupon->id, 'wpu_setup_fee_discount_type', true),
+					'allowed_plans'            => get_post_meta($coupon->id, 'wpu_allowed_plans', true),
+					'allowed_freqs'            => get_post_meta($coupon->id, 'wpu_allowed_freqs', true),
+					'off_text'                 => __('OFF', 'ultimate-multisite'),
+					'free_text'                => __('Free!', 'ultimate-multisite'),
+					'no_setup_fee_text'        => __('No Setup Fee', 'ultimate-multisite'),
+				]
+			);
 
 			wp_enqueue_script('wu-coupon-code');
 		}
@@ -273,13 +265,10 @@ class Legacy_Checkout {
 
 		// Do not get the login if the first step
 		if ('plan' != $this->step) {
-
 			wp_enqueue_style('login');
-
 		}
 
 		wp_enqueue_style('common');
-
 	}
 
 	/**
@@ -303,17 +292,17 @@ class Legacy_Checkout {
 
 			.wu-content-plan .plan-tier h4 {
 				background-color: #<?php echo esc_html($primary_color->getHex()); ?>;
-				color: <?php echo $primary_color->isDark() ? "white" : "#333"; ?> !important;
+				color: <?php echo $primary_color->isDark() ? 'white' : '#333'; ?> !important;
 			}
 
 			.wu-content-plan .plan-tier.callout h6 {
 				background-color: #<?php echo esc_html($accent_color->getHex()); ?>;
-				color: <?php echo $accent_color->isDark() ? "#f9f9f9" : "rgba(39,65,90,.5)"; ?> !important;
+				color: <?php echo $accent_color->isDark() ? '#f9f9f9' : 'rgba(39,65,90,.5)'; ?> !important;
 			}
 
 			.wu-content-plan .plan-tier.callout h4 {
 				background-color: #<?php echo esc_html($accent_color_2->getHex()); ?>;
-				color: <?php echo $accent_color->isDark() ? "white" : "#333"; ?> !important;
+				color: <?php echo $accent_color->isDark() ? 'white' : '#333'; ?> !important;
 			}
 
 		<?php
@@ -336,7 +325,7 @@ class Legacy_Checkout {
 
 		if (isset($location['country']) && $location['country'] && $allowed_countries) {
 			if ( ! in_array($location['country'], $allowed_countries, true)) {
-				wp_die(esc_html__('Sorry. Our service is not allowed in your country.', 'multisite-ultimate'));
+				wp_die(esc_html__('Sorry. Our service is not allowed in your country.', 'ultimate-multisite'));
 			}
 		}
 	}
@@ -415,8 +404,8 @@ class Legacy_Checkout {
 
 		// Plan Selector
 		$steps['plan'] = [
-			'name'    => __('Pick a Plan', 'multisite-ultimate'),
-			'desc'    => __('Which one of our amazing plans you want to get?', 'multisite-ultimate'),
+			'name'    => __('Pick a Plan', 'ultimate-multisite'),
+			'desc'    => __('Which one of our amazing plans you want to get?', 'ultimate-multisite'),
 			'view'    => 'step-plans',
 //			'handler' => [$this, 'plans_save'],
 			'order'   => 10,
@@ -431,8 +420,8 @@ class Legacy_Checkout {
 		// We add template selection if this has template
 		if ($site_templates) {
 			$steps['template'] = [
-				'name'    => __('Template Selection', 'multisite-ultimate'),
-				'desc'    => __('Select the base template of your new site.', 'multisite-ultimate'),
+				'name'    => __('Template Selection', 'ultimate-multisite'),
+				'desc'    => __('Select the base template of your new site.', 'ultimate-multisite'),
 				'view'    => 'step-template',
 				'order'   => 20,
 				'handler' => false,
@@ -442,8 +431,8 @@ class Legacy_Checkout {
 
 		// Domain registering
 		$steps['domain'] = [
-			'name'    => __('Site Details', 'multisite-ultimate'),
-			'desc'    => __('Ok, now it\'s time to pick your site url and title!', 'multisite-ultimate'),
+			'name'    => __('Site Details', 'ultimate-multisite'),
+			'desc'    => __('Ok, now it\'s time to pick your site url and title!', 'ultimate-multisite'),
 //			'handler' => [$this, 'domain_save'],
 			'view'    => false,
 			'order'   => 30,
@@ -453,34 +442,34 @@ class Legacy_Checkout {
 				[
 					'blog_title'  => [
 						'order'       => 10,
-						'name'        => apply_filters('wu_signup_site_title_label', __('Site Title', 'multisite-ultimate')),
+						'name'        => apply_filters('wu_signup_site_title_label', __('Site Title', 'ultimate-multisite')),
 						'type'        => 'text',
 						'default'     => '',
 						'placeholder' => '',
-						'tooltip'     => apply_filters('wu_signup_site_title_tooltip', __('Select the title your site is going to have.', 'multisite-ultimate')),
+						'tooltip'     => apply_filters('wu_signup_site_title_tooltip', __('Select the title your site is going to have.', 'ultimate-multisite')),
 						'required'    => true,
 						'core'        => true,
 					],
 					'blogname'    => [
 						'order'       => 20,
-						'name'        => apply_filters('wu_signup_site_url_label', __('URL', 'multisite-ultimate')),
+						'name'        => apply_filters('wu_signup_site_url_label', __('URL', 'ultimate-multisite')),
 						'type'        => 'text',
 						'default'     => '',
 						'placeholder' => '',
-						'tooltip'     => apply_filters('wu_signup_site_url_tooltip', __('Site urls can only contain lowercase letters (a-z) and numbers and must be at least 4 characters. .', 'multisite-ultimate')),
+						'tooltip'     => apply_filters('wu_signup_site_url_tooltip', __('Site urls can only contain lowercase letters (a-z) and numbers and must be at least 4 characters. .', 'ultimate-multisite')),
 						'required'    => true,
 						'core'        => true,
 					],
 					'url_preview' => [
 						'order'   => 30,
-						'name'    => __('Site URL Preview', 'multisite-ultimate'),
+						'name'    => __('Site URL Preview', 'ultimate-multisite'),
 						'type'    => 'html',
 						'content' => wu_get_template_contents('legacy/signup/steps/step-domain-url-preview'),
 					],
 					'submit'      => [
 						'order' => 100,
 						'type'  => 'submit',
-						'name'  => __('Continue to the next step', 'multisite-ultimate'),
+						'name'  => __('Continue to the next step', 'ultimate-multisite'),
 						'core'  => true,
 					],
 				]
@@ -495,18 +484,18 @@ class Legacy_Checkout {
 
 			'user_name'      => [
 				'order'       => 10,
-				'name'        => apply_filters('wu_signup_username_label', __('Username', 'multisite-ultimate')),
+				'name'        => apply_filters('wu_signup_username_label', __('Username', 'ultimate-multisite')),
 				'type'        => 'text',
 				'default'     => '',
 				'placeholder' => '',
-				'tooltip'     => apply_filters('wu_signup_username_tooltip', __('Username must be at least 4 characters.', 'multisite-ultimate')),
+				'tooltip'     => apply_filters('wu_signup_username_tooltip', __('Username must be at least 4 characters.', 'ultimate-multisite')),
 				'required'    => true,
 				'core'        => true,
 			],
 
 			'user_email'     => [
 				'order'       => 20,
-				'name'        => apply_filters('wu_signup_email_label', __('Email', 'multisite-ultimate')),
+				'name'        => apply_filters('wu_signup_email_label', __('Email', 'ultimate-multisite')),
 				'type'        => 'email',
 				'default'     => '',
 				'placeholder' => '',
@@ -517,18 +506,18 @@ class Legacy_Checkout {
 
 			'user_pass'      => [
 				'order'       => 30,
-				'name'        => apply_filters('wu_signup_password_label', __('Password', 'multisite-ultimate')),
+				'name'        => apply_filters('wu_signup_password_label', __('Password', 'ultimate-multisite')),
 				'type'        => 'password',
 				'default'     => '',
 				'placeholder' => '',
-				'tooltip'     => apply_filters('wu_signup_password_tooltip', __('Your password should be at least 6 characters long.', 'multisite-ultimate')),
+				'tooltip'     => apply_filters('wu_signup_password_tooltip', __('Your password should be at least 6 characters long.', 'ultimate-multisite')),
 				'required'    => true,
 				'core'        => true,
 			],
 
 			'user_pass_conf' => [
 				'order'       => 40,
-				'name'        => apply_filters('wu_signup_password_conf_label', __('Confirm Password', 'multisite-ultimate')),
+				'name'        => apply_filters('wu_signup_password_conf_label', __('Confirm Password', 'ultimate-multisite')),
 				'type'        => 'password',
 				'default'     => '',
 				'placeholder' => '',
@@ -542,7 +531,7 @@ class Legacy_Checkout {
 			 */
 			'site_url'       => [
 				'order'              => random_int(1, 59), // Use random order for Honeypot
-				'name'               => __('Site URL', 'multisite-ultimate'),
+				'name'               => __('Site URL', 'ultimate-multisite'),
 				'type'               => 'text',
 				'default'            => '',
 				'placeholder'        => '',
@@ -571,18 +560,18 @@ class Legacy_Checkout {
 		// $account_fields['has_coupon'] = array(
 		// 'order'         => 50,
 		// 'type'          => 'checkbox',
-		// 'name'         => __('Have a coupon code?', 'multisite-ultimate'),
+		// 'name'         => __('Have a coupon code?', 'ultimate-multisite'),
 		// 'core'          => true,
 		// 'check_if'      => 'coupon', // Check if the input with this name is selected
 		// 'checked'       => $coupon ? true : false,
 		// );
 		// $account_fields['coupon'] = array(
 		// 'order'         => 60,
-		// 'name'         => __('Coupon Code', 'multisite-ultimate'),
+		// 'name'         => __('Coupon Code', 'ultimate-multisite'),
 		// 'type'          => 'text',
 		// 'default'       => '',
 		// 'placeholder'   => '',
-		// 'tooltip'       => __('The code should be an exact match. This field is case-sensitive.', 'multisite-ultimate'),
+		// 'tooltip'       => __('The code should be an exact match. This field is case-sensitive.', 'ultimate-multisite'),
 		// 'requires'      => array('has_coupon' => true),
 		// 'core'          => true,
 		// );
@@ -596,7 +585,7 @@ class Legacy_Checkout {
 		// 'order'         => 70,
 		// 'type'          => 'checkbox',
 		// 'checked'       => false,
-		// 'name'         => sprintf(__('I agree with the <a href="%s" target="_blank">Terms of Service</a>', 'multisite-ultimate'), $this->get_terms_url()),
+		// 'name'         => sprintf(__('I agree with the <a href="%s" target="_blank">Terms of Service</a>', 'ultimate-multisite'), $this->get_terms_url()),
 		// 'core'          => true,
 		// );
 		// }
@@ -607,13 +596,13 @@ class Legacy_Checkout {
 		$account_fields['submit'] = [
 			'order' => 100,
 			'type'  => 'submit',
-			'name'  => __('Create Account', 'multisite-ultimate'),
+			'name'  => __('Create Account', 'ultimate-multisite'),
 			'core'  => true,
 		];
 
 		// Account registering
 		$steps['account'] = [
-			'name'    => __('Account Details', 'multisite-ultimate'),
+			'name'    => __('Account Details', 'ultimate-multisite'),
 			'view'    => false,
 			'handler' => [$this, 'account_save'],
 			'order'   => 40,
@@ -652,7 +641,7 @@ class Legacy_Checkout {
 		 */
 		$begin_signup = [
 			'begin-signup' => [
-				'name'    => __('Begin Signup Process', 'multisite-ultimate'),
+				'name'    => __('Begin Signup Process', 'ultimate-multisite'),
 //				'handler' => [$this, 'begin_signup'],
 				'view'    => false,
 				'hidden'  => true,
@@ -668,7 +657,7 @@ class Legacy_Checkout {
 		 */
 		$create_account = [
 			'create-account' => [
-				'name'    => __('Creating Account', 'multisite-ultimate'),
+				'name'    => __('Creating Account', 'ultimate-multisite'),
 				'handler' => [$this, 'create_account'],
 				'view'    => false,
 				'hidden'  => true,
@@ -717,7 +706,7 @@ class Legacy_Checkout {
 
 		if ($die && empty($transient)) {
 
-			// wp_die(__('Try again', 'multisite-ultimate'));
+			// wp_die(__('Try again', 'ultimate-multisite'));
 		}
 
 		if (is_null($transient)) {
@@ -817,12 +806,11 @@ class Legacy_Checkout {
 		 *
 		 * @since 1.7.2
 		 * @param string  Default domain being used right now, useful for manipulations
-		 * @param array   List of all the domain options entered in the Multisite Ultimate Settings -> Network Settings -> Domain Options
+		 * @param array   List of all the domain options entered in the Ultimate Multisite Settings -> Network Settings -> Domain Options
 		 * @return string New domain to be used
 		 */
 		return apply_filters('get_site_url_for_previewer', $domain, $domain_options); // phpcs:ignore
 	}
-
 
 	/**
 	 * Adds a new Step to the sign-up flow
@@ -870,7 +858,7 @@ class Legacy_Checkout {
 
 				// Checks for honey-trap id
 				if ('site_url' === $id) {
-					wp_die(esc_html__('Please, do not use the "site_url" as one of your custom fields\' ids. We use it as a honeytrap field to prevent spam registration. Consider alternatives such as "url" or "website".', 'multisite-ultimate'));
+					wp_die(esc_html__('Please, do not use the "site_url" as one of your custom fields\' ids. We use it as a honeytrap field to prevent spam registration. Consider alternatives such as "url" or "website".', 'ultimate-multisite'));
 				}
 
 				// Saves the order

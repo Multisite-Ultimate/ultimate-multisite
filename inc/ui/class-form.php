@@ -171,8 +171,13 @@ class Form implements \JsonSerializable {
 			]
 		);
 
-		ob_start();
+		wu_get_template("{$this->views}/form", $variables);
+	}
 
+	/**
+	 * @return void
+	 */
+	public function render_fields(): void {
 		foreach ($this->get_fields() as $field_slug => $field) {
 			$template_name = $field->get_template_name();
 
@@ -193,12 +198,6 @@ class Form implements \JsonSerializable {
 				"{$this->views}/field-text"
 			);
 		}
-
-		$rendered_fields = ob_get_clean();
-
-		$variables['rendered_fields'] = $rendered_fields;
-
-		wu_get_template("{$this->views}/form", $variables);
 	}
 
 	/**

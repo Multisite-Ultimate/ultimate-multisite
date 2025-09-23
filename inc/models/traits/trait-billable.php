@@ -11,7 +11,7 @@ namespace WP_Ultimo\Models\Traits;
 
 use WP_Ultimo\Objects\Billing_Address;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Singleton trait.

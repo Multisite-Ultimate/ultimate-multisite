@@ -20,32 +20,32 @@ defined('ABSPATH') || exit;
  */
 return [
 	'featured_image_id'   => [
-		'description' => __('The ID of the feature image of the product.', 'multisite-ultimate'),
+		'description' => __('The ID of the feature image of the product.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'slug'                => [
-		'description' => __('The product slug. It needs to be unique and preferably make it clear what it is about. Example: my_new_product.', 'multisite-ultimate'),
+		'description' => __('The product slug. It needs to be unique and preferably make it clear what it is about. Example: my_new_product.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'name'                => [
-		'description' => __('Your product name, which is used as product title as well.', 'multisite-ultimate'),
+		'description' => __('Your product name, which is used as product title as well.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'description'         => [
-		'description' => __('A description for the product, usually a short text.', 'multisite-ultimate'),
+		'description' => __('A description for the product, usually a short text.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'currency'            => [
-		'description' => __("The currency that this product accepts. It's a 3-letter code. E.g. 'USD'.", 'multisite-ultimate'),
+		'description' => __("The currency that this product accepts. It's a 3-letter code. E.g. 'USD'.", 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'pricing_type'        => [
-		'description' => __("The pricing type can be 'free', 'paid' or 'contact_us'.", 'multisite-ultimate'),
+		'description' => __("The pricing type can be 'free', 'paid' or 'contact_us'.", 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -55,12 +55,12 @@ return [
 		],
 	],
 	'trial_duration'      => [
-		'description' => __('The duration of the trial period of this product, if the product has one.', 'multisite-ultimate'),
+		'description' => __('The duration of the trial period of this product, if the product has one.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'trial_duration_unit' => [
-		'description' => __('The unit of the trial duration amount. Can be day, week, month or year.', 'multisite-ultimate'),
+		'description' => __('The unit of the trial duration amount. Can be day, week, month or year.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -71,12 +71,12 @@ return [
 		],
 	],
 	'duration'            => [
-		'description' => __('Time interval between charges.', 'multisite-ultimate'),
+		'description' => __('Time interval between charges.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'duration_unit'       => [
-		'description' => __('Time interval unit between charges.', 'multisite-ultimate'),
+		'description' => __('Time interval unit between charges.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -87,22 +87,22 @@ return [
 		],
 	],
 	'amount'              => [
-		'description' => __('The value of this product. E.g. 19.99.', 'multisite-ultimate'),
+		'description' => __('The value of this product. E.g. 19.99.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'setup_fee'           => [
-		'description' => __('The setup fee value, if the product has one. E.g. 159.99.', 'multisite-ultimate'),
+		'description' => __('The setup fee value, if the product has one. E.g. 159.99.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'active'              => [
-		'description' => __('Set this product as active (true), which means available to be used, or inactive (false).', 'multisite-ultimate'),
+		'description' => __('Set this product as active (true), which means available to be used, or inactive (false).', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'type'                => [
-		'description' => __("The default product types are 'product', 'service' and 'package'. More types can be add using the product type filter.", 'multisite-ultimate'),
+		'description' => __("The default product types are 'product', 'service' and 'package'. More types can be add using the product type filter.", 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 		'enum'        => [
@@ -112,87 +112,87 @@ return [
 		],
 	],
 	'parent_id'           => [
-		'description' => __('The ID from another Product that this product is related to.', 'multisite-ultimate'),
+		'description' => __('The ID from another Product that this product is related to.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'recurring'           => [
-		'description' => __('Set this product as a recurring one (true), which means the customer paid a defined amount each period of time, or not recurring (false).', 'multisite-ultimate'),
+		'description' => __('Set this product as a recurring one (true), which means the customer paid a defined amount each period of time, or not recurring (false).', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'billing_cycles'      => [
-		'description' => __('The number of times we should charge this product.', 'multisite-ultimate'),
+		'description' => __('The number of times we should charge this product.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'date_created'        => [
-		'description' => __('Date when this was created.', 'multisite-ultimate'),
+		'description' => __('Date when this was created.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_modified'       => [
-		'description' => __('Date when this was last modified.', 'multisite-ultimate'),
+		'description' => __('Date when this was last modified.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'taxable'             => [
-		'description' => __('Set this product as a taxable one (true), which means tax rules are applied to, or not taxable (false).', 'multisite-ultimate'),
+		'description' => __('Set this product as a taxable one (true), which means tax rules are applied to, or not taxable (false).', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'tax_category'        => [
-		'description' => __('Category of taxes applied to this product. You need to set this if taxable is set to true.', 'multisite-ultimate'),
+		'description' => __('Category of taxes applied to this product. You need to set this if taxable is set to true.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'contact_us_label'    => [
-		'description' => __("If the product is the 'contact_us' type, it will need a label for the contact us button.", 'multisite-ultimate'),
+		'description' => __("If the product is the 'contact_us' type, it will need a label for the contact us button.", 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'contact_us_link'     => [
-		'description' => __('The url where the contact us button will lead to.', 'multisite-ultimate'),
+		'description' => __('The url where the contact us button will lead to.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'feature_list'        => [
-		'description' => __('A list (array) of features of the product.', 'multisite-ultimate'),
+		'description' => __('A list (array) of features of the product.', 'ultimate-multisite'),
 		'type'        => 'array',
 		'required'    => false,
 	],
 	'customer_role'       => [
-		'description' => __('The customer role of this product.', 'multisite-ultimate'),
+		'description' => __('The customer role of this product.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'available_addons'    => [
-		'description' => __('The available addons of this product.', 'multisite-ultimate'),
+		'description' => __('The available addons of this product.', 'ultimate-multisite'),
 		'type'        => 'array',
 		'required'    => false,
 	],
 	'group'               => [
-		'description' => __('The group of this product, if has any.', 'multisite-ultimate'),
+		'description' => __('The group of this product, if has any.', 'ultimate-multisite'),
 		'type'        => 'array',
 		'required'    => false,
 	],
 	'legacy_options'      => [
-		'description' => __('If the legacy options are enabled.', 'multisite-ultimate'),
+		'description' => __('If the legacy options are enabled.', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'migrated_from_id'    => [
-		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'multisite-ultimate'),
+		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'skip_validation'     => [
-		'description' => __('Set true to have field information validation bypassed when saving this event.', 'multisite-ultimate'),
+		'description' => __('Set true to have field information validation bypassed when saving this event.', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'featured_plan'       => [
-		'description' => __('Feature list for pricing tables.', 'multisite-ultimate'),
+		'description' => __('Feature list for pricing tables.', 'ultimate-multisite'),
 		'type'        => 'array',
 		'required'    => false,
 	],

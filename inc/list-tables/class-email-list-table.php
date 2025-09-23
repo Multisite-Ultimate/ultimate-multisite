@@ -36,8 +36,8 @@ class Email_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Email', 'multisite-ultimate'),  // singular name of the listed records
-				'plural'   => __('Emails', 'multisite-ultimate'), // plural name of the listed records
+				'singular' => __('Email', 'ultimate-multisite'),  // singular name of the listed records
+				'plural'   => __('Emails', 'ultimate-multisite'), // plural name of the listed records
 				'ajax'     => true,                         // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_network_admin_url('wp-ultimo-edit-email'),
@@ -110,9 +110,9 @@ class Email_List_Table extends Base_List_Table {
 		$content = wp_trim_words(wp_strip_all_tags($item->get_content()), 6);
 
 		$actions = [
-			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-email', $url_atts), __('Edit', 'multisite-ultimate')),
-			'duplicate' => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-email', $url_atts), __('Duplicate', 'multisite-ultimate')),
-			'send-test' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Send Test Email', 'multisite-ultimate'), wu_get_form_url('send_new_test', $url_atts), __('Send Test Email', 'multisite-ultimate')),
+			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-email', $url_atts), __('Edit', 'ultimate-multisite')),
+			'duplicate' => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-email', $url_atts), __('Duplicate', 'ultimate-multisite')),
+			'send-test' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Send Test Email', 'ultimate-multisite'), wu_get_form_url('send_new_test', $url_atts), __('Send Test Email', 'ultimate-multisite')),
 		];
 
 		$slug = $item->get_slug();
@@ -120,10 +120,10 @@ class Email_List_Table extends Base_List_Table {
 		$default_system_emails = wu_get_default_system_emails();
 
 		if (isset($default_system_emails[ $slug ])) {
-			$actions['reset'] = sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Reset', 'multisite-ultimate'), wu_get_form_url('reset_confirmation', $url_atts), __('Reset', 'multisite-ultimate'));
+			$actions['reset'] = sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Reset', 'ultimate-multisite'), wu_get_form_url('reset_confirmation', $url_atts), __('Reset', 'ultimate-multisite'));
 		}
 
-		$actions['delete'] = sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'multisite-ultimate'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'multisite-ultimate'));
+		$actions['delete'] = sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'ultimate-multisite'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'ultimate-multisite'));
 
 		return $title . $content . $this->row_actions($actions);
 	}
@@ -172,13 +172,13 @@ class Email_List_Table extends Base_List_Table {
 			if ($item->get_schedule_type() === 'hours') {
 				$time = explode(':', (string) $item->get_send_hours());
 				// translators: %1$s is the number of hours, %2$s is the number of minutes.
-				$text = sprintf(__('%1$s hour(s) and %2$s minute(s) after the event.', 'multisite-ultimate'), $time[0], $time[1]);
+				$text = sprintf(__('%1$s hour(s) and %2$s minute(s) after the event.', 'ultimate-multisite'), $time[0], $time[1]);
 			} elseif ($item->get_schedule_type() === 'days') {
 				// translators: %s is the number of days.
-				$text = sprintf(__('%s day(s) after the event.', 'multisite-ultimate'), $item->get_send_days());
+				$text = sprintf(__('%s day(s) after the event.', 'ultimate-multisite'), $item->get_send_days());
 			}
 		} else {
-			$text = __('Sent immediately after the event.', 'multisite-ultimate');
+			$text = __('Sent immediately after the event.', 'ultimate-multisite');
 		}
 
 		return $text;
@@ -194,11 +194,11 @@ class Email_List_Table extends Base_List_Table {
 
 		$columns = [
 			'cb'       => '<input type="checkbox" />',
-			'title'    => __('Content', 'multisite-ultimate'),
-			'slug'     => __('Event', 'multisite-ultimate'),
-			'event'    => __('slug', 'multisite-ultimate'),
-			'schedule' => __('When', 'multisite-ultimate'),
-			'id'       => __('ID', 'multisite-ultimate'),
+			'title'    => __('Content', 'ultimate-multisite'),
+			'slug'     => __('Event', 'ultimate-multisite'),
+			'event'    => __('slug', 'ultimate-multisite'),
+			'schedule' => __('When', 'ultimate-multisite'),
+			'id'       => __('ID', 'ultimate-multisite'),
 		];
 
 		return $columns;
@@ -220,14 +220,14 @@ class Email_List_Table extends Base_List_Table {
 			$email = wu_get_email($email_id);
 
 			if ( ! $email) {
-				WP_Ultimo()->notices->add(__('Email not found.', 'multisite-ultimate'), 'error', 'network-admin');
+				WP_Ultimo()->notices->add(__('Email not found.', 'ultimate-multisite'), 'error', 'network-admin');
 
 				return;
 			}
 
 			$new_email = $email->duplicate();
 			// translators: the %s is the thing copied.
-			$new_name = sprintf(__('Copy of %s', 'multisite-ultimate'), $email->get_name());
+			$new_name = sprintf(__('Copy of %s', 'ultimate-multisite'), $email->get_name());
 
 			$new_email->set_name($new_name);
 
@@ -293,16 +293,16 @@ class Email_List_Table extends Base_List_Table {
 		return [
 			'filters'      => [
 				'type' => [
-					'label'   => __('Email Type', 'multisite-ultimate'),
+					'label'   => __('Email Type', 'ultimate-multisite'),
 					'options' => [
-						'email_email'     => __('Email', 'multisite-ultimate'),
-						'broadcast_email' => __('Notices', 'multisite-ultimate'),
+						'email_email'     => __('Email', 'ultimate-multisite'),
+						'broadcast_email' => __('Notices', 'ultimate-multisite'),
 					],
 				],
 			],
 			'date_filters' => [
 				'date_created' => [
-					'label'   => __('Date', 'multisite-ultimate'),
+					'label'   => __('Date', 'ultimate-multisite'),
 					'options' => $this->get_default_date_filter_options(),
 				],
 			],
@@ -321,19 +321,19 @@ class Email_List_Table extends Base_List_Table {
 			'all'      => [
 				'field' => 'target',
 				'url'   => add_query_arg('target', 'all'),
-				'label' => __('All Emails', 'multisite-ultimate'),
+				'label' => __('All Emails', 'ultimate-multisite'),
 				'count' => 0,
 			],
 			'admin'    => [
 				'field' => 'target',
 				'url'   => add_query_arg('target', 'admin'),
-				'label' => __('Admin Emails', 'multisite-ultimate'),
+				'label' => __('Admin Emails', 'ultimate-multisite'),
 				'count' => 0,
 			],
 			'customer' => [
 				'field' => 'target',
 				'url'   => add_query_arg('target', 'customer'),
-				'label' => __('Customer Emails', 'multisite-ultimate'),
+				'label' => __('Customer Emails', 'ultimate-multisite'),
 				'count' => 0,
 			],
 		];

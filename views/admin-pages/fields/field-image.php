@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Set the media query.
@@ -82,13 +82,13 @@ $content_wrapper_classes = $field->content_wrapper_classes
 
 			<div class="wu-wrapper-image-field-upload-actions wu-absolute wu-top-4 wu-right-4 <?php echo esc_attr($mq); ?>md:wu-top-2 <?php echo esc_attr($mq); ?>md:wu-right-2 wu-scale-150 <?php echo esc_attr($mq); ?>md:wu-scale-100">
 
-			<a title="<?php esc_attr_e('Preview Image', 'multisite-ultimate'); ?>" href="<?php echo esc_url($field->img); ?>" class="wubox wu-no-underline wu-text-center wu-inline-block wu-bg-black wu-opacity-60 wu-rounded-full wu-text-white wu-w-5 wu-h-5 wu-shadow-sm">
+			<a title="<?php esc_attr_e('Preview Image', 'ultimate-multisite'); ?>" href="<?php echo esc_url($field->img); ?>" class="wubox wu-no-underline wu-text-center wu-inline-block wu-bg-black wu-opacity-60 wu-rounded-full wu-text-white wu-w-5 wu-h-5 wu-shadow-sm">
 
 				<span class="dashicons-wu-eye1 wu-align-middle" style="top: -2px;"></span>
 
 			</a>
 
-			<a title="<?php esc_attr_e('Remove Image', 'multisite-ultimate'); ?>" href="#" class="wu-remove-image wu-no-underline wu-text-center wu-inline-block wu-bg-black wu-opacity-60 wu-rounded-full wu-text-white wu-w-5 wu-h-5 wu-shadow-sm">
+			<a title="<?php esc_attr_e('Remove Image', 'ultimate-multisite'); ?>" href="#" class="wu-remove-image wu-no-underline wu-text-center wu-inline-block wu-bg-black wu-opacity-60 wu-rounded-full wu-text-white wu-w-5 wu-h-5 wu-shadow-sm">
 
 				<span class="dashicons-wu-cross wu-align-middle"></span>
 
@@ -104,7 +104,7 @@ $content_wrapper_classes = $field->content_wrapper_classes
 
 			<a class="button wu-w-full wu-text-center wu-add-image">
   
-			<span class="dashicons-wu-upload"></span> <?php esc_html_e('Upload Image', 'multisite-ultimate'); ?>
+			<span class="dashicons-wu-upload"></span> <?php esc_html_e('Upload Image', 'ultimate-multisite'); ?>
   
 			</a>
 

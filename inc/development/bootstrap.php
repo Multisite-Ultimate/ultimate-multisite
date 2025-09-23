@@ -2,7 +2,7 @@
 /**
  * Development Bootstrap File
  *
- * This file loads some of the tooling we use to develop Multisite Ultimate.
+ * This file loads some of the tooling we use to develop Ultimate Multisite.
  * It is not part of the final zip file we ship, so there's no need to worry
  * about things added in here.
  *

@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <table class='wu-table-auto striped wu-w-full'>
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<tr>
 			<td colspan="2" class="wu-px-4 wu-py-2">
-				<?php esc_html_e('No items found.', 'multisite-ultimate'); ?>
+				<?php esc_html_e('No items found.', 'ultimate-multisite'); ?>
 			</td>
 		</tr>
 

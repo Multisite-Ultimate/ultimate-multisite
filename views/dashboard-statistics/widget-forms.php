@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 
@@ -16,8 +16,8 @@ defined( 'ABSPATH' ) || exit;
 		$data    = [];
 		$slug    = 'signup_forms';
 		$headers = [
-			__('Checkout Form', 'multisite-ultimate'),
-			__('Signups', 'multisite-ultimate'),
+			__('Checkout Form', 'ultimate-multisite'),
+			__('Signups', 'ultimate-multisite'),
 		];
 
 		foreach ($forms as $form) {
@@ -50,8 +50,8 @@ defined( 'ABSPATH' ) || exit;
 
 			<thead>
 			<tr>
-				<th><?php esc_html_e('Checkout Form', 'multisite-ultimate'); ?></th>
-				<th class="wu-text-right"><?php esc_html_e('Signups', 'multisite-ultimate'); ?></th>
+				<th><?php esc_html_e('Checkout Form', 'ultimate-multisite'); ?></th>
+				<th class="wu-text-right"><?php esc_html_e('Signups', 'ultimate-multisite'); ?></th>
 			</tr>
 			</thead>
 
@@ -63,7 +63,7 @@ defined( 'ABSPATH' ) || exit;
 					<td>
 						<?php echo esc_html($form->signup_form); ?>
 						<?php if ('by-admin' === $form->signup_form) : ?>
-							<?php wu_tooltip(__('Customers created via the admin panel, by super admins.', 'multisite-ultimate')); ?>
+							<?php wu_tooltip(__('Customers created via the admin panel, by super admins.', 'ultimate-multisite')); ?>
 						<?php endif; ?>
 					</td>
 					<td class="wu-text-right"><?php echo intval($form->count); ?></td> <!-- Ensure count is an integer and properly escaped -->
@@ -81,7 +81,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<div class="wu-bg-gray-100 wu-p-4 wu-rounded wu-mt-6">
 
-		<?php esc_html_e('No data yet.', 'multisite-ultimate'); ?>
+		<?php esc_html_e('No data yet.', 'ultimate-multisite'); ?>
 
 	</div>
 

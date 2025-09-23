@@ -184,7 +184,7 @@ class Addons_Admin_Page extends Wizard_Admin_Page {
 	public function install_addon() {
 
 		if (! current_user_can('manage_network_plugins')) {
-			$error = new \WP_Error('error', __('You do not have enough permissions to perform this task.', 'multisite-ultimate'));
+			$error = new \WP_Error('error', __('You do not have enough permissions to perform this task.', 'ultimate-multisite'));
 
 			wp_send_json_error($error);
 		}
@@ -197,7 +197,7 @@ class Addons_Admin_Page extends Wizard_Admin_Page {
 
 		if (! $download_url) {
 			// translators: %s slug of the addon.
-			wp_send_json_error(sprintf(__('Unable to download update addon. User does not have permission to install %s', 'multisite-ultimate'), $addon_slug), 400);
+			wp_send_json_error(sprintf(__('Unable to download update addon. User does not have permission to install %s', 'ultimate-multisite'), $addon_slug), 400);
 		}
 
 		/**
@@ -206,7 +206,7 @@ class Addons_Admin_Page extends Wizard_Admin_Page {
 		$allowed = strncmp($download_url, MULTISITE_ULTIMATE_UPDATE_URL, strlen(MULTISITE_ULTIMATE_UPDATE_URL)) === 0;
 
 		if (! $allowed) {
-			$error = new \WP_Error('insecure-url', __('You are trying to download an add-on from an insecure URL', 'multisite-ultimate'));
+			$error = new \WP_Error('insecure-url', __('You are trying to download an add-on from an insecure URL', 'ultimate-multisite'));
 			wp_send_json_error($error);
 		}
 
@@ -267,7 +267,7 @@ class Addons_Admin_Page extends Wizard_Admin_Page {
 				'search'   => wu_request('s', ''),
 				'category' => wu_request('tab', 'all'),
 				'i18n'     => array(
-					'all' => __('All Add-ons', 'multisite-ultimate'),
+					'all' => __('All Add-ons', 'ultimate-multisite'),
 				),
 			)
 		);
@@ -311,7 +311,7 @@ class Addons_Admin_Page extends Wizard_Admin_Page {
 
 		if (is_wp_error($data) || empty($data)) {
 			// translators: %s error message.
-			wu_log_add('api-calls', sprintf(__('Failed to fetch addons from API: %s', 'multisite-ultimate'), $data ? $data->get_error_message() : __('no addons returned', 'multisite-ultimate')));
+			wu_log_add('api-calls', sprintf(__('Failed to fetch addons from API: %s', 'ultimate-multisite'), $data ? $data->get_error_message() : __('no addons returned', 'ultimate-multisite')));
 			return array();
 		}
 
@@ -349,7 +349,7 @@ class Addons_Admin_Page extends Wizard_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Add-ons', 'multisite-ultimate');
+		return __('Add-ons', 'ultimate-multisite');
 	}
 
 	/**
@@ -360,7 +360,7 @@ class Addons_Admin_Page extends Wizard_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Add-ons', 'multisite-ultimate');
+		return __('Add-ons', 'ultimate-multisite');
 	}
 
 	/**
@@ -447,47 +447,47 @@ class Addons_Admin_Page extends Wizard_Admin_Page {
 
 		return array(
 			'all'           => array(
-				'title' => __('All Add-ons', 'multisite-ultimate'),
+				'title' => __('All Add-ons', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-grid',
 			),
 			'premium'       => array(
-				'title' => __('Premium', 'multisite-ultimate'),
+				'title' => __('Premium', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-rocket',
 			),
 			'free'          => array(
-				'title' => __('Free', 'multisite-ultimate'),
+				'title' => __('Free', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-pin',
 			),
 			'gateways'      => array(
-				'title' => __('Gateways', 'multisite-ultimate'),
+				'title' => __('Gateways', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-credit-card',
 			),
 			'growth'        => array(
-				'title' => __('Growth & Scaling', 'multisite-ultimate'),
+				'title' => __('Growth & Scaling', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-line-graph',
 			),
 			'integrations'  => array(
-				'title' => __('Integrations', 'multisite-ultimate'),
+				'title' => __('Integrations', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-power-plug',
 			),
 			'customization' => array(
-				'title' => __('Customization', 'multisite-ultimate'),
+				'title' => __('Customization', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-edit',
 			),
 			'admin-theme'   => array(
-				'title' => __('Admin Themes', 'multisite-ultimate'),
+				'title' => __('Admin Themes', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-palette',
 			),
 			'monetization'  => array(
-				'title' => __('Monetization', 'multisite-ultimate'),
+				'title' => __('Monetization', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-credit',
 			),
 			'migrators'     => array(
-				'title' => __('Migrators', 'multisite-ultimate'),
+				'title' => __('Migrators', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-publish',
 			),
 			'marketplace'   => array(
-				'title' => __('Marketplace', 'multisite-ultimate'),
+				'title' => __('Marketplace', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-shop',
 			),
 		);

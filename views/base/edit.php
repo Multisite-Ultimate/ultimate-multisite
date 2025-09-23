@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div id="wp-ultimo-wrap" class="<?php wu_wrap_use_container(); ?> wrap">
@@ -79,7 +79,7 @@ defined( 'ABSPATH' ) || exit;
 				 *
 				 * @since 1.8.2
 				 * @param object  Object holding the information
-				 * @param WU_Page Multisite Ultimate Page instance
+				 * @param WU_Page Ultimate Multisite Page instance
 				 */
 				do_action('wu_edit_page_after_title_input', $object, $page);
 				?>
@@ -213,7 +213,7 @@ defined( 'ABSPATH' ) || exit;
 	 *
 	 * @since 1.8.2
 	 * @param object  Object holding the information
-	 * @param WU_Page Multisite Ultimate Page instance
+	 * @param WU_Page Ultimate Multisite Page instance
 	 */
 	do_action('wu_page_edit_footer', $object, $page);
 	?>

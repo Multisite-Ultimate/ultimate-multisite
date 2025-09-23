@@ -1432,7 +1432,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	public function delete() {
 
 		if ( ! $this->get_id()) {
-			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'multisite-ultimate'));
+			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'ultimate-multisite'));
 		}
 
 		/**
@@ -1480,7 +1480,7 @@ class Site extends Base_Model implements Limitable, Notable {
 		if ($transient) {
 			add_filter(
 				'wu_search_and_replace_on_duplication',
-				function ($replace_list, $from_site_id, $to_site_id) use ($transient) {
+				function ($replace_list, $from_site_id, $to_site_id) use ($transient) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 					foreach ($transient as $transient_key => $transient_value) {
 						$key = sprintf('{{%s}}', $transient_key);

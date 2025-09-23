@@ -4,14 +4,14 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div class="wu-styling">
 
 	<ul class="lg:wu-flex wu-my-0 wu-mx-0">
 
-	<li class="wu-p-2 wu-w-full md:wu-w-4/12 wu-relative" <?php wu_tooltip_text(__('MRR stands for Monthly Recurring Revenue', 'multisite-ultimate')); ?>>
+	<li class="wu-p-2 wu-w-full md:wu-w-4/12 wu-relative" <?php wu_tooltip_text(__('MRR stands for Monthly Recurring Revenue', 'ultimate-multisite')); ?>>
 
 		<div>
 
@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 
 		<div class="wu-text-md wu-text-gray-600">
-		<span class="wu-block"><?php esc_html_e('MRR', 'multisite-ultimate'); ?></span>
+		<span class="wu-block"><?php esc_html_e('MRR', 'ultimate-multisite'); ?></span>
 		</div>
 
 	</li>
@@ -38,7 +38,7 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 
 		<div class="wu-text-md wu-text-gray-600">
-		<span class="wu-block"><?php esc_html_e('Gross Revenue', 'multisite-ultimate'); ?></span>
+		<span class="wu-block"><?php esc_html_e('Gross Revenue', 'ultimate-multisite'); ?></span>
 		</div>
 
 	</li>
@@ -54,7 +54,7 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 
 		<div class="wu-text-md wu-text-gray-600">
-		<span class="wu-block"><?php esc_html_e('Refunded', 'multisite-ultimate'); ?></span>
+		<span class="wu-block"><?php esc_html_e('Refunded', 'ultimate-multisite'); ?></span>
 		</div>
 
 	</li>
@@ -67,8 +67,8 @@ defined( 'ABSPATH' ) || exit;
 
 		<thead>
 			<tr>
-			<th><?php esc_html_e('Product', 'multisite-ultimate'); ?></th>
-			<th class="wu-text-right"><?php esc_html_e('Revenue', 'multisite-ultimate'); ?></th>
+			<th><?php esc_html_e('Product', 'ultimate-multisite'); ?></th>
+			<th class="wu-text-right"><?php esc_html_e('Revenue', 'ultimate-multisite'); ?></th>
 			</tr>
 		</thead>
 
@@ -93,7 +93,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<tr>
 				<td colspan="2">
-				<?php esc_html_e('No Products found.', 'multisite-ultimate'); ?>
+				<?php esc_html_e('No Products found.', 'ultimate-multisite'); ?>
 				</td>
 			</tr>
 

@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <h1>
 	<?php echo esc_html($title); ?>
@@ -34,7 +34,7 @@ defined( 'ABSPATH' ) || exit;
 			</a>
 		<?php endif; ?>
 		<?php if ($next) : ?>
-			<button name="next" value="1" class="wu-next-button button button-primary button-large wu-ml-2" data-testid="button-primary">
+			<button name="next" value="1" class="wu-next-button button button-primary button-large wu-ml-2" data-testid="button-primary" <?php echo $disable_next ? 'disabled="disabled"' : ''; ?>>
 				<?php echo esc_html($next_label); ?>
 			</button>
 		<?php endif; ?>

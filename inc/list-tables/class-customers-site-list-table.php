@@ -76,19 +76,19 @@ class Customers_Site_List_Table extends Site_List_Table {
 			[
 				'link'       => [
 					'icon'  => 'dashicons-wu-link1 wu-align-middle wu-mr-1',
-					'label' => __('Visit Site', 'multisite-ultimate'),
+					'label' => __('Visit Site', 'ultimate-multisite'),
 					'url'   => $item->get_active_site_url(),
 					'value' => $item->get_active_site_url(),
 				],
 				'dashboard'  => [
 					'icon'  => 'dashicons-wu-browser wu-align-middle wu-mr-1',
-					'label' => __('Go to the Dashboard', 'multisite-ultimate'),
-					'value' => __('Dashboard', 'multisite-ultimate'),
+					'label' => __('Go to the Dashboard', 'ultimate-multisite'),
+					'value' => __('Dashboard', 'ultimate-multisite'),
 					'url'   => get_admin_url($item->get_id()),
 				],
 				'membership' => [
 					'icon'  => 'dashicons-wu-rotate-ccw wu-align-middle wu-mr-1',
-					'label' => __('Go to the Membership', 'multisite-ultimate'),
+					'label' => __('Go to the Membership', 'ultimate-multisite'),
 					'value' => $m ? $m->get_hash() : '',
 					'url'   => $m ? wu_network_admin_url(
 						'wp-ultimo-edit-membership',
@@ -103,9 +103,9 @@ class Customers_Site_List_Table extends Site_List_Table {
 					'icon'  => 'dashicons-wu-calendar1 wu-align-middle wu-mr-1',
 					'label' => '',
 					'value' => $item->get_type() === 'pending' ?
-						__('Not Available', 'multisite-ultimate') :
+						__('Not Available', 'ultimate-multisite') :
 						// translators: %s is a placeholder for the human-readable time difference, e.g., "2 hours ago"
-						sprintf(__('Created %s', 'multisite-ultimate'), wu_human_time_diff(strtotime((string) $item->get_date_registered()))),
+						sprintf(__('Created %s', 'ultimate-multisite'), wu_human_time_diff(strtotime((string) $item->get_date_registered()))),
 				],
 			]
 		);

@@ -4,6 +4,12 @@ namespace WP_Ultimo\Models;
 
 use WP_UnitTestCase;
 
+/**
+ * Test class for Domain model functionality.
+ *
+ * Tests SSL certificate validation for custom domains including
+ * valid certificates, invalid certificates, and empty domain handling.
+ */
 class Domain_Test extends WP_UnitTestCase {
 
 	/**

@@ -15,7 +15,7 @@ use WP_Ultimo\Checkout\Signup_Fields\Base_Signup_Field;
 defined('ABSPATH') || exit;
 
 /**
- * Creates an cart with the parameters of the purchase being placed.
+ * Creates a cart with the parameters of the purchase being placed.
  *
  * @package WP_Ultimo
  * @subpackage Checkout
@@ -55,7 +55,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Submit Button', 'multisite-ultimate');
+		return __('Submit Button', 'ultimate-multisite');
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a submit button. This is required to finalize single-step checkout forms or to navigate to the next step on multi-step checkout forms.', 'multisite-ultimate');
+		return __('Adds a submit button. This is required to finalize single-step checkout forms or to navigate to the next step on multi-step checkout forms.', 'ultimate-multisite');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a submit button. This is required to finalize single-step checkout forms or to navigate to the next step on multi-step checkout forms.', 'multisite-ultimate');
+		return __('Adds a submit button. This is required to finalize single-step checkout forms or to navigate to the next step on multi-step checkout forms.', 'ultimate-multisite');
 	}
 
 	/**
@@ -110,7 +110,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 
 		return [
 			'enable_go_back_button' => false,
-			'back_button_label'     => __('&larr; Go Back', 'multisite-ultimate'),
+			'back_button_label'     => __('&larr; Go Back', 'ultimate-multisite'),
 		];
 	}
 
@@ -150,8 +150,8 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 		return [
 			'enable_go_back_button' => [
 				'type'      => 'toggle',
-				'title'     => __('Add "Go Back" button', 'multisite-ultimate'),
-				'desc'      => __('Enable this option to add a "Go Back" button. Useful for multi-step checkout forms.', 'multisite-ultimate'),
+				'title'     => __('Add "Go Back" button', 'ultimate-multisite'),
+				'desc'      => __('Enable this option to add a "Go Back" button. Useful for multi-step checkout forms.', 'ultimate-multisite'),
 				'tooltip'   => '',
 				'value'     => 0,
 				'html_attr' => [
@@ -160,10 +160,10 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 			],
 			'back_button_label'     => [
 				'type'              => 'text',
-				'title'             => __('"Go Back" Button Label', 'multisite-ultimate'),
-				'desc'              => __('Value to be used as the "Go Back" label.', 'multisite-ultimate'),
-				'placeholder'       => __('e.g. &larr; Go Back', 'multisite-ultimate'),
-				'value'             => __('&larr; Go Back', 'multisite-ultimate'),
+				'title'             => __('"Go Back" Button Label', 'ultimate-multisite'),
+				'desc'              => __('Value to be used as the "Go Back" label.', 'ultimate-multisite'),
+				'placeholder'       => __('e.g. &larr; Go Back', 'ultimate-multisite'),
+				'value'             => __('&larr; Go Back', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-cloak' => '1',
 					'v-show'  => 'enable_go_back_button',
@@ -215,7 +215,7 @@ class Signup_Field_Submit_Button extends Base_Signup_Field {
 					'type'            => 'html',
 					'wrapper_classes' => 'md:wu-w-1/2 wu-box-border wu-float-left wu--mt-4',
 					'id'              => $attributes['id'] . '_go_back',
-					'content'         => sprintf('<a href="#" class="button wu-go-back" v-on:click.prevent="go_back()">%s</a>', esc_html($attributes['back_button_label'])),
+					'content'         => fn() => printf('<a href="#" class="button wu-go-back" v-on:click.prevent="go_back()">%s</a>', esc_html($attributes['back_button_label'])) && null,
 				];
 
 				$button_wrapper_classes .= ' md:wu-w-1/2 wu-box-border wu-float-left wu-text-right';

@@ -9,7 +9,7 @@
 
 namespace WP_Ultimo\Apis;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * WP CLI trait.
@@ -118,7 +118,7 @@ trait WP_CLI {
 				$sub_command_data['synopsis'][] = [
 					'name'        => 'id',
 					'type'        => 'positional',
-					'description' => __('The id for the resource.', 'multisite-ultimate'),
+					'description' => __('The id for the resource.', 'ultimate-multisite'),
 					'optional'    => false,
 				];
 			}
@@ -133,7 +133,7 @@ trait WP_CLI {
 
 					$field = [
 						'name'        => $name,
-						'description' => wu_get_isset($explanation, 'description', __('No description found.', 'multisite-ultimate')),
+						'description' => wu_get_isset($explanation, 'description', __('No description found.', 'ultimate-multisite')),
 						'optional'    => ! wu_get_isset($explanation, 'required'),
 						'type'        => 'assoc',
 					];
@@ -152,7 +152,7 @@ trait WP_CLI {
 				$sub_command_data['synopsis'][] = [
 					'name'        => 'porcelain',
 					'type'        => 'flag',
-					'description' => __('Output just the id when the operation is successful.', 'multisite-ultimate'),
+					'description' => __('Output just the id when the operation is successful.', 'ultimate-multisite'),
 					'optional'    => true,
 				];
 			}
@@ -161,7 +161,7 @@ trait WP_CLI {
 				$sub_command_data['synopsis'][] = [
 					'name'        => 'format',
 					'type'        => 'assoc',
-					'description' => __('Render response in a particular format.', 'multisite-ultimate'),
+					'description' => __('Render response in a particular format.', 'ultimate-multisite'),
 					'optional'    => true,
 					'default'     => 'table',
 					'options'     => [
@@ -177,7 +177,7 @@ trait WP_CLI {
 				$sub_command_data['synopsis'][] = [
 					'name'        => 'fields',
 					'type'        => 'assoc',
-					'description' => __('Limit response to specific fields. Defaults to id, name', 'multisite-ultimate'),
+					'description' => __('Limit response to specific fields. Defaults to id, name', 'ultimate-multisite'),
 					'optional'    => true,
 					'options'     => array_merge(['id'], $params),
 				];
@@ -337,7 +337,7 @@ trait WP_CLI {
 			} else {
 				$error_message = sprintf(
 					/* translators: 1. Object class name; 2. Set method name */
-					__('The %1$s object does not have a %2$s method', 'multisite-ultimate'),
+					__('The %1$s object does not have a %2$s method', 'ultimate-multisite'),
 					get_class($item),
 					$set_method
 				);

@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
 	<?php if ($field->meter) : ?>
 		<span class="wu-block">
 			<span id="pass-strength-result" class="wu-py-2 wu-px-4 wu-bg-gray-100 wu-block wu-text-sm">
-				<?php esc_html_e('Strength Meter', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Strength Meter', 'ultimate-multisite'); ?>
 			</span>
 		</span>
 	<?php endif; ?>

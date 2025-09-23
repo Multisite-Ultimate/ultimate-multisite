@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Async Calls implementation.
+ * Ultimate Multisite Async Calls implementation.
  *
  * @package WP_Ultimo
  * @subpackage Async_Calls
@@ -22,7 +22,7 @@ use Amp\Http\Client\HttpClientBuilder;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Async Calls implementation.
+ * Ultimate Multisite Async Calls implementation.
  *
  * @since 2.0.7
  */

@@ -112,13 +112,13 @@ function wu_filter_duration_unit($unit, $length) {
 
 	switch ($unit) {
 		case 'day':
-			$new_unit = $length > 1 ? __('Days', 'multisite-ultimate') : __('Day', 'multisite-ultimate');
+			$new_unit = $length > 1 ? __('Days', 'ultimate-multisite') : __('Day', 'ultimate-multisite');
 			break;
 		case 'month':
-			$new_unit = $length > 1 ? __('Months', 'multisite-ultimate') : __('Month', 'multisite-ultimate');
+			$new_unit = $length > 1 ? __('Months', 'ultimate-multisite') : __('Month', 'ultimate-multisite');
 			break;
 		case 'year':
-			$new_unit = $length > 1 ? __('Years', 'multisite-ultimate') : __('Year', 'multisite-ultimate');
+			$new_unit = $length > 1 ? __('Years', 'ultimate-multisite') : __('Year', 'ultimate-multisite');
 			break;
 		default:
 			break;
@@ -145,7 +145,7 @@ function wu_human_time_diff($from, $limit = '-5 days', $to = false): string {
 	if ($timestamp_from <= $limit) {
 
 		// translators: %s: date.
-		return sprintf(__('on %s', 'multisite-ultimate'), date_i18n(get_option('date_format'), $timestamp_from));
+		return sprintf(__('on %s', 'ultimate-multisite'), date_i18n(get_option('date_format'), $timestamp_from));
 	}
 
 	if (false === $to) {
@@ -153,7 +153,7 @@ function wu_human_time_diff($from, $limit = '-5 days', $to = false): string {
 	}
 
 	// translators: %s is a relative past date.
-	$placeholder = wu_get_current_time('timestamp') > $timestamp_from ? __('%s ago', 'multisite-ultimate') : __('In %s', 'multisite-ultimate');
+	$placeholder = wu_get_current_time('timestamp') > $timestamp_from ? __('%s ago', 'ultimate-multisite') : __('In %s', 'ultimate-multisite');
 
 	return sprintf($placeholder, human_time_diff($timestamp_from, $to));
 }

@@ -34,6 +34,14 @@ final class WP_Ultimo {
 	const VERSION = '2.4.4';
 
 	/**
+	 * Core log handle for Ultimate Multisite.
+	 *
+	 * @since 2.4.4
+	 * @var string
+	 */
+	const LOG_HANDLE = 'ultimate-multisite-core';
+
+	/**
 	 * Version of the Plugin.
 	 *
 	 * @deprecated use the const version instead.

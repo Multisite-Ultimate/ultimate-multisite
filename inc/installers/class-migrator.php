@@ -459,7 +459,7 @@ class Migrator extends Base_Installer {
 	 * @param string        $installer The installer name.
 	 * @param object        $wizard Wizard class.
 	 *
-	 * @return bool|WP_Error
+	 * @return void
 	 */
 	public function handle($status, $installer, $wizard) {
 
@@ -478,7 +478,7 @@ class Migrator extends Base_Installer {
 		* No installer on this class.
 		*/
 		if ( ! is_callable($callable)) {
-			return $status;
+			return;
 		}
 
 		/*
@@ -534,8 +534,6 @@ class Migrator extends Base_Installer {
 			 * Log errors to later reference.
 			 */
 			wu_log_add(self::LOG_FILE_NAME, $e->__toString(), LogLevel::ERROR);
-
-			return $this->handle_error_messages($e, $session, $this->dry_run, $installer);
 		}
 
 		/*
@@ -559,8 +557,6 @@ class Migrator extends Base_Installer {
 
 			$session->set('back_traces', []);
 		}
-
-		return $status;
 	}
 
 	/**

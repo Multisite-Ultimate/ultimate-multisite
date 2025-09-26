@@ -224,7 +224,7 @@ class Scripts {
 			'wu-functions',
 			'wu_selectizer',
 			[
-				'ajaxurl' => wu_ajax_url(),
+				'ajaxurl' => wu_ajax_url('init'),
 			]
 		);
 

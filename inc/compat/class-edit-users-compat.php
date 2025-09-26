@@ -140,7 +140,7 @@ class Edit_Users_Compat {
 		?>
 			<table class="form-table">
 				<tr>
-					<th scope="row"><?php esc_Html_e('Skip Confirmation Email', 'ultimate-multisite'); ?></th>
+					<th scope="row"><?php esc_html_e('Skip Confirmation Email', 'ultimate-multisite'); ?></th>
 					<td>
 						<input type="checkbox" name="noconfirmation" id="adduser-noconfirmation-<?php echo esc_attr($context); ?>" value="1" />
 						<label for="adduser-noconfirmation-<?php echo esc_attr($context); ?>"><?php esc_html_e('Add the user without sending an email that requires their confirmation', 'ultimate-multisite'); ?></label>

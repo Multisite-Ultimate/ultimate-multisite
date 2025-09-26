@@ -136,10 +136,10 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		/*
 		 * Load installers
 		 */
-        add_action('wu_handle_ajax_installers', [Core_Installer::get_instance(), 'handle'], 10, 3);
-        add_action('wu_handle_ajax_installers', [Default_Content_Installer::get_instance(), 'handle'], 10, 3);
-        add_action('wu_handle_ajax_installers', [Recommended_Plugins_Installer::get_instance(), 'handle'], 10, 3);
-        add_action('wu_handle_ajax_installers', [Migrator::get_instance(), 'handle'], 10, 3);
+		add_action('wu_handle_ajax_installers', [Core_Installer::get_instance(), 'handle'], 10, 3);
+		add_action('wu_handle_ajax_installers', [Default_Content_Installer::get_instance(), 'handle'], 10, 3);
+		add_action('wu_handle_ajax_installers', [Recommended_Plugins_Installer::get_instance(), 'handle'], 10, 3);
+		add_action('wu_handle_ajax_installers', [Migrator::get_instance(), 'handle'], 10, 3);
 
 		/*
 		 * Redirect on activation
@@ -361,7 +361,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		/*
 		 * In case of migrations, add different sections.
 		 */
-        if ($this->is_migration()) {
+		if ($this->is_migration()) {
 			$dry_run = wu_request('dry-run', true);
 
 			$next = true;
@@ -486,25 +486,25 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 					],
 				],
 			];
-        }
-        // Recommended Plugins step (runs like other installer steps)
-        $sections['recommended-plugins'] = [
-            'title'        => __('Recommended Plugins', 'ultimate-multisite'),
-            'description'  => __('Optionally install helpful plugins. We will install them one by one and report progress.', 'ultimate-multisite'),
-            'next_label'   => Recommended_Plugins_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'ultimate-multisite') : __('Install', 'ultimate-multisite'),
-            'disable_next' => true,
-            'fields'       => [
-                'plugins' => [
-                    'type' => 'note',
-                    'desc' => fn() => $this->render_installation_steps(Recommended_Plugins_Installer::get_instance()->get_steps()),
-                ],
-            ],
-        ];
+		}
+		// Recommended Plugins step (runs like other installer steps)
+		$sections['recommended-plugins'] = [
+			'title'        => __('Recommended Plugins', 'ultimate-multisite'),
+			'description'  => __('Optionally install helpful plugins. We will install them one by one and report progress.', 'ultimate-multisite'),
+			'next_label'   => Recommended_Plugins_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'ultimate-multisite') : __('Install', 'ultimate-multisite'),
+			'disable_next' => true,
+			'fields'       => [
+				'plugins' => [
+					'type' => 'note',
+					'desc' => fn() => $this->render_installation_steps(Recommended_Plugins_Installer::get_instance()->get_steps()),
+				],
+			],
+		];
 
-        $sections['done'] = [
-            'title' => __('Ready!', 'ultimate-multisite'),
-            'view'  => [$this, 'section_ready'],
-        ];
+		$sections['done'] = [
+			'title' => __('Ready!', 'ultimate-multisite'),
+			'view'  => [$this, 'section_ready'],
+		];
 
 		/**
 		 * Allow developers to add additional setup wizard steps.
@@ -513,7 +513,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		 *
 		 * @param array  $sections Current sections.
 		 * @param bool   $is_migration If this is a migration or not.
-		 * @param object $this The current instance.
+		 * @param object $wizard The current instance.
 		 * @return array
 		 */
 		return apply_filters('wu_setup_wizard', $sections, $this->is_migration(), $this);

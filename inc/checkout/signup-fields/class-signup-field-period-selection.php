@@ -297,7 +297,7 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('period_selection', $attributes['period_selection_template']);
 
-		$desc = function() use($attributes, $template_class) {
+		$desc = function () use ($attributes, $template_class) {
 			if ($template_class) {
 				$template_class->render_container($attributes);
 			} else {

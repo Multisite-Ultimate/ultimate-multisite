@@ -106,9 +106,8 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 		// Handle delete meta field action
 		if (isset($_GET['delete_meta_key']) && isset($_GET['_wpnonce'])) {
-
 			$meta_key = sanitize_key($_GET['delete_meta_key']);
-			$nonce = sanitize_text_field($_GET['_wpnonce']);
+			$nonce    = sanitize_text_field($_GET['_wpnonce']);
 
 			// Verify nonce for security
 			if ( ! wp_verify_nonce($nonce, 'delete_customer_meta_' . $meta_key)) {
@@ -121,11 +120,11 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 				$redirect_args = [
 					'updated' => $deleted ? 'meta_deleted' : 'meta_delete_failed',
-					'tab'     => 'custom_meta'
+					'tab'     => 'custom_meta',
 				];
 
 				$redirect_url = add_query_arg($redirect_args, wu_network_admin_url('wp-ultimo-edit-customer', ['id' => $customer->get_id()]));
-				
+
 				wp_safe_redirect($redirect_url);
 				exit;
 			}
@@ -483,10 +482,12 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 			// Add simple delete link for orphaned fields (those without form reference)
 			$delete_link = '';
 			if ( ! $form) {
-				$delete_url = add_query_arg([
-					'delete_meta_key' => $key,
-					'_wpnonce' => wp_create_nonce('delete_customer_meta_' . $key),
-				]);
+				$delete_url = add_query_arg(
+					[
+						'delete_meta_key' => $key,
+						'_wpnonce'        => wp_create_nonce('delete_customer_meta_' . $key),
+					]
+				);
 
 				$delete_link = sprintf(
 					'<small style="float: right;"><a href="%s" style="color: red; text-decoration: none;">%s</a></small>',

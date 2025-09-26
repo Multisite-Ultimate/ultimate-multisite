@@ -211,6 +211,7 @@ final class WP_Ultimo {
 
 		/**
 		 * Loads admin pages
+		 *
 		 * @todo: Move this to a manager in the future?
 		 */
 		$this->load_admin_pages();

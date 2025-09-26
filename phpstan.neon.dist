@@ -2,6 +2,8 @@ parameters:
   level: 0
   inferPrivatePropertyTypeFromConstructor: true
   treatPhpDocTypesAsCertain: false
+  scanDirectories:
+        - vendor/woocommerce/action-scheduler
   paths:
     - ./views
     - ./inc

@@ -143,7 +143,7 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 				$this->arrayHasKey('idempotency_key')
 			)
 			->willReturnCallback(
-				function ($params, $options) {
+				function ($params, $options) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 					return \Stripe\Subscription::constructFrom(
 						[
 							'id'                 => 'sub_123', // Dynamic ID based on idempotency key

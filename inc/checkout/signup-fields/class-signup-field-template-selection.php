@@ -259,6 +259,7 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 			],
 		];
 
+		// phpcs:disable
 		// @todo: re-add developer notes.
 		// $editor_fields['_dev_note_develop_your_own_template_1'] = array(
 		// 'type'            => 'note',
@@ -267,6 +268,7 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 		// 'classes'         => '',
 		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized template selection templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'ultimate-multisite')),
 		// );
+		// phpcs:enable
 
 		return $editor_fields;
 	}
@@ -281,7 +283,7 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 	 */
 	public function reduce_attributes($attributes) {
 
-		$array_sites = json_decode(json_encode($attributes['sites']), true);
+		$array_sites = json_decode(json_encode($attributes['sites']), true); // phpcs:ignore
 
 		$attributes['sites'] = array_values(array_column($array_sites, 'blog_id'));
 

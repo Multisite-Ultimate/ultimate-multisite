@@ -74,7 +74,7 @@ function wu_get_active_gateways() {
  * @param string $subscription Subscription object to load into the gateway.
  * @return \WP_Ultimo\Gateways\Base_Gateway|false Gateway class.
  */
-function wu_get_gateway($id, $subscription = null) {
+function wu_get_gateway($id, $subscription = null) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 	$gateway = Gateway_Manager::get_instance()->get_gateway($id);
 

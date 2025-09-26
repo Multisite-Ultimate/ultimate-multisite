@@ -475,7 +475,12 @@ class Checkout_Pages {
 
 			$wp_query->set_404();
 
-			include get_404_template();
+			$four_oh_four = get_404_template();
+
+			// Apparently not all themes have a 404 template.
+			if ($four_oh_four) {
+				include $four_oh_four;
+			}
 
 			die;
 		} else {
@@ -652,7 +657,7 @@ class Checkout_Pages {
 	 * @param null|string $content The post content.
 	 * @return string
 	 */
-	public function render_confirmation_page($atts, $content = null) {
+	public function render_confirmation_page($atts, $content = null) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		return wu_get_template_contents(
 			'checkout/confirmation',

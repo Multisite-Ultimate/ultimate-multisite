@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <p><?php esc_html_e('Hey there', 'ultimate-multisite'); ?></p>
 <?php // translators: %1$s: Site Title, %2$s: Site Url ?>

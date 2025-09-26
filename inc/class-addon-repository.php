@@ -2,6 +2,12 @@
 
 namespace WP_Ultimo;
 
+/**
+ * Addon Repository class for handling addon downloads and updates.
+ *
+ * This class manages the authentication and download process for
+ * premium addons from the WP Ultimo repository.
+ */
 class Addon_Repository {
 
 	private string $authorization_header = '';
@@ -149,7 +155,7 @@ class Addon_Repository {
 	 * @param \WP_Upgrader $upgrader The WP_Upgrader instance.
 	 * @param array        $hook_extra Extra arguments passed to hooked filters.
 	 */
-	public function upgrader_pre_download(bool $reply, $package, \WP_Upgrader $upgrader, $hook_extra) {
+	public function upgrader_pre_download(bool $reply, $package, \WP_Upgrader $upgrader, $hook_extra) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 		if (str_starts_with($package, MULTISITE_ULTIMATE_UPDATE_URL)) {
 			$access_token = $this->get_access_token();
 

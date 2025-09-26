@@ -18,7 +18,8 @@
 <p align="center">
   <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/tests.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/tests.yml/badge.svg" alt="Unit & Integration Tests"></a>
   <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/e2e.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/e2e.yml/badge.svg" alt="E2E Tests"></a>
-  <a href="https://img.shields.io/coderabbit/prs/github/Multisite-Ultimate/multisite-ultimate?utm_source=oss&utm_medium=github&utm_campaign=Multisite-Ultimate%2Fmultisite-ultimate&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews"><img src="https://img.shields.io/coderabbit/prs/github/Multisite-Ultimate/multisite-ultimate?utm_source=oss&utm_medium=github&utm_campaign=Multisite-Ultimate%2Fmultisite-ultimate&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews" alt="Code Rabbit"></a>
+  <a href="https://codecov.io/gh/superdav42/wp-multisite-waas"><img src="https://codecov.io/gh/superdav42/wp-multisite-waas/branch/main/graph/badge.svg" alt="Code Coverage"></a>
+  <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/code-quality.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/code-quality.yml/badge.svg" alt="Code Quality"></a>
 </p>
 
 ## 🌟 Overview
@@ -109,24 +110,43 @@ We welcome contributions to Ultimate Multisite! Here's how you can contribute ef
 
 ### Development Workflow
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Run `npm install` and `composer install` to set up dependencies
-4. Make your changes
-5. Before committing, run `npm run build` to:
-   - Generate translation POT files
-   - Minify CSS and JS assets
-   - Process and optimize other assets
-6. **Important:** Update both README.md and readme.txt files when making changes that affect:
-   - Version numbers
-   - Required WordPress/PHP versions
-   - Feature additions or changes
-   - Installation instructions
-   - Documentation
-   - Changelog entries
-7. Commit your changes (`git commit -m 'Add some amazing feature'`)
-8. Push to the branch (`git push origin feature/amazing-feature`)
-9. Open a Pull Request
+1. **Quick Setup:**
+   ```bash
+   git clone https://github.com/superdav42/wp-multisite-waas.git
+   cd wp-multisite-waas
+   npm run dev:setup  # Installs dependencies and sets up Git hooks
+   ```
+
+2. **Development Commands:**
+   ```bash
+   npm test              # Run tests
+   npm run test:coverage # Run tests with coverage
+   npm run lint         # Check code style (PHPCS)
+   npm run lint:fix     # Fix code style automatically
+   npm run stan         # Run static analysis (PHPStan)
+   npm run quality      # Run lint + stan
+   npm run check        # Run all quality checks
+   npm run build        # Production build
+   npm run build:dev    # Development build
+   npm run clean        # Clean build artifacts
+   ```
+
+3. **Making Changes:**
+   - Create your feature branch (`git checkout -b feat/amazing-feature`)
+   - Make your changes with tests
+   - Git hooks will automatically run PHPCS and PHPStan on changed files
+   - Commit using conventional format: `feat(scope): description`
+   - Run `npm run check` before pushing
+   - Push and create a Pull Request
+
+4. **Code Quality:**
+   - Pre-commit hooks run automatically
+   - Follow WordPress coding standards
+   - Include tests for new features
+   - Maintain >80% code coverage
+   - Use conventional commit messages
+
+5. **Important:** Update both README.md and readme.txt files when making changes that affect versions, features, or documentation.
 
 ### Pull Request Guidelines
 

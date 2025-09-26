@@ -222,7 +222,7 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 		$max_execution_time = sprintf(__('%s seconds', 'ultimate-multisite'), ini_get('max_execution_time'));
 
 		$all_options            = $this->get_all_options();
-		$all_options_serialized = serialize($all_options);
+		$all_options_serialized = serialize($all_options); // phpcs:ignore
 		$all_options_bytes      = round(mb_strlen($all_options_serialized, '8bit') / 1024, 2);
 		$all_options_transients = $this->get_transients_in_options($all_options);
 
@@ -628,29 +628,28 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 		$known   = ['Version', $browser_name_short, 'other'];
 		$pattern = '#(?<browser>' . implode('|', $known) . ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
 
-		if ( ! preg_match_all($pattern, (string) $user_agent, $matches)) {
-			// We have no matching number just continue
-		}
+		if ( preg_match_all($pattern, (string) $user_agent, $matches)) {
 
-		// See how many we have
-		$i = count($matches['browser']);
+			// See how many we have
+			$i = count($matches['browser']);
 
-		if (1 !== $i) {
+			if (1 !== $i) {
 
-			// We will have two since we are not using 'other' argument yet
-			// See if version is before or after the name
-			if (strripos((string) $user_agent, 'Version') < strripos((string) $user_agent, (string) $browser_name_short)) {
-				$version = $matches['version'][0];
+				// We will have two since we are not using 'other' argument yet
+				// See if version is before or after the name
+				if (strripos((string) $user_agent, 'Version') < strripos((string) $user_agent, (string) $browser_name_short)) {
+					$version = $matches['version'][0];
+				} else {
+					$version = $matches['version'][1];
+				}
 			} else {
-				$version = $matches['version'][1];
+				$version = $matches['version'][0];
 			}
-		} else {
-			$version = $matches['version'][0];
-		}
 
-		// Check if we have a version number
-		if (empty($version)) {
-			$version = '?';
+			// Check if we have a version number
+			if (empty($version)) {
+				$version = '?';
+			}
 		}
 
 		return [

@@ -1195,7 +1195,7 @@ class Cart implements \JsonSerializable {
 		 */
 
 		/*
-		 * If the membership is in trial period theres nothing to prorate.
+		 * If the membership is in trial period there's nothing to prorate.
 		 */
 		if ($this->membership->get_status() === Membership_Status::TRIALING) {
 			return;

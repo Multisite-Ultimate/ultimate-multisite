@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
  *
  * @since 1.9.14
  */
-class Ajax {
+class Ajax implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 
@@ -26,7 +26,7 @@ class Ajax {
 	 *
 	 * @since 2.0.0
 	 */
-	public function __construct() {
+	public function init(): void {
 		/*
 		 * Load search endpoints.
 		 */

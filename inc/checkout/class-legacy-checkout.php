@@ -13,7 +13,7 @@ namespace WP_Ultimo\Checkout;
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
-use \WP_Ultimo\Checkout\Cart;
+use WP_Ultimo\Checkout\Cart;
 use WU_Gateway;
 use WU_Site_Template;
 
@@ -111,7 +111,6 @@ class Legacy_Checkout {
 		// Add a filter to the template include to determine if the page has our
 		// template assigned and return it's path
 		add_filter('template_include', [$this, 'view_legacy_template']);
-
 	}
 
 	/**
@@ -125,13 +124,10 @@ class Legacy_Checkout {
 	public function add_new_template($posts_templates) {
 
 		if (is_main_site()) {
-
 			$posts_templates = array_merge($posts_templates, $this->templates);
-
 		}
 
 		return $posts_templates;
-
 	}
 
 	/**
@@ -153,9 +149,7 @@ class Legacy_Checkout {
 		$templates = wp_get_theme()->get_page_templates();
 
 		if (empty($templates)) {
-
 			$templates = [];
-
 		}
 
 		// New cache, therefore remove the old one
@@ -170,7 +164,6 @@ class Legacy_Checkout {
 		wp_cache_add($cache_key, $templates, 'themes', 1800);
 
 		return $atts;
-
 	}
 
 	/**
@@ -185,42 +178,33 @@ class Legacy_Checkout {
 
 		// Return the search template if we're searching (instead of the template for the first result)
 		if (is_search()) {
-
 			return $template;
-
 		}
 
 		// Get global post
 		global $post, $signup;
 
 		// Return template if post is empty
-		if (!$post) {
-
+		if (! $post) {
 			return $template;
-
 		}
 
 		$template_slug = get_post_meta($post->ID, '_wp_page_template', true);
 
 		// Return default template if we don't have a custom one defined
-		if (!isset($this->templates[$template_slug])) {
-
+		if (! isset($this->templates[ $template_slug ])) {
 			return $template;
-
 		}
 
 		$file = wu_path("views/legacy/signup/$template_slug");
 
 		// Just to be safe, we check if the file exist first
 		if (file_exists($file)) {
-
 			return $file;
-
 		}
 
 		// Return template
 		return $template;
-
 	}
 
 	/**
@@ -235,9 +219,13 @@ class Legacy_Checkout {
 
 		wp_register_script('wu-legacy-signup', wu_get_asset('legacy-signup.js', 'js'), ['wu-functions'], \WP_Ultimo::VERSION, true);
 
-		wp_localize_script('wu-legacy-signup', 'wpu', [
-			'default_pricing_option' => 1,
-		]);
+		wp_localize_script(
+			'wu-legacy-signup',
+			'wpu',
+			[
+				'default_pricing_option' => 1,
+			]
+		);
 
 		wp_enqueue_script('wu-legacy-signup');
 
@@ -248,19 +236,23 @@ class Legacy_Checkout {
 		if (isset($_GET['coupon']) && wu_get_coupon(sanitize_text_field(wp_unslash($_GET['coupon']))) !== false && isset($_GET['step']) && 'plan' === $_GET['step']) { // phpcs:ignore WordPress.Security.NonceVerification
 			$coupon = wu_get_coupon(sanitize_text_field(wp_unslash($_GET['coupon']))); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-			wp_localize_script('wu-coupon-code', 'wu_coupon_data', [
-				'coupon' => $coupon,
-				'type' => get_post_meta($coupon->id, 'wpu_type', true),
-				'value' => get_post_meta($coupon->id, 'wpu_value', true),
-				'applies_to_setup_fee' => get_post_meta($coupon->id, 'wpu_applies_to_setup_fee', true),
-				'setup_fee_discount_value' => get_post_meta($coupon->id, 'wpu_setup_fee_discount_value', true),
-				'setup_fee_discount_type' => get_post_meta($coupon->id, 'wpu_setup_fee_discount_type', true),
-				'allowed_plans' => get_post_meta($coupon->id, 'wpu_allowed_plans', true),
-				'allowed_freqs' => get_post_meta($coupon->id, 'wpu_allowed_freqs', true),
-				'off_text' => __('OFF', 'ultimate-multisite'),
-				'free_text' => __('Free!', 'ultimate-multisite'),
-				'no_setup_fee_text' => __('No Setup Fee', 'ultimate-multisite'),
-			]);
+			wp_localize_script(
+				'wu-coupon-code',
+				'wu_coupon_data',
+				[
+					'coupon'                   => $coupon,
+					'type'                     => get_post_meta($coupon->id, 'wpu_type', true),
+					'value'                    => get_post_meta($coupon->id, 'wpu_value', true),
+					'applies_to_setup_fee'     => get_post_meta($coupon->id, 'wpu_applies_to_setup_fee', true),
+					'setup_fee_discount_value' => get_post_meta($coupon->id, 'wpu_setup_fee_discount_value', true),
+					'setup_fee_discount_type'  => get_post_meta($coupon->id, 'wpu_setup_fee_discount_type', true),
+					'allowed_plans'            => get_post_meta($coupon->id, 'wpu_allowed_plans', true),
+					'allowed_freqs'            => get_post_meta($coupon->id, 'wpu_allowed_freqs', true),
+					'off_text'                 => __('OFF', 'ultimate-multisite'),
+					'free_text'                => __('Free!', 'ultimate-multisite'),
+					'no_setup_fee_text'        => __('No Setup Fee', 'ultimate-multisite'),
+				]
+			);
 
 			wp_enqueue_script('wu-coupon-code');
 		}
@@ -273,13 +265,10 @@ class Legacy_Checkout {
 
 		// Do not get the login if the first step
 		if ('plan' != $this->step) {
-
 			wp_enqueue_style('login');
-
 		}
 
 		wp_enqueue_style('common');
-
 	}
 
 	/**
@@ -303,17 +292,17 @@ class Legacy_Checkout {
 
 			.wu-content-plan .plan-tier h4 {
 				background-color: #<?php echo esc_html($primary_color->getHex()); ?>;
-				color: <?php echo $primary_color->isDark() ? "white" : "#333"; ?> !important;
+				color: <?php echo $primary_color->isDark() ? 'white' : '#333'; ?> !important;
 			}
 
 			.wu-content-plan .plan-tier.callout h6 {
 				background-color: #<?php echo esc_html($accent_color->getHex()); ?>;
-				color: <?php echo $accent_color->isDark() ? "#f9f9f9" : "rgba(39,65,90,.5)"; ?> !important;
+				color: <?php echo $accent_color->isDark() ? '#f9f9f9' : 'rgba(39,65,90,.5)'; ?> !important;
 			}
 
 			.wu-content-plan .plan-tier.callout h4 {
 				background-color: #<?php echo esc_html($accent_color_2->getHex()); ?>;
-				color: <?php echo $accent_color->isDark() ? "white" : "#333"; ?> !important;
+				color: <?php echo $accent_color->isDark() ? 'white' : '#333'; ?> !important;
 			}
 
 		<?php
@@ -822,7 +811,6 @@ class Legacy_Checkout {
 		 */
 		return apply_filters('get_site_url_for_previewer', $domain, $domain_options); // phpcs:ignore
 	}
-
 
 	/**
 	 * Adds a new Step to the sign-up flow

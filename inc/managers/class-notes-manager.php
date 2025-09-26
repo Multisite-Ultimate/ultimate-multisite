@@ -109,7 +109,7 @@ class Notes_Manager extends Base_Manager {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array  $sections Array sections.
+	 * @param array                                $sections Array sections.
 	 * @param \WP_Ultimo\Models\Interfaces\Notable $obj   The object.
 	 *
 	 * @return array

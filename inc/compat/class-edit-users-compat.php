@@ -16,10 +16,24 @@
 
 namespace WP_Ultimo\Compat;
 
+/**
+ * Edit Users compatibility class.
+ *
+ * Allows site administrators to edit user accounts for users on their site
+ * in multisite environments where normally only super admins can edit users.
+ */
 class Edit_Users_Compat {
 
 	use \WP_Ultimo\Traits\Singleton;
 
+	/**
+	 * Initialize the Edit Users compatibility functionality.
+	 *
+	 * Sets up hooks and actions to enable site administrators to edit users
+	 * and adds settings to control this feature.
+	 *
+	 * @since 2.4.4
+	 */
 	public function init(): void {
 		// Add the settings to enable or disable this feature.
 		add_action('wu_settings_login', [$this, 'add_settings'], 10);
@@ -177,7 +191,7 @@ class Edit_Users_Compat {
 	 * @param array $args    Arguments that accompany the requested capability check.
 	 * @return array Modified capabilities.
 	 */
-	public function grant_temp_network_capability($allcaps, $caps, $args) {
+	public function grant_temp_network_capability($allcaps, $caps, $args) {  // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 		// Only grant during adduser action and if user can create users
 		if (! empty($allcaps['create_users']) && ! isset($allcaps['manage_network_users'])) {
 			$allcaps['manage_network_users'] = true;

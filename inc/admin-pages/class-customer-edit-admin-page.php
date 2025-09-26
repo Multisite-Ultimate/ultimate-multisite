@@ -769,8 +769,8 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 								],
 							],
 						],
-						// @todo: bring these back
 				// phpcs:disable
+                // @todo: bring these back
 				// 'payment_methods' => array(
 				// 	'title'  => __('Payment Methods', 'ultimate-multisite'),
 				// 	'desc'   => __('Add extra information to this customer.', 'ultimate-multisite'),
@@ -1187,7 +1187,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 
 		$billing_address = $object->get_billing_address();
 
-        $billing_address->load_attributes_from_post();
+		$billing_address->load_attributes_from_post();
 
 		$valid_address = $billing_address->validate();
 

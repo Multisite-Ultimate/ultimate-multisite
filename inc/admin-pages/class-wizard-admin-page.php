@@ -163,7 +163,7 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 	 */
 	public function output_default_widget_body() {
 
-    	echo '<div class="wu-p-4" data-testid="wizard-content-body">';
+		echo '<div class="wu-p-4" data-testid="wizard-content-body">';
 
 		$view = $this->current_section['view'] ?? [$this, 'default_view'];
 

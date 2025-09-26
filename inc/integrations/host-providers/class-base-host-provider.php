@@ -76,24 +76,11 @@ abstract class Base_Host_Provider {
 	 */
 	public function init(): void {
 
-		add_filter('wu_domain_manager_get_integrations', [$this, 'self_register']);
-
-		add_action('init', [$this, 'add_to_integration_list']);
-	}
-
-	/**
-	 * Loads the hooks and dependencies, but only if the hosting is enabled via is_enabled().
-	 *
-	 * @since 2.0.0
-	 */
-	final public function __construct() {
-
 		if ($this->detect() && ! $this->is_enabled()) {
 			/*
 			 * Adds an admin notice telling the admin that they should probably enable this integration.
 			 */
 			$this->alert_provider_detected();
-			return;
 		}
 
 		/*
@@ -108,7 +95,6 @@ abstract class Base_Host_Provider {
 				 * Adds an admin notice telling the admin that the provider is not correctly setup.
 				 */
 				$this->alert_provider_not_setup();
-				return;
 			}
 
 			/*
@@ -121,6 +107,10 @@ abstract class Base_Host_Provider {
 			 */
 			$this->register_hooks();
 		}
+
+		add_filter('wu_domain_manager_get_integrations', [$this, 'self_register']);
+
+		add_action('init', [$this, 'add_to_integration_list']);
 	}
 
 	/**

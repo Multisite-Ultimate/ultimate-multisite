@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <?php wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false); ?>
 <?php wp_nonce_field('closedpostboxes', 'closedpostboxesnonce', false); ?>

@@ -6,7 +6,7 @@
  * @subpackage Jumper
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div id="wu-jumper" style="display: none;" class="wu-styling">

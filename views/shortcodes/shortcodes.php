@@ -4,7 +4,7 @@
  *
  * @since 2.0.24
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 
 <div id="wp-ultimo-wrap" class="<?php wu_wrap_use_container(); ?> wrap">

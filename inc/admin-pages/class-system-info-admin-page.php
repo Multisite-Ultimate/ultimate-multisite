@@ -736,7 +736,7 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 
 		$return_settings = [];
 
-		$settings = new \WP_Ultimo\Settings();
+		$settings = \WP_Ultimo\Settings::get_instance();
 
 		foreach ($settings->get_all() as $setting => $value) {
 			$add = true;

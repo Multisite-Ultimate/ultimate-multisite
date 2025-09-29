@@ -55,31 +55,44 @@ defined('ABSPATH') || exit;
 				$w_classes = wu_get_isset($item, 'wrapper_classes', '');
 				?>
 
-							<?php if (wu_get_isset($item, 'url')) : ?>
+				<?php if (wu_get_isset($item, 'url')) : ?>
 
-				<a title="<?php echo esc_attr(wu_get_isset($item, 'value', '')); ?>" href="<?php echo esc_attr($item['url']); ?>" class="wu-no-underline wu-flex wu-items-center wu-text-xs wp-ui-text-highlight <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?>" <?php wu_tooltip_text($item['label']); ?>>
+					<a title="<?php echo esc_attr(wu_get_isset($item, 'value', '')); ?>" href="<?php echo esc_attr($item['url']); ?>" class="wu-no-underline wu-flex wu-items-center wu-text-xs wp-ui-text-highlight <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?>" <?php wu_tooltip_text($item['label']); ?>>
 
-				<span class="<?php echo esc_attr($item['icon']); ?>"></span>
+						<span class="<?php echo esc_attr($item['icon']); ?>"></span>
 
-								<?php echo wp_kses($item['value'], wu_kses_allowed_html()); ?>
+						<?php
+						if (is_callable($item['value'])) {
+							$item['value']();
+						} else {
+							echo wp_kses($item['value'], wu_kses_allowed_html());
+						}
+						?>
 
-				</a>
 
-			<?php else : ?>
+					</a>
 
-				<span class="wu-flex wu-items-center wu-text-xs wu-text-gray-600 <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?>" <?php wu_get_isset($item, 'label') && wu_tooltip_text($item['label']); ?>>
+				<?php else : ?>
 
-				<span class="<?php echo esc_attr($item['icon']); ?>"></span>
+					<span class="wu-flex wu-items-center wu-text-xs wu-text-gray-600 <?php echo ! $first ? 'sm:wu-mt-0 sm:wu-ml-6' : ''; ?> <?php echo esc_attr($w_classes); ?>" <?php wu_get_isset($item, 'label') && wu_tooltip_text($item['label']); ?>>
 
-				<?php echo wp_kses($item['value'], wu_kses_allowed_html()); ?>
+					<span class="<?php echo esc_attr($item['icon']); ?>"></span>
 
-				</span>
+						<?php
+						if (is_callable($item['value'])) {
+							$item['value']();
+						} else {
+							echo wp_kses($item['value'], wu_kses_allowed_html());
+						}
+						?>
 
-			<?php endif; ?>
+					</span>
+
+				<?php endif; ?>
 
 						<?php
 						$first = false;
-endforeach;
+			endforeach;
 			?>
 
 		</div>

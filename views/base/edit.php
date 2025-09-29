@@ -78,8 +78,8 @@ defined('ABSPATH') || exit;
 				 * Allow plugin developers to add additional information below the text input
 				 *
 				 * @since 1.8.2
-				 * @param object  Object holding the information
-				 * @param WU_Page Ultimate Multisite Page instance
+				 * @param object  $object Object holding the information
+				 * @param WU_Page $page Ultimate Multisite Page instance
 				 */
 				do_action('wu_edit_page_after_title_input', $object, $page);
 				?>
@@ -124,7 +124,7 @@ defined('ABSPATH') || exit;
 			 * Allow plugin developers to add new metaboxes
 			 *
 			 * @since 1.8.2
-			 * @param object Object being edited right now
+			 * @param object $object Object being edited right now
 			 */
 			do_meta_boxes($screen->id, 'side', $object);
 			?>
@@ -136,7 +136,7 @@ defined('ABSPATH') || exit;
 			 * Allow plugin developers to add new metaboxes
 			 *
 			 * @since 1.8.2
-			 * @param object Object being edited right now
+			 * @param object $object Object being edited right now
 			 */
 			do_meta_boxes($screen->id, 'side-bottom', $object);
 			?>
@@ -153,7 +153,7 @@ defined('ABSPATH') || exit;
 			 * Allow plugin developers to add new metaboxes
 			 *
 			 * @since 1.8.2
-			 * @param object Object being edited right now
+			 * @param object $object Object being edited right now
 			 */
 			do_meta_boxes($screen->id, 'normal', $object);
 
@@ -161,7 +161,7 @@ defined('ABSPATH') || exit;
 			 * Allow developers to add additional elements after the modals are printed.
 			 *
 			 * @since 2.0.0
-			 * @param object Object being edited right now
+			 * @param object $object Object being edited right now
 			 */
 			do_action("wu_edit_{$screen->id}_after_normal", $object);
 
@@ -171,7 +171,7 @@ defined('ABSPATH') || exit;
 			 * Allow plugin developers to add new metaboxes
 			 *
 			 * @since 1.8.2
-			 * @param object Object being edited right now
+			 * @param object $object Object being edited right now
 			 */
 			do_meta_boxes($screen->id, 'advanced', $object);
 
@@ -212,8 +212,8 @@ defined('ABSPATH') || exit;
 	 * Allow plugin developers to add scripts to the bottom of the page
 	 *
 	 * @since 1.8.2
-	 * @param object  Object holding the information
-	 * @param WU_Page Ultimate Multisite Page instance
+	 * @param object  $object Object holding the information
+	 * @param WU_Page $page Ultimate Multisite Page instance
 	 */
 	do_action('wu_page_edit_footer', $object, $page);
 	?>

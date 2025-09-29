@@ -94,6 +94,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 			<div
 				id="wu-site-template-<?php echo esc_attr($site_template->get_id()); ?>"
+				:class="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?> ? 'wu-selected-template' : ''"
 				v-show="!$parent.template_category || <?php echo esc_attr(wp_json_encode($categories)); ?>.join(',').indexOf($parent.template_category) > -1"
 				v-cloak
 			>
@@ -116,11 +117,11 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 				</div>
 
-				<label for="wu-site-template-id-<?php echo esc_attr($site_template->get_id()); ?>">
+				<label for="wu-site-template-id-<?php echo esc_attr($site_template->get_id()); ?>" :class="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?> ? 'wu-selected-template-label' : ''">
 
 					<input id="wu-site-template-id-<?php echo esc_attr($site_template->get_id()); ?>" type="radio" name="template_id" v-model="$parent.template_id" value="<?php echo esc_attr($site_template->get_id()); ?>" />
 
-					<a class="wu-site-template-selector" @click.prevent="" href="#">
+					<a class="wu-site-template-selector" :class="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?> ? 'wu-selected-template-button' : ''" @click.prevent="" href="#">
 
 						<?php esc_html_e('Select this Template', 'ultimate-multisite'); ?>
 

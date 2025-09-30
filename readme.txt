@@ -6,7 +6,7 @@ Requires at least: 5.3
 
 Requires PHP: 7.4.30
 Tested up to: 6.8
-Stable tag: 2.4.4
+Stable tag: 2.4.5
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,20 +14,58 @@ The Complete Network Solution for transforming your WordPress Multisite into a W
 
 == Description ==
 
-**Ultimate Multisite** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
+**Ultimate Multisite** turns your WordPress Multisite into a full WaaS (Website as a Service) platform—so you can sell plans, provision new sites from templates, map custom domains, and manage customers and billing with confidence.
 
-This plugin was formerly known as WP Ultimo and is now community maintained.
+Launch niche site builders, productized services, or large, branded networks without stitching together dozens of tools. From checkout to provisioning to ongoing management, Ultimate Multisite gives you the building blocks to create a modern, scalable website platform on top of WordPress.
+
+Formerly known as WP Ultimo, now community‑maintained and actively improved.
 
 = Key Features =
 
-* **Site Creation** - Allow customers to create their own sites in your network
-* **Domain Mapping** - Support for custom domains with automated DNS verification
-* **Payment Processing** - Integrations with popular payment gateways like Stripe and PayPal
-* **Plan Management** - Create and manage subscription plans with different features and limitations
-* **Template Sites** - Easily clone and use template sites for new customer websites
-* **Customer Dashboard** - Provide a professional management interface for your customers
-* **White Labeling** - Brand the platform as your own
-* **Hosting Integrations** - Connect with popular hosting control panels like cPanel, RunCloud, and more
+Build, sell, and scale with a feature set designed for WaaS operators:
+
+- **Fast Site Creation** – Self‑serve signup that provisions new sites instantly from templates
+- **Domain Mapping** – Custom domains with automated DNS verification and clear guidance
+- **Payments & Subscriptions** – Stripe and PayPal support for recurring plans and one‑time fees
+- **Flexible Plans & Limits** – Package features and enforce quotas/limitations across your network
+- **Template Library** – Create high‑converting templates your customers can launch in minutes
+- **Customer Dashboard** – Clean, branded UI for managing billing, sites, domains, and settings
+- **White‑Label Ready** – Rename, rebrand, and tailor the experience to your business
+- **Hosting Integrations** – Cloudflare, GridPane, Cloudways, WPMU DEV, and more
+- **Developer‑Friendly** – Hooks, filters, and an add‑on system for deep customization
+
+= Who Is It For? =
+
+- Agencies productizing WordPress into packages and recurring plans
+- Creators launching niche site builders (local business sites, portfolios, courses, communities)
+- Hosts and MSPs offering white‑label WordPress at scale
+- Franchises, universities, and multi‑location brands with many similar sites
+- Internal teams rolling out microsites and campaigns on shared infrastructure
+
+= Popular Use Cases =
+
+- Productized website services with recurring billing and templates
+- Franchise and multi‑location networks with brand‑consistent starter sites
+- “Site builder” offerings for a specific industry or niche
+- Private networks for internal departments, events, or communities
+- Educational institutions provisioning class, club, or program sites
+
+= Why Ultimate Multisite =
+
+- **Open & Community‑Maintained** – Transparent development, active updates
+- **WordPress‑Native** – Built specifically for Multisite; no heavy SaaS lock‑in
+- **Proven Architecture** – Templates, plans, and domain mapping built‑in
+- **Extensible** – Add‑on system, actions/filters, and hosting integrations
+- **Owned Infrastructure** – Run your WaaS on your stack, your way
+
+= Try It In Minutes =
+
+1. Enable WordPress Multisite on a staging site
+2. Install and Network Activate Ultimate Multisite
+3. Run the setup wizard, create a plan, and add a template
+4. Share your signup page and start selling
+
+Ready to build your WaaS? Install the plugin and launch your first customer site today.
 
 = Where to find help =
 
@@ -192,6 +230,10 @@ For support, please open an issue on the [GitHub repository](https://github.com/
 We recommend running this in a staging environment before updating your production environment.
 
 == Changelog ==
+
+Version [2.4.5] - Released on 2025-09-23
+Fixed: Unable to setup integrations.
+Fixed: Custom domain check when downgrading.
 
 Version [2.4.4] - Released on 2025-09-17
 - Fixed: Saving email templates without stripping html

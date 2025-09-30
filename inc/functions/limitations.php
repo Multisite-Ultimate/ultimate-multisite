@@ -50,7 +50,7 @@ defined('ABSPATH') || exit;
  *                                   Will return true if ANY slug on the array is present.
  * @param bool         $blocking When set to true, this flag also validates the active status of the membership.
  * @param string       $site_id  The site ID to test.
- * @return boolean
+ * @return boolean|WP_Error
  */
 function wu_has_product($product_slug, $blocking = false, $site_id = '') {
 
@@ -93,7 +93,7 @@ function wu_has_product($product_slug, $blocking = false, $site_id = '') {
  * @since 2.0.0
  *
  * @param string $site_id The site ID to test.
- * @return bool
+ * @return bool|\WP_Error
  */
 function wu_is_membership_active($site_id = '') {
 

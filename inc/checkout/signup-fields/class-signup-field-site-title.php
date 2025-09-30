@@ -195,11 +195,9 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 					'value' => 'username',
 				],
 				'site_title'               => [
-					'type'      => 'hidden',
-					'id'        => 'site_title',
-					'html_attr' => [
-						'v-bind:value' => 'username',
-					],
+					'type'  => 'hidden',
+					'id'    => 'site_title',
+					'value' => 'autogenerate',
 				],
 			];
 		}

@@ -296,7 +296,7 @@ class Account_Summary_Element extends Base_Element {
 
 		// Return empty if no site available (e.g., during SEO processing)
 		if ( ! $this->site) {
-			return ;
+			return;
 		}
 
 		$atts = array_merge($atts, $this->atts);

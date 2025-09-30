@@ -111,7 +111,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 			wu_log_add('integration-closte', sprintf('Failed to add domain %s. Response: %s', $domain, wp_json_encode($domain_response)));
 
 			// Only try SSL if it's not a domain validation error
-			if (!isset($domain_response['error']) || !str_contains($domain_response['error'], 'Invalid or empty domain')) {
+			if (! isset($domain_response['error']) || ! str_contains($domain_response['error'], 'Invalid or empty domain')) {
 				wu_log_add('integration-closte', sprintf('Attempting SSL certificate request for %s despite domain addition failure', $domain));
 				$this->request_ssl_certificate($domain);
 			}
@@ -194,7 +194,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 			);
 
 			// If we get something other than 400/404, we found a working endpoint
-			if (!isset($ssl_response['error']) || !preg_match('/HTTP [45]\d\d/', $ssl_response['error'])) {
+			if (! isset($ssl_response['error']) || ! preg_match('/HTTP [45]\d\d/', $ssl_response['error'])) {
 				wu_log_add('integration-closte', sprintf('SSL endpoint %s responded, stopping search', $endpoint));
 				break;
 			}
@@ -292,8 +292,8 @@ class Closte_Host_Provider extends Base_Host_Provider {
 			'timeout'  => 45,
 			'method'   => 'POST',
 			'headers'  => [
-				'Content-Type'  => 'application/x-www-form-urlencoded',
-				'User-Agent'    => 'WP-Ultimo-Closte-Integration/2.0',
+				'Content-Type' => 'application/x-www-form-urlencoded',
+				'User-Agent'   => 'WP-Ultimo-Closte-Integration/2.0',
 			],
 			'body'     => array_merge(
 				[
@@ -325,8 +325,8 @@ class Closte_Host_Provider extends Base_Host_Provider {
 		if ($response_code >= 400) {
 			wu_log_add('integration-closte', sprintf('HTTP error %d for endpoint %s', $response_code, $endpoint));
 			return (object) [
-				'success' => false,
-				'error'   => sprintf('HTTP %d error', $response_code),
+				'success'       => false,
+				'error'         => sprintf('HTTP %d error', $response_code),
 				'response_body' => $response_body,
 			];
 		}
@@ -347,8 +347,8 @@ class Closte_Host_Provider extends Base_Host_Provider {
 
 			wu_log_add('integration-closte', sprintf('JSON decode error: %s', json_last_error_msg()));
 			return (object) [
-				'success' => false,
-				'error'   => 'Invalid JSON response',
+				'success'    => false,
+				'error'      => 'Invalid JSON response',
 				'json_error' => json_last_error_msg(),
 			];
 		}
@@ -381,6 +381,4 @@ class Closte_Host_Provider extends Base_Host_Provider {
 
 		return wu_get_asset('closte.svg', 'img/hosts');
 	}
-
-
 }

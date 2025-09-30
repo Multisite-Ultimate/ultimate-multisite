@@ -36,14 +36,6 @@ class Limit_Site_Templates extends Limit {
 	protected $mode = 'default';
 
 	/**
-	 * Allows sub-type limits to set their own default value for enabled.
-	 *
-	 * @since 2.0.0
-	 * @var bool
-	 */
-	private bool $enabled_default_value = true;
-
-	/**
 	 * Sets up the module based on the module data.
 	 *
 	 * @since 2.0.0

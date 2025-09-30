@@ -191,6 +191,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 						<div
 								class="theme"
+								:class="$parent.template_id == <?php echo esc_attr($site->get_id()); ?> ? 'wu-selected-template' : ''"
 								tabindex="<?php echo esc_attr($i); ?>"
 								aria-describedby="<?php echo esc_attr($site->get_id()); ?>-action <?php echo esc_attr($site->get_id()); ?>-name"
 								data-slug="<?php echo esc_attr($site->get_id()); ?>"
@@ -226,6 +227,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 									<button
 											class="button button-primary"
+											:class="$parent.template_id == <?php echo esc_attr($site->get_id()); ?> ? 'wu-selected-template-button' : ''"
 											type="button"
 											v-on:click.prevent="$parent.template_id = <?php echo esc_attr($site->get_id()); ?>"
 									>

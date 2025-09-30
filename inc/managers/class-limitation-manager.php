@@ -62,7 +62,7 @@ class Limitation_Manager {
 	 * @param string|array $plugins The plugin or list of plugins to (de)activate.
 	 * @param boolean      $network_wide If we want to (de)activate it network-wide.
 	 * @param boolean      $silent IF we should do the process silently - true by default.
-	 * @return bool
+	 * @return void
 	 */
 	public function async_handle_plugins($action, $site_id, $plugins, $network_wide = false, $silent = true) {
 
@@ -70,7 +70,7 @@ class Limitation_Manager {
 
 		// Avoid doing anything on the main site.
 		if (wu_get_main_site_id() === $site_id) {
-			return $results;
+			return;
 		}
 
 		switch_to_blog($site_id);
@@ -78,7 +78,7 @@ class Limitation_Manager {
 		if ('activate' === $action) {
 			$results = activate_plugins($plugins, '', $network_wide, $silent);
 		} elseif ('deactivate' === $action) {
-			$results = deactivate_plugins($plugins, $silent, $network_wide);
+			deactivate_plugins($plugins, $silent, $network_wide);
 		}
 
 		if (is_wp_error($results)) {
@@ -86,8 +86,6 @@ class Limitation_Manager {
 		}
 
 		restore_current_blog();
-
-		return $results;
 	}
 
 	/**
@@ -97,17 +95,15 @@ class Limitation_Manager {
 	 *
 	 * @param int    $site_id The site ID.
 	 * @param string $theme_stylesheet The theme stylesheet.
-	 * @return true
+	 * @return void
 	 */
-	public function async_switch_theme($site_id, $theme_stylesheet): bool {
+	public function async_switch_theme($site_id, $theme_stylesheet): void {
 
 		switch_to_blog($site_id);
 
 		switch_theme($theme_stylesheet);
 
 		restore_current_blog();
-
-		return true;
 	}
 
 	/**
@@ -460,7 +456,7 @@ class Limitation_Manager {
 
 		$sections['custom_domain'] = [
 			'title'  => __('Custom Domains', 'ultimate-multisite'),
-			'desc'   => __('Limit the number of users on each role, posts, pages, and more.', 'ultimate-multisite'),
+			'desc'   => __('Allow customers to setup custom domains.', 'ultimate-multisite'),
 			'icon'   => 'dashicons-wu-link1',
 			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
 			'state'  => [
@@ -486,9 +482,33 @@ class Limitation_Manager {
 			$sections['custom_domain']['fields']['custom_domain_override'] = $this->override_notice($object_model->get_limitations(false)->domain_mapping->has_own_enabled(), ['allow_domain_mapping']);
 		}
 
+		$sections['hide_credits'] = [
+			'title'  => __('Hide Credits', 'ultimate-multisite'),
+			'desc'   => __('Hide the "Powered By" footer credits.', 'ultimate-multisite'),
+			'icon'   => 'dashicons-wu-eye-off',
+			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
+			'state'  => [
+				'allow_hide_credits' => $object_model->get_limitations()->hide_credits->is_enabled(),
+			],
+			'fields' => [
+				'modules[hide_credits][enabled]' => [
+					'type'              => 'toggle',
+					'title'             => __('Hide Footer Credits', 'ultimate-multisite'),
+					'desc'              => __('Toggle this option on to hide the "Powered by..." footer credits on this plan.', 'ultimate-multisite'),
+					'value'             => $object_model->get_limitations()->hide_credits->is_enabled(),
+					'wrapper_html_attr' => [
+						'v-cloak' => '1',
+					],
+					'html_attr'         => [
+						'v-model' => 'allow_hide_credits',
+					],
+				],
+			],
+		];
+
 		$sections['allowed_themes'] = [
 			'title'  => __('Themes', 'ultimate-multisite'),
-			'desc'   => __('Limit the number of users on each role, posts, pages, and more.', 'ultimate-multisite'),
+			'desc'   => __('You can choose which themes are allowed to be used on the platform.', 'ultimate-multisite'),
 			'icon'   => 'dashicons-wu-palette',
 			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
 			'state'  => [

@@ -38,14 +38,6 @@ class Limit_Domain_Mapping extends Limit {
 	protected $mode = 'default';
 
 	/**
-	 * Allows sub-type limits to set their own default value for enabled.
-	 *
-	 * @since 2.0.0
-	 * @var bool
-	 */
-	private bool $enabled_default_value = true;
-
-	/**
 	 * Sets up the module based on the module data.
 	 *
 	 * @since 2.0.0
@@ -180,21 +172,6 @@ class Limit_Domain_Mapping extends Limit {
 		}
 
 		return $active_count;
-	}
-
-	/**
-	 * Returns default permissions.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $type Type for sub-checking.
-	 * @return array
-	 */
-	public function get_default_permissions($type) {
-
-		return [
-			'behavior' => 'available',
-		];
 	}
 
 	/**

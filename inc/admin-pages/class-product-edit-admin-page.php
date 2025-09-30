@@ -95,7 +95,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 
 		add_action('wu_after_delete_product_modal', [$this, 'product_after_delete_actions']);
 
-		add_filter("wu_page_{$this->id}_load", [$this, 'add_new_product_warning_message']);
+		add_action("wu_page_{$this->id}_load", [$this, 'add_new_product_warning_message']);
 	}
 
 	/**

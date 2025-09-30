@@ -65,9 +65,7 @@ class Whitelabel {
 
 		add_action('admin_init', [$this, 'clear_footer_texts']);
 
-		add_action('init', [$this, 'hooks']);
-
-		add_filter('gettext', [$this, 'replace_text'], 10, 3);
+		add_action('init', [$this, 'hooks'], 1);
 	}
 
 	/**
@@ -88,6 +86,50 @@ class Whitelabel {
 
 		if (wu_get_setting('hide_sites_menu', true)) {
 			add_action('network_admin_menu', [$this, 'remove_sites_admin_menu']);
+		}
+
+		if (wu_get_setting('rename_site_plural') ||
+			wu_get_setting('rename_site_singular') ||
+			wu_get_setting('rename_wordpress')
+		) {
+			$this->allowed_domains = apply_filters(
+				'wu_replace_text_allowed_domains',
+				[
+					'default',
+					'wp-ultimo',
+					'ultimate-multisite',
+				]
+			);
+
+			$search_and_replace = [];
+			$site_plural        = wu_get_setting('rename_site_plural');
+
+			if ($site_plural) {
+				$search_and_replace['sites'] = strtolower((string) $site_plural);
+				$search_and_replace['Sites'] = ucfirst((string) $site_plural);
+			}
+
+			$site_singular = wu_get_setting('rename_site_singular');
+
+			if ($site_singular) {
+				$search_and_replace['site'] = strtolower((string) $site_singular);
+				$search_and_replace['Site'] = ucfirst((string) $site_singular);
+			}
+
+			$wordpress = wu_get_setting('rename_wordpress');
+
+			if ($wordpress) {
+				$search_and_replace['wordpress'] = strtolower((string) $wordpress);
+				$search_and_replace['WordPress'] = ucfirst((string) $wordpress);
+				$search_and_replace['Wordpress'] = ucfirst((string) $wordpress);
+				$search_and_replace['wordPress'] = ucfirst((string) $wordpress);
+			}
+
+			if ($search_and_replace) {
+				$this->search  = array_keys($search_and_replace);
+				$this->replace = array_values($search_and_replace);
+			}
+			add_filter('gettext', [$this, 'replace_text'], 10, 3);
 		}
 	}
 
@@ -116,16 +158,6 @@ class Whitelabel {
 	 */
 	public function replace_text($translation, $text, $domain) {
 
-		if (null === $this->allowed_domains) {
-			$this->allowed_domains = apply_filters(
-				'wu_replace_text_allowed_domains',
-				[
-					'default',
-					'wp-ultimo',
-				]
-			);
-		}
-
 		if ( ! in_array($domain, $this->allowed_domains, true)) {
 			return $translation;
 		}
@@ -142,40 +174,6 @@ class Whitelabel {
 		 */
 		if (str_starts_with($translation, 'http')) {
 			return $translation;
-		}
-
-		if (false === $this->init) {
-			$search_and_replace = [];
-
-			$site_plural = wu_get_setting('rename_site_plural');
-
-			if ($site_plural) {
-				$search_and_replace['sites'] = strtolower((string) $site_plural);
-				$search_and_replace['Sites'] = ucfirst((string) $site_plural);
-			}
-
-			$site_singular = wu_get_setting('rename_site_singular');
-
-			if ($site_singular) {
-				$search_and_replace['site'] = strtolower((string) $site_singular);
-				$search_and_replace['Site'] = ucfirst((string) $site_singular);
-			}
-
-			$wordpress = wu_get_setting('rename_wordpress');
-
-			if ($wordpress) {
-				$search_and_replace['wordpress'] = strtolower((string) $wordpress);
-				$search_and_replace['WordPress'] = ucfirst((string) $wordpress);
-				$search_and_replace['Wordpress'] = ucfirst((string) $wordpress);
-				$search_and_replace['wordPress'] = ucfirst((string) $wordpress);
-			}
-
-			if ($search_and_replace) {
-				$this->search  = array_keys($search_and_replace);
-				$this->replace = array_values($search_and_replace);
-			}
-
-			$this->init = true;
 		}
 
 		if ( ! empty($this->search)) {

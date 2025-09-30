@@ -249,7 +249,7 @@ class Signup_Field_Order_Bump extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('order_bump', $attributes['order_bump_template']);
 
-		$desc = function() use($attributes, $template_class) {
+		$desc = function () use ($attributes, $template_class) {
 			if ($template_class) {
 				$template_class->render_container($attributes);
 			} else {

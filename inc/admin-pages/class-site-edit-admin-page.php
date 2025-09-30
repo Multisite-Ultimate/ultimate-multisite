@@ -130,7 +130,7 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 			]
 		);
 
-		add_filter("wu_page_{$this->id}_load", [$this, 'add_new_site_template_warning_message']);
+		add_action("wu_page_{$this->id}_load", [$this, 'add_new_site_template_warning_message']);
 	}
 
 	/**

@@ -20,6 +20,18 @@ defined('ABSPATH') || exit;
  * This class centralizes the limitation modules.
  *
  * @since 2.0.0
+ *
+ * @property-read \WP_Ultimo\Limitations\Limit_Post_Types $post_types
+ * @property-read \WP_Ultimo\Limitations\Limit_Plugins $plugins
+ * @property-read \WP_Ultimo\Limitations\Limit_Sites $sites
+ * @property-read \WP_Ultimo\Limitations\Limit_Themes $themes
+ * @property-read \WP_Ultimo\Limitations\Limit_Visits $visits
+ * @property-read \WP_Ultimo\Limitations\Limit_Disk_Space $disk_space
+ * @property-read \WP_Ultimo\Limitations\Limit_Users $users
+ * @property-read \WP_Ultimo\Limitations\Limit_Site_Templates $site_templates
+ * @property-read \WP_Ultimo\Limitations\Limit_Domain_Mapping $domain_mapping
+ * @property-read \WP_Ultimo\Limitations\Limit_Customer_User_Role $customer_user_role
+ * @property-read \WP_Ultimo\Limitations\Limit_Hide_Footer_Credits $hide_credits
  */
 class Limitations {
 
@@ -225,8 +237,7 @@ class Limitations {
 		$results = $this->to_array();
 
 		foreach ($limitations as $limitation) {
-			if (is_a($limitation, self::class)) { // @phpstan-ignore-line
-
+			if (is_a($limitation, self::class)) {
 				$limitation = $limitation->to_array();
 			}
 
@@ -482,6 +493,7 @@ class Limitations {
 			'site_templates'     => \WP_Ultimo\Limitations\Limit_Site_Templates::class,
 			'domain_mapping'     => \WP_Ultimo\Limitations\Limit_Domain_Mapping::class,
 			'customer_user_role' => \WP_Ultimo\Limitations\Limit_Customer_User_Role::class,
+			'hide_credits'       => \WP_Ultimo\Limitations\Limit_Hide_Footer_Credits::class,
 		];
 
 		return apply_filters('wu_limit_classes', $classes);

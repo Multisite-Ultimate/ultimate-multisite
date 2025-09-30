@@ -309,9 +309,9 @@ abstract class Base_Customer_Facing_Admin_Page extends Base_Admin_Page {
 
 		add_filter('wu_element_display_super_admin_notice', [$this, 'is_edit_mode']);
 
-		add_action("get_user_option_meta-box-order_{$this->page_hook}", [$this, 'get_settings'], 10, 3);
+		add_filter("get_user_option_meta-box-order_{$this->page_hook}", [$this, 'get_settings'], 10, 3);
 
-		add_action("get_user_option_screen_layout_{$this->page_hook}", [$this, 'get_settings'], 10, 3);
+		add_filter("get_user_option_screen_layout_{$this->page_hook}", [$this, 'get_settings'], 10, 3);
 
 		/**
 		 * 'Hack-y' solution for the customer facing title problem... but good enough for now.
@@ -338,7 +338,7 @@ abstract class Base_Customer_Facing_Admin_Page extends Base_Admin_Page {
 	 */
 	public function add_additional_body_classes(): void {
 
-		add_action(
+		add_filter(
 			'admin_body_class',
 			function ($classes) {
 

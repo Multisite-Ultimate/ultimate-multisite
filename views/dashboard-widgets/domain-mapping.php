@@ -7,7 +7,7 @@
 defined('ABSPATH') || exit;
 
 ?>
-<div class="wu-styling <?php echo esc_attr($className); ?>">
+<div class="wu-styling <?php echo esc_attr($className); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase ?>">
 
 	<div class="<?php echo esc_attr(wu_env_picker('', 'wu-widget-inset')); ?>">
 
@@ -98,7 +98,14 @@ defined('ABSPATH') || exit;
 									'wrapper_classes' => $item->is_primary_domain() ? 'wu-text-blue-600' : '',
 									'icon'            => $item->is_primary_domain() ? 'dashicons-wu-filter_1 wu-align-text-bottom wu-mr-1' : 'dashicons-wu-plus-square wu-align-text-bottom wu-mr-1',
 									'label'           => '',
-									'value'           => $item->is_primary_domain() ? __('Primary', 'ultimate-multisite') . wu_tooltip(__('All other mapped domains will redirect to the primary domain.', 'ultimate-multisite'), 'dashicons-editor-help wu-align-middle wu-ml-1') : __('Alias', 'ultimate-multisite'),
+									'value'           => function () use ($item) {
+										if ($item->is_primary_domain()) {
+											esc_html_e('Primary', 'ultimate-multisite');
+											wu_tooltip(__('All other mapped domains will redirect to the primary domain.', 'ultimate-multisite'), 'dashicons-editor-help wu-align-middle wu-ml-1');
+										} else {
+											esc_html_e('Alias', 'ultimate-multisite');
+										}
+									},
 								],
 								'secure'  => [
 									'wrapper_classes' => $item->is_secure() ? 'wu-text-green-500' : '',

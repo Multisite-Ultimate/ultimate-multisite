@@ -192,7 +192,7 @@ abstract class Base_Host_Provider {
 
 		$slug = $this->get_id();
 
-		$html = $this->is_enabled() ? sprintf('<span class="wu-self-center wu-text-green-800 wu-mr-4"><span class="dashicons-wu-check"></span> %s</span>', __('Activated', 'ultimate-multisite')) : '';
+		$html = $this->is_enabled() ? sprintf('<div class="wu-self-center wu-text-green-800 wu-mr-4"><span class="dashicons-wu-check"></span> %s</div>', __('Activated', 'ultimate-multisite')) : '';
 
 		$url = wu_network_admin_url(
 			'wp-ultimo-hosting-integration-wizard',

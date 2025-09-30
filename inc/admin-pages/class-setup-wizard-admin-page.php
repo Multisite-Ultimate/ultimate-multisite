@@ -15,6 +15,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Installers\Migrator;
 use WP_Ultimo\Installers\Core_Installer;
 use WP_Ultimo\Installers\Default_Content_Installer;
+use WP_Ultimo\Installers\Recommended_Plugins_Installer;
 use WP_Ultimo\Logger;
 use WP_Ultimo\Requirements;
 
@@ -137,6 +138,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		 */
 		add_action('wu_handle_ajax_installers', [Core_Installer::get_instance(), 'handle'], 10, 3);
 		add_action('wu_handle_ajax_installers', [Default_Content_Installer::get_instance(), 'handle'], 10, 3);
+		add_action('wu_handle_ajax_installers', [Recommended_Plugins_Installer::get_instance(), 'handle'], 10, 3);
 		add_action('wu_handle_ajax_installers', [Migrator::get_instance(), 'handle'], 10, 3);
 
 		/*
@@ -485,6 +487,19 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 				],
 			];
 		}
+		// Recommended Plugins step (runs like other installer steps)
+		$sections['recommended-plugins'] = [
+			'title'        => __('Recommended Plugins', 'ultimate-multisite'),
+			'description'  => __('Optionally install helpful plugins. We will install them one by one and report progress.', 'ultimate-multisite'),
+			'next_label'   => Recommended_Plugins_Installer::get_instance()->all_done() ? __('Go to the Next Step &rarr;', 'ultimate-multisite') : __('Install', 'ultimate-multisite'),
+			'disable_next' => true,
+			'fields'       => [
+				'plugins' => [
+					'type' => 'note',
+					'desc' => fn() => $this->render_installation_steps(Recommended_Plugins_Installer::get_instance()->get_steps()),
+				],
+			],
+		];
 
 		$sections['done'] = [
 			'title' => __('Ready!', 'ultimate-multisite'),
@@ -498,7 +513,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		 *
 		 * @param array  $sections Current sections.
 		 * @param bool   $is_migration If this is a migration or not.
-		 * @param object $this The current instance.
+		 * @param object $wizard The current instance.
 		 * @return array
 		 */
 		return apply_filters('wu_setup_wizard', $sections, $this->is_migration(), $this);

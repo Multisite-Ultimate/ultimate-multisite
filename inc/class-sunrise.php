@@ -159,6 +159,7 @@ class Sunrise {
 		require_once __DIR__ . '/limitations/class-limit-site-templates.php';
 		require_once __DIR__ . '/limitations/class-limit-domain-mapping.php';
 		require_once __DIR__ . '/limitations/class-limit-customer-user-role.php';
+		require_once __DIR__ . '/limitations/class-limit-hide-footer-credits.php';
 	}
 
 	/**

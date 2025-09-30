@@ -18,8 +18,10 @@ use WP_Ultimo\Database\Payments\Payment_Status;
 use WP_Ultimo\Database\Memberships\Membership_Status;
 use WP_Ultimo\Checkout\Checkout_Pages;
 use WP_Ultimo\Managers\Payment_Manager;
+use WP_Ultimo\Models\Customer;
 use WP_Ultimo\Objects\Billing_Address;
 use WP_Ultimo\Models\Site;
+use WP_User;
 
 /**
  * Handles the processing of new membership purchases.
@@ -651,9 +653,7 @@ class Checkout {
 		if ($cart->should_collect_payment() === false) {
 			$gateway = wu_get_gateway('free');
 		} elseif ( ! $gateway || $gateway->get_id() === 'free') {
-			$this->errors = new \WP_Error('no-gateway', __('Payment gateway not registered.', 'ultimate-multisite'));
-
-			return false;
+			return new \WP_Error('no-gateway', __('Payment gateway not registered.', 'ultimate-multisite'));
 		}
 
 		/*
@@ -941,13 +941,6 @@ class Checkout {
 			 */
 			if ($this->request_or_session('auto_generate_username') === 'email') {
 				$username = wu_username_from_email($this->request_or_session('email_address'));
-
-				/*
-				 * Case where the site title is also auto-generated, based on the username.
-				 */
-				if ($this->request_or_session('auto_generate_site_title') && $this->request_or_session('site_title', '') === '') {
-					$_REQUEST['site_title'] = $username;
-				}
 			}
 
 			/*
@@ -1047,7 +1040,7 @@ class Checkout {
 		 *
 		 * @since 2.0.0
 		 * @param Customer $customer The customer that was maybe created.
-		 * @param Checkout $this     The current checkout class.
+		 * @param Checkout $checkout     The current checkout class.
 		 */
 		do_action('wu_maybe_create_customer', $customer, $this);
 
@@ -1102,7 +1095,7 @@ class Checkout {
 			 * @since 2.0.0
 			 * @param array $meta_repository The list of meta fields, key => value structured.
 			 * @param Customer $customer The Ultimate Multisite customer object.
-			 * @param Checkout $this The checkout class.
+			 * @param Checkout $checkout The checkout class.
 			 */
 			do_action('wu_handle_customer_meta_fields', $meta_repository, $customer, $this);
 
@@ -1133,9 +1126,9 @@ class Checkout {
 			 *
 			 * @since 2.0.4
 			 * @param array $meta_repository The list of meta fields, key => value structured.
-			 * @param \WP_User $user The WordPress user object.
+			 * @param WP_User $user The WordPress user object.
 			 * @param Customer $customer The Ultimate Multisite customer object.
-			 * @param Checkout $this The checkout class.
+			 * @param Checkout $checkout The checkout class.
 			 */
 			do_action('wu_handle_user_meta_fields', $user_meta_repository, $user, $customer, $this);
 		}
@@ -1228,6 +1221,22 @@ class Checkout {
 		$site_url   = $this->request_or_session('site_url');
 		$site_title = $this->request_or_session('site_title');
 
+		// Handle special auto-generation values passed from form fields
+		if ('autogenerate' === $site_title) {
+			if ($this->customer) {
+				$site_title = $this->customer->get_username();
+			} else {
+				$email      = $this->request_or_session('email_address');
+				$site_title = $email ? wu_generate_site_title_from_email($email) : '';
+			}
+		}
+
+		if ('autogenerate' === $site_url && $site_title) {
+			$site_url = wu_generate_unique_site_url($site_title, $this->request_or_session('site_domain'));
+		} elseif ('autogenerate' === $site_url && $this->customer) {
+			$site_url = wu_generate_unique_site_url($this->customer->get_username(), $this->request_or_session('site_domain'));
+		}
+
 		if ( ! $site_url && ! $site_title) {
 			return false;
 		}
@@ -1240,31 +1249,26 @@ class Checkout {
 		 * Let's handle auto-generation of site URLs.
 		 *
 		 * To decide if we need to auto-generate the site URL,
-		 * we'll check the request for the auto_generate_site_url = username request value.
+		 * we'll check the request for the auto_generate_site_url value.
 		 *
 		 * If that's present and no site_url is present, then we need to auto-generate this.
-		 * The strategy here is simple, we basically set the site_url to the username and
-		 * check if it is already taken.
+		 * We support generating from either username or site_title.
 		 */
-		if (empty($site_url) || 'username' === $auto_generate_url) {
+		if (empty($site_url) || in_array($auto_generate_url, ['username', 'site_title'], true)) {
 			if ('username' === $auto_generate_url) {
-				$site_url = $this->customer->get_username();
-
+				$site_url   = $this->customer->get_username();
 				$site_title = $site_title ?: $site_url;
+			} elseif ('site_title' === $auto_generate_url && $site_title) {
+				$site_url = wu_generate_unique_site_url($site_title, $this->request_or_session('site_domain'));
 			} else {
-				$site_url = strtolower(str_replace(' ', '', preg_replace('/&([a-z])[a-z]+;/i', '$1', htmlentities(trim((string) $site_title)))));
-			}
+				// Fallback to legacy behavior - generate from site title if available
+				$site_url = wu_generate_site_url_from_title($site_title);
+				if (empty($site_url)) {
+					$site_url = $this->customer->get_username();
+				}
 
-			$d = wu_get_site_domain_and_path($site_url, $this->request_or_session('site_domain'));
-
-			$n = 0;
-
-			while (domain_exists($d->domain, $d->path)) {
-				++$n;
-
-				$site_url = $this->customer->get_username() . $n;
-
-				$d = wu_get_site_domain_and_path($site_url, $this->request_or_session('site_domain'));
+				// Ensure uniqueness
+				$site_url = wu_generate_unique_site_url($site_url, $this->request_or_session('site_domain'));
 			}
 		}
 
@@ -1691,7 +1695,7 @@ class Checkout {
 		 *
 		 * @since 2.0.0
 		 * @param array    $variables Localized variables.
-		 * @param Checkout $this The checkout class.
+		 * @param Checkout $checkout The checkout class.
 		 * @return array The new variables array.
 		 */
 		return apply_filters('wu_get_checkout_variables', $variables, $this);
@@ -1814,7 +1818,7 @@ class Checkout {
 		 *
 		 * @since 2.0.20
 		 * @param array    $validation_rules The validation rules to be used.
-		 * @param Checkout $this The checkout class.
+		 * @param Checkout $checkout The checkout class.
 		 */
 		return apply_filters('wu_checkout_validation_rules', $validation_rules, $this);
 	}
@@ -1875,7 +1879,7 @@ class Checkout {
 		 *
 		 * @since 2.1
 		 * @param array    $validation_aliases The array with id => alias.
-		 * @param Checkout $this The checkout class.
+		 * @param Checkout $checkout The checkout class.
 		 */
 		$validation_aliases = apply_filters('wu_checkout_validation_aliases', $validation_aliases, $this);
 
@@ -2122,7 +2126,7 @@ class Checkout {
 			 * In that case, we simply return.
 			 */
 			if (false === $status) {
-				return;
+				return true;
 			}
 
 			/*

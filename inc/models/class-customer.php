@@ -15,6 +15,7 @@ use WP_Ultimo\Models\Interfaces\Notable;
 use WP_Ultimo\Models\Membership;
 use WP_Ultimo\Models\Site;
 use WP_Ultimo\Models\Payment;
+use WP_User;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -129,7 +130,7 @@ class Customer extends Base_Model implements Billable, Notable {
 	 * @since 2.2.0
 	 * @var string
 	 */
-	public $_user;
+	public $_user; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
 	/**
 	 * Set the validation rules for this particular model.

@@ -272,12 +272,12 @@ class Signup_Field_Site_Url extends Base_Signup_Field {
 				'auto_generate_site_url' => [
 					'type'  => 'hidden',
 					'id'    => 'auto_generate_site_url',
-					'value' => 'username',
+					'value' => 'site_title',
 				],
 				'site_url'               => [
 					'type'  => 'hidden',
 					'id'    => 'site_url',
-					'value' => uniqid(),
+					'value' => 'autogenerate',
 				],
 			];
 		}

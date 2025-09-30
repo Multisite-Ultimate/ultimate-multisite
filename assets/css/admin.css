@@ -5360,3 +5360,11 @@ td.column-id {
 #addon_more_info #plugin-information-content #section-description img {
     width: 100%;
 }
+
+.multisite .plugins .column-auto-updates {
+	width: 9em;
+}
+
+.multisite .plugins details > summary {
+	cursor: pointer;
+}

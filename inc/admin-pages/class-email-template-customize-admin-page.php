@@ -720,6 +720,8 @@ class Email_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 
 			return $return;
 		}
+
+		return $default_value;
 	}
 
 	/**

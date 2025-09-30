@@ -199,6 +199,7 @@ abstract class Base_Admin_Page {
 		 *
 		 * @since 2.0.0
 		 * @param string $page_id The ID of this page.
+		 * @param string $page_hook The hook name of this page.
 		 * @return void
 		 */
 		do_action('wu_page_added', $this->id, $this->page_hook);
@@ -358,7 +359,8 @@ abstract class Base_Admin_Page {
 		 * Allow plugin developers to add additional content before we print the page.
 		 *
 		 * @since 1.8.2
-		 * @param string $this->id The id of this page.
+		 * @param string $page_id The id of this page.
+		 * @param object $page The page object.
 		 * @return void
 		 */
 		do_action('wu_page_before_render', $this->id, $this);
@@ -367,7 +369,8 @@ abstract class Base_Admin_Page {
 		 * Allow plugin developers to add additional content before we print the page.
 		 *
 		 * @since 1.8.2
-		 * @param string $this->id The id of this page.
+		 * @param string $page_id The id of this page.
+		 * @param object $page The page object.
 		 * @return void
 		 */
 		do_action("wu_page_{$this->id}_before_render", $this->id, $this);
@@ -381,7 +384,8 @@ abstract class Base_Admin_Page {
 		 * Allow plugin developers to add additional content after we print the page
 		 *
 		 * @since 1.8.2
-		 * @param string $this->id The id of this page
+		 * @param string $page_id The id of this page
+		 * @param object $page The page object.
 		 * @return void
 		 */
 		do_action('wu_page_after_render', $this->id, $this);
@@ -390,7 +394,8 @@ abstract class Base_Admin_Page {
 		 * Allow plugin developers to add additional content after we print the page
 		 *
 		 * @since 1.8.2
-		 * @param string $this->id The id of this page
+		 * @param string $page_id The id of this page
+		 * @param object $page The page object.
 		 * @return void
 		 */
 		do_action("wu_page_{$this->id}_after_render", $this->id, $this);
@@ -548,7 +553,7 @@ abstract class Base_Admin_Page {
 	 */
 	public function add_admin_body_classes(): void {
 
-		add_action(
+		add_filter(
 			'admin_body_class',
 			function ($classes) {
 
@@ -609,7 +614,7 @@ abstract class Base_Admin_Page {
 			 * Allow plugin developers to add additional hooks
 			 *
 			 * @since 1.8.2
-			 * @param string
+			 * @param string $page_hook The page hook.
 			 */
 			do_action('wu_enqueue_extra_hooks', $this->page_hook);
 		}
@@ -635,7 +640,8 @@ abstract class Base_Admin_Page {
 		 * Allow plugin developers, and ourselves, to add action links to our edit pages
 		 *
 		 * @since 1.8.2
-		 * @param WU_Page_Edit $this This instance
+		 * @param array $action_links The action links.
+		 * @param Base_Admin_Page $page This instance.
 		 * @return array
 		 */
 		return apply_filters('wu_page_get_title_links', $this->action_links, $this);

@@ -223,7 +223,7 @@ class Signup_Field_Order_Summary extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('order_summary', $attributes['order_summary_template']);
 
-		$desc = function() use($attributes, $template_class) {
+		$desc = function () use ($attributes, $template_class) {
 			if ($template_class) {
 				$template_class->render_container($attributes);
 			} else {

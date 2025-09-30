@@ -404,13 +404,13 @@ class Legacy_Checkout {
 
 		// Plan Selector
 		$steps['plan'] = [
-			'name'    => __('Pick a Plan', 'ultimate-multisite'),
-			'desc'    => __('Which one of our amazing plans you want to get?', 'ultimate-multisite'),
-			'view'    => 'step-plans',
-//			'handler' => [$this, 'plans_save'],
-			'order'   => 10,
-			'fields'  => false,
-			'core'    => true,
+			'name'                  => __('Pick a Plan', 'ultimate-multisite'),
+			'desc'                  => __('Which one of our amazing plans you want to get?', 'ultimate-multisite'),
+			'view'                  => 'step-plans',
+			// 'handler' => [$this, 'plans_save'],
+							'order' => 10,
+			'fields'                => false,
+			'core'                  => true,
 		];
 
 		$site_templates = [
@@ -431,13 +431,13 @@ class Legacy_Checkout {
 
 		// Domain registering
 		$steps['domain'] = [
-			'name'    => __('Site Details', 'ultimate-multisite'),
-			'desc'    => __('Ok, now it\'s time to pick your site url and title!', 'ultimate-multisite'),
-//			'handler' => [$this, 'domain_save'],
-			'view'    => false,
-			'order'   => 30,
-			'core'    => true,
-			'fields'  => apply_filters(
+			'name'                 => __('Site Details', 'ultimate-multisite'),
+			'desc'                 => __('Ok, now it\'s time to pick your site url and title!', 'ultimate-multisite'),
+			// 'handler' => [$this, 'domain_save'],
+							'view' => false,
+			'order'                => 30,
+			'core'                 => true,
+			'fields'               => apply_filters(
 				'wu_signup_fields_domain',
 				[
 					'blog_title'  => [
@@ -641,12 +641,12 @@ class Legacy_Checkout {
 		 */
 		$begin_signup = [
 			'begin-signup' => [
-				'name'    => __('Begin Signup Process', 'ultimate-multisite'),
-//				'handler' => [$this, 'begin_signup'],
-				'view'    => false,
-				'hidden'  => true,
-				'order'   => 0,
-				'core'    => true,
+				'name'                         => __('Begin Signup Process', 'ultimate-multisite'),
+				// 'handler' => [$this, 'begin_signup'],
+										'view' => false,
+				'hidden'                       => true,
+				'order'                        => 0,
+				'core'                         => true,
 			],
 		];
 
@@ -805,11 +805,11 @@ class Legacy_Checkout {
 		 * Allow plugin developers to filter the URL used in the previewer
 		 *
 		 * @since 1.7.2
-		 * @param string  Default domain being used right now, useful for manipulations
-		 * @param array   List of all the domain options entered in the Ultimate Multisite Settings -> Network Settings -> Domain Options
+		 * @param string $domain Default domain being used right now, useful for manipulations
+		 * @param array $domain_options List of all the domain options entered in the Ultimate Multisite Settings -> Network Settings -> Domain Options
 		 * @return string New domain to be used
 		 */
-		return apply_filters('get_site_url_for_previewer', $domain, $domain_options); // phpcs:ignore
+		return apply_filters('get_site_url_for_previewer', $domain, $domain_options);
 	}
 
 	/**

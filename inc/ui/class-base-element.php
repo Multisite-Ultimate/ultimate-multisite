@@ -528,7 +528,8 @@ abstract class Base_Element {
 		 * @since 2.0.0
 		 * @param bool $contains_elements If the element is contained on the content.
 		 * @param string $content The content being examined.
-		 * @param self The current element.
+		 * @param self $element The current element.
+		 * @param null|\WP_Post $post post to check.
 		 */
 		return apply_filters('wu_contains_element', $contains_element, $content, $this, $post);
 	}
@@ -1005,15 +1006,17 @@ abstract class Base_Element {
 	}
 
 	/**
-	 * @param $atts
+	 * Get's the content of the element as a string.
+	 *
+	 * @param array $atts The element attributes.
 	 *
 	 * @return string
 	 */
-    public function get_content($atts): string {
-        ob_start();
-        $this->display($atts);
-        return ob_get_clean();
-    }
+	public function get_content($atts): string {
+		ob_start();
+		$this->display($atts);
+		return ob_get_clean();
+	}
 
 	/**
 	 * Retrieves a cleaned up version of the content.

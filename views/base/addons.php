@@ -49,7 +49,7 @@ if ( ! defined('ABSPATH') ) {
 	 * Allow plugin developers to add additional buttons to list pages
 	 *
 	 * @since 1.8.2
-	 * @param WU_Page WP Ultimo Page instance
+	 * @param WU_Page $page WP Ultimo Page instance
 	 */
 	do_action('wu_page_addon_after_title', $page);
 	?>
@@ -279,7 +279,7 @@ if ( ! defined('ABSPATH') ) {
 	 * Allow plugin developers to add scripts to the bottom of the page
 	 *
 	 * @since 1.8.2
-	 * @param WU_Page WP Ultimo Page instance
+	 * @param WU_Page $page WP Ultimo Page instance
 	 */
 	do_action('wu_page_addon_footer', $page);
 	?>

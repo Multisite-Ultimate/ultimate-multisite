@@ -12,6 +12,8 @@ namespace WP_Ultimo;
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
+use WP_Ultimo\Database\Sites\Site_Type;
+
 /**
  * Handles optional display of "Powered by" credits.
  *
@@ -49,7 +51,7 @@ class Credits {
 			'footer_credits_header',
 			[
 				'title' => __('Footer Credits', 'ultimate-multisite'),
-				'desc'  => __('Optional footer credit for public site and admin. Off by default.', 'ultimate-multisite'),
+				'desc'  => __('Optional footer credit for public site and admin.', 'ultimate-multisite'),
 				'type'  => 'header',
 			],
 			2000
@@ -60,23 +62,28 @@ class Credits {
 			'general',
 			'credits_enable',
 			[
-				'title'   => __('Show "Powered by Ultimate Multisite"', 'ultimate-multisite'),
-				'desc'    => __('Adds a small credit in admin and front-end footers.', 'ultimate-multisite'),
+				'title'   => __('Show Footer Credits', 'ultimate-multisite'),
+				'desc'    => __('Adds a small "Powered By..." message in admin and front-end footers.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			],
 			2010
 		);
 
-		// Allow custom text instead of the link
+		// Footer credit type selection
 		wu_register_settings_field(
 			'general',
-			'credits_custom_enable',
+			'credits_type',
 			[
-				'title'   => __('Use Custom Footer Text', 'ultimate-multisite'),
-				'desc'    => __('Use the custom HTML below instead of the default link.', 'ultimate-multisite'),
-				'type'    => 'toggle',
-				'default' => 0,
+				'title'   => __('Footer Credit Type', 'ultimate-multisite'),
+				'desc'    => __('Choose the type of footer credit to display.', 'ultimate-multisite'),
+				'type'    => 'select',
+				'options' => [
+					'default' => __('Default "Powered by Ultimate Multisite" with logo', 'ultimate-multisite'),
+					'custom'  => __('Custom "Powered by [Network Name]" with company logo', 'ultimate-multisite'),
+					'html'    => __('Custom HTML (enter below)', 'ultimate-multisite'),
+				],
+				'default' => 'default',
 				'require' => [
 					'credits_enable' => 1,
 				],
@@ -84,14 +91,14 @@ class Credits {
 			2020
 		);
 
-		// Custom text value
+		// Custom HTML text (only for html option)
 		wu_register_settings_field(
 			'general',
-			'credits_custom_text',
+			'credits_custom_html',
 			[
-				'title'       => __('Custom Footer Text', 'ultimate-multisite'),
+				'title'       => __('Custom Footer HTML', 'ultimate-multisite'),
 				'desc'        => __('HTML allowed. Use any text or link you prefer.', 'ultimate-multisite'),
-				'type'        => 'text',
+				'type'        => 'textarea',
 				'default'     => function () {
 					$name = (string) get_network_option(null, 'site_name');
 					$name = $name ?: __('this network', 'ultimate-multisite');
@@ -99,33 +106,17 @@ class Credits {
 					return sprintf(
 						/* translators: 1: Opening anchor tag with URL to main site. 2: Network name. */
 						__('Powered by %1$s%2$s</a>', 'ultimate-multisite'),
-						'<a href="' . esc_url($url) . '" target="_blank" rel="nofollow noopener">',
+						'<a href="' . esc_url($url) . '" target="_blank">',
 						esc_html($name)
 					);
 				},
 				'placeholder' => __('Powered by <a href="https://example.com">Your Company</a>', 'ultimate-multisite'),
 				'require'     => [
-					'credits_enable'        => 1,
-					'credits_custom_enable' => 1,
+					'credits_enable' => 1,
+					'credits_type'   => 'html',
 				],
 			],
 			2030
-		);
-
-		// Allow sites to remove (per-site opt-out)
-		wu_register_settings_field(
-			'general',
-			'credits_site_can_hide',
-			[
-				'title'   => __('Allow Sites to Remove Credit', 'ultimate-multisite'),
-				'desc'    => __('Allow individual sites to opt out.', 'ultimate-multisite'),
-				'type'    => 'toggle',
-				'default' => 1,
-				'require' => [
-					'credits_enable' => 1,
-				],
-			],
-			2040
 		);
 	}
 
@@ -138,43 +129,122 @@ class Credits {
 			return '';
 		}
 
-		$use_custom = (bool) wu_get_setting('credits_custom_enable', 0);
+		$type = wu_get_setting('credits_type', 'default');
 
-		if ($use_custom) {
-			$text = (string) wu_get_setting('credits_custom_text', '');
-			return wp_kses_post($text);
+		switch ($type) {
+			case 'custom':
+				return $this->build_custom_credit();
+
+			case 'html':
+				$html = (string) wu_get_setting('credits_custom_html', '');
+				return wp_kses_post($html);
+
+			default:
+				return $this->build_default_credit();
 		}
+	}
 
-		// Default: "Powered by Ultimate Multisite" with link (only when explicitly opted-in).
-		$label = esc_html__('Powered by', 'ultimate-multisite') . ' ';
-		$link  = sprintf(
-			'<a href="%s" target="_blank" rel="nofollow noopener">%s</a>',
+	/**
+	 * Build the default "Powered by Ultimate Multisite" credit with logo.
+	 */
+	protected function build_default_credit(): string {
+		$logo_html = $this->get_plugin_logo_html();
+		$text      = sprintf(
+			'<a href="%s" target="_blank">%s</a>',
 			esc_url('https://ultimatemultisite.com'),
 			esc_html__('Ultimate Multisite', 'ultimate-multisite')
 		);
-		return $label . $link;
+
+		if ($logo_html) {
+			return $logo_html . esc_html__('Powered by', 'ultimate-multisite') . ' ' . $text;
+		}
+
+		return esc_html__('Powered by', 'ultimate-multisite') . ' ' . $text;
+	}
+
+	/**
+	 * Build the custom "Powered by [Network Name]" credit with company logo.
+	 */
+	protected function build_custom_credit(): string {
+		$logo_html    = $this->get_company_logo_html();
+		$network_name = (string) get_network_option(null, 'site_name');
+		$network_name = $network_name ?: __('this network', 'ultimate-multisite');
+		$network_url  = function_exists('get_main_site_id') ? get_site_url(get_main_site_id()) : network_home_url('/');
+
+		$text = sprintf(
+			'<a href="%s" target="_blank">%s</a>',
+			esc_url($network_url),
+			esc_html($network_name)
+		);
+
+		if ($logo_html) {
+			return $logo_html . esc_html__('Powered by', 'ultimate-multisite') . ' ' . $text;
+		}
+
+		return esc_html__('Powered by', 'ultimate-multisite') . ' ' . $text;
+	}
+
+	/**
+	 * Get the Ultimate Multisite plugin logo HTML.
+	 */
+	protected function get_plugin_logo_html(): string {
+		$logo_url = wu_get_asset('badge.webp', 'img');
+		if (! $logo_url) {
+			return '';
+		}
+
+		return sprintf(
+			'<img src="%s" alt="%s" style="height: 30px; width: 30px; vertical-align: middle; margin-right: 6px;" />',
+			esc_url($logo_url),
+			esc_attr__('Ultimate Multisite', 'ultimate-multisite')
+		);
+	}
+
+	/**
+	 * Get the company logo HTML from settings.
+	 */
+	protected function get_company_logo_html(): string {
+		$logo_url = wu_get_network_logo('thumbnail');
+
+		$company_name = wu_get_setting('company_name', get_network_option(null, 'site_name'));
+
+		return sprintf(
+			'<img src="%s" alt="%s" style="height: 30px; width: auto; vertical-align: middle; margin-right: 6px;" />',
+			esc_url($logo_url),
+			esc_attr($company_name ?: __('Company Logo', 'ultimate-multisite'))
+		);
 	}
 
 	/**
 	 * Check if current site is allowed to show footer credit.
+	 *
+	 * Sites can hide credits if their membership/product has the 'hide_credits' limit enabled.
 	 */
 	protected function site_allows_credit(): bool {
-		// If network disables site removable option, then always allowed.
-		$allow_site_hide = (bool) wu_get_setting('credits_site_can_hide', 1);
-		if (! $allow_site_hide) {
-			return true;
+		// Check if the site has the limitation to hide footer credits
+		$site = function_exists('wu_get_current_site') ? \wu_get_current_site() : null;
+		if (! $site || ! in_array($site->get_type(), [Site_Type::CUSTOMER_OWNED, Site_Type::SITE_TEMPLATE], true)) {
+			return false;
+		}
+		if ($site->has_limitations()) {
+			$limitations = $site->get_limitations();
+
+			// If the hide_footer_credits limit is enabled and set to true, the site can hide credits
+			if ($limitations->hide_credits && $limitations->hide_credits->allowed(true)) {
+				return false;
+			}
 		}
 
-		// Respect a per-site opt-out flag if present.
-		$blog_id = get_current_blog_id();
-		$hidden  = (bool) get_blog_option($blog_id, 'wu_hide_footer_credit', false);
-		return ! $hidden;
+		return true;
 	}
 
 	/**
 	 * Admin footer replacement.
 	 *
 	 * Only show on customer-owned site admins (not network admin or main site admin).
+	 *
+	 * @param string $text Default footer text.
+	 * @return string
 	 */
 	public function filter_admin_footer_text($text): string {
 		if (is_network_admin()) {
@@ -182,7 +252,7 @@ class Credits {
 		}
 
 		$site = function_exists('wu_get_current_site') ? \wu_get_current_site() : null;
-		if (! $site || ($site->get_type() !== \WP_Ultimo\Database\Sites\Site_Type::CUSTOMER_OWNED)) {
+		if (! $site || ($site->get_type() !== Site_Type::CUSTOMER_OWNED)) {
 			return $text;
 		}
 
@@ -204,7 +274,7 @@ class Credits {
 		}
 
 		$site = function_exists('wu_get_current_site') ? \wu_get_current_site() : null;
-		if (! $site || ($site->get_type() !== \WP_Ultimo\Database\Sites\Site_Type::CUSTOMER_OWNED)) {
+		if (! $site || ($site->get_type() !== Site_Type::CUSTOMER_OWNED)) {
 			return $text;
 		}
 
@@ -222,10 +292,15 @@ class Credits {
 		if (is_admin()) {
 			return;
 		}
-		$credit = $this->build_credit_html();
-		if (! $credit || ! $this->site_allows_credit()) {
+
+		if (! $this->site_allows_credit()) {
 			return;
 		}
-		echo '<div class="wu-powered-by" style="text-align:center;opacity:.7;font-size:12px;margin:10px 0;">' . $credit . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		$credit = $this->build_credit_html();
+		if (! $credit) {
+			return;
+		}
+		echo '<div class="wu-powered-by" style="text-align:center;font-size:14px;margin:14px 0;">' . $credit . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

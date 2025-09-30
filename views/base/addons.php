@@ -66,7 +66,7 @@ if ( ! defined('ABSPATH') ) {
 	<?php if ( $user ) : ?>
 		<div class="notice wu-hidden wu-admin-notice wu-styling hover:wu-styling notice-success">
 			<?php // translators: %1$s: the current user display name, %2$s: their password. ?>
-			<p class="wu-py-2"><?php echo esc_html(sprintf(__('Connected to MultisiteUltimate.com as %1$s (%2$s).', 'ultimate-multisite'), $user['display_name'], $user['user_email'])); ?> <a title="<?php esc_attr_e('Disconnect your site', 'ultimate-multisite'); ?>" href="<?php echo esc_attr($logout_url); ?>"><?php esc_html_e('Disconnect', 'ultimate-multisite'); ?></a></p>
+			<p class="wu-py-2"><?php echo esc_html(sprintf(__('Connected to UltimateMultisite.com as %1$s (%2$s).', 'ultimate-multisite'), $user['display_name'], $user['user_email'])); ?> <a title="<?php esc_attr_e('Disconnect your site', 'ultimate-multisite'); ?>" href="<?php echo esc_attr($logout_url); ?>"><?php esc_html_e('Disconnect', 'ultimate-multisite'); ?></a></p>
 		</div>
 	<?php else : ?>
 		<div class="notice wu-hidden wu-admin-notice wu-styling hover:wu-styling notice-warning">
@@ -74,7 +74,7 @@ if ( ! defined('ABSPATH') ) {
 			<div>
 				<ul class="wu-m-0">
 					<li class="">
-						<a class="button-primary wu-font-bold wu-uppercase" title="<?php esc_attr_e('Connect your site', 'ultimate-multisite'); ?>" href="<?php echo esc_attr($oauth_url); ?>"><?php esc_html_e('Connect your site to MultisiteUltimate.com', 'ultimate-multisite'); ?></a>
+						<a class="button-primary wu-font-bold wu-uppercase" title="<?php esc_attr_e('Connect your site', 'ultimate-multisite'); ?>" href="<?php echo esc_attr($oauth_url); ?>"><?php esc_html_e('Connect your site to UltimateMultisite.com', 'ultimate-multisite'); ?></a>
 					</li>
 				</ul>
 			</div>

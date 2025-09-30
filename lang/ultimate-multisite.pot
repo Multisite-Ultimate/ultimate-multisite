@@ -31,7 +31,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: ultimate-multisite.php
-msgid "https://multisiteultimate.com"
+msgid "https://ultimatemultisite.com"
 msgstr ""
 
 #. Description of the plugin
@@ -7720,11 +7720,11 @@ msgid "Failed to connect to the update server. Please try again later."
 msgstr ""
 
 #: inc/class-addon-repository.php:229
-msgid "Successfully connected your site to MultisiteUltimate.com."
+msgid "Successfully connected your site to UltimateMultisite.com."
 msgstr ""
 
 #: inc/class-addon-repository.php:237
-msgid "Failed to authenticate with MultisiteUltimate.com."
+msgid "Failed to authenticate with UltimateMultisite.com."
 msgstr ""
 
 #: inc/class-api.php:145
@@ -19220,7 +19220,7 @@ msgstr ""
 #. translators: %1$s: the current user display name, %2$s: their password.
 #: views/base/addons.php:69
 #, php-format
-msgid "Connected to MultisiteUltimate.com as %1$s (%2$s)."
+msgid "Connected to UltimateMultisite.com as %1$s (%2$s)."
 msgstr ""
 
 #. translators: %1$s: the current user display name, %2$s: their password.
@@ -19242,7 +19242,7 @@ msgid "Connect your site"
 msgstr ""
 
 #: views/base/addons.php:77
-msgid "Connect your site to MultisiteUltimate.com"
+msgid "Connect your site to UltimateMultisite.com"
 msgstr ""
 
 #: views/base/addons.php:89

@@ -18,6 +18,7 @@ use WP_Ultimo\Installers\Default_Content_Installer;
 use WP_Ultimo\Installers\Recommended_Plugins_Installer;
 use WP_Ultimo\Logger;
 use WP_Ultimo\Requirements;
+use WP_Ultimo\Settings;
 
 /**
  * Ultimate Multisite Dashboard Admin Page.
@@ -472,6 +473,11 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 				'description' => __('Before we move on, let\'s configure the basic settings of your network, shall we?', 'ultimate-multisite'),
 				'handler'     => [$this, 'handle_save_settings'],
 				'fields'      => [$this, 'get_general_settings'],
+				'html_attr'   => [
+					'data-on-load' => 'remove_block_ui',
+					'data-wu-app'  => 'general',
+					'data-state'   => wp_json_encode(wu_array_map_keys('wu_replace_dashes', Settings::get_instance()->get_all_with_defaults(true))),
+				],
 			];
 
 			$sections['defaults'] = [

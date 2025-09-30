@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-30T19:05:49+00:00\n"
+"POT-Creation-Date: 2025-09-30T20:05:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ultimate-multisite\n"
@@ -18,8 +18,8 @@ msgstr ""
 #: ultimate-multisite.php
 #: inc/admin-pages/class-dashboard-admin-page.php:551
 #: inc/admin-pages/class-migration-alert-admin-page.php:103
-#: inc/admin-pages/class-setup-wizard-admin-page.php:309
-#: inc/admin-pages/class-setup-wizard-admin-page.php:669
+#: inc/admin-pages/class-setup-wizard-admin-page.php:310
+#: inc/admin-pages/class-setup-wizard-admin-page.php:675
 #: inc/admin-pages/class-top-admin-nav-menu.php:55
 #: inc/class-credits.php:155
 #: inc/class-credits.php:199
@@ -1418,6 +1418,7 @@ msgstr ""
 #: inc/installers/class-migrator.php:278
 #: inc/installers/class-migrator.php:383
 #: inc/installers/class-recommended-plugins-installer.php:49
+#: inc/installers/class-recommended-plugins-installer.php:60
 #: inc/list-tables/class-membership-list-table.php:301
 #: inc/list-tables/class-payment-list-table.php:208
 #: inc/list-tables/class-payment-list-table.php:266
@@ -2841,7 +2842,7 @@ msgid "Testing Integration"
 msgstr ""
 
 #: inc/admin-pages/class-hosting-integration-wizard-admin-page.php:154
-#: inc/admin-pages/class-setup-wizard-admin-page.php:505
+#: inc/admin-pages/class-setup-wizard-admin-page.php:511
 #: views/dashboard-widgets/thank-you.php:281
 msgid "Ready!"
 msgstr ""
@@ -3441,7 +3442,7 @@ msgid "Add Membership"
 msgstr ""
 
 #: inc/admin-pages/class-migration-alert-admin-page.php:92
-#: inc/admin-pages/class-setup-wizard-admin-page.php:461
+#: inc/admin-pages/class-setup-wizard-admin-page.php:462
 msgid "Migration"
 msgstr ""
 
@@ -4338,186 +4339,186 @@ msgstr ""
 msgid "Save Settings"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:244
+#: inc/admin-pages/class-setup-wizard-admin-page.php:245
 msgid "Permission denied."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:298
-#: inc/admin-pages/class-setup-wizard-admin-page.php:348
+#: inc/admin-pages/class-setup-wizard-admin-page.php:299
+#: inc/admin-pages/class-setup-wizard-admin-page.php:349
 msgid "Installation"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:309
+#: inc/admin-pages/class-setup-wizard-admin-page.php:310
 msgid "Ultimate Multisite Install"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:322
+#: inc/admin-pages/class-setup-wizard-admin-page.php:323
 msgid "Welcome"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:326
+#: inc/admin-pages/class-setup-wizard-admin-page.php:327
 msgid "...and thanks for choosing Ultimate Multisite!"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:327
+#: inc/admin-pages/class-setup-wizard-admin-page.php:328
 msgid "This quick setup wizard will make sure your server is correctly setup, help you configure your new network, and migrate data from previous Ultimate Multisite versions if necessary."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:328
+#: inc/admin-pages/class-setup-wizard-admin-page.php:329
 msgid "You will also have the option of importing default content. It should take 10 minutes or less!"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:331
+#: inc/admin-pages/class-setup-wizard-admin-page.php:332
 #: inc/compat/class-legacy-shortcodes.php:388
 msgid "Get Started &rarr;"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:335
+#: inc/admin-pages/class-setup-wizard-admin-page.php:336
 msgid "Pre-install Checks"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:336
+#: inc/admin-pages/class-setup-wizard-admin-page.php:337
 msgid "Now it is time to see if this machine has what it takes to run Ultimate Multisite well!"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:337
-#: inc/admin-pages/class-setup-wizard-admin-page.php:350
-#: inc/admin-pages/class-setup-wizard-admin-page.php:480
-#: inc/admin-pages/class-setup-wizard-admin-page.php:494
+#: inc/admin-pages/class-setup-wizard-admin-page.php:338
+#: inc/admin-pages/class-setup-wizard-admin-page.php:351
+#: inc/admin-pages/class-setup-wizard-admin-page.php:486
+#: inc/admin-pages/class-setup-wizard-admin-page.php:500
 msgid "Go to the Next Step &rarr;"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:337
+#: inc/admin-pages/class-setup-wizard-admin-page.php:338
 msgid "Check Again"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:349
+#: inc/admin-pages/class-setup-wizard-admin-page.php:350
 msgid "Now, let's update your database and install the Sunrise.php file, which are necessary for the correct functioning of Ultimate Multisite."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:350
-#: inc/admin-pages/class-setup-wizard-admin-page.php:480
-#: inc/admin-pages/class-setup-wizard-admin-page.php:494
+#: inc/admin-pages/class-setup-wizard-admin-page.php:351
+#: inc/admin-pages/class-setup-wizard-admin-page.php:486
+#: inc/admin-pages/class-setup-wizard-admin-page.php:500
 msgid "Install"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:373
+#: inc/admin-pages/class-setup-wizard-admin-page.php:374
 msgid "Migrate!"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:375
+#: inc/admin-pages/class-setup-wizard-admin-page.php:376
 msgid "No errors found during dry run! Now it is time to actually migrate! <br><br><strong>We strongly recommend creating a backup of your database before moving forward with the migration.</strong>"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:378
+#: inc/admin-pages/class-setup-wizard-admin-page.php:379
 msgid "Run Check"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:380
+#: inc/admin-pages/class-setup-wizard-admin-page.php:381
 msgid "It seems that you were running Ultimate Multisite 1.X on this network. This migrator will convert the data from the old version to the new one."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:380
+#: inc/admin-pages/class-setup-wizard-admin-page.php:381
 msgid "First, let's run a test migration to see if we can spot any potential errors."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:407
+#: inc/admin-pages/class-setup-wizard-admin-page.php:408
 msgid "The dry run test detected issues during the test migration. Please, <a class=\"wu-trigger-support\" href=\"#\">contact our support team</a> to get help migrating from 1.X to version 2."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:411
+#: inc/admin-pages/class-setup-wizard-admin-page.php:412
 msgid "Try Again!"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:413
+#: inc/admin-pages/class-setup-wizard-admin-page.php:414
 msgid "List of errors detected:"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:417
+#: inc/admin-pages/class-setup-wizard-admin-page.php:418
 msgid "Download migration error log"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:429
+#: inc/admin-pages/class-setup-wizard-admin-page.php:430
 msgid "Rollback to version 1.10.13"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:471
+#: inc/admin-pages/class-setup-wizard-admin-page.php:472
 msgid "Your Company"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:472
+#: inc/admin-pages/class-setup-wizard-admin-page.php:473
 msgid "Before we move on, let's configure the basic settings of your network, shall we?"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:478
+#: inc/admin-pages/class-setup-wizard-admin-page.php:484
 msgid "Default Content"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:479
+#: inc/admin-pages/class-setup-wizard-admin-page.php:485
 msgid "Starting from scratch can be scarry, specially when first starting out. In this step, you can create default content to have a starting point for your network. Everything can be customized later."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:492
+#: inc/admin-pages/class-setup-wizard-admin-page.php:498
 msgid "Recommended Plugins"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:493
+#: inc/admin-pages/class-setup-wizard-admin-page.php:499
 msgid "Optionally install helpful plugins. We will install them one by one and report progress."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:603
+#: inc/admin-pages/class-setup-wizard-admin-page.php:609
 msgid "A server error happened while processing this item."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:642
+#: inc/admin-pages/class-setup-wizard-admin-page.php:648
 msgid "PHP"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:651
+#: inc/admin-pages/class-setup-wizard-admin-page.php:657
 msgid "WordPress"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:663
+#: inc/admin-pages/class-setup-wizard-admin-page.php:669
 msgid "WordPress Multisite"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:665
+#: inc/admin-pages/class-setup-wizard-admin-page.php:671
 msgid "Installed & Activated"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:671
+#: inc/admin-pages/class-setup-wizard-admin-page.php:677
 msgid "Bypassed via filter"
 msgstr ""
 
 #. Translators: The plugin is network wide active, the string is for each plugin possible.
-#: inc/admin-pages/class-setup-wizard-admin-page.php:671
+#: inc/admin-pages/class-setup-wizard-admin-page.php:677
 #: inc/admin/class-network-usage-columns.php:127
 msgid "Network Activated"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:675
+#: inc/admin-pages/class-setup-wizard-admin-page.php:681
 msgid "WordPress Cron"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:677
+#: inc/admin-pages/class-setup-wizard-admin-page.php:683
 #: inc/integrations/host-providers/class-base-host-provider.php:195
 msgid "Activated"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:768
+#: inc/admin-pages/class-setup-wizard-admin-page.php:774
 msgid "Ultimate Multisite installation is incomplete. The sunrise.php file is missing. Please complete the setup to ensure proper functionality."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:773
+#: inc/admin-pages/class-setup-wizard-admin-page.php:779
 msgid "Complete Setup"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:889
+#: inc/admin-pages/class-setup-wizard-admin-page.php:895
 #: inc/class-scripts.php:196
 msgid "Select an Image."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:890
+#: inc/admin-pages/class-setup-wizard-admin-page.php:896
 #: inc/class-scripts.php:197
 msgid "Use this image"
 msgstr ""
@@ -7817,7 +7818,7 @@ msgid "Show Footer Credits"
 msgstr ""
 
 #: inc/class-credits.php:66
-msgid "Adds a small \"Powered By...\" message in admin and front-end footers."
+msgid "Adds a small \"Powered By...\" message in the footer of customer and template sites."
 msgstr ""
 
 #: inc/class-credits.php:78
@@ -15555,12 +15556,32 @@ msgstr ""
 msgid "Installed!"
 msgstr ""
 
-#: inc/installers/class-recommended-plugins-installer.php:146
+#: inc/installers/class-recommended-plugins-installer.php:58
+msgid "Activate User Switching"
+msgstr ""
+
+#: inc/installers/class-recommended-plugins-installer.php:59
+msgid "Activate the User Switching plugin."
+msgstr ""
+
+#: inc/installers/class-recommended-plugins-installer.php:61
+msgid "Activating User Switching..."
+msgstr ""
+
+#: inc/installers/class-recommended-plugins-installer.php:62
+msgid "Activated!"
+msgstr ""
+
+#: inc/installers/class-recommended-plugins-installer.php:210
 msgid "Unable to resolve plugin download link."
 msgstr ""
 
-#: inc/installers/class-recommended-plugins-installer.php:162
+#: inc/installers/class-recommended-plugins-installer.php:226
 msgid "Installation failed."
+msgstr ""
+
+#: inc/installers/class-recommended-plugins-installer.php:245
+msgid "Plugin not found."
 msgstr ""
 
 #. translators: %s is the name of a host provider (e.g. Cloudways, WPMUDev, Closte...).
@@ -20643,6 +20664,12 @@ msgstr ""
 
 #: views/ui/toolbox.php:20
 msgid "Toggle Toolbox"
+msgstr ""
+
+#. translators: %s hash of membership.
+#: views/ui/toolbox.php:66
+#, php-format
+msgid "Membership <Strong>%s</strong>"
 msgstr ""
 
 #. translators: %s is the integration name

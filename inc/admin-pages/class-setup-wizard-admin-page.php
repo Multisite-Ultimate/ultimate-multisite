@@ -900,6 +900,42 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 
 			wp_register_script('wu-functions', wu_get_asset('functions.js', 'js'), ['jquery'], \WP_Ultimo::VERSION, true);
 
+			/*
+			 * Localize selectizer
+			 */
+			wp_localize_script(
+				'wu-functions',
+				'wu_selectizer',
+				[
+					'ajaxurl' => wu_ajax_url('init'),
+				]
+			);
+
+			wp_localize_script(
+				'wu-functions',
+				'wu_settings',
+				[
+					'currency'           => wu_get_setting('currency_symbol', 'USD'),
+					'currency_symbol'    => wu_get_currency_symbol(),
+					'currency_position'  => wu_get_setting('currency_position', '%s %v'),
+					'decimal_separator'  => wu_get_setting('decimal_separator', '.'),
+					'thousand_separator' => wu_get_setting('thousand_separator', ','),
+					'precision'          => wu_get_setting('precision', 2),
+					'use_container'      => get_user_setting('wu_use_container', false),
+					'disable_image_zoom' => wu_get_setting('disable_image_zoom', false),
+				]
+			);
+
+			wp_localize_script(
+				'wu-functions',
+				'wu_ticker',
+				[
+					'server_clock_offset'          => (wu_get_current_time('timestamp') - time()) / 60 / 60, // phpcs:ignore
+					'moment_clock_timezone_name'   => wp_date('e'),
+					'moment_clock_timezone_offset' => wp_date('Z'),
+				]
+			);
+
 			wp_register_script('wubox', wu_get_asset('wubox.js', 'js'), ['wu-functions'], \WP_Ultimo::VERSION, true);
 
 			wp_localize_script(
@@ -917,6 +953,13 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 			);
 
 			wp_add_inline_script('wu-setup-wizard-extra', 'document.addEventListener("DOMContentLoaded", () => wu_initialize_imagepicker());', 'after');
+
+			// All these just so the toggle of footer credits shows the other options.
+			wp_register_script('wu-vue', wu_get_asset('lib/vue.js', 'js'), [], wu_get_version(), true);
+			wp_register_script('wu-money-mask', wu_get_asset('lib/v-money.js', 'js'), ['wu-vue'], wu_get_version(), true);
+			wp_register_script('wu-input-mask', wu_get_asset('lib/vue-the-mask.js', 'js'), ['wu-vue'], wu_get_version(), true);
+			wp_register_script('wu-vue-apps', wu_get_asset('vue-apps.js', 'js'), ['wu-functions', 'wu-vue', 'wu-money-mask', 'wu-input-mask', 'wp-hooks'], wu_get_version(), true);
+			wp_enqueue_script('wu-vue-apps');
 		}
 
 		wp_enqueue_script('wu-setup-wizard-extra', wu_get_asset('setup-wizard-extra.js', 'js'), ['jquery', 'wu-fields', 'wu-functions', 'wubox'], wu_get_version(), true);

@@ -53,12 +53,24 @@ class Recommended_Plugins_Installer extends Base_Installer {
 			'checked'     => true,
 		];
 
+		$steps[ 'activate_plugin_' . $user_switching_slug ] = [
+			'done'        => $this->is_plugin_active($user_switching_slug),
+			'title'       => __('Activate User Switching', 'ultimate-multisite'),
+			'description' => __('Activate the User Switching plugin.', 'ultimate-multisite'),
+			'pending'     => __('Pending', 'ultimate-multisite'),
+			'installing'  => __('Activating User Switching...', 'ultimate-multisite'),
+			'success'     => __('Activated!', 'ultimate-multisite'),
+			'help'        => 'https://wordpress.org/plugins/user-switching/',
+			'checked'     => true,
+		];
+
 		return $steps;
 	}
 
 	/**
 	 * Handle AJAX for our plugin install steps. Matches slugs starting with
 	 * `install_plugin_` and installs from WordPress.org by plugin slug.
+	 * Also handles `activate_plugin_` steps to activate plugins.
 	 *
 	 * @since 2.0.0
 	 *
@@ -68,21 +80,36 @@ class Recommended_Plugins_Installer extends Base_Installer {
 	 * @return void
 	 */
 	public function handle($status, $installer, $wizard) {
+		if (str_starts_with($installer, 'install_plugin_')) {
+			$plugin_slug = substr($installer, strlen('install_plugin_'));
 
-		if (strpos($installer, 'install_plugin_') !== 0) {
-			return; // Not ours.
+			try {
+				$result = $this->install_wporg_plugin($plugin_slug);
+
+				if (is_wp_error($result)) {
+					return;
+				}
+			} catch (\Throwable $e) {
+				wu_log_add(\WP_Ultimo::LOG_HANDLE, $e->getMessage(), LogLevel::ERROR);
+			}
+
+			return;
 		}
 
-		$plugin_slug = substr($installer, strlen('install_plugin_'));
+		if (str_starts_with($installer, 'activate_plugin_')) {
+			$plugin_slug = substr($installer, strlen('activate_plugin_'));
 
-		try {
-			$result = $this->install_wporg_plugin($plugin_slug);
+			try {
+				$result = $this->activate_plugin($plugin_slug);
 
-			if (is_wp_error($result)) {
-				return;
+				if (is_wp_error($result)) {
+					return;
+				}
+			} catch (\Throwable $e) {
+				wu_log_add(\WP_Ultimo::LOG_HANDLE, $e->getMessage(), LogLevel::ERROR);
 			}
-		} catch (\Throwable $e) {
-			wu_log_add(\WP_Ultimo::LOG_HANDLE, $e->getMessage(), LogLevel::ERROR);
+
+			return;
 		}
 	}
 
@@ -97,8 +124,44 @@ class Recommended_Plugins_Installer extends Base_Installer {
 		$installed = get_plugins();
 
 		foreach ($installed as $file => $data) {
-			if (strpos($file, $plugin_slug . '/') === 0) {
+			if (str_starts_with($file, $plugin_slug . '/')) {
 				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Determine if a plugin is active by slug.
+	 *
+	 * @since 2.0.0
+	 * @param string $plugin_slug Plugin slug (e.g. 'user-switching').
+	 * @return bool
+	 */
+	protected function is_plugin_active($plugin_slug) {
+		$plugin_file = $this->get_plugin_file($plugin_slug);
+
+		if (! $plugin_file) {
+			return false;
+		}
+
+		return is_plugin_active($plugin_file);
+	}
+
+	/**
+	 * Get the plugin file path for a given slug.
+	 *
+	 * @since 2.0.0
+	 * @param string $plugin_slug Plugin slug (e.g. 'user-switching').
+	 * @return string|false Plugin file path or false if not found.
+	 */
+	protected function get_plugin_file($plugin_slug) {
+		$installed = get_plugins();
+
+		foreach ($installed as $file => $data) {
+			if (str_starts_with($file, $plugin_slug . '/')) {
+				return $file;
 			}
 		}
 
@@ -160,6 +223,37 @@ class Recommended_Plugins_Installer extends Base_Installer {
 		if (! in_array($upgrader->strings['process_success'], $messages, true)) {
 			$error_message = array_pop($messages);
 			return new \WP_Error('installation-failed', $error_message ?: __('Installation failed.', 'ultimate-multisite'));
+		}
+
+		return true;
+	}
+
+	/**
+	 * Activate a plugin by slug.
+	 *
+	 * @since 2.0.0
+	 * @param string $plugin_slug Plugin slug (e.g. 'user-switching').
+	 * @return bool|\WP_Error
+	 */
+	protected function activate_plugin($plugin_slug) {
+
+		// Get the plugin file path.
+		$plugin_file = $this->get_plugin_file($plugin_slug);
+
+		if (! $plugin_file) {
+			return new \WP_Error('plugin-not-found', __('Plugin not found.', 'ultimate-multisite'));
+		}
+
+		// If already active, succeed early.
+		if (is_plugin_active($plugin_file)) {
+			return true;
+		}
+
+		// Activate the plugin.
+		$result = activate_plugin($plugin_file);
+
+		if (is_wp_error($result)) {
+			return $result;
 		}
 
 		return true;

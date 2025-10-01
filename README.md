@@ -44,7 +44,6 @@ This plugin was formerly known as WP Ultimo and is now community maintained.
 - WordPress Multisite 5.3 or higher
 - PHP 7.4.30 or higher
 - MySQL 5.6 or higher
-- HTTPS enabled (recommended for secure checkout)
 
 ## 🔧 Installation
 
@@ -199,6 +198,18 @@ For support, please open an issue on the [GitHub repository](https://github.com/
 We recommend running this in a staging environment before updating your production environment.
 
 ## 📝 Recent Changes
+### Version [2.4.5] - Released on 2025-09-30
+- Fixed: Custom domain check when downgrading.
+- Fixed: Bug in Action Scheduler.
+- Fixed: Hosting integration wizard freezing during setup.
+- Improved: More robust handling for login URL obfuscation when 404 template unavailable.
+- Improved: Better error messaging for installer with sanitized HTML display.
+- Added: Recommended plugins installer functionality.
+- Added: New end-to-end testing framework.
+- Added: Option to include a "Powered by..." message in the footer of customer sites.
+- Added: Install recommended "user-switching" plugin during setup wizard.
+- Improved: Autogeneration of site urls and usernames to be more human friendly.
+- Improved: Code style and return type consistency across codebase.
 
 ### Version [2.4.4] - Released on 2025-09-17
 - Fixed: Saving email templates without stripping html

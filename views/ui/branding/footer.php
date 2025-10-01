@@ -52,7 +52,7 @@ defined('ABSPATH') || exit;
 
 	<?php do_action('wu_footer_left'); ?>
 	<li class="wu-inline-block wu-mx-2">
-		• <a href="https://multisiteultimate.com/support" class="wu-text-gray-500 hover:wu-text-gray-600">Support</a>
+		• <a href="https://ultimatemultisite.com/support" class="wu-text-gray-500 hover:wu-text-gray-600">Support</a>
 	</li>
 	</ul>
 

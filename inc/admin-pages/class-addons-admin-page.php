@@ -371,7 +371,7 @@ class Addons_Admin_Page extends Wizard_Admin_Page {
 	 * @return array Modified arguments.
 	 */
 	public function add_auth_headers_to_download($args, $url) {
-		if (strpos($url, 'multisiteultimate.com') !== false) {
+		if (strpos($url, 'ultimatemultisite.com') !== false) {
 			$access_token = get_transient('wu-access-token');
 			if ($access_token) {
 				if (! isset($args['headers'])) {

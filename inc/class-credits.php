@@ -63,7 +63,7 @@ class Credits {
 			'credits_enable',
 			[
 				'title'   => __('Show Footer Credits', 'ultimate-multisite'),
-				'desc'    => __('Adds a small "Powered By..." message in admin and front-end footers.', 'ultimate-multisite'),
+				'desc'    => __('Adds a small "Powered By..." message in the footer of customer and template sites.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			],

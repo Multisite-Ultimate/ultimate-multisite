@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Ultimate Multisite
  * Description: Transform your WordPress Multisite into a Website as a Service (WaaS) platform supporting site cloning, re-selling, and domain mapping integrations with many hosting providers.
- * Plugin URI: https://multisiteultimate.com
+ * Plugin URI: https://ultimatemultisite.com
  * Text Domain: ultimate-multisite
  * Version: 2.4.5
  * Author: Ultimate Multisite Community
@@ -66,7 +66,7 @@ if ( ! defined('WP_ULTIMO_PLUGIN_FILE')) {
 	define('WP_ULTIMO_PLUGIN_FILE', __FILE__);
 }
 if ( ! defined('MULTISITE_ULTIMATE_UPDATE_URL')) {
-	define('MULTISITE_ULTIMATE_UPDATE_URL', 'https://multisiteultimate.com/');
+	define('MULTISITE_ULTIMATE_UPDATE_URL', 'https://ultimatemultisite.com/');
 }
 /**
  * Require core file dependencies

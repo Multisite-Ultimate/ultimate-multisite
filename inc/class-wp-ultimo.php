@@ -31,7 +31,7 @@ final class WP_Ultimo {
 	 * @since 2.1.0
 	 * @var string
 	 */
-	const VERSION = '2.4.4';
+	const VERSION = '2.4.5';
 
 	/**
 	 * Core log handle for Ultimate Multisite.
@@ -153,7 +153,9 @@ final class WP_Ultimo {
 		 */
 		$this->settings = WP_Ultimo\Settings::get_instance();
 
+		// These must be loaded here so the settings are in the setup wizard.
 		WP_Ultimo\Newsletter::get_instance();
+		\WP_Ultimo\Credits::get_instance();
 
 		/*
 		 * Check if the Ultimate Multisite requirements are present.
@@ -609,11 +611,6 @@ final class WP_Ultimo {
 		 * Loads Basic White-labeling
 		 */
 		\WP_Ultimo\Whitelabel::get_instance();
-
-		/*
-		 * Optional Footer Credits (opt-in, defaults OFF)
-		 */
-		\WP_Ultimo\Credits::get_instance();
 
 		/*
 		 * Adds support to multiple accounts.

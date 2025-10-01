@@ -226,7 +226,7 @@ class Addon_Repository {
 			set_transient('wu-access-token', $response['access_token'], $response['expires_in']);
 			wu_save_option('wu-refresh-token', $response['refresh_token']);
 			wp_admin_notice(
-				__('Successfully connected your site to MultisiteUltimate.com.', 'ultimate-multisite'),
+				__('Successfully connected your site to UltimateMultisite.com.', 'ultimate-multisite'),
 				[
 					'type'        => 'success',
 					'dismissible' => true,
@@ -234,7 +234,7 @@ class Addon_Repository {
 			);
 		} else {
 			wp_admin_notice(
-				__('Failed to authenticate with MultisiteUltimate.com.', 'ultimate-multisite'),
+				__('Failed to authenticate with UltimateMultisite.com.', 'ultimate-multisite'),
 				[
 					'type'        => 'error',
 					'dismissible' => true,

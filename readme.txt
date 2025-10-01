@@ -127,11 +127,11 @@ This plugin connects to several external services to provide its functionality. 
 = Plugin Updates and Add-ons =
 
 **Ultimate Multisite Update Server**
-- Service: Official update server for the plugin and its add-ons (multisiteultimate.com)
+- Service: Official update server for the plugin and its add-ons (ultimatemultisite.com)
 - Data sent: Site URL, plugin version, license keys, authentication tokens
 - When: During plugin/add-on updates and license checks
-- Terms of Service: https://multisiteultimate.com/terms-of-service/
-- Privacy Policy: https://multisiteultimate.com/privacy-policy/
+- Terms of Service: https://ultimatemultisite.com/terms-of-service/
+- Privacy Policy: https://ultimatemultisite.com/privacy-policy/
 
 = Payment Processing Services =
 
@@ -201,13 +201,13 @@ This plugin connects to several external services to provide its functionality. 
 = Newsletter and Analytics =
 
 **Ultimate Multisite Newsletter Service**
-- Service: Newsletter subscription for product updates (multisiteultimate.com)
+- Service: Newsletter subscription for product updates (ultimatemultisite.com)
 - Data sent: Company email, name, country information
 - When: During initial plugin setup (optional)
 - This is our own service for providing plugin updates and announcements
 - You can opt out of this service during setup
-- Terms of Service: https://multisiteultimate.com/terms-of-service/
-- Privacy Policy: https://multisiteultimate.com/privacy-policy/
+- Terms of Service: https://ultimatemultisite.com/terms-of-service/
+- Privacy Policy: https://ultimatemultisite.com/privacy-policy/
 
 All external service connections are clearly disclosed to users during setup, and most services are optional or can be configured based on your chosen hosting provider and payment methods.
 

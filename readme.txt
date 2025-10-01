@@ -1,15 +1,13 @@
 === Ultimate Multisite ===
-Contributors: aanduque, superdav42 
+Contributors: aanduque, superdav42, vvwb, surferking
 Donate link: https://github.com/sponsors/superdav42/
 Tags: multisite, waas, membership, domain-mapping, subscription
 Requires at least: 5.3
-
 Requires PHP: 7.4.30
 Tested up to: 6.8
 Stable tag: 2.4.5
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
 The Complete Network Solution for transforming your WordPress Multisite into a Website as a Service (WaaS) platform.
 
 == Description ==
@@ -69,12 +67,12 @@ Ready to build your WaaS? Install the plugin and launch your first customer site
 
 = Where to find help =
 
-* [Issue Tracker](https://github.com/superdav42/wp-multisite-waas/issues)
+* [Issue Tracker](https://github.com/Multisite-Ultimate/multisite-ultimate/issues)
 * Paid support at [the official Ultimate Multisite website](https://ultimatemultisite.com)
 
 = Contributing =
 
-We welcome contributions to Ultimate Multisite! To contribute see the [GitHub repository](https://github.com/superdav42/wp-multisite-waas).
+We welcome contributions to Ultimate Multisite! To contribute see the [GitHub repository](https://github.com/Multisite-Ultimate/multisite-ultimate).
 
 == Requirements ==
 
@@ -98,7 +96,7 @@ The plugin supports multiple payment gateways including Stripe, PayPal, and manu
 
 = Can I migrate from WP Ultimo to this plugin? =
 
-Yes, Ultimate Multisite is a community-maintained fork of WP Ultimo. The plugin includes migration tools to help you transition from WP Ultimo.
+Yes, Ultimate Multisite is a community-maintained fork of WP Ultimo. Migration will happen automatically from WP Ultimo 2.X when this plugin is activated.
 
 == External Services ==
 
@@ -215,11 +213,10 @@ All external service connections are clearly disclosed to users during setup, an
 
 == Screenshots ==
 
-1. Dashboard overview with key metrics
-2. Subscription plans management
-3. Customer management interface
-4. Site creation workflow
-5. Domain mapping settings
+1. One of many settings pages.
+2. Setting up products and plans.
+3. Listing sites on the network.
+4. Registration Form builder.
 
 == Support ==
 
@@ -231,9 +228,18 @@ We recommend running this in a staging environment before updating your producti
 
 == Changelog ==
 
-Version [2.4.5] - Released on 2025-09-23
-Fixed: Unable to setup integrations.
-Fixed: Custom domain check when downgrading.
+Version [2.4.5] - Released on 2025-09-30
+- Fixed: Custom domain check when downgrading.
+- Fixed: Bug in Action Scheduler.
+- Fixed: Hosting integration wizard freezing during setup.
+- Improved: More robust handling for login URL obfuscation when 404 template unavailable.
+- Improved: Better error messaging for installer with sanitized HTML display.
+- Added: Recommended plugins installer functionality.
+- Added: New end-to-end testing framework.
+- Added: Option to include a "Powered by..." message in the footer of customer sites.
+- Added: Install recommended "user-switching" plugin during setup wizard.
+- Improved: Autogeneration of site urls and usernames to be more human friendly.
+- Improved: Code style and return type consistency across codebase.
 
 Version [2.4.4] - Released on 2025-09-17
 - Fixed: Saving email templates without stripping html
@@ -282,11 +288,11 @@ Version [2.4.0] - Released on 2025-07-07
 - Fixed: i18n deprecation notice for translating too early
 - Improved: Put all scripts in footer and load async
 - Improved: Add discounts to thank you page
-- Improved: Prevent downgrading a plan if it the post type could would be over the limit
+- Improved: Prevent downgrading a plan if the post type would be over the limit
 - Fixed: Styles on thank you page of legacy checkout
 
 Version [2.3.4] - Released on 2024-01-31
-- Fixed: Unable to checkout with any payment gateway
+- Fixed: Unable to check out with any payment gateway
 - Fixed: Warning Undefined global variable $pagenow
 
 Version [2.3.3] - Released on 2024-01-29

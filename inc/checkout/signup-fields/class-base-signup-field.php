@@ -478,7 +478,7 @@ abstract class Base_Signup_Field {
 
 		ob_start();
 		wu_tooltip(__('Just like this!', 'ultimate-multisite'));
-		$realtooltip = ob_end_clean();
+		$realtooltip = ob_get_clean();
 
 		$fields['tooltip'] = [
 			'type'        => 'textarea',

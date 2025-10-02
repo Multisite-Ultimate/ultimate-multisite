@@ -515,8 +515,13 @@ class Checkout_Element extends Base_Element {
 			} else {
 				esc_html_e('You need to be logged in to complete a payment', 'ultimate-multisite');
 
-				// Translators: The link to login url with redirect_to url
-				echo '<br>' . sprintf(esc_html__('Click <a href="%s">here</a> sign in.', 'ultimate-multisite'), esc_attr(wp_login_url(wu_get_current_url())));
+				echo '<br>' . sprintf(
+					// Translators: %s is replaced with <a href="{login_url}">here</a>
+					esc_html__('Click %s sign in.', 'ultimate-multisite'),
+					'<a href="' . esc_attr(wp_login_url(wu_get_current_url())) . '">' .
+					esc_html__('here', 'ultimate-multisite') .
+					'</a>'
+				);
 			}
 
 			echo '</p>';
@@ -726,56 +731,5 @@ class Checkout_Element extends Base_Element {
 		}
 
 		$this->output_form($atts, $content);
-	}
-}
-
-/**
- * Replacement of the old WU_Signup class for templates.
- *
- * @since 2.0.0
- */
-class Mocked_Signup {
-	/**
-	 * @var string
-	 */
-	public $step;
-
-	/**
-	 * @var array
-	 */
-	public $steps;
-
-	/**
-	 * Constructs the class.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $step Current step.
-	 * @param array  $steps List of all steps.
-	 */
-	public function __construct($step, $steps) {
-		$this->step  = $step;
-		$this->steps = $steps;
-	}
-
-	/**
-	 * Get the value of steps.
-	 *
-	 * @since 2.0.0
-	 * @return mixed
-	 */
-	public function get_steps() {
-
-		return $this->steps;
-	}
-
-	/**
-	 * Deprecated: returns the prev step link.
-	 *
-	 * @since 2.0.0
-	 */
-	public function get_prev_step_link(): string {
-
-		return '';
 	}
 }

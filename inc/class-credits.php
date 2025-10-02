@@ -247,6 +247,7 @@ class Credits {
 	 * @return string
 	 */
 	public function filter_admin_footer_text($text): string {
+		$text = is_string($text) ? $text : '';
 		if (is_network_admin()) {
 			return $text;
 		}
@@ -269,6 +270,7 @@ class Credits {
 	 * @param string $text Default Text.
 	 */
 	public function filter_update_footer_text($text): string {
+		$text = is_string($text) ? $text : '';
 		if (is_network_admin()) {
 			return $text;
 		}

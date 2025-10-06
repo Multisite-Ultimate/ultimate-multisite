@@ -354,7 +354,7 @@ class Checkout_Element extends Base_Element {
 				);
 
 				// Translators: The link to registration url with payment hash
-				echo '<br>' . sprintf(esc_html__('Click <a href="%s">here</a> to pay.', 'ultimate-multisite'), esc_attr($payment_url));
+				echo '<br>' . wp_kses_post(sprintf(__('Click <a href="%s">here</a> to pay.', 'ultimate-multisite'), esc_attr($payment_url)));
 
 				echo '</p>';
 				return;

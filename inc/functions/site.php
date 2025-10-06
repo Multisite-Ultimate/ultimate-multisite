@@ -229,29 +229,16 @@ function wu_generate_site_url_from_title($site_title) {
 	// Convert to lowercase and remove HTML entities
 	$slug = strtolower(html_entity_decode(trim((string) $site_title), ENT_QUOTES, 'UTF-8'));
 
-	// Remove or replace common special characters
-	$slug = str_replace(
-		['&', '+', '@', '#', '$', '%', '^', '*', '(', ')', '=', '[', ']', '{', '}', '|', '\\', ':', ';', '"', "'", '<', '>', ',', '.', '?', '/', '~', '`'],
-		'',
-		$slug
-	);
-
-	// Replace spaces and underscores with nothing (no separators)
-	$slug = str_replace([' ', '_', '-'], '', $slug);
-
 	// Remove any remaining non-alphanumeric characters
-	$slug = preg_replace('/[^a-z0-9]/', '', $slug);
-
-	// Ensure it starts with a letter (WordPress requirement)
-	if (! empty($slug) && is_numeric(substr($slug, 0, 1))) {
-		$slug = 'site' . $slug;
-	}
+	$slug = preg_replace('/[^a-z0-9-]/', '', $slug);
 
 	// Fallback if empty after cleaning
 	if (empty($slug)) {
 		$slug = 'site' . wp_rand(1000, 9999);
+	} elseif (is_numeric($slug[0]) || '-' === $slug[0]) {
+		// Ensure it starts with a letter (WordPress requirement)
+		$slug = 'site' . $slug;
 	}
-
 	return $slug;
 }
 

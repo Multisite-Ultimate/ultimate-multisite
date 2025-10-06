@@ -16,6 +16,15 @@ defined('ABSPATH') || exit;
  * Billing Address class
  *
  * @since 2.0.0
+ *
+ * @property string $company_name Company name (optional).
+ * @property string $billing_email Billing email address.
+ * @property string $billing_address_line_1 Address line 1.
+ * @property string $billing_address_line_2 Address line 2 (optional).
+ * @property string $billing_country Country code.
+ * @property string $billing_state State or province.
+ * @property string $billing_city City or town.
+ * @property string $billing_zip_code ZIP or postal code.
  */
 class Billing_Address {
 

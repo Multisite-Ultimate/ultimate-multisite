@@ -293,7 +293,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			 * @since 2.4.2
 			 *
 			 * @param array $subscription_data An array of parameters to pass to Stripe.
-			 * @param Base_Stripe_Gateway $gateway The current Stripe Gateway object.
+			 * @param Base_Gateway $gateway The current Stripe Gateway object.
 			 */
 			$subscription_data = apply_filters(
 				'wu_stripe_checkout_subscription_data',
@@ -424,8 +424,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				]
 			);
 
-			$set_webhook_endpoint = false;
-
 			foreach ($search_webhook as $webhook_endpoint) {
 				if ($webhook_endpoint->url === $webhook_url) {
 					return $webhook_endpoint;
@@ -541,7 +539,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				/**
 				 *  The secret key is invalid;
 				 */
-				$t = "{$id}_{$stripe_mode}_sk_key_status";
 				wu_save_setting("{$id}_{$stripe_mode}_sk_key_status", __('Invalid API Key provided', 'ultimate-multisite'));
 			}
 		}
@@ -585,7 +582,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 * @param array $settings The final settings array being saved, containing ALL options.
 	 * @param array $settings_to_save Array containing just the options being updated.
 	 * @param array $saved_settings Array containing the original settings.
-	 * @return bool|\WP_Error
+	 * @return void
 	 */
 	public function install_webhook($settings, $settings_to_save, $saved_settings) {
 
@@ -594,7 +591,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$active_gateways = (array) wu_get_isset($settings_to_save, 'active_gateways', []);
 
 		if ( ! in_array($this->get_id(), $active_gateways, true)) {
-			return false;
+			return;
 		}
 
 		/*
@@ -618,7 +615,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		if ($changed_settings == $original_settings) { // phpcs:ignore
 
-			return false;
+			return;
 		}
 
 		$webhook_url = $this->get_webhook_listener_url();
@@ -626,7 +623,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$existing_webhook = $this->has_webhook_installed();
 
 		if (is_wp_error($existing_webhook)) {
-			return $existing_webhook;
+			return;
 		}
 
 		$this->setup_api_keys($id);
@@ -645,7 +642,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 					);
 				}
 
-				return true;
+				return;
 			}
 
 			/*
@@ -658,8 +655,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 					'description'    => 'Added by Ultimate Multisite. Required to correctly handle changes in subscription status.',
 				]
 			);
-
-			return true;
 		} catch (\Throwable $e) {
 			$error_code = $e->getCode();
 
@@ -672,7 +667,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				}
 			}
 
-			return new \WP_Error($error_code, $e->getMessage());
+			wu_log_add('stripe', sprintf(__('Failed to add stripe webhook: %1$s, %2$s', 'ultimate-multisite'), $error_code, $e->getMessage()));
 		}
 	}
 
@@ -1522,8 +1517,8 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			$line_item_data = [
 				'title'         => $title,
 				'description'   => $s_line_item->description,
-				'tax_inclusive' => $s_line_item->amount !== $s_line_item->amount_excluding_tax,
-				'unit_price'    => $s_line_item->unit_amount_excluding_tax / $currency_multiplier,
+				'tax_inclusive' => 'inclusive' === $s_line_item->taxes[0]->tax_behavior, // $s_line_item->amount !== $s_line_item->taxes->amount_excluding_tax,
+				'unit_price'    => (float) $s_line_item->pricing->unit_amount_decimal / $currency_multiplier,
 				'quantity'      => $quantity,
 			];
 
@@ -1533,8 +1528,8 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			$line_item = new Line_Item($line_item_data);
 
-			$subtotal  = $s_line_item->amount_excluding_tax / $currency_multiplier;
-			$tax_total = ($s_line_item->amount - $s_line_item->amount_excluding_tax) / $currency_multiplier;
+			$subtotal  = $s_line_item->amount / $currency_multiplier;
+			$tax_total = ($s_line_item->taxes[0]->amount) / $currency_multiplier;
 			$total     = $s_line_item->amount / $currency_multiplier;
 
 			// Set this values after generate the line item to bypass the recalculate_totals
@@ -1939,7 +1934,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 * @since 2.0.0
 	 * @throws Ignorable_Exception When the webhook should be ignored (duplicate payments, wrong gateway, etc.).
 	 * @throws Stripe\Exception\ApiErrorException When Stripe API calls fail.
-	 * @return bool
+	 * @return void
 	 */
 	public function process_webhooks() {
 
@@ -2097,7 +2092,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			$membership->save();
 
-			return true;
+			return;
 		}
 
 		/*
@@ -2171,14 +2166,18 @@ class Base_Stripe_Gateway extends Base_Gateway {
 					 * account for delays.
 					*/
 					$renewal_date = new \DateTime();
-					$renewal_date->setTimestamp($subscription->current_period_end);
+					foreach ($subscription->items as $item) {
+						$end_timestamp = $item->current_period_end;
+						break;
+					}
+					$renewal_date->setTimestamp($end_timestamp);
 					$renewal_date->setTime(23, 59, 59);
 
 					/*
 					 * Estimated charge date is 2 hours
 					 * after `current_period_end`.
 					 */
-					$stripe_estimated_charge_timestamp = $subscription->current_period_end + (2 * HOUR_IN_SECONDS);
+					$stripe_estimated_charge_timestamp = $end_timestamp + (2 * HOUR_IN_SECONDS);
 
 					if ($stripe_estimated_charge_timestamp > $renewal_date->getTimestamp()) {
 						$renewal_date->setTimestamp($stripe_estimated_charge_timestamp);
@@ -2249,7 +2248,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 						}
 
 						// Now we apply this discount to the line items.
-						foreach ($line_items as &$line_item) {
+						foreach ($line_items as $line_item) {
 							$current_item_subtotal = $line_item->get_subtotal();
 							$percent_of_subtotal   = $current_item_subtotal / $old_subtotal;
 
@@ -2267,7 +2266,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 					/**
 					 *  We do not have a payment to change
 					 */
-					return true;
+					return;
 				}
 
 				$this->payment = $payment;
@@ -2291,10 +2290,15 @@ class Base_Stripe_Gateway extends Base_Gateway {
 							$membership->set_gateway_subscription_id($subscription->id);
 
 							$renewal_date = new \DateTime();
-							$renewal_date->setTimestamp($subscription->current_period_end);
+
+							foreach ($subscription->items as $item) {
+								$end_timestamp = $item->current_period_end;
+								break;
+							}
+							$renewal_date->setTimestamp($end_timestamp);
 							$renewal_date->setTime(23, 59, 59);
 
-							$stripe_estimated_charge_timestamp = $subscription->current_period_end + (2 * HOUR_IN_SECONDS);
+							$stripe_estimated_charge_timestamp = $end_timestamp + (2 * HOUR_IN_SECONDS);
 
 							if ($stripe_estimated_charge_timestamp > $renewal_date->getTimestamp()) {
 								$renewal_date->setTimestamp($stripe_estimated_charge_timestamp);
@@ -2302,7 +2306,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 							$expiration = $renewal_date->format('Y-m-d H:i:s');
 						} else {
-							return true;
+							return;
 						}
 					}
 				}
@@ -2325,7 +2329,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				 */
 				$this->trigger_payment_processed($payment, $membership);
 
-				return true;
+				return;
 			} elseif ( ! empty($gateway_payment_id) && $payment) {
 				/*
 				 * The payment already exists.
@@ -2341,10 +2345,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		 * Next, let's deal with charges that went through!
 		 */
 		if ('charge.refunded' === $event->type) {
-			$payment_data = [
-				'gateway' => 'stripe',
-			];
-
 			$payment_id = $payment_event->metadata->payment_id;
 
 			$payment = wu_get_payment($payment_id);
@@ -2368,16 +2368,16 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			 * Actually process the refund
 			 * using the helper method.
 			 */
-			$status = $payment->refund($amount);
+			$payment->refund($amount);
 
-			return $status;
+			return;
 		}
 
 		/*
 		 * Failed payments.
 		 */
 		if ('invoice.payment_failed' === $event->type) {
-			$this->webhook_event_id = $event->id;
+			wu_log_add('stripe', 'Processing Stripe invoice.payment_failed webhook.');
 
 			// Make sure this invoice is tied to a subscription and is the user's current subscription.
 			if ( ! empty($event->data->object->subscription) && $membership->get_gateway_subscription_id() === $event->data->object->subscription) {
@@ -2386,7 +2386,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			do_action('wu_stripe_charge_failed', $payment_event, $event, $membership);
 
-			return true;
+			return;
 		}
 
 		/*
@@ -2411,8 +2411,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				} else {
 					wu_log_add('stripe', sprintf('Membership #%d is not active - not cancelling account.', $membership->get_id()));
 				}
-
-				return true;
 			} else {
 				wu_log_add('stripe', sprintf('Payment event ID (%s) doesn\'t match membership\'s merchant subscription ID (%s).', $payment_event->id, $membership->get_gateway_subscription_id()), true);
 			}
@@ -2420,7 +2418,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	}
 
 	/**
-	 * Get saved card options for this customers.
+	 * Get saved card options for this customer.
 	 *
 	 * @since 2.0.0
 	 * @return array
@@ -2432,8 +2430,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		}
 
 		$options = [];
-
-		$user_id = isset($this->customer) && $this->customer ? $this->customer->get_user_id() : false;
 
 		$saved_payment_methods = $this->get_user_saved_payment_methods();
 
@@ -2740,7 +2736,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			 * use this product.
 			 *
 			 * @param string $product_id ID of the Stripe product to check for.
-			 * @param object $name       Product name.
+			 * @param string $name       Product name.
 			 */
 			$existing_product_id = apply_filters('wu_stripe_existing_product_id', $product_id, $name);
 

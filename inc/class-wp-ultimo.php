@@ -620,6 +620,7 @@ final class WP_Ultimo {
 		 */
 		\WP_Ultimo\Compat\Multiple_Accounts_Compat::get_instance();
 		\WP_Ultimo\Compat\Edit_Users_Compat::get_instance();
+		\WP_Ultimo\Compat\Auto_Delete_Users_Compat::get_instance();
 
 		/*
 		 * Network Admin Widgets

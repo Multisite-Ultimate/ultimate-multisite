@@ -2196,6 +2196,14 @@ class Cart implements \JsonSerializable {
 		 */
 		$smallest_trial = 300 * YEAR_IN_SECONDS;
 
+		if ($this->get_cart_type() === 'downgrade') {
+			$membership = $this->membership;
+
+			if ($membership && ($membership->is_active() || $membership->get_status() === Membership_Status::TRIALING)) {
+				return strtotime($membership->get_date_expiration());
+			}
+		}
+
 		foreach ($this->get_all_products() as $product) {
 			if ( ! $product->has_trial()) {
 				$smallest_trial = 0;

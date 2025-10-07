@@ -402,5 +402,4 @@ defined('ABSPATH') || exit;
 	</form>
 
 	<br class="clear">
-filter.
 </div>

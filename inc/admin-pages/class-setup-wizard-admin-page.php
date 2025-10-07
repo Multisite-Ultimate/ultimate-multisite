@@ -125,7 +125,7 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 			add_action('admin_enqueue_scripts', [$this, 'register_scripts']);
 		}
 
-		parent::__construct();
+		add_action('init', [$this, 'start_init']);
 
 		add_action('admin_action_download_migration_logs', [$this, 'download_migration_logs']);
 
@@ -625,10 +625,11 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 	/**
 	 * Renders the terms of support.
 	 *
-	 * @since 2.0.0
+	 * TODO: Updated and display this.
+	 *
 	 * @return string
 	 */
-	public function _terms_of_support() {
+	public function _terms_of_support() { // phpcs:ignore
 
 		return wu_get_template_contents('wizards/setup/support_terms');
 	}

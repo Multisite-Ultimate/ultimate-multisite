@@ -93,7 +93,7 @@ class Requirements {
 	}
 
 	/**
-	 * Checks if we have ran through the setup already.
+	 * Checks if we have run through the setup already.
 	 *
 	 * @since 2.0.0
 	 * @return bool
@@ -125,7 +125,7 @@ class Requirements {
 	 * @since 2.0.0
 	 * @return boolean
 	 */
-	public static function is_unit_test() {
+	public static function is_unit_test(): bool {
 		return defined('WP_TESTS_MULTISITE') && WP_TESTS_MULTISITE;
 	}
 

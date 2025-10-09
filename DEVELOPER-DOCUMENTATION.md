@@ -538,10 +538,10 @@ add_action('wu_domain_mapped', function($domain) {
  * @param WP_Ultimo\Models\Checkout_Form $form The checkout form object.
  * @return array Modified fields array.
  */
-$fields = apply_filters('wu_checkout_form_fields', $fields, $form);
+$fields = apply_filters('wu_checkout_form_final_fields', $fields, $form);
 
 // Usage Example:
-add_filter('wu_checkout_form_fields', function($fields, $form) {
+add_filter('wu_checkout_form_final_fields', function($fields, $form) {
     // Add custom field
     $fields['company'] = [
         'type' => 'text',

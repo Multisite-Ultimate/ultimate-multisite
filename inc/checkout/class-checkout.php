@@ -2056,8 +2056,14 @@ class Checkout {
 
 		$this->setup_checkout();
 
-		$gateway    = wu_get_gateway(wu_request('gateway'));
-		$payment    = wu_get_payment($this->request_or_session('payment_id'));
+		$gateway = wu_get_gateway(wu_request('gateway'));
+		$payment = wu_get_payment($this->request_or_session('payment_id'));
+
+		if ( ! $payment) {
+			// translators: %s payment id.
+			$this->errors = new \WP_Error('no-payment', sprintf(__('Payment (%s) not found.', 'ultimate-multisite'), $this->request_or_session('payment_id')));
+			return false;
+		}
 		$customer   = $payment->get_customer();
 		$membership = $payment->get_membership();
 

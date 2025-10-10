@@ -410,7 +410,7 @@ class Domain_Mapping {
 
 		$mapping = Domain::get_by_domain($domains);
 
-		if (empty($mapping) || is_wp_error($mapping)) {
+		if (empty($mapping) || is_wp_error($mapping) || ! $mapping->get_path()) {
 			return;
 		}
 
@@ -502,15 +502,11 @@ class Domain_Mapping {
 		}
 
 		// Get the site associated with the mapping
-		$site = $current_mapping->get_site();
+		$path = $current_mapping->get_path();
 
 		// If we don't have a valid site, return the original URL
-		if (! $site) {
+		if (! $path) {
 			return $url;
-		} elseif ($site instanceof \WP_Site) {
-			$path = $site->path;
-		} elseif ($site instanceof Site) {
-			$path = $site->get_path();
 		}
 
 		// Replace the domain.
@@ -553,12 +549,7 @@ class Domain_Mapping {
 		$current_mapping = $this->current_mapping;
 
 		// Check if we have a valid mapping for this site
-		if (empty($current_mapping) || $current_mapping->get_site_id() !== $site_id) {
-			return $url;
-		}
-
-		// Check if the site exists
-		if (! $current_mapping->get_site()) {
+		if (empty($current_mapping) || $current_mapping->get_blog_id() !== $site_id) {
 			return $url;
 		}
 

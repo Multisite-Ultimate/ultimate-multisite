@@ -228,6 +228,16 @@ We recommend running this in a staging environment before updating your producti
 
 == Changelog ==
 
+Version [2.4.6] - Released on 2025-10-XX
+- Fixed: Rendering admin pages for lecacy addons.
+- Fixed: Some stripe API errors
+- Improved: Better site url autogeneration and add preview option.
+- Fixed: Escaping too much HTML.
+- Fixed: Saving HTML in credits field.
+- Improved: Type safety in code.
+- Fixed: Downgrading during a trial extending the trial period.
+
+
 Version [2.4.5] - Released on 2025-09-30
 - Fixed: Custom domain check when downgrading.
 - Fixed: Bug in Action Scheduler.

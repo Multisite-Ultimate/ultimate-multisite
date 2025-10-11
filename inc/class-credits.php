@@ -99,6 +99,7 @@ class Credits {
 				'title'       => __('Custom Footer HTML', 'ultimate-multisite'),
 				'desc'        => __('HTML allowed. Use any text or link you prefer.', 'ultimate-multisite'),
 				'type'        => 'textarea',
+				'allow_html'  => true,
 				'default'     => function () {
 					$name = (string) get_network_option(null, 'site_name');
 					$name = $name ?: __('this network', 'ultimate-multisite');

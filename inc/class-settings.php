@@ -39,7 +39,7 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 	 * @since 2.0.0
 	 * @var array|null
 	 */
-	private $settings = null;
+	private ?array $settings = null;
 
 	/**
 	 * Holds the sections of the settings page.
@@ -47,7 +47,7 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 	 * @since 2.0.0
 	 * @var array
 	 */
-	private $sections = null;
+	private ?array $sections = null;
 
 	/**
 	 * @var bool
@@ -70,7 +70,8 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 
 		add_filter('pre_site_option_add_new_users', [$this, 'force_add_new_users'], 10, 3);
 
-		add_filter('pre_site_option_menu_items', [$this, 'force_plugins_menu'], 10, 3);
+		add_filter('site_option_menu_items', [$this, 'force_plugins_menu'], 10, 3);
+		add_filter('default_site_option_menu_items', [$this, 'force_plugins_menu'], 10, 3);
 	}
 
 	/**
@@ -162,6 +163,13 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 		return $this->settings;
 	}
 
+	/**
+	 * Get all.
+	 *
+	 * @param bool $check_caps Capability to check.
+	 *
+	 * @return array
+	 */
 	public function get_all_with_defaults($check_caps = false) {
 		$all_settings = $this->get_all($check_caps);
 		foreach ($this->get_sections() as $section_slug => $section) {
@@ -283,7 +291,7 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 		 *
 		 * @param array  $settings         The settings to be saved.
 		 * @param array  $settings_to_save The new settings to add.
-		 * @param string $saved_settings   The current settings saved.
+		 * @param array $saved_settings   The current settings saved.
 		 */
 		$settings = apply_filters('wu_pre_save_settings', $settings, $settings_to_save, $saved_settings);
 

@@ -32,6 +32,12 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * Set up test environment.
+	 *
+	 * Creates mock objects for Stripe client and related services.
+	 * Configures mock responses and injects them into gateway instance.
+	 */
 	public function setUp(): void {
 		parent::setUp();
 
@@ -104,8 +110,16 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 
 		$subscription = \Stripe\Subscription::constructFrom(
 			[
-				'id'                 => 'sub_123',
-				'current_period_end' => strtotime('+5 days'),
+				'id'    => 'sub_123',
+				'items' => [
+					'object' => 'list',
+					'data'   => [
+						[
+							'id'                 => 'si_123',
+							'current_period_end' => strtotime('+5 days'),
+						],
+					],
+				],
 			]
 		);
 
@@ -132,6 +146,7 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 							->method('retrieve')
 			->willReturn($payment_method);
 
+
 		$plans_mock->expects($this->any())
 			->method('retrieve')
 			->willReturn($plan);
@@ -144,13 +159,26 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 			)
 			->willReturnCallback(
 				function ($params, $options) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+					// Transform items to include current_period_end on each item
+					$items_with_period_end = [];
+					foreach ($params['items'] as $item) {
+						$items_with_period_end[] = [
+							'id'                 => 'si_' . uniqid(),
+							'current_period_end' => $params['billing_cycle_anchor'] ?? $params['trial_end'],
+							'price'              => $item['price'] ?? null,
+							'quantity'           => $item['quantity'] ?? 1,
+						];
+					}
+
 					return \Stripe\Subscription::constructFrom(
 						[
-							'id'                 => 'sub_123', // Dynamic ID based on idempotency key
-							'customer'           => $params['customer'],
-							'current_period_end' => $params['billing_cycle_anchor'] ?? $params['trial_end'],
-							'items'              => $params['items'],
-							'metadata'           => $params['metadata'],
+							'id'       => 'sub_123', // Dynamic ID based on idempotency key
+							'customer' => $params['customer'],
+							'items'    => [
+								'object' => 'list',
+								'data'   => $items_with_period_end,
+							],
+							'metadata' => $params['metadata'],
 						]
 					);
 				}
@@ -358,13 +386,13 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 		}
 
 		// Assert membership status
-		if ($type === 'downgrade') {
+		if ('downgrade' === $type) {
 			// For downgrades, verify scheduled swap
 			// Not working in stripe. I think we need to call process_order first or preflight or some other method actually schedules the swap instead of process_checkout.
 			// $this->assertTrue((bool) $membership->get_scheduled_swap());
 			// $scheduled_swap = $membership->get_scheduled_swap();
 			// $this->assertEquals($product->get_id(), $scheduled_swap->order->get_plan_id());
-		} elseif ($type === 'upgrade' || $type === 'addon') {
+		} elseif ('upgrade' === $type || 'addon' === $type) {
 			// For upgrades and addons, verify immediate swap
 			$this->assertEquals($product->get_id(), $membership->get_plan_id());
 			$this->assertEquals($expected_status, $membership->get_status());

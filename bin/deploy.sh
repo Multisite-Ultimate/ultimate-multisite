@@ -246,9 +246,15 @@ tag_and_github_release() {
     if [[ -n "${GH_TOKEN:-${GITHUB_TOKEN:-}}" ]]; then
       export GH_TOKEN=${GH_TOKEN:-${GITHUB_TOKEN:-}}
     fi
-    gh release create "v$VERSION" "$ZIP_PATH" \
-      --title "v$VERSION" \
-      --notes-file "$RELEASE_NOTES_FILE"
+    if gh release view "v$VERSION" >/dev/null 2>&1; then
+      echo "GitHub release v$VERSION exists; updating notes and asset."
+      gh release edit "v$VERSION" --notes-file "$RELEASE_NOTES_FILE" || true
+      gh release upload "v$VERSION" "$ZIP_PATH" --clobber || true
+    else
+      gh release create "v$VERSION" "$ZIP_PATH" \
+        --title "v$VERSION" \
+        --notes-file "$RELEASE_NOTES_FILE"
+    fi
   else
     echo "Warning: 'gh' not found. Please create the GitHub release manually and upload $ZIP_PATH."
   fi

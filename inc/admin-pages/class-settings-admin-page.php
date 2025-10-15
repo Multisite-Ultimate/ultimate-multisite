@@ -527,18 +527,20 @@ class Settings_Admin_Page extends Wizard_Admin_Page {
 		$allowed_fields = [];
 		foreach ($sections as $section) {
 			if (isset($section['fields'])) {
-				$allowed_fields = array_merge($allowed_fields, array_keys($section['fields']));
+				$allowed_fields = array_merge($allowed_fields, $section['fields']);
 			}
 		}
 
 		// Filter and sanitize $_POST to only include allowed setting fields
 		// Nonce processed in the calling method.
 		$filtered_data = [];
-		foreach ($allowed_fields as $field) {
+		foreach ($allowed_fields as $field => $field_data) {
 			if (isset($_POST[ $field ])) { // phpcs:ignore WordPress.Security.NonceVerification
 				$value = wp_unslash($_POST[ $field ]); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				if (is_array($value)) {
 					$filtered_data[ $field ] = array_map('sanitize_text_field', $value);
+				} elseif ( ! empty($field_data['allow_html'])) {
+					$filtered_data[ $field ] = sanitize_post_field('post_content', $value, $this->get_id(), 'db');
 				} else {
 					$filtered_data[ $field ] = sanitize_text_field($value);
 				}

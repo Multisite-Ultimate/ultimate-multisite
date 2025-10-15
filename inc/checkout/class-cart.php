@@ -1086,7 +1086,7 @@ class Cart implements \JsonSerializable {
 		if (($is_same_product && $membership->get_amount() > $this->get_recurring_total()) || (! $is_same_product && $old_price_per_day > $new_price_per_day)) {
 			$this->cart_type = 'downgrade';
 
-			// If membership is active or trialing we will schendule the swap
+			// If membership is active or trialing we will schedule the swap
 			if ($membership->is_active() || $membership->get_status() === Membership_Status::TRIALING) {
 				$line_item_params = apply_filters(
 					'wu_checkout_credit_line_item_params',
@@ -2196,6 +2196,14 @@ class Cart implements \JsonSerializable {
 		 */
 		$smallest_trial = 300 * YEAR_IN_SECONDS;
 
+		if ($this->get_cart_type() === 'downgrade') {
+			$membership = $this->membership;
+
+			if ($membership && ($membership->is_active() || $membership->get_status() === Membership_Status::TRIALING)) {
+				return strtotime($membership->get_date_expiration());
+			}
+		}
+
 		foreach ($this->get_all_products() as $product) {
 			if ( ! $product->has_trial()) {
 				$smallest_trial = 0;
@@ -2221,7 +2229,7 @@ class Cart implements \JsonSerializable {
 	 * Returns the timestamp of the next charge, if recurring.
 	 *
 	 * @since 2.0.0
-	 * @return string|false
+	 * @return int unix timestamp
 	 */
 	public function get_billing_next_charge_date() {
 		/*

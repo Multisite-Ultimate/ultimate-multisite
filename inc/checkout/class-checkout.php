@@ -1171,7 +1171,7 @@ class Checkout {
 		/*
 		 * Important dates.
 		 */
-		$membership_data['date_expiration'] = $this->order->get_billing_start_date();
+		$membership_data['date_expiration'] = gmdate('Y-m-d 23:59:59', $this->order->get_billing_start_date());
 
 		$membership = wu_create_membership($membership_data);
 
@@ -2056,8 +2056,14 @@ class Checkout {
 
 		$this->setup_checkout();
 
-		$gateway    = wu_get_gateway(wu_request('gateway'));
-		$payment    = wu_get_payment($this->request_or_session('payment_id'));
+		$gateway = wu_get_gateway(wu_request('gateway'));
+		$payment = wu_get_payment($this->request_or_session('payment_id'));
+
+		if ( ! $payment) {
+			// translators: %s payment id.
+			$this->errors = new \WP_Error('no-payment', sprintf(__('Payment (%s) not found.', 'ultimate-multisite'), $this->request_or_session('payment_id')));
+			return false;
+		}
 		$customer   = $payment->get_customer();
 		$membership = $payment->get_membership();
 

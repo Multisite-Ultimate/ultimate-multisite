@@ -1,4 +1,21 @@
 <?php
+/**
+ * Tests for the Stripe Gateway checkout process functionality.
+ *
+ * This test suite verifies various checkout scenarios including:
+ * - New subscriptions
+ * - Trials
+ * - Retry payments
+ * - Upgrades
+ * - Downgrades
+ * - Addon purchases
+ *
+ * Each test case validates payment processing, membership status transitions,
+ * and proper integration with the Stripe API.
+ *
+ * @package WP_Ultimo\Gateways
+ * @since 2.0.0
+ */
 
 namespace WP_Ultimo\Gateways;
 
@@ -8,6 +25,9 @@ use WP_Ultimo\Models\Customer;
 use Stripe\StripeClient;
 use PHPUnit\Framework\MockObject\MockObject;
 
+/**
+ * Unit tests for Stripe Gateway checkout process.
+ */
 class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 	/**
 	 * @var \WP_Ultimo\Gateways\Stripe_Gateway
@@ -21,6 +41,15 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 
 	private static Customer $customer;
 
+	/**
+	 * Set up test environment before test class runs.
+	 *
+	 * Creates a test customer that will be used across all test cases.
+	 * This method runs once before any tests in the class are executed.
+	 *
+	 * @return void
+	 * @since 2.0.0
+	 */
 	public static function set_up_before_class() {
 		parent::set_up_before_class();
 		self::$customer = wu_create_customer(
@@ -32,6 +61,12 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 		);
 	}
 
+	/**
+	 * Set up test environment.
+	 *
+	 * Creates mock objects for Stripe client and related services.
+	 * Configures mock responses and injects them into gateway instance.
+	 */
 	public function setUp(): void {
 		parent::setUp();
 
@@ -104,8 +139,16 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 
 		$subscription = \Stripe\Subscription::constructFrom(
 			[
-				'id'                 => 'sub_123',
-				'current_period_end' => strtotime('+5 days'),
+				'id'    => 'sub_123',
+				'items' => [
+					'object' => 'list',
+					'data'   => [
+						[
+							'id'                 => 'si_123',
+							'current_period_end' => strtotime('+5 days'),
+						],
+					],
+				],
 			]
 		);
 
@@ -144,13 +187,26 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 			)
 			->willReturnCallback(
 				function ($params, $options) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+					// Transform items to include current_period_end on each item
+					$items_with_period_end = [];
+					foreach ($params['items'] as $item) {
+						$items_with_period_end[] = [
+							'id'                 => 'si_' . uniqid(),
+							'current_period_end' => $params['billing_cycle_anchor'] ?? $params['trial_end'],
+							'price'              => $item['price'] ?? null,
+							'quantity'           => $item['quantity'] ?? 1,
+						];
+					}
+
 					return \Stripe\Subscription::constructFrom(
 						[
-							'id'                 => 'sub_123', // Dynamic ID based on idempotency key
-							'customer'           => $params['customer'],
-							'current_period_end' => $params['billing_cycle_anchor'] ?? $params['trial_end'],
-							'items'              => $params['items'],
-							'metadata'           => $params['metadata'],
+							'id'       => 'sub_123', // Dynamic ID based on idempotency key
+							'customer' => $params['customer'],
+							'items'    => [
+								'object' => 'list',
+								'data'   => $items_with_period_end,
+							],
+							'metadata' => $params['metadata'],
 						]
 					);
 				}
@@ -337,7 +393,7 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 				$membership->get_status(),
 				'Membership should be in trial status'
 			);
-		} elseif ($payment->get_total() === 0.00) {
+		} elseif (0.00 === $payment->get_total()) {
 			$this->assertEquals(
 				Payment_Status::COMPLETED,
 				$payment->get_status(),
@@ -358,13 +414,13 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 		}
 
 		// Assert membership status
-		if ($type === 'downgrade') {
+		if ('downgrade' === $type) {
 			// For downgrades, verify scheduled swap
 			// Not working in stripe. I think we need to call process_order first or preflight or some other method actually schedules the swap instead of process_checkout.
 			// $this->assertTrue((bool) $membership->get_scheduled_swap());
 			// $scheduled_swap = $membership->get_scheduled_swap();
 			// $this->assertEquals($product->get_id(), $scheduled_swap->order->get_plan_id());
-		} elseif ($type === 'upgrade' || $type === 'addon') {
+		} elseif ('upgrade' === $type || 'addon' === $type) {
 			// For upgrades and addons, verify immediate swap
 			$this->assertEquals($product->get_id(), $membership->get_plan_id());
 			$this->assertEquals($expected_status, $membership->get_status());
@@ -378,10 +434,13 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 		$second_product->delete();
 	}
 
-	public function tearDown(): void {
-		parent::tearDown();
-	}
-
+	/**
+	 * Tear down the test environment after all tests in the class have run.
+	 *
+	 * Deletes test customer data and clears test-related database tables.
+	 *
+	 * @return void
+	 */
 	public static function tear_down_after_class() {
 		global $wpdb;
 		self::$customer->delete();

@@ -16,7 +16,7 @@ use WP_Ultimo\Database\Payments\Payment_Status;
 use WP_Ultimo\Models\Product;
 
 /**
- * Creates an cart with the parameters of the purchase being placed.
+ * Creates a cart with the parameters of the purchase being placed.
  *
  * @package WP_Ultimo
  * @subpackage Checkout

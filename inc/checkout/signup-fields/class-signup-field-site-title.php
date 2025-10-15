@@ -216,6 +216,9 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 				'wrapper_html_attr' => [
 					'style' => $this->calculate_style_attr(),
 				],
+				'html_attr'         => [
+					'v-on:input' => 'site_url = $event.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, "")',
+				],
 			],
 		];
 	}

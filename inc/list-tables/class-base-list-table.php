@@ -835,11 +835,11 @@ class Base_List_Table extends \WP_List_Table {
 		$formatted_value = date_i18n(get_option('date_format'), $time);
 
 		// translators: %s is a relative past date.
-		$placeholder = wu_get_current_time('timestamp') > $time ? __('%s ago', 'ultimate-multisite') : __('In %s', 'ultimate-multisite');
+		$placeholder = wu_get_current_time('timestamp') > $time ? esc_html__('%s ago', 'ultimate-multisite') : esc_html__('In %s', 'ultimate-multisite');
 
-		$text = $formatted_value . sprintf('<br><small>%s</small>', sprintf($placeholder, human_time_diff($time)));
+		$text = esc_html($formatted_value) . sprintf('<br><small>%s</small>', esc_html(sprintf($placeholder, human_time_diff($time))));
 
-		return sprintf('<span role="tooltip" aria-label="%s">%s</span>', date_i18n('Y-m-d H:i:s', $time), $text);
+		return sprintf('<span role="tooltip" aria-label="%s">%s</span>', esc_attr(date_i18n('Y-m-d H:i:s', $time)), $text);
 	}
 
 	/**

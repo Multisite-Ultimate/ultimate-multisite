@@ -626,13 +626,14 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 * @return array
 	 */
 	public function get_all_products() {
-
-		$products = [
-			[
+		$product = $this->get_plan();
+		$products = [];
+		if ($product) {
+			$products[] = [
 				'quantity' => 1,
 				'product'  => $this->get_plan(),
-			],
-		];
+			];
+		}
 
 		return array_merge($products, $this->get_addon_products());
 	}

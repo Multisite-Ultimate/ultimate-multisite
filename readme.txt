@@ -228,6 +228,17 @@ We recommend running this in a staging environment before updating your producti
 
 == Changelog ==
 
+Version [2.4.6] - Released on 2025-10-XX
+- Fixed: Toggle switches in RTL languages.
+- Fixed: Rendering admin pages for legacy addons.
+- Fixed: Some Stripe API errors.
+- Improved: Better site URL autogeneration and added preview option.
+- Fixed: Escaping too much HTML.
+- Fixed: Saving HTML in credits field.
+- Improved: Type safety in code.
+- Fixed: Downgrading during a trial extending the trial period.
+
+
 Version [2.4.5] - Released on 2025-09-30
 - Fixed: Custom domain check when downgrading.
 - Fixed: Bug in Action Scheduler.

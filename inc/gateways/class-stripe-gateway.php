@@ -371,7 +371,7 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 				 * @since 2.0
 				 *
 				 * @param array $intent_args The list of intent args.
-				 * @param \WP_Ultimo\Gateways\Stripe_Gateway $this.
+				 * @param Stripe_Gateway $stripe_gateway.
 				 * @return array
 				 */
 				$intent_args = apply_filters('wu_stripe_create_payment_intent_args', $intent_args, $this);
@@ -617,10 +617,14 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 				$membership_status = $cart->has_trial() ? Membership_Status::TRIALING : Membership_Status::ACTIVE;
 
 				$renewal_date = new \DateTime();
-				$renewal_date->setTimestamp($subscription->current_period_end);
+				foreach ($subscription->items as $item) {
+					$end_timestamp = $item->current_period_end;
+					break;
+				}
+				$renewal_date->setTimestamp($end_timestamp);
 				$renewal_date->setTime(23, 59, 59);
 
-				$stripe_estimated_charge_timestamp = $subscription->current_period_end + (2 * HOUR_IN_SECONDS);
+				$stripe_estimated_charge_timestamp = $end_timestamp + (2 * HOUR_IN_SECONDS);
 
 				if ($stripe_estimated_charge_timestamp > $renewal_date->getTimestamp()) {
 					$renewal_date->setTimestamp($stripe_estimated_charge_timestamp);

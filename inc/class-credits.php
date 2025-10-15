@@ -99,6 +99,7 @@ class Credits {
 				'title'       => __('Custom Footer HTML', 'ultimate-multisite'),
 				'desc'        => __('HTML allowed. Use any text or link you prefer.', 'ultimate-multisite'),
 				'type'        => 'textarea',
+				'allow_html'  => true,
 				'default'     => function () {
 					$name = (string) get_network_option(null, 'site_name');
 					$name = $name ?: __('this network', 'ultimate-multisite');
@@ -247,6 +248,7 @@ class Credits {
 	 * @return string
 	 */
 	public function filter_admin_footer_text($text): string {
+		$text = is_string($text) ? $text : '';
 		if (is_network_admin()) {
 			return $text;
 		}
@@ -269,6 +271,7 @@ class Credits {
 	 * @param string $text Default Text.
 	 */
 	public function filter_update_footer_text($text): string {
+		$text = is_string($text) ? $text : '';
 		if (is_network_admin()) {
 			return $text;
 		}

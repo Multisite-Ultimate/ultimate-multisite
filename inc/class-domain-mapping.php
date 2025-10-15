@@ -10,6 +10,7 @@
 namespace WP_Ultimo;
 
 use WP_Ultimo\Models\Domain;
+use WP_Ultimo\Models\Site;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -141,7 +142,7 @@ class Domain_Mapping {
 			do_action_deprecated('mercator_load', [], '2.0.0', 'wu_domain_mapping_load');
 		}
 
-		add_action(
+		add_filter(
 			'wu_sso_site_allowed_domains',
 			function ($domain_list, $site_id): array {
 
@@ -403,20 +404,13 @@ class Domain_Mapping {
 			return;
 		}
 
-		$real_domain = $current_site->domain;
-		$domain      = sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST']?? ''));
-
-		if ($domain === $real_domain) {
-
-			// Domain hasn't been mapped
-			return;
-		}
+		$domain = sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST']?? ''));
 
 		$domains = $this->get_www_and_nowww_versions($domain);
 
 		$mapping = Domain::get_by_domain($domains);
 
-		if (empty($mapping) || is_wp_error($mapping)) {
+		if (empty($mapping) || is_wp_error($mapping) || ! $mapping->get_path()) {
 			return;
 		}
 
@@ -424,6 +418,7 @@ class Domain_Mapping {
 
 		add_filter('site_url', [$this, 'mangle_url'], -10, 4);
 		add_filter('home_url', [$this, 'mangle_url'], -10, 4);
+		add_filter('option_siteurl', [$this, 'mangle_url'], 20);
 
 		add_filter('theme_file_uri', [$this, 'mangle_url']);
 		add_filter('stylesheet_directory_uri', [$this, 'mangle_url']);
@@ -456,8 +451,8 @@ class Domain_Mapping {
 		 * Instead, use the Domain_Mapping::apply_mapping_to_url method.
 		 *
 		 * @since 2.0.0
-		 * @param array The mangle callable.
-		 * @param self  This object.
+		 * @param callable $mangle_url The mangle callable.
+		 * @param self $domain_mapper This object.
 		 * @return void
 		 */
 		do_action('wu_domain_mapping_register_filters', [$this, 'mangle_url'], $this);
@@ -507,16 +502,18 @@ class Domain_Mapping {
 		}
 
 		// Get the site associated with the mapping
-		$site = $current_mapping->get_site();
+		$path = $current_mapping->get_path();
 
 		// If we don't have a valid site, return the original URL
-		if (! $site) {
+		if (! $path) {
 			return $url;
 		}
 
-		// Replace the domain
-		$domain_base = wp_parse_url($url, PHP_URL_HOST);
-		$domain      = rtrim($domain_base . '/' . $site->get_path(), '/');
+		// Replace the domain.
+		// wp_parse_url not available because this happens very early in the WP loading process.
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.parse_url_parse_url
+		$domain_base = parse_url($url, PHP_URL_HOST);
+		$domain      = rtrim($domain_base . '/' . $path, '/');
 		$regex       = '#^(\w+://)' . preg_quote($domain, '#') . '#i';
 		$mangled     = preg_replace($regex, '${1}' . $current_mapping->get_domain(), $url);
 
@@ -529,7 +526,7 @@ class Domain_Mapping {
 			$mangled = preg_replace($regex, '${1}' . $current_mapping->get_domain(), $url);
 		}
 
-		$mangled = wu_replace_scheme($mangled, $current_mapping->is_secure() ? 'https://' : 'http://');
+		$mangled = wu_replace_scheme($mangled, $current_mapping->is_secure() || is_ssl() ? 'https://' : 'http://');
 
 		return $mangled;
 	}
@@ -552,12 +549,7 @@ class Domain_Mapping {
 		$current_mapping = $this->current_mapping;
 
 		// Check if we have a valid mapping for this site
-		if (empty($current_mapping) || $current_mapping->get_site_id() !== $site_id) {
-			return $url;
-		}
-
-		// Check if the site exists
-		if (! $current_mapping->get_site()) {
+		if (empty($current_mapping) || $current_mapping->get_blog_id() !== $site_id) {
 			return $url;
 		}
 

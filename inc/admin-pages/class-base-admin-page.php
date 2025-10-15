@@ -171,6 +171,29 @@ abstract class Base_Admin_Page {
 	 * @since 1.8.2
 	 */
 	public function __construct() {
+		if ( ! doing_action('init') && ! did_action('init') ) {
+			_doing_it_wrong(
+				__FUNCTION__,
+				sprintf(
+					/* translators: 1: The current class. 2: 'init'. */
+					esc_html__('Admin page %1$s loaded too early. Admin page should be loaded at the %2$s action or later.'),
+					'<code>' . static::class . '</code>',
+					'<code>init</code>'
+				),
+				'2.4.6'
+			);
+			add_action('init', [$this, 'start_init']);
+		} else {
+			$this->start_init();
+		}
+	}
+
+	/**
+	 * Where the real init happens.
+	 *
+	 * @return void
+	 */
+	public function start_init() {
 		/*
 		 * Adds the page to all the necessary admin panels.
 		 */
@@ -204,7 +227,6 @@ abstract class Base_Admin_Page {
 		 */
 		do_action('wu_page_added', $this->id, $this->page_hook);
 	}
-
 	/**
 	 * Returns the ID of the admin page.
 	 *

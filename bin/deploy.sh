@@ -275,7 +275,7 @@ deploy_to_wporg_svn() {
   echo "Syncing files to trunk..."
   mkdir -p "$svn_dir/trunk"
   # Remove everything in trunk except .svn metadata, then copy new files
-  find "$svn_dir/trunk" -mindepth 1 -not -path '*/.svn*' -exec rm -rf {} +
+  find "$svn_dir/trunk" -mindepth 1 -not -path '*/.svn*' -exec rm -rf {} + 2>/dev/null || true
   rsync -a --delete --exclude='.svn' "$src_dir/" "$svn_dir/trunk/"
 
   # Add new files and remove deleted ones

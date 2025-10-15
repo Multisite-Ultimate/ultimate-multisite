@@ -164,7 +164,7 @@ sync_changelog_and_date() {
 commit_and_push() {
   echo "==> Committing and pushing changes to main"
   git add readme.txt README.md ultimate-multisite.php inc/class-wp-ultimo.php composer.json package.json
-  git commit -m "chore(release): v$VERSION"
+  git commit -m "chore(release): v$VERSION" || true
   git push origin main
 }
 

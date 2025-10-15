@@ -235,8 +235,12 @@ generate_release_notes() {
 
 tag_and_github_release() {
   echo "==> Tagging repo and creating GitHub release"
-  git tag "v$VERSION"
-  git push origin "v$VERSION"
+  if git rev-parse -q --verify "refs/tags/v$VERSION" >/dev/null; then
+    echo "Tag v$VERSION already exists; skipping tag creation."
+  else
+    git tag "v$VERSION"
+  fi
+  git push origin "v$VERSION" || true
 
   if command -v gh >/dev/null 2>&1; then
     if [[ -n "${GH_TOKEN:-${GITHUB_TOKEN:-}}" ]]; then

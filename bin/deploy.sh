@@ -100,10 +100,10 @@ update_versions() {
   sed -i.bak -E "s/(const VERSION = ')[^']+(';)/\\1$VERSION\\2/" inc/class-wp-ultimo.php
 
   # composer.json version
-  sed -i.bak -E "0,/\"version\"[[:space:]]*:[[:space:]]*\"[^"]+\"/ s//\"version\": \"$VERSION\"/" composer.json
+  sed -i.bak -E '0,/"version"[[:space:]]*:[[:space:]]*"[^"]+"/ s//"version": '"\"$VERSION\""'/' composer.json
 
   # package.json version
-  sed -i.bak -E "0,/\"version\"[[:space:]]*:[[:space:]]*\"[^"]+\"/ s//\"version\": \"$VERSION\"/" package.json
+  sed -i.bak -E '0,/"version"[[:space:]]*:[[:space:]]*"[^"]+"/ s//"version": '"\"$VERSION\""'/' package.json
 
   rm -f readme.txt.bak ultimate-multisite.php.bak inc/class-wp-ultimo.php.bak composer.json.bak package.json.bak
 }

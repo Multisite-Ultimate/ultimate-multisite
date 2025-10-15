@@ -1,4 +1,21 @@
 <?php
+/**
+ * Tests for the Stripe Gateway checkout process functionality.
+ *
+ * This test suite verifies various checkout scenarios including:
+ * - New subscriptions
+ * - Trials
+ * - Retry payments
+ * - Upgrades
+ * - Downgrades
+ * - Addon purchases
+ *
+ * Each test case validates payment processing, membership status transitions,
+ * and proper integration with the Stripe API.
+ *
+ * @package WP_Ultimo\Gateways
+ * @since 2.0.0
+ */
 
 namespace WP_Ultimo\Gateways;
 
@@ -8,6 +25,9 @@ use WP_Ultimo\Models\Customer;
 use Stripe\StripeClient;
 use PHPUnit\Framework\MockObject\MockObject;
 
+/**
+ * Unit tests for Stripe Gateway checkout process.
+ */
 class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 	/**
 	 * @var \WP_Ultimo\Gateways\Stripe_Gateway
@@ -21,6 +41,15 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 
 	private static Customer $customer;
 
+	/**
+	 * Set up test environment before test class runs.
+	 *
+	 * Creates a test customer that will be used across all test cases.
+	 * This method runs once before any tests in the class are executed.
+	 *
+	 * @return void
+	 * @since 2.0.0
+	 */
 	public static function set_up_before_class() {
 		parent::set_up_before_class();
 		self::$customer = wu_create_customer(
@@ -145,7 +174,6 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 		$payment_methods_mock->expects($this->any())
 							->method('retrieve')
 			->willReturn($payment_method);
-
 
 		$plans_mock->expects($this->any())
 			->method('retrieve')
@@ -365,7 +393,7 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 				$membership->get_status(),
 				'Membership should be in trial status'
 			);
-		} elseif ($payment->get_total() === 0.00) {
+		} elseif (0.00 === $payment->get_total()) {
 			$this->assertEquals(
 				Payment_Status::COMPLETED,
 				$payment->get_status(),
@@ -406,10 +434,13 @@ class Stripe_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
 		$second_product->delete();
 	}
 
-	public function tearDown(): void {
-		parent::tearDown();
-	}
-
+	/**
+	 * Tear down the test environment after all tests in the class have run.
+	 *
+	 * Deletes test customer data and clears test-related database tables.
+	 *
+	 * @return void
+	 */
 	public static function tear_down_after_class() {
 		global $wpdb;
 		self::$customer->delete();

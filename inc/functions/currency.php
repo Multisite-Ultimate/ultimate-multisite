@@ -157,6 +157,7 @@ function wu_get_currencies(): array {
 			'YER' => __('Yemeni Rial', 'ultimate-multisite'),
 			'ZAR' => __('South African Rand', 'ultimate-multisite'),
 			'ZMW' => __('Zambian Kwacha', 'ultimate-multisite'),
+			'IRR' => __('Iranian Rial', 'ultimate-multisite'),
 		]
 	);
 
@@ -191,6 +192,9 @@ function wu_get_currency_symbol($currency = '') {
 		case 'USD':
 		case 'BBD':
 			$currency_symbol = '$';
+			break;
+		case 'IRR':
+			$currency_symbol = '﷼';
 			break;
 		case 'AFN':
 			$currency_symbol = '؋';
@@ -426,6 +430,7 @@ function wu_is_zero_decimal_currency($currency = 'USD') {
 		'XAF', // Central African CFA Franc
 		'XOF', // West African CFA Franc
 		'XPF', // CFP Franc
+		'IRR', // Iranian Rial
 	];
 
 	return apply_filters('wu_is_zero_decimal_currency', in_array($currency, $zero_dec_currencies, true));

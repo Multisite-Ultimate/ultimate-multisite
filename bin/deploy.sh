@@ -170,6 +170,8 @@ commit_and_push() {
 
 build_zip() {
   echo "==> Building plugin ZIP"
+  # Ensure dev dependencies (like wp-cli) exist before prebuild (makepot)
+  composer install --no-interaction >/dev/null 2>&1 || composer install --no-interaction
   MU_CLIENT_ID="${MU_CLIENT_ID:-dummy}" MU_CLIENT_SECRET="${MU_CLIENT_SECRET:-dummy}" npm run build
   if [[ ! -f "$ZIP_PATH" ]]; then
     echo "Error: Build did not produce $ZIP_PATH"

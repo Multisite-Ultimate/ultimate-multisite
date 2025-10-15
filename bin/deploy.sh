@@ -125,8 +125,9 @@ sync_changelog_and_date() {
 
   # Extract changelog block for version from readme.txt
   CHANGELOG_BLOCK=$(awk -v ver="$VERSION" '
-    $0 ~ "^Version \[" ver "\] - Released on" { on=1; first=1 }
-    on {
+    /^== Changelog ==/ { inlog=1; next }
+    inlog && $0 ~ ("^Version \[" ver "\] - Released on") { on=1 }
+    inlog && on {
       if (!first && $0 ~ /^Version \[/) exit
       print
       first=0

@@ -4135,6 +4135,34 @@ ul.wu-widget-list > li:first-child {
   margin-left: -0.8em;
 }
 
+/* RTL support for toggle switches */
+/* WordPress adds `.rtl` on body for RTL languages; also honor dir="rtl". */
+.rtl .wu-tgl + .wu-tgl-btn::after,
+[dir="rtl"] .wu-tgl + .wu-tgl-btn::after {
+  left: auto;
+  right: 0;
+}
+.rtl .wu-tgl:checked + .wu-tgl-btn::after,
+[dir="rtl"] .wu-tgl:checked + .wu-tgl-btn::after {
+  left: auto;
+  right: 50%;
+}
+/* Mirror the animated property and interactive paddings/margins in RTL */
+.rtl .wu-tgl-ios + .wu-tgl-btn::after,
+[dir="rtl"] .wu-tgl-ios + .wu-tgl-btn::after {
+  transition: right 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+}
+.rtl .wu-tgl-ios + .wu-tgl-btn:active::after,
+[dir="rtl"] .wu-tgl-ios + .wu-tgl-btn:active::after {
+  padding-right: 0;
+  padding-left: 0.8em;
+}
+.rtl .wu-tgl-ios:not(:checked) + .wu-tgl-btn:active::after,
+[dir="rtl"] .wu-tgl-ios:not(:checked) + .wu-tgl-btn:active::after {
+  margin-left: 0;
+  margin-right: -0.8em;
+}
+
 .wu-styling .wu-spin {
   -moz-animation: wu_spin 2s infinite linear;
   -o-animation: wu_spin 2s infinite linear;

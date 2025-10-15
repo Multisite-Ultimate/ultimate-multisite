@@ -517,7 +517,7 @@ class Checkout_Element extends Base_Element {
 
 				echo '<br>' . sprintf(
 					// Translators: %s is replaced with <a href="{login_url}">here</a>
-					esc_html__('Click %s sign in.', 'ultimate-multisite'),
+					esc_html__('Click %s to sign in.', 'ultimate-multisite'),
 					'<a href="' . esc_attr(wp_login_url(wu_get_current_url())) . '">' .
 					esc_html__('here', 'ultimate-multisite') .
 					'</a>'

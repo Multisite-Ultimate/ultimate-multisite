@@ -228,7 +228,7 @@ We recommend running this in a staging environment before updating your producti
 
 == Changelog ==
 
-Version [2.4.6] - Released on 2025-10-XX
+Version [2.4.6] - Released on 2025-10-15
 - Fixed: Toggle switches in RTL languages.
 - Fixed: Rendering admin pages for legacy addons.
 - Fixed: Some Stripe API errors.

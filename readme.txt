@@ -231,8 +231,8 @@ We recommend running this in a staging environment before updating your producti
 Version [2.4.6] - Released on 2025-10-XX
 - Fixed: Toggle switches in RTL languages.
 - Fixed: Rendering admin pages for legacy addons.
-- Fixed: Some stripe API errors
-- Improved: Better site url autogeneration and add preview option.
+- Fixed: Some Stripe API errors.
+- Improved: Better site URL autogeneration and added preview option.
 - Fixed: Escaping too much HTML.
 - Fixed: Saving HTML in credits field.
 - Improved: Type safety in code.

@@ -156,7 +156,7 @@ class Domain_Manager extends Base_Manager {
 
 		add_action('wu_domain_created', [$this, 'handle_domain_created'], 10, 3);
 
-		add_action('wu_domain_post_delete', [$this, 'handle_domain_deleted'], 10, 3);
+		add_action('wu_domain_post_delete', [$this, 'handle_domain_deleted'], 10, 2);
 
 		/*
 		 * Add and remove sub-domains
@@ -981,6 +981,11 @@ class Domain_Manager extends Base_Manager {
 		* Loads our Cloudflare integration.
 		*/
 		\WP_Ultimo\Integrations\Host_Providers\Cloudflare_Host_Provider::get_instance();
+
+		/*
+		* Loads our Hestia integration.
+		*/
+		\WP_Ultimo\Integrations\Host_Providers\Hestia_Host_Provider::get_instance();
 
 		/**
 		 * Allow developers to add their own host provider integrations via wp plugins.

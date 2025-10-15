@@ -170,7 +170,7 @@ commit_and_push() {
 
 build_zip() {
   echo "==> Building plugin ZIP"
-  npm run build
+  MU_CLIENT_ID="${MU_CLIENT_ID:-dummy}" MU_CLIENT_SECRET="${MU_CLIENT_SECRET:-dummy}" npm run build
   if [[ ! -f "$ZIP_PATH" ]]; then
     echo "Error: Build did not produce $ZIP_PATH"
     exit 1
@@ -284,7 +284,7 @@ deploy_to_wporg_svn() {
   if [[ -n "${WPORG_USERNAME:-}" && -n "${WPORG_PASSWORD:-}" ]]; then
     svn commit "$svn_dir/trunk" -m "Release $VERSION" --username "$WPORG_USERNAME" --password "$WPORG_PASSWORD" --non-interactive || true
   else
-    svn commit "$svn_dir/trunk" -m "Release $VERSION" || true
+    svn commit "$svn_dir/trunk" -m "Release $VERSION" --non-interactive || true
   fi
 
   echo "Tagging $VERSION..."
@@ -292,7 +292,7 @@ deploy_to_wporg_svn() {
   if [[ -n "${WPORG_USERNAME:-}" && -n "${WPORG_PASSWORD:-}" ]]; then
     (cd "$svn_dir" && svn commit -m "Tagging version $VERSION" --username "$WPORG_USERNAME" --password "$WPORG_PASSWORD" --non-interactive) || true
   else
-    (cd "$svn_dir" && svn commit -m "Tagging version $VERSION") || true
+    (cd "$svn_dir" && svn commit -m "Tagging version $VERSION" --non-interactive) || true
   fi
 
   echo "SVN deployment complete."

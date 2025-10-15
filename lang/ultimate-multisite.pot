@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Multisite 2.4.5\n"
+"Project-Id-Version: Ultimate Multisite 2.4.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ultimate-multisite\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-13T17:14:01+00:00\n"
+"POT-Creation-Date: 2025-10-15T21:24:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ultimate-multisite\n"
@@ -14457,6 +14457,10 @@ msgstr ""
 msgid "Zambian Kwacha"
 msgstr ""
 
+#: inc/functions/currency.php:160
+msgid "Iranian Rial"
+msgstr ""
+
 #: inc/functions/customer.php:162
 msgid "The email address is invalid."
 msgstr ""
@@ -15859,108 +15863,6 @@ msgstr ""
 msgid "GridPane is the world's first hosting control panel built exclusively for serious WordPress professionals."
 msgstr ""
 
-#: inc/integrations/host-providers/class-hestia-host-provider.php:98
-msgid "Hestia API URL"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:99
-msgid "Base API endpoint, typically https://your-hestia:8083/api/"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:100
-msgid "e.g. https://server.example.com:8083/api/"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:103
-msgid "Hestia API Username"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:104
-msgid "Hestia user for API calls (often admin)"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:105
-#: inc/integrations/host-providers/class-hestia-host-provider.php:121
-msgid "e.g. admin"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:109
-msgid "Hestia API Password"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:110
-msgid "Optional if using API hash authentication."
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:111
-msgid "••••••••"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:114
-msgid "Hestia API Hash (Token)"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:115
-msgid "Optional: API hash/token alternative to password. Provide either this OR a password."
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:116
-msgid "e.g. 1a2b3c4d..."
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:119
-msgid "Hestia Account (Owner)"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:120
-msgid "The Hestia user that owns the web domain (first argument to v-add-web-domain-alias)."
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:124
-msgid "Base Web Domain"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:125
-msgid "Existing Hestia web domain that your WordPress is served from. Aliases will be attached to this."
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:126
-msgid "e.g. network.example.com"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:129
-msgid "Restart Web Service"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:130
-msgid "Whether to restart/reload services after alias changes (yes/no). Defaults to yes."
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:131
-msgid "yes"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:147
-msgid "Missing WU_HESTIA_ACCOUNT or WU_HESTIA_WEB_DOMAIN; cannot add alias."
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:171
-msgid "Missing WU_HESTIA_ACCOUNT or WU_HESTIA_WEB_DOMAIN; cannot remove alias."
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:217
-msgid "Integrates with Hestia Control Panel to add and remove web domain aliases automatically when domains are mapped or removed."
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:260
-msgid "Missing WU_HESTIA_API_URL"
-msgstr ""
-
-#: inc/integrations/host-providers/class-hestia-host-provider.php:310
-#, php-format
-msgid "HTTP %d from Hestia API: %s"
-msgstr ""
-
 #: inc/integrations/host-providers/class-runcloud-host-provider.php:93
 msgid "RunCloud API Key"
 msgstr ""
@@ -17219,42 +17121,42 @@ msgid "The necessary constants were not found on your wp-config.php file: %s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: URL being tested
-#: inc/managers/class-domain-manager.php:1035
+#: inc/managers/class-domain-manager.php:1030
 #, php-format
 msgid "Testing domain verification via Loopback using %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Error Message
-#: inc/managers/class-domain-manager.php:1058
+#: inc/managers/class-domain-manager.php:1053
 #, php-format
 msgid "Failed to connect via %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: HTTP Response Code
-#: inc/managers/class-domain-manager.php:1076
+#: inc/managers/class-domain-manager.php:1071
 #, php-format
 msgid "Loopback request via %1$s returned HTTP %2$d"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Json error, %3$s part of the response
-#: inc/managers/class-domain-manager.php:1093
+#: inc/managers/class-domain-manager.php:1088
 #, php-format
 msgid "Loopback response via %1$s is not valid JSON: %2$s : %3$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number
-#: inc/managers/class-domain-manager.php:1109
+#: inc/managers/class-domain-manager.php:1104
 #, php-format
 msgid "Domain verification successful via Loopback using %1$s. Domain ID %2$d confirmed."
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number, %3$s Domain ID number
-#: inc/managers/class-domain-manager.php:1122
+#: inc/managers/class-domain-manager.php:1117
 #, php-format
 msgid "Loopback response via %1$s did not contain expected domain ID. Expected: %2$d, Got: %3$s"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:1133
+#: inc/managers/class-domain-manager.php:1128
 msgid "Domain verification failed via loopback on all protocols (HTTPS with SSL, HTTPS without SSL, HTTP)."
 msgstr ""
 
@@ -18460,7 +18362,7 @@ msgstr ""
 #. Translators: %s is replaced with <a href="{login_url}">here</a>
 #: inc/ui/class-checkout-element.php:520
 #, php-format
-msgid "Click %s sign in."
+msgid "Click %s to sign in."
 msgstr ""
 
 #. translators: %s is the id of the form. e.g. main-form

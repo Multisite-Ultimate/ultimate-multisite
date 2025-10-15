@@ -94,7 +94,7 @@ update_versions() {
 
   # ultimate-multisite.php header Version and @version
   sed -i.bak -E "s/^( \* Version:[[:space:]]*).*/\\1$VERSION/" ultimate-multisite.php
-  sed -i.bak -E "s/^( \* @version[[:space:]]*).*/\\1 $VERSION/" ultimate-multisite.php
+  sed -i.bak -E "s/^( \* @version).*/\\1 $VERSION/" ultimate-multisite.php
 
   # WP_Ultimo const VERSION
   sed -i.bak -E "s/(const VERSION = ')[^']+(';)/\\1$VERSION\\2/" inc/class-wp-ultimo.php

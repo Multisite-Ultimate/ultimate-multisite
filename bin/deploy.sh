@@ -126,9 +126,9 @@ sync_changelog_and_date() {
   # Extract changelog block for version from readme.txt
   CHANGELOG_BLOCK=$(awk -v ver="$VERSION" '
     /^== Changelog ==/ { inlog=1; next }
-    inlog && $0 ~ ("^Version \[" ver "\] - Released on") { on=1 }
+    inlog && $0 ~ ("^Version \\[" ver "\\] - Released on") { on=1 }
     inlog && on {
-      if (!first && $0 ~ /^Version \[/) exit
+      if (!first && $0 ~ /^Version \\[/) exit
       print
       first=0
     }
@@ -210,9 +210,9 @@ generate_release_notes() {
     echo "### Highlights"
     # Take the bullet lines from the readme.txt changelog block
     awk -v ver="$VERSION" '
-      $0 ~ "^Version \[" ver "\] - Released on" { on=1; next }
+      $0 ~ ("^Version \\[" ver "\\] - Released on") { on=1; next }
       on {
-        if ($0 ~ /^Version \[/) exit
+        if ($0 ~ /^Version \\[/) exit
         if (NF==0) next
         print
       }

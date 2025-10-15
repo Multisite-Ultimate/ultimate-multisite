@@ -31,7 +31,7 @@ final class WP_Ultimo {
 	 * @since 2.1.0
 	 * @var string
 	 */
-	const VERSION = '2.4.5';
+	const VERSION = '2.4.6';
 
 	/**
 	 * Core log handle for Ultimate Multisite.

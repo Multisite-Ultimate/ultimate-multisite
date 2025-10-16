@@ -27,9 +27,10 @@ class Cache_Manager {
 	 * Flush known caching plugins, offers hooks to add more plugins in the future
 	 *
 	 * @since 2.1.2
+	 * @param array $types Optional. Array of cache types to flush. If empty, all caches will be flushed.
 	 * @return void
 	 */
-	public function flush_known_caches(): void {
+	public function flush_known_caches(array $types = array()): void {
 
 		/**
 		 * Iterate through known caching plugins methods and flush them
@@ -39,6 +40,14 @@ class Cache_Manager {
 		 */
 		foreach (get_class_methods($this) as $method) {
 			if (str_ends_with($method, '_cache_flush')) {
+				// Extract the cache type from the method name
+				$cache_type = str_replace('_cache_flush', '', $method);
+
+				// If types are specified and this type is not in the list, skip it
+				if (!empty($types) && !in_array($cache_type, $types)) {
+					continue;
+				}
+
 				$this->$method();
 			}
 		}
@@ -46,7 +55,7 @@ class Cache_Manager {
 		/**
 		 * Hook to additional cleaning
 		 */
-		do_action('wu_flush_known_caches');
+		do_action('wu_flush_known_caches', $types);
 	}
 
 	/**
@@ -178,5 +187,105 @@ class Cache_Manager {
 			\LiteSpeed_Cache_API::purge_all(); // LiteSpeed Cache Flushing
 
 		}
+	}
+
+	/**
+	 * Flush WordPress Object Cache
+	 *
+	 * @since 2.1.2
+	 * @return void
+	 */
+	protected function wp_object_cache_flush() {
+
+		// Flush WordPress object cache
+		wp_cache_flush();
+
+		// Also flush WP Ultimo specific caches
+		$this->flush_wp_ultimo_caches();
+	}
+
+	/**
+	 * Flush WP Ultimo specific caches
+	 *
+	 * @since 2.1.2
+	 * @return void
+	 */
+	public function flush_wp_ultimo_caches() {
+
+		// Clear financial data cache
+		$this->clear_cache_group('wu_financial_data');
+
+		// Clear filesystem cache
+		$this->clear_cache_group('wu_filesystem');
+
+		// Clear queries cache
+		$this->clear_cache_group('wu_queries');
+
+		// Clear items cache
+		$this->clear_cache_group('wu_items');
+
+		/**
+		 * Allow plugins to clear additional WP Ultimo specific caches
+		 *
+		 * @since 2.1.2
+		 */
+		do_action('wu_flush_wp_ultimo_caches');
+	}
+
+	/**
+	 * Clear a specific cache group
+	 *
+	 * @since 2.1.2
+	 * @param string $group Cache group to clear
+	 * @return void
+	 */
+	protected function clear_cache_group(string $group) {
+
+		global $wp_object_cache;
+
+		// Check if the object cache supports group deletion
+		if (is_object($wp_object_cache) && method_exists($wp_object_cache, 'delete_group')) {
+			$wp_object_cache->delete_group($group);
+		}
+	}
+
+	/**
+	 * Get available cache types that can be flushed
+	 *
+	 * @since 2.1.2
+	 * @return array Array of available cache types
+	 */
+	public function get_available_cache_types(): array {
+
+		$available_types = array();
+
+		foreach (get_class_methods($this) as $method) {
+			if (str_ends_with($method, '_cache_flush')) {
+				$cache_type = str_replace('_cache_flush', '', $method);
+				$available_types[] = $cache_type;
+			}
+		}
+
+		/**
+		 * Filter the available cache types
+		 *
+		 * @since 2.1.2
+		 * @param array $available_types Array of available cache types
+		 */
+		return apply_filters('wu_available_cache_types', $available_types);
+	}
+
+	/**
+	 * Check if a specific cache type is available
+	 *
+	 * @since 2.1.2
+	 * @param string $type Cache type to check
+	 * @return bool True if the cache type is available, false otherwise
+	 */
+	public function is_cache_type_available(string $type): bool {
+
+		$method = $type . '_cache_flush';
+
+		return method_exists($this, $method);
 	}
 }

@@ -417,6 +417,8 @@ final class WP_Ultimo {
 		require_once wu_path('inc/functions/generator.php');
 		require_once wu_path('inc/functions/color.php');
 		require_once wu_path('inc/functions/danger.php');
+		require_once wu_path('inc/functions/compatibility.php');
+		require_once wu_path('inc/compatibility/class-page-builder-detector.php');
 
 		/*
 		 * Admin helper functions
@@ -642,6 +644,11 @@ final class WP_Ultimo {
 		 * Cron Schedules
 		 */
 		\WP_Ultimo\Cron::get_instance();
+
+		/*
+		 * Load compatibility classes
+		 */
+		wu_load_compatibility_classes();
 	}
 
 	/**

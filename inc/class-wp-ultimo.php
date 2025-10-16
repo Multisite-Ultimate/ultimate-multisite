@@ -417,6 +417,7 @@ final class WP_Ultimo {
 		require_once wu_path('inc/functions/generator.php');
 		require_once wu_path('inc/functions/color.php');
 		require_once wu_path('inc/functions/danger.php');
+		require_once wu_path('inc/functions/transients.php');
 
 		/*
 		 * Admin helper functions
@@ -918,6 +919,11 @@ final class WP_Ultimo {
 		WP_Ultimo\Managers\Cache_Manager::get_instance();
 		WP_Ultimo\Orphaned_Tables_Manager::get_instance();
 		WP_Ultimo\Orphaned_Users_Manager::get_instance();
+
+		/*
+		 * Loads the Transient manager.
+		 */
+		WP_Ultimo\Managers\Transient_Manager::get_instance();
 
 		/**
 		 * Loads views overrides

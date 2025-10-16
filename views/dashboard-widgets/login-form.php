@@ -7,7 +7,7 @@
 defined('ABSPATH') || exit;
 
 ?>
-<div class="wu-styling <?php echo esc_attr($className); ?>">
+<div class="wu-styling wu-login-form <?php echo esc_attr($className); ?>">
 
 	<?php if ($logged) : ?>
 

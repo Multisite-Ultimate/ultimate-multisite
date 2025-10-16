@@ -301,6 +301,17 @@ class Login_Form_Element extends Base_Element {
 	public function register_scripts(): void {
 
 		wp_enqueue_style('wu-admin');
+
+		// Register and enqueue the AJAX login script
+		wp_register_script('wu-login-ajax', wu_get_asset('login-ajax.min.js', 'js'), array('jquery'), WP_Ultimo::VERSION, true);
+
+		// Localize the script with necessary data
+		wp_localize_script('wu-login-ajax', 'wu_login_ajax', array(
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'nonce'    => wp_create_nonce('wu-ajax-login-nonce'),
+		));
+
+		wp_enqueue_script('wu-login-ajax');
 	}
 
 	/**

@@ -324,6 +324,11 @@ class SSO {
 
 		global $pagenow;
 
+		// Emergency login bypass - allows direct access to wp-login.php
+		if (wu_request('emergency_login')) {
+			return true;
+		}
+
 		$broker = $this->get_broker();
 
 		if ($broker->is_must_redirect_call()) {

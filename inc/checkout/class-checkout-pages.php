@@ -456,6 +456,11 @@ class Checkout_Pages {
 			return;
 		}
 
+		// Emergency login bypass - allows direct access to wp-login.php
+		if (wu_request('emergency_login')) {
+			return;
+		}
+
 		$new_login_url = $this->get_page_url('login');
 
 		if ( ! $new_login_url) {

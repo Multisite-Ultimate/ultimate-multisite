@@ -41,6 +41,11 @@ class Ajax implements \WP_Ultimo\Interfaces\Singleton {
 		 * Load search endpoints.
 		 */
 		add_action('wp_ajax_wu_list_table_fetch_ajax_results', [$this, 'refresh_list_table']);
+
+		/*
+		 * AJAX Login handler
+		 */
+		add_action('wp_ajax_nopriv_wu_ajax_login', [$this, 'handle_ajax_login']);
 	}
 
 	/**
@@ -413,5 +418,58 @@ class Ajax implements \WP_Ultimo\Interfaces\Singleton {
 		if (current_user_can('manage_network')) {
 			wu_get_template('ui/selectize-templates');
 		}
+	}
+
+	/**
+	 * Handles AJAX login requests.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
+	public function handle_ajax_login(): void {
+		// Check nonce
+		if (!check_ajax_referer('wu-ajax-login-nonce', 'security', false)) {
+			wp_send_json_error(array(
+				'message' => __('Security check failed. Please refresh the page and try again.', 'wp-multisite-waas')
+			));
+		}
+
+		// Parse the form data
+		$form_data = array();
+		parse_str($_POST['data'], $form_data);
+
+		// Check for required fields
+		if (empty($form_data['log']) || empty($form_data['pwd'])) {
+			wp_send_json_error(array(
+				'message' => __('Username and password are required.', 'wp-multisite-waas')
+			));
+		}
+
+		// Prevent caching
+		wu_no_cache();
+
+		// Attempt to log the user in
+		$credentials = array(
+			'user_login'    => $form_data['log'],
+			'user_password' => $form_data['pwd'],
+			'remember'      => isset($form_data['rememberme'])
+		);
+
+		$user = wp_signon($credentials, is_ssl());
+
+		// Check for errors
+		if (is_wp_error($user)) {
+			wp_send_json_error(array(
+				'message' => $user->get_error_message()
+			));
+		}
+
+		// Determine redirect URL
+		$redirect_to = !empty($form_data['redirect_to']) ? $form_data['redirect_to'] : admin_url();
+
+		// Success response
+		wp_send_json_success(array(
+			'redirect' => $redirect_to
+		));
 	}
 }

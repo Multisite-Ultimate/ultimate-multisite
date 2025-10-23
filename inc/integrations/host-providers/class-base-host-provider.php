@@ -94,7 +94,12 @@ abstract class Base_Host_Provider {
 				/*
 				 * Adds an admin notice telling the admin that the provider is not correctly setup.
 				 */
-				$this->alert_provider_not_setup();
+				if (did_action('init')) {
+					$this->alert_provider_not_setup();
+				} else {
+					// avoid text domain loaded at the wrong time.
+					add_action('init', [$this, 'alert_provider_not_setup']);
+				}
 			}
 
 			/*

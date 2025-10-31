@@ -61,6 +61,9 @@ function wu_get_site_by_hash($hash) {
  * @return \WP_Ultimo\Models\Site[]
  */
 function wu_get_sites($query = []) {
+	if ( empty($query['number']) ) {
+		$query['number'] = 100;
+	}
 
 	if ( ! empty($query['search'])) {
 		// We also want to find sites with a matching mapped domain.

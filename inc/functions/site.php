@@ -63,20 +63,35 @@ function wu_get_site_by_hash($hash) {
 function wu_get_sites($query = []) {
 
 	if ( ! empty($query['search'])) {
+		// We also want to find sites with a matching mapped domain.
 		$domain_ids = wu_get_domains(
 			[
-				'number' => -1,
-				'search' => '*' . $query['search'] . '*',
-				'fields' => ['blog_id'],
+				'number'      => $query['number'],
+				'search'      => '*' . $query['search'] . '*',
+				'fields'      => ['blog_id'],
+				'blog_id__in' => $query['blog_id__in'] ?? false,
 			]
 		);
 
 		$domain_ids = array_column($domain_ids, 'blog_id');
 
 		if ( ! empty($domain_ids)) {
-			$query['blog_id__in'] = $domain_ids;
+			$sites_with_domain_query                = $query;
+			$sites_with_domain_query['blog_id__in'] = $domain_ids;
 
-			unset($query['search']);
+			unset($sites_with_domain_query['search']);
+			$sites_by_domain = \WP_Ultimo\Models\Site::query($sites_with_domain_query);
+
+			$query['number']         -= count($sites_by_domain);
+			$query['blog_id__not_in'] = $domain_ids;
+
+			if ($query['number'] <= 0) {
+				// We reached the limit already.
+				return $sites_by_domain;
+			}
+			$sites = \WP_Ultimo\Models\Site::query($query);
+			// return matches by domain first.
+			return array_merge($sites_by_domain, $sites);
 		}
 	}
 

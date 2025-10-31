@@ -199,6 +199,14 @@ We recommend running this in a staging environment before updating your producti
 
 ## 📝 Recent Changes
 
+### Version [2.4.7] - Released on 2025-10-31
+- Fixed: Conflict with YesCookie plugin.
+- Improved: Thumbnail image quality on template selection in the checkout.
+- Fixed: Redirect from secondary domains to primary domain.
+- Fixed: Choosing templates for checkout form builder.
+- Fixed: Extra domain creation with subdirectory installation.
+- Improved: Allow html in custom domain instructions.
+
 ### Version [2.4.6] - Released on 2025-10-15
 - Fixed: Toggle switches in RTL languages.
 - Fixed: Rendering admin pages for legacy addons.

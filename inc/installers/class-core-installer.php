@@ -94,7 +94,7 @@ class Core_Installer extends Base_Installer {
 	 * @throws \Exception When an error occurs during the creation.
 	 * @return void
 	 */
-	public function _install_database_tables(): void {
+	public function _install_database_tables(): void { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$tables = \WP_Ultimo\Loaders\Table_Loader::get_instance()->get_tables();
 
@@ -110,9 +110,9 @@ class Core_Installer extends Base_Installer {
 				continue;
 			}
 
-			$success = $table->install();
+			$table->install();
 
-			if (false === $success) {
+			if (! $table->get_version()) {
 
 				// translators: %s is the name of a database table, e.g. wu_memberships.
 				$error_message = sprintf(__('Installation of the table %s failed', 'ultimate-multisite'), $table->get_name());
@@ -129,7 +129,7 @@ class Core_Installer extends Base_Installer {
 	 * @throws \Exception When sunrise copying fails.
 	 * @return void
 	 */
-	public function _install_sunrise(): void {
+	public function _install_sunrise(): void { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$copy = \WP_Ultimo\Sunrise::try_upgrade();
 

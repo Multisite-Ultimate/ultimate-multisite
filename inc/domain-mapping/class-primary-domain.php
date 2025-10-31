@@ -105,9 +105,12 @@ class Primary_Domain {
 
 			$new_url = Domain_Mapping::get_instance()->replace_url($url, $primary_domain);
 
-			wp_redirect(set_url_scheme($new_url));
+			if ($url !== $new_url ) {
+				// TODO: Use wp_safe_redirect
+				wp_redirect(set_url_scheme($new_url)); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 
-			exit;
+				exit;
+			}
 		}
 	}
 
@@ -171,7 +174,7 @@ class Primary_Domain {
 		}
 
 		if ($redirect_url) {
-			wp_redirect(add_query_arg($query_args, $redirect_url));
+			wp_redirect(add_query_arg($query_args, $redirect_url)); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 
 			exit;
 		}

@@ -230,7 +230,7 @@ class Domain extends Base_Model {
 	}
 
 	/**
-	 * Get's the path of the mapped site.
+	 * Gets the path of the mapped site.
 	 *
 	 * @return string|null
 	 */

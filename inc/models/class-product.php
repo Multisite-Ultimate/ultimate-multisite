@@ -275,7 +275,7 @@ class Product extends Base_Model implements Limitable {
 	 * @since 2.0.0
 	 * @var array
 	 */
-	protected $_mappings = [
+	protected $_mappings = [ // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 		'product_group' => 'group',
 	];
 
@@ -1365,8 +1365,8 @@ class Product extends Base_Model implements Limitable {
 	/**
 	 * Creates a copy of the given model adn resets it's id to a 'new' state.
 	 *
+	 * @return Base_Model|Product
 	 * @since 2.0.0
-	 * @return \WP_Ultimo\Model\Base_Model
 	 */
 	public function duplicate() {
 

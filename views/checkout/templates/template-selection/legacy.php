@@ -202,7 +202,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 							<div class="theme-screenshot">
 
 								<img
-										src="<?php echo esc_url($site->get_featured_image()); ?>"
+										src="<?php echo esc_url($site->get_featured_image('wu-thumb-large')); ?>"
 										alt="<?php echo esc_attr($site->get_title()); ?>"
 								>
 							</div>

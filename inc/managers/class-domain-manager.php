@@ -156,7 +156,7 @@ class Domain_Manager extends Base_Manager {
 
 		add_action('wu_domain_created', [$this, 'handle_domain_created'], 10, 3);
 
-		add_action('wu_domain_post_delete', [$this, 'handle_domain_deleted'], 10, 3);
+		add_action('wu_domain_post_delete', [$this, 'handle_domain_deleted'], 10, 2);
 
 		/*
 		 * Add and remove sub-domains
@@ -196,8 +196,6 @@ class Domain_Manager extends Base_Manager {
 		$has_subdomain = str_replace($current_site->domain, '', $site->domain);
 
 		if ( ! $has_subdomain) {
-			// Create a domain record for the site
-			$this->create_domain_record_for_site($site);
 			return;
 		}
 
@@ -393,18 +391,19 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'domain_mapping_instructions',
 			[
-				'title'     => __('Add New Domain Instructions', 'ultimate-multisite'),
-				'tooltip'   => __('Display a customized message with instructions for the mapping and alerting the end-user of the risks of mapping a misconfigured domain.', 'ultimate-multisite'),
-				'desc'      => __('You can use the placeholder <code>%NETWORK_DOMAIN%</code> and <code>%NETWORK_IP%</code>.', 'ultimate-multisite'),
-				'type'      => 'textarea',
-				'default'   => [$this, 'default_domain_mapping_instructions'],
-				'html_attr' => [
+				'title'      => __('Add New Domain Instructions', 'ultimate-multisite'),
+				'tooltip'    => __('Display a customized message with instructions for the mapping and alerting the end-user of the risks of mapping a misconfigured domain.', 'ultimate-multisite'),
+				'desc'       => __('You can use the placeholder <code>%NETWORK_DOMAIN%</code> and <code>%NETWORK_IP%.</code> HTML is allowed.', 'ultimate-multisite'),
+				'type'       => 'textarea',
+				'default'    => [$this, 'default_domain_mapping_instructions'],
+				'html_attr'  => [
 					'rows' => 8,
 				],
-				'require'   => [
+				'require'    => [
 					'enable_domain_mapping' => true,
 					'custom_domains'        => true,
 				],
+				'allow_html' => true,
 			]
 		);
 

@@ -86,7 +86,8 @@ function wu_get_sites($query = []) {
 			$sites_by_domain = \WP_Ultimo\Models\Site::query($sites_with_domain_query);
 
 			$query['number']         -= count($sites_by_domain);
-			$query['blog_id__not_in'] = $domain_ids;
+			$existing_not_in          = isset($query['blog_id__not_in']) ? (array) $query['blog_id__not_in'] : [];
+			$query['blog_id__not_in'] = array_unique(array_merge($existing_not_in, $domain_ids));
 
 			if ($query['number'] <= 0) {
 				// We reached the limit already.

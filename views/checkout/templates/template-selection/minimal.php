@@ -99,7 +99,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 				v-cloak
 			>
 
-				<img class="wu-site-template-image" src="<?php echo esc_attr($site_template->get_featured_image()); ?>" alt="<?php echo esc_attr($site_template->get_title()); ?>">
+				<img class="wu-site-template-image" src="<?php echo esc_attr($site_template->get_featured_image('wu-thumb-large')); ?>" alt="<?php echo esc_attr($site_template->get_title()); ?>">
 
 				<h3 class="wu-site-template-title">
 					<?php echo esc_html($site_template->get_title()); ?>

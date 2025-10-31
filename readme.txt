@@ -234,6 +234,7 @@ Version [2.4.7] - Released on 2025-XX-XX
 - Fixed: Redirect from secondary domains to primary domain.
 - Fixed: Choosing templates for checkout form builder.
 - Fixed: Extra domain creation with subdirectory installation.
+- Improved: Allow html in custom domain instructions.
 
 Version [2.4.6] - Released on 2025-10-15
 - Fixed: Toggle switches in RTL languages.

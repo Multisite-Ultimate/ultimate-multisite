@@ -161,6 +161,13 @@ class Domain_Mapping {
 			2
 		);
 
+		/*
+		 * Fix user role context for domain-mapped sites
+		 * This ensures that user capabilities are properly loaded for the current blog
+		 * even when accessing via a custom domain.
+		 */
+		add_action('set_current_user', [$this, 'refresh_user_roles_for_mapped_domain']);
+
 		/**
 		 * Fired after our core Domain Mapping has been loaded
 		 *
@@ -325,6 +332,9 @@ class Domain_Mapping {
 		if ( ! $is_active) {
 			return $site;
 		}
+
+		// Store the mapping for later use
+		$this->current_mapping = $mapping;
 
 		// Fetch the actual data for the site
 		$mapped_site = $mapping->get_site();
@@ -575,5 +585,89 @@ class Domain_Mapping {
 		}
 
 		return $sources;
+	}
+
+	/**
+	 * Refresh user roles for the current blog context on domain-mapped sites
+	 *
+	 * This method ensures that when a site is accessed via a custom domain,
+	 * the user's roles are properly loaded for the mapped blog, not the original domain.
+	 *
+	 * Problem: When domain mapping occurs early (via sunrise.php), WordPress may cache
+	 * user role data before the correct blog context is established. This causes issues
+	 * with plugins that check user roles (like If Menu) because $current_user->roles
+	 * may be empty or contain roles from the wrong blog.
+	 *
+	 * Solution: After the current user is set, we ensure that their role data is
+	 * properly initialized for the current blog by calling for_site() method,
+	 * which refreshes the user's capabilities and roles for the active blog context.
+	 *
+	 * @since 2.0.11
+	 * @return void
+	 */
+	public function refresh_user_roles_for_mapped_domain(): void {
+
+		// Only process for logged-in users
+		if ( ! is_user_logged_in()) {
+			return;
+		}
+
+		// Get the current user
+		$user = wp_get_current_user();
+
+		// If user object is not valid, bail
+		if ( ! $user || ! $user->exists()) {
+			return;
+		}
+
+		// Try to use the already-determined mapping first
+		$mapping = $this->current_mapping;
+
+		// If not set yet, check if this domain is mapped
+		if (empty($mapping)) {
+			// Get the current domain being accessed
+			if ( ! isset($_SERVER['HTTP_HOST'])) {
+				return;
+			}
+
+			$domain = sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST']));
+
+			// Check if this domain is mapped
+			$domains = $this->get_www_and_nowww_versions($domain);
+
+			$mapping = Domain::get_by_domain($domains);
+
+			// If no mapping exists, no need to refresh
+			if (empty($mapping) || is_wp_error($mapping)) {
+				return;
+			}
+		}
+
+		// Only proceed if the mapping is active
+		if ( ! $mapping->is_active()) {
+			return;
+		}
+
+		$current_blog_id = get_current_blog_id();
+
+		// Get the blog ID from the mapping
+		$mapped_blog_id = $mapping->get_blog_id();
+
+		// Only refresh if we're on the mapped blog
+		if ($current_blog_id !== $mapped_blog_id) {
+			return;
+		}
+
+		/*
+		 * The for_site() method reinitializes the user's capabilities and roles
+		 * for the specified blog. This ensures that $user->roles is properly
+		 * populated with roles from the current (mapped) blog context.
+		 *
+		 * This is critical because:
+		 * 1. User roles are stored per-blog in multisite (wp_{blog_id}_capabilities)
+		 * 2. When domain mapping occurs early, the role data may be from the wrong blog
+		 * 3. Plugins checking $user->roles or current_user_can() need accurate data
+		 */
+		$user->for_site($current_blog_id);
 	}
 }

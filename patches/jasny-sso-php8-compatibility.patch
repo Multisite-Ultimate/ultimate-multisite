@@ -24,3 +24,11 @@
      public function offsetExists($name)
      {
          return isset($_COOKIE[$name]);
+@@ -82,6 +85,7 @@ class Cookies implements \ArrayAccess
+     /**
+      * @inheritDoc
+      */
++    #[\ReturnTypeWillChange]
+     public function offsetUnset($name)
+     {
+         setcookie($name, '', 1, $this->path, $this->domain, $this->secure, true);

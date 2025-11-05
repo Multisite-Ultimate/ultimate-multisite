@@ -7,19 +7,26 @@
 
   window.wu.sso_denied = function() {
 
-    wu_create_cookie('wu_sso_denied', 1, o.expiration_in_minutes);
+    wu_create_cookie('wu_sso_denied', 1, o.expiration_in_days);
 
-  }; // end if;
+  };
 
   window.wu.check_for_incognito_window = function() {
 
-    detectIncognito(results => window.is_incognito = results.isPrivate);
+    try {
 
-  } // end is_incognito_window;
+      detectIncognito(results => window.is_incognito = results.isPrivate);
+
+    } catch (e) {
+
+      // If detectIncognito fails, assume not incognito
+      window.is_incognito = false;
+
+    }
+
+  }
 
   window.wu.check_for_incognito_window();
-
-  window.addEventListener('error', wu.sso_denied, true);
 
   const w = document.createElement('script');
 
@@ -79,7 +86,7 @@
 
     document.body.insertAdjacentHTML('beforeend', '<div class="sso-overlay">&nbsp;</div>');
 
-  } // end if;
+  }
 
   window.wu.sso = function(payload) {
 
@@ -91,7 +98,7 @@
 
         document.body.classList.add('sso-loading');
 
-      } // end if;
+      }
 
       /**
        * In case we're dealing with http (without ssl),
@@ -107,10 +114,8 @@
         window.location.replace(`${ o.server_url }?return_url=${ encodedLocation }`);
 
       } else {
-
         window.location.replace(`${ o.server_url }?sso_verify=${ payload.verify }&return_url=${ encodedLocation }`);
-
-      } // end if;
+      }
 
     } else {
 
@@ -126,21 +131,21 @@
 
           document.body.classList.add('sso-loading');
 
-        } // end if;
+        }
 
         window.location.replace(`${o.server_url}?return_url=${ encodedLocation }`);
 
         return;
 
-      } // end if;
+      }
 
       window.wu.sso_denied();
 
       document.body.classList.remove('sso-loading');
 
-    } // end if;
+    }
 
-  }; // end sso;
+  };
 
   (function clean_up_query_args() {
 
@@ -148,7 +153,7 @@
 
       window.history.replaceState(null, null, o.filtered_url + window.location.hash);
 
-    } // end if;
+    }
 
   }());
 

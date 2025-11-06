@@ -84,9 +84,7 @@ class Checkout_Pages {
 			return $redirect_to;
 		}
 
-		$redirect_to = add_query_arg('checkemail', 'confirm', wp_login_url());
-
-		return $redirect_to;
+		return add_query_arg('checkemail', 'confirm', wp_login_url());
 	}
 
 	/**

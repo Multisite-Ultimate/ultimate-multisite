@@ -54,7 +54,7 @@ class Hash {
 	 *
 	 * @param string $hash Hash to decode.
 	 * @param string $group Hash group. Used to increase entropy.
-	 * @return int
+	 * @return string|int
 	 */
 	public static function decode($hash, $group = 'wp-ultimo') {
 

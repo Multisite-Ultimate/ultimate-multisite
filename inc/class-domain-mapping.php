@@ -135,6 +135,12 @@ class Domain_Mapping {
 		 */
 		add_action('ms_loaded', [$this, 'register_mapped_filters'], 11);
 
+		/*
+		 * Allow redirects to any host that belongs to this network
+		 * (either a mapped domain or a site's original domain).
+		 */
+		add_filter('allowed_redirect_hosts', [$this, 'allow_network_redirect_hosts'], 20, 2);
+
 		/**
 		 * On WP Ultimo 1.X builds we used Mercator. The Mercator actions and filters are now deprecated.
 		 */
@@ -198,6 +204,69 @@ class Domain_Mapping {
 		}
 
 		return $origin;
+	}
+
+	/**
+	 * Extend allowed redirect hosts with any host present in the network.
+	 *
+	 * - If `$host` is already allowed, return as-is.
+	 * - Otherwise, allow when `$host` matches a mapped domain (including www/no-www variants),
+	 *   or when there is a site registered on the network using `$host` as its domain.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string[] $allowed_hosts Currently allowed hosts.
+	 * @param string   $host          Host being validated.
+	 * @return string[] Updated list of allowed hosts.
+	 */
+	public function allow_network_redirect_hosts($allowed_hosts, $host) {
+
+		// Basic sanity checks
+		if (empty($host)) {
+			return $allowed_hosts;
+		}
+
+		$host = strtolower($host);
+
+		// If already allowed, bail early
+		if (in_array($host, (array) $allowed_hosts, true)) {
+			return $allowed_hosts;
+		}
+
+		// 1) Check mapped domains (including www/no-www variants)
+		$domains_to_check = $this->get_www_and_nowww_versions($host);
+		$mapping          = \WP_Ultimo\Models\Domain::get_by_domain($domains_to_check);
+
+		if ($mapping && ! is_wp_error($mapping)) {
+			$allowed_hosts[] = $host;
+			return array_values(array_unique($allowed_hosts));
+		}
+
+		// 2) Check if any site is registered with this domain on the network
+		$site = function_exists('get_site_by_path') ? get_site_by_path($host, '/') : null;
+
+		if ($site instanceof \WP_Site) {
+			$allowed_hosts[] = $host;
+			return array_values(array_unique($allowed_hosts));
+		}
+
+		// Fallback: try a lightweight site query by domain (if available in this context)
+		if (function_exists('get_sites')) {
+			$maybe = get_sites(
+				[
+					'number' => 1,
+					'domain' => $host,
+					'fields' => 'ids',
+				]
+			);
+
+			if (! empty($maybe)) {
+				$allowed_hosts[] = $host;
+				return array_values(array_unique($allowed_hosts));
+			}
+		}
+
+		return $allowed_hosts;
 	}
 
 	/**
@@ -325,6 +394,9 @@ class Domain_Mapping {
 		if ( ! $is_active) {
 			return $site;
 		}
+
+		// Store the mapping for later use
+		$this->current_mapping = $mapping;
 
 		// Fetch the actual data for the site
 		$mapped_site = $mapping->get_site();

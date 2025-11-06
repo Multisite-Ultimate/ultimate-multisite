@@ -636,7 +636,24 @@ class Domain_Mapping_Element extends Base_Element {
 
 			wp_send_json_success(
 				[
-					'redirect_url' => is_main_site() ? wu_get_current_url() : get_admin_url($current_site),
+					/**
+					 * Filters the redirect URL after making a domain primary.
+					 *
+					 * Allows developers to customize where users are redirected after successfully
+					 * setting a domain as primary. By default, redirects to the current URL on the
+					 * main site, or to the admin URL of the site being modified.
+					 *
+					 * @since 2.0.0
+					 *
+					 * @param string $redirect_url        The default redirect URL. Either the current URL (if main site)
+					 *                                    or the admin URL of the current site.
+					 * @param int    $current_site        The ID of the site whose domain is being made primary.
+					 * @param Domain $domain              The domain object that was made primary.
+					 * @param array  $old_primary_domains Array of IDs of domains that were previously primary.
+					 *
+					 * @return string The filtered redirect URL.
+					 */
+					'redirect_url' => apply_filters('wu_make_primary_domain_redirect_url', is_main_site() ? wu_get_current_url() : get_admin_url($current_site), $current_site, $domain, $old_primary_domains),
 				]
 			);
 		}

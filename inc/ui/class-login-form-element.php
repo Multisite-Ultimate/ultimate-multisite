@@ -740,7 +740,7 @@ class Login_Form_Element extends Base_Element {
 
 			$fields['redirect_to'] = [
 				'type'  => 'hidden',
-				'value' => $atts['redirect'],
+				'value' => isset($_GET['redirect_to']) ? sanitize_url(wp_unslash($_GET['redirect_to'])) : $atts['redirect'], // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			];
 
 			if (isset($_GET['redirect_to'])) { // phpcs:ignore WordPress.Security.NonceVerification
@@ -775,8 +775,8 @@ class Login_Form_Element extends Base_Element {
 		/*
 		 * Check for error messages
 		 *
-		 * If we have some, we add an additional field
-		 * at the top of the fields array, to display the errors.
+		 * If we have some, we add a field
+		 * at the top of the field array to display the errors.
 		 */
 		if (wu_request('error')) {
 			$username = wu_request('username', '');

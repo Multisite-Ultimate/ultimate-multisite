@@ -642,6 +642,8 @@ final class WP_Ultimo {
 		 * Cron Schedules
 		 */
 		\WP_Ultimo\Cron::get_instance();
+
+		\WP_Ultimo\MCP_Adapter::get_instance();
 	}
 
 	/**

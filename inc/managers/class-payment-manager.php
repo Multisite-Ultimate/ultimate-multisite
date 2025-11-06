@@ -11,6 +11,7 @@
 
 namespace WP_Ultimo\Managers;
 
+use Psr\Log\LogLevel;
 use WP_Ultimo\Managers\Base_Manager;
 use WP_Ultimo\Models\Payment;
 use WP_Ultimo\Logger;
@@ -29,8 +30,10 @@ class Payment_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
+	const LOG_FILE_NAME = 'payments';
 	/**
 	 * The manager slug.
 	 *
@@ -58,6 +61,8 @@ class Payment_Manager extends Base_Manager {
 		$this->enable_rest_api();
 
 		$this->enable_wp_cli();
+
+		$this->enable_mcp_abilities();
 
 		$this->register_forms();
 
@@ -317,7 +322,7 @@ class Payment_Manager extends Base_Manager {
 	 *
 	 * @param int $payment_id The ID of the payment being transferred.
 	 * @param int $target_customer_id The new owner.
-	 * @return mixed
+	 * @return void
 	 */
 	public function async_transfer_payment($payment_id, $target_customer_id) {
 
@@ -328,7 +333,8 @@ class Payment_Manager extends Base_Manager {
 		$target_customer = wu_get_customer($target_customer_id);
 
 		if ( ! $payment || ! $target_customer || $payment->get_customer_id() === $target_customer->get_id()) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
+			wu_log_add(self::LOG_FILE_NAME, __('An unexpected error happened.', 'ultimate-multisite'), LogLevel::ERROR);
+			return;
 		}
 
 		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -344,18 +350,17 @@ class Payment_Manager extends Base_Manager {
 
 			if (is_wp_error($saved)) {
 				$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-				return $saved;
+				wu_log_add(self::LOG_FILE_NAME, $saved->get_error_message(), LogLevel::ERROR);
+				return;
 			}
 		} catch (\Throwable $e) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			wu_log_add(self::LOG_FILE_NAME, $e->getMessage(), LogLevel::ERROR);
 
-			return new \WP_Error('exception', $e->getMessage());
+			return;
 		}
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-		return true;
 	}
 
 	/**
@@ -364,7 +369,7 @@ class Payment_Manager extends Base_Manager {
 	 * @since 2.0.0
 	 *
 	 * @param int $payment_id The ID of the payment being deleted.
-	 * @return mixed
+	 * @return void
 	 */
 	public function async_delete_payment($payment_id) {
 
@@ -373,7 +378,8 @@ class Payment_Manager extends Base_Manager {
 		$payment = wu_get_payment($payment_id);
 
 		if ( ! $payment) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
+			wu_log_add(self::LOG_FILE_NAME, __('An unexpected error happened.', 'ultimate-multisite'), LogLevel::ERROR);
+			return;
 		}
 
 		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -387,18 +393,17 @@ class Payment_Manager extends Base_Manager {
 
 			if (is_wp_error($saved)) {
 				$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-				return $saved;
+				wu_log_add(self::LOG_FILE_NAME, $saved->get_error_message(), LogLevel::ERROR);
+				return;
 			}
 		} catch (\Throwable $e) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
-			return new \WP_Error('exception', $e->getMessage());
+			wu_log_add(self::LOG_FILE_NAME, $e->getMessage(), LogLevel::ERROR);
+			return;
 		}
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-		return true;
 	}
 
 	/**

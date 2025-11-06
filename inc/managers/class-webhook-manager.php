@@ -26,6 +26,7 @@ class Webhook_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
@@ -71,6 +72,8 @@ class Webhook_Manager extends Base_Manager {
 		$this->enable_rest_api();
 
 		$this->enable_wp_cli();
+
+		$this->enable_mcp_abilities();
 
 		add_action('init', [$this, 'register_webhook_listeners']);
 

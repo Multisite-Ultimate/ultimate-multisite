@@ -1606,10 +1606,9 @@ class Site extends Base_Model implements Limitable, Notable {
 				 * @since 2.0.0
 				 *
 				 * @param array      $data The object data that will be stored.
-				 * @param \WP_Ultimo\Models\Base_Model $this The object instance.
+				 * @param \WP_Ultimo\Models\Base_Model $site The object instance.
 				 */
-				do_action('wu_site_created', $data, $this); // @phpstan-ignore-line
-
+				do_action('wu_site_created', $data, $this);
 			}
 
 			if ( ! is_wp_error($saved) && wu_get_setting('enable_screenshot_generator', true)) {

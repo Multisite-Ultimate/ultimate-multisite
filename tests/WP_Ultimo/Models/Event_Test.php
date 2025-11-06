@@ -316,8 +316,8 @@ class Event_Test extends \WP_UnitTestCase {
 		$this->event->set_author_id(0);
 
 		$this->assertNull($this->event->get_author_user());
-		$this->assertNull($this->event->get_author_display_name());
-		$this->assertNull($this->event->get_author_email_address());
+		$this->assertEmpty($this->event->get_author_display_name());
+		$this->assertEmtpy($this->event->get_author_email_address());
 	}
 
 	/**

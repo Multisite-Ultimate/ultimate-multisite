@@ -17,11 +17,17 @@ defined('ABSPATH') || exit;
  */
 function wu_try_unlimited_server_limits() {
 
-	// Disable memory_limit by setting it to minus 1.
-  @ini_set('memory_limit', '-1'); // phpcs:ignore
+	// Check if we should use a more conservative approach
+	if (apply_filters('wu_use_conservative_memory_limits', false)) {
+		// Use a more conservative memory limit
+		@ini_set('memory_limit', '256M'); // phpcs:ignore
+	} else {
+		// Disable memory_limit by setting it to minus 1.
+		@ini_set('memory_limit', '-1'); // phpcs:ignore
+	}
 
 	// Disable the time limit by setting it to 0.
-  @set_time_limit(0); // phpcs:ignore
+	@set_time_limit(0); // phpcs:ignore
 }
 
 /**

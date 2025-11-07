@@ -47,6 +47,22 @@ class Memory_Trap {
 	protected $return_type = 'plain';
 
 	/**
+	 * Whether the memory trap is enabled.
+	 *
+	 * @since 2.0.0
+	 * @var boolean
+	 */
+	private $is_enabled = true;
+
+	/**
+	 * The memory limit to use when the trap is active.
+	 *
+	 * @since 2.0.0
+	 * @var string
+	 */
+	private $memory_limit = '-1';
+
+	/**
 	 * Set the return type.
 	 *
 	 * @since 2.0.11
@@ -60,6 +76,28 @@ class Memory_Trap {
 	}
 
 	/**
+	 * Enables or disables the memory trap.
+	 *
+	 * @since 2.0.0
+	 * @param boolean $enabled Whether to enable the memory trap.
+	 * @return void
+	 */
+	public function set_enabled($enabled): void {
+		$this->is_enabled = (bool) $enabled;
+	}
+
+	/**
+	 * Sets the memory limit to use when the trap is active.
+	 *
+	 * @since 2.0.0
+	 * @param string $limit The memory limit to set.
+	 * @return void
+	 */
+	public function set_memory_limit($limit): void {
+		$this->memory_limit = $limit;
+	}
+
+	/**
 	 * Setup the actual error handler.
 	 *
 	 * @since 2.0.11
@@ -67,9 +105,25 @@ class Memory_Trap {
 	 */
 	public function setup(): void {
 
+		// Allow plugins to disable the memory trap
+		if (apply_filters('wu_disable_memory_trap', false) || !$this->is_enabled) {
+			return;
+		}
+
+		/**
+		 * Fires before the memory trap is set up.
+		 *
+		 * @since 2.0.0
+		 * @param \WP_Ultimo\Internal\Memory_Trap $this The Memory_Trap instance.
+		 */
+		do_action('wu_setup_memory_limit_trap', $this);
+
 		$this->memory_reserve = str_repeat('*', 1024 * 1024);
 
 		!defined('WP_SANDBOX_SCRAPING') && define('WP_SANDBOX_SCRAPING', true); // phpcs:ignore
+
+		// Use the configured memory limit instead of hardcoding -1
+		@ini_set('memory_limit', $this->memory_limit); // phpcs:ignore
 
 		register_shutdown_function(
 			function () {

@@ -21,7 +21,7 @@ function wu_convert_to_state($state_array = []) {
 
 	$object = (object) $state_array; // Force object to prevent issues with Vue.
 
-	return wp_json_encode($object);
+	return wu_json_encode($object, 0, 'vue_state');
 }
 
 /**

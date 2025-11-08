@@ -368,7 +368,7 @@ class API implements \WP_Ultimo\Interfaces\Singleton {
 	 * @param string|array     $handler The callback.
 	 * @param \WP_REST_Request $request The request object.
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public function log_api_errors($result, $handler, $request) {
 
@@ -389,7 +389,6 @@ class API implements \WP_Ultimo\Interfaces\Singleton {
 
 			wu_log_add('api-errors', $result);
 		}
-		return $result;
 	}
 
 	/**

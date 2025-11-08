@@ -298,7 +298,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 * @since 2.0.10
 	 * @var array
 	 */
-	protected $_compiled_product_list = [];
+	protected $compiled_product_list = [];
 
 	/**
 	 * Keep original gateway info.
@@ -310,7 +310,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 * @since 2.0.15
 	 * @var array
 	 */
-	protected $_gateway_info = [];
+	protected $gateway_info = [];
 
 	/**
 	 * Query Class to the static query methods.
@@ -331,14 +331,14 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 
 		parent::__construct($object_model);
 
-		$this->_gateway_info = [
+		$this->gateway_info = [
 			'gateway'                 => $this->get_gateway(),
 			'gateway_customer_id'     => $this->get_gateway_customer_id(),
 			'gateway_subscription_id' => $this->get_gateway_subscription_id(),
 		];
 
 		if (did_action('plugins_loaded')) {
-			$this->_compiled_product_list = $this->get_all_products();
+			$this->compiled_product_list = $this->get_all_products();
 		}
 	}
 
@@ -635,7 +635,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 * @return array
 	 */
 	public function get_all_products() {
-		$product = $this->get_plan();
+		$product  = $this->get_plan();
 		$products = [];
 		if ($product) {
 			$products[] = [
@@ -796,7 +796,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 * Returns the scheduled swap, if any.
 	 *
 	 * @since 2.0.0
-	 * @return object
+	 * @return object|false
 	 */
 	public function get_scheduled_swap() {
 
@@ -1241,11 +1241,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 		}
 
 		if ($this->get_duration() > 0) {
-			if (false && $this->trial_duration > 0 && $trial) {
-				$expire_timestamp = strtotime('+' . $this->get_trial_duration() . ' ' . $this->trial_duration_unit . ' 23:59:59', $base_timestamp);
-			} else {
-				$expire_timestamp = strtotime('+' . $this->get_duration() . ' ' . $this->get_duration_unit() . ' 23:59:59', $base_timestamp);
-			}
+			$expire_timestamp = strtotime('+' . $this->get_duration() . ' ' . $this->get_duration_unit() . ' 23:59:59', $base_timestamp);
 
 			$extension_days = ['29', '30', '31'];
 
@@ -1276,7 +1272,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 		 *
 		 * @param string         $expiration    Calculated expiration date in MySQL format.
 		 * @param int            $membership_id ID of the membership.
-		 * @param \WP_Ultimo\Models\Membership $this          Membership object.
+		 * @param \WP_Ultimo\Models\Membership $membership Membership object.
 		 *
 		 * @since 2.0
 		 */
@@ -2152,7 +2148,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			 * @param string     $expiration       Calculated expiration date.
 			 * @param Product    $plan Membership level object.
 			 * @param int        $membership_id    The ID of the membership.
-			 * @param Membership $this             Membership object.
+			 * @param Membership $membership       Membership object.
 			 *
 			 * @since 2.0.0
 			 */
@@ -2164,7 +2160,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 		 *
 		 * @param string     $expiration    New expiration date to be set.
 		 * @param int        $membership_id The ID of the membership.
-		 * @param Membership $this          Membership object.
+		 * @param Membership $membership    Membership object.
 		 *
 		 * @since 2.0
 		 */
@@ -2195,7 +2191,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 		 *
 		 * @param string     $expiration    New expiration date to be set.
 		 * @param int        $membership_id The ID of the membership.
-		 * @param Membership $this          Membership object.
+		 * @param Membership $membership          Membership object.
 		 *
 		 * @since 2.0
 		 */
@@ -2227,7 +2223,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 		 * Triggers before the membership is cancelled.
 		 *
 		 * @param int            $membership_id The ID of the membership.
-		 * @param \WP_Ultimo\Models\Membership $this          Membership object.
+		 * @param \WP_Ultimo\Models\Membership $membership Membership object.
 		 *
 		 * @since 2.0
 		 */
@@ -2250,7 +2246,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 		 * This triggers the cancellation email.
 		 *
 		 * @param int            $membership_id The ID of the membership.
-		 * @param \WP_Ultimo\Models\Membership $this          Membership object.
+		 * @param \WP_Ultimo\Models\Membership $membership Membership object.
 		 *
 		 * @since 2.0
 		 */
@@ -2346,11 +2342,11 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 */
 	protected function has_product_changes() {
 
-		if (empty($this->_compiled_product_list)) {
+		if (empty($this->compiled_product_list)) {
 			return false;
 		}
 
-		$old_products = $this->_compiled_product_list;
+		$old_products = $this->compiled_product_list;
 		$new_products = $this->get_all_products();
 
 		if (count($old_products) !== count($new_products)) {
@@ -2380,7 +2376,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			'gateway_subscription_id' => $this->get_gateway_subscription_id(),
 		];
 
-		foreach ($this->_gateway_info as $key => $value) {
+		foreach ($this->gateway_info as $key => $value) {
 			if ($current_gateway[ $key ] !== $value) {
 				$has_change = true;
 
@@ -2470,19 +2466,19 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			$this->set_auto_renew(false);
 		}
 
-		if ($this->has_gateway_changes() && $this->_gateway_info['gateway']) {
+		if ($this->has_gateway_changes() && $this->gateway_info['gateway']) {
 			/**
 			 * Lets deal with gateway change processing
 			 * the cancelation of the original one
 			 */
 
-			$gateway = wu_get_gateway($this->_gateway_info['gateway']);
+			$gateway = wu_get_gateway($this->gateway_info['gateway']);
 
 			if ($gateway) {
 				$membership_old = clone $this;
-				$membership_old->set_gateway($this->_gateway_info['gateway']);
-				$membership_old->set_gateway_customer_id($this->_gateway_info['gateway_customer_id']);
-				$membership_old->set_gateway_subscription_id($this->_gateway_info['gateway_subscription_id']);
+				$membership_old->set_gateway($this->gateway_info['gateway']);
+				$membership_old->set_gateway_customer_id($this->gateway_info['gateway_customer_id']);
+				$membership_old->set_gateway_subscription_id($this->gateway_info['gateway_subscription_id']);
 
 				$gateway->process_cancellation($membership_old, $this->get_customer());
 			}

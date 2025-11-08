@@ -84,7 +84,7 @@ class Price_Variations extends Rule {
 			 * Check if it is the same as the main duration
 			 */
 			if ($this->parameter('duration') == $duration && $this->parameter('duration_unit') === $unit) {
-				$this->message = __('This product cannot have a price variation for the same duration and duration unit values as the product itself.', 'multisite-ultimate');
+				$this->message = __('This product cannot have a price variation for the same duration and duration unit values as the product itself.', 'ultimate-multisite');
 
 				return false;
 			}

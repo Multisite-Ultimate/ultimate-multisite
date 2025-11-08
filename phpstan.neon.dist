@@ -2,11 +2,18 @@ parameters:
   level: 0
   inferPrivatePropertyTypeFromConstructor: true
   treatPhpDocTypesAsCertain: false
+  bootstrapFiles:
+    - vendor/szepeviktor/phpstan-wordpress/bootstrap.php
+  scanDirectories:
+        - vendor/woocommerce/action-scheduler
   paths:
     - ./views
     - ./inc
-    - ./multisite-ultimate.php
+    - ./ultimate-multisite.php
   ignoreErrors:
       -
           message: '#Variable \$.* might not be defined.#'
           path: ./views/*
+      -
+          message: '#Path in require_once\(\) "\./?/wp-admin/includes/.*" is not a file or it does not exist\.#'
+          path: ./inc/*

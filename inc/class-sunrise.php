@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate activation and deactivation hooks
+ * Ultimate Multisite activation and deactivation hooks
  *
  * @package WP_Ultimo
  * @subpackage Sunrise
@@ -15,7 +15,7 @@ use Psr\Log\LogLevel;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate activation and deactivation hooks
+ * Ultimate Multisite activation and deactivation hooks
  *
  * @since 2.0.0
  */
@@ -27,7 +27,7 @@ class Sunrise {
 	 * @var string
 	 */
 
-	public static $version = '2.0.0.9';
+	public static $version = '2.0.0.10';
 
 	/**
 	 * Keeps the sunrise meta cached after the first read.
@@ -114,6 +114,7 @@ class Sunrise {
 		require_once __DIR__ . '/functions/number-helpers.php';
 		require_once __DIR__ . '/functions/array-helpers.php';
 		require_once __DIR__ . '/traits/trait-singleton.php';
+		require_once __DIR__ . '/interfaces/interface-singleton.php';
 		require_once __DIR__ . '/objects/class-limitations.php';
 		require_once __DIR__ . '/models/interfaces/interface-limitable.php';
 		require_once __DIR__ . '/models/interfaces/interface-notable.php';
@@ -158,6 +159,7 @@ class Sunrise {
 		require_once __DIR__ . '/limitations/class-limit-site-templates.php';
 		require_once __DIR__ . '/limitations/class-limit-domain-mapping.php';
 		require_once __DIR__ . '/limitations/class-limit-customer-user-role.php';
+		require_once __DIR__ . '/limitations/class-limit-hide-footer-credits.php';
 	}
 
 	/**
@@ -209,7 +211,7 @@ class Sunrise {
 			\WP_Ultimo\Limits\Theme_Limits::get_instance();
 
 			/**
-			 * Define the Multisite Ultimate main debug constant.
+			 * Define the Ultimate Multisite main debug constant.
 			 */
 			! defined('WP_ULTIMO_DEBUG') && define('WP_ULTIMO_DEBUG', false);
 
@@ -223,7 +225,7 @@ class Sunrise {
 					wu_save_setting_early('security_mode', false);
 				} else {
 					/**
-					 *  Disable all plugins except Multisite Ultimate
+					 *  Disable all plugins except Ultimate Multisite
 					 */
 					add_filter('option_active_plugins', fn() => []);
 
@@ -286,10 +288,10 @@ class Sunrise {
 			wu_log_add('sunrise', $error['message'], LogLevel::ERROR);
 
 			/* translators: the placeholder is an error message */
-			return new \WP_Error('error', sprintf(__('Sunrise copy failed: %s', 'multisite-ultimate'), $error['message']));
+			return new \WP_Error('error', sprintf(__('Sunrise copy failed: %s', 'ultimate-multisite'), $error['message']));
 		}
 
-		wu_log_add('sunrise', __('Sunrise upgrade attempt succeeded.', 'multisite-ultimate'));
+		wu_log_add('sunrise', __('Sunrise upgrade attempt succeeded.', 'ultimate-multisite'));
 		return true;
 	}
 
@@ -327,7 +329,7 @@ class Sunrise {
 	 * Method for imputing Sunrise data at wp-ultimo-system-info table.
 	 *
 	 * @since 2.0.11
-	 * @param array $sys_info Array containing Multisite Ultimate installation info.
+	 * @param array $sys_info Array containing Ultimate Multisite installation info.
 	 * @return array Returns the array, modified with the sunrise data.
 	 */
 	public static function system_info($sys_info) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  */
 class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 
@@ -109,7 +109,7 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 	 */
 	public function get_title(): string {
 
-		return sprintf(__('Integration Setup', 'multisite-ultimate'));
+		return sprintf(__('Integration Setup', 'ultimate-multisite'));
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Host Provider Integration', 'multisite-ultimate');
+		return __('Host Provider Integration', 'ultimate-multisite');
 	}
 
 	/**
@@ -133,25 +133,25 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 
 		$sections = [
 			'activation'   => [
-				'title'   => __('Activation', 'multisite-ultimate'),
+				'title'   => __('Activation', 'ultimate-multisite'),
 				'view'    => [$this, 'section_activation'],
 				'handler' => [$this, 'handle_activation'],
 			],
 			'instructions' => [
-				'title' => __('Instructions', 'multisite-ultimate'),
+				'title' => __('Instructions', 'ultimate-multisite'),
 				'view'  => [$this, 'section_instructions'],
 			],
 			'config'       => [
-				'title'   => __('Configuration', 'multisite-ultimate'),
+				'title'   => __('Configuration', 'ultimate-multisite'),
 				'view'    => [$this, 'section_configuration'],
 				'handler' => [$this, 'handle_configuration'],
 			],
 			'testing'      => [
-				'title' => __('Testing Integration', 'multisite-ultimate'),
+				'title' => __('Testing Integration', 'ultimate-multisite'),
 				'view'  => [$this, 'section_test'],
 			],
 			'done'         => [
-				'title' => __('Ready!', 'multisite-ultimate'),
+				'title' => __('Ready!', 'ultimate-multisite'),
 				'view'  => [$this, 'section_ready'],
 			],
 		];
@@ -240,7 +240,7 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 					'page'        => $this,
 					'integration' => $this->integration,
 					'form'        => $form,
-					'post'        => sanitize_text_field(wp_unslash($_GET['post'] ?? '')), // phpcs:ignore WordPress.Security.NonceVerification
+					'post'        => wu_request('post'),
 				]
 			);
 
@@ -365,6 +365,34 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 				'page'        => $this,
 				'integration' => $this->integration,
 			]
+		);
+	}
+
+	/**
+	 * Register the script for the test page.
+	 *
+	 * @return void
+	 */
+	public function register_scripts() {
+		parent::register_scripts();
+
+		wp_enqueue_script(
+			'wu-integration-test',
+			wu_get_asset('integration-test.js', 'js'),
+			[
+				'jquery',
+				'wu-vue',
+			],
+			wu_get_version(),
+			true
+		);
+		wp_add_inline_script(
+			'wu-integration-test',
+			'var wu_integration_test_data = {
+				integration_id: "' . esc_js($this->integration->get_id()) . '",
+				waiting_message: "' . esc_js(__('Waiting for results...', 'ultimate-multisite')) . '"
+			};',
+			'before'
 		);
 	}
 }

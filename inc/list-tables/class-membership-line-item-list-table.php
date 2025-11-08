@@ -74,20 +74,20 @@ class Membership_Line_Item_List_Table extends Product_List_Table {
 		$item = $item['product'];
 
 		if ( ! $item) {
-			echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wu_responsive_table_row(
 				[
 					'url'    => false,
 					'id'     => 'not-found',
-					'title'  => __('Product not found', 'multisite-ultimate'),
+					'title'  => __('Product not found', 'ultimate-multisite'),
 					'status' => '',
 					'image'  => $this->column_featured_image_id(new \WP_Ultimo\Models\Product()),
 				],
 				[
 					'quantity' => [
 						'icon'  => 'dashicons-wu-package wu-align-middle wu-mr-1',
-						'label' => __('Quantity', 'multisite-ultimate'),
+						'label' => __('Quantity', 'ultimate-multisite'),
 						// translators: %d is a quantity number
-						'value' => sprintf(__('x%d', 'multisite-ultimate'), $quantity),
+						'value' => sprintf(__('x%d', 'ultimate-multisite'), $quantity),
 					],
 				]
 			);
@@ -98,13 +98,13 @@ class Membership_Line_Item_List_Table extends Product_List_Table {
 		$first_row = [
 			'quantity' => [
 				'icon'  => 'dashicons-wu-package wu-align-middle wu-mr-1',
-				'label' => __('Quantity', 'multisite-ultimate'),
+				'label' => __('Quantity', 'ultimate-multisite'),
 				// translators: %d is a quantity number
-				'value' => sprintf(__('x%d', 'multisite-ultimate'), $quantity),
+				'value' => sprintf(__('x%d', 'ultimate-multisite'), $quantity),
 			],
 			'total'    => [
 				'icon'  => 'dashicons-wu-shopping-bag1 wu-align-middle wu-mr-1',
-				'label' => __('Price description', 'multisite-ultimate'),
+				'label' => __('Price description', 'ultimate-multisite'),
 				'value' => $item->get_price_description(),
 			],
 		];
@@ -112,7 +112,7 @@ class Membership_Line_Item_List_Table extends Product_List_Table {
 		$second_row = [
 			'slug' => [
 				'icon'  => 'dashicons-wu-bookmark1 wu-align-middle wu-mr-1',
-				'label' => __('Product Slug', 'multisite-ultimate'),
+				'label' => __('Product Slug', 'ultimate-multisite'),
 				'value' => $item->get_slug(),
 			],
 		];
@@ -122,7 +122,7 @@ class Membership_Line_Item_List_Table extends Product_List_Table {
 				'wrapper_classes' => 'wubox',
 				'icon'            => 'dashicons-wu-edit1 wu-align-middle wu-mr-1',
 				'label'           => '',
-				'value'           => __('Upgrade or Downgrade', 'multisite-ultimate'),
+				'value'           => __('Upgrade or Downgrade', 'ultimate-multisite'),
 				'url'             => wu_get_form_url(
 					'change_membership_plan',
 					[
@@ -136,7 +136,7 @@ class Membership_Line_Item_List_Table extends Product_List_Table {
 				'wrapper_classes' => 'wu-text-red-500 wubox',
 				'icon'            => 'dashicons-wu-trash-2 wu-align-middle wu-mr-1',
 				'label'           => '',
-				'value'           => __('Remove', 'multisite-ultimate'),
+				'value'           => __('Remove', 'ultimate-multisite'),
 				'url'             => wu_get_form_url(
 					'remove_membership_product',
 					[
@@ -147,7 +147,7 @@ class Membership_Line_Item_List_Table extends Product_List_Table {
 			];
 		}
 
-		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wu_responsive_table_row(
 			[
 				'id'     => $item->get_id(),
 				'title'  => $item->get_name(),

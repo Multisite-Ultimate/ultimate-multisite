@@ -9,10 +9,8 @@
 
 namespace WP_Ultimo\Models;
 
-use WP_Ultimo\Models\Base_Model;
 use WP_Ultimo\Domain_Mapping\Helper;
 use WP_Ultimo\Database\Domains\Domain_Stage;
-use WP_Ultimo\Models\Site;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -103,6 +101,13 @@ class Domain extends Base_Model {
 	 * @var string
 	 */
 	protected $query_class = \WP_Ultimo\Database\Domains\Domain_Query::class;
+
+	/**
+	 * Cache the path so we don't need to load the site object every time.
+	 *
+	 * @var string
+	 */
+	private string $path;
 
 	/**
 	 * Set the validation rules for this particular model.
@@ -222,6 +227,26 @@ class Domain extends Base_Model {
 		}
 
 		return wu_get_site($this->get_blog_id());
+	}
+
+	/**
+	 * Gets the path of the mapped site.
+	 *
+	 * @return string|null
+	 */
+	public function get_path() {
+		if (! isset($this->path)) {
+			$site = $this->get_site();
+			if ( ! $site) {
+				return null;
+			} elseif ($site instanceof \WP_Site) {
+				$this->path = $site->path;
+			} elseif ($site instanceof Site) {
+				$this->path = $site->get_path();
+			}
+		}
+
+		return $this->path;
 	}
 
 	/**
@@ -424,7 +449,7 @@ class Domain extends Base_Model {
 		 *
 		 * @since 2.0.4
 		 * @param bool $result the current result.
-		 * @param self $this The current domain instance.
+		 * @param self $domain The current domain instance.
 		 * @param array $domains_and_ips The list of domains and IPs found on the DNS lookup.
 		 * @return bool If the DNS is correctly setup or not.
 		 */
@@ -452,7 +477,7 @@ class Domain extends Base_Model {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return bool
+	 * @return bool|\WP_Error
 	 */
 	public function save() {
 
@@ -473,8 +498,7 @@ class Domain extends Base_Model {
 					 * Deprecated: Mercator created domain.
 					 *
 					 * @since 2.0.0
-					 * @param self The domain object after saving.
-					 * @param self The domain object before the changes.
+					 * @param self $domain The domain object after saving.
 					 * @return void.
 					 */
 					do_action_deprecated('mercator.mapping.created', $deprecated_args, '2.0.0', 'wu_domain_post_save');
@@ -489,8 +513,8 @@ class Domain extends Base_Model {
 					 * Deprecated: Mercator updated domain.
 					 *
 					 * @since 2.0.0
-					 * @param self The domain object after saving.
-					 * @param self The domain object before the changes.
+					 * @param self $domain The domain object after saving.
+					 * @param self $before_changes The domain object before the changes.
 					 * @return void.
 					 */
 					do_action_deprecated('mercator.mapping.updated', $deprecated_args, '2.0.0', 'wu_domain_post_save');
@@ -538,7 +562,7 @@ class Domain extends Base_Model {
 		 */
 		wu_log_clear("domain-{$this->get_domain()}");
 
-		wu_log_add("domain-{$this->get_domain()}", __('Domain deleted and logs cleared...', 'multisite-ultimate'));
+		wu_log_add("domain-{$this->get_domain()}", __('Domain deleted and logs cleared...', 'ultimate-multisite'));
 
 		return $results;
 	}
@@ -606,7 +630,7 @@ class Domain extends Base_Model {
 	 * @since 2.0.0
 	 *
 	 * @param array|string $domains Domain names to search for.
-	 * @return static
+	 * @return self
 	 */
 	public static function get_by_domain($domains) {
 
@@ -621,7 +645,7 @@ class Domain extends Base_Model {
 			$data = wp_cache_get('domain:' . $domain, 'domain_mappings');
 
 			if ( ! empty($data) && 'notexists' !== $data) {
-				return new static($data);
+				return new self($data);
 			} elseif ('notexists' === $data) {
 				++$not_exists;
 			}
@@ -662,6 +686,6 @@ class Domain extends Base_Model {
 
 		wp_cache_set('domain:' . $mapping->domain, $mapping, 'domain_mappings');
 
-		return new static($mapping);
+		return new self($mapping);
 	}
 }

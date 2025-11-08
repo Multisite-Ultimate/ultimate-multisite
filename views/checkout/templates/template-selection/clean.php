@@ -30,7 +30,7 @@ $sites = array_map('wu_get_site', $sites ?? []);
 
 $categories ??= [];
 
-$customer_sites_category = __('Your Sites', 'multisite-ultimate');
+$customer_sites_category = __('Your Sites', 'ultimate-multisite');
 
 $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) : [];
 
@@ -47,7 +47,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 					:class="$parent.template_category === '' ? 'current wu-font-semibold' : ''"
 					v-on:click.prevent="$parent.template_category = ''"
 			>
-				<?php esc_html_e('All', 'multisite-ultimate'); ?>
+				<?php esc_html_e('All', 'ultimate-multisite'); ?>
 			</a>
 		</li>
 
@@ -102,6 +102,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 			<div
 				id="wu-site-template-<?php echo esc_attr($site_template->get_id()); ?>"
 				class="wu-bg-white wu-border-solid wu-border wu-border-gray-300 wu-shadow-sm wu-p-4 wu-rounded wu-relative"
+				:class="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?> ? 'wu-selected-template' : ''"
 				v-show="!$parent.template_category || <?php echo esc_attr(wp_json_encode($categories)); ?>.join(',').indexOf($parent.template_category) > -1"
 				v-cloak
 			>
@@ -109,11 +110,11 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 				<div class="wu-site-template-image-container wu-relative">
 
 					<a
-					title="<?php esc_attr_e('View Template Preview', 'multisite-ultimate'); ?>"
+					title="<?php esc_attr_e('View Template Preview', 'ultimate-multisite'); ?>"
 					class="wu-site-template-selector wu-cursor-pointer wu-no-underline"
-					<?php echo $is_template ? $site_template->get_preview_url_attrs() : sprintf('href="%s" target="_blank"', $site_template->get_active_site_url()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php $is_template ? $site_template->get_preview_url_attrs() : printf('href="%s" target="_blank"', esc_attr($site_template->get_active_site_url())); ?>
 					>
-						<img class="wu-site-template-image wu-w-full wu-border-solid wu-border wu-border-gray-300 wu-mb-4 wu-bg-white" src="<?php echo esc_attr($site_template->get_featured_image()); ?>" alt="<?php echo esc_attr($site_template->get_title()); ?>">
+						<img class="wu-site-template-image wu-w-full wu-border-solid wu-border wu-border-gray-300 wu-mb-4 wu-bg-white" src="<?php echo esc_attr($site_template->get_featured_image('wu-thumb-large')); ?>" alt="<?php echo esc_attr($site_template->get_title()); ?>">
 					</a>
 
 				</div>
@@ -134,11 +135,11 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 				<div class="wu-mt-4">
 
-					<button v-on:click.prevent="$parent.template_id = <?php echo esc_attr($site_template->get_id()); ?>" type="button" class="wu-site-template-selector button btn button-primary btn-primary wu-w-full wu-text-center wu-cursor-pointer">
+					<button v-on:click.prevent="$parent.template_id = <?php echo esc_attr($site_template->get_id()); ?>" type="button" class="wu-site-template-selector button btn button-primary btn-primary wu-w-full wu-text-center wu-cursor-pointer" :class="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?> ? 'wu-selected-template-button' : ''">
 
-						<span v-if="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?>"><?php esc_html_e('Selected', 'multisite-ultimate'); ?></span>
+						<span v-if="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?>"><?php esc_html_e('Selected', 'ultimate-multisite'); ?></span>
 
-						<span v-else><?php esc_html_e('Select', 'multisite-ultimate'); ?></span>
+						<span v-else><?php esc_html_e('Select', 'ultimate-multisite'); ?></span>
 
 					</button>
 

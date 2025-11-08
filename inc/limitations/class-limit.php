@@ -78,7 +78,7 @@ abstract class Limit implements \JsonSerializable {
 	 * @since 2.0.0
 	 * @var bool
 	 */
-	private bool $enabled_default_value = true;
+	protected bool $enabled_default_value = true;
 
 	/**
 	 * Constructs the limit module.
@@ -97,9 +97,9 @@ abstract class Limit implements \JsonSerializable {
 	 * @since 2.0.0
 	 * @return string
 	 */
-	public function __serialize() { // phpcs:ignore
+	public function __serialize() {
 
-		return serialize($this->to_array());
+		return serialize($this->to_array()); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 	}
 
 	/**
@@ -110,9 +110,9 @@ abstract class Limit implements \JsonSerializable {
 	 * @param string $data The un-serialized data.
 	 * @return void
 	 */
-	public function __unserialize($data) { // phpcs:ignore
+	public function __unserialize($data) {
 
-		$this->setup(unserialize($data));
+		$this->setup(unserialize($data));  // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
 	}
 
 	/**

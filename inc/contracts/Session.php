@@ -8,7 +8,7 @@
 
 namespace WP_Ultimo\Contracts;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 interface Session {
 

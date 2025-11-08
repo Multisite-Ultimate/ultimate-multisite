@@ -1,7 +1,7 @@
 # ServerPilot Integration
 
 ## Overview
-ServerPilot is a cloud service for hosting WordPress and other PHP websites on servers at DigitalOcean, Amazon, Google, or any other server provider. This integration enables automatic domain syncing and SSL certificate management between Multisite Ultimate and ServerPilot.
+ServerPilot is a cloud service for hosting WordPress and other PHP websites on servers at DigitalOcean, Amazon, Google, or any other server provider. This integration enables automatic domain syncing and SSL certificate management between Ultimate Multisite and ServerPilot.
 
 ## Features
 - Automatic domain syncing
@@ -44,7 +44,7 @@ define('WU_SERVER_PILOT_APP_ID', 'your_app_id');
 
 ### 4. Enable the Integration
 
-1. In your WordPress admin, go to Multisite Ultimate > Settings
+1. In your WordPress admin, go to Ultimate Multisite > Settings
 2. Navigate to the "Domain Mapping" tab
 3. Scroll down to "Host Integrations"
 4. Enable the ServerPilot integration
@@ -54,7 +54,7 @@ define('WU_SERVER_PILOT_APP_ID', 'your_app_id');
 
 ### Domain Syncing
 
-When a domain is mapped in Multisite Ultimate:
+When a domain is mapped in Ultimate Multisite:
 
 1. The integration retrieves the current list of domains from ServerPilot
 2. It adds the new domain to the list (along with a www version if applicable)
@@ -86,10 +86,10 @@ The integration is configured to increase the number of SSL certificate verifica
 - It may take some time for ServerPilot to issue and install SSL certificates (usually 5-15 minutes)
 
 ### Domain Not Added
-- Check the Multisite Ultimate logs for any error messages
+- Check the Ultimate Multisite logs for any error messages
 - Verify that the domain is not already added to ServerPilot
 - Ensure that your ServerPilot plan supports the number of domains you're adding
 
 ### Domain Removal
 - Currently, the ServerPilot API does not provide a way to remove individual domains
-- When a domain mapping is removed in Multisite Ultimate, the integration will update the domain list in ServerPilot to exclude the removed domain
+- When a domain mapping is removed in Ultimate Multisite, the integration will update the domain list in ServerPilot to exclude the removed domain

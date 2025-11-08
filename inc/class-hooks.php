@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate activation and deactivation hooks
+ * Ultimate Multisite activation and deactivation hooks
  *
  * @package WP_Ultimo
  * @subpackage Hooks
@@ -13,7 +13,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate activation and deactivation hooks
+ * Ultimate Multisite activation and deactivation hooks
  *
  * @since 2.0.0
  */
@@ -33,12 +33,12 @@ class Hooks {
 	public static function init(): void {
 
 		/**
-	 * Runs on Multisite Ultimate activation
+	 * Runs on Ultimate Multisite activation
 	 */
 		register_activation_hook(WP_ULTIMO_PLUGIN_FILE, [self::class, 'on_activation']);
 
 		/**
-		 * Runs on Multisite Ultimate deactivation
+		 * Runs on Ultimate Multisite deactivation
 		 */
 		register_deactivation_hook(WP_ULTIMO_PLUGIN_FILE, [self::class, 'on_deactivation']);
 
@@ -49,14 +49,14 @@ class Hooks {
 	}
 
 	/**
-	 *  Runs when Multisite Ultimate is activated
+	 *  Runs when Ultimate Multisite is activated
 	 *
 	 * @since 1.9.6 It now uses hook-based approach, it is up to each sub-class to attach their own routines.
 	 * @since 1.2.0
 	 */
 	public static function on_activation(): void {
 
-		wu_log_add('wp-ultimo-core', __('Activating Multisite Ultimate...', 'multisite-ultimate'));
+		wu_log_add(\WP_Ultimo::LOG_HANDLE, __('Activating Ultimate Multisite...', 'ultimate-multisite'));
 
 		/*
 		 * Set the activation flag
@@ -93,14 +93,14 @@ class Hooks {
 	}
 
 	/**
-	 * Runs when Multisite Ultimate is deactivated
+	 * Runs when Ultimate Multisite is deactivated
 	 *
 	 * @since 1.9.6 It now uses hook-based approach, it is up to each sub-class to attach their own routines.
 	 * @since 1.2.0
 	 */
 	public static function on_deactivation(): void {
 
-		wu_log_add('wp-ultimo-core', __('Deactivating Multisite Ultimate...', 'multisite-ultimate'));
+		wu_log_add(\WP_Ultimo::LOG_HANDLE, __('Deactivating Ultimate Multisite...', 'ultimate-multisite'));
 
 		/*
 		 * Update the sunrise meta file.

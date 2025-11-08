@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate class to hold current objects
+ * Ultimate Multisite class to hold current objects
  *
  * @package WP_Ultimo
  * @subpackage Current
@@ -13,11 +13,11 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate class to hold current objects
+ * Ultimate Multisite class to hold current objects
  *
  * @since 2.0.0
  */
-class Current {
+class Current implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 

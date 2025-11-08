@@ -3,16 +3,16 @@
 - [Home](Home)
 
 ## Getting Started
-- [Multisite Ultimate 101](wp-ultimo-101)
+- [Ultimate Multisite 101](wp-ultimo-101)
 - [Basic Concepts](basic-concepts)
 - [What is WordPress Multisite?](what-is-wordpress-multisite)
-- [Multisite Ultimate Requirements](wp-ultimo-requirements)
-- [Why Multisite Ultimate](why-wp-ultimo)
-- [Installing Multisite Ultimate (v2)](installing-wp-ultimo-v2)
+- [Ultimate Multisite Requirements](wp-ultimo-requirements)
+- [Why Ultimate Multisite](why-wp-ultimo)
+- [Installing Ultimate Multisite (v2)](installing-wp-ultimo-v2)
 - [How do I Install WordPress Multisite?](how-do-i-install-wordpress-multisite)
 
 ## Administration
-- [Understanding the Multisite Ultimate Dashboard](understanding-the-wp-ultimo-dashboard)
+- [Understanding the Ultimate Multisite Dashboard](understanding-the-wp-ultimo-dashboard)
 - [Understanding your Dashboard (v2)](understanding-your-dashboard-v2)
 - [Touring the Admin Panel](touring-the-admin-panel)
 - [Managing Customers](managing-customers)
@@ -67,43 +67,43 @@
 
 ## Integrations
 - [Setting Up The WooCommerce Integration (v2)](setting-up-the-woocommerce-integration-v2)
-- [Integrating Multisite Ultimate with Zapier](integrating-wp-ultimo-with-zapier)
+- [Integrating Ultimate Multisite with Zapier](integrating-wp-ultimo-with-zapier)
 - [Event: Register an account via Zapier](event-register-an-account-via-zapier)
-- [Using Multisite Ultimate: MailChimp Integration](using-wp-ultimo-mailchimp-integration)
-- [Using Multisite Ultimate: AffiliateWP Integration to create your own referral program for Multisite Ultimate](using-wp-ultimo-affiliatewp-integration-to-create-your-own-referral-program-for-wp-ultimo)
+- [Using Ultimate Multisite: MailChimp Integration](using-wp-ultimo-mailchimp-integration)
+- [Using Ultimate Multisite: AffiliateWP Integration to create your own referral program for Ultimate Multisite](using-wp-ultimo-affiliatewp-integration-to-create-your-own-referral-program-for-wp-ultimo)
 - [A First Look on Webhooks (v2)](a-first-look-on-webhooks-v2)
 
 ## Customization
 - [Customizing your Admin Panel with PRO Theme](customizing-your-admin-panel-with-pro-theme)
 - [Customizing your Admin Panel with Material WP](customizing-your-admin-panel-with-material-wp)
-- [Placing Ads on your network with Multisite Ultimate: Ad Injector](placing-ads-on-your-network-with-wp-ultimo-ad-injector)
-- [Creating Custom Admin Pages and Sub-pages using Multisite Ultimate: Admin Page Creator](creating-custom-admin-pages-and-sub-pages-using-wp-ultimo-admin-page-creator)
-- [Editing Plugins and Themes Meta Information with Multisite Ultimate: Plugin and Theme Manager](editing-plugins-and-themes-meta-information-with-wp-ultimo-plugin-and-theme-manager)
+- [Placing Ads on your network with Ultimate Multisite: Ad Injector](placing-ads-on-your-network-with-wp-ultimo-ad-injector)
+- [Creating Custom Admin Pages and Sub-pages using Ultimate Multisite: Admin Page Creator](creating-custom-admin-pages-and-sub-pages-using-wp-ultimo-admin-page-creator)
+- [Editing Plugins and Themes Meta Information with Ultimate Multisite: Plugin and Theme Manager](editing-plugins-and-themes-meta-information-with-wp-ultimo-plugin-and-theme-manager)
 
 ## Development
-- [Multisite Ultimate Hooks and filters](wp-ultimo-hooks-and-filters)
-- [The Multisite Ultimate Register API endpoint](the-wp-ultimo-register-api-endpoint)
-- [How to use Multisite Ultimate snippets on our GitHub repository](how-to-use-wp-ultimo-snippets-on-our-github-repository)
+- [Ultimate Multisite Hooks and filters](wp-ultimo-hooks-and-filters)
+- [The Ultimate Multisite Register API endpoint](the-wp-ultimo-register-api-endpoint)
+- [How to use Ultimate Multisite snippets on our GitHub repository](how-to-use-wp-ultimo-snippets-on-our-github-repository)
 - [Code Snippets for v2](code-snippets-for-v2)
 - [How to Get Custom Development Help from Codeable?](how-to-get-custom-development-help-from-codeable)
 
 ## Localization
-- [Translating Multisite Ultimate](translating-wp-ultimo)
-- [Activating Multisite Ultimate: Language Selector](activating-wp-ultimo-language-selector)
-- [Re-ordering the Multisite Ultimate country list](re-ordering-the-wp-ultimo-country-list)
+- [Translating Ultimate Multisite](translating-wp-ultimo)
+- [Activating Ultimate Multisite: Language Selector](activating-wp-ultimo-language-selector)
+- [Re-ordering the Ultimate Multisite country list](re-ordering-the-wp-ultimo-country-list)
 
 ## Troubleshooting
 - [Error Installing the Sunrise File](error-installing-the-sunrise-file)
 - [Known incompatibilities with other Plugins](known-incompatibilities-with-other-plugins)
 - [How to get help](how-to-get-help)
-- [How to join Multisite Ultimate Community](how-to-join-wp-ultimo-community)
+- [How to join Ultimate Multisite Community](how-to-join-wp-ultimo-community)
 
 ## Migration & Updates
 - [Migrating from V1](migrating-from-v1)
-- [How to Export and Import a Site with Multisite Ultimate Site Exporter](how-to-export-and-import-a-site-with-wp-ultimo-site-exporter)
+- [How to Export and Import a Site with Ultimate Multisite Site Exporter](how-to-export-and-import-a-site-with-wp-ultimo-site-exporter)
 
 ## Miscellaneous
 - [Sending Emails and Broadcasts (v2)](sending-emails-and-broadcasts-v2)
-- [The Multisite Ultimate Affiliate Program](the-wp-ultimo-affiliate-program)
-- [Why is Multisite Ultimate no longer sold at CodeCanyon?](why-is-wp-ultimo-no-longer-sold-at-codecanyon)
+- [The Ultimate Multisite Affiliate Program](the-wp-ultimo-affiliate-program)
+- [Why is Ultimate Multisite no longer sold at CodeCanyon?](why-is-wp-ultimo-no-longer-sold-at-codecanyon)
 - [Frequently Asked Questions](frequently-asked-questions)

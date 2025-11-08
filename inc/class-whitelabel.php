@@ -65,9 +65,7 @@ class Whitelabel {
 
 		add_action('admin_init', [$this, 'clear_footer_texts']);
 
-		add_action('init', [$this, 'hooks']);
-
-		add_filter('gettext', [$this, 'replace_text'], 10, 3);
+		add_action('init', [$this, 'hooks'], 1);
 	}
 
 	/**
@@ -88,6 +86,50 @@ class Whitelabel {
 
 		if (wu_get_setting('hide_sites_menu', true)) {
 			add_action('network_admin_menu', [$this, 'remove_sites_admin_menu']);
+		}
+
+		if (wu_get_setting('rename_site_plural') ||
+			wu_get_setting('rename_site_singular') ||
+			wu_get_setting('rename_wordpress')
+		) {
+			$this->allowed_domains = apply_filters(
+				'wu_replace_text_allowed_domains',
+				[
+					'default',
+					'wp-ultimo',
+					'ultimate-multisite',
+				]
+			);
+
+			$search_and_replace = [];
+			$site_plural        = wu_get_setting('rename_site_plural');
+
+			if ($site_plural) {
+				$search_and_replace['sites'] = strtolower((string) $site_plural);
+				$search_and_replace['Sites'] = ucfirst((string) $site_plural);
+			}
+
+			$site_singular = wu_get_setting('rename_site_singular');
+
+			if ($site_singular) {
+				$search_and_replace['site'] = strtolower((string) $site_singular);
+				$search_and_replace['Site'] = ucfirst((string) $site_singular);
+			}
+
+			$wordpress = wu_get_setting('rename_wordpress');
+
+			if ($wordpress) {
+				$search_and_replace['wordpress'] = strtolower((string) $wordpress);
+				$search_and_replace['WordPress'] = ucfirst((string) $wordpress);
+				$search_and_replace['Wordpress'] = ucfirst((string) $wordpress);
+				$search_and_replace['wordPress'] = ucfirst((string) $wordpress);
+			}
+
+			if ($search_and_replace) {
+				$this->search  = array_keys($search_and_replace);
+				$this->replace = array_values($search_and_replace);
+			}
+			add_filter('gettext', [$this, 'replace_text'], 10, 3);
 		}
 	}
 
@@ -116,16 +158,6 @@ class Whitelabel {
 	 */
 	public function replace_text($translation, $text, $domain) {
 
-		if (null === $this->allowed_domains) {
-			$this->allowed_domains = apply_filters(
-				'wu_replace_text_allowed_domains',
-				[
-					'default',
-					'wp-ultimo',
-				]
-			);
-		}
-
 		if ( ! in_array($domain, $this->allowed_domains, true)) {
 			return $translation;
 		}
@@ -142,40 +174,6 @@ class Whitelabel {
 		 */
 		if (str_starts_with($translation, 'http')) {
 			return $translation;
-		}
-
-		if (false === $this->init) {
-			$search_and_replace = [];
-
-			$site_plural = wu_get_setting('rename_site_plural');
-
-			if ($site_plural) {
-				$search_and_replace['sites'] = strtolower((string) $site_plural);
-				$search_and_replace['Sites'] = ucfirst((string) $site_plural);
-			}
-
-			$site_singular = wu_get_setting('rename_site_singular');
-
-			if ($site_singular) {
-				$search_and_replace['site'] = strtolower((string) $site_singular);
-				$search_and_replace['Site'] = ucfirst((string) $site_singular);
-			}
-
-			$wordpress = wu_get_setting('rename_wordpress');
-
-			if ($wordpress) {
-				$search_and_replace['wordpress'] = strtolower((string) $wordpress);
-				$search_and_replace['WordPress'] = ucfirst((string) $wordpress);
-				$search_and_replace['Wordpress'] = ucfirst((string) $wordpress);
-				$search_and_replace['wordPress'] = ucfirst((string) $wordpress);
-			}
-
-			if ($search_and_replace) {
-				$this->search  = array_keys($search_and_replace);
-				$this->replace = array_values($search_and_replace);
-			}
-
-			$this->init = true;
 		}
 
 		if ( ! empty($this->search)) {
@@ -197,8 +195,8 @@ class Whitelabel {
 		wu_register_settings_section(
 			'whitelabel',
 			[
-				'title' => __('Whitelabel', 'multisite-ultimate'),
-				'desc'  => __('Basic Whitelabel', 'multisite-ultimate'),
+				'title' => __('Whitelabel', 'ultimate-multisite'),
+				'desc'  => __('Basic Whitelabel', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-eye',
 			]
 		);
@@ -207,8 +205,8 @@ class Whitelabel {
 			'whitelabel',
 			'whitelabel_header',
 			[
-				'title' => __('Whitelabel', 'multisite-ultimate'),
-				'desc'  => __('Hide a couple specific WordPress elements and rename others.', 'multisite-ultimate'),
+				'title' => __('Whitelabel', 'ultimate-multisite'),
+				'desc'  => __('Hide a couple specific WordPress elements and rename others.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -219,8 +217,8 @@ class Whitelabel {
 			'whitelabel',
 			'hide_wordpress_logo',
 			[
-				'title'   => __('Hide WordPress Logo', 'multisite-ultimate') . $preview_image,
-				'desc'    => __('Hide the WordPress logo from the top-bar and replace the same logo on the My Sites top-bar item with a more generic icon.', 'multisite-ultimate'),
+				'title'   => __('Hide WordPress Logo', 'ultimate-multisite') . $preview_image,
+				'desc'    => __('Hide the WordPress logo from the top-bar and replace the same logo on the My Sites top-bar item with a more generic icon.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -230,8 +228,8 @@ class Whitelabel {
 			'whitelabel',
 			'hide_sites_menu',
 			[
-				'title'   => __('Hide Sites Admin Menu', 'multisite-ultimate'),
-				'desc'    => __('We recommend that you manage all of your sites using the Multisite Ultimate &rarr; Sites page. To avoid confusion, you can hide the default "Sites" item from the WordPress admin menu by toggling this option.', 'multisite-ultimate'),
+				'title'   => __('Hide Sites Admin Menu', 'ultimate-multisite'),
+				'desc'    => __('We recommend that you manage all of your sites using the Ultimate Multisite &rarr; Sites page. To avoid confusion, you can hide the default "Sites" item from the WordPress admin menu by toggling this option.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 			]
@@ -241,9 +239,9 @@ class Whitelabel {
 			'whitelabel',
 			'rename_wordpress',
 			[
-				'title'       => __('Replace the word "WordPress"', 'multisite-ultimate'),
-				'placeholder' => __('e.g. My App', 'multisite-ultimate'),
-				'desc'        => __('Replace all occurrences of the word "WordPress" with a different word.', 'multisite-ultimate'),
+				'title'       => __('Replace the word "WordPress"', 'ultimate-multisite'),
+				'placeholder' => __('e.g. My App', 'ultimate-multisite'),
+				'desc'        => __('Replace all occurrences of the word "WordPress" with a different word.', 'ultimate-multisite'),
 				'type'        => 'text',
 				'default'     => '',
 			]
@@ -253,9 +251,9 @@ class Whitelabel {
 			'whitelabel',
 			'rename_site_singular',
 			[
-				'title'           => __('Replace the word "Site" (singular)', 'multisite-ultimate'),
-				'placeholder'     => __('e.g. App', 'multisite-ultimate'),
-				'desc'            => __('Replace all occurrences of the word "Site" with a different word.', 'multisite-ultimate'),
+				'title'           => __('Replace the word "Site" (singular)', 'ultimate-multisite'),
+				'placeholder'     => __('e.g. App', 'ultimate-multisite'),
+				'desc'            => __('Replace all occurrences of the word "Site" with a different word.', 'ultimate-multisite'),
 				'type'            => 'text',
 				'default'         => '',
 				'wrapper_classes' => 'wu-w-1/2',
@@ -266,9 +264,9 @@ class Whitelabel {
 			'whitelabel',
 			'rename_site_plural',
 			[
-				'title'           => __('Replace the word "Sites" (plural)', 'multisite-ultimate'),
-				'placeholder'     => __('e.g. Apps', 'multisite-ultimate'),
-				'desc'            => __('Replace all occurrences of the word "Sites" with a different word.', 'multisite-ultimate'),
+				'title'           => __('Replace the word "Sites" (plural)', 'ultimate-multisite'),
+				'placeholder'     => __('e.g. Apps', 'ultimate-multisite'),
+				'desc'            => __('Replace all occurrences of the word "Sites" with a different word.', 'ultimate-multisite'),
 				'type'            => 'text',
 				'default'         => '',
 				'wrapper_classes' => 'wu-w-1/2',

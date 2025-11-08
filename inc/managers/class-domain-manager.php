@@ -55,6 +55,38 @@ class Domain_Manager extends Base_Manager {
 	protected $integrations = [];
 
 	/**
+	 * Checks if this is a main domain or a subdomain.
+	 *
+	 * @param string $domain the domain.
+	 *
+	 * @return bool
+	 */
+	public static function is_main_domain(string $domain) {
+		// Normalize: lowercase, trim spaces, drop trailing dot
+		$domain = strtolower(trim(rtrim($domain, '.')));
+		// Check if this is a main domain (no subdomain parts)
+		// A main domain has only 2 parts when split by dots (e.g., example.com)
+		// or 3 parts if it's a known TLD structure (e.g., example.co.uk)
+		$parts = explode('.', $domain);
+
+		// Simple heuristic: if domain has only 2 parts, it's definitely a main domain
+		if (count($parts) <= 2) {
+			return true; // e.g., example.com
+		}
+
+		// For 3+ parts, check if it's a main domain with multi-part TLD
+		$known_multi_part_tlds = apply_filters('wu_multi_part_tlds', ['.co.uk', '.com.au', '.co.nz', '.com.br', '.co.in']);
+		$last_two_parts        = '.' . $parts[ count($parts) - 2 ] . '.' . $parts[ count($parts) - 1 ];
+
+		// If it has exactly 3 parts and matches a known multi-part TLD, it's a main domain
+		if (count($parts) === 3 && in_array($last_two_parts, $known_multi_part_tlds, true)) {
+			return true; // e.g., example.co.uk
+		}
+		// Must be a subdomain.
+		return false;
+	}
+
+	/**
 	 * Returns the list of available host integrations.
 	 *
 	 * This needs to be a filterable method to allow integrations to self-register.
@@ -124,7 +156,7 @@ class Domain_Manager extends Base_Manager {
 
 		add_action('wu_domain_created', [$this, 'handle_domain_created'], 10, 3);
 
-		add_action('wu_domain_post_delete', [$this, 'handle_domain_deleted'], 10, 3);
+		add_action('wu_domain_post_delete', [$this, 'handle_domain_deleted'], 10, 2);
 
 		/*
 		 * Add and remove sub-domains
@@ -164,8 +196,6 @@ class Domain_Manager extends Base_Manager {
 		$has_subdomain = str_replace($current_site->domain, '', $site->domain);
 
 		if ( ! $has_subdomain) {
-			// Create a domain record for the site
-			$this->create_domain_record_for_site($site);
 			return;
 		}
 
@@ -308,8 +338,8 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'domain_mapping_header',
 			[
-				'title' => __('Domain Mapping Settings', 'multisite-ultimate'),
-				'desc'  => __('Define the domain mapping settings for your network.', 'multisite-ultimate'),
+				'title' => __('Domain Mapping Settings', 'ultimate-multisite'),
+				'desc'  => __('Define the domain mapping settings for your network.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -318,8 +348,8 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'enable_domain_mapping',
 			[
-				'title'   => __('Enable Domain Mapping?', 'multisite-ultimate'),
-				'desc'    => __('Do you want to enable domain mapping?', 'multisite-ultimate'),
+				'title'   => __('Enable Domain Mapping?', 'ultimate-multisite'),
+				'desc'    => __('Do you want to enable domain mapping?', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -329,16 +359,16 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'force_admin_redirect',
 			[
-				'title'   => __('Force Admin Redirect', 'multisite-ultimate'),
-				'desc'    => __('Select how you want your users to access the admin panel if they have mapped domains.', 'multisite-ultimate') . '<br><br>' . __('Force Redirect to Mapped Domain: your users with mapped domains will be redirected to theirdomain.com/wp-admin, even if they access using yournetworkdomain.com/wp-admin.', 'multisite-ultimate') . '<br><br>' . __('Force Redirect to Network Domain: your users with mapped domains will be redirect to yournetworkdomain.com/wp-admin, even if they access using theirdomain.com/wp-admin.', 'multisite-ultimate'),
+				'title'   => __('Force Admin Redirect', 'ultimate-multisite'),
+				'desc'    => __('Select how you want your users to access the admin panel if they have mapped domains.', 'ultimate-multisite') . '<br><br>' . __('Force Redirect to Mapped Domain: your users with mapped domains will be redirected to theirdomain.com/wp-admin, even if they access using yournetworkdomain.com/wp-admin.', 'ultimate-multisite') . '<br><br>' . __('Force Redirect to Network Domain: your users with mapped domains will be redirect to yournetworkdomain.com/wp-admin, even if they access using theirdomain.com/wp-admin.', 'ultimate-multisite'),
 				'tooltip' => '',
 				'type'    => 'select',
 				'default' => 'both',
 				'require' => ['enable_domain_mapping' => 1],
 				'options' => [
-					'both'          => __('Allow access to the admin by both mapped domain and network domain', 'multisite-ultimate'),
-					'force_map'     => __('Force Redirect to Mapped Domain', 'multisite-ultimate'),
-					'force_network' => __('Force Redirect to Network Domain', 'multisite-ultimate'),
+					'both'          => __('Allow access to the admin by both mapped domain and network domain', 'ultimate-multisite'),
+					'force_map'     => __('Force Redirect to Mapped Domain', 'ultimate-multisite'),
+					'force_network' => __('Force Redirect to Network Domain', 'ultimate-multisite'),
 				],
 			]
 		);
@@ -347,8 +377,8 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'custom_domains',
 			[
-				'title'   => __('Enable Custom Domains?', 'multisite-ultimate'),
-				'desc'    => __('Toggle this option if you wish to allow end-customers to add their own domains. This can be controlled on a plan per plan basis.', 'multisite-ultimate'),
+				'title'   => __('Enable Custom Domains?', 'ultimate-multisite'),
+				'desc'    => __('Toggle this option if you wish to allow end-customers to add their own domains. This can be controlled on a plan per plan basis.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 1,
 				'require' => [
@@ -361,18 +391,19 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'domain_mapping_instructions',
 			[
-				'title'     => __('Add New Domain Instructions', 'multisite-ultimate'),
-				'tooltip'   => __('Display a customized message with instructions for the mapping and alerting the end-user of the risks of mapping a misconfigured domain.', 'multisite-ultimate'),
-				'desc'      => __('You can use the placeholder <code>%NETWORK_DOMAIN%</code> and <code>%NETWORK_IP%</code>.', 'multisite-ultimate'),
-				'type'      => 'textarea',
-				'default'   => [$this, 'default_domain_mapping_instructions'],
-				'html_attr' => [
+				'title'      => __('Add New Domain Instructions', 'ultimate-multisite'),
+				'tooltip'    => __('Display a customized message with instructions for the mapping and alerting the end-user of the risks of mapping a misconfigured domain.', 'ultimate-multisite'),
+				'desc'       => __('You can use the placeholder <code>%NETWORK_DOMAIN%</code> and <code>%NETWORK_IP%.</code> HTML is allowed.', 'ultimate-multisite'),
+				'type'       => 'textarea',
+				'default'    => [$this, 'default_domain_mapping_instructions'],
+				'html_attr'  => [
 					'rows' => 8,
 				],
-				'require'   => [
+				'require'    => [
 					'enable_domain_mapping' => true,
 					'custom_domains'        => true,
 				],
+				'allow_html' => true,
 			]
 		);
 
@@ -380,9 +411,9 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'dns_check_interval',
 			[
-				'title'     => __('DNS Check Interval', 'multisite-ultimate'),
-				'tooltip'   => __('Set the interval in seconds between DNS and SSL certificate checks for domains.', 'multisite-ultimate'),
-				'desc'      => __('Minimum: 10 seconds, Maximum: 300 seconds (5 minutes). Default: 300 seconds.', 'multisite-ultimate'),
+				'title'     => __('DNS Check Interval', 'ultimate-multisite'),
+				'tooltip'   => __('Set the interval in seconds between DNS and SSL certificate checks for domains.', 'ultimate-multisite'),
+				'desc'      => __('Minimum: 10 seconds, Maximum: 300 seconds (5 minutes). Default: 300 seconds.', 'ultimate-multisite'),
 				'type'      => 'number',
 				'default'   => 300,
 				'min'       => 10,
@@ -400,15 +431,15 @@ class Domain_Manager extends Base_Manager {
 			'domain-mapping',
 			'auto_create_www_subdomain',
 			[
-				'title'   => __('Create www Subdomain Automatically?', 'multisite-ultimate'),
-				'desc'    => __('Control when www subdomains should be automatically created for mapped domains.', 'multisite-ultimate'),
-				'tooltip' => __('This setting applies to all hosting integrations and determines when a www version of the domain should be automatically created.', 'multisite-ultimate'),
+				'title'   => __('Create www Subdomain Automatically?', 'ultimate-multisite'),
+				'desc'    => __('Control when www subdomains should be automatically created for mapped domains.', 'ultimate-multisite'),
+				'tooltip' => __('This setting applies to all hosting integrations and determines when a www version of the domain should be automatically created.', 'ultimate-multisite'),
 				'type'    => 'select',
 				'default' => 'always',
 				'options' => [
-					'always'    => __('Always - Create www subdomain for all domains', 'multisite-ultimate'),
-					'main_only' => __('Only for main domains (e.g., example.com but not subdomain.example.com)', 'multisite-ultimate'),
-					'never'     => __('Never - Do not automatically create www subdomains', 'multisite-ultimate'),
+					'always'    => __('Always - Create www subdomain for all domains', 'ultimate-multisite'),
+					'main_only' => __('Only for main domains (e.g., example.com but not subdomain.example.com)', 'ultimate-multisite'),
+					'never'     => __('Never - Do not automatically create www subdomains', 'ultimate-multisite'),
 				],
 				'require' => [
 					'enable_domain_mapping' => true,
@@ -441,27 +472,7 @@ class Domain_Manager extends Base_Manager {
 				return false;
 
 			case 'main_only':
-				// Check if this is a main domain (no subdomain parts)
-				// A main domain has only 2 parts when split by dots (e.g., example.com)
-				// or 3 parts if it's a known TLD structure (e.g., example.co.uk)
-				$parts = explode('.', $domain);
-
-				// Simple heuristic: if domain has only 2 parts, it's definitely a main domain
-				if (count($parts) <= 2) {
-					return true; // e.g., example.com
-				}
-
-				// For 3+ parts, check if it's a main domain with multi-part TLD
-				$known_multi_part_tlds = apply_filters('wu_multi_part_tlds', ['.co.uk', '.com.au', '.co.nz', '.com.br', '.co.in']);
-				$last_two_parts        = '.' . $parts[ count($parts) - 2 ] . '.' . $parts[ count($parts) - 1 ];
-
-				// If it has exactly 3 parts and matches a known multi-part TLD, it's a main domain
-				if (count($parts) === 3 && in_array($last_two_parts, $known_multi_part_tlds, true)) {
-					return true; // e.g., example.co.uk
-				}
-
-				// Otherwise, it's a subdomain
-				return false;
+				return self::is_main_domain($domain);
 
 			case 'always':
 			default:
@@ -481,8 +492,8 @@ class Domain_Manager extends Base_Manager {
 			'sso',
 			'sso_header',
 			[
-				'title' => __('Single Sign-On Settings', 'multisite-ultimate'),
-				'desc'  => __('Settings to configure the Single Sign-On functionality of Multisite Ultimate, responsible for keeping customers and admins logged in across all network domains.', 'multisite-ultimate'),
+				'title' => __('Single Sign-On Settings', 'ultimate-multisite'),
+				'desc'  => __('Settings to configure the Single Sign-On functionality of Ultimate Multisite, responsible for keeping customers and admins logged in across all network domains.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -491,8 +502,8 @@ class Domain_Manager extends Base_Manager {
 			'sso',
 			'enable_sso',
 			[
-				'title'   => __('Enable Single Sign-On', 'multisite-ultimate'),
-				'desc'    => __('Enables the Single Sign-on functionality.', 'multisite-ultimate'),
+				'title'   => __('Enable Single Sign-On', 'ultimate-multisite'),
+				'desc'    => __('Enables the Single Sign-on functionality.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -502,8 +513,8 @@ class Domain_Manager extends Base_Manager {
 			'sso',
 			'restrict_sso_to_login_pages',
 			[
-				'title'   => __('Restrict SSO Checks to Login Pages', 'multisite-ultimate'),
-				'desc'    => __('The Single Sign-on feature adds one extra ajax calls to every page load on sites with custom domains active to check if it should perform an auth loopback. You can restrict these extra calls to the login pages of sub-sites using this option. If enabled, SSO will only work on login pages.', 'multisite-ultimate'),
+				'title'   => __('Restrict SSO Checks to Login Pages', 'ultimate-multisite'),
+				'desc'    => __('The Single Sign-on feature adds one extra ajax calls to every page load on sites with custom domains active to check if it should perform an auth loopback. You can restrict these extra calls to the login pages of sub-sites using this option. If enabled, SSO will only work on login pages.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 0,
 				'require' => [
@@ -516,8 +527,8 @@ class Domain_Manager extends Base_Manager {
 			'sso',
 			'enable_sso_loading_overlay',
 			[
-				'title'   => __('Enable SSO Loading Overlay', 'multisite-ultimate'),
-				'desc'    => __('When active, a loading overlay will be added on-top of the site currently being viewed while the SSO auth loopback is performed on the background.', 'multisite-ultimate'),
+				'title'   => __('Enable SSO Loading Overlay', 'ultimate-multisite'),
+				'desc'    => __('When active, a loading overlay will be added on-top of the site currently being viewed while the SSO auth loopback is performed on the background.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 1,
 				'require' => [
@@ -536,11 +547,11 @@ class Domain_Manager extends Base_Manager {
 
 		$instructions = [];
 
-		$instructions[] = __("Cool! You're about to make this site accessible using your own domain name!", 'multisite-ultimate');
+		$instructions[] = __("Cool! You're about to make this site accessible using your own domain name!", 'ultimate-multisite');
 
-		$instructions[] = __("For that to work, you'll need to create a new CNAME record pointing to <code>%NETWORK_DOMAIN%</code> on your DNS manager.", 'multisite-ultimate');
+		$instructions[] = __("For that to work, you'll need to create a new CNAME record pointing to <code>%NETWORK_DOMAIN%</code> on your DNS manager.", 'ultimate-multisite');
 
-		$instructions[] = __('After you finish that step, come back to this screen and click the button below.', 'multisite-ultimate');
+		$instructions[] = __('After you finish that step, come back to this screen and click the button below.', 'ultimate-multisite');
 
 		return implode(PHP_EOL . PHP_EOL, $instructions);
 	}
@@ -637,7 +648,7 @@ class Domain_Manager extends Base_Manager {
 		$domain_url = $domain->get_domain();
 
 		// translators: %s is the domain name
-		wu_log_add("domain-{$domain_url}", sprintf(__('Starting Check for %s', 'multisite-ultimate'), $domain_url));
+		wu_log_add("domain-{$domain_url}", sprintf(__('Starting Check for %s', 'ultimate-multisite'), $domain_url));
 
 		if ('checking-dns' === $stage) {
 			if ($domain->has_correct_dns()) {
@@ -647,7 +658,7 @@ class Domain_Manager extends Base_Manager {
 
 				wu_log_add(
 					"domain-{$domain_url}",
-					__('- DNS propagation finished, advancing domain to next step...', 'multisite-ultimate')
+					__('- DNS propagation finished, advancing domain to next step...', 'ultimate-multisite')
 				);
 
 				wu_enqueue_async_action(
@@ -674,7 +685,7 @@ class Domain_Manager extends Base_Manager {
 					wu_log_add(
 						"domain-{$domain_url}",
 						// translators: %d is the number of minutes to try again.
-						sprintf(__('- DNS propagation checks tried for the max amount of times (5 times, one every %d minutes). Marking as failed.', 'multisite-ultimate'), $try_again_time)
+						sprintf(__('- DNS propagation checks tried for the max amount of times (5 times, one every %d minutes). Marking as failed.', 'ultimate-multisite'), $try_again_time)
 					);
 
 					return;
@@ -683,7 +694,7 @@ class Domain_Manager extends Base_Manager {
 				wu_log_add(
 					"domain-{$domain_url}",
 					// translators: %d is the number of minutes before trying again.
-					sprintf(__('- DNS propagation not finished, retrying in %d minutes...', 'multisite-ultimate'), $try_again_time)
+					sprintf(__('- DNS propagation not finished, retrying in %d minutes...', 'ultimate-multisite'), $try_again_time)
 				);
 
 				wu_schedule_single_action(
@@ -708,7 +719,7 @@ class Domain_Manager extends Base_Manager {
 
 				wu_log_add(
 					"domain-{$domain_url}",
-					__('- Valid SSL cert found. Marking domain as done.', 'multisite-ultimate')
+					__('- Valid SSL cert found. Marking domain as done.', 'ultimate-multisite')
 				);
 
 				return;
@@ -724,7 +735,7 @@ class Domain_Manager extends Base_Manager {
 					wu_log_add(
 						"domain-{$domain_url}",
 						// translators: %d is the number of minutes to try again.
-						sprintf(__('- SSL checks tried for the max amount of times (5 times, one every %d minutes). Marking as ready without SSL.', 'multisite-ultimate'), $try_again_time)
+						sprintf(__('- SSL checks tried for the max amount of times (5 times, one every %d minutes). Marking as ready without SSL.', 'ultimate-multisite'), $try_again_time)
 					);
 
 					return;
@@ -733,7 +744,7 @@ class Domain_Manager extends Base_Manager {
 				wu_log_add(
 					"domain-{$domain_url}",
 					// translators: %d is the number of minutes before trying again.
-					sprintf(__('- SSL Cert not found, retrying in %d minute(s)...', 'multisite-ultimate'), $try_again_time)
+					sprintf(__('- SSL Cert not found, retrying in %d minute(s)...', 'ultimate-multisite'), $try_again_time)
 				);
 
 				wu_schedule_single_action(
@@ -822,7 +833,7 @@ class Domain_Manager extends Base_Manager {
 		$domain = wu_request('domain');
 
 		if ( ! $domain) {
-			wp_send_json_error(new \WP_Error('domain-missing', __('A valid domain was not passed.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('domain-missing', __('A valid domain was not passed.', 'ultimate-multisite')));
 		}
 
 		$auth_ns = [];
@@ -835,7 +846,7 @@ class Domain_Manager extends Base_Manager {
 			wp_send_json_error(
 				new \WP_Error(
 					'error',
-					__('Not able to fetch DNS entries.', 'multisite-ultimate'),
+					__('Not able to fetch DNS entries.', 'ultimate-multisite'),
 					[
 						'exception' => $e->getMessage(),
 					]
@@ -844,7 +855,7 @@ class Domain_Manager extends Base_Manager {
 		}
 
 		if (false === $result) {
-			wp_send_json_error(new \WP_Error('error', __('Not able to fetch DNS entries.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('error', __('Not able to fetch DNS entries.', 'ultimate-multisite')));
 		}
 
 		wp_send_json_success(
@@ -895,7 +906,7 @@ class Domain_Manager extends Base_Manager {
 		if ( ! $integration) {
 			wp_send_json_error(
 				[
-					'message' => __('Invalid Integration ID', 'multisite-ultimate'),
+					'message' => __('Invalid Integration ID', 'ultimate-multisite'),
 				]
 			);
 		}
@@ -908,7 +919,7 @@ class Domain_Manager extends Base_Manager {
 				[
 					'message' => sprintf(
 						// translators: %s is the name of the missing constant
-						__('The necessary constants were not found on your wp-config.php file: %s', 'multisite-ultimate'),
+						__('The necessary constants were not found on your wp-config.php file: %s', 'ultimate-multisite'),
 						implode(', ', $integration->get_missing_constants())
 					),
 				]
@@ -1015,7 +1026,7 @@ class Domain_Manager extends Base_Manager {
 				"domain-{$domain_url}",
 				sprintf(
 					/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: URL being tested */
-					__('Testing domain verification via Loopback using %1$s: %2$s', 'multisite-ultimate'),
+					__('Testing domain verification via Loopback using %1$s: %2$s', 'ultimate-multisite'),
 					$protocol_config['label'],
 					$protocol_config['url']
 				)
@@ -1038,7 +1049,7 @@ class Domain_Manager extends Base_Manager {
 					"domain-{$domain_url}",
 					sprintf(
 					/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Error Message */
-						__('Failed to connect via %1$s: %2$s', 'multisite-ultimate'),
+						__('Failed to connect via %1$s: %2$s', 'ultimate-multisite'),
 						$protocol_config['label'],
 						$response->get_error_message()
 					),
@@ -1056,7 +1067,7 @@ class Domain_Manager extends Base_Manager {
 					"domain-{$domain_url}",
 					sprintf(
 						/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: HTTP Response Code */
-						__('Loopback request via %1$s returned HTTP %2$d', 'multisite-ultimate'),
+						__('Loopback request via %1$s returned HTTP %2$d', 'ultimate-multisite'),
 						$protocol_config['label'],
 						$response_code
 					),
@@ -1073,7 +1084,7 @@ class Domain_Manager extends Base_Manager {
 					"domain-{$domain_url}",
 					sprintf(
 						/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Json error, %3$s part of the response */
-						__('Loopback response via %1$s is not valid JSON: %2$s : %3$s', 'multisite-ultimate'),
+						__('Loopback response via %1$s is not valid JSON: %2$s : %3$s', 'ultimate-multisite'),
 						$protocol_config['label'],
 						json_last_error_msg(),
 						substr($body, 0, 100)
@@ -1089,7 +1100,7 @@ class Domain_Manager extends Base_Manager {
 					"domain-{$domain_url}",
 					sprintf(
 					/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number */
-						__('Domain verification successful via Loopback using %1$s. Domain ID %2$d confirmed.', 'multisite-ultimate'),
+						__('Domain verification successful via Loopback using %1$s. Domain ID %2$d confirmed.', 'ultimate-multisite'),
 						$protocol_config['label'],
 						$domain_id
 					)
@@ -1102,7 +1113,7 @@ class Domain_Manager extends Base_Manager {
 				"domain-{$domain_url}",
 				sprintf(
 				/* translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number, %3$s Domain ID number */
-					__('Loopback response via %1$s did not contain expected domain ID. Expected: %2$d, Got: %3$s', 'multisite-ultimate'),
+					__('Loopback response via %1$s did not contain expected domain ID. Expected: %2$d, Got: %3$s', 'ultimate-multisite'),
 					$protocol_config['label'],
 					$domain_id,
 					isset($data['id']) ? $data['id'] : 'null'
@@ -1113,7 +1124,7 @@ class Domain_Manager extends Base_Manager {
 
 		wu_log_add(
 			"domain-{$domain_url}",
-			__('Domain verification failed via loopback on all protocols (HTTPS with SSL, HTTPS without SSL, HTTP).', 'multisite-ultimate'),
+			__('Domain verification failed via loopback on all protocols (HTTPS with SSL, HTTPS without SSL, HTTP).', 'ultimate-multisite'),
 			LogLevel::ERROR
 		);
 

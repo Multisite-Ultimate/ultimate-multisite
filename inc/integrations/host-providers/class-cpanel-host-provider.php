@@ -111,26 +111,26 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 
 		return [
 			'WU_CPANEL_USERNAME' => [
-				'title'       => __('cPanel Username', 'multisite-ultimate'),
-				'placeholder' => __('e.g. username', 'multisite-ultimate'),
+				'title'       => __('cPanel Username', 'ultimate-multisite'),
+				'placeholder' => __('e.g. username', 'ultimate-multisite'),
 			],
 			'WU_CPANEL_PASSWORD' => [
 				'type'        => 'password',
-				'title'       => __('cPanel Password', 'multisite-ultimate'),
-				'placeholder' => __('password', 'multisite-ultimate'),
+				'title'       => __('cPanel Password', 'ultimate-multisite'),
+				'placeholder' => __('password', 'ultimate-multisite'),
 			],
 			'WU_CPANEL_HOST'     => [
-				'title'       => __('cPanel Host', 'multisite-ultimate'),
-				'placeholder' => __('e.g. yourdomain.com', 'multisite-ultimate'),
+				'title'       => __('cPanel Host', 'ultimate-multisite'),
+				'placeholder' => __('e.g. yourdomain.com', 'ultimate-multisite'),
 			],
 			'WU_CPANEL_PORT'     => [
-				'title'       => __('cPanel Port', 'multisite-ultimate'),
-				'placeholder' => __('Defaults to 2083', 'multisite-ultimate'),
+				'title'       => __('cPanel Port', 'ultimate-multisite'),
+				'placeholder' => __('Defaults to 2083', 'ultimate-multisite'),
 				'value'       => 2083,
 			],
 			'WU_CPANEL_ROOT_DIR' => [
-				'title'       => __('Root Directory', 'multisite-ultimate'),
-				'placeholder' => __('Defaults to /public_html', 'multisite-ultimate'),
+				'title'       => __('Root Directory', 'ultimate-multisite'),
+				'placeholder' => __('Defaults to /public_html', 'ultimate-multisite'),
 				'value'       => '/public_html',
 			],
 		];
@@ -300,7 +300,7 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 			wu_log_add('integration-cpanel', $results->cpanelresult->data->reason);
 			return;
 		} elseif ( ! isset($results->cpanelresult->data[0])) {
-			wu_log_add('integration-cpanel', __('Unexpected error ocurred trying to sync domains with CPanel', 'multisite-ultimate'), LogLevel::ERROR);
+			wu_log_add('integration-cpanel', __('Unexpected error ocurred trying to sync domains with CPanel', 'ultimate-multisite'), LogLevel::ERROR);
 			return;
 		}
 
@@ -315,7 +315,7 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('cPanel is the management panel being used on a large number of shared and dedicated hosts across the globe.', 'multisite-ultimate');
+		return __('cPanel is the management panel being used on a large number of shared and dedicated hosts across the globe.', 'ultimate-multisite');
 	}
 
 	/**
@@ -360,13 +360,13 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 
 		$explainer_lines = [
 			'will'     => [
-				'send_domains' => __('Add a new Addon Domain on cPanel whenever a new domain mapping gets created on your network', 'multisite-ultimate'),
+				'send_domains' => __('Add a new Addon Domain on cPanel whenever a new domain mapping gets created on your network', 'ultimate-multisite'),
 			],
 			'will_not' => [],
 		];
 
 		if (is_subdomain_install()) {
-			$explainer_lines['will']['send_sub_domains'] = __('Add a new SubDomain on cPanel whenever a new site gets created on your network', 'multisite-ultimate');
+			$explainer_lines['will']['send_sub_domains'] = __('Add a new SubDomain on cPanel whenever a new site gets created on your network', 'ultimate-multisite');
 		}
 
 		return $explainer_lines;

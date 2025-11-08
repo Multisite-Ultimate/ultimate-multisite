@@ -1,6 +1,6 @@
 <?php
 /**
- * Set additional Multisite Ultimate plugin constants.
+ * Set additional Ultimate Multisite plugin constants.
  *
  * @package WP_Ultimo
  * @since 2.0.0

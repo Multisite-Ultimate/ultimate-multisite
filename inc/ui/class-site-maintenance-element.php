@@ -81,14 +81,14 @@ class Site_Maintenance_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Site Maintenance', 'multisite-ultimate');
+		return __('Site Maintenance', 'ultimate-multisite');
 	}
 
 	/**
@@ -97,14 +97,14 @@ class Site_Maintenance_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds the toggle control to turn maintenance mode on.', 'multisite-ultimate');
+		return __('Adds the toggle control to turn maintenance mode on.', 'ultimate-multisite');
 	}
 
 	/**
@@ -129,23 +129,23 @@ class Site_Maintenance_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'multisite-ultimate'),
-			'desc'  => __('General', 'multisite-ultimate'),
+			'title' => __('General', 'ultimate-multisite'),
+			'desc'  => __('General', 'ultimate-multisite'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'        => 'text',
-			'title'       => __('Label', 'multisite-ultimate'),
-			'value'       => __('Toggle Maintenance Mode', 'multisite-ultimate'),
-			'placeholder' => __('e.g. Toggle Maintenance Mode', 'multisite-ultimate'),
+			'title'       => __('Label', 'ultimate-multisite'),
+			'value'       => __('Toggle Maintenance Mode', 'ultimate-multisite'),
+			'placeholder' => __('e.g. Toggle Maintenance Mode', 'ultimate-multisite'),
 			'tooltip'     => '',
 		];
 
 		$fields['desc'] = [
 			'type'    => 'textarea',
-			'title'   => __('Description', 'multisite-ultimate'),
-			'value'   => __('Put your site on maintenance mode. When activated, the front-end will only be accessible to logged users.', 'multisite-ultimate'),
+			'title'   => __('Description', 'ultimate-multisite'),
+			'value'   => __('Put your site on maintenance mode. When activated, the front-end will only be accessible to logged users.', 'ultimate-multisite'),
 			'tooltip' => '',
 		];
 
@@ -160,7 +160,7 @@ class Site_Maintenance_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Billing_Address',
 	 *  'Form',
 	 *  'Cart',
@@ -173,7 +173,7 @@ class Site_Maintenance_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'Login',
 			'Reset Password',
 		];
@@ -196,8 +196,8 @@ class Site_Maintenance_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'title' => __('Toggle Maintenance Mode', 'multisite-ultimate'),
-			'desc'  => __('Put your site on maintenance mode. When activated, the front-end will only be accessible to logged users.', 'multisite-ultimate'),
+			'title' => __('Toggle Maintenance Mode', 'ultimate-multisite'),
+			'desc'  => __('Put your site on maintenance mode. When activated, the front-end will only be accessible to logged users.', 'ultimate-multisite'),
 		];
 	}
 
@@ -264,9 +264,9 @@ class Site_Maintenance_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
 
 		$fields = [
 			'maintenance_mode' => [
@@ -299,6 +299,6 @@ class Site_Maintenance_Element extends Base_Element {
 
 		$atts['form'] = $form;
 
-		return wu_get_template_contents('dashboard-widgets/site-maintenance', $atts);
+		wu_get_template('dashboard-widgets/site-maintenance', $atts);
 	}
 }

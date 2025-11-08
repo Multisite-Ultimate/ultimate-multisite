@@ -1,143 +1,84 @@
-=== Multisite Ultimate ===
-Contributors: aanduque, superdav42 
+=== Ultimate Multisite ===
+Contributors: aanduque, superdav42, vvwb, surferking
 Donate link: https://github.com/sponsors/superdav42/
 Tags: multisite, waas, membership, domain-mapping, subscription
 Requires at least: 5.3
-
 Requires PHP: 7.4.30
 Tested up to: 6.8
-Stable tag: 2.4.3
+Stable tag: 2.4.7
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
 The Complete Network Solution for transforming your WordPress Multisite into a Website as a Service (WaaS) platform.
 
 == Description ==
 
-**Multisite Ultimate** helps you transform your WordPress Multisite installation into a powerful Website as a Service (WaaS) platform. This plugin enables you to offer website creation, hosting, and management services to your customers through a streamlined interface.
+**Ultimate Multisite** turns your WordPress Multisite into a full WaaS (Website as a Service) platform—so you can sell plans, provision new sites from templates, map custom domains, and manage customers and billing with confidence.
 
-This plugin was formerly known as WP Ultimo and is now community maintained.
+Launch niche site builders, productized services, or large, branded networks without stitching together dozens of tools. From checkout to provisioning to ongoing management, Ultimate Multisite gives you the building blocks to create a modern, scalable website platform on top of WordPress.
+
+Formerly known as WP Ultimo, now community‑maintained and actively improved.
 
 = Key Features =
 
-* **Site Creation** - Allow customers to create their own sites in your network
-* **Domain Mapping** - Support for custom domains with automated DNS verification
-* **Payment Processing** - Integrations with popular payment gateways like Stripe and PayPal
-* **Plan Management** - Create and manage subscription plans with different features and limitations
-* **Template Sites** - Easily clone and use template sites for new customer websites
-* **Customer Dashboard** - Provide a professional management interface for your customers
-* **White Labeling** - Brand the platform as your own
-* **Hosting Integrations** - Connect with popular hosting control panels like cPanel, RunCloud, and more
+Build, sell, and scale with a feature set designed for WaaS operators:
+
+- **Fast Site Creation** – Self‑serve signup that provisions new sites instantly from templates
+- **Domain Mapping** – Custom domains with automated DNS verification and clear guidance
+- **Payments & Subscriptions** – Stripe and PayPal support for recurring plans and one‑time fees
+- **Flexible Plans & Limits** – Package features and enforce quotas/limitations across your network
+- **Template Library** – Create high‑converting templates your customers can launch in minutes
+- **Customer Dashboard** – Clean, branded UI for managing billing, sites, domains, and settings
+- **White‑Label Ready** – Rename, rebrand, and tailor the experience to your business
+- **Hosting Integrations** – Cloudflare, GridPane, Cloudways, WPMU DEV, and more
+- **Developer‑Friendly** – Hooks, filters, and an add‑on system for deep customization
+
+= Who Is It For? =
+
+- Agencies productizing WordPress into packages and recurring plans
+- Creators launching niche site builders (local business sites, portfolios, courses, communities)
+- Hosts and MSPs offering white‑label WordPress at scale
+- Franchises, universities, and multi‑location brands with many similar sites
+- Internal teams rolling out microsites and campaigns on shared infrastructure
+
+= Popular Use Cases =
+
+- Productized website services with recurring billing and templates
+- Franchise and multi‑location networks with brand‑consistent starter sites
+- “Site builder” offerings for a specific industry or niche
+- Private networks for internal departments, events, or communities
+- Educational institutions provisioning class, club, or program sites
+
+= Why Ultimate Multisite =
+
+- **Open & Community‑Maintained** – Transparent development, active updates
+- **WordPress‑Native** – Built specifically for Multisite; no heavy SaaS lock‑in
+- **Proven Architecture** – Templates, plans, and domain mapping built‑in
+- **Extensible** – Add‑on system, actions/filters, and hosting integrations
+- **Owned Infrastructure** – Run your WaaS on your stack, your way
+
+= Try It In Minutes =
+
+1. Enable WordPress Multisite on a staging site
+2. Install and Network Activate Ultimate Multisite
+3. Run the setup wizard, create a plan, and add a template
+4. Share your signup page and start selling
+
+Ready to build your WaaS? Install the plugin and launch your first customer site today.
 
 = Where to find help =
 
-* [GitHub Repository](https://github.com/superdav42/wp-multisite-waas)
-* [Issue Tracker](https://github.com/superdav42/wp-multisite-waas/issues)
+* [Issue Tracker](https://github.com/Multisite-Ultimate/multisite-ultimate/issues)
+* Paid support at [the official Ultimate Multisite website](https://ultimatemultisite.com)
 
 = Contributing =
 
-We welcome contributions to Multisite Ultimate! To contribute effectively:
-
-**Development Workflow:**
-
-1. Fork the repository on GitHub
-2. Create a feature branch from main
-3. Run `npm install` and `composer install` to set up dependencies
-4. Make your changes
-5. Before committing, run `npm run build` to:
-   * Generate translation POT files
-   * Minify CSS and JS assets
-   * Process and optimize other assets
-6. **Important:** Update both README.md and readme.txt files when making changes that affect:
-   * Version numbers
-   * Required WordPress/PHP versions
-   * Feature additions or changes
-   * Installation instructions
-   * Documentation
-   * Changelog entries
-7. Open a Pull Request with your changes
-
-**Pull Request Guidelines:**
-
-Please include a clear description of your changes and their purpose, reference any related issues, and ensure your code follows existing style conventions. Always verify that both README.md and readme.txt are updated and synchronized before submitting your PR.
-
-**Release Process:**
-
-Releases are automated using GitHub Actions workflows that trigger when a version tag is pushed. 
-
-To trigger a new release build, push a tag following the semantic versioning format:
-`git tag v2.3.5` (for version 2.3.5) and then `git push origin v2.3.5`
-
-The tag must begin with "v" followed by the version number (v*.*.*).
-
-When preparing for a release:
-1. Update the version number in the main plugin file and readme.txt
-2. Update the changelog in readme.txt
-3. Ensure README.md and readme.txt are synchronized with the latest information
-4. Create and push the appropriate version tag
-
-For more detailed contribution guidelines, see the [GitHub repository](https://github.com/superdav42/wp-multisite-waas).
-
-== Installation ==
-
-There are two recommended ways to install Multisite Ultimate:
-
-= Method 1: Using the pre-packaged release (Recommended) =
-
-1. Download the latest release ZIP from the [Releases page](https://github.com/superdav42/wp-multisite-waas/releases)
-2. Log in to your WordPress Network Admin dashboard
-3. Navigate to Plugins > Add New > Upload Plugin
-4. Choose the downloaded ZIP file and click "Install Now"
-5. Network Activate the plugin through the 'Plugins' menu in WordPress
-6. Follow the step by step Wizard to set the plugin up
-
-= Method 2: Using Git and Composer (For developers) =
-
-This method requires command-line access to your server and familiarity with Git and Composer.
-
-1. Clone the repository to your plugins directory:
-   ```
-   cd wp-content/plugins/
-   git clone https://github.com/superdav42/wp-multisite-waas.git
-   cd wp-multisite-waas
-   ```
-
-2. Install the required dependencies using Composer:
-   ```
-   composer install
-   ```
-
-3. Network Activate the plugin in your WordPress Network Admin dashboard
-4. Follow the setup wizard to complete the installation
-
-= Common Installation Issues =
-
-**"Failed opening required [...]/vendor/autoload_packages.php"**
-
-This error occurs when the required vendor files are missing. This typically happens when:
-- You've downloaded the repository directly from GitHub without using a release package
-- The composer dependencies haven't been installed
-
-Solution: Use the pre-packaged release from the [Releases page](https://github.com/superdav42/wp-multisite-waas/releases) or run `composer install` in the plugin directory.
-
-**"Cannot declare class ComposerAutoloaderInitWPUltimoDependencies, because the name is already in use"**
-
-This error usually occurs when updating from an older version of WP Ultimo or when multiple versions of the plugin are installed.
-
-Solution: Deactivate and remove any older versions of WP Ultimo or Multisite Ultimate before activating the new version.
-
-**"Class 'WP_Ultimo\Database\Sites\Site_Query' not found"**
-
-This error can occur if the plugin's autoloader isn't properly loading all the necessary classes.
-
-Solution: Use the pre-packaged release from the [Releases page](https://github.com/superdav42/wp-multisite-waas/releases) which includes all required files.
+We welcome contributions to Ultimate Multisite! To contribute see the [GitHub repository](https://github.com/Multisite-Ultimate/multisite-ultimate).
 
 == Requirements ==
 
 * WordPress Multisite 5.3 or higher
 * PHP 7.4.30 or higher
 * MySQL 5.6 or higher
-* HTTPS enabled (recommended for secure checkout)
 
 == Frequently Asked Questions ==
 
@@ -147,7 +88,7 @@ No, this plugin specifically requires WordPress Multisite to function properly. 
 
 = Does this plugin support custom domains? =
 
-Yes, Multisite Ultimate includes robust domain mapping functionality that allows your customers to use their own domains for their websites within your network.
+Yes, Ultimate Multisite includes robust domain mapping functionality that allows your customers to use their own domains for their websites within your network.
 
 = Which payment gateways are supported? =
 
@@ -155,11 +96,42 @@ The plugin supports multiple payment gateways including Stripe, PayPal, and manu
 
 = Can I migrate from WP Ultimo to this plugin? =
 
-Yes, Multisite Ultimate is a community-maintained fork of WP Ultimo. The plugin includes migration tools to help you transition from WP Ultimo.
+Yes, Ultimate Multisite is a community-maintained fork of WP Ultimo. Migration will happen automatically from WP Ultimo 2.X when this plugin is activated.
 
 == External Services ==
 
 This plugin connects to several external services to provide its functionality. Below is a detailed list of all external services used, what data is sent, and when:
+
+= Geolocation Services =
+
+**MaxMind GeoLite2 Database**
+- Service: Geolocation database for determining user location based on IP address
+- Data sent: No personal data is sent - only downloads the database file
+- When: Downloaded periodically when geolocation features are enabled
+- Service URL: http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz
+- Terms of Service: https://www.maxmind.com/en/terms-of-service
+- Privacy Policy: https://www.maxmind.com/en/privacy-policy
+
+**IP Lookup Services**
+- Service: External APIs to determine the user's public IP address
+- Data sent: HTTP request to determine IP address (no personal data stored)
+- When: When geolocation features are enabled and user IP needs to be determined
+- Services used:
+  - IPify API (http://api.ipify.org/) - Terms: https://www.ipify.org/
+  - IP Echo (http://ipecho.net/plain)
+  - Ident.me (http://ident.me)
+  - WhatIsMyIPAddress (http://bot.whatismyipaddress.com)
+  - IPinfo.io (https://ipinfo.io/) - Terms: https://ipinfo.io/terms
+  - IP-API.com (http://ip-api.com/) - Terms: https://ip-api.com/docs/legal
+
+= Plugin Updates and Add-ons =
+
+**Ultimate Multisite Update Server**
+- Service: Official update server for the plugin and its add-ons (ultimatemultisite.com)
+- Data sent: Site URL, plugin version, license keys, authentication tokens
+- When: During plugin/add-on updates and license checks
+- Terms of Service: https://ultimatemultisite.com/terms-of-service/
+- Privacy Policy: https://ultimatemultisite.com/privacy-policy/
 
 = Payment Processing Services =
 
@@ -186,6 +158,22 @@ This plugin connects to several external services to provide its functionality. 
 - Terms of Service: https://www.cloudflare.com/terms/
 - Privacy Policy: https://www.cloudflare.com/privacypolicy/
 
+**Closte Hosting API**
+- Service: Integration with Closte hosting provider for automated site management
+- Data sent: Site configuration data, API credentials
+- When: Only when Closte integration is enabled and configured
+- Service URL: https://app.closte.com/api/client
+- Terms of Service: https://closte.com/terms-of-service/
+- Privacy Policy: https://closte.com/privacy-policy/
+
+**Cloudways Hosting API**
+- Service: Integration with Cloudways hosting provider for automated site management
+- Data sent: Site configuration data, API credentials, authentication tokens
+- When: Only when Cloudways integration is enabled and configured
+- Service URL: https://api.cloudways.com/api/v1/oauth/access_token
+- Terms of Service: https://www.cloudways.com/en/terms.php
+- Privacy Policy: https://www.cloudways.com/en/privacy.php
+
 **GridPane**
 - Service: Server management and site provisioning
 - Data sent: Site configuration data, domain information
@@ -200,24 +188,35 @@ This plugin connects to several external services to provide its functionality. 
 - Terms of Service: https://wpmudev.com/terms-of-service/
 - Privacy Policy: https://incsub.com/privacy-policy/
 
+= DNS and Domain Services =
+
+**Google DNS Resolution**
+- Service: DNS lookup service for domain verification
+- Data sent: Domain names for DNS lookup (no personal data)
+- When: During domain mapping setup and verification
+- Service URL: https://dns.google/resolve
+- Terms of Service: https://developers.google.com/terms/
+- Privacy Policy: https://policies.google.com/privacy
+
 = Newsletter and Analytics =
 
-**Multisite Ultimate Newsletter Service**
-- Service: Newsletter subscription for product updates (multisiteultimate.com)
+**Ultimate Multisite Newsletter Service**
+- Service: Newsletter subscription for product updates (ultimatemultisite.com)
 - Data sent: Company email, name, country information
 - When: During initial plugin setup (optional)
 - This is our own service for providing plugin updates and announcements
 - You can opt out of this service during setup
+- Terms of Service: https://ultimatemultisite.com/terms-of-service/
+- Privacy Policy: https://ultimatemultisite.com/privacy-policy/
 
 All external service connections are clearly disclosed to users during setup, and most services are optional or can be configured based on your chosen hosting provider and payment methods.
 
 == Screenshots ==
 
-1. Dashboard overview with key metrics
-2. Subscription plans management
-3. Customer management interface
-4. Site creation workflow
-5. Domain mapping settings
+1. One of many settings pages.
+2. Setting up products and plans.
+3. Listing sites on the network.
+4. Registration Form builder.
 
 == Support ==
 
@@ -229,7 +228,39 @@ We recommend running this in a staging environment before updating your producti
 
 == Changelog ==
 
-Version [2.4.4] - Released on 2025-08-XX
+Version [2.4.7] - Released on 2025-10-31
+- Fixed: Conflict with YesCookie plugin.
+- Improved: Thumbnail image quality on template selection in the checkout.
+- Fixed: Redirect from secondary domains to primary domain.
+- Fixed: Choosing templates for checkout form builder.
+- Fixed: Extra domain creation with subdirectory installation.
+- Improved: Allow html in custom domain instructions.
+
+Version [2.4.6] - Released on 2025-10-15
+- Fixed: Toggle switches in RTL languages.
+- Fixed: Rendering admin pages for legacy addons.
+- Fixed: Some Stripe API errors.
+- Improved: Better site URL autogeneration and added preview option.
+- Fixed: Escaping too much HTML.
+- Fixed: Saving HTML in credits field.
+- Improved: Type safety in code.
+- Fixed: Downgrading during a trial extending the trial period.
+
+
+Version [2.4.5] - Released on 2025-09-30
+- Fixed: Custom domain check when downgrading.
+- Fixed: Bug in Action Scheduler.
+- Fixed: Hosting integration wizard freezing during setup.
+- Improved: More robust handling for login URL obfuscation when 404 template unavailable.
+- Improved: Better error messaging for installer with sanitized HTML display.
+- Added: Recommended plugins installer functionality.
+- Added: New end-to-end testing framework.
+- Added: Option to include a "Powered by..." message in the footer of customer sites.
+- Added: Install recommended "user-switching" plugin during setup wizard.
+- Improved: Autogeneration of site urls and usernames to be more human friendly.
+- Improved: Code style and return type consistency across codebase.
+
+Version [2.4.4] - Released on 2025-09-17
 - Fixed: Saving email templates without stripping html
 - New: Option to allow site owners to edit users on their site
 - Fixed: Invoices not loading when logo is not set
@@ -237,6 +268,7 @@ Version [2.4.4] - Released on 2025-08-XX
 - Improved: Lazy load limitations for better performance and compatibility
 - New: Add Admin Notice if sunrise.php is not setup
 - New: Option to not always create www. subdomains with hosting integrations
+- Improved: Plugin renamed to Ultimate Multisite
 
 Version [2.4.3] - Released on 2025-08-15
 - Fixed: Bug in Slim SEO plugin
@@ -275,11 +307,11 @@ Version [2.4.0] - Released on 2025-07-07
 - Fixed: i18n deprecation notice for translating too early
 - Improved: Put all scripts in footer and load async
 - Improved: Add discounts to thank you page
-- Improved: Prevent downgrading a plan if it the post type could would be over the limit
+- Improved: Prevent downgrading a plan if the post type would be over the limit
 - Fixed: Styles on thank you page of legacy checkout
 
 Version [2.3.4] - Released on 2024-01-31
-- Fixed: Unable to checkout with any payment gateway
+- Fixed: Unable to check out with any payment gateway
 - Fixed: Warning Undefined global variable $pagenow
 
 Version [2.3.3] - Released on 2024-01-29

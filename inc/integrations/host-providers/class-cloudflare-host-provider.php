@@ -116,9 +116,9 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 			);
 
 			if ( ! empty($dns_entries->result)) {
-				$proxied_tag = sprintf('<span class="wu-bg-orange-500 wu-text-white wu-p-1 wu-rounded wu-text-3xs wu-uppercase wu-ml-2 wu-font-bold" %s>%s</span>', wu_tooltip_text(__('Proxied', 'multisite-ultimate')), __('Cloudflare', 'multisite-ultimate'));
+				$proxied_tag = sprintf('<span class="wu-bg-orange-500 wu-text-white wu-p-1 wu-rounded wu-text-3xs wu-uppercase wu-ml-2 wu-font-bold" role="tooltip" aria-label="%s">%s</span>', __('Proxied', 'ultimate-multisite'), __('Cloudflare', 'ultimate-multisite'));
 
-				$not_proxied_tag = sprintf('<span class="wu-bg-gray-700 wu-text-white wu-p-1 wu-rounded wu-text-3xs wu-uppercase wu-ml-2 wu-font-bold" %s>%s</span>', wu_tooltip_text(__('Not Proxied', 'multisite-ultimate')), __('Cloudflare', 'multisite-ultimate'));
+				$not_proxied_tag = sprintf('<span class="wu-bg-gray-700 wu-text-white wu-p-1 wu-rounded wu-text-3xs wu-uppercase wu-ml-2 wu-font-bold" role="tooltip" aria-label="%s">%s</span>', __('Not Proxied', 'ultimate-multisite'), __('Cloudflare', 'ultimate-multisite'));
 
 				foreach ($dns_entries->result as $entry) {
 					$dns_records[] = [
@@ -163,12 +163,12 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 
 		return [
 			'WU_CLOUDFLARE_ZONE_ID' => [
-				'title'       => __('Zone ID', 'multisite-ultimate'),
-				'placeholder' => __('e.g. 644c7705723d62e31f700bb798219c75', 'multisite-ultimate'),
+				'title'       => __('Zone ID', 'ultimate-multisite'),
+				'placeholder' => __('e.g. 644c7705723d62e31f700bb798219c75', 'ultimate-multisite'),
 			],
 			'WU_CLOUDFLARE_API_KEY' => [
-				'title'       => __('API Key', 'multisite-ultimate'),
-				'placeholder' => __('e.g. xKGbxxVDpdcUv9dUzRf4i4ngv0QNf1wCtbehiec_o', 'multisite-ultimate'),
+				'title'       => __('API Key', 'ultimate-multisite'),
+				'placeholder' => __('e.g. xKGbxxVDpdcUv9dUzRf4i4ngv0QNf1wCtbehiec_o', 'ultimate-multisite'),
 			],
 		];
 	}
@@ -252,14 +252,14 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 			return;
 		}
 
-        // Build FQDN so Domain_Manager can classify main vs. subdomain correctly.
-        $full_domain = $subdomain . '.' . $current_site->domain;
-        $should_add_www = apply_filters(
-            'wu_cloudflare_should_add_www',
-            \WP_Ultimo\Managers\Domain_Manager::get_instance()->should_create_www_subdomain($full_domain),
-            $subdomain,
-            $site_id
-        );
+		// Build FQDN so Domain_Manager can classify main vs. subdomain correctly.
+		$full_domain    = $subdomain . '.' . $current_site->domain;
+		$should_add_www = apply_filters(
+			'wu_cloudflare_should_add_www',
+			\WP_Ultimo\Managers\Domain_Manager::get_instance()->should_create_www_subdomain($full_domain),
+			$subdomain,
+			$site_id
+		);
 
 		$domains_to_send = [$subdomain];
 
@@ -430,7 +430,7 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('Cloudflare secures and ensures the reliability of your external-facing resources such as websites, APIs, and applications. It protects your internal resources such as behind-the-firewall applications, teams, and devices. And it is your platform for developing globally-scalable applications.', 'multisite-ultimate');
+		return __('Cloudflare secures and ensures the reliability of your external-facing resources such as websites, APIs, and applications. It protects your internal resources such as behind-the-firewall applications, teams, and devices. And it is your platform for developing globally-scalable applications.', 'ultimate-multisite');
 	}
 
 	/**
@@ -458,12 +458,12 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 		];
 
 		if (is_subdomain_install()) {
-			$explainer_lines['will']['send_sub_domains'] = __('Add a new proxied subdomain to the configured CloudFlare zone whenever a new site gets created', 'multisite-ultimate');
+			$explainer_lines['will']['send_sub_domains'] = __('Add a new proxied subdomain to the configured CloudFlare zone whenever a new site gets created', 'ultimate-multisite');
 		} else {
-			$explainer_lines['will']['subdirectory'] = __('Do nothing! The CloudFlare integration has no effect in subdirectory multisite installs such as this one', 'multisite-ultimate');
+			$explainer_lines['will']['subdirectory'] = __('Do nothing! The CloudFlare integration has no effect in subdirectory multisite installs such as this one', 'ultimate-multisite');
 		}
 
-		$explainer_lines['will_not']['send_domain'] = __('Add domain mappings as new CloudFlare zones', 'multisite-ultimate');
+		$explainer_lines['will_not']['send_domain'] = __('Add domain mappings as new CloudFlare zones', 'ultimate-multisite');
 
 		return $explainer_lines;
 	}

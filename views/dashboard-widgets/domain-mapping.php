@@ -4,10 +4,10 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
-<div class="wu-styling <?php echo esc_attr($className); ?>">
+<div class="wu-styling <?php echo esc_attr($className); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase ?>">
 
 	<div class="<?php echo esc_attr(wu_env_picker('', 'wu-widget-inset')); ?>">
 
@@ -26,9 +26,9 @@ defined( 'ABSPATH' ) || exit;
 
 		<div class="wu-ml-auto">
 
-		<a title="<?php esc_html_e('Add Domain', 'multisite-ultimate'); ?>" href="<?php echo esc_attr($modal['url']); ?>" class="wu-text-sm wu-no-underline wubox button">
+		<a title="<?php esc_html_e('Add Domain', 'ultimate-multisite'); ?>" href="<?php echo esc_attr($modal['url']); ?>" class="wu-text-sm wu-no-underline wubox button">
 
-			<?php esc_html_e('Add Domain', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Add Domain', 'ultimate-multisite'); ?>
 
 		</a>
 
@@ -59,7 +59,7 @@ defined( 'ABSPATH' ) || exit;
 						$label = $item->get_stage_label();
 
 						if ( ! $item->is_active()) {
-							$label = sprintf('%s <small>(%s)</small>', $label, __('Inactive', 'multisite-ultimate'));
+							$label = sprintf('%s <small>(%s)</small>', $label, __('Inactive', 'ultimate-multisite'));
 						}
 
 						$class = $item->get_stage_class();
@@ -74,7 +74,7 @@ defined( 'ABSPATH' ) || exit;
 								'icon'            => 'dashicons-wu-edit1 wu-align-middle wu-mr-1',
 								'label'           => '',
 								'url'             => $domain['primary_link'],
-								'value'           => __('Make Primary', 'multisite-ultimate'),
+								'value'           => __('Make Primary', 'ultimate-multisite'),
 							];
 						}
 
@@ -82,11 +82,11 @@ defined( 'ABSPATH' ) || exit;
 							'wrapper_classes' => 'wu-text-red-500 wubox',
 							'icon'            => 'dashicons-wu-trash-2 wu-align-middle wu-mr-1',
 							'label'           => '',
-							'value'           => __('Delete', 'multisite-ultimate'),
+							'value'           => __('Delete', 'ultimate-multisite'),
 							'url'             => $domain['delete_link'],
 						];
 
-						echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						wu_responsive_table_row(
 							[
 								'id'     => false,
 								'title'  => strtolower($item->get_domain()),
@@ -98,13 +98,20 @@ defined( 'ABSPATH' ) || exit;
 									'wrapper_classes' => $item->is_primary_domain() ? 'wu-text-blue-600' : '',
 									'icon'            => $item->is_primary_domain() ? 'dashicons-wu-filter_1 wu-align-text-bottom wu-mr-1' : 'dashicons-wu-plus-square wu-align-text-bottom wu-mr-1',
 									'label'           => '',
-									'value'           => $item->is_primary_domain() ? __('Primary', 'multisite-ultimate') . wu_tooltip(__('All other mapped domains will redirect to the primary domain.', 'multisite-ultimate'), 'dashicons-editor-help wu-align-middle wu-ml-1') : __('Alias', 'multisite-ultimate'),
+									'value'           => function () use ($item) {
+										if ($item->is_primary_domain()) {
+											esc_html_e('Primary', 'ultimate-multisite');
+											wu_tooltip(__('All other mapped domains will redirect to the primary domain.', 'ultimate-multisite'), 'dashicons-editor-help wu-align-middle wu-ml-1');
+										} else {
+											esc_html_e('Alias', 'ultimate-multisite');
+										}
+									},
 								],
 								'secure'  => [
 									'wrapper_classes' => $item->is_secure() ? 'wu-text-green-500' : '',
 									'icon'            => $item->is_secure() ? 'dashicons-wu-lock1 wu-align-text-bottom wu-mr-1' : 'dashicons-wu-lock1 wu-align-text-bottom wu-mr-1',
 									'label'           => '',
-									'value'           => $item->is_secure() ? __('Secure (HTTPS)', 'multisite-ultimate') : __('Not Secure (HTTP)', 'multisite-ultimate'),
+									'value'           => $item->is_secure() ? __('Secure (HTTPS)', 'ultimate-multisite') : __('Not Secure (HTTP)', 'ultimate-multisite'),
 								],
 							],
 							$second_row_actions
@@ -121,7 +128,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php else : ?>
 
 			<div class="wu-text-center wu-bg-gray-100 wu-rounded wu-uppercase wu-font-semibold wu-text-xs wu-text-gray-700 wu-p-4 wu-m-4 wu-mt-6">
-				<span><?php echo esc_html__('No domains added.', 'multisite-ultimate'); ?></span>
+				<span><?php echo esc_html__('No domains added.', 'ultimate-multisite'); ?></span>
 			</div>
 
 			<?php endif; ?>

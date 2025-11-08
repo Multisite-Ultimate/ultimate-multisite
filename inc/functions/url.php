@@ -42,11 +42,11 @@ function wu_replace_scheme($url, $new_scheme = '') {
 }
 
 /**
- * Wrapper to the network_admin_url function for Multisite Ultimate admin urls.
+ * Wrapper to the network_admin_url function for Ultimate Multisite admin urls.
  *
  * @since 2.0.0
  *
- * @param string $path Multisite Ultimate page.
+ * @param string $path Ultimate Multisite page.
  * @param array  $query URL query parameters.
  * @return string
  */

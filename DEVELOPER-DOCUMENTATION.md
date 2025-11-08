@@ -14,7 +14,7 @@
 
 ## Introduction
 
-This comprehensive guide provides developers with everything needed to integrate with, extend, or develop addons for WP Ultimo (Multisite Ultimate). WP Ultimo transforms a WordPress Multisite network into a Website-as-a-Service (WaaS) platform.
+This comprehensive guide provides developers with everything needed to integrate with, extend, or develop addons for Ultimate Multisite. Ultimate Multisite transforms a WordPress Multisite network into a Website-as-a-Service (WaaS) platform.
 
 ### Key Features for Developers:
 - **REST API** - Complete CRUD operations for all entities
@@ -538,10 +538,10 @@ add_action('wu_domain_mapped', function($domain) {
  * @param WP_Ultimo\Models\Checkout_Form $form The checkout form object.
  * @return array Modified fields array.
  */
-$fields = apply_filters('wu_checkout_form_fields', $fields, $form);
+$fields = apply_filters('wu_checkout_form_final_fields', $fields, $form);
 
 // Usage Example:
-add_filter('wu_checkout_form_fields', function($fields, $form) {
+add_filter('wu_checkout_form_final_fields', function($fields, $form) {
     // Add custom field
     $fields['company'] = [
         'type' => 'text',
@@ -1157,7 +1157,7 @@ class Leads_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Admin_Page {
             'menu_title' => __('Leads', 'my-addon'),
             'capability' => 'wu_read_leads',
             'position' => $this->position,
-            'parent' => 'multisite-ultimate',
+            'parent' => 'wp-ultimo',
             'callback' => [$this, 'render']
         ]);
     }

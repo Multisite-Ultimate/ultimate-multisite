@@ -172,9 +172,9 @@ class WPEngine_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		$description = __('WP Engine drives your business forward faster with the first and only WordPress Digital Experience Platform. We offer the best WordPress hosting and developer experience on a proven, reliable architecture that delivers unparalleled speed, scalability, and security for your sites.', 'multisite-ultimate');
+		$description = __('WP Engine drives your business forward faster with the first and only WordPress Digital Experience Platform. We offer the best WordPress hosting and developer experience on a proven, reliable architecture that delivers unparalleled speed, scalability, and security for your sites.', 'ultimate-multisite');
 
-		$description .= '<br><br><b>' . __('We recommend to enter in contact with WP Engine support to ask for a Wildcard domain if you are using a subdomain install.', 'multisite-ultimate') . '</b>';
+		$description .= '<br><br><b>' . __('We recommend to enter in contact with WP Engine support to ask for a Wildcard domain if you are using a subdomain install.', 'ultimate-multisite') . '</b>';
 
 		return $description;
 	}

@@ -55,7 +55,7 @@ class Products extends Rule {
 			return true;
 		}
 
-		$this->message = __('A plan is required.', 'multisite-ultimate');
+		$this->message = __('A plan is required.', 'ultimate-multisite');
 
 		return false;
 	}

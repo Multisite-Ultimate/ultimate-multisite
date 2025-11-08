@@ -69,10 +69,13 @@ document.addEventListener("DOMContentLoaded", () => {
       wu_thank_you.ajaxurl,
       {
         method: "POST",
-        body: JSON.stringify({
-          action: "wu_resend_verification_email",
-          _ajax_nonce: wu_thank_you.resend_verification_email_nonce
-        })
+        headers: {
+         "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+            action: "wu_resend_verification_email",
+            _ajax_nonce: wu_thank_you.resend_verification_email_nonce
+        }),
       }
     );
     const response = await request.json();

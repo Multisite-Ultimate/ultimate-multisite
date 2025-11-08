@@ -1,26 +1,26 @@
-# Multisite Ultimate Documentation
+# Ultimate Multisite Documentation
 
-Welcome to the Multisite Ultimate documentation. This wiki contains all the information you need to get started with Multisite Ultimate.
+Welcome to the Ultimate Multisite documentation. This wiki contains all the information you need to get started with Ultimate Multisite.
 
 ## Documentation Categories
 
 ### Getting Started
-Everything you need to know to get started with Multisite Ultimate.
+Everything you need to know to get started with Ultimate Multisite.
 
-- [Multisite Ultimate 101](wp-ultimo-101) - A comprehensive introduction to Multisite Ultimate
+- [Ultimate Multisite 101](wp-ultimo-101) - A comprehensive introduction to Ultimate Multisite
 - [Basic Concepts](basic-concepts) - Understanding the core concepts
 - [What is WordPress Multisite?](what-is-wordpress-multisite) - Learn about WordPress Multisite
-- [Installing Multisite Ultimate](installing-wp-ultimo-v2) - How to install Multisite Ultimate
+- [Installing Ultimate Multisite](installing-wp-ultimo-v2) - How to install Ultimate Multisite
 
 ### Administration
-Manage your Multisite Ultimate network effectively.
+Manage your Ultimate Multisite network effectively.
 
 - [Understanding the Dashboard](understanding-the-wp-ultimo-dashboard) - Navigate the admin interface
 - [Managing Customers](managing-customers) - Customer management tools
 - [Managing Sites](managing-sites) - Site management tools
 
 ### Configuration
-Configure your Multisite Ultimate network.
+Configure your Ultimate Multisite network.
 
 - [Site Templates](site-templates-v2) - Create and manage site templates
 - [Checkout Forms](checkout-forms) - Customize your checkout forms
@@ -65,7 +65,7 @@ Browse all documentation using the sidebar navigation on the right. The document
 
 ## Host Provider Integrations
 
-Multisite Ultimate integrates with various hosting providers to automate domain management and SSL certificate issuance:
+Ultimate Multisite integrates with various hosting providers to automate domain management and SSL certificate issuance:
 
 - [Closte Integration](Closte-Integration) - Automatic domain syncing with Closte hosting
 - [Cloudflare Integration](Cloudflare-Integration) - DNS management with Cloudflare

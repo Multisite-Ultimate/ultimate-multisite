@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate helper class to handle global registering of scripts and styles.
+ * Ultimate Multisite helper class to handle global registering of scripts and styles.
  *
  * @package WP_Ultimo
  * @subpackage Scripts
@@ -13,7 +13,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate helper class to handle global registering of scripts and styles.
+ * Ultimate Multisite helper class to handle global registering of scripts and styles.
  *
  * @since 2.0.0
  */
@@ -99,7 +99,7 @@ class Scripts {
 	}
 
 	/**
-	 * Registers the default Multisite Ultimate scripts.
+	 * Registers the default Ultimate Multisite scripts.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -193,8 +193,8 @@ class Scripts {
 			'wu_fields',
 			[
 				'l10n' => [
-					'image_picker_title'       => __('Select an Image.', 'multisite-ultimate'),
-					'image_picker_button_text' => __('Use this image', 'multisite-ultimate'),
+					'image_picker_title'       => __('Select an Image.', 'ultimate-multisite'),
+					'image_picker_button_text' => __('Use this image', 'ultimate-multisite'),
 				],
 			]
 		);
@@ -224,7 +224,7 @@ class Scripts {
 			'wu-functions',
 			'wu_selectizer',
 			[
-				'ajaxurl' => wu_ajax_url(),
+				'ajaxurl' => wu_ajax_url('init'),
 			]
 		);
 
@@ -291,8 +291,8 @@ class Scripts {
 			[
 				'LT'   => $time_format,
 				'LTS'  => str_replace(':i', ':i:s', (string) $time_format),
-				/* translators: the day/month/year date format used by Multisite Ultimate. You can changed it to localize this date format to your language. the default value is d/m/Y, which is the format 31/12/2021. */
-				'L'    => __('d/m/Y', 'multisite-ultimate'),
+				/* translators: the day/month/year date format used by Ultimate Multisite. You can changed it to localize this date format to your language. the default value is d/m/Y, which is the format 31/12/2021. */
+				'L'    => __('d/m/Y', 'ultimate-multisite'),
 				'LL'   => $date_format,
 				'LLL'  => sprintf('%s %s', $date_format, $time_format),
 				'LLLL' => sprintf('%s %s', $date_format, $time_format),
@@ -302,30 +302,30 @@ class Scripts {
 		$strings = [
 			'relativeTime'   => [
 				// translators: %s is a relative future date.
-				'future' => __('in %s', 'multisite-ultimate'),
+				'future' => __('in %s', 'ultimate-multisite'),
 				// translators: %s is a relative past date.
-				'past'   => __('%s ago', 'multisite-ultimate'),
-				's'      => __('a few seconds', 'multisite-ultimate'),
+				'past'   => __('%s ago', 'ultimate-multisite'),
+				's'      => __('a few seconds', 'ultimate-multisite'),
 				// translators: %s is the number of seconds.
-				'ss'     => __('%d seconds', 'multisite-ultimate'),
-				'm'      => __('a minute', 'multisite-ultimate'),
+				'ss'     => __('%d seconds', 'ultimate-multisite'),
+				'm'      => __('a minute', 'ultimate-multisite'),
 				// translators: %s is the number of minutes.
-				'mm'     => __('%d minutes', 'multisite-ultimate'),
-				'h'      => __('an hour', 'multisite-ultimate'),
+				'mm'     => __('%d minutes', 'ultimate-multisite'),
+				'h'      => __('an hour', 'ultimate-multisite'),
 				// translators: %s is the number of hours.
-				'hh'     => __('%d hours', 'multisite-ultimate'),
-				'd'      => __('a day', 'multisite-ultimate'),
+				'hh'     => __('%d hours', 'ultimate-multisite'),
+				'd'      => __('a day', 'ultimate-multisite'),
 				// translators: %s is the number of days.
-				'dd'     => __('%d days', 'multisite-ultimate'),
-				'w'      => __('a week', 'multisite-ultimate'),
+				'dd'     => __('%d days', 'ultimate-multisite'),
+				'w'      => __('a week', 'ultimate-multisite'),
 				// translators: %s is the number of weeks.
-				'ww'     => __('%d weeks', 'multisite-ultimate'),
-				'M'      => __('a month', 'multisite-ultimate'),
+				'ww'     => __('%d weeks', 'ultimate-multisite'),
+				'M'      => __('a month', 'ultimate-multisite'),
 				// translators: %s is the number of months.
-				'MM'     => __('%d months', 'multisite-ultimate'),
-				'y'      => __('a year', 'multisite-ultimate'),
+				'MM'     => __('%d months', 'ultimate-multisite'),
+				'y'      => __('a year', 'ultimate-multisite'),
 				// translators: %s is the number of years.
-				'yy'     => __('%d years', 'multisite-ultimate'),
+				'yy'     => __('%d years', 'ultimate-multisite'),
 			],
 			'longDateFormat' => $long_date_formats,
 		];
@@ -336,7 +336,7 @@ class Scripts {
 	}
 
 	/**
-	 * Registers the default Multisite Ultimate styles.
+	 * Registers the default Ultimate Multisite styles.
 	 *
 	 * @since 2.0.0
 	 * @return void

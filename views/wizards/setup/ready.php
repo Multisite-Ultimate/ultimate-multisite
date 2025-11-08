@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <div class="wu-bg-white wu-p-4 wu--mx-6 wu-flex wu-content-center" style="height: 400px;">
 
@@ -14,26 +14,26 @@ defined( 'ABSPATH' ) || exit;
 
 	<h1 class="wu-text-gray-800">
 		<?php // translators: %s customer's name ?>
-		<?php echo esc_html(sprintf(__('We are ready, %s!', 'multisite-ultimate'), apply_filters('wu_setup_step_done_name', $page->customer->first ?? __('my friend', 'multisite-ultimate')))); ?>
+		<?php echo esc_html(sprintf(__('We are ready, %s!', 'ultimate-multisite'), apply_filters('wu_setup_step_done_name', $page->customer->first ?? __('my friend', 'ultimate-multisite')))); ?>
 	</h1>
 
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">
 		<?php // translators: %1$s developer's name, %2$s company name ?>
-		<?php printf(esc_html__('Multisite Ultimate would not be possible without the work of %1$s and %2$s.', 'multisite-ultimate'), '<a href="https://wpultimo.com/" target="_blank">Arindo Duque</a>', '<a href="https://nextpress.co" target="_blank">NextPress</a>'); ?>
+		<?php printf(esc_html__('Ultimate Multisite would not be possible without the work of %1$s and %2$s.', 'ultimate-multisite'), '<a href="https://wpultimo.com/" target="_blank">Arindo Duque</a>', '<a href="https://nextpress.co" target="_blank">NextPress</a>'); ?>
 	</p>
 
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">
 		<?php // translators: %s GitHub link ?>
-		<?php printf(esc_html__('Multisite Ultimate is maintained by volunteer open source developers. Please consider sponsoring the project on %s.', 'multisite-ultimate'), '<a href="https://github.com/superdav42/wp-multisite-waas" target="_blank">GitHub</a>'); ?>
+		<?php printf(esc_html__('Ultimate Multisite is maintained by volunteer open source developers. Please consider sponsoring the project on %s.', 'ultimate-multisite'), '<a href="https://github.com/superdav42/wp-multisite-waas" target="_blank">GitHub</a>'); ?>
 	</p>
 
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">
 		<?php // translators: %s support page link ?>
-		<?php printf(esc_html__('Paid support is available. Go to %s to find an expert who can assist in setting up Multisite Ultimate or custom development.', 'multisite-ultimate'), sprintf('<a href="https://multisiteultimate.com/support" target="_blank">%s</a>', esc_html__('The Support Page', 'multisite-ultimate'))); ?>
+		<?php printf(esc_html__('Paid support is available. Go to %s to find an expert who can assist in setting up Ultimate Multisite or custom development.', 'ultimate-multisite'), sprintf('<a href="https://ultimatemultisite.com/support" target="_blank">%s</a>', esc_html__('The Support Page', 'ultimate-multisite'))); ?>
 	</p>
 
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">
-		<?php esc_html_e('You now have everything you need in place to start building your Website as a Service business!', 'multisite-ultimate'); ?>
+		<?php esc_html_e('You now have everything you need in place to start building your Website as a Service business!', 'ultimate-multisite'); ?>
 	</p>
 
 	</div>
@@ -46,7 +46,7 @@ defined( 'ABSPATH' ) || exit;
 	<span class="wu-float-right">
 
 	<a href="<?php echo esc_url(network_admin_url('index.php')); ?>" class="button button-primary button-large" data-testid="button-primary">
-	<?php esc_html_e('Thanks!', 'multisite-ultimate'); ?>
+	<?php esc_html_e('Thanks!', 'ultimate-multisite'); ?>
 	</a>
 
 	</span>

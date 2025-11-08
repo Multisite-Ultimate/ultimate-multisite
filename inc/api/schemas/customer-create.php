@@ -20,17 +20,17 @@ defined('ABSPATH') || exit;
  */
 return [
 	'user_id'            => [
-		'description' => __('The WordPress user ID attached to this customer.', 'multisite-ultimate'),
+		'description' => __('The WordPress user ID attached to this customer.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => true,
 	],
 	'date_registered'    => [
-		'description' => __('Date when the customer was created.', 'multisite-ultimate'),
+		'description' => __('Date when the customer was created.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'email_verification' => [
-		'description' => __('Email verification status - either `none`, `pending`, or `verified`.', 'multisite-ultimate'),
+		'description' => __('Email verification status - either `none`, `pending`, or `verified`.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => true,
 		'enum'        => [
@@ -40,32 +40,32 @@ return [
 		],
 	],
 	'last_login'         => [
-		'description' => __('Date this customer last logged in.', 'multisite-ultimate'),
+		'description' => __('Date this customer last logged in.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'has_trialed'        => [
-		'description' => __('Whether or not the customer has trialed before.', 'multisite-ultimate'),
+		'description' => __('Whether or not the customer has trialed before.', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'vip'                => [
-		'description' => __('If this customer is a VIP customer or not.', 'multisite-ultimate'),
+		'description' => __('If this customer is a VIP customer or not.', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],
 	'ips'                => [
-		'description' => __('List of IP addresses used by this customer.', 'multisite-ultimate'),
+		'description' => __('List of IP addresses used by this customer.', 'ultimate-multisite'),
 		'type'        => 'array',
 		'required'    => false,
 	],
 	'extra_information'  => [
-		'description' => __('Any extra information related to this customer.', 'multisite-ultimate'),
+		'description' => __('Any extra information related to this customer.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'type'               => [
-		'description' => __("The customer type. Can be 'customer'.", 'multisite-ultimate'),
+		'description' => __("The customer type. Can be 'customer'.", 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => true,
 		'enum'        => [
@@ -73,27 +73,27 @@ return [
 		],
 	],
 	'signup_form'        => [
-		'description' => __('The form used to signup.', 'multisite-ultimate'),
+		'description' => __('The form used to signup.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_created'       => [
-		'description' => __('Model creation date.', 'multisite-ultimate'),
+		'description' => __('Model creation date.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'date_modified'      => [
-		'description' => __('Model last modification date.', 'multisite-ultimate'),
+		'description' => __('Model last modification date.', 'ultimate-multisite'),
 		'type'        => 'string',
 		'required'    => false,
 	],
 	'migrated_from_id'   => [
-		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'multisite-ultimate'),
+		'description' => __('The ID of the original 1.X model that was used to generate this item on migration.', 'ultimate-multisite'),
 		'type'        => 'integer',
 		'required'    => false,
 	],
 	'skip_validation'    => [
-		'description' => __('Set true to have field information validation bypassed when saving this event.', 'multisite-ultimate'),
+		'description' => __('Set true to have field information validation bypassed when saving this event.', 'ultimate-multisite'),
 		'type'        => 'boolean',
 		'required'    => false,
 	],

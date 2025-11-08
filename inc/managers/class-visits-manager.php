@@ -69,7 +69,7 @@ class Visits_Manager {
 		}
 
 		if ($site->has_limitations() && $site->get_visits_count() > $site->get_limitations()->visits->get_limit()) {
-			wp_die(esc_html__('This site is not available at this time.', 'multisite-ultimate'), esc_html__('Not available', 'multisite-ultimate'), 404);
+			wp_die(esc_html__('This site is not available at this time.', 'ultimate-multisite'), esc_html__('Not available', 'ultimate-multisite'), 404);
 		}
 	}
 

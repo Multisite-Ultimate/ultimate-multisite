@@ -62,7 +62,7 @@ class Limitation_Manager {
 	 * @param string|array $plugins The plugin or list of plugins to (de)activate.
 	 * @param boolean      $network_wide If we want to (de)activate it network-wide.
 	 * @param boolean      $silent IF we should do the process silently - true by default.
-	 * @return bool
+	 * @return void
 	 */
 	public function async_handle_plugins($action, $site_id, $plugins, $network_wide = false, $silent = true) {
 
@@ -70,7 +70,7 @@ class Limitation_Manager {
 
 		// Avoid doing anything on the main site.
 		if (wu_get_main_site_id() === $site_id) {
-			return $results;
+			return;
 		}
 
 		switch_to_blog($site_id);
@@ -78,7 +78,7 @@ class Limitation_Manager {
 		if ('activate' === $action) {
 			$results = activate_plugins($plugins, '', $network_wide, $silent);
 		} elseif ('deactivate' === $action) {
-			$results = deactivate_plugins($plugins, $silent, $network_wide);
+			deactivate_plugins($plugins, $silent, $network_wide);
 		}
 
 		if (is_wp_error($results)) {
@@ -86,8 +86,6 @@ class Limitation_Manager {
 		}
 
 		restore_current_blog();
-
-		return $results;
 	}
 
 	/**
@@ -97,17 +95,15 @@ class Limitation_Manager {
 	 *
 	 * @param int    $site_id The site ID.
 	 * @param string $theme_stylesheet The theme stylesheet.
-	 * @return true
+	 * @return void
 	 */
-	public function async_switch_theme($site_id, $theme_stylesheet): bool {
+	public function async_switch_theme($site_id, $theme_stylesheet): void {
 
 		switch_to_blog($site_id);
 
 		switch_theme($theme_stylesheet);
 
 		restore_current_blog();
-
-		return true;
 	}
 
 	/**
@@ -138,15 +134,15 @@ class Limitation_Manager {
 		$fields = [
 			'confirm'       => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Reset', 'multisite-ultimate'),
-				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
+				'title'     => __('Confirm Reset', 'ultimate-multisite'),
+				'desc'      => __('This action can not be undone.', 'ultimate-multisite'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Reset Limitations', 'multisite-ultimate'),
+				'title'           => __('Reset Limitations', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -165,7 +161,7 @@ class Limitation_Manager {
 		];
 
 		$form_attributes = [
-			'title'                 => __('Reset', 'multisite-ultimate'),
+			'title'                 => __('Reset', 'ultimate-multisite'),
 			'views'                 => 'admin-pages/fields',
 			'classes'               => 'wu-modal-form wu-widget-list wu-striped wu-m-0 wu-mt-0',
 			'field_wrapper_classes' => 'wu-w-full wu-box-border wu-items-center wu-flex wu-justify-between wu-p-4 wu-m-0 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300 wu-border-solid',
@@ -200,7 +196,7 @@ class Limitation_Manager {
 			wp_send_json_error(
 				new \WP_Error(
 					'parameters-not-found',
-					__('Required parameters are missing.', 'multisite-ultimate')
+					__('Required parameters are missing.', 'ultimate-multisite')
 				)
 			);
 		}
@@ -258,11 +254,11 @@ class Limitation_Manager {
 	public function add_limitation_sections($sections, $object_model) {
 
 		if ( $this->get_object_type($object_model) === 'site' && $object_model->get_type() !== Site_Type::CUSTOMER_OWNED) {
-			$html = sprintf('<span class="wu--mt-4 wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded wu-block">%s</span>', __('Limitations are only available for customer-owned sites. You need to change the type to Customer-owned and save this site before the options are shown.', 'multisite-ultimate'));
+			$html = sprintf('<span class="wu--mt-4 wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded wu-block">%s</span>', __('Limitations are only available for customer-owned sites. You need to change the type to Customer-owned and save this site before the options are shown.', 'ultimate-multisite'));
 
 			$sections['sites'] = [
-				'title'  => __('Limits', 'multisite-ultimate'),
-				'desc'   => __('Only customer-owned sites have limitations.', 'multisite-ultimate'),
+				'title'  => __('Limits', 'ultimate-multisite'),
+				'desc'   => __('Only customer-owned sites have limitations.', 'ultimate-multisite'),
 				'icon'   => 'dashicons-wu-browser',
 				'fields' => [
 					'note' => [
@@ -277,8 +273,8 @@ class Limitation_Manager {
 
 		if ( $this->get_object_type($object_model) !== 'site') {
 			$sections['sites'] = [
-				'title'  => __('Sites', 'multisite-ultimate'),
-				'desc'   => __('Control limitations imposed to the number of sites allowed for memberships attached to this product.', 'multisite-ultimate'),
+				'title'  => __('Sites', 'ultimate-multisite'),
+				'desc'   => __('Control limitations imposed to the number of sites allowed for memberships attached to this product.', 'ultimate-multisite'),
 				'icon'   => 'dashicons-wu-browser',
 				'fields' => $this->get_sites_fields($object_model),
 				'v-show' => "get_state_value('product_type', 'none') !== 'service'",
@@ -293,8 +289,8 @@ class Limitation_Manager {
 		 */
 		if ((bool) wu_get_setting('enable_visits_limiting', true)) {
 			$sections['visits'] = [
-				'title'  => __('Visits', 'multisite-ultimate'),
-				'desc'   => __('Control limitations imposed to the number of unique visitors allowed for memberships attached to this product.', 'multisite-ultimate'),
+				'title'  => __('Visits', 'ultimate-multisite'),
+				'desc'   => __('Control limitations imposed to the number of unique visitors allowed for memberships attached to this product.', 'ultimate-multisite'),
 				'icon'   => 'dashicons-wu-man',
 				'v-show' => "get_state_value('product_type', 'none') !== 'service'",
 				'state'  => [
@@ -303,8 +299,8 @@ class Limitation_Manager {
 				'fields' => [
 					'modules[visits][enabled]' => [
 						'type'      => 'toggle',
-						'title'     => __('Limit Unique Visits', 'multisite-ultimate'),
-						'desc'      => __('Toggle this option to enable unique visits limitation.', 'multisite-ultimate'),
+						'title'     => __('Limit Unique Visits', 'ultimate-multisite'),
+						'desc'      => __('Toggle this option to enable unique visits limitation.', 'ultimate-multisite'),
 						'value'     => 10,
 						'html_attr' => [
 							'v-model' => 'limit_visits',
@@ -319,9 +315,9 @@ class Limitation_Manager {
 
 			$sections['visits']['fields']['modules[visits][limit]'] = [
 				'type'              => 'number',
-				'title'             => __('Unique Visits Quota', 'multisite-ultimate'),
-				'desc'              => __('Set a top limit for the number of monthly unique visits. Leave empty or 0 to allow for unlimited visits.', 'multisite-ultimate'),
-				'placeholder'       => __('e.g. 10000', 'multisite-ultimate'),
+				'title'             => __('Unique Visits Quota', 'ultimate-multisite'),
+				'desc'              => __('Set a top limit for the number of monthly unique visits. Leave empty or 0 to allow for unlimited visits.', 'ultimate-multisite'),
+				'placeholder'       => __('e.g. 10000', 'ultimate-multisite'),
 				'value'             => $object_model->get_limitations()->visits->get_limit(),
 				'wrapper_html_attr' => [
 					'v-show'  => 'limit_visits',
@@ -343,8 +339,8 @@ class Limitation_Manager {
 			if ( $this->get_object_type($object_model) === 'site') {
 				$sections['visits']['fields']['visits_count'] = [
 					'type'              => 'text-display',
-					'title'             => __('Current Unique Visits Count this Month', 'multisite-ultimate'),
-					'desc'              => __('Current visits count for this particular site.', 'multisite-ultimate'),
+					'title'             => __('Current Unique Visits Count this Month', 'ultimate-multisite'),
+					'desc'              => __('Current visits count for this particular site.', 'ultimate-multisite'),
 					'display_value'     => sprintf('%s visit(s)', $object_model->get_visits_count()),
 					'wrapper_html_attr' => [
 						'v-show'  => 'limit_visits',
@@ -355,8 +351,8 @@ class Limitation_Manager {
 		}
 
 		$sections['users'] = [
-			'title'  => __('Users', 'multisite-ultimate'),
-			'desc'   => __('Control limitations imposed to the number of user allowed for memberships attached to this product.', 'multisite-ultimate'),
+			'title'  => __('Users', 'ultimate-multisite'),
+			'desc'   => __('Control limitations imposed to the number of user allowed for memberships attached to this product.', 'ultimate-multisite'),
 			'icon'   => 'dashicons-wu-users',
 			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
 			'state'  => [
@@ -365,8 +361,8 @@ class Limitation_Manager {
 			'fields' => [
 				'modules[users][enabled]' => [
 					'type'      => 'toggle',
-					'title'     => __('Limit User', 'multisite-ultimate'),
-					'desc'      => __('Enable user limitations for this product.', 'multisite-ultimate'),
+					'title'     => __('Limit User', 'ultimate-multisite'),
+					'desc'      => __('Enable user limitations for this product.', 'ultimate-multisite'),
 					'html_attr' => [
 						'v-model' => 'limit_users',
 					],
@@ -381,8 +377,8 @@ class Limitation_Manager {
 		$this->register_user_fields($sections, $object_model);
 
 		$sections['post_types'] = [
-			'title'  => __('Post Types', 'multisite-ultimate'),
-			'desc'   => __('Control limitations imposed to the number of posts allowed for memberships attached to this product.', 'multisite-ultimate'),
+			'title'  => __('Post Types', 'ultimate-multisite'),
+			'desc'   => __('Control limitations imposed to the number of posts allowed for memberships attached to this product.', 'ultimate-multisite'),
 			'icon'   => 'dashicons-wu-book',
 			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
 			'state'  => [
@@ -391,8 +387,8 @@ class Limitation_Manager {
 			'fields' => [
 				'modules[post_types][enabled]' => [
 					'type'      => 'toggle',
-					'title'     => __('Limit Post Types', 'multisite-ultimate'),
-					'desc'      => __('Toggle this option to set limits to each post type.', 'multisite-ultimate'),
+					'title'     => __('Limit Post Types', 'ultimate-multisite'),
+					'desc'      => __('Toggle this option to set limits to each post type.', 'ultimate-multisite'),
 					'value'     => false,
 					'html_attr' => [
 						'v-model' => 'limit_post_types',
@@ -407,7 +403,7 @@ class Limitation_Manager {
 
 		$sections['post_types']['post_quota_note'] = [
 			'type'              => 'note',
-			'desc'              => __('<strong>Note:</strong> Using the fields below you can set a post limit for each of the post types activated. <br>Toggle the switch to <strong>deactivate</strong> the post type altogether. Leave 0 or blank for unlimited posts.', 'multisite-ultimate'),
+			'desc'              => __('<strong>Note:</strong> Using the fields below you can set a post limit for each of the post types activated. <br>Toggle the switch to <strong>deactivate</strong> the post type altogether. Leave 0 or blank for unlimited posts.', 'ultimate-multisite'),
 			'wrapper_html_attr' => [
 				'v-show'  => 'limit_post_types',
 				'v-cloak' => '1',
@@ -417,8 +413,8 @@ class Limitation_Manager {
 		$this->register_post_type_fields($sections, $object_model);
 
 		$sections['limit_disk_space'] = [
-			'title'  => __('Disk Space', 'multisite-ultimate'),
-			'desc'   => __('Control limitations imposed to the disk space allowed for memberships attached to this entity.', 'multisite-ultimate'),
+			'title'  => __('Disk Space', 'ultimate-multisite'),
+			'desc'   => __('Control limitations imposed to the disk space allowed for memberships attached to this entity.', 'ultimate-multisite'),
 			'icon'   => 'dashicons-wu-drive',
 			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
 			'state'  => [
@@ -427,8 +423,8 @@ class Limitation_Manager {
 			'fields' => [
 				'modules[disk_space][enabled]' => [
 					'type'      => 'toggle',
-					'title'     => __('Limit Disk Space per Site', 'multisite-ultimate'),
-					'desc'      => __('Enable disk space limitations for this entity.', 'multisite-ultimate'),
+					'title'     => __('Limit Disk Space per Site', 'ultimate-multisite'),
+					'desc'      => __('Enable disk space limitations for this entity.', 'ultimate-multisite'),
 					'value'     => true,
 					'html_attr' => [
 						'v-model' => 'limit_disk_space',
@@ -443,8 +439,8 @@ class Limitation_Manager {
 
 		$sections['limit_disk_space']['fields']['modules[disk_space][limit]'] = [
 			'type'              => 'number',
-			'title'             => __('Disk Space Allowance', 'multisite-ultimate'),
-			'desc'              => __('Set a limit in MBs for the disk space for <strong>each</strong> individual site.', 'multisite-ultimate'),
+			'title'             => __('Disk Space Allowance', 'ultimate-multisite'),
+			'desc'              => __('Set a limit in MBs for the disk space for <strong>each</strong> individual site.', 'ultimate-multisite'),
 			'min'               => 0,
 			'placeholder'       => 100,
 			'value'             => $object_model->get_limitations()->disk_space->get_limit(),
@@ -459,8 +455,8 @@ class Limitation_Manager {
 		}
 
 		$sections['custom_domain'] = [
-			'title'  => __('Custom Domains', 'multisite-ultimate'),
-			'desc'   => __('Limit the number of users on each role, posts, pages, and more.', 'multisite-ultimate'),
+			'title'  => __('Custom Domains', 'ultimate-multisite'),
+			'desc'   => __('Allow customers to setup custom domains.', 'ultimate-multisite'),
 			'icon'   => 'dashicons-wu-link1',
 			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
 			'state'  => [
@@ -469,8 +465,8 @@ class Limitation_Manager {
 			'fields' => [
 				'modules[domain_mapping][enabled]' => [
 					'type'              => 'toggle',
-					'title'             => __('Allow Custom Domains', 'multisite-ultimate'),
-					'desc'              => __('Toggle this option on to allow this plan to enable custom domains for sign-ups on this plan.', 'multisite-ultimate'),
+					'title'             => __('Allow Custom Domains', 'ultimate-multisite'),
+					'desc'              => __('Toggle this option on to allow this plan to enable custom domains for sign-ups on this plan.', 'ultimate-multisite'),
 					'value'             => $object_model->get_limitations()->domain_mapping->is_enabled(),
 					'wrapper_html_attr' => [
 						'v-cloak' => '1',
@@ -486,9 +482,33 @@ class Limitation_Manager {
 			$sections['custom_domain']['fields']['custom_domain_override'] = $this->override_notice($object_model->get_limitations(false)->domain_mapping->has_own_enabled(), ['allow_domain_mapping']);
 		}
 
+		$sections['hide_credits'] = [
+			'title'  => __('Hide Credits', 'ultimate-multisite'),
+			'desc'   => __('Hide the "Powered By" footer credits.', 'ultimate-multisite'),
+			'icon'   => 'dashicons-wu-eye-off',
+			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
+			'state'  => [
+				'allow_hide_credits' => $object_model->get_limitations()->hide_credits->is_enabled(),
+			],
+			'fields' => [
+				'modules[hide_credits][enabled]' => [
+					'type'              => 'toggle',
+					'title'             => __('Hide Footer Credits', 'ultimate-multisite'),
+					'desc'              => __('Toggle this option on to hide the "Powered by..." footer credits on this plan.', 'ultimate-multisite'),
+					'value'             => $object_model->get_limitations()->hide_credits->is_enabled(),
+					'wrapper_html_attr' => [
+						'v-cloak' => '1',
+					],
+					'html_attr'         => [
+						'v-model' => 'allow_hide_credits',
+					],
+				],
+			],
+		];
+
 		$sections['allowed_themes'] = [
-			'title'  => __('Themes', 'multisite-ultimate'),
-			'desc'   => __('Limit the number of users on each role, posts, pages, and more.', 'multisite-ultimate'),
+			'title'  => __('Themes', 'ultimate-multisite'),
+			'desc'   => __('You can choose which themes are allowed to be used on the platform.', 'ultimate-multisite'),
 			'icon'   => 'dashicons-wu-palette',
 			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
 			'state'  => [
@@ -497,23 +517,23 @@ class Limitation_Manager {
 			'fields' => [
 				'themes' => [
 					'type'    => 'html',
-					'title'   => __('Themes', 'multisite-ultimate'),
-					'desc'    => __('Select how the themes installed on the network should behave.', 'multisite-ultimate'),
+					'title'   => __('Themes', 'ultimate-multisite'),
+					'desc'    => __('Select how the themes installed on the network should behave.', 'ultimate-multisite'),
 					'content' => fn() => $this->get_theme_selection_list($object_model, $sections['allowed_themes']),
 				],
 			],
 		];
 
 		$sections['allowed_plugins'] = [
-			'title'  => __('Plugins', 'multisite-ultimate'),
-			'desc'   => __('You can choose the behavior of each plugin installed on the platform.', 'multisite-ultimate'),
+			'title'  => __('Plugins', 'ultimate-multisite'),
+			'desc'   => __('You can choose the behavior of each plugin installed on the platform.', 'ultimate-multisite'),
 			'icon'   => 'dashicons-wu-power-plug',
 			'v-show' => "get_state_value('product_type', 'none') !== 'service'",
 			'fields' => [
 				'plugins' => [
 					'type'    => 'html',
-					'title'   => __('Plugins', 'multisite-ultimate'),
-					'desc'    => __('Select how the plugins installed on the network should behave.', 'multisite-ultimate'),
+					'title'   => __('Plugins', 'ultimate-multisite'),
+					'desc'    => __('Select how the plugins installed on the network should behave.', 'ultimate-multisite'),
 					'content' => fn() => $this->get_plugin_selection_list($object_model),
 				],
 			],
@@ -528,14 +548,14 @@ class Limitation_Manager {
 		);
 
 		$sections['reset_limitations'] = [
-			'title'  => __('Reset Limitations', 'multisite-ultimate'),
-			'desc'   => __('Reset the limitations applied to this element.', 'multisite-ultimate'),
+			'title'  => __('Reset Limitations', 'ultimate-multisite'),
+			'desc'   => __('Reset the limitations applied to this element.', 'ultimate-multisite'),
 			'icon'   => 'dashicons-wu-back-in-time',
 			'fields' => [
 				'reset_permissions' => [
 					'type'  => 'note',
-					'title' => sprintf("%s<span class='wu-normal-case wu-block wu-text-xs wu-font-normal wu-mt-1'>%s</span>", __('Reset Limitations', 'multisite-ultimate'), __('Use this option to reset the custom limitations applied to this object.', 'multisite-ultimate')),
-					'desc'  => sprintf('<a href="%s" title="%s" class="wubox button-primary">%s</a>', $reset_url, __('Reset Limitations', 'multisite-ultimate'), __('Reset Limitations', 'multisite-ultimate')),
+					'title' => sprintf("%s<span class='wu-normal-case wu-block wu-text-xs wu-font-normal wu-mt-1'>%s</span>", __('Reset Limitations', 'ultimate-multisite'), __('Use this option to reset the custom limitations applied to this object.', 'ultimate-multisite')),
+					'desc'  => sprintf('<a href="%s" title="%s" class="wubox button-primary">%s</a>', $reset_url, __('Reset Limitations', 'ultimate-multisite'), __('Reset Limitations', 'ultimate-multisite')),
 				],
 			],
 		];
@@ -554,7 +574,7 @@ class Limitation_Manager {
 	 */
 	protected function override_notice($show = false, $additional_checks = []) {
 
-		$text = sprintf('<p class="wu-m-0 wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded">%s</p>', __('This value is being applied only to this entity. Changes made to the membership or product permissions will not affect this particular value.', 'multisite-ultimate'));
+		$text = sprintf('<p class="wu-m-0 wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded">%s</p>', __('This value is being applied only to this entity. Changes made to the membership or product permissions will not affect this particular value.', 'ultimate-multisite'));
 
 		return [
 			'desc'              => $text,
@@ -589,12 +609,12 @@ class Limitation_Manager {
 			$sections['users']['fields'][ "control_{$user_role_slug}" ] = [
 				'type'              => 'group',
 				// translators: %s is the user role name.
-				'title'             => sprintf(__('Limit %s Role', 'multisite-ultimate'), $user_role['name']),
+				'title'             => sprintf(__('Limit %s Role', 'ultimate-multisite'), $user_role['name']),
 				// translators: %s is the user role name.
 				'desc'              => sprintf(
 					// translators: %s is the user role name.
-					__('The customer will be able to create %s users(s) of this user role.', 'multisite-ultimate'),
-					"{{ roles['{$user_role_slug}'].enabled ? ( parseInt(roles['{$user_role_slug}'].number, 10) ? roles['{$user_role_slug}'].number : '" . __('unlimited', 'multisite-ultimate') . "' ) : '" . __('no', 'multisite-ultimate') . "' }}"
+					__('The customer will be able to create %s users(s) of this user role.', 'ultimate-multisite'),
+					"{{ roles['{$user_role_slug}'].enabled ? ( parseInt(roles['{$user_role_slug}'].number, 10) ? roles['{$user_role_slug}'].number : '" . __('unlimited', 'ultimate-multisite') . "' ) : '" . __('no', 'ultimate-multisite') . "' }}"
 				),
 				'tooltip'           => '',
 				'wrapper_html_attr' => [
@@ -606,7 +626,7 @@ class Limitation_Manager {
 					"modules[users][limit][{$user_role_slug}][number]" => [
 						'type'            => 'number',
 						// translators: %s is the user role name.
-						'placeholder'     => sprintf(__('%s Role Quota. e.g. 10', 'multisite-ultimate'), $user_role['name']),
+						'placeholder'     => sprintf(__('%s Role Quota. e.g. 10', 'ultimate-multisite'), $user_role['name']),
 						'min'             => 0,
 						'wrapper_classes' => 'wu-w-full',
 						'html_attr'       => [
@@ -658,11 +678,11 @@ class Limitation_Manager {
 			$sections['post_types']['fields'][ "control_{$post_type_slug}" ] = [
 				'type'              => 'group',
 				// translators: %s is the post type name.
-				'title'             => sprintf(__('Limit %s', 'multisite-ultimate'), $post_type->label),
+				'title'             => sprintf(__('Limit %s', 'ultimate-multisite'), $post_type->label),
 				'desc'              => sprintf(
 					// translators: %s is the post type name.
-					__('The customer will be able to create %s post(s) of this post type.', 'multisite-ultimate'),
-					"{{ types['{$post_type_slug}'].enabled ? ( parseInt(types['{$post_type_slug}'].number, 10) ? types['{$post_type_slug}'].number : '" . __('unlimited', 'multisite-ultimate') . "' ) : '" . __('no', 'multisite-ultimate') . "' }}"
+					__('The customer will be able to create %s post(s) of this post type.', 'ultimate-multisite'),
+					"{{ types['{$post_type_slug}'].enabled ? ( parseInt(types['{$post_type_slug}'].number, 10) ? types['{$post_type_slug}'].number : '" . __('unlimited', 'ultimate-multisite') . "' ) : '" . __('no', 'ultimate-multisite') . "' }}"
 				),
 				'tooltip'           => '',
 				'wrapper_html_attr' => [
@@ -674,7 +694,7 @@ class Limitation_Manager {
 					"modules[post_types][limit][{$post_type_slug}][number]" => [
 						'type'            => 'number',
 						// translators: %s is the post type name.
-						'placeholder'     => sprintf(__('%s Quota. e.g. 200', 'multisite-ultimate'), $post_type->label),
+						'placeholder'     => sprintf(__('%s Quota. e.g. 200', 'ultimate-multisite'), $post_type->label),
 						'min'             => 0,
 						'wrapper_classes' => 'wu-w-full',
 						'html_attr'       => [
@@ -720,8 +740,8 @@ class Limitation_Manager {
 		$fields = [
 			'modules[sites][enabled]' => [
 				'type'      => 'toggle',
-				'title'     => __('Limit Sites', 'multisite-ultimate'),
-				'desc'      => __('Enable site limitations for this product.', 'multisite-ultimate'),
+				'title'     => __('Limit Sites', 'ultimate-multisite'),
+				'desc'      => __('Enable site limitations for this product.', 'ultimate-multisite'),
 				'value'     => $object_model->get_limitations()->sites->is_enabled(),
 				'html_attr' => [
 					'v-model' => 'limit_sites',
@@ -738,7 +758,7 @@ class Limitation_Manager {
 		 */
 		$fields['site_not_allowed_note'] = [
 			'type'              => 'note',
-			'desc'              => __('The product type selection does not support allowing for the creating of extra sites.', 'multisite-ultimate'),
+			'desc'              => __('The product type selection does not support allowing for the creating of extra sites.', 'ultimate-multisite'),
 			'tooltip'           => '',
 			'wrapper_html_attr' => [
 				'v-show'  => "get_state_value('product_type', 'none') === 'service' && limit_sites",
@@ -749,8 +769,8 @@ class Limitation_Manager {
 		$fields['modules[sites][limit]'] = [
 			'type'              => 'number',
 			'min'               => 1,
-			'title'             => __('Site Allowance', 'multisite-ultimate'),
-			'desc'              => __('This is the number of sites the customer will be able to create under this membership.', 'multisite-ultimate'),
+			'title'             => __('Site Allowance', 'ultimate-multisite'),
+			'desc'              => __('This is the number of sites the customer will be able to create under this membership.', 'ultimate-multisite'),
 			'placeholder'       => 1,
 			'value'             => $object_model->get_limitations()->sites->get_limit(),
 			'wrapper_html_attr' => [
@@ -811,7 +831,7 @@ class Limitation_Manager {
 	}
 
 	/**
-	 * Returns a list of all plugins available as options, excluding Multisite Ultimate.
+	 * Returns a list of all plugins available as options, excluding Ultimate Multisite.
 	 *
 	 * We also exclude a couple more.
 	 *
@@ -854,7 +874,7 @@ class Limitation_Manager {
 	/**
 	 * Returns the exclusion list for plugins.
 	 *
-	 * We don't want people forcing Multisite Ultimate to be deactivated, do we?
+	 * We don't want people forcing Ultimate Multisite to be deactivated, do we?
 	 *
 	 * @since 2.0.0
 	 * @return array

@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div id="dashboard-filters" class="wp-filter wu-filter">
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 		id="wu-date-range"
 		style="min-height: 28px;"
 		class="wu-border-0 wu-border-l wu-border-gray-300 wu-bg-gray-100 wu-w-full wu-text-right wu-py-3 wu-outline-none wu-rounded-none"
-		placeholder="<?php esc_html_e('Loading...', 'multisite-ultimate'); ?>'"
+		placeholder="<?php esc_html_e('Loading...', 'ultimate-multisite'); ?>'"
 		>
 	</li>
 	</ul>

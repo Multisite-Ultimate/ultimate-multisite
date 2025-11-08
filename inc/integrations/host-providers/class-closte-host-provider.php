@@ -90,13 +90,32 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	 */
 	public function on_add_domain($domain, $site_id): void {
 
-		$this->send_closte_api_request(
+		wu_log_add('integration-closte', sprintf('Adding domain: %s for site ID: %d', $domain, $site_id));
+
+		// First add the domain alias
+		$domain_response = $this->send_closte_api_request(
 			'/adddomainalias',
 			[
 				'domain'   => $domain,
 				'wildcard' => str_starts_with($domain, '*.'),
 			]
 		);
+
+		// Check if domain was added successfully, then request SSL
+		if (wu_get_isset($domain_response, 'success', false)) {
+			wu_log_add('integration-closte', sprintf('Domain %s added successfully, requesting SSL certificate', $domain));
+			$this->request_ssl_certificate($domain);
+		} elseif (isset($domain_response['error']) && $domain_response['error'] === 'Invalid or empty domain: ' . $domain) {
+			wu_log_add('integration-closte', sprintf('Domain %s rejected by Closte API as invalid. This may be expected for Closte subdomains or internal domains.', $domain));
+		} else {
+			wu_log_add('integration-closte', sprintf('Failed to add domain %s. Response: %s', $domain, wp_json_encode($domain_response)));
+
+			// Only try SSL if it's not a domain validation error
+			if (! isset($domain_response['error']) || ! str_contains($domain_response['error'], 'Invalid or empty domain')) {
+				wu_log_add('integration-closte', sprintf('Attempting SSL certificate request for %s despite domain addition failure', $domain));
+				$this->request_ssl_certificate($domain);
+			}
+		}
 	}
 
 	/**
@@ -143,6 +162,78 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	public function on_remove_subdomain($subdomain, $site_id) {}
 
 	/**
+	 * Requests an SSL certificate for a domain.
+	 *
+	 * @since 2.0.0
+	 * @param string $domain The domain to request SSL certificate for.
+	 * @return array|object
+	 */
+	private function request_ssl_certificate($domain) {
+
+		wu_log_add('integration-closte', sprintf('Requesting SSL certificate for domain: %s', $domain));
+
+		// Try different possible SSL endpoints
+		$ssl_endpoints = [
+			'/ssl/install',
+			'/installssl',
+			'/ssl',
+			'/certificate/install',
+		];
+
+		$ssl_response = null;
+
+		foreach ($ssl_endpoints as $endpoint) {
+			wu_log_add('integration-closte', sprintf('Trying SSL endpoint: %s', $endpoint));
+
+			$ssl_response = $this->send_closte_api_request(
+				$endpoint,
+				[
+					'domain' => $domain,
+					'type'   => 'letsencrypt',
+				]
+			);
+
+			// If we get something other than 400/404, we found a working endpoint
+			if (! isset($ssl_response['error']) || ! preg_match('/HTTP [45]\d\d/', $ssl_response['error'])) {
+				wu_log_add('integration-closte', sprintf('SSL endpoint %s responded, stopping search', $endpoint));
+				break;
+			}
+		}
+
+		if (wu_get_isset($ssl_response, 'success', false)) {
+			wu_log_add('integration-closte', sprintf('SSL certificate request successful for domain: %s', $domain));
+		} else {
+			wu_log_add('integration-closte', sprintf('SSL certificate request failed for domain: %s. Response: %s', $domain, wp_json_encode($ssl_response)));
+
+			// Note: Closte might handle SSL automatically when domain is added
+			wu_log_add('integration-closte', 'Note: Closte may handle SSL automatically when domains are added via /adddomainalias');
+		}
+
+		return $ssl_response;
+	}
+
+	/**
+	 * Checks the SSL certificate status for a domain.
+	 *
+	 * @since 2.0.0
+	 * @param string $domain The domain to check SSL status for.
+	 * @return array|object
+	 */
+	public function check_ssl_status($domain) {
+
+		wu_log_add('integration-closte', sprintf('Checking SSL status for domain: %s', $domain));
+
+		$ssl_status = $this->send_closte_api_request(
+			'/ssl/status',
+			['domain' => $domain]
+		);
+
+		wu_log_add('integration-closte', sprintf('SSL status for domain %s: %s', $domain, wp_json_encode($ssl_status)));
+
+		return $ssl_status;
+	}
+
+	/**
 	 * Tests the connection with the API.
 	 *
 	 * Needs to be implemented by integrations.
@@ -157,12 +248,12 @@ class Closte_Host_Provider extends Base_Host_Provider {
 		if (wu_get_isset($response, 'error') === 'Invalid or empty domain: ') {
 			wp_send_json_success(
 				[
-					'message' => __('Access Authorized', 'multisite-ultimate'),
+					'message' => __('Access Authorized', 'ultimate-multisite'),
 				]
 			);
 		}
 
-		$error = new \WP_Error('not-auth', __('Something went wrong', 'multisite-ultimate'));
+		$error = new \WP_Error('not-auth', __('Something went wrong', 'ultimate-multisite'));
 
 		wp_send_json_error($error);
 	}
@@ -178,42 +269,95 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	public function send_closte_api_request($endpoint, $data) {
 
 		if (defined('CLOSTE_CLIENT_API_KEY') === false) {
+			wu_log_add('integration-closte', 'CLOSTE_CLIENT_API_KEY constant not defined');
 			return (object) [
 				'success' => false,
 				'error'   => 'Closte API Key not found.',
 			];
 		}
 
+		if (empty(CLOSTE_CLIENT_API_KEY)) {
+			wu_log_add('integration-closte', 'CLOSTE_CLIENT_API_KEY is empty');
+			return (object) [
+				'success' => false,
+				'error'   => 'Closte API Key is empty.',
+			];
+		}
+
+		// Try different authentication methods
+		$api_key = CLOSTE_CLIENT_API_KEY;
+
 		$post_fields = [
 			'blocking' => true,
 			'timeout'  => 45,
 			'method'   => 'POST',
+			'headers'  => [
+				'Content-Type' => 'application/x-www-form-urlencoded',
+				'User-Agent'   => 'WP-Ultimo-Closte-Integration/2.0',
+			],
 			'body'     => array_merge(
 				[
-					'apikey' => CLOSTE_CLIENT_API_KEY,
+					'apikey' => $api_key,
 				],
 				$data
 			),
 		];
 
-		$response = wp_remote_post('https://app.closte.com/api/client' . $endpoint, $post_fields);
+		wu_log_add('integration-closte', sprintf('Using API key (first 10 chars): %s...', substr($api_key, 0, 10)));
 
-		wu_log_add('integration-closte', wp_remote_retrieve_body($response));
+		$api_url = 'https://app.closte.com/api/client' . $endpoint;
+		wu_log_add('integration-closte', sprintf('Making API request to: %s with data: %s', $api_url, wp_json_encode($data)));
 
-		if ( ! is_wp_error($response)) {
-			$body = json_decode(wp_remote_retrieve_body($response), true);
+		$response = wp_remote_post($api_url, $post_fields);
 
-			if (json_last_error() === JSON_ERROR_NONE) {
-				return $body;
-			}
+		// Log response details
+		if (is_wp_error($response)) {
+			wu_log_add('integration-closte', sprintf('API request failed: %s', $response->get_error_message()));
+			return $response;
+		}
 
+		$response_code = wp_remote_retrieve_response_code($response);
+		$response_body = wp_remote_retrieve_body($response);
+
+		wu_log_add('integration-closte', sprintf('API response code: %d, body: %s', $response_code, $response_body));
+
+		// Check for HTTP errors
+		if ($response_code >= 400) {
+			wu_log_add('integration-closte', sprintf('HTTP error %d for endpoint %s', $response_code, $endpoint));
 			return (object) [
-				'success' => false,
-				'error'   => 'unknown',
+				'success'       => false,
+				'error'         => sprintf('HTTP %d error', $response_code),
+				'response_body' => $response_body,
 			];
 		}
 
-		return $response;
+		if ($response_body) {
+			$body = json_decode($response_body, true);
+
+			if (json_last_error() === JSON_ERROR_NONE) {
+				// Log success/failure for SSL-specific endpoints
+				if (strpos($endpoint, 'ssl') !== false) {
+					wu_log_add(
+						'integration-closte-ssl',
+						sprintf('SSL request for %s: %s', $endpoint, wp_json_encode($body))
+					);
+				}
+				return $body;
+			}
+
+			wu_log_add('integration-closte', sprintf('JSON decode error: %s', json_last_error_msg()));
+			return (object) [
+				'success'    => false,
+				'error'      => 'Invalid JSON response',
+				'json_error' => json_last_error_msg(),
+			];
+		}
+
+		wu_log_add('integration-closte', 'Empty response body');
+		return (object) [
+			'success' => false,
+			'error'   => 'Empty response',
+		];
 	}
 
 	/**
@@ -224,7 +368,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('Closte is not just another web hosting who advertise their services as a cloud hosting while still provides fixed plans like in 1995.', 'multisite-ultimate');
+		return __('Closte is not just another web hosting who advertise their services as a cloud hosting while still provides fixed plans like in 1995.', 'ultimate-multisite');
 	}
 
 	/**

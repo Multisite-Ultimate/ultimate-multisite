@@ -36,8 +36,8 @@ class Broadcast_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Broadcast', 'multisite-ultimate'),  // singular name of the listed records
-				'plural'   => __('Broadcasts', 'multisite-ultimate'), // plural name of the listed records
+				'singular' => __('Broadcast', 'ultimate-multisite'),  // singular name of the listed records
+				'plural'   => __('Broadcasts', 'ultimate-multisite'), // plural name of the listed records
 				'ajax'     => true,                          // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_get_form_url('add_new_broadcast_message'),
@@ -79,13 +79,13 @@ class Broadcast_List_Table extends Base_List_Table {
 		$class = 'wu-bg-gray-200';
 
 		if ('broadcast_email' === $type) {
-			$label = __('Email', 'multisite-ultimate');
+			$label = __('Email', 'ultimate-multisite');
 		}
 
 		if ('broadcast_notice' === $type) {
 			$status = $item->get_notice_type();
 
-			$label = __('Notice', 'multisite-ultimate');
+			$label = __('Notice', 'ultimate-multisite');
 
 			if ('info' === $status) {
 				$class = 'wu-bg-blue-200';
@@ -121,8 +121,8 @@ class Broadcast_List_Table extends Base_List_Table {
 		];
 
 		$actions = [
-			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-broadcast', $url_atts), __('Edit', 'multisite-ultimate')),
-			'delete' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'multisite-ultimate'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'multisite-ultimate')),
+			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-broadcast', $url_atts), __('Edit', 'ultimate-multisite')),
+			'delete' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'ultimate-multisite'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'ultimate-multisite')),
 		];
 
 		return $title . $content . $this->row_actions($actions);
@@ -148,7 +148,7 @@ class Broadcast_List_Table extends Base_List_Table {
 
 		switch ($targets_count) {
 			case 0:
-				$not_found = __('No customer found', 'multisite-ultimate');
+				$not_found = __('No customer found', 'ultimate-multisite');
 
 				return "<div class='wu-p-2 wu-mr-1 wu-flex wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-bg-gray-100 wu-relative wu-overflow-hidden'>
 										<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
@@ -232,9 +232,9 @@ class Broadcast_List_Table extends Base_List_Table {
 										<a href="%s" title="%s" class="wubox"><span class="wu-ml-6 wu-uppercase wu-text-xs wu-font-bold"> %s %s</span></a>
 										</div>',
 						wu_get_form_url('view_broadcast_targets', $modal_atts),
-						__('Targets', 'multisite-ultimate'),
+						__('Targets', 'ultimate-multisite'),
 						$targets_count,
-						__('Targets', 'multisite-ultimate')
+						__('Targets', 'ultimate-multisite')
 					);
 
 					$html .= '</div>';
@@ -255,9 +255,9 @@ class Broadcast_List_Table extends Base_List_Table {
 								<a href="%s" title="%s" class="wubox"><span class="wu-pl-2 wu-uppercase wu-text-xs wu-font-bold"> %s %s</span></a>
 								</div>',
 					wu_get_form_url('view_broadcast_targets', $modal_atts),
-					__('Targets', 'multisite-ultimate'),
+					__('Targets', 'ultimate-multisite'),
 					$targets_count,
-					__('Targets', 'multisite-ultimate')
+					__('Targets', 'ultimate-multisite')
 				);
 
 				$html .= '</div>';
@@ -286,7 +286,7 @@ class Broadcast_List_Table extends Base_List_Table {
 
 		switch ($product_count) {
 			case 0:
-				$not_found = __('No product found', 'multisite-ultimate');
+				$not_found = __('No product found', 'ultimate-multisite');
 
 				$html = "<div class='wu-p-2 wu-mr-1 wu-flex wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-bg-gray-100 wu-relative wu-overflow-hidden'>
 					<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
@@ -320,7 +320,7 @@ class Broadcast_List_Table extends Base_List_Table {
 					$customer_count = count($plan_customers);
 				}
 				// translators: %s is the number of customers.
-				$description = sprintf(__('%s customer(s) targeted.', 'multisite-ultimate'), $customer_count);
+				$description = sprintf(__('%s customer(s) targeted.', 'ultimate-multisite'), $customer_count);
 
 				$url_atts = [
 					'id' => $product->get_id(),
@@ -379,9 +379,9 @@ class Broadcast_List_Table extends Base_List_Table {
 				'<div class="wu-inline-block wu-ml-4">
 			<a href="%s" title="%s" class="wubox"><span class="wu-pl-2 wu-uppercase wu-text-xs wu-font-bold"> %s %s</span></a></div>',
 				wu_get_form_url('view_broadcast_targets', $modal_atts),
-				__('Targets', 'multisite-ultimate'),
+				__('Targets', 'ultimate-multisite'),
 				$product_count,
-				__('Targets', 'multisite-ultimate')
+				__('Targets', 'ultimate-multisite')
 			);
 
 			$html .= '</div>';
@@ -397,7 +397,7 @@ class Broadcast_List_Table extends Base_List_Table {
 			'target_type' => 'products',
 		];
 
-		$html .= sprintf('<div class="wu-inline-block wu-ml-4"><a href="%s" title="%s" class="wubox"><span class="wu-pl-2 wu-uppercase wu-text-xs wu-font-bold"> %s %s</span></a></div>', wu_get_form_url('view_broadcast_targets', $modal_atts), __('Targets', 'multisite-ultimate'), $product_count, __('Targets', 'multisite-ultimate'));
+		$html .= sprintf('<div class="wu-inline-block wu-ml-4"><a href="%s" title="%s" class="wubox"><span class="wu-pl-2 wu-uppercase wu-text-xs wu-font-bold"> %s %s</span></a></div>', wu_get_form_url('view_broadcast_targets', $modal_atts), __('Targets', 'ultimate-multisite'), $product_count, __('Targets', 'ultimate-multisite'));
 
 		$html .= '</div>';
 
@@ -414,12 +414,12 @@ class Broadcast_List_Table extends Base_List_Table {
 
 		$columns = [
 			'cb'               => '<input type="checkbox" />',
-			'type'             => __('Type', 'multisite-ultimate'),
-			'the_content'      => __('Content', 'multisite-ultimate'),
-			'target_customers' => __('Target Customers', 'multisite-ultimate'),
-			'target_products'  => __('Target Products', 'multisite-ultimate'),
-			'date_created'     => __('Date', 'multisite-ultimate'),
-			'id'               => __('ID', 'multisite-ultimate'),
+			'type'             => __('Type', 'ultimate-multisite'),
+			'the_content'      => __('Content', 'ultimate-multisite'),
+			'target_customers' => __('Target Customers', 'ultimate-multisite'),
+			'target_products'  => __('Target Products', 'ultimate-multisite'),
+			'date_created'     => __('Date', 'ultimate-multisite'),
+			'id'               => __('ID', 'ultimate-multisite'),
 		];
 
 		return $columns;
@@ -435,25 +435,25 @@ class Broadcast_List_Table extends Base_List_Table {
 		return [
 			'filters'      => [
 				'type'   => [
-					'label'   => __('Broadcast Type', 'multisite-ultimate'),
+					'label'   => __('Broadcast Type', 'ultimate-multisite'),
 					'options' => [
-						'broadcast_notice' => __('Email', 'multisite-ultimate'),
-						'broadcast_email'  => __('Notices', 'multisite-ultimate'),
+						'broadcast_notice' => __('Email', 'ultimate-multisite'),
+						'broadcast_email'  => __('Notices', 'ultimate-multisite'),
 					],
 				],
 				'status' => [
-					'label'   => __('Notice Type', 'multisite-ultimate'),
+					'label'   => __('Notice Type', 'ultimate-multisite'),
 					'options' => [
-						'info'    => __('Info - Blue', 'multisite-ultimate'),
-						'success' => __('Success - Green', 'multisite-ultimate'),
-						'warning' => __('Warning - Yellow', 'multisite-ultimate'),
-						'error'   => __('Error - Red', 'multisite-ultimate'),
+						'info'    => __('Info - Blue', 'ultimate-multisite'),
+						'success' => __('Success - Green', 'ultimate-multisite'),
+						'warning' => __('Warning - Yellow', 'ultimate-multisite'),
+						'error'   => __('Error - Red', 'ultimate-multisite'),
 					],
 				],
 			],
 			'date_filters' => [
 				'date_created' => [
-					'label'   => __('Date', 'multisite-ultimate'),
+					'label'   => __('Date', 'ultimate-multisite'),
 					'options' => $this->get_default_date_filter_options(),
 				],
 			],
@@ -472,19 +472,19 @@ class Broadcast_List_Table extends Base_List_Table {
 			'all'              => [
 				'field' => 'status',
 				'url'   => add_query_arg('type', 'all'),
-				'label' => __('All Broadcasts', 'multisite-ultimate'),
+				'label' => __('All Broadcasts', 'ultimate-multisite'),
 				'count' => 0,
 			],
 			'broadcast_email'  => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'broadcast_email'),
-				'label' => __('Emails', 'multisite-ultimate'),
+				'label' => __('Emails', 'ultimate-multisite'),
 				'count' => 0,
 			],
 			'broadcast_notice' => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'broadcast_notice'),
-				'label' => __('Notices', 'multisite-ultimate'),
+				'label' => __('Notices', 'ultimate-multisite'),
 				'count' => 0,
 			],
 		];

@@ -2,6 +2,12 @@
 use PHPUnit\Framework\TestCase;
 use WP_Ultimo\Builders\Block_Editor\Block_Editor_Widget_Manager;
 
+/**
+ * Test class for Block Editor Widget Manager functionality.
+ *
+ * Tests attribute extraction from element fields, field type mapping,
+ * and default value handling for block editor widgets.
+ */
 class BlockEditorWidgetManagerTest extends TestCase {
 	public function testGetAttributesFromFields() {
 		// Mock element with fields and defaults

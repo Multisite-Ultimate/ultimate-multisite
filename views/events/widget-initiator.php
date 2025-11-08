@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 ?>
 <div class="wu-bg-gray-100 wu--mt-3 wu--mb-6 wu--mx-3">
 
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<li class="wu-p-4 wu-m-0 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-400 wu-border-solid">
 
-		<h3 class="wu-mt-0 wu-mb-2 wu-text-2xs wu-uppercase"><?php esc_html_e('Initiator', 'multisite-ultimate'); ?></h3>
+		<h3 class="wu-mt-0 wu-mb-2 wu-text-2xs wu-uppercase"><?php esc_html_e('Initiator', 'ultimate-multisite'); ?></h3>
 
 		<?php if ($object->get_initiator() == 'manual') : ?>
 
@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<?php
 
-			$avatar = get_avatar(
+			echo get_avatar(
 				$object->get_author_id(),
 				32,
 				'identicon',
@@ -32,8 +32,6 @@ defined( 'ABSPATH' ) || exit;
 					'class'         => 'wu-rounded-full',
 				]
 			);
-
-			echo $avatar; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			?>
 
@@ -75,7 +73,7 @@ defined( 'ABSPATH' ) || exit;
 
 			<strong class='wu-block'><?php echo esc_html(ucfirst($object->get_initiator())); ?></strong>
 
-						<small><?php esc_html_e('Automatically started', 'multisite-ultimate'); ?></small>
+						<small><?php esc_html_e('Automatically started', 'ultimate-multisite'); ?></small>
 
 			</div>
 
@@ -89,7 +87,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<li class="wu-p-4 wu-m-0 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300 wu-border-solid">
 		<?php // translators: %s is a placeholder for the object type name. ?>
-		<h3 class="wu-mt-1 wu-mb-2 wu-text-2xs wu-uppercase"><?php printf(esc_html__('Target %s', 'multisite-ultimate'), esc_html(wu_slug_to_name($object->get_object_type()))); ?></h3>
+		<h3 class="wu-mt-1 wu-mb-2 wu-text-2xs wu-uppercase"><?php printf(esc_html__('Target %s', 'ultimate-multisite'), esc_html(wu_slug_to_name($object->get_object_type()))); ?></h3>
 
 		<?php
 
@@ -99,11 +97,11 @@ defined( 'ABSPATH' ) || exit;
 
 		switch ($type) {
 			case 'membership':
-				echo $base_list_table->column_membership($object); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				$base_list_table->column_membership($object);
 				break;
 
 			case 'payment':
-				echo $base_list_table->column_payment($object); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				$base_list_table->column_payment($object);
 				break;
 		}
 

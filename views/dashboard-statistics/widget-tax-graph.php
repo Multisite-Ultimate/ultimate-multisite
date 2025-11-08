@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div class="wu-mt-6 wu-mb-0">
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<span class="wu-blinking-animation">
 
-		<?php esc_html_e('Loading...', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Loading...', 'ultimate-multisite'); ?>
 
 	</span>
 

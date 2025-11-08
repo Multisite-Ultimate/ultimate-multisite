@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div class="wu-border-transparent" tabindex="0">
@@ -51,22 +51,22 @@ defined( 'ABSPATH' ) || exit;
 
 			<label>
 				<input class="wu-rounded-none" type="checkbox" name="bulk-delete[]" value="<?php echo esc_attr($item->get_membership_id()); ?>" />
-				<?php esc_html_e('Select Site', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Select Site', 'ultimate-multisite'); ?>
 			</label>
 
-			<a title="<?php echo esc_attr(__('Publish pending site', 'multisite-ultimate')); ?>" href="<?php echo esc_attr(wu_get_form_url('publish_pending_site', ['membership_id' => $item->get_membership_id()])); ?>" class="wubox button button-primary">
-				<?php esc_html_e('Publish Site', 'multisite-ultimate'); ?>
+			<a title="<?php echo esc_attr(__('Publish pending site', 'ultimate-multisite')); ?>" href="<?php echo esc_attr(wu_get_form_url('publish_pending_site', ['membership_id' => $item->get_membership_id()])); ?>" class="wubox button button-primary">
+				<?php esc_html_e('Publish Site', 'ultimate-multisite'); ?>
 			</a>
 
 			<?php else : ?>
 
 			<label>
 				<input class="wu-rounded-none" type="checkbox" name="bulk-delete[]" value="<?php echo esc_attr($item->get_id()); ?>" />
-				<?php esc_html_e('Select Site', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Select Site', 'ultimate-multisite'); ?>
 			</label>
 
 			<a href="<?php echo esc_attr(wu_network_admin_url('wp-ultimo-edit-site', ['id' => $item->get_id()])); ?>" class="button button-primary">
-				<?php esc_html_e('Manage', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Manage', 'ultimate-multisite'); ?>
 			</a>
 
 			<?php endif; ?>
@@ -76,7 +76,7 @@ defined( 'ABSPATH' ) || exit;
 			<span>&nbsp;</span>
 
 			<a href="<?php echo esc_attr(wu_network_admin_url('wp-ultimo-edit-site', ['id' => $item->get_id()])); ?>" class="button button-primary">
-			<?php esc_html_e('See Main Site', 'multisite-ultimate'); ?>
+			<?php esc_html_e('See Main Site', 'ultimate-multisite'); ?>
 			</a>
 
 		<?php endif; ?>

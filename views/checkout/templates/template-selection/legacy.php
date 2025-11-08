@@ -24,11 +24,12 @@ if ( ! $should_display ) {
 
 	return;
 }
+/** @var \WP_Ultimo\Models\Site[] $sites */
 $sites = array_map('wu_get_site', $sites ?? []);
 
 $categories ??= [];
 
-$customer_sites_category = __('Your Sites', 'multisite-ultimate');
+$customer_sites_category = __('Your Sites', 'ultimate-multisite');
 
 $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) : [];
 
@@ -37,7 +38,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 <?php if ( empty($sites) ) : ?>
 
 	<div class="wu-text-center wu-bg-gray-100 wu-rounded wu-uppercase wu-font-semibold wu-text-xs wu-text-gray-700 wu-p-4">
-		<?php esc_html_e('No Site Templates Found.', 'multisite-ultimate'); ?>
+		<?php esc_html_e('No Site Templates Found.', 'ultimate-multisite'); ?>
 	</div>
 
 <?php else : ?>
@@ -57,7 +58,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 				<h2>
 
-					<?php esc_html_e('Pick your Template', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Pick your Template', 'ultimate-multisite'); ?>
 
 					<span class="title-count theme-count">
 						<?php echo count($sites); ?>
@@ -71,13 +72,13 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 				<div class="wp-filter-responsive">
 
-					<h4><?php esc_html_e('Template Categories', 'multisite-ultimate'); ?></h4>
+					<h4><?php esc_html_e('Template Categories', 'ultimate-multisite'); ?></h4>
 
 					<select class="">
 
 						<option value="">
 
-							<?php esc_html_e('All Templates', 'multisite-ultimate'); ?>
+							<?php esc_html_e('All Templates', 'ultimate-multisite'); ?>
 
 						</option>
 
@@ -118,7 +119,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 								v-on:click.prevent="$parent.template_category = ''"
 						>
 
-							<?php esc_html_e('All Templates', 'multisite-ultimate'); ?>
+							<?php esc_html_e('All Templates', 'ultimate-multisite'); ?>
 
 						</a>
 
@@ -190,6 +191,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 						<div
 								class="theme"
+								:class="$parent.template_id == <?php echo esc_attr($site->get_id()); ?> ? 'wu-selected-template' : ''"
 								tabindex="<?php echo esc_attr($i); ?>"
 								aria-describedby="<?php echo esc_attr($site->get_id()); ?>-action <?php echo esc_attr($site->get_id()); ?>-name"
 								data-slug="<?php echo esc_attr($site->get_id()); ?>"
@@ -200,17 +202,17 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 							<div class="theme-screenshot">
 
 								<img
-										src="<?php echo esc_url($site->get_featured_image()); ?>"
+										src="<?php echo esc_url($site->get_featured_image('wu-thumb-large')); ?>"
 										alt="<?php echo esc_attr($site->get_title()); ?>"
 								>
 							</div>
 
 							<a
-								<?php echo $is_template ? $site->get_preview_url_attrs() : sprintf('href="%s" target="_blank"', $site->get_active_site_url()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<?php $is_template ? $site->get_preview_url_attrs() : printf('href="%s" target="_blank"', esc_attr($site->get_active_site_url())); ?>
 								class="more-details"
 								id="<?php echo esc_attr($site->get_id()); ?>-action"
 							>
-								<?php $is_template ? esc_html_e('View Template', 'multisite-ultimate') : esc_html_e('View Site', 'multisite-ultimate'); ?>
+								<?php $is_template ? esc_html_e('View Template', 'ultimate-multisite') : esc_html_e('View Site', 'ultimate-multisite'); ?>
 							</a>
 
 							<div class="wu-flex theme-name-header wu-items-center wu-relative">
@@ -225,13 +227,14 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 									<button
 											class="button button-primary"
+											:class="$parent.template_id == <?php echo esc_attr($site->get_id()); ?> ? 'wu-selected-template-button' : ''"
 											type="button"
 											v-on:click.prevent="$parent.template_id = <?php echo esc_attr($site->get_id()); ?>"
 									>
 
-										<span v-if="$parent.template_id == <?php echo esc_attr($site->get_id()); ?>"><?php esc_html_e('Selected', 'multisite-ultimate'); ?></span>
+										<span v-if="$parent.template_id == <?php echo esc_attr($site->get_id()); ?>"><?php esc_html_e('Selected', 'ultimate-multisite'); ?></span>
 
-										<span v-else><?php esc_html_e('Select', 'multisite-ultimate'); ?></span>
+										<span v-else><?php esc_html_e('Select', 'ultimate-multisite'); ?></span>
 
 									</button>
 
@@ -255,7 +258,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 			<div class="theme-overlay"></div>
 
 			<p class="no-themes">
-				<?php esc_html_e('No Templates Found', 'multisite-ultimate'); ?>
+				<?php esc_html_e('No Templates Found', 'ultimate-multisite'); ?>
 			</p>
 
 		</div>

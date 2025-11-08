@@ -1,5 +1,7 @@
 import "./login";
 import "./wizard";
+import "./checkout";
+import "./domain-mapping";
 
 Cypress.Commands.add("wpCli", (command, options = {}) => {
   cy.exec(`npm run env run tests-cli wp ${command}`, options);

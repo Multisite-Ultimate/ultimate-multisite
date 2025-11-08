@@ -64,7 +64,7 @@ class Simple_Order_Bump_Field_Template extends Base_Field_Template {
 	 */
 	public function get_title() {
 
-		return __('Simple', 'multisite-ultimate');
+		return __('Simple', 'ultimate-multisite');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Simple_Order_Bump_Field_Template extends Base_Field_Template {
 	 */
 	public function get_description() {
 
-		return __('A simple layout with minimal styling, just enough to make it usable out-of-the-box.', 'multisite-ultimate');
+		return __('A simple layout with minimal styling, just enough to make it usable out-of-the-box.', 'ultimate-multisite');
 	}
 
 	/**
@@ -101,7 +101,7 @@ class Simple_Order_Bump_Field_Template extends Base_Field_Template {
 	 */
 	public function output($attributes): void {
 
-		/**
+	/**
 	 * Loads the actual order-bump template
 	 */
 		wu_get_template('checkout/templates/order-bump/simple', $attributes);

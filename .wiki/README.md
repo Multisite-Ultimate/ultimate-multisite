@@ -1,13 +1,13 @@
-# Multisite Ultimate Documentation
+# Ultimate Multisite Documentation
 
-This folder contains the documentation for the Multisite Ultimate plugin in Markdown format. The documentation is organized as a GitHub Wiki.
+This folder contains the documentation for the Ultimate Multisite plugin in Markdown format. The documentation is organized as a GitHub Wiki.
 
 ## Documentation Structure
 
 The documentation is organized into the following categories:
 
 - **Getting Started**: Basic setup and installation guides
-- **Introduction**: Overview of Multisite Ultimate
+- **Introduction**: Overview of Ultimate Multisite
 - **Managing Your Network**: How to manage your multisite network
 - **Payment Gateways**: Setting up payment gateways
 - **Integrations**: Integrating with other services
@@ -48,4 +48,4 @@ Contributions to improve the documentation are welcome. Please feel free to subm
 
 ## License
 
-This documentation is licensed under the same license as the Multisite Ultimate plugin.
+This documentation is licensed under the same license as the Ultimate Multisite plugin.

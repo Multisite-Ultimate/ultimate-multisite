@@ -6,6 +6,12 @@ use WP_Ultimo\Helpers\Hash;
 use WP_UnitTestCase;
 use WP_User;
 
+/**
+ * Test class for Customer model functionality.
+ *
+ * Tests customer creation, validation, key generation, and
+ * other customer-related operations.
+ */
 class Customer_Test extends WP_UnitTestCase {
 
 	/**

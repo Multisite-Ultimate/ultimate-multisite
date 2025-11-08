@@ -189,7 +189,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 * @since 2.0.0
 	 * @var null|\WP_Ultimo\Models\Membership
 	 */
-	private $_membership;
+	private $membership;
 
 	/**
 	 * The site template id used to create this site.
@@ -427,19 +427,14 @@ class Site extends Base_Model implements Limitable, Notable {
 	 *
 	 * @since 2.0.0
 	 */
-	public function get_preview_url_attrs(): string {
+	public function get_preview_url_attrs(): void {
 
-		$is_enabled = Template_Previewer::get_instance()->get_setting('enabled', true);
-
-		$href = 'href="%s" target="_blank"';
-
-		if ( ! $is_enabled) {
-			return sprintf($href, $this->get_active_site_url());
+		if ( ! Template_Previewer::get_instance()->get_setting('enabled', true)) {
+			printf('href="%s" target="_blank"', esc_attr($this->get_active_site_url()));
+			return;
 		}
 
-		$onclick = 'onclick="window.open(\'%s\')"';
-
-		return sprintf($onclick, add_query_arg('open', 1, $this->get_preview_url()));
+		printf('onclick="window.open(\'%s\')"', esc_attr(add_query_arg('open', 1, $this->get_preview_url())));
 	}
 
 	/**
@@ -604,7 +599,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 */
 	public function get_path(): string {
 
-		return trim($this->path, '/');
+		return $this->path;
 	}
 
 	/**
@@ -754,12 +749,12 @@ class Site extends Base_Model implements Limitable, Notable {
 	 * Set is this a public site?.
 	 *
 	 * @since 2.0.0
-	 * @param bool $public Set true if this site is a public one, false if not.
+	 * @param bool $is_public Set true if this site is a public one, false if not.
 	 * @return void
 	 */
-	public function set_public($public): void {
+	public function set_public($is_public): void {
 
-		$this->public = $public;
+		$this->public = $is_public;
 	}
 
 	/**
@@ -1001,14 +996,14 @@ class Site extends Base_Model implements Limitable, Notable {
 	 */
 	public function get_membership() {
 
-		if (null !== $this->_membership) {
-			return $this->_membership;
+		if (null !== $this->membership) {
+			return $this->membership;
 		}
 
 		if (function_exists('wu_get_membership')) {
-			$this->_membership = wu_get_membership($this->get_membership_id());
+			$this->membership = wu_get_membership($this->get_membership_id());
 
-			return $this->_membership;
+			return $this->membership;
 		}
 
 		global $wpdb;
@@ -1029,9 +1024,9 @@ class Site extends Base_Model implements Limitable, Notable {
 			return false;
 		}
 
-		$this->_membership = new \WP_Ultimo\Models\Membership($results);
+		$this->membership = new \WP_Ultimo\Models\Membership($results);
 
-		return $this->_membership;
+		return $this->membership;
 	}
 
 	/**
@@ -1234,7 +1229,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 */
 	public function get_site_url() {
 
-		$url = set_url_scheme(esc_url(sprintf($this->get_domain() . '/' . $this->get_path())));
+		$url = set_url_scheme(esc_url(sprintf($this->get_domain() . '/' . trim($this->get_path(), '/'))));
 
 		return $url;
 	}
@@ -1437,7 +1432,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	public function delete() {
 
 		if ( ! $this->get_id()) {
-			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'multisite-ultimate'));
+			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'ultimate-multisite'));
 		}
 
 		/**
@@ -1463,9 +1458,9 @@ class Site extends Base_Model implements Limitable, Notable {
 		 * @since 2.0.0
 		 *
 		 * @param bool       $result True if the object was successfully deleted.
-		 * @param Base_Model $this   The object instance.
+		 * @param Base_Model $model   The object instance.
 		 */
-		do_action("wu_{$this->model}_post_delete", $result, $this); // @phpstan-ignore-line
+		do_action("wu_{$this->model}_post_delete", $result, $this);
 
 		wp_cache_flush();
 
@@ -1485,7 +1480,7 @@ class Site extends Base_Model implements Limitable, Notable {
 		if ($transient) {
 			add_filter(
 				'wu_search_and_replace_on_duplication',
-				function ($replace_list, $from_site_id, $to_site_id) use ($transient) {
+				function ($replace_list, $from_site_id, $to_site_id) use ($transient) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 					foreach ($transient as $transient_key => $transient_value) {
 						$key = sprintf('{{%s}}', $transient_key);
@@ -1863,7 +1858,7 @@ class Site extends Base_Model implements Limitable, Notable {
 			$sites = array_values($sites);
 
 			if (is_a($sites[0], self::class)) {
-				$array_sites = json_decode(json_encode($sites), true);
+				$array_sites = json_decode(json_encode($sites), true); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 
 				$sites = array_values(array_column($array_sites, 'blog_id'));
 			}

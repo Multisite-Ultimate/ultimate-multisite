@@ -69,7 +69,7 @@ class Signup_Field_Password extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Password', 'multisite-ultimate');
+		return __('Password', 'ultimate-multisite');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Signup_Field_Password extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a password field, with options for enforcing password strength and adding password confirmation field. This password is then used to create the WordPress user.', 'multisite-ultimate');
+		return __('Adds a password field, with options for enforcing password strength and adding password confirmation field. This password is then used to create the WordPress user.', 'ultimate-multisite');
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Signup_Field_Password extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a password field, with options for enforcing password strength and adding password confirmation field. This password is then used to create the WordPress user.', 'multisite-ultimate');
+		return __('Adds a password field, with options for enforcing password strength and adding password confirmation field. This password is then used to create the WordPress user.', 'ultimate-multisite');
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Signup_Field_Password extends Base_Signup_Field {
 
 		return [
 			'password_confirm_field' => false,
-			'password_confirm_label' => __('Confirm Password', 'multisite-ultimate'),
+			'password_confirm_label' => __('Confirm Password', 'ultimate-multisite'),
 		];
 	}
 
@@ -168,14 +168,14 @@ class Signup_Field_Password extends Base_Signup_Field {
 		return [
 			'password_strength_meter' => [
 				'type'  => 'toggle',
-				'title' => __('Display Password Strength Meter', 'multisite-ultimate'),
-				'desc'  => __('Adds a password strength meter below the password field. Enabling this option also enforces passwords to be strong.', 'multisite-ultimate'),
+				'title' => __('Display Password Strength Meter', 'ultimate-multisite'),
+				'desc'  => __('Adds a password strength meter below the password field. Enabling this option also enforces passwords to be strong.', 'ultimate-multisite'),
 				'value' => 1,
 			],
 			'password_confirm_field'  => [
 				'type'  => 'toggle',
-				'title' => __('Display Password Confirm Field', 'multisite-ultimate'),
-				'desc'  => __('Adds a "Confirm your Password" field below the default password field to reduce the chance or making a mistake.', 'multisite-ultimate'),
+				'title' => __('Display Password Confirm Field', 'ultimate-multisite'),
+				'desc'  => __('Adds a "Confirm your Password" field below the default password field to reduce the chance of making a mistake.', 'ultimate-multisite'),
 				'value' => 1,
 			],
 		];

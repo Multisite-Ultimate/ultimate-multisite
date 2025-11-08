@@ -9,7 +9,7 @@
 
 namespace WP_Ultimo\Traits;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * WP_Ultimo_Settings_Deprecated trait.
@@ -67,7 +67,7 @@ trait WP_Ultimo_Settings_Deprecated {
 		];
 
 		foreach ($filters as $filter) {
-			$message = __('Adding setting sections directly via filters is no longer supported.', 'multisite-ultimate');
+			$message = __('Adding setting sections directly via filters is no longer supported.', 'ultimate-multisite');
 
 			$legacy_settings = apply_filters_deprecated($filter, [$legacy_settings], '2.0.0', 'wu_register_settings_field()', $message);
 		}
@@ -76,8 +76,8 @@ trait WP_Ultimo_Settings_Deprecated {
 			$this->add_section(
 				'other',
 				[
-					'title' => __('Other', 'multisite-ultimate'),
-					'desc'  => __('Other', 'multisite-ultimate'),
+					'title' => __('Other', 'ultimate-multisite'),
+					'desc'  => __('Other', 'ultimate-multisite'),
 				]
 			);
 

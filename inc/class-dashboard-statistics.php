@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Dashboard Statistics.
+ * Ultimate Multisite Dashboard Statistics.
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -19,11 +19,11 @@ use WP_Ultimo\Database\Payments\Payment_Status;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Dashboard Statistics
+ * Ultimate Multisite Dashboard Statistics
  *
  * @since 2.0.0
  */
-class Dashboard_Statistics {
+class Dashboard_Statistics implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 

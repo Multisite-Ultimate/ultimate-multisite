@@ -10,6 +10,8 @@
 namespace WP_Ultimo\Limitations;
 
 // Exit if accessed directly
+use WP_Ultimo\Managers\Domain_Manager;
+
 defined('ABSPATH') || exit;
 
 /**
@@ -34,14 +36,6 @@ class Limit_Domain_Mapping extends Limit {
 	 * @var string
 	 */
 	protected $mode = 'default';
-
-	/**
-	 * Allows sub-type limits to set their own default value for enabled.
-	 *
-	 * @since 2.0.0
-	 * @var bool
-	 */
-	private bool $enabled_default_value = true;
 
 	/**
 	 * Sets up the module based on the module data.
@@ -167,27 +161,17 @@ class Limit_Domain_Mapping extends Limit {
 
 		$active_count = 0;
 		foreach ($domains as $domain) {
-			if ($domain->is_active()) {
+			$domain_url = $domain->get_domain();
+			if (str_starts_with($domain_url, 'www.')) {
+				$domain_url = substr($domain_url, 4);
+			}
+
+			if (Domain_Manager::is_main_domain($domain_url) && $domain->is_active()) {
 				++$active_count;
 			}
 		}
 
 		return $active_count;
-	}
-
-	/**
-	 * Returns default permissions.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $type Type for sub-checking.
-	 * @return array
-	 */
-	public function get_default_permissions($type) {
-
-		return [
-			'behavior' => 'available',
-		];
 	}
 
 	/**

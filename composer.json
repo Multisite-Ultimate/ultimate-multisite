@@ -1,8 +1,8 @@
 {
-    "name": "devstone/multisite-ultimate",
-    "url": "https://MultisiteUltimate.com",
+    "name": "devstone/ultimate-multisite",
+    "url": "https://UltimateMultisite.com",
     "description": "The Multisite Website as a Service (WaaS) plugin.",
-    "version": "2.4.1",
+    "version": "2.4.7",
     "authors": [
         {
             "name": "Arindo Duque",
@@ -33,6 +33,8 @@
         "php": ">=7.4.1",
         "automattic/jetpack-autoloader": "^5.0.0",
         "wp-ultimo/autoloader-plugin": "dev-main",
+        "wordpress/abilities-api": "dev-trunk",
+        "wordpress/mcp-adapter": "dev-trunk",
         "rpnzl/arrch": "dev-master#994258bbefb7722243211654c4f78813312cd5ed",
         "amphp/amp": "^2.6.2",
         "amphp/byte-stream": "^1.8.1",
@@ -89,7 +91,8 @@
             "phpstan/extension-installer": true,
             "php-http/discovery": true,
             "wp-ultimo/autoloader-plugin": true
-        }
+        },
+        "autoloader-suffix": "230080190a3968d4856a2879371108a7"
     },
     "archive": {
         "exclude": [
@@ -134,7 +137,12 @@
             "vendor/delight-im/cookie/.travis-ci-apache",
             "vendor/doctrine",
             ".distignore",
-            "encrypt-sectrets.php"
+            "encrypt-sectrets.php",
+            "scripts",
+            "mu-plugins",
+            "DEPLOY.md",
+            "deploy.sh",
+            ".vscode"
         ]
     },
     "extra": {
@@ -145,8 +153,7 @@
                 "patches/berlindb-core-src-database-column-php.patch"
             ],
             "jasny/sso": [
-                "patches/jasny-sso-src-broker-cookies-php.patch",
-                "patches/jasny-sso-php8-compatibility.patch"
+                "patches/jasny-sso-src-broker-cookies-php.patch"
             ]
         },
         "installer-paths": {
@@ -161,7 +168,17 @@
         ],
         "post-update-cmd": [
             "@php scripts/remove-mpdf-fonts.php"
-        ]
+        ],
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-html=coverage-html --coverage-clover=coverage.xml",
+        "lint": "phpcs",
+        "lint:fix": "phpcbf",
+        "stan": "phpstan analyse",
+        "quality": [
+            "@lint",
+            "@stan"
+        ],
+        "setup-hooks": "bash bin/setup-hooks.sh"
     },
     "autoload-dev": {
         "psr-4": {

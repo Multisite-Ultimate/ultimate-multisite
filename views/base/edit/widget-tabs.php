@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div
@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) || exit;
 
 							<span class="wu-text-base wu-w-4 wu-h-4 wu-pt-2px wu-mr-1 dashicons dashicons-wu-chevron-with-circle-down">&nbsp;</span>
 
-							<?php esc_html_e('All Options', 'multisite-ultimate'); ?>
+							<?php esc_html_e('All Options', 'ultimate-multisite'); ?>
 
 						</a>
 						<!-- End Menu Link -->
@@ -81,13 +81,13 @@ defined( 'ABSPATH' ) || exit;
 
 					<span v-show="!display_all">
 
-						<?php esc_html_e('Display all fields', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Display all fields', 'ultimate-multisite'); ?>
 
 					</span>
 
 					<span v-cloak v-show="display_all">
 
-						<?php esc_html_e('Hide other fields', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Hide other fields', 'ultimate-multisite'); ?>
 
 					</span>
 
@@ -103,7 +103,7 @@ defined( 'ABSPATH' ) || exit;
 
 				<span class="wu-blinking-animation">
 
-					<?php esc_html_e('Loading...', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Loading...', 'ultimate-multisite'); ?>
 
 				</span>
 
@@ -134,6 +134,6 @@ defined( 'ABSPATH' ) || exit;
 
 	</div>
 
-	<?php echo $after; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<?php echo wp_kses($after, wu_kses_allowed_html()); ?>
 
 </div>

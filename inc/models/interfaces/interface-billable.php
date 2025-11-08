@@ -9,7 +9,7 @@
 
 namespace WP_Ultimo\Models\Interfaces;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * Billable interface.

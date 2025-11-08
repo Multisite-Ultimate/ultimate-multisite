@@ -4,7 +4,7 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
 <div class="wu-styling">
@@ -16,8 +16,8 @@ defined( 'ABSPATH' ) || exit;
 		$data    = [];
 		$slug    = 'signup_countries';
 		$headers = [
-			__('Country', 'multisite-ultimate'),
-			__('Customer Count', 'multisite-ultimate'),
+			__('Country', 'ultimate-multisite'),
+			__('Customer Count', 'ultimate-multisite'),
 		];
 
 		foreach ($countries as $country_code => $count) {
@@ -51,8 +51,8 @@ defined( 'ABSPATH' ) || exit;
 
 			<thead>
 			<tr>
-				<th><?php esc_html_e('Country', 'multisite-ultimate'); ?></th>
-				<th class="wu-text-right"><?php esc_html_e('Customer Count', 'multisite-ultimate'); ?></th>
+				<th><?php esc_html_e('Country', 'ultimate-multisite'); ?></th>
+				<th class="wu-text-right"><?php esc_html_e('Customer Count', 'ultimate-multisite'); ?></th>
 			</tr>
 			</thead>
 
@@ -65,8 +65,8 @@ defined( 'ABSPATH' ) || exit;
 						<?php
 
 						printf(
-							'<span class="wu-flag-icon wu-w-5 wu-mr-1" %s>%s</span>',
-							wu_tooltip_text(esc_html(wu_get_country_name($country_code))), // phpcs:ignore WordPress.Security.EscapeOutput
+							'<span class="wu-flag-icon wu-w-5 wu-mr-1" role="tooltip" aria-label="%s">%s</span>',
+							esc_html(wu_get_country_name($country_code)),
 							esc_html(wu_get_flag_emoji($country_code)),
 						);
 
@@ -92,7 +92,7 @@ defined( 'ABSPATH' ) || exit;
 
 				<?php if ($state_list && $count - $_state_count >= 0) : ?>
 					<tr>
-						<td class="wu-text-xs">|&longrightarrow; <?php esc_html_e('Other', 'multisite-ultimate'); ?></td>
+						<td class="wu-text-xs">|&longrightarrow; <?php esc_html_e('Other', 'ultimate-multisite'); ?></td>
 						<td class="wu-text-right"><?php echo esc_html($count - $_state_count); ?></td>
 					</tr>
 				<?php endif; ?>
@@ -109,7 +109,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<div class="wu-bg-gray-100 wu-p-4 wu-rounded wu-mt-6">
 
-		<?php esc_html_e('No countries registered yet.', 'multisite-ultimate'); ?>
+		<?php esc_html_e('No countries registered yet.', 'ultimate-multisite'); ?>
 
 	</div>
 

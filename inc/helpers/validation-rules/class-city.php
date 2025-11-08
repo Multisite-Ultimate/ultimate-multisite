@@ -27,7 +27,7 @@ class City extends Rule {
 	 * @since 2.0.4
 	 * @var array
 	 */
-	protected $fillableParams = ['country', 'state'];
+	protected $fillableParams = ['country', 'state']; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
 
 	/**
 	 * Performs the actual check.

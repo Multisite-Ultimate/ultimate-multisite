@@ -17,7 +17,7 @@ defined('ABSPATH') || exit;
 require_once wu_path('inc/functions/options.php');
 
 /**
- * Returns an array with all the Multisite Ultimate settings.
+ * Returns an array with all the Ultimate Multisite settings.
  *
  * @since 2.0.0
  * @return array
@@ -84,6 +84,7 @@ function wu_register_settings_section($section_slug, $atts) {
  * @param string $section_slug Section to which this field will be added to.
  * @param string $field_slug ID of the field. This is used to later retrieve the value saved on this setting.
  * @param array  $atts Field attributes such as title, description, tooltip, default value, etc.
+ * @param int    $priority Priority of the field. Lower numbers correspond with earlier execution. Default 10.
  * @return void
  */
 function wu_register_settings_field($section_slug, $field_slug, $atts, $priority = 10) {
@@ -109,7 +110,7 @@ function wu_register_settings_side_panel($section_slug, $atts) {
 	$atts = wp_parse_args(
 		$atts,
 		[
-			'title'  => __('Side Panel', 'multisite-ultimate'),
+			'title'  => __('Side Panel', 'ultimate-multisite'),
 			'render' => '__return_false',
 			'show'   => '__return_true',
 		]

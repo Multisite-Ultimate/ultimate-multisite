@@ -5,7 +5,7 @@
  * @package WP_Ultimo
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 if ( ! function_exists('current_user_can_for_site')) {
 

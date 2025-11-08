@@ -1,7 +1,7 @@
 # Closte Integration
 
 ## Overview
-Closte is a managed WordPress hosting platform built on Google Cloud infrastructure. This integration enables automatic domain syncing and SSL certificate management between Multisite Ultimate and Closte.
+Closte is a managed WordPress hosting platform built on Google Cloud infrastructure. This integration enables automatic domain syncing and SSL certificate management between Ultimate Multisite and Closte.
 
 ## Features
 - Automatic domain syncing
@@ -26,7 +26,7 @@ If you're hosting on Closte, the `CLOSTE_CLIENT_API_KEY` constant should already
 
 ### 2. Enable the Integration
 
-1. In your WordPress admin, go to Multisite Ultimate > Settings
+1. In your WordPress admin, go to Ultimate Multisite > Settings
 2. Navigate to the "Domain Mapping" tab
 3. Scroll down to "Host Integrations"
 4. Enable the Closte integration
@@ -34,13 +34,13 @@ If you're hosting on Closte, the `CLOSTE_CLIENT_API_KEY` constant should already
 
 ## How It Works
 
-When a domain is mapped in Multisite Ultimate:
+When a domain is mapped in Ultimate Multisite:
 
 1. The integration sends a request to Closte's API to add the domain to your application
 2. Closte automatically handles SSL certificate provisioning
 3. When a domain mapping is removed, the integration will remove the domain from Closte
 
-The integration also works with the DNS check interval setting in Multisite Ultimate, allowing you to configure how frequently the system checks for DNS propagation and SSL certificate issuance.
+The integration also works with the DNS check interval setting in Ultimate Multisite, allowing you to configure how frequently the system checks for DNS propagation and SSL certificate issuance.
 
 ## Domain Record Creation
 
@@ -58,7 +58,7 @@ This integration ensures that when a site is created or duplicated, a domain rec
 - Check the DNS records for your domain to ensure they're correctly configured
 
 ### Domain Not Added
-- Check the Multisite Ultimate logs for any error messages
+- Check the Ultimate Multisite logs for any error messages
 - Verify that the domain is not already added to Closte
 - Ensure that your domain's DNS records are properly configured
 

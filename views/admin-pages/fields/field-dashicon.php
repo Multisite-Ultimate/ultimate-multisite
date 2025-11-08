@@ -4,10 +4,10 @@
  *
  * @since 2.0.0
  */
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 ?>
-<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<div class="wu-block wu-w-full">
 
@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<select class="wu_select_icon" name="<?php echo esc_attr($field->id); ?>">
 
-		<option value=""><?php echo esc_html__('No Icon', 'multisite-ultimate'); ?></option>
+		<option value=""><?php echo esc_html__('No Icon', 'ultimate-multisite'); ?></option>
 
 		<?php foreach (wu_get_icons_list() as $category_label => $category_array) : ?>
 

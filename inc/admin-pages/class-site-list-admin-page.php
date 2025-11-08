@@ -231,11 +231,9 @@ class Site_List_Admin_Page extends List_Admin_Page {
 	 * Handles the add/edit of line items.
 	 *
 	 * @since 2.0.0
-	 * @return mixed
+	 * @return void
 	 */
 	public function handle_add_new_site_modal() {
-
-		global $current_site;
 
 		$domain_type = wu_request('tab', is_subdomain_install() ? 'sub-domain' : 'sub-directory');
 
@@ -263,13 +261,13 @@ class Site_List_Admin_Page extends List_Admin_Page {
 		$site = wu_create_site($atts);
 
 		if (is_wp_error($site)) {
-			return wp_send_json_error($site);
+			wp_send_json_error($site);
 		}
 
-		if ($site->get_blog_id() === false) {
+		if (! $site->get_blog_id()) {
 			$error = new \WP_Error('error', __('Something wrong happened.', 'ultimate-multisite'));
 
-			return wp_send_json_error($error);
+			wp_send_json_error($error);
 		}
 
 		$redirect = current_user_can('wu_edit_sites') ? 'wp-ultimo-edit-site' : 'wp-ultimo-sites';

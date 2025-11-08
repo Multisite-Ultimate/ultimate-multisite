@@ -15,6 +15,8 @@
 namespace WP_Ultimo\Admin_Pages;
 
 // Exit if accessed directly
+use WP_List_Table;
+
 defined('ABSPATH') || exit;
 
 /**

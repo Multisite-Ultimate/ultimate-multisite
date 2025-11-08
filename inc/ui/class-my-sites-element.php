@@ -402,7 +402,7 @@ class My_Sites_Element extends Base_Element {
 	public function get_manage_url($site_id, $type = 'default', $custom_page_id = 0) {
 
 		if ('wp_admin' === $type) {
-			return get_admin_url($site_id);
+			return wu_get_admin_url($site_id);
 		}
 
 		if ('custom_page' === $type) {

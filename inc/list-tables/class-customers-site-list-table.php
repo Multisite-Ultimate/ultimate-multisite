@@ -84,7 +84,7 @@ class Customers_Site_List_Table extends Site_List_Table {
 					'icon'  => 'dashicons-wu-browser wu-align-middle wu-mr-1',
 					'label' => __('Go to the Dashboard', 'ultimate-multisite'),
 					'value' => __('Dashboard', 'ultimate-multisite'),
-					'url'   => get_admin_url($item->get_id()),
+					'url'   => wu_get_admin_url($item->get_id()),
 				],
 				'membership' => [
 					'icon'  => 'dashicons-wu-rotate-ccw wu-align-middle wu-mr-1',

@@ -438,6 +438,8 @@ final class WP_Ultimo {
 		 */
 		WP_Ultimo\SSO\SSO::get_instance();
 
+		WP_Ultimo\SSO\Magic_Link::get_instance();
+
 		/*
 		 * Loads the debugger tools
 		 */
@@ -667,6 +669,11 @@ final class WP_Ultimo {
 		 * The top admin navigation bar.
 		 */
 		new WP_Ultimo\Admin_Pages\Top_Admin_Nav_Menu();
+
+		/*
+		 * Initialize magic links for admin bar My Sites menu.
+		 */
+		\WP_Ultimo\SSO\Admin_Bar_Magic_Links::get_instance();
 
 		/*
 		 * Loads the Checkout Form admin page.

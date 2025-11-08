@@ -605,8 +605,8 @@ class SSO {
 			);
 
 			foreach ($domains as $domain) {
-				$additional_domains[] = "http://{$domain->get_domain()}";
-				$additional_domains[] = "https://{$domain->get_domain()}";
+				$additional_domains[] = "http://{$domain}";
+				$additional_domains[] = "https://{$domain}";
 			}
 		}
 

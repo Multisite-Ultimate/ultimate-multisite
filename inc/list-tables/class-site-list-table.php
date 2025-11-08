@@ -112,7 +112,7 @@ class Site_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Site $item Site object.
+	 * @param \WP_Ultimo\Models\Site $item Site object.
 	 */
 	public function column_path($item): string {
 

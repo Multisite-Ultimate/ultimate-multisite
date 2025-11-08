@@ -181,21 +181,26 @@ final class Customers_Table extends Table {
 	 */
 	protected function __20240908(): bool {
 
-		$query = "ALTER TABLE {$this->table_name} ADD COLUMN `network_id` bigint(20) unsigned DEFAULT NULL AFTER `type`;";
+		$result = $this->column_exists('network_id');
 
-		$result = $this->get_db()->query($query);
+		// Maybe add column
+		if (empty($result)) {
+			$query = "ALTER TABLE {$this->table_name} ADD COLUMN `network_id` bigint(20) unsigned DEFAULT NULL AFTER `type`;";
 
-		if ( ! $this->is_success($result)) {
-			return false;
-		}
+			$result = $this->get_db()->query($query);
 
-		// Add index for network_id
-		$index_query = "ALTER TABLE {$this->table_name} ADD INDEX `network_id` (`network_id`);";
+			if ( ! $this->is_success($result)) {
+				return false;
+			}
 
-		$index_result = $this->get_db()->query($index_query);
+			// Add index for network_id
+			$index_query = "ALTER TABLE {$this->table_name} ADD INDEX `network_id` (`network_id`);";
 
-		if ( ! $this->is_success($index_result)) {
-			return false;
+			$index_result = $this->get_db()->query($index_query);
+
+			if ( ! $this->is_success($index_result)) {
+				return false;
+			}
 		}
 
 		return true;

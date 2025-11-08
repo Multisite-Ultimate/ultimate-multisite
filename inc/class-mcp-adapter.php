@@ -9,7 +9,9 @@
 
 namespace WP_Ultimo;
 
+use Psr\Log\LogLevel;
 use WP\MCP\Core\McpAdapter as McpAdapterCore;
+use WP\MCP\Transport\HttpTransport;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -33,7 +35,9 @@ class MCP_Adapter implements \WP_Ultimo\Interfaces\Singleton {
 	 * @since 2.5.0
 	 * @var McpAdapterCore|null
 	 */
-	private ?McpAdapterCore $adapter = null;
+	private $adapter = null;
+
+	private \WP_REST_Request $current_request;
 
 	/**
 	 * Initiates the MCP adapter hooks.
@@ -80,6 +84,7 @@ class MCP_Adapter implements \WP_Ultimo\Interfaces\Singleton {
 		}
 
 		try {
+			add_action('mcp_adapter_init', array($this, 'initialize_mcp_server'));
 			$this->adapter = McpAdapterCore::instance();
 
 			/**
@@ -100,6 +105,59 @@ class MCP_Adapter implements \WP_Ultimo\Interfaces\Singleton {
 					$e->getMessage()
 				)
 			);
+		}
+	}
+
+	/**
+	 * Init MCP.
+	 *
+	 * @return void
+	 */
+	public function initialize_mcp_server(): void {
+		$abilities_ids = $this->get_mcp_abilities();
+
+		// Bail if no abilities are available.
+		if ( empty($abilities_ids) ) {
+			return;
+		}
+
+		add_filter('rest_pre_dispatch', [$this, 'rest_pre_dispatch_save_request'], 10, 3);
+
+		/*
+		 * Temporarily disable MCP validation during server creation.
+		 * Workaround for validator bug with union types (e.g., ["integer", "null"]).
+		 * This will be removed once the mcp-adapter validator bug is fixed.
+		 *
+		 * @see https://github.com/WordPress/mcp-adapter/issues/47
+		 */
+		add_filter('mcp_validation_enabled', '__return_false', 999);
+
+		try {
+			// Create MCP server.
+			$this->adapter->create_server(
+				'ultimate-multisite-server',
+				'ultimate-multisite',
+				'mcp-adapter',
+				__('Ultimate Multisite MCP Server', 'ultimate-multisite'),
+				__('AI-accessible Ultimate Multisite operations via MCP', 'ultimate-multisite'),
+				'1.0.0',
+				[HttpTransport::class],
+				\WP\MCP\Infrastructure\ErrorHandling\ErrorLogMcpErrorHandler::class,
+				\WP\MCP\Infrastructure\Observability\NullMcpObservabilityHandler::class,
+				$abilities_ids,
+				[],
+				[],
+				[$this, 'permission_callback']
+			);
+		} catch ( \Throwable $e ) {
+			wu_log_add(
+				'mcp',
+				'MCP server initialization failed: ' . $e->getMessage(),
+				LogLevel::ERROR
+			);
+		} finally {
+			// Re-enable MCP validation immediately after server creation.
+			remove_filter('mcp_validation_enabled', '__return_false', 999);
 		}
 	}
 
@@ -131,39 +189,31 @@ class MCP_Adapter implements \WP_Ultimo\Interfaces\Singleton {
 				'default' => 0,
 			]
 		);
-
 		wu_register_settings_field(
 			'api',
-			'mcp_server_url',
+			'mcp_serveer_urel',
 			[
 				'title'   => __('MCP Server URL', 'ultimate-multisite'),
-				'desc'    => sprintf(
-					// translators: %s: the HTTP endpoint URL for the MCP server
-					__('HTTP endpoint: %s', 'ultimate-multisite'),
-					'<code>' . rest_url('mcp/mcp-adapter-default-server') . '</code>'
-				),
+				'desc'    => '',
 				'tooltip' => __('This is the URL where the MCP server is accessible via HTTP.', 'ultimate-multisite'),
-				'type'    => 'note',
-				'classes' => 'wu-text-gray-700 wu-text-xs',
+				'copy'    => true,
+				'type'    => 'text-display',
+				'default' => rest_url('mcp/mcp-adapter-default-server'),
 				'require' => [
 					'enable_mcp' => 1,
 				],
 			]
 		);
-
 		wu_register_settings_field(
 			'api',
-			'mcp_stdio_command',
+			'mcp_stdio_commande',
 			[
 				'title'   => __('STDIO Command', 'ultimate-multisite'),
-				'desc'    => sprintf(
-					// translators: %s: the WP-CLI command to run the MCP server
-					__('Command: %s', 'ultimate-multisite'),
-					'<code>wp mcp-adapter serve --server=mcp-adapter-default-server --user=admin</code>'
-				),
+				'desc'    => '',
 				'tooltip' => __('This is the WP-CLI command to run the MCP server via STDIO transport.', 'ultimate-multisite'),
-				'type'    => 'note',
-				'classes' => 'wu-text-gray-700 wu-text-xs',
+				'copy'    => true,
+				'type'    => 'text-display',
+				'default' => '<code>wp mcp-adapter serve --server=mcp-adapter-default-server --user=admin</code>',
 				'require' => [
 					'enable_mcp' => 1,
 				],
@@ -177,7 +227,7 @@ class MCP_Adapter implements \WP_Ultimo\Interfaces\Singleton {
 	 * @since 2.5.0
 	 * @return McpAdapterCore|null
 	 */
-	public function get_adapter(): ?McpAdapterCore {
+	public function get_adapter(): McpAdapterCore {
 
 		return $this->adapter;
 	}
@@ -198,5 +248,84 @@ class MCP_Adapter implements \WP_Ultimo\Interfaces\Singleton {
 		 * @return bool
 		 */
 		return apply_filters('wu_is_mcp_enabled', wu_get_setting('enable_mcp', false));
+	}
+
+
+	/**
+	 * Get abilities for MCP server.
+	 *
+	 * Filters abilities to include only those with 'wu_' namespace by default,
+	 * with a filter to allow inclusion of abilities from other namespaces.
+	 *
+	 * @return array Array of ability IDs for MCP server.
+	 */
+	private function get_mcp_abilities(): array {
+
+		// Check if the abilities API is available.
+		if ( ! function_exists('wp_get_abilities') ) {
+			return array();
+		}
+
+		$all_abilities_ids = array_keys(wp_get_abilities());
+
+		// Filter abilities based on namespace and custom filter.
+		$mcp_abilities = array_filter(
+			$all_abilities_ids,
+			function ($ability_id) {
+				// Include Ultimate Multisite abilities by default.
+				$include = str_starts_with($ability_id, 'multisite-ultimate/');
+
+				// Allow filter to override inclusion decision.
+				/**
+				 * Filter to override MCP ability inclusion decision.
+				 *
+				 * @since 2.4.8
+				 * @param bool   $include    Whether to include the ability.
+				 * @param string $ability_id The ability ID.
+				 */
+				return apply_filters('wu_mcp_include_ability', $include, $ability_id);
+			}
+		);
+
+		// Re-index array.
+		return array_values($mcp_abilities);
+	}
+
+	/**
+	 * Use API Key.
+	 *
+	 * @param \WP_REST_Request|null $request The Request.
+	 *
+	 * @return bool|\WP_Error
+	 */
+	public function permission_callback(\WP_REST_Request $request = null) {
+		if ($request) {
+			$this->current_request = $request;
+		}
+		if (! $this->current_request) {
+			return new \WP_Error('no_request_object', 'Request Object lost', ['status' => 500]);
+		}
+
+		$result = API::get_instance()->check_authorization($this->current_request);
+
+		if ( ! $result) {
+			return new \WP_Error('invalid_api_key', 'Invalid API key', ['status' => 403]);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * For backwards compatibility we use pre dispatch to save the request object.
+	 *
+	 * @param \WP_REST_Response $result The result.
+	 * @param \WP_REST_Server   $server The server.
+	 * @param \WP_REST_Request  $request The request.
+	 *
+	 * @return mixed
+	 */
+	public function rest_pre_dispatch_save_request($result, $server, $request) {
+		$this->current_request = $request;
+		return $result;
 	}
 }

@@ -46,7 +46,7 @@ trait MCP_Abilities {
 	 */
 	public function get_mcp_ability_prefix(): string {
 
-		return 'wu_' . $this->slug;
+		return 'multisite-ultimate/' . str_replace('_', '-', $this->slug);
 	}
 
 	/**
@@ -64,11 +64,60 @@ trait MCP_Abilities {
 			return;
 		}
 
-		if (! function_exists('register_ability')) {
+		if (! function_exists('wp_register_ability')) {
 			return;
 		}
 
-		add_action('wu_mcp_adapter_initialized', [$this, 'register_abilities']);
+		add_action('wp_abilities_api_categories_init', [$this, 'register_ability_category']);
+		add_action('wp_abilities_api_init', [$this, 'register_abilities']);
+	}
+
+	/**
+	 * Register the ability category for this entity.
+	 *
+	 * @since 2.5.0
+	 * @return void
+	 */
+	public function register_ability_category(): void {
+
+		if (! function_exists('wp_register_ability_category')) {
+			return;
+		}
+
+		if (wp_has_ability_category('multisite-ultimate')) {
+			return;
+		}
+		wp_register_ability_category(
+			'multisite-ultimate',
+			[
+				'label'       => __('Multisite Ultimate', 'ultimate-multisite'),
+				'description' => __('CRUD operations for Multisite Ultimate entities including customers, sites, products, memberships, and more.', 'ultimate-multisite'),
+			]
+		);
+	}
+
+	/**
+	 * Permission callback for MCP abilities.
+	 * Checks if the current user has the required capabilities.
+	 *
+	 * @since 2.5.0
+	 * @param array $input_data The input data passed to the ability.
+	 * @return bool|\WP_Error True if user has permission, WP_Error otherwise.
+	 */
+	public function mcp_permission_callback(array $input_data) {
+		unset($input_data);
+
+		$capability = "wu_read_{$this->slug}";
+
+		if (! current_user_can($capability) && ! current_user_can('manage_network')) {
+			return new \WP_Error(
+				'rest_forbidden',
+				__('You do not have permission to access this resource.', 'ultimate-multisite'),
+				['status' => 403]
+			);
+		}
+
+		return true;
 	}
 
 	/**
@@ -124,29 +173,41 @@ trait MCP_Abilities {
 	 */
 	protected function register_get_item_ability(string $ability_prefix, string $display_name): void {
 
-		register_ability(
-			"{$ability_prefix}_get_item",
+		wp_register_ability(
+			"$ability_prefix-get-item",
 			[
 				// translators: %s: entity name (e.g., Customer, Site, Product)
-				'label'       => sprintf(__('Get %s by ID', 'ultimate-multisite'), $display_name),
+				'label'               => sprintf(__('Get %s by ID', 'ultimate-multisite'), $display_name),
 				// translators: %s: entity name (e.g., customer, site, product)
-				'description' => sprintf(__('Retrieve a single %s by its ID', 'ultimate-multisite'), strtolower($display_name)),
-				'callback'    => [$this, 'mcp_get_item'],
-				'inputs'      => [
-					'id' => [
-						'label'       => __('ID', 'ultimate-multisite'),
-						// translators: %s: entity name (e.g., customer, site, product)
-						'description' => sprintf(__('The ID of the %s to retrieve', 'ultimate-multisite'), strtolower($display_name)),
-						'type'        => 'integer',
-						'required'    => true,
+				'description'         => sprintf(__('Retrieve a single %s by its ID', 'ultimate-multisite'), strtolower($display_name)),
+				'category'            => 'multisite-ultimate',
+				'execute_callback'    => [$this, 'mcp_get_item'],
+				'permission_callback' => [$this, 'mcp_permission_callback'],
+				'input_schema'        => [
+					'type'       => 'object',
+					'properties' => [
+						'id' => [
+							// translators: %s: entity name (e.g., customer, site, product)
+							'description' => sprintf(__('The ID of the %s to retrieve', 'ultimate-multisite'), strtolower($display_name)),
+							'type'        => 'integer',
+						],
+					],
+					'required'   => ['id'],
+				],
+				'output_schema'       => [
+					'type'       => 'object',
+					'properties' => [
+						'item' => [
+							// translators: %s: entity name (e.g., customer, site, product)
+							'description' => sprintf(__('The %s object', 'ultimate-multisite'), strtolower($display_name)),
+							'type'        => 'object',
+						],
 					],
 				],
-				'outputs'     => [
-					'item' => [
-						'label'       => $display_name,
-						// translators: %s: entity name (e.g., customer, site, product)
-						'description' => sprintf(__('The %s object', 'ultimate-multisite'), strtolower($display_name)),
-						'type'        => 'object',
+				'meta'                => [
+					'mcp' => [
+						'public' => true, // Expose via MCP (required for MCP access)
+						'type'   => 'tool',
 					],
 				],
 			]
@@ -163,41 +224,46 @@ trait MCP_Abilities {
 	 */
 	protected function register_get_items_ability(string $ability_prefix, string $display_name): void {
 
-		register_ability(
-			"{$ability_prefix}_get_items",
+		wp_register_ability(
+			"$ability_prefix-get-items",
 			[
 				// translators: %s: entity name (e.g., Customer, Site, Product)
-				'label'       => sprintf(__('List %s', 'ultimate-multisite'), $display_name),
+				'label'               => sprintf(__('List %s', 'ultimate-multisite'), $display_name),
 				// translators: %s: entity name (e.g., customer, site, product)
-				'description' => sprintf(__('Retrieve a list of %s with optional filters', 'ultimate-multisite'), strtolower($display_name)),
-				'callback'    => [$this, 'mcp_get_items'],
-				'inputs'      => [
-					'per_page' => [
-						'label'       => __('Per Page', 'ultimate-multisite'),
-						'description' => __('Number of items to retrieve per page', 'ultimate-multisite'),
-						'type'        => 'integer',
-						'required'    => false,
-						'default'     => 10,
-					],
-					'page'     => [
-						'label'       => __('Page', 'ultimate-multisite'),
-						'description' => __('Page number to retrieve', 'ultimate-multisite'),
-						'type'        => 'integer',
-						'required'    => false,
-						'default'     => 1,
+				'description'         => sprintf(__('Retrieve a list of %s with optional filters', 'ultimate-multisite'), strtolower($display_name)),
+				'category'            => 'multisite-ultimate',
+				'execute_callback'    => [$this, 'mcp_get_items'],
+				'permission_callback' => [$this, 'mcp_permission_callback'],
+				'input_schema'        => [
+					'type'       => 'object',
+					'properties' => [
+						'per_page' => [
+							'description' => __('Number of items to retrieve per page', 'ultimate-multisite'),
+							'type'        => 'integer',
+							'default'     => 10,
+						],
+						'page'     => [
+							'description' => __('Page number to retrieve', 'ultimate-multisite'),
+							'type'        => 'integer',
+							'default'     => 1,
+						],
 					],
 				],
-				'outputs'     => [
-					'items' => [
-						'label'       => $display_name,
-						// translators: %s: entity name (e.g., customer, site, product)
-						'description' => sprintf(__('Array of %s objects', 'ultimate-multisite'), strtolower($display_name)),
-						'type'        => 'array',
-					],
-					'total' => [
-						'label'       => __('Total', 'ultimate-multisite'),
-						'description' => __('Total number of items', 'ultimate-multisite'),
-						'type'        => 'integer',
+				'output_schema'       => [
+					'type'       => 'object',
+					'properties' => [
+						'items' => [
+							// translators: %s: entity name (e.g., customer, site, product)
+							'description' => sprintf(__('Array of %s objects', 'ultimate-multisite'), strtolower($display_name)),
+							'type'        => 'array',
+							'items'       => [
+								'type' => 'object',
+							],
+						],
+						'total' => [
+							'description' => __('Total number of items', 'ultimate-multisite'),
+							'type'        => 'integer',
+						],
 					],
 				],
 			]
@@ -214,23 +280,27 @@ trait MCP_Abilities {
 	 */
 	protected function register_create_item_ability(string $ability_prefix, string $display_name): void {
 
-		$schema = $this->get_mcp_schema_for_ability('create');
+		$input_schema = $this->get_mcp_schema_for_ability('create');
 
-		register_ability(
-			"{$ability_prefix}_create_item",
+		wp_register_ability(
+			"$ability_prefix-create-item",
 			[
 				// translators: %s: entity name (e.g., Customer, Site, Product)
-				'label'       => sprintf(__('Create %s', 'ultimate-multisite'), $display_name),
+				'label'               => sprintf(__('Create %s', 'ultimate-multisite'), $display_name),
 				// translators: %s: entity name (e.g., customer, site, product)
-				'description' => sprintf(__('Create a new %s', 'ultimate-multisite'), strtolower($display_name)),
-				'callback'    => [$this, 'mcp_create_item'],
-				'inputs'      => $schema,
-				'outputs'     => [
-					'item' => [
-						'label'       => $display_name,
-						// translators: %s: entity name (e.g., customer, site, product)
-						'description' => sprintf(__('The created %s object', 'ultimate-multisite'), strtolower($display_name)),
-						'type'        => 'object',
+				'description'         => sprintf(__('Create a new %s', 'ultimate-multisite'), strtolower($display_name)),
+				'category'            => 'multisite-ultimate',
+				'execute_callback'    => [$this, 'mcp_create_item'],
+				'permission_callback' => [$this, 'mcp_permission_callback'],
+				'input_schema'        => $input_schema,
+				'output_schema'       => [
+					'type'       => 'object',
+					'properties' => [
+						'item' => [
+							// translators: %s: entity name (e.g., customer, site, product)
+							'description' => sprintf(__('The created %s object', 'ultimate-multisite'), strtolower($display_name)),
+							'type'        => 'object',
+						],
 					],
 				],
 			]
@@ -247,34 +317,40 @@ trait MCP_Abilities {
 	 */
 	protected function register_update_item_ability(string $ability_prefix, string $display_name): void {
 
-		$schema = $this->get_mcp_schema_for_ability('update');
+		$input_schema = $this->get_mcp_schema_for_ability('update');
 
-		register_ability(
-			"{$ability_prefix}_update_item",
+		// Add ID to the properties
+		$input_schema['properties']['id'] = [
+			// translators: %s: entity name (e.g., customer, site, product)
+			'description' => sprintf(__('The ID of the %s to update', 'ultimate-multisite'), strtolower($display_name)),
+			'type'        => 'integer',
+		];
+
+		// Add ID to required fields
+		if (! isset($input_schema['required'])) {
+			$input_schema['required'] = [];
+		}
+		$input_schema['required'][] = 'id';
+
+		wp_register_ability(
+			"$ability_prefix-update-item",
 			[
 				// translators: %s: entity name (e.g., Customer, Site, Product)
-				'label'       => sprintf(__('Update %s', 'ultimate-multisite'), $display_name),
+				'label'               => sprintf(__('Update %s', 'ultimate-multisite'), $display_name),
 				// translators: %s: entity name (e.g., customer, site, product)
-				'description' => sprintf(__('Update an existing %s', 'ultimate-multisite'), strtolower($display_name)),
-				'callback'    => [$this, 'mcp_update_item'],
-				'inputs'      => array_merge(
-					[
-						'id' => [
-							'label'       => __('ID', 'ultimate-multisite'),
+				'description'         => sprintf(__('Update an existing %s', 'ultimate-multisite'), strtolower($display_name)),
+				'category'            => 'multisite-ultimate',
+				'execute_callback'    => [$this, 'mcp_update_item'],
+				'permission_callback' => [$this, 'mcp_permission_callback'],
+				'input_schema'        => $input_schema,
+				'output_schema'       => [
+					'type'       => 'object',
+					'properties' => [
+						'item' => [
 							// translators: %s: entity name (e.g., customer, site, product)
-							'description' => sprintf(__('The ID of the %s to update', 'ultimate-multisite'), strtolower($display_name)),
-							'type'        => 'integer',
-							'required'    => true,
+							'description' => sprintf(__('The updated %s object', 'ultimate-multisite'), strtolower($display_name)),
+							'type'        => 'object',
 						],
-					],
-					$schema
-				),
-				'outputs'     => [
-					'item' => [
-						'label'       => $display_name,
-						// translators: %s: entity name (e.g., customer, site, product)
-						'description' => sprintf(__('The updated %s object', 'ultimate-multisite'), strtolower($display_name)),
-						'type'        => 'object',
 					],
 				],
 			]
@@ -291,28 +367,34 @@ trait MCP_Abilities {
 	 */
 	protected function register_delete_item_ability(string $ability_prefix, string $display_name): void {
 
-		register_ability(
-			"{$ability_prefix}_delete_item",
+		wp_register_ability(
+			"$ability_prefix-delete-item",
 			[
 				// translators: %s: entity name (e.g., Customer, Site, Product)
-				'label'       => sprintf(__('Delete %s', 'ultimate-multisite'), $display_name),
+				'label'               => sprintf(__('Delete %s', 'ultimate-multisite'), $display_name),
 				// translators: %s: entity name (e.g., customer, site, product)
-				'description' => sprintf(__('Delete a %s by its ID', 'ultimate-multisite'), strtolower($display_name)),
-				'callback'    => [$this, 'mcp_delete_item'],
-				'inputs'      => [
-					'id' => [
-						'label'       => __('ID', 'ultimate-multisite'),
-						// translators: %s: entity name (e.g., customer, site, product)
-						'description' => sprintf(__('The ID of the %s to delete', 'ultimate-multisite'), strtolower($display_name)),
-						'type'        => 'integer',
-						'required'    => true,
+				'description'         => sprintf(__('Delete a %s by its ID', 'ultimate-multisite'), strtolower($display_name)),
+				'category'            => 'multisite-ultimate',
+				'execute_callback'    => [$this, 'mcp_delete_item'],
+				'permission_callback' => [$this, 'mcp_permission_callback'],
+				'input_schema'        => [
+					'type'       => 'object',
+					'properties' => [
+						'id' => [
+							// translators: %s: entity name (e.g., customer, site, product)
+							'description' => sprintf(__('The ID of the %s to delete', 'ultimate-multisite'), strtolower($display_name)),
+							'type'        => 'integer',
+						],
 					],
+					'required'   => ['id'],
 				],
-				'outputs'     => [
-					'success' => [
-						'label'       => __('Success', 'ultimate-multisite'),
-						'description' => __('Whether the deletion was successful', 'ultimate-multisite'),
-						'type'        => 'boolean',
+				'output_schema'       => [
+					'type'       => 'object',
+					'properties' => [
+						'success' => [
+							'description' => __('Whether the deletion was successful', 'ultimate-multisite'),
+							'type'        => 'boolean',
+						],
 					],
 				],
 			]
@@ -321,6 +403,7 @@ trait MCP_Abilities {
 
 	/**
 	 * Get MCP schema for an ability (create or update).
+	 * Returns JSON Schema format for input_schema.
 	 *
 	 * @since 2.5.0
 	 * @param string $context The context (create or update).
@@ -334,26 +417,38 @@ trait MCP_Abilities {
 
 		$rest_schema = $this->get_arguments_schema('update' === $context);
 
-		$mcp_schema = [];
+		$properties = [];
+		$required   = [];
 
 		foreach ($rest_schema as $key => $args) {
-			$mcp_schema[ $key ] = [
-				'label'       => $args['description'] ?? ucfirst(str_replace('_', ' ', $key)),
-				'description' => $args['description'] ?? '',
+			$properties[ $key ] = [
+				'description' => $args['description'] ?? ucfirst(str_replace('_', ' ', $key)),
 				'type'        => $args['type'] ?? 'string',
-				'required'    => $args['required'] ?? false,
 			];
 
 			if (isset($args['default'])) {
-				$mcp_schema[ $key ]['default'] = $args['default'];
+				$properties[ $key ]['default'] = $args['default'];
 			}
 
 			if (isset($args['enum'])) {
-				$mcp_schema[ $key ]['enum'] = $args['enum'];
+				$properties[ $key ]['enum'] = $args['enum'];
+			}
+
+			if (isset($args['required']) && $args['required']) {
+				$required[] = $key;
 			}
 		}
 
-		return $mcp_schema;
+		$schema = [
+			'type'       => 'object',
+			'properties' => $properties,
+		];
+
+		if (! empty($required)) {
+			$schema['required'] = $required;
+		}
+
+		return $schema;
 	}
 
 	/**

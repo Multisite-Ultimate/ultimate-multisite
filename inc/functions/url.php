@@ -137,6 +137,11 @@ function wu_get_admin_url($blog_id = null, $path = '', $scheme = 'admin') {
  */
 function wu_get_home_url($blog_id = null) {
 	$site            = wu_get_site($blog_id);
+
+	if (! $site) {
+		return get_home_url($blog_id);
+	}
+
 	$home_url        = $site->get_active_site_url();
 	$current_user_id = get_current_user_id();
 

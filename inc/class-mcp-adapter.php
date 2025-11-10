@@ -227,7 +227,7 @@ class MCP_Adapter implements \WP_Ultimo\Interfaces\Singleton {
 	 * @since 2.5.0
 	 * @return McpAdapterCore|null
 	 */
-	public function get_adapter(): McpAdapterCore {
+	public function get_adapter(): ?McpAdapterCore {
 
 		return $this->adapter;
 	}

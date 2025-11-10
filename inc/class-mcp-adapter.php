@@ -37,7 +37,7 @@ class MCP_Adapter implements \WP_Ultimo\Interfaces\Singleton {
 	 */
 	private $adapter = null;
 
-	private \WP_REST_Request $current_request;
+	private ?\WP_REST_Request $current_request = null;
 
 	/**
 	 * Initiates the MCP adapter hooks.

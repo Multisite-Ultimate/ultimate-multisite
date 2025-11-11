@@ -322,7 +322,10 @@ class Site_Duplicator {
 		if ( ! $site_id) {
 			return;
 		}
-
+		// Ensure plugin.php is loaded for is_plugin_active_for_network()
+		if ( ! function_exists('is_plugin_active_for_network')) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 		// Check if WooCommerce Subscriptions is active on the site
 		if ( ! is_plugin_active_for_network('woocommerce-subscriptions/woocommerce-subscriptions.php')) {
 			switch_to_blog($site_id);
@@ -339,28 +342,51 @@ class Site_Duplicator {
 		// Switch to the duplicated site context
 		switch_to_blog($site_id);
 
-		// Get the current site URL
-		$site_url = get_site_url();
+		try {
+			// Get the current site URL
+			$site_url = get_site_url();
 
-		// Generate the obfuscated key that WooCommerce Subscriptions uses
-		// It inserts '_[wc_subscriptions_siteurl]_' in the middle of the URL
-		$scheme   = wp_parse_url($site_url, PHP_URL_SCHEME) . '://';
-		$site_url = str_replace($scheme, '', $site_url);
+			// Validate that we have a non-empty site URL
+			if (empty($site_url) || ! is_string($site_url)) {
+				// Skip updates if site URL is invalid
+				return;
+			}
 
-		$obfuscated_url = $scheme . substr_replace(
-			$site_url,
-			'_[wc_subscriptions_siteurl]_',
-			intval(strlen($site_url) / 2),
-			0
-		);
+			// Parse the URL scheme and validate the result
+			$scheme = wp_parse_url($site_url, PHP_URL_SCHEME);
 
-		// Update the WooCommerce Subscriptions site URL option
-		update_option('wc_subscriptions_siteurl', $obfuscated_url);
+			// Validate wp_parse_url returned a valid scheme
+			if (empty($scheme) || ! is_string($scheme)) {
+				// Skip updates if URL parsing failed
+				return;
+			}
 
-		// Delete the "ignore notice" option to ensure a clean state
-		delete_option('wcs_ignore_duplicate_siteurl_notice');
+			// Generate the obfuscated key that WooCommerce Subscriptions uses
+			// It inserts '_[wc_subscriptions_siteurl]_' in the middle of the URL
+			$scheme_with_separator   = $scheme . '://';
+			$site_url_without_scheme = str_replace($scheme_with_separator, '', $site_url);
 
-		// Restore the original blog context
-		restore_current_blog();
+			// Validate the URL without scheme is a non-empty string
+			if (empty($site_url_without_scheme) || ! is_string($site_url_without_scheme)) {
+				// Skip updates if URL manipulation failed
+				return;
+			}
+
+			$obfuscated_url = $scheme_with_separator . substr_replace(
+				$site_url_without_scheme,
+				'_[wc_subscriptions_siteurl]_',
+				intval(strlen($site_url_without_scheme) / 2),
+				0
+			);
+
+			// Update the WooCommerce Subscriptions site URL option
+			update_option('wc_subscriptions_siteurl', $obfuscated_url);
+
+			// Delete the "ignore notice" option to ensure a clean state
+			delete_option('wcs_ignore_duplicate_siteurl_notice');
+		} finally {
+			// Always restore the original blog context, even if errors or exceptions occur
+			restore_current_blog();
+		}
 	}
 }

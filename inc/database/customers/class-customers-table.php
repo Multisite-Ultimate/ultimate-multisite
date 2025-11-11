@@ -43,7 +43,7 @@ final class Customers_Table extends Table {
 	 * @since 2.0.0
 	 * @var string
 	 */
-	protected $version = '2.0.2-revision.20240908';
+	protected $version = '2.0.2-revision.20250908';
 
 	/**
 	 * List of table upgrades.
@@ -54,7 +54,7 @@ final class Customers_Table extends Table {
 		'2.0.1-revision.20210508' => 20_210_508,
 		'2.0.1-revision.20210607' => 20_210_607,
 		'2.0.1-revision.20230601' => 20_230_601,
-		'2.0.2-revision.20240908' => 20_240_908,
+		'2.0.2-revision.20250908' => 20_250_908,
 	];
 
 	/**
@@ -167,7 +167,7 @@ final class Customers_Table extends Table {
 	 *
 	 * @since 2.0.2
 	 */
-	protected function __20240908(): bool { // phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore
+	protected function __20250908(): bool { // phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore
 
 		$result = $this->column_exists('network_id');
 

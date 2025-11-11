@@ -423,6 +423,11 @@ final class WP_Ultimo {
 		 */
 		if (is_admin()) {
 			require_once wu_path('inc/functions/admin.php');
+
+			/*
+			 * Configuration Checker for multisite setup issues
+			 */
+			\WP_Ultimo\Admin\Configuration_Checker::get_instance();
 		}
 	}
 

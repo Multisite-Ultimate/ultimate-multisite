@@ -29,7 +29,7 @@ class Configuration_Checker {
 	 */
 	public function init(): void {
 
-		add_action('network_admin_init', [$this, 'check_cookie_domain_configuration']);
+		add_action('admin_init', [$this, 'check_cookie_domain_configuration']);
 	}
 
 	/**
@@ -42,7 +42,9 @@ class Configuration_Checker {
 	 * @return void
 	 */
 	public function check_cookie_domain_configuration(): void {
-
+		if (! is_network_admin()) {
+			return;
+		}
 		// Only check on subdomain installs
 		if ( ! is_subdomain_install()) {
 			return;
@@ -51,12 +53,13 @@ class Configuration_Checker {
 		// Check if COOKIE_DOMAIN is defined and set to false
 		if (defined('COOKIE_DOMAIN') && COOKIE_DOMAIN === false) {
 			$message = sprintf(
-				// translators: %1$s is the opening code tag, %2$s is the closing code tag, %3$s is a link to WordPress documentation
-				__('Your <strong>wp-config.php</strong> has %1$sCOOKIE_DOMAIN%2$s set to %1$sfalse%2$s, which can cause authentication and session issues on subdomain multisite installations. Please remove this line from your wp-config.php file or set it to an appropriate value. %3$s', 'ultimate-multisite'),
-				'<code>',
-				'</code>',
-				'<a href="https://developer.wordpress.org/apis/wp-config-php/#cookie-settings" target="_blank" rel="noopener noreferrer">' . __('Learn more about cookie settings', 'ultimate-multisite') . ' &rarr;</a>'
+				// translators: %1$s is 'wp-config.php', %2$s is 'COOKIE_DOMAIN', %3$s is 'false'
+				esc_html__('Your %1$s has %2$s set to %3$s, which can cause authentication and session issues on subdomain multisite installations. Please remove this line from your wp-config.php file or set it to an appropriate value.', 'ultimate-multisite'),
+				'<strong>wp-config.php</strong>',
+				'<strong>COOKIE_DOMAIN</strong>',
+				'<strong>false</strong>',
 			);
+			$message .= '<br><a href="https://developer.wordpress.org/apis/wp-config-php/#set-cookie-domain" target="_blank" rel="noopener noreferrer">' . esc_html__('Learn more about cookie settings', 'ultimate-multisite') . ' &rarr;</a>';
 
 			\WP_Ultimo()->notices->add(
 				$message,

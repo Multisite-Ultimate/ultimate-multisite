@@ -17,6 +17,8 @@ namespace WP_Ultimo\Admin_Pages;
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
+use WP_List_Table;
+
 /**
  * Abstract class that makes it easy to create new admin pages.
  */

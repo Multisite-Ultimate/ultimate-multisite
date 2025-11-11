@@ -30,11 +30,12 @@ class Tours {
 	protected $tours = [];
 
 	/**
-	 * Element construct.
+	 * Initialize the singleton.
 	 *
 	 * @since 2.0.0
+	 * @return void
 	 */
-	public function __construct() {
+	public function init(): void {
 
 		add_action('wp_ajax_wu_mark_tour_as_finished', [$this, 'mark_as_finished']);
 

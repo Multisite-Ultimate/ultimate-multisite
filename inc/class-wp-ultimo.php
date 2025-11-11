@@ -569,11 +569,6 @@ final class WP_Ultimo {
 		);
 
 		/*
-		 * Dashboard Statistics
-		 */
-		\WP_Ultimo\Dashboard_Statistics::get_instance();
-
-		/*
 		 * Network Plugins/Themes usage columns
 		 */
 		\WP_Ultimo\Admin\Network_Usage_Columns::get_instance();

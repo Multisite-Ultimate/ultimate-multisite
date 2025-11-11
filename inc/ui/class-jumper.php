@@ -40,11 +40,12 @@ class Jumper {
 	protected $transient_key = 'wu-jumper-menu-list';
 
 	/**
-	 * Element construct.
+	 * Initialize the singleton.
 	 *
 	 * @since 2.0.0
+	 * @return void
 	 */
-	public function __construct() {
+	public function init(): void {
 
 		add_action('init', [$this, 'add_settings'], 20);
 

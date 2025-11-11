@@ -24,9 +24,12 @@ class User_Switching {
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
-	 * Constructor for the User_Switching.
+	 * Initialize the singleton.
+	 *
+	 * @since 2.0.0
+	 * @return void
 	 */
-	public function __construct() {
+	public function init(): void {
 
 		add_action('plugins_loaded', [$this, 'register_forms']);
 	}

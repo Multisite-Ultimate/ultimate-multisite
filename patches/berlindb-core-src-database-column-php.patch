@@ -1,6 +1,6 @@
---- /dev/null
-+++ ../src/Database/Column.php
-@@ -506,10 +506,10 @@
+--- a/src/Database/Column.php
++++ b/src/Database/Column.php
+@@ -506,10 +506,10 @@ abstract class Column extends Base {
  			'binary'        => 'wp_validate_boolean',
  			'allow_null'    => 'wp_validate_boolean',
  			'default'       => array( $this, 'sanitize_default' ),
@@ -15,7 +15,7 @@
  
  			'primary'       => 'wp_validate_boolean',
  			'created'       => 'wp_validate_boolean',
-@@ -675,7 +675,7 @@
+@@ -675,7 +675,7 @@ abstract class Column extends Base {
  
  		// String
  		} elseif ( is_string( $default ) ) {

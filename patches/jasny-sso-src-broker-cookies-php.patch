@@ -1,6 +1,6 @@
---- /dev/null
-+++ ../src/Broker/Cookies.php
-@@ -43,7 +43,8 @@
+--- a/src/Broker/Cookies.php
++++ b/src/Broker/Cookies.php
+@@ -43,7 +43,8 @@ class Cookies implements \ArrayAccess
      /**
       * @inheritDoc
       */
@@ -10,7 +10,7 @@
      {
          $success = setcookie($name, $value, time() + $this->ttl, $this->path, $this->domain, $this->secure, true);
  
-@@ -66,7 +67,8 @@
+@@ -66,7 +67,8 @@ class Cookies implements \ArrayAccess
      /**
       * @inheritDoc
       */
@@ -20,7 +20,7 @@
      {
          return $_COOKIE[$name] ?? null;
      }
-@@ -74,7 +76,8 @@
+@@ -74,7 +76,8 @@ class Cookies implements \ArrayAccess
      /**
       * @inheritDoc
       */
@@ -28,5 +28,15 @@
 +	#[\ReturnTypeWillChange]
 +	public function offsetExists($name)
      {
-         return isset($_COOKIE[$name]);
+         return array_key_exists($name, $_COOKIE);
      }
+@@ -82,7 +85,8 @@ class Cookies implements \ArrayAccess
+     /**
+      * @inheritDoc
+      */
+-    public function offsetUnset($name)
++	#[\ReturnTypeWillChange]
++	public function offsetUnset($name)
+     {
+         unset($_COOKIE[$name]);
+         setcookie($name, '', 1, $this->path, $this->domain, $this->secure, true);

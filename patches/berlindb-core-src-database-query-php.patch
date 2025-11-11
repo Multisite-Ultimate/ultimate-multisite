@@ -1,6 +1,6 @@
---- /dev/null
-+++ ../src/Database/Query.php
-@@ -2169,7 +2169,7 @@
+--- a/src/Database/Query.php
++++ b/src/Database/Query.php
+@@ -2169,7 +2169,7 @@ abstract class Query extends Base {
  			$caps = $this->get_column_field( array( 'name' => $key ), 'caps' );
  
  			// Unset if not explicitly allowed

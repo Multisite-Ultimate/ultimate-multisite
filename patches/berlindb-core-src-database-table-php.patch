@@ -1,6 +1,6 @@
---- /dev/null
-+++ ../src/Database/Table.php
-@@ -32,6 +32,7 @@
+--- a/src/Database/Table.php
++++ b/src/Database/Table.php
+@@ -32,6 +32,7 @@ use BerlinDB\Database\Base;
   */
  abstract class Table extends Base {
  
@@ -8,7 +8,7 @@
  	/**
  	 * Table name, without the global table prefix.
  	 *
-@@ -206,7 +207,7 @@
+@@ -206,7 +207,7 @@ abstract class Table extends Base {
  		}
  
  		// Update interface for switched site
@@ -17,7 +17,7 @@
  	}
  
  	/** Public Helpers ********************************************************/
-@@ -824,8 +825,24 @@
+@@ -824,8 +825,24 @@ abstract class Table extends Base {
  	 *
  	 * @since 1.0.0
  	 */
@@ -28,36 +28,18 @@
 +		if ($this->is_global()) {
 +			$site_id = 0;
 +			$tables  = 'ms_global_tables';
-+
-+			// Set variables for per-site tables
 +		} else {
 +			$tables = 'tables';
 +		}
 +
-+		if (null !== $site_id && $site_id === $this->site_id) {
-+			return;
++		// Assign the correct database interface
++		if ( ! empty( $site_id ) ) {
++			$this->db = $GLOBALS['wpdb']->get_blog_prefix( $site_id );
++		} else {
++			$this->db = $GLOBALS['wpdb'];
 +		}
 +
-+		$this->site_id = $site_id;
-+
- 		// Get the database once, to avoid duplicate function calls
- 		$db = $this->get_db();
- 
-@@ -832,17 +849,6 @@
- 		// Bail if no database
- 		if ( empty( $db ) ) {
- 			return;
--		}
--
--		// Set variables for global tables
--		if ( $this->is_global() ) {
--			$site_id = 0;
--			$tables  = 'ms_global_tables';
--
--		// Set variables for per-site tables
--		} else {
--			$site_id = null;
--			$tables  = 'tables';
- 		}
- 
- 		// Set the table prefix and prefix the table name
++		// Cache the table name
+ 		// Maybe switch database
+ 		if ( $this->is_global() ) {
+ 			$this->apply_prefix();

@@ -34,7 +34,7 @@ class Singleton_Test extends \WP_UnitTestCase {
 	 */
 	private function get_singleton_classes(): array {
 
-		if (self::$singleton_classes !== null) {
+		if (null !== self::$singleton_classes) {
 			return self::$singleton_classes;
 		}
 
@@ -48,7 +48,7 @@ class Singleton_Test extends \WP_UnitTestCase {
 
 		foreach ($regex as $file) {
 			$filepath = $file[0];
-			$content  = file_get_contents($filepath);
+			$content  = file_get_contents($filepath); // phpcs:ignore
 
 			// Check if file uses the Singleton trait
 			if (strpos($content, 'use \WP_Ultimo\Traits\Singleton;') !== false ||
@@ -57,7 +57,6 @@ class Singleton_Test extends \WP_UnitTestCase {
 				// Extract namespace and class name
 				if (preg_match('/namespace\s+([^;]+);/i', $content, $namespace_match) &&
 					preg_match('/class\s+(\w+)/i', $content, $class_match)) {
-
 					$namespace  = trim($namespace_match[1]);
 					$class_name = trim($class_match[1]);
 					$full_class = $namespace . '\\' . $class_name;
@@ -74,7 +73,6 @@ class Singleton_Test extends \WP_UnitTestCase {
 				}
 			}
 		}
-
 		self::$singleton_classes = $singleton_classes;
 
 		return $singleton_classes;

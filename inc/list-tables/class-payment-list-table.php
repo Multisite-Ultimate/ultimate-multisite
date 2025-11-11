@@ -107,7 +107,7 @@ class Payment_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Payment $item Payment object.
+	 * @param \WP_Ultimo\Models\Payment $item Payment object.
 	 * @return string
 	 */
 	public function column_status($item) {

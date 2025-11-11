@@ -80,7 +80,7 @@ abstract class Country {
 		 *
 		 * @param array $states List of states in a XX => Name format.
 		 * @param string $country_code Two-letter ISO code for the country.
-		 * @param WP_Ultimo\Country\Country $current_country Instance of the current class.
+		 * @param \WP_Ultimo\Country\Country $current_country Instance of the current class.
 		 * @return array The filtered list of states.
 		 */
 		return apply_filters('wu_country_get_states', $states, $this->country_code, $this);
@@ -140,7 +140,7 @@ abstract class Country {
 		 * @param array $cities List of state city names. No keys are present.
 		 * @param string $country_code Two-letter ISO code for the country.
 		 * @param string $state_code Two-letter ISO code for the state.
-		 * @param WP_Ultimo\Country\Country $current_country Instance of the current class.
+		 * @param \WP_Ultimo\Country\Country $current_country Instance of the current class.
 		 * @return array The filtered list of states.
 		 */
 		return apply_filters('wu_country_get_cities', $cities, $this->country_code, $state_code, $this);
@@ -238,14 +238,14 @@ abstract class Country {
 		/**
 		 * Returns nice name of the country administrative sub-divisions.
 		 *
-		 * @since 2.0.11
-		 *
 		 * @param string $name The division name. Usually something like state, province, region, etc.
 		 * @param string $country_code Two-letter ISO code for the country.
 		 * @param string $state_code Two-letter ISO code for the state.
-		 * @param WP_Ultimo\Country\Country $current_country Instance of the current class.
-		 * @param bool $current_country Instance of the current class.
+		 * @param bool $ucwords if we uppercase the words.
+		 * @param \WP_Ultimo\Country\Country $current_country Instance of the current class.
+		 *
 		 * @return string The modified division name.
+		 *@since 2.0.11
 		 */
 		return apply_filters('wu_country_get_administrative_division_name', $name, $this->country_code, $state_code, $ucwords, $this);
 	}

@@ -52,7 +52,7 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item Product object.
+	 * @param \WP_Ultimo\Models\Product $item Product object.
 	 * @return string
 	 */
 	public function column_name($item) {
@@ -91,7 +91,7 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item Product object.
+	 * @param \WP_Ultimo\Models\Product $item Product object.
 	 * @return string
 	 */
 	public function column_type($item) {
@@ -108,7 +108,7 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item Product object.
+	 * @param \WP_Ultimo\Models\Product $item Product object.
 	 * @return string
 	 */
 	public function column_slug($item) {
@@ -123,7 +123,7 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item Product object.
+	 * @param \WP_Ultimo\Models\Product $item Product object.
 	 * @return string
 	 */
 	public function column_amount($item) {
@@ -169,7 +169,7 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item Product object.
+	 * @param \WP_Ultimo\Models\Product $item Product object.
 	 * @return string
 	 */
 	public function column_setup_fee($item) {
@@ -266,7 +266,7 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item The line item being displayed.
+	 * @param \WP_Ultimo\Models\Product $item The line item being displayed.
 	 * @return void
 	 */
 	public function single_row_grid($item): void {

@@ -52,7 +52,7 @@ class Discount_Code_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Discount_Code $item Discount_Code object.
+	 * @param \WP_Ultimo\Models\Discount_Code $item Discount_Code object.
 	 */
 	public function column_name($item): string {
 
@@ -84,7 +84,7 @@ class Discount_Code_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Discount_Code $item Discount_Code object.
+	 * @param \WP_Ultimo\Models\Discount_Code $item Discount_Code object.
 	 *
 	 * @return string
 	 */
@@ -109,7 +109,7 @@ class Discount_Code_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Discount_Code $item Discount_Code object.
+	 * @param \WP_Ultimo\Models\Discount_Code $item Discount_Code object.
 	 *
 	 * @return string
 	 */
@@ -134,7 +134,7 @@ class Discount_Code_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Discount_Code $item Discount_Code object.
+	 * @param \WP_Ultimo\Models\Discount_Code $item Discount_Code object.
 	 * @return string
 	 */
 	public function column_uses($item) {
@@ -158,7 +158,7 @@ class Discount_Code_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Discount_Code $item Discount_Code object.
+	 * @param \WP_Ultimo\Models\Discount_Code $item Discount_Code object.
 	 * @return string
 	 */
 	public function column_coupon_code($item) {

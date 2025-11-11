@@ -52,7 +52,7 @@ class Checkout_Form_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Checkout_Form $item Checkout Form object.
+	 * @param \WP_Ultimo\Models\Checkout_Form $item Checkout Form object.
 	 */
 	public function column_name($item): string {
 
@@ -89,7 +89,7 @@ class Checkout_Form_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Checkout_Form $item Checkout Form object.
+	 * @param \WP_Ultimo\Models\Checkout_Form $item Checkout Form object.
 	 * @return string
 	 */
 	public function column_slug($item) {
@@ -104,7 +104,7 @@ class Checkout_Form_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Checkout_Form $item Checkout Form object.
+	 * @param \WP_Ultimo\Models\Checkout_Form $item Checkout Form object.
 	 */
 	public function column_steps($item): string {
 		// translators: %1$d: number of steps, %2$d: number of fields
@@ -116,7 +116,7 @@ class Checkout_Form_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Checkout_Form $item Checkout Form object.
+	 * @param \WP_Ultimo\Models\Checkout_Form $item Checkout Form object.
 	 */
 	public function column_shortcode($item): string {
 

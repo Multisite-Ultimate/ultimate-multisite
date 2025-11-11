@@ -9,7 +9,6 @@
 
 namespace WP_Ultimo\List_Tables;
 
-use WP_Ultimo\Models\Domain;
 use WP_Ultimo\Database\Domains\Domain_Stage;
 
 // Exit if accessed directly
@@ -72,7 +71,7 @@ class Domain_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Domain $item Domain object.
+	 * @param \WP_Ultimo\Models\Domain $item Domain object.
 	 */
 	public function column_domain($item): string {
 
@@ -98,7 +97,7 @@ class Domain_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Domain $item Domain object.
+	 * @param \WP_Ultimo\Models\Domain $item Domain object.
 	 * @return string
 	 */
 	public function column_active($item) {
@@ -111,7 +110,7 @@ class Domain_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Domain $item Domain object.
+	 * @param \WP_Ultimo\Models\Domain $item Domain object.
 	 * @return string
 	 */
 	public function column_primary_domain($item) {
@@ -124,7 +123,7 @@ class Domain_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Domain $item Domain object.
+	 * @param \WP_Ultimo\Models\Domain $item Domain object.
 	 * @return string
 	 */
 	public function column_secure($item) {

@@ -121,8 +121,6 @@ class Site_List_Table extends Base_List_Table {
 			'model' => 'site',
 		];
 
-		$title = $item->get_title();
-
 		$title = sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-site', $url_atts), $item->get_title());
 
 		// Concatenate the two blocks
@@ -220,7 +218,7 @@ class Site_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Site $item Site object.
+	 * @param \WP_Ultimo\Models\Site $item Site object.
 	 * @return string
 	 */
 	public function column_type($item) {

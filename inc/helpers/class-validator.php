@@ -36,7 +36,7 @@ class Validator {
 	 * Holds an instance of the validator object.
 	 *
 	 * @since 2.0.0
-	 * @var Rakit\Validation\Validator
+	 * @var \Rakit\Validation\Validator
 	 */
 	protected $validator;
 
@@ -44,7 +44,7 @@ class Validator {
 	 * Holds an instance of the validation being performed.
 	 *
 	 * @since 2.0.0
-	 * @var Rakit\Validation\Validation
+	 * @var \Rakit\Validation\Validation
 	 */
 	protected $validation;
 
@@ -181,7 +181,7 @@ class Validator {
 	 * Get holds an instance of the validation being performed.
 	 *
 	 * @since 2.0.0
-	 * @return Rakit\Validation\Validation
+	 * @return \Rakit\Validation\Validation
 	 */
 	public function get_validation() {
 

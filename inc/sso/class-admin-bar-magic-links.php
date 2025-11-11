@@ -59,7 +59,7 @@ class Admin_Bar_Magic_Links {
 		// Process each node.
 		foreach ($wp_admin_bar->get_nodes() as $node) {
 			$parts = explode('-', $node->id);
-			if ('blog-' === $parts[0] && is_numeric($parts[1]) && '-d' === $parts[2]) {
+			if (count($parts) >= 3 && 'blog' === $parts[0] && is_numeric($parts[1]) && 'd' === $parts[2]) {
 				$site_id = (int) $parts[1];
 			} else {
 				continue;

@@ -68,8 +68,8 @@ trait MCP_Abilities {
 			return;
 		}
 
-		add_action('wp_abilities_api_categories_init', [$this, 'register_ability_category']);
-		add_action('wp_abilities_api_init', [$this, 'register_abilities']);
+		add_action('wp_abilities_api_categories_init', [$this, 'register_ability_category'], 10, 0);
+		add_action('wp_abilities_api_init', [$this, 'register_abilities'], 10, 0);
 	}
 
 	/**

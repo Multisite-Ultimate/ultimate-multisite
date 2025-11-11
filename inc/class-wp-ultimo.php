@@ -579,6 +579,11 @@ final class WP_Ultimo {
 		\WP_Ultimo\Admin\Network_Usage_Columns::get_instance();
 
 		/*
+		 * Configuration Checker for multisite setup issues
+		 */
+		\WP_Ultimo\Admin\Configuration_Checker::get_instance();
+
+		/*
 		 * Loads User Switching
 		 */
 		\WP_Ultimo\User_Switching::get_instance();

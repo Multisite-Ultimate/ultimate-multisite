@@ -30,7 +30,7 @@ function wu_get_domain($domain_id) {
  * @since 2.0.0
  *
  * @param array $query Query arguments.
- * @return \WP_Ultimo\Models\Domain[]
+ * @return \WP_Ultimo\Models\Domain[]|string[]|int
  */
 function wu_get_domains($query = []) {
 

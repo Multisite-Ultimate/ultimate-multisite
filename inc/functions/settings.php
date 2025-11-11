@@ -6,8 +6,6 @@
  * @since   2.0.0
  */
 
-use WP_Ultimo\Dependencies\Intervention\Image\ImageManagerStatic as Image;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -33,12 +31,12 @@ function wu_get_all_settings() {
  * @since 2.0.0
  *
  * @param  string $setting Settings name to return.
- * @param  mixed  $default Default value for the setting if it doesn't exist.
+ * @param  mixed  $default_value Default value for the setting if it doesn't exist.
  * @return mixed The value of that setting
  */
-function wu_get_setting($setting, $default = false) {
+function wu_get_setting($setting, $default_value = false) {
 
-	return WP_Ultimo()->settings->get_setting($setting, $default);
+	return WP_Ultimo()->settings->get_setting($setting, $default_value);
 }
 
 /**

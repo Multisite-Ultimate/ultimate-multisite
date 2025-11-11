@@ -28,6 +28,7 @@ class Domain_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
@@ -131,6 +132,8 @@ class Domain_Manager extends Base_Manager {
 		$this->enable_rest_api();
 
 		$this->enable_wp_cli();
+
+		$this->enable_mcp_abilities();
 
 		$this->set_cookie_domain();
 
@@ -534,6 +537,17 @@ class Domain_Manager extends Base_Manager {
 				'require' => [
 					'enable_sso' => true,
 				],
+			]
+		);
+
+		wu_register_settings_field(
+			'sso',
+			'enable_magic_links',
+			[
+				'title'   => __('Enable Magic Links', 'ultimate-multisite'),
+				'desc'    => __('Enables magic link authentication for custom domains. Magic links provide a fallback authentication method for browsers that don\'t support third-party cookies. When enabled, dashboard and site links will automatically log users in when accessing sites with custom domains. Tokens are cryptographically secure, one-time use, and expire after 10 minutes.', 'ultimate-multisite'),
+				'type'    => 'toggle',
+				'default' => 1,
 			]
 		);
 	}

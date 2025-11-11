@@ -27,6 +27,7 @@ class Customer_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
@@ -56,6 +57,8 @@ class Customer_Manager extends Base_Manager {
 		$this->enable_rest_api();
 
 		$this->enable_wp_cli();
+
+		$this->enable_mcp_abilities();
 
 		add_action(
 			'init',
@@ -118,8 +121,8 @@ class Customer_Manager extends Base_Manager {
 	 * @return array $response The Heartbeat response
 	 */
 	public function on_heartbeat_send($response) {
-
-		$this->log_ip_and_last_login(wp_get_current_user());
+		$user = wp_get_current_user();
+		$this->log_ip_and_last_login($user->user_login, $user);
 
 		return $response;
 	}
@@ -127,15 +130,14 @@ class Customer_Manager extends Base_Manager {
 	/**
 	 * Saves the IP address and last_login date onto the user.
 	 *
-	 * @since 2.0.0
-	 *
+	 * @param string   $user_login The username of the user that logged in.
 	 * @param \WP_User $user The WP User object of the user that logged in.
 	 * @return void
 	 */
-	public function log_ip_and_last_login($user): void {
+	public function log_ip_and_last_login($user_login, $user): void {
 
 		if ( ! is_a($user, '\WP_User')) {
-			$user = get_user_by('login', $user);
+			$user = get_user_by('login', $user_login);
 		}
 
 		if ( ! $user) {

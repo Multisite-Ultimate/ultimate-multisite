@@ -566,7 +566,7 @@ class Register_Endpoint {
 	 *
 	 * @param array                        $p The request parameters.
 	 * @param \WP_Ultimo\Models\Membership $membership The membership created.
-	 * @return array|\WP_Ultimo\Models\Site\|\WP_Error
+	 * @return array|\WP_Error
 	 */
 	public function maybe_create_site($p, $membership) {
 

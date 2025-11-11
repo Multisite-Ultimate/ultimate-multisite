@@ -236,14 +236,12 @@ class Domain extends Base_Model {
 	 */
 	public function get_path() {
 		if (! isset($this->path)) {
-			$site = $this->get_site();
+			// don't use $this->get_site() as it causes infinite loop and native is faster anyway.
+			$site = \WP_Site::get_instance($this->get_blog_id());
 			if ( ! $site) {
 				return null;
-			} elseif ($site instanceof \WP_Site) {
-				$this->path = $site->path;
-			} elseif ($site instanceof Site) {
-				$this->path = $site->get_path();
 			}
+			$this->path = $site->path;
 		}
 
 		return $this->path;

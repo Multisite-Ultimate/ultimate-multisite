@@ -11,6 +11,7 @@
 
 namespace WP_Ultimo\Managers;
 
+use Psr\Log\LogLevel;
 use WP_Ultimo\Models\Base_Model;
 use WP_Ultimo\Models\Event;
 
@@ -26,8 +27,10 @@ class Event_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
+	const LOG_FILE_NAME = 'events';
 	/**
 	 * The manager slug.
 	 *
@@ -71,6 +74,8 @@ class Event_Manager extends Base_Manager {
 		$this->enable_rest_api();
 
 		$this->enable_wp_cli();
+
+		$this->enable_mcp_abilities();
 
 		add_action('init', [$this, 'register_all_events']);
 
@@ -248,22 +253,24 @@ class Event_Manager extends Base_Manager {
 	 * @param string $slug The slug of the event. Something like payment_received.
 	 * @param array  $payload with the events information.
 	 *
-	 * @return array with returns message for now.
+	 * @return bool
 	 */
 	public function do_event($slug, $payload) {
 
 		$registered_event = $this->get_event($slug);
 
 		if ( ! $registered_event) {
-			return ['error' => 'Event not found'];
+			wu_log_add(self::LOG_FILE_NAME, 'Event not found', LogLevel::ERROR);
+			return false;
 		}
 
 		$payload_diff = array_diff_key(wu_maybe_lazy_load_payload($registered_event['payload']), $payload);
 
-		if (isset($payload_diff[0])) {
+		if (! empty($payload_diff[0])) {
 			foreach ($payload_diff[0] as $diff_key => $diff_value) {
-				return ['error' => 'Param required:' . $diff_key];
+				wu_log_add(self::LOG_FILE_NAME, 'Param required:' . $diff_key, LogLevel::ERROR);
 			}
+			return false;
 		}
 
 		$payload['wu_version'] = wu_get_version();
@@ -275,7 +282,7 @@ class Event_Manager extends Base_Manager {
 		/**
 		 * Saves in the database
 		 */
-		$this->save_event($slug, $payload);
+		return $this->save_event($slug, $payload);
 	}
 
 	/**
@@ -334,9 +341,9 @@ class Event_Manager extends Base_Manager {
 	 *
 	 * @param string $slug of the event.
 	 * @param array  $payload with event params.
-	 * @return void.
+	 * @return bool.
 	 */
-	public function save_event($slug, $payload): void {
+	public function save_event($slug, $payload): bool {
 
 		$event = new Event(
 			[
@@ -349,7 +356,11 @@ class Event_Manager extends Base_Manager {
 			]
 		);
 
-		$event->save();
+		$return = $event->save();
+		if ( is_wp_error($return)) {
+			return false;
+		}
+		return (bool) $return;
 	}
 
 	/**
@@ -590,7 +601,7 @@ class Event_Manager extends Base_Manager {
 	 *
 	 * @since 2.0.0
 	 */
-	public function clean_old_events(): bool {
+	public function clean_old_events(): void {
 		/*
 		 * Add a filter setting this to 0 or false
 		 * to prevent old events from being ever deleted.
@@ -598,7 +609,7 @@ class Event_Manager extends Base_Manager {
 		$threshold_days = apply_filters('wu_events_threshold_days', 1);
 
 		if (empty($threshold_days)) {
-			return false;
+			return;
 		}
 
 		$events_to_remove = wu_get_events(
@@ -624,8 +635,6 @@ class Event_Manager extends Base_Manager {
 
 		// Translators:  1: Number of successfully removed events.  2: Number of failed events to remove.
 		wu_log_add('wu-cron', sprintf(__('Removed %1$d events successfully. Failed to remove %2$d events.', 'ultimate-multisite'), $success_count, count($events_to_remove) - $success_count));
-
-		return true;
 	}
 
 	/**

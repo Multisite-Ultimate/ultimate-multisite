@@ -14,6 +14,7 @@ namespace WP_Ultimo\Managers;
 use WP_Ultimo\Helpers\Screenshot;
 use WP_Ultimo\Database\Sites\Site_Type;
 use WP_Ultimo\Database\Memberships\Membership_Status;
+use WP_Ultimo\Models\Site;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -27,6 +28,7 @@ class Site_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
@@ -57,6 +59,8 @@ class Site_Manager extends Base_Manager {
 
 		$this->enable_wp_cli();
 
+		$this->enable_mcp_abilities();
+
 		add_action('after_setup_theme', [$this, 'additional_thumbnail_sizes']);
 
 		add_action('wp_ajax_wu_get_screenshot', [$this, 'get_site_screenshot']);
@@ -83,11 +87,11 @@ class Site_Manager extends Base_Manager {
 
 		add_filter('mucd_string_to_replace', [$this, 'search_and_replace_on_duplication'], 10, 3);
 
-		add_filter('wu_site_created', [$this, 'search_and_replace_for_new_site'], 10, 2);
+		add_action('wu_site_created', [$this, 'search_and_replace_for_new_site'], 10, 2);
 
 		add_action('wu_handle_bulk_action_form_site_delete-pending', [$this, 'handle_delete_pending_sites'], 100, 3);
 
-		add_action('users_list_table_query_args', [$this, 'hide_super_admin_from_list'], 10, 1);
+		add_filter('users_list_table_query_args', [$this, 'hide_super_admin_from_list'], 10, 1);
 
 		add_action('wu_before_handle_order_submission', [$this, 'maybe_validate_add_new_site'], 15);
 
@@ -325,14 +329,14 @@ class Site_Manager extends Base_Manager {
 	 * @since 2.0.0
 	 *
 	 * @param int $site_id The site ID.
-	 * @return mixed
+	 * @return void
 	 */
 	public function async_get_site_screenshot($site_id) {
 
 		$site = wu_get_site($site_id);
 
 		if ( ! $site) {
-			return false;
+			return;
 		}
 
 		$domain = $site->get_active_site_url();
@@ -340,12 +344,12 @@ class Site_Manager extends Base_Manager {
 		$attachment_id = Screenshot::take_screenshot($domain);
 
 		if ( ! $attachment_id) {
-			return false;
+			return;
 		}
 
 		$site->set_featured_image_id($attachment_id);
 
-		return $site->save();
+		$site->save();
 	}
 
 	/**
@@ -598,8 +602,8 @@ class Site_Manager extends Base_Manager {
 	 * Handles search and replace for new blogs from WordPress.
 	 *
 	 * @since 1.7.0
-	 * @param array  $data The date being saved.
-	 * @param object $site The site object.
+	 * @param array $data The date being saved.
+	 * @param Site  $site The site object.
 	 * @return void
 	 */
 	public static function search_and_replace_for_new_site($data, $site): void {

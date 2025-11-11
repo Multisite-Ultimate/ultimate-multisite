@@ -49,7 +49,7 @@ abstract class List_Admin_Page extends Base_Admin_Page {
 	 * Holds the WP_List_Table instance to be used on the list
 	 *
 	 * @since 1.8.2
-	 * @var WP_List_Table
+	 * @var \WP_List_Table
 	 */
 	protected $table;
 
@@ -219,7 +219,7 @@ abstract class List_Admin_Page extends Base_Admin_Page {
 	 * Dumb function. Child classes need to implement this to set the table that Ultimate Multisite will use
 	 *
 	 * @since 1.8.2
-	 * @return WP_List_Table
+	 * @return \WP_List_Table
 	 */
 	public function get_table() {
 

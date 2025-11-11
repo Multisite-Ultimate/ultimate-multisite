@@ -229,9 +229,11 @@ class Payment_List_Table_Widget extends Base_List_Table {
 	 * Returns the filters for this page.
 	 *
 	 * @since 2.0.0
-	 * @return void.
+	 * @return array
 	 */
-	public function get_filters() {}
+	public function get_filters(): array {
+		return [];
+	}
 
 	/**
 	 * Overrides the parent method to include the custom ajax functionality for Ultimate Multisite.
@@ -239,5 +241,5 @@ class Payment_List_Table_Widget extends Base_List_Table {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	public function _js_vars(): void {}
+	public function _js_vars(): void {} // phpcs:ignore PSR2
 }

@@ -223,7 +223,7 @@ class Base_List_Table extends \WP_List_Table {
 	 * @param integer $per_page Number of items to display per page.
 	 * @param integer $page_number Current page.
 	 * @param boolean $count If we should count records or return the actual records.
-	 * @return array
+	 * @return array|int
 	 */
 	public function get_items($per_page = 5, $page_number = 1, $count = false) {
 
@@ -273,7 +273,7 @@ class Base_List_Table extends \WP_List_Table {
 	 * @param array $query_args The query args.
 	 * @return mixed
 	 */
-	protected function _get_items($query_args) {
+	protected function _get_items($query_args) { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$query_class = new $this->query_class();
 
@@ -519,9 +519,21 @@ class Base_List_Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Returns the filters for this page.
+	 *
+	 * @since 2.0.0
+	 */
+	public function get_filters(): array {
+
+		return [
+			'filters'      => [],
+			'date_filters' => [],
+		];
+	}
+
+	/**
 	 * Display the filters if they exist.
 	 *
-	 * @todo: refator
 	 * @since 2.0.0
 	 * @return void
 	 */
@@ -635,7 +647,7 @@ class Base_List_Table extends \WP_List_Table {
 	 * Handles the bulk processing.
 	 *
 	 * @since 2.0.0
-	 * @return bool
+	 * @return bool|\WP_Error
 	 */
 	public static function process_bulk_action() {
 
@@ -824,7 +836,7 @@ class Base_List_Table extends \WP_List_Table {
 	 * @param string $date Valid date to be used inside a strtotime call.
 	 * @return string
 	 */
-	public function _column_datetime($date) {
+	public function _column_datetime($date) { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		if ( ! wu_validate_date($date)) {
 			return __('--', 'ultimate-multisite');
@@ -1150,7 +1162,7 @@ class Base_List_Table extends \WP_List_Table {
 	 *
 	 * @since 2.0.0
 	 */
-	public function _get_js_var_name(): string {
+	public function _get_js_var_name(): string { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		return str_replace('-', '_', $this->id);
 	}
@@ -1161,7 +1173,7 @@ class Base_List_Table extends \WP_List_Table {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	public function _js_vars(): void {
+	public function _js_vars(): void { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		/**
 		 * Call the parent method for backwards compat.
@@ -1305,16 +1317,6 @@ class Base_List_Table extends \WP_List_Table {
 	public function get_extra_fields() {
 
 		return [];
-
-		$_filter_fields = [];
-
-		if (isset($filters['filters'])) {
-			foreach ($filters['filters'] as $field_name => $field) {
-				$_filter_fields[ $field_name ] = wu_request($field_name, '');
-			}
-		}
-
-		return $_filter_fields;
 	}
 
 	/**

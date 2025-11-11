@@ -27,6 +27,7 @@ class Broadcast_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
@@ -56,6 +57,8 @@ class Broadcast_Manager extends Base_Manager {
 		$this->enable_rest_api();
 
 		$this->enable_wp_cli();
+
+		$this->enable_mcp_abilities();
 
 		/**
 		 * Add unseen broadcast notices to the panel.
@@ -97,7 +100,7 @@ class Broadcast_Manager extends Base_Manager {
 						$targets = [$targets];
 					}
 
-					$dismissed = get_user_meta(get_current_user_id(), 'wu_dismissed_admin_notices');
+					$dismissed = get_user_meta(get_current_user_id(), 'wu_dismissed_admin_notices', false);
 
 					if (in_array($current_customer->get_id(), $targets, true) && ! in_array($broadcast->get_id(), $dismissed, true)) {
 						$notice = '<span><strong>' . $broadcast->get_title() . '</strong> ' . $broadcast->get_content() . '</span>';

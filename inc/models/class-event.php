@@ -10,6 +10,7 @@
 namespace WP_Ultimo\Models;
 
 use WP_Ultimo\Models\Base_Model;
+use WP_User;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -268,7 +269,7 @@ class Event extends Base_Model {
 	 */
 	public function interpolate_message($message, $payload): string {
 
-		$payload = json_decode(json_encode($payload), true);
+		$payload = json_decode(json_encode($payload), true); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 
 		$interpolation_keys = [];
 
@@ -351,7 +352,7 @@ class Event extends Base_Model {
 	 * Returns the user associated with this author.
 	 *
 	 * @since 2.0.0
-	 * @return WP_User
+	 * @return ?WP_User
 	 */
 	public function get_author_user() {
 
@@ -377,6 +378,7 @@ class Event extends Base_Model {
 		if ($user) {
 			return $user->display_name;
 		}
+		return '';
 	}
 
 	/**
@@ -392,6 +394,7 @@ class Event extends Base_Model {
 		if ($user) {
 			return $user->user_email;
 		}
+		return '';
 	}
 
 	/**
@@ -623,8 +626,8 @@ class Event extends Base_Model {
 	/**
 	 * Override to clear event count.
 	 *
+	 * @return bool|\WP_Error
 	 * @since 2.0.0
-	 * @return int|false
 	 */
 	public function save() {
 

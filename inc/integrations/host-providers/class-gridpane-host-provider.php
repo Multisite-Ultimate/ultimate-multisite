@@ -9,8 +9,6 @@
 
 namespace WP_Ultimo\Integrations\Host_Providers;
 
-use WP_Ultimo\Integrations\Host_Providers\Base_Host_Provider;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -137,7 +135,7 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 	 * @since 2.0.0
 	 * @param string $domain The domain name being mapped.
 	 * @param int    $site_id ID of the site that is receiving that mapping.
-	 * @return object\WP_Error
+	 * @return object|\WP_Error
 	 */
 	public function on_add_domain($domain, $site_id) {
 
@@ -157,7 +155,7 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 	 * @since 2.0.0
 	 * @param string $domain The domain name being removed.
 	 * @param int    $site_id ID of the site that is receiving that mapping.
-	 * @return object\WP_Error
+	 * @return object|\WP_Error
 	 */
 	public function on_remove_domain($domain, $site_id) {
 

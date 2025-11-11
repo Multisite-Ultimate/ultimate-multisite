@@ -646,12 +646,12 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 				'icon'  => 'wu-cog',
 			],
 			[
-				'url'   => get_site_url($this->get_object()->get_id()),
+				'url'   => $this->get_object()->get_active_site_url(),
 				'label' => __('Visit Site', 'ultimate-multisite'),
 				'icon'  => 'wu-link',
 			],
 			[
-				'url'   => get_admin_url($this->get_object()->get_id()),
+				'url'   => wu_get_admin_url($this->get_object()->get_id()),
 				'label' => __('Dashboard', 'ultimate-multisite'),
 				'icon'  => 'dashboard',
 			],

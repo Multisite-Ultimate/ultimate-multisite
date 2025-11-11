@@ -26,8 +26,10 @@ class Membership_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
+	const LOG_FILE_NAME = 'memberships';
 	/**
 	 * The manager slug.
 	 *
@@ -55,6 +57,8 @@ class Membership_Manager extends Base_Manager {
 		$this->enable_rest_api();
 
 		$this->enable_wp_cli();
+
+		$this->enable_mcp_abilities();
 
 		add_action(
 			'init',
@@ -120,14 +124,15 @@ class Membership_Manager extends Base_Manager {
 	 * @since 2.0.0
 	 *
 	 * @param int $membership_id The membership id.
-	 * @return bool|\WP_Error
+	 * @return void
 	 */
 	public function async_publish_pending_site($membership_id) {
 
 		$membership = wu_get_membership($membership_id);
 
 		if ( ! $membership) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
+			wu_log_add(self::LOG_FILE_NAME, __('An unexpected error happened.', 'ultimate-multisite'), LogLevel::ERROR);
+			return;
 		}
 
 		$status = $membership->publish_pending_site();
@@ -135,8 +140,6 @@ class Membership_Manager extends Base_Manager {
 		if (is_wp_error($status)) {
 			wu_log_add('site-errors', $status, LogLevel::ERROR);
 		}
-
-		return $status;
 	}
 
 	/**
@@ -176,7 +179,7 @@ class Membership_Manager extends Base_Manager {
 	 * @since 2.0.0
 	 *
 	 * @param int $membership_id The membership id.
-	 * @return bool|\WP_Error
+	 * @return void
 	 */
 	public function async_membership_swap($membership_id) {
 
@@ -185,13 +188,15 @@ class Membership_Manager extends Base_Manager {
 		$membership = wu_get_membership($membership_id);
 
 		if ( ! $membership) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
+			wu_log_add(self::LOG_FILE_NAME, __('An unexpected error happened.', 'ultimate-multisite'), LogLevel::ERROR);
+			return;
 		}
 
 		$scheduled_swap = $membership->get_scheduled_swap();
 
 		if (empty($scheduled_swap)) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
+			wu_log_add(self::LOG_FILE_NAME, __('An unexpected error happened.', 'ultimate-multisite'), LogLevel::ERROR);
+			return;
 		}
 
 		$order = $scheduled_swap->order;
@@ -205,13 +210,14 @@ class Membership_Manager extends Base_Manager {
 
 			if (is_wp_error($status)) {
 				$wpdb->query('ROLLBACK');  // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-				return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
+				wu_log_add(self::LOG_FILE_NAME, $status->get_error_message(), LogLevel::ERROR);
+				return;
 			}
 		} catch (\Throwable $exception) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
-			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
+			wu_log_add(self::LOG_FILE_NAME, $exception->getMessage(), LogLevel::ERROR);
+			return;
 		}
 
 		/*
@@ -220,8 +226,6 @@ class Membership_Manager extends Base_Manager {
 		$membership->delete_scheduled_swap();
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-		return true;
 	}
 
 	/**
@@ -292,7 +296,7 @@ class Membership_Manager extends Base_Manager {
 	 *
 	 * @param int $membership_id The ID of the membership being transferred.
 	 * @param int $target_customer_id The new owner.
-	 * @return mixed
+	 * @return void
 	 */
 	public function async_transfer_membership($membership_id, $target_customer_id) {
 
@@ -303,7 +307,8 @@ class Membership_Manager extends Base_Manager {
 		$target_customer = wu_get_customer($target_customer_id);
 
 		if ( ! $membership || ! $target_customer || absint($membership->get_customer_id()) === absint($target_customer->get_id())) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
+			wu_log_add(self::LOG_FILE_NAME, __('An unexpected error happened.', 'ultimate-multisite'), LogLevel::ERROR);
+			return;
 		}
 
 		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -330,8 +335,8 @@ class Membership_Manager extends Base_Manager {
 
 				if (is_wp_error($saved)) {
 					$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-					return $saved;
+					wu_log_add(self::LOG_FILE_NAME, $saved->get_error_message(), LogLevel::ERROR);
+					return;
 				}
 			}
 
@@ -345,19 +350,18 @@ class Membership_Manager extends Base_Manager {
 			if (is_wp_error($saved)) {
 				$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
-				return $saved;
+				wu_log_add(self::LOG_FILE_NAME, $saved->get_error_message(), LogLevel::ERROR);
+				return;
 			}
 		} catch (\Throwable $e) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
-			return new \WP_Error('exception', $e->getMessage());
+			wu_log_add(self::LOG_FILE_NAME, $e->getMessage(), LogLevel::ERROR);
 		}
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 		$membership->unlock();
-
-		return true;
 	}
 
 	/**
@@ -366,7 +370,7 @@ class Membership_Manager extends Base_Manager {
 	 * @since 2.0.0
 	 *
 	 * @param int $membership_id The ID of the membership being deleted.
-	 * @return mixed
+	 * @return void
 	 */
 	public function async_delete_membership($membership_id) {
 
@@ -375,7 +379,8 @@ class Membership_Manager extends Base_Manager {
 		$membership = wu_get_membership($membership_id);
 
 		if ( ! $membership) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'ultimate-multisite'));
+			wu_log_add(self::LOG_FILE_NAME, __('An unexpected error happened.', 'ultimate-multisite'), LogLevel::ERROR);
+			return;
 		}
 
 		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -400,8 +405,8 @@ class Membership_Manager extends Base_Manager {
 
 				if (is_wp_error($saved)) {
 					$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-					return $saved;
+					wu_log_add(self::LOG_FILE_NAME, $saved->get_error_message(), LogLevel::ERROR);
+					return;
 				}
 			}
 
@@ -412,17 +417,15 @@ class Membership_Manager extends Base_Manager {
 
 			if (is_wp_error($saved)) {
 				$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-				return $saved;
+				wu_log_add(self::LOG_FILE_NAME, $saved->get_error_message(), LogLevel::ERROR);
+				return;
 			}
 		} catch (\Throwable $e) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-			return new \WP_Error('exception', $e->getMessage());
+			wu_log_add(self::LOG_FILE_NAME, $e->getMessage(), LogLevel::ERROR);
+			return;
 		}
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-		return true;
 	}
 }

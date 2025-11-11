@@ -125,7 +125,7 @@ class Dashboard_Admin_Page extends Base_Admin_Page {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Admin_Pages\Base_Admin_Page $page The page object.
+	 * @param \WP_Ultimo\Admin_Pages\Base_Admin_Page $page The page object.
 	 * @return void
 	 */
 	public function render_filter($page): void {

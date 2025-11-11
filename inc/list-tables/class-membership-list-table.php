@@ -66,7 +66,7 @@ class Membership_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Membership $item Membership object.
+	 * @param \WP_Ultimo\Models\Membership $item Membership object.
 	 * @return string
 	 */
 	public function column_hash($item) {
@@ -101,7 +101,7 @@ class Membership_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Membership $item Membership object.
+	 * @param \WP_Ultimo\Models\Membership $item Membership object.
 	 * @return string
 	 */
 	public function column_status($item) {
@@ -120,7 +120,7 @@ class Membership_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Membership $item Membership object.
+	 * @param \WP_Ultimo\Models\Membership $item Membership object.
 	 * @return string
 	 */
 	public function column_amount($item) {

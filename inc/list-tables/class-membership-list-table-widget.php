@@ -115,7 +115,7 @@ class Membership_List_Table_Widget extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Membership $item Membership object.
+	 * @param \WP_Ultimo\Models\Membership $item Membership object.
 	 */
 	public function column_hash($item): string {
 
@@ -199,7 +199,7 @@ class Membership_List_Table_Widget extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Membership $item Membership object.
+	 * @param \WP_Ultimo\Models\Membership $item Membership object.
 	 * @return string
 	 */
 	public function column_customer($item) {
@@ -274,5 +274,5 @@ class Membership_List_Table_Widget extends Base_List_Table {
 	 * @since 2.0.0
 	 * @return void
 	 */
-	public function _js_vars(): void {}
+	public function _js_vars(): void {} // phpcs:ignore PSR2
 }

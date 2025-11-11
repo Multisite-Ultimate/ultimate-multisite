@@ -22,11 +22,12 @@ class Toolbox {
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
-	 * Element construct.
+	 * Initialize the singleton.
 	 *
 	 * @since 2.0.0
+	 * @return void
 	 */
-	public function __construct() {
+	public function init(): void {
 
 		add_action('init', [$this, 'load_toolbox']);
 	}

@@ -263,7 +263,7 @@ class Template_Switching_Element extends Base_Element {
 	 *
 	 * @since 2.0.4
 	 *
-	 * @return json|\WP_Error Switch template response.
+	 * @return void
 	 */
 	public function switch_template() {
 
@@ -274,7 +274,8 @@ class Template_Switching_Element extends Base_Element {
 		$template_id = wu_request('template_id', '');
 
 		if ( ! $template_id) {
-			return new \WP_Error('template_id_required', __('You need to provide a valid template to duplicate.', 'ultimate-multisite'));
+			wp_send_json_error(new \WP_Error('template_id_required', __('You need to provide a valid template to duplicate.', 'ultimate-multisite')));
+			return;
 		}
 
 		$switch = \WP_Ultimo\Helpers\Site_Duplicator::override_site($template_id, $this->site->get_id());
@@ -283,7 +284,7 @@ class Template_Switching_Element extends Base_Element {
 		 * Allow plugin developers to hook functions after a user or super admin switches the site template
 		 *
 		 * @since 1.9.8
-		 * @param integer Site ID
+		 * @param int $id Site ID
 		 * @return void
 		 */
 		do_action('wu_after_switch_template', $this->site->get_id());
@@ -319,7 +320,7 @@ class Template_Switching_Element extends Base_Element {
 	public function output($atts, $content = null): void {
 
 		if ($this->site) {
-			$filter_template_limits = new \WP_Ultimo\Limits\Site_Template_Limits();
+			$filter_template_limits = \WP_Ultimo\Limits\Site_Template_Limits::get_instance();
 
 			$atts['products'] = $this->products;
 

@@ -23,9 +23,7 @@ defined('ABSPATH') || exit;
  *
  * @since 2.0.0
  */
-class Dashboard_Statistics implements \WP_Ultimo\Interfaces\Singleton {
-
-	use \WP_Ultimo\Traits\Singleton;
+class Dashboard_Statistics {
 
 	/**
 	 * The initial date of the statistics.
@@ -49,12 +47,11 @@ class Dashboard_Statistics implements \WP_Ultimo\Interfaces\Singleton {
 	protected $types = [];
 
 	/**
-	 * Loads the hooks we need for dismissing notices
+	 * Constructor.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @param array $args With the start_date, end_date and the data type functions.
-	 * @return void.
 	 */
 	public function __construct($args = []) {
 
@@ -66,14 +63,6 @@ class Dashboard_Statistics implements \WP_Ultimo\Interfaces\Singleton {
 			$this->types = $args['types'];
 		}
 	}
-
-	/**
-	 * Runs on singleton instantiation.
-	 *
-	 * @since 2.0.0
-	 * @return void.
-	 */
-	public function init(): void {}
 
 	/**
 	 * Main function to call the get data functions based on the array of types.

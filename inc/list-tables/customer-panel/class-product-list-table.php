@@ -49,19 +49,6 @@ class Product_List_Table extends Parent_Product_List_Table {
 	}
 
 	/**
-	 * Resets the filters.
-	 *
-	 * @since 2.0.0
-	 */
-	public function get_filters(): array {
-
-		return [
-			'filters'      => [],
-			'date_filters' => [],
-		];
-	}
-
-	/**
 	 * Resets bulk actions.
 	 *
 	 * @since 2.0.0

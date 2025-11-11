@@ -196,17 +196,4 @@ class Discount_Code_List_Table extends Base_List_Table {
 
 		return $columns;
 	}
-
-	/**
-	 * Returns the filters for this page.
-	 *
-	 * @since 2.0.0
-	 */
-	public function get_filters(): array {
-
-		return [
-			'filters'      => [],
-			'date_filters' => [],
-		];
-	}
 }

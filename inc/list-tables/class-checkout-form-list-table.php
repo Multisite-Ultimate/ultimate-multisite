@@ -128,7 +128,7 @@ class Checkout_Form_List_Table extends Base_List_Table {
 			__('Copy to the Clipboard', 'ultimate-multisite')
 		);
 
-		return sprintf('<input class="wu-bg-gray-200 wu-border-none wu-text-gray-700 wu-py-1 wu-px-2 wu-rounded-sm wu-text-xs wu-font-mono" value="%s">', esc_attr($item->get_shortcode()), '');
+		return sprintf('<input class="wu-bg-gray-200 wu-border-none wu-text-gray-700 wu-py-1 wu-px-2 wu-rounded-sm wu-text-xs wu-font-mono" value="%s">', esc_attr($item->get_shortcode()));
 	}
 
 	/**
@@ -202,18 +202,5 @@ class Checkout_Form_List_Table extends Base_List_Table {
 		];
 
 		return $columns;
-	}
-
-	/**
-	 * Returns the filters for this page.
-	 *
-	 * @since 2.0.0
-	 */
-	public function get_filters(): array {
-
-		return [
-			'filters'      => [],
-			'date_filters' => [],
-		];
 	}
 }

@@ -49,19 +49,6 @@ class Site_List_Table extends Parent_Site_List_Table {
 	}
 
 	/**
-	 * Clears filters.
-	 *
-	 * @since 2.0.0
-	 */
-	public function get_filters(): array {
-
-		return [
-			'filters'      => [],
-			'date_filters' => [],
-		];
-	}
-
-	/**
 	 * Clears views.
 	 *
 	 * @since 2.0.0

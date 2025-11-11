@@ -139,15 +139,20 @@ class Site_Duplicator {
 
 		$saved = $new_to_site->save();
 
-		if ($saved) {
+		if (is_wp_error($saved)) {
+			// translators: %s id the template site id and %s is the error message returned.
+			$message = sprintf(__('Attempt to override site %1$d with data from site %2$d failed: %3$s', 'ultimate-multisite'), $from_site_id, $to_site_id, $saved->get_error_message());
 
-			// translators: %1$d is the ID of the site template used, and %2$d is the ID of the overriden site.
-			$message = sprintf(__('Attempt to override site %1$d with data from site %2$d successful.', 'ultimate-multisite'), $from_site_id, $duplicate_site_id);
-
-			wu_log_add('site-duplication', $message);
-
-			return $saved;
+			wu_log_add('site-duplication', $message, LogLevel::ERROR);
+			return false;
 		}
+
+		// translators: %1$d is the ID of the site template used, and %2$d is the ID of the overriden site.
+		$message = sprintf(__('Attempt to override site %1$d with data from site %2$d successful.', 'ultimate-multisite'), $from_site_id, $duplicate_site_id);
+
+		wu_log_add('site-duplication', $message);
+
+		return $saved;
 	}
 
 	/**
@@ -259,6 +264,12 @@ class Site_Duplicator {
 			]
 		);
 
+		/*
+		 * Reset WooCommerce Subscriptions staging mode detection
+		 * to prevent the duplicated site from being locked in staging mode.
+		 */
+		self::reset_woocommerce_subscriptions_staging_mode($args->to_site_id);
+
 		return $args->to_site_id;
 	}
 
@@ -291,5 +302,65 @@ class Site_Duplicator {
 		}
 
 		return $user_id;
+	}
+
+	/**
+	 * Resets WooCommerce Subscriptions staging mode detection for a duplicated site.
+	 *
+	 * When a site is duplicated, WooCommerce Subscriptions detects the URL change
+	 * and enters "staging mode", which disables automatic payments and subscription
+	 * emails. This method resets the stored site URL to match the new site's URL,
+	 * preventing the staging mode from being triggered.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int $site_id The ID of the newly duplicated site.
+	 * @return void
+	 */
+	protected static function reset_woocommerce_subscriptions_staging_mode($site_id) {
+
+		if ( ! $site_id) {
+			return;
+		}
+
+		// Check if WooCommerce Subscriptions is active on the site
+		if ( ! is_plugin_active_for_network('woocommerce-subscriptions/woocommerce-subscriptions.php')) {
+			switch_to_blog($site_id);
+
+			$active_plugins = get_option('active_plugins', []);
+
+			restore_current_blog();
+
+			if ( ! in_array('woocommerce-subscriptions/woocommerce-subscriptions.php', $active_plugins, true)) {
+				return;
+			}
+		}
+
+		// Switch to the duplicated site context
+		switch_to_blog($site_id);
+
+		// Get the current site URL
+		$site_url = get_site_url();
+
+		// Generate the obfuscated key that WooCommerce Subscriptions uses
+		// It inserts '_[wc_subscriptions_siteurl]_' in the middle of the URL
+		$scheme   = wp_parse_url($site_url, PHP_URL_SCHEME) . '://';
+		$site_url = str_replace($scheme, '', $site_url);
+
+		$obfuscated_url = $scheme . substr_replace(
+			$site_url,
+			'_[wc_subscriptions_siteurl]_',
+			intval(strlen($site_url) / 2),
+			0
+		);
+
+		// Update the WooCommerce Subscriptions site URL option
+		update_option('wc_subscriptions_siteurl', $obfuscated_url);
+
+		// Delete the "ignore notice" option to ensure a clean state
+		delete_option('wcs_ignore_duplicate_siteurl_notice');
+
+		// Restore the original blog context
+		restore_current_blog();
 	}
 }

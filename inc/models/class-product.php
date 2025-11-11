@@ -238,6 +238,14 @@ class Product extends Base_Model implements Limitable {
 	protected $product_group;
 
 	/**
+	 * Network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @var int|null
+	 */
+	protected $network_id;
+
+	/**
 	 * Contact us Label.
 	 *
 	 * @since 2.0.0
@@ -323,6 +331,7 @@ class Product extends Base_Model implements Limitable {
 			'contact_us_label'    => 'default:',
 			'contact_us_link'     => 'url:http,https',
 			'customer_role'       => 'alpha_dash',
+			'network_id'          => 'integer|nullable',
 		];
 	}
 
@@ -1495,5 +1504,28 @@ class Product extends Base_Model implements Limitable {
 	public function limitations_to_merge() {
 
 		return [];
+	}
+
+	/**
+	 * Get the network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @return int|null
+	 */
+	public function get_network_id() {
+
+		return $this->network_id ? absint($this->network_id) : null;
+	}
+
+	/**
+	 * Set the network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @param int|null $network_id Network ID.
+	 * @return void
+	 */
+	public function set_network_id($network_id): void {
+
+		$this->network_id = $network_id ? absint($network_id) : null;
 	}
 }

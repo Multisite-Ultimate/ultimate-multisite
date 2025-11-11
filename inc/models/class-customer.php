@@ -117,6 +117,14 @@ class Customer extends Base_Model implements Billable, Notable {
 	protected $extra_information;
 
 	/**
+	 * Network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @var int|null
+	 */
+	protected $network_id;
+
+	/**
 	 * Query Class to the static query methods.
 	 *
 	 * @since 2.0.0
@@ -156,6 +164,7 @@ class Customer extends Base_Model implements Billable, Notable {
 			'ips'                => 'array',
 			'extra_information'  => 'default:',
 			'signup_form'        => 'default:',
+			'network_id'         => 'integer|nullable',
 		];
 	}
 
@@ -874,5 +883,28 @@ class Customer extends Base_Model implements Billable, Notable {
 	public function set_signup_form($signup_form): void {
 
 		$this->signup_form = $signup_form;
+	}
+
+	/**
+	 * Get the network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @return int|null
+	 */
+	public function get_network_id() {
+
+		return $this->network_id ? absint($this->network_id) : null;
+	}
+
+	/**
+	 * Set the network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @param int|null $network_id Network ID.
+	 * @return void
+	 */
+	public function set_network_id($network_id): void {
+
+		$this->network_id = $network_id ? absint($network_id) : null;
 	}
 }

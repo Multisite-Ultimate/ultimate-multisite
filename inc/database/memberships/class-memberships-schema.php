@@ -329,5 +329,16 @@ class Memberships_Schema extends Schema {
 			'pattern'  => '%d',
 		],
 
+		// network_id - Added for multinetwork support
+		[
+			'name'       => 'network_id',
+			'type'       => 'bigint',
+			'length'     => '20',
+			'unsigned'   => true,
+			'allow_null' => true,
+			'searchable' => true,
+			'sortable'   => true,
+		],
+
 	];
 }

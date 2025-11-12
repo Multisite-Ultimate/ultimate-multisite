@@ -1743,7 +1743,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 *
 	 * @param string $type Type to return. Can be customer_owned or template.
 	 * @param array  $query_args Additional query args.
-	 * @return array
+	 * @return Site[]
 	 */
 	public static function get_all_by_type($type = 'customer_owned', $query_args = []) {
 

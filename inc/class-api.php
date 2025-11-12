@@ -71,7 +71,7 @@ class API implements \WP_Ultimo\Interfaces\Singleton {
 		 *
 		 * @since 2.0.0
 		 */
-		add_action('rest_request_after_callbacks', [$this, 'log_api_errors'], 10, 3);
+		add_filter('rest_request_after_callbacks', [$this, 'log_api_errors'], 10, 3);
 
 		/**
 		 * We need to bypass the WP Core auth errors in our routes so we can use our api keys
@@ -368,7 +368,7 @@ class API implements \WP_Ultimo\Interfaces\Singleton {
 	 * @param string|array     $handler The callback.
 	 * @param \WP_REST_Request $request The request object.
 	 *
-	 * @return void
+	 * @return mixed
 	 */
 	public function log_api_errors($result, $handler, $request) {
 
@@ -389,6 +389,7 @@ class API implements \WP_Ultimo\Interfaces\Singleton {
 
 			wu_log_add('api-errors', $result);
 		}
+		return $result;
 	}
 
 	/**

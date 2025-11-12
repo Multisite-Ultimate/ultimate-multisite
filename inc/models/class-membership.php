@@ -1919,26 +1919,34 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			],
 			admin_url('admin-ajax.php')
 		);
+		$headers   = array(
+			'Cache-Control' => 'no-cache',
+		);
 
-		if ( function_exists('fastcgi_finish_request') && version_compare(phpversion(), '7.0.16', '>=') ) {
-			// The server supports fastcgi, so we use this to guarantee that the function started before abort connection
+		// Include Basic auth in loopback requests.
+		if ( isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']) ) {
+			$headers['Authorization'] = 'Basic ' . base64_encode(sanitize_text_field(wp_unslash($_SERVER['PHP_AUTH_USER'])) . ':' . sanitize_text_field(wp_unslash($_SERVER['PHP_AUTH_PW']))); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		}
+		$request_args = [
+			'cookies'   => wp_unslash($_COOKIE), // Cookies are needed for nonce check to work.
+			'timeout'   => 10,
+			/** This filter is documented in wp-includes/class-wp-http-streams.php */
+			'sslverify' => apply_filters('https_local_ssl_verify', false),
+			'headers'   => $headers,
+		];
 
-			wp_remote_request(
-				$rest_path,
-				[
-					'sslverify' => false,
-				]
-			);
-		} elseif (ignore_user_abort(true) !== ignore_user_abort(false)) {
-			// We do not have fastcgi but can make the request continue without listening
+		if ( ! function_exists('fastcgi_finish_request') || ! version_compare(phpversion(), '7.0.16', '>=')) {
+			// We do not have fastcgi but can make the request continue without listening with blocking = false.
+			$request_args['blocking'] = false;
+		}
+		$result = wp_remote_request(
+			$rest_path,
+			$request_args
+		);
 
-			wp_remote_request(
-				$rest_path,
-				[
-					'sslverify' => false,
-					'blocking'  => false,
-				]
-			);
+		if (is_wp_error($result)) {
+			// translators: %s full error message.
+			wu_log_add("membership-{$this->get_id()}", sprintf(__('Failed to trigger async site creation. The site will not be created until the next cron run which is much slower: %s'), $result->get_error_message()));
 		}
 
 		wu_enqueue_async_action('wu_async_publish_pending_site', ['membership_id' => $this->get_id()], 'membership');

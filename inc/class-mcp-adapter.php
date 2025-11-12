@@ -298,7 +298,7 @@ class MCP_Adapter implements \WP_Ultimo\Interfaces\Singleton {
 	 *
 	 * @return bool|\WP_Error
 	 */
-	public function permission_callback(\WP_REST_Request $request = null) {
+	public function permission_callback(?\WP_REST_Request $request = null) {
 		if ($request) {
 			$this->current_request = $request;
 		}

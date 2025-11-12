@@ -577,7 +577,7 @@ class Customer extends Base_Model implements Billable, Notable {
 	 * Returns the subscriptions attached to this customer.
 	 *
 	 * @since 2.0.0
-	 * @return array
+	 * @return Membership[]
 	 */
 	public function get_memberships() {
 

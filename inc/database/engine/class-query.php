@@ -19,6 +19,8 @@ defined('ABSPATH') || exit;
  */
 class Query extends \BerlinDB\Database\Query {
 
+	use Network_Prefix;
+
 	/**
 	 * The prefix for the custom table.
 	 *
@@ -70,6 +72,8 @@ class Query extends \BerlinDB\Database\Query {
 	 * @return void
 	 */
 	public function __construct($query = []) {
+
+		$this->update_prefix_with_network_id();
 
 		$cache_group = $this->apply_prefix($this->cache_group, '-');
 

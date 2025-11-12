@@ -19,5 +19,15 @@ defined('ABSPATH') || exit;
  */
 class Column extends \BerlinDB\Database\Column {
 
+	use Network_Prefix;
+
 	protected $prefix = 'wu';
+
+	/**
+	 * Change the prefix if needed.
+	 */
+	public function __construct() {
+		$this->update_prefix_with_network_id();
+		parent::__construct();
+	}
 }

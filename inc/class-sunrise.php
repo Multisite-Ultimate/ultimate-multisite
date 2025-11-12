@@ -132,6 +132,7 @@ class Sunrise {
 		require_once __DIR__ . '/../vendor/berlindb/core/src/Database/Schema.php';
 		require_once __DIR__ . '/../vendor/berlindb/core/src/Database/Table.php';
 		require_once __DIR__ . '/../vendor/berlindb/core/src/Database/Column.php';
+		require_once __DIR__ . '/database/engine/traits/trait-network-prefix.php';
 		require_once __DIR__ . '/database/engine/class-query.php';
 		require_once __DIR__ . '/database/sites/class-site-query.php';
 		require_once __DIR__ . '/models/class-base-model.php';

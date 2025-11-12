@@ -103,4 +103,18 @@ class Site_Query extends Query {
 	 * @var bool
 	 */
 	protected $global_cache = true;
+
+	/**
+	 * We need to add the network_id if one is not set.
+	 *
+	 * @param array $query Query.
+	 *
+	 * @return array|int
+	 */
+	public function query($query = array()) {
+		if (empty($query['site_id']) && empty($query['site_id__in'])) {
+			$query['site_id'] = get_current_network_id();
+		}
+		return parent::query($query);
+	}
 }

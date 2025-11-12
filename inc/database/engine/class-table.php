@@ -19,6 +19,7 @@ defined('ABSPATH') || exit;
  * @property-read string $name
  */
 abstract class Table extends \BerlinDB\Database\Table {
+	use Network_Prefix;
 
 	/**
 	 * Table prefix.
@@ -68,5 +69,13 @@ abstract class Table extends \BerlinDB\Database\Table {
 		}
 
 		return $this->exists;
+	}
+
+	/**
+	 * Change the prefix if needed.
+	 */
+	public function __construct() {
+		$this->update_prefix_with_network_id();
+		parent::__construct();
 	}
 }

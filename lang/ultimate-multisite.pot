@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Multisite 2.4.6\n"
+"Project-Id-Version: Ultimate Multisite 2.4.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ultimate-multisite\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-15T22:21:34+00:00\n"
+"POT-Creation-Date: 2025-11-13T17:17:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ultimate-multisite\n"
@@ -241,7 +241,7 @@ msgstr ""
 #: inc/list-tables/class-broadcast-list-table.php:417
 #: inc/list-tables/class-event-list-table.php:213
 #: inc/list-tables/class-product-list-table.php:254
-#: inc/list-tables/class-site-list-table.php:274
+#: inc/list-tables/class-site-list-table.php:272
 #: views/base/checkout-forms/js-templates.php:131
 #: views/domain/dns-table.php:16
 #: views/emails/admin/payment-received.php:72
@@ -327,7 +327,7 @@ msgid "Product Targets"
 msgstr ""
 
 #: inc/admin-pages/class-broadcast-edit-admin-page.php:195
-#: inc/list-tables/class-base-list-table.php:968
+#: inc/list-tables/class-base-list-table.php:980
 #: inc/list-tables/class-broadcast-list-table.php:151
 #: inc/list-tables/class-membership-list-table-widget.php:210
 #: inc/list-tables/class-payment-list-table-widget.php:155
@@ -871,9 +871,9 @@ msgstr ""
 #: inc/admin-pages/class-webhook-edit-admin-page.php:208
 #: inc/admin-pages/class-webhook-edit-admin-page.php:212
 #: inc/database/memberships/class-membership-status.php:69
-#: inc/list-tables/class-domain-list-table.php:165
-#: inc/list-tables/class-domain-list-table.php:188
-#: inc/list-tables/class-domain-list-table.php:191
+#: inc/list-tables/class-domain-list-table.php:164
+#: inc/list-tables/class-domain-list-table.php:187
+#: inc/list-tables/class-domain-list-table.php:190
 #: inc/list-tables/class-membership-list-table.php:275
 #: inc/list-tables/class-webhook-list-table.php:178
 #: views/emails/admin/domain-created.php:36
@@ -1083,7 +1083,7 @@ msgstr ""
 #: inc/admin-pages/class-edit-admin-page.php:276
 #: inc/admin-pages/class-edit-admin-page.php:721
 #: inc/admin-pages/class-payment-edit-admin-page.php:178
-#: inc/list-tables/class-base-list-table.php:609
+#: inc/list-tables/class-base-list-table.php:621
 #: inc/list-tables/class-broadcast-list-table.php:125
 #: inc/list-tables/class-checkout-form-list-table.php:81
 #: inc/list-tables/class-customer-list-table.php:125
@@ -1091,7 +1091,7 @@ msgstr ""
 #: inc/list-tables/class-customer-list-table.php:167
 #: inc/list-tables/class-discount-code-list-table.php:70
 #: inc/list-tables/class-discount-code-list-table.php:75
-#: inc/list-tables/class-domain-list-table.php:90
+#: inc/list-tables/class-domain-list-table.php:89
 #: inc/list-tables/class-email-list-table.php:126
 #: inc/list-tables/class-event-list-table.php:188
 #: inc/list-tables/class-event-list-table.php:193
@@ -1103,11 +1103,11 @@ msgstr ""
 #: inc/list-tables/class-payment-list-table.php:88
 #: inc/list-tables/class-payment-list-table.php:96
 #: inc/list-tables/class-product-list-table.php:83
-#: inc/list-tables/class-site-list-table.php:144
-#: inc/list-tables/class-site-list-table.php:149
-#: inc/list-tables/class-site-list-table.php:166
-#: inc/list-tables/class-site-list-table.php:183
-#: inc/list-tables/class-site-list-table.php:380
+#: inc/list-tables/class-site-list-table.php:142
+#: inc/list-tables/class-site-list-table.php:147
+#: inc/list-tables/class-site-list-table.php:164
+#: inc/list-tables/class-site-list-table.php:181
+#: inc/list-tables/class-site-list-table.php:378
 #: inc/list-tables/class-webhook-list-table.php:78
 #: inc/list-tables/class-webhook-list-table.php:83
 #: inc/managers/class-form-manager.php:373
@@ -1222,7 +1222,7 @@ msgstr ""
 #: inc/admin-pages/class-customer-edit-admin-page.php:957
 #: inc/list-tables/class-customer-list-table.php:242
 #: inc/list-tables/class-site-customer-list-table.php:98
-#: inc/list-tables/class-site-list-table.php:322
+#: inc/list-tables/class-site-list-table.php:320
 msgid "Last Login"
 msgstr ""
 
@@ -1281,7 +1281,7 @@ msgstr ""
 #: inc/ui/class-domain-mapping-element.php:138
 #: inc/ui/class-invoices-element.php:125
 #: inc/ui/class-invoices-element.php:126
-#: inc/ui/class-jumper.php:206
+#: inc/ui/class-jumper.php:207
 #: inc/ui/class-limits-element.php:124
 #: inc/ui/class-limits-element.php:125
 #: inc/ui/class-login-form-element.php:140
@@ -1350,9 +1350,9 @@ msgstr ""
 
 #: inc/admin-pages/class-customer-edit-admin-page.php:800
 #: inc/admin-pages/class-membership-edit-admin-page.php:407
-#: inc/admin-pages/class-site-list-admin-page.php:519
-#: inc/admin-pages/class-site-list-admin-page.php:530
-#: inc/admin-pages/class-site-list-admin-page.php:541
+#: inc/admin-pages/class-site-list-admin-page.php:517
+#: inc/admin-pages/class-site-list-admin-page.php:528
+#: inc/admin-pages/class-site-list-admin-page.php:539
 #: inc/class-settings.php:1169
 #: inc/class-settings.php:1170
 #: inc/debug/class-debug.php:212
@@ -1422,7 +1422,7 @@ msgstr ""
 #: inc/list-tables/class-membership-list-table.php:287
 #: inc/list-tables/class-payment-list-table.php:208
 #: inc/list-tables/class-payment-list-table.php:266
-#: inc/list-tables/class-site-list-table.php:363
+#: inc/list-tables/class-site-list-table.php:361
 #: views/dashboard-widgets/my-sites.php:56
 msgid "Pending"
 msgstr ""
@@ -1495,7 +1495,7 @@ msgid "Verification email sent!"
 msgstr ""
 
 #: inc/admin-pages/class-customer-list-admin-page.php:69
-#: inc/managers/class-payment-manager.php:293
+#: inc/managers/class-payment-manager.php:298
 msgid "You do not have permissions to access this file."
 msgstr ""
 
@@ -1970,10 +1970,10 @@ msgstr ""
 
 #: inc/admin-pages/class-domain-edit-admin-page.php:250
 #: inc/admin-pages/class-domain-list-admin-page.php:111
-#: inc/admin-pages/class-site-list-admin-page.php:329
+#: inc/admin-pages/class-site-list-admin-page.php:327
 #: inc/checkout/signup-fields/class-signup-field-site-url.php:359
-#: inc/list-tables/class-domain-list-table.php:42
-#: inc/list-tables/class-domain-list-table.php:162
+#: inc/list-tables/class-domain-list-table.php:41
+#: inc/list-tables/class-domain-list-table.php:161
 #: inc/ui/class-domain-mapping-element.php:330
 #: views/emails/admin/domain-created.php:13
 #: views/emails/admin/domain-created.php:18
@@ -2028,7 +2028,7 @@ msgstr ""
 
 #: inc/admin-pages/class-domain-edit-admin-page.php:335
 #: inc/admin-pages/class-domain-list-admin-page.php:136
-#: inc/list-tables/class-domain-list-table.php:163
+#: inc/list-tables/class-domain-list-table.php:162
 msgid "Stage"
 msgstr ""
 
@@ -2042,7 +2042,7 @@ msgid "The stage in the checking lifecycle of this domain."
 msgstr ""
 
 #: inc/admin-pages/class-domain-edit-admin-page.php:350
-#: inc/list-tables/class-domain-list-table.php:164
+#: inc/list-tables/class-domain-list-table.php:163
 #: inc/list-tables/class-site-list-table.php:44
 #: inc/traits/trait-wp-ultimo-plan-deprecated.php:204
 #: inc/ui/class-current-site-element.php:111
@@ -2127,7 +2127,7 @@ msgid "Apply to Site"
 msgstr ""
 
 #: inc/admin-pages/class-domain-list-admin-page.php:121
-#: inc/admin-pages/class-site-list-admin-page.php:418
+#: inc/admin-pages/class-site-list-admin-page.php:416
 msgid "Search Sites..."
 msgstr ""
 
@@ -2140,7 +2140,7 @@ msgid "The stage in the domain check lifecycle. Leave \"Checking DNS\" to have t
 msgstr ""
 
 #: inc/admin-pages/class-domain-list-admin-page.php:144
-#: inc/list-tables/class-domain-list-table.php:202
+#: inc/list-tables/class-domain-list-table.php:201
 #: inc/ui/class-domain-mapping-element.php:339
 msgid "Primary Domain"
 msgstr ""
@@ -2166,8 +2166,8 @@ msgstr ""
 #: inc/admin-pages/class-domain-list-admin-page.php:308
 #: inc/admin-pages/class-domain-list-admin-page.php:319
 #: inc/debug/class-debug.php:229
-#: inc/list-tables/class-domain-list-table.php:43
-#: inc/list-tables/class-site-list-table.php:277
+#: inc/list-tables/class-domain-list-table.php:42
+#: inc/list-tables/class-site-list-table.php:275
 #: inc/ui/class-domain-mapping-element.php:96
 #: inc/ui/class-domain-mapping-element.php:145
 #: inc/ui/class-domain-mapping-element.php:196
@@ -2177,7 +2177,7 @@ msgstr ""
 
 #: inc/admin-pages/class-domain-list-admin-page.php:332
 #: inc/ui/class-domain-mapping-element.php:359
-#: inc/ui/class-domain-mapping-element.php:751
+#: inc/ui/class-domain-mapping-element.php:768
 #: views/dashboard-widgets/domain-mapping.php:29
 #: views/dashboard-widgets/domain-mapping.php:31
 msgid "Add Domain"
@@ -2313,8 +2313,8 @@ msgstr ""
 #: inc/list-tables/class-membership-list-table.php:178
 #: inc/list-tables/class-payment-list-table-widget.php:220
 #: inc/list-tables/class-payment-list-table.php:182
-#: inc/list-tables/class-site-list-table.php:275
-#: inc/managers/class-customer-manager.php:65
+#: inc/list-tables/class-site-list-table.php:273
+#: inc/managers/class-customer-manager.php:68
 #: views/emails/admin/payment-received.php:125
 #: views/emails/admin/payment-received.php:130
 #: views/emails/admin/site-published.php:91
@@ -2488,8 +2488,8 @@ msgstr ""
 #: inc/admin-pages/class-email-list-admin-page.php:596
 #: inc/admin-pages/class-email-list-admin-page.php:615
 #: inc/admin-pages/class-payment-edit-admin-page.php:614
-#: inc/admin-pages/class-site-list-admin-page.php:270
-#: inc/managers/class-broadcast-manager.php:252
+#: inc/admin-pages/class-site-list-admin-page.php:268
+#: inc/managers/class-broadcast-manager.php:255
 msgid "Something wrong happened."
 msgstr ""
 
@@ -2833,7 +2833,7 @@ msgid "Instructions"
 msgstr ""
 
 #: inc/admin-pages/class-hosting-integration-wizard-admin-page.php:145
-#: inc/integrations/host-providers/class-base-host-provider.php:204
+#: inc/integrations/host-providers/class-base-host-provider.php:209
 msgid "Configuration"
 msgstr ""
 
@@ -2943,11 +2943,11 @@ msgstr ""
 msgid "Jobs"
 msgstr ""
 
-#: inc/admin-pages/class-list-admin-page.php:126
+#: inc/admin-pages/class-list-admin-page.php:128
 msgid "Object removed successfully."
 msgstr ""
 
-#: inc/admin-pages/class-list-admin-page.php:127
+#: inc/admin-pages/class-list-admin-page.php:129
 msgid "Search Object"
 msgstr ""
 
@@ -3400,7 +3400,7 @@ msgid "You can add multiples products to this membership."
 msgstr ""
 
 #: inc/admin-pages/class-membership-list-admin-page.php:120
-#: inc/api/class-register-endpoint.php:376
+#: inc/apis/class-register-endpoint.php:376
 msgid "The membership status."
 msgstr ""
 
@@ -3704,8 +3704,8 @@ msgstr ""
 #: inc/list-tables/class-membership-list-table-widget.php:41
 #: inc/list-tables/class-membership-list-table.php:39
 #: inc/list-tables/class-payment-list-table.php:183
-#: inc/list-tables/class-site-list-table.php:276
-#: inc/managers/class-membership-manager.php:62
+#: inc/list-tables/class-site-list-table.php:274
+#: inc/managers/class-membership-manager.php:66
 #: inc/ui/class-current-membership-element.php:130
 #: views/emails/admin/domain-created.php:99
 #: views/emails/admin/payment-received.php:84
@@ -3792,7 +3792,7 @@ msgstr ""
 
 #: inc/admin-pages/class-payment-list-admin-page.php:115
 #: inc/admin-pages/class-site-edit-admin-page.php:479
-#: inc/admin-pages/class-site-list-admin-page.php:393
+#: inc/admin-pages/class-site-list-admin-page.php:391
 msgid "Search Membership..."
 msgstr ""
 
@@ -3912,7 +3912,7 @@ msgid "Products can be free, paid, or require further contact for pricing."
 msgstr ""
 
 #: inc/admin-pages/class-product-edit-admin-page.php:298
-#: inc/models/class-product.php:640
+#: inc/models/class-product.php:649
 msgid "Contact Us"
 msgstr ""
 
@@ -4501,8 +4501,14 @@ msgid "WordPress Cron"
 msgstr ""
 
 #: inc/admin-pages/class-setup-wizard-admin-page.php:684
-#: inc/integrations/host-providers/class-base-host-provider.php:195
+#: inc/integrations/host-providers/class-base-host-provider.php:200
 msgid "Activated"
+msgstr ""
+
+#. translators: %s code snippet.
+#: inc/admin-pages/class-setup-wizard-admin-page.php:773
+#, php-format
+msgid "The SUNRISE constant is missing. Domain mapping and plugin/theme limits will not function until `%s` is added to wp-config.php. Please complete the setup to attempt to do this automatically."
 msgstr ""
 
 #: inc/admin-pages/class-setup-wizard-admin-page.php:775
@@ -4564,15 +4570,15 @@ msgid "This will start the transfer of assets from one membership to another."
 msgstr ""
 
 #: inc/admin-pages/class-site-edit-admin-page.php:260
-#: inc/list-tables/class-site-list-table.php:401
-#: inc/managers/class-site-manager.php:365
+#: inc/list-tables/class-site-list-table.php:399
+#: inc/managers/class-site-manager.php:369
 msgid "Site not found."
 msgstr ""
 
 #: inc/admin-pages/class-site-edit-admin-page.php:321
 #: inc/admin-pages/class-site-edit-admin-page.php:432
 #: inc/admin-pages/class-site-edit-admin-page.php:442
-#: inc/admin-pages/class-site-list-admin-page.php:378
+#: inc/admin-pages/class-site-list-admin-page.php:376
 msgid "Site Type"
 msgstr ""
 
@@ -4625,7 +4631,7 @@ msgid "Regular WordPress"
 msgstr ""
 
 #: inc/admin-pages/class-site-edit-admin-page.php:449
-#: inc/admin-pages/class-site-list-admin-page.php:383
+#: inc/admin-pages/class-site-list-admin-page.php:381
 #: inc/database/sites/class-site-type.php:69
 msgid "Site Template"
 msgstr ""
@@ -4651,7 +4657,7 @@ msgid "Customers will be able to filter by categories during signup."
 msgstr ""
 
 #: inc/admin-pages/class-site-edit-admin-page.php:478
-#: inc/admin-pages/class-site-list-admin-page.php:392
+#: inc/admin-pages/class-site-list-admin-page.php:390
 msgid "Associated Membership"
 msgstr ""
 
@@ -4696,7 +4702,7 @@ msgid "We detected that this network might be running locally. If that's the cas
 msgstr ""
 
 #: inc/admin-pages/class-site-edit-admin-page.php:585
-#: inc/list-tables/class-site-list-table.php:377
+#: inc/list-tables/class-site-list-table.php:375
 msgid "Take Screenshot"
 msgstr ""
 
@@ -4709,7 +4715,7 @@ msgstr ""
 
 #: inc/admin-pages/class-site-edit-admin-page.php:620
 #: inc/admin-pages/class-site-edit-admin-page.php:671
-#: inc/admin-pages/class-site-list-admin-page.php:324
+#: inc/admin-pages/class-site-list-admin-page.php:322
 #: views/dashboard-widgets/my-sites.php:175
 msgid "Add new Site"
 msgstr ""
@@ -4751,7 +4757,7 @@ msgstr ""
 
 #: inc/admin-pages/class-site-list-admin-page.php:141
 #: inc/admin-pages/class-site-list-admin-page.php:142
-#: inc/list-tables/class-site-list-table.php:162
+#: inc/list-tables/class-site-list-table.php:160
 msgid "Publish"
 msgstr ""
 
@@ -4761,7 +4767,7 @@ msgid "Pending site not found."
 msgstr ""
 
 #. translators: the %s is the thing copied.
-#: inc/admin-pages/class-site-list-admin-page.php:317
+#: inc/admin-pages/class-site-list-admin-page.php:315
 #: inc/list-tables/class-checkout-form-list-table.php:158
 #: inc/list-tables/class-email-list-table.php:230
 #: inc/list-tables/class-product-list-table.php:212
@@ -4769,20 +4775,20 @@ msgstr ""
 msgid "Copy of %s"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:324
-#: inc/list-tables/class-site-list-table.php:135
+#: inc/admin-pages/class-site-list-admin-page.php:322
+#: inc/list-tables/class-site-list-table.php:133
 msgid "Duplicate Site"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:327
+#: inc/admin-pages/class-site-list-admin-page.php:325
 msgid "Subdomain"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:328
+#: inc/admin-pages/class-site-list-admin-page.php:326
 msgid "Subdirectory"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:354
+#: inc/admin-pages/class-site-list-admin-page.php:352
 #: inc/checkout/class-legacy-checkout.php:445
 #: inc/checkout/signup-fields/class-signup-field-site-title.php:69
 #: inc/models/class-checkout-form.php:582
@@ -4792,68 +4798,68 @@ msgstr ""
 msgid "Site Title"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:355
+#: inc/admin-pages/class-site-list-admin-page.php:353
 msgid "New Network Site"
 msgstr ""
 
 #. translators: the %s is the site preview url.
-#: inc/admin-pages/class-site-list-admin-page.php:361
+#: inc/admin-pages/class-site-list-admin-page.php:359
 #, php-format
 msgid "The site URL will be: %s"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:365
+#: inc/admin-pages/class-site-list-admin-page.php:363
 msgid "Site Domain/Path"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:366
+#: inc/admin-pages/class-site-list-admin-page.php:364
 msgid "Enter the complete domain for the site"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:382
+#: inc/admin-pages/class-site-list-admin-page.php:380
 msgid "Regular WP Site"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:384
+#: inc/admin-pages/class-site-list-admin-page.php:382
 #: inc/database/sites/class-site-type.php:70
-#: inc/list-tables/class-site-list-table.php:351
+#: inc/list-tables/class-site-list-table.php:349
 msgid "Customer-Owned"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:409
+#: inc/admin-pages/class-site-list-admin-page.php:407
 msgid "Copy Site"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:410
+#: inc/admin-pages/class-site-list-admin-page.php:408
 msgid "Select an existing site to use as a starting point."
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:417
+#: inc/admin-pages/class-site-list-admin-page.php:415
 #: inc/installers/class-default-content-installer.php:222
 msgid "Template Site"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:419
+#: inc/admin-pages/class-site-list-admin-page.php:417
 msgid "The site selected will be copied and used as a starting point."
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:435
+#: inc/admin-pages/class-site-list-admin-page.php:433
 msgid "Copy Media on Duplication"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:436
+#: inc/admin-pages/class-site-list-admin-page.php:434
 msgid "Copy media files from the template site on duplication. Disabling this can lead to broken images on the new site."
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:506
+#: inc/admin-pages/class-site-list-admin-page.php:504
 msgid "Site removed successfully."
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:507
+#: inc/admin-pages/class-site-list-admin-page.php:505
 msgid "Search Site"
 msgstr ""
 
-#: inc/admin-pages/class-site-list-admin-page.php:554
+#: inc/admin-pages/class-site-list-admin-page.php:552
 msgid "Add Site"
 msgstr ""
 
@@ -4904,9 +4910,9 @@ msgstr ""
 #: inc/admin-pages/class-system-info-admin-page.php:414
 #: inc/admin-pages/class-system-info-admin-page.php:494
 #: inc/admin-pages/class-system-info-admin-page.php:499
-#: inc/list-tables/class-domain-list-table.php:106
-#: inc/list-tables/class-domain-list-table.php:119
-#: inc/list-tables/class-domain-list-table.php:132
+#: inc/list-tables/class-domain-list-table.php:105
+#: inc/list-tables/class-domain-list-table.php:118
+#: inc/list-tables/class-domain-list-table.php:131
 #: inc/list-tables/class-webhook-list-table.php:160
 msgid "Yes"
 msgstr ""
@@ -4916,9 +4922,9 @@ msgstr ""
 #: inc/admin-pages/class-system-info-admin-page.php:414
 #: inc/admin-pages/class-system-info-admin-page.php:494
 #: inc/admin-pages/class-system-info-admin-page.php:499
-#: inc/list-tables/class-domain-list-table.php:106
-#: inc/list-tables/class-domain-list-table.php:119
-#: inc/list-tables/class-domain-list-table.php:132
+#: inc/list-tables/class-domain-list-table.php:105
+#: inc/list-tables/class-domain-list-table.php:118
+#: inc/list-tables/class-domain-list-table.php:131
 #: inc/list-tables/class-webhook-list-table.php:160
 msgid "No"
 msgstr ""
@@ -5379,6 +5385,16 @@ msgstr ""
 msgid "Registered Pages"
 msgstr ""
 
+#. translators: %1$s is 'wp-config.php', %2$s is 'COOKIE_DOMAIN', %3$s is 'false'
+#: inc/admin/class-configuration-checker.php:57
+#, php-format
+msgid "Your %1$s has %2$s set to %3$s, which can cause authentication and session issues on subdomain multisite installations. Please remove this line from your wp-config.php file or set it to an appropriate value."
+msgstr ""
+
+#: inc/admin/class-configuration-checker.php:62
+msgid "Learn more about cookie settings"
+msgstr ""
+
 #: inc/admin/class-network-usage-columns.php:100
 #: inc/admin/class-network-usage-columns.php:148
 msgid "Usage"
@@ -5409,1177 +5425,1331 @@ msgstr ""
 msgid "Deleted"
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:133
-#: inc/api/class-register-endpoint.php:218
-#: inc/api/class-register-endpoint.php:256
+#: inc/apis/class-register-endpoint.php:133
+#: inc/apis/class-register-endpoint.php:218
+#: inc/apis/class-register-endpoint.php:256
 msgid "Created via REST API"
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:171
+#: inc/apis/class-register-endpoint.php:171
 msgid "Products are required."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:336
+#: inc/apis/class-register-endpoint.php:336
 msgid "The customer ID, if the customer already exists. If you also need to create a customer/wp user, use the \"customer\" property."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:340
+#: inc/apis/class-register-endpoint.php:340
 msgid "Customer data. Needs to be present when customer id is not."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:344
+#: inc/apis/class-register-endpoint.php:344
 msgid "Existing WordPress user id to attach this customer to. If you also need to create a WordPress user, pass the properties \"username\", \"password\", and \"email\"."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:348
+#: inc/apis/class-register-endpoint.php:348
 msgid "The customer username. This is used to create the WordPress user."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:353
+#: inc/apis/class-register-endpoint.php:353
 msgid "The customer password. This is used to create the WordPress user. Note that no validation is performed here to enforce strength."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:358
+#: inc/apis/class-register-endpoint.php:358
 msgid "The customer email address. This is used to create the WordPress user."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:372
+#: inc/apis/class-register-endpoint.php:372
 msgid "The membership data is automatically generated based on the cart info passed (e.g. products) but can be overridden with this property."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:382
+#: inc/apis/class-register-endpoint.php:382
 msgid "The membership expiration date. Must be a valid PHP date format."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:387
+#: inc/apis/class-register-endpoint.php:387
 msgid "The membership trial end date. Must be a valid PHP date format."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:392
+#: inc/apis/class-register-endpoint.php:392
 msgid "The membership activation date. Must be a valid PHP date format."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:397
+#: inc/apis/class-register-endpoint.php:397
 msgid "The membership last renewed date. Must be a valid PHP date format."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:402
+#: inc/apis/class-register-endpoint.php:402
 msgid "The membership cancellation date. Must be a valid PHP date format."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:407
+#: inc/apis/class-register-endpoint.php:407
 msgid "The membership completion date. Used when the membership is limited to a limited number of billing cycles. Must be a valid PHP date format."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:417
+#: inc/apis/class-register-endpoint.php:417
 msgid "The payment data is automatically generated based on the cart info passed (e.g. products) but can be overridden with this property."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:421
+#: inc/apis/class-register-endpoint.php:421
 msgid "The payment status."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:429
+#: inc/apis/class-register-endpoint.php:429
 msgid "Payment method information. Useful when using the REST API to integrate other payment methods."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:433
+#: inc/apis/class-register-endpoint.php:433
 msgid "The gateway name. E.g. stripe."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:437
+#: inc/apis/class-register-endpoint.php:437
 msgid "The customer ID on the gateway system."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:441
+#: inc/apis/class-register-endpoint.php:441
 msgid "The subscription ID on the gateway system."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:445
+#: inc/apis/class-register-endpoint.php:445
 msgid "The payment ID on the gateway system."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:458
+#: inc/apis/class-register-endpoint.php:458
 msgid "The site subdomain or subdirectory (depending on your Multisite install). This would be \"test\" in \"test.your-network.com\"."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:464
+#: inc/apis/class-register-endpoint.php:464
 msgid "The site title. E.g. My Amazing Site"
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:469
+#: inc/apis/class-register-endpoint.php:469
 msgid "If we should publish this site regardless of membership/payment status. Sites are created as pending by default, and are only published when a payment is received or the status of the membership changes to \"active\". This flag allows you to bypass the pending state."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:474
+#: inc/apis/class-register-endpoint.php:474
 msgid "The template ID we should copy when creating this site. If left empty, the value dictated by the products will be used."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:478
+#: inc/apis/class-register-endpoint.php:478
 msgid "An associative array of key values to be saved as site_meta."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:482
+#: inc/apis/class-register-endpoint.php:482
 msgid "An associative array of key values to be saved as site_options. Useful for changing plugin settings and other site configurations."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:491
+#: inc/apis/class-register-endpoint.php:491
 msgid "The products to be added to this membership. Takes an array of product ids or slugs."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:496
+#: inc/apis/class-register-endpoint.php:496
 msgid "The membership duration."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:501
+#: inc/apis/class-register-endpoint.php:501
 msgid "The membership duration unit."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:512
+#: inc/apis/class-register-endpoint.php:512
 msgid "A discount code. E.g. PROMO10."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:516
+#: inc/apis/class-register-endpoint.php:516
 msgid "The membership auto-renew status. Useful when integrating with other payment options via this REST API."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:522
+#: inc/apis/class-register-endpoint.php:522
 msgid "The customer country. Used to calculate taxes and check if registration is allowed for that country."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:527
+#: inc/apis/class-register-endpoint.php:527
 msgid "The currency to be used."
 msgstr ""
 
-#: inc/api/class-register-endpoint.php:553
+#: inc/apis/class-register-endpoint.php:553
 msgid "The customer id sent does not correspond to a valid customer."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:23
-#: inc/api/schemas/broadcast-update.php:23
-#: inc/api/schemas/checkout-form-create.php:83
-#: inc/api/schemas/checkout-form-update.php:83
-#: inc/api/schemas/customer-create.php:91
-#: inc/api/schemas/customer-update.php:91
-#: inc/api/schemas/discount-code-create.php:116
-#: inc/api/schemas/discount-code-update.php:116
-#: inc/api/schemas/domain-create.php:70
-#: inc/api/schemas/domain-update.php:70
-#: inc/api/schemas/email-create.php:135
-#: inc/api/schemas/email-update.php:135
-#: inc/api/schemas/event-create.php:67
-#: inc/api/schemas/event-update.php:67
-#: inc/api/schemas/membership-create.php:172
-#: inc/api/schemas/membership-update.php:172
-#: inc/api/schemas/payment-create.php:116
-#: inc/api/schemas/payment-update.php:116
-#: inc/api/schemas/product-create.php:185
-#: inc/api/schemas/product-update.php:185
-#: inc/api/schemas/site-create.php:156
-#: inc/api/schemas/site-update.php:156
-#: inc/api/schemas/webhook-create.php:73
-#: inc/api/schemas/webhook-update.php:73
+#: inc/apis/schemas/broadcast-create.php:23
+#: inc/apis/schemas/broadcast-update.php:23
+#: inc/apis/schemas/checkout-form-create.php:83
+#: inc/apis/schemas/checkout-form-update.php:83
+#: inc/apis/schemas/customer-create.php:91
+#: inc/apis/schemas/customer-update.php:91
+#: inc/apis/schemas/discount-code-create.php:116
+#: inc/apis/schemas/discount-code-update.php:116
+#: inc/apis/schemas/domain-create.php:70
+#: inc/apis/schemas/domain-update.php:70
+#: inc/apis/schemas/email-create.php:135
+#: inc/apis/schemas/email-update.php:135
+#: inc/apis/schemas/event-create.php:67
+#: inc/apis/schemas/event-update.php:67
+#: inc/apis/schemas/membership-create.php:172
+#: inc/apis/schemas/membership-update.php:172
+#: inc/apis/schemas/payment-create.php:116
+#: inc/apis/schemas/payment-update.php:116
+#: inc/apis/schemas/product-create.php:185
+#: inc/apis/schemas/product-update.php:185
+#: inc/apis/schemas/site-create.php:156
+#: inc/apis/schemas/site-update.php:156
+#: inc/apis/schemas/webhook-create.php:73
+#: inc/apis/schemas/webhook-update.php:73
 msgid "The ID of the original 1.X model that was used to generate this item on migration."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:28
-#: inc/api/schemas/broadcast-update.php:28
+#: inc/apis/schemas/broadcast-create.php:28
+#: inc/apis/schemas/broadcast-update.php:28
 msgid "Can be info, success, warning or error."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:39
-#: inc/api/schemas/broadcast-update.php:39
+#: inc/apis/schemas/broadcast-create.php:39
+#: inc/apis/schemas/broadcast-update.php:39
 msgid "This broadcast name, which is used as broadcast title as well."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:44
-#: inc/api/schemas/broadcast-update.php:44
-#: inc/api/schemas/email-create.php:37
-#: inc/api/schemas/email-update.php:37
+#: inc/apis/schemas/broadcast-create.php:44
+#: inc/apis/schemas/broadcast-update.php:44
+#: inc/apis/schemas/email-create.php:37
+#: inc/apis/schemas/email-update.php:37
 msgid "The type being set."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:49
-#: inc/api/schemas/broadcast-update.php:49
+#: inc/apis/schemas/broadcast-create.php:49
+#: inc/apis/schemas/broadcast-update.php:49
 msgid "The status being set."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:54
-#: inc/api/schemas/broadcast-update.php:54
+#: inc/apis/schemas/broadcast-create.php:54
+#: inc/apis/schemas/broadcast-update.php:54
 msgid "The author ID."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:59
-#: inc/api/schemas/broadcast-update.php:59
-#: inc/api/schemas/email-create.php:110
-#: inc/api/schemas/email-update.php:110
+#: inc/apis/schemas/broadcast-create.php:59
+#: inc/apis/schemas/broadcast-update.php:59
+#: inc/apis/schemas/email-create.php:110
+#: inc/apis/schemas/email-update.php:110
 msgid "Post title."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:64
-#: inc/api/schemas/broadcast-update.php:64
-#: inc/api/schemas/email-create.php:115
-#: inc/api/schemas/email-update.php:115
+#: inc/apis/schemas/broadcast-create.php:64
+#: inc/apis/schemas/broadcast-update.php:64
+#: inc/apis/schemas/email-create.php:115
+#: inc/apis/schemas/email-update.php:115
 msgid "Post content."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:69
-#: inc/api/schemas/broadcast-update.php:69
-#: inc/api/schemas/email-create.php:120
-#: inc/api/schemas/email-update.php:120
+#: inc/apis/schemas/broadcast-create.php:69
+#: inc/apis/schemas/broadcast-update.php:69
+#: inc/apis/schemas/email-create.php:120
+#: inc/apis/schemas/email-update.php:120
 msgid "Post excerpt."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:74
-#: inc/api/schemas/broadcast-update.php:74
-#: inc/api/schemas/email-create.php:125
-#: inc/api/schemas/email-update.php:125
+#: inc/apis/schemas/broadcast-create.php:74
+#: inc/apis/schemas/broadcast-update.php:74
+#: inc/apis/schemas/email-create.php:125
+#: inc/apis/schemas/email-update.php:125
 msgid "Post creation date."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:79
-#: inc/api/schemas/broadcast-update.php:79
-#: inc/api/schemas/email-create.php:130
-#: inc/api/schemas/email-update.php:130
+#: inc/apis/schemas/broadcast-create.php:79
+#: inc/apis/schemas/broadcast-update.php:79
+#: inc/apis/schemas/email-create.php:130
+#: inc/apis/schemas/email-update.php:130
 msgid "Post last modification date."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:84
-#: inc/api/schemas/broadcast-update.php:84
+#: inc/apis/schemas/broadcast-create.php:84
+#: inc/apis/schemas/broadcast-update.php:84
 msgid "The slug."
 msgstr ""
 
-#: inc/api/schemas/broadcast-create.php:89
-#: inc/api/schemas/broadcast-update.php:89
-#: inc/api/schemas/checkout-form-create.php:88
-#: inc/api/schemas/checkout-form-update.php:88
-#: inc/api/schemas/customer-create.php:96
-#: inc/api/schemas/customer-update.php:96
-#: inc/api/schemas/discount-code-create.php:121
-#: inc/api/schemas/discount-code-update.php:121
-#: inc/api/schemas/domain-create.php:75
-#: inc/api/schemas/domain-update.php:75
-#: inc/api/schemas/email-create.php:140
-#: inc/api/schemas/email-update.php:140
-#: inc/api/schemas/event-create.php:72
-#: inc/api/schemas/event-update.php:72
-#: inc/api/schemas/membership-create.php:177
-#: inc/api/schemas/membership-update.php:177
-#: inc/api/schemas/payment-create.php:121
-#: inc/api/schemas/payment-update.php:121
-#: inc/api/schemas/product-create.php:190
-#: inc/api/schemas/product-update.php:190
-#: inc/api/schemas/site-create.php:161
-#: inc/api/schemas/site-update.php:161
-#: inc/api/schemas/webhook-create.php:78
-#: inc/api/schemas/webhook-update.php:78
+#: inc/apis/schemas/broadcast-create.php:89
+#: inc/apis/schemas/broadcast-update.php:89
+#: inc/apis/schemas/checkout-form-create.php:88
+#: inc/apis/schemas/checkout-form-update.php:88
+#: inc/apis/schemas/customer-create.php:96
+#: inc/apis/schemas/customer-update.php:96
+#: inc/apis/schemas/discount-code-create.php:121
+#: inc/apis/schemas/discount-code-update.php:121
+#: inc/apis/schemas/domain-create.php:75
+#: inc/apis/schemas/domain-update.php:75
+#: inc/apis/schemas/email-create.php:140
+#: inc/apis/schemas/email-update.php:140
+#: inc/apis/schemas/event-create.php:72
+#: inc/apis/schemas/event-update.php:72
+#: inc/apis/schemas/membership-create.php:177
+#: inc/apis/schemas/membership-update.php:177
+#: inc/apis/schemas/payment-create.php:121
+#: inc/apis/schemas/payment-update.php:121
+#: inc/apis/schemas/product-create.php:190
+#: inc/apis/schemas/product-update.php:190
+#: inc/apis/schemas/site-create.php:161
+#: inc/apis/schemas/site-update.php:161
+#: inc/apis/schemas/webhook-create.php:78
+#: inc/apis/schemas/webhook-update.php:78
 msgid "Set true to have field information validation bypassed when saving this event."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:23
-#: inc/api/schemas/checkout-form-update.php:23
+#: inc/apis/schemas/checkout-form-create.php:23
+#: inc/apis/schemas/checkout-form-update.php:23
 msgid "The checkout form slug. It needs to be unique and preferably make it clear what it is about. E.g. my_checkout_form."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:28
-#: inc/api/schemas/checkout-form-update.php:28
+#: inc/apis/schemas/checkout-form-create.php:28
+#: inc/apis/schemas/checkout-form-update.php:28
 msgid "Your checkout form name, which is used as checkout form title as well."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:33
-#: inc/api/schemas/checkout-form-update.php:33
+#: inc/apis/schemas/checkout-form-create.php:33
+#: inc/apis/schemas/checkout-form-update.php:33
 msgid "Set this checkout form as active (true), which means available to be used, or inactive (false)."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:38
-#: inc/api/schemas/checkout-form-update.php:38
+#: inc/apis/schemas/checkout-form-create.php:38
+#: inc/apis/schemas/checkout-form-update.php:38
 msgid "Custom CSS code for the checkout form."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:43
-#: inc/api/schemas/checkout-form-update.php:43
+#: inc/apis/schemas/checkout-form-create.php:43
+#: inc/apis/schemas/checkout-form-update.php:43
 msgid "The checkout form settings and configurations."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:48
-#: inc/api/schemas/checkout-form-update.php:48
+#: inc/apis/schemas/checkout-form-create.php:48
+#: inc/apis/schemas/checkout-form-update.php:48
 msgid "The allowed countries that can access this checkout."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:53
-#: inc/api/schemas/checkout-form-update.php:53
+#: inc/apis/schemas/checkout-form-create.php:53
+#: inc/apis/schemas/checkout-form-update.php:53
 msgid "The thank you page ID. This page is shown after a successful purchase."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:58
-#: inc/api/schemas/checkout-form-update.php:58
+#: inc/apis/schemas/checkout-form-create.php:58
+#: inc/apis/schemas/checkout-form-update.php:58
 msgid "Snippets to run on thank you page."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:63
-#: inc/api/schemas/checkout-form-update.php:63
+#: inc/apis/schemas/checkout-form-create.php:63
+#: inc/apis/schemas/checkout-form-update.php:63
 msgid "Template mode. Can be either 'blank', 'single-step' or 'multi-step'."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:73
-#: inc/api/schemas/checkout-form-update.php:73
-#: inc/api/schemas/customer-create.php:81
-#: inc/api/schemas/customer-update.php:81
-#: inc/api/schemas/payment-create.php:106
-#: inc/api/schemas/payment-update.php:106
-#: inc/api/schemas/site-create.php:146
-#: inc/api/schemas/site-update.php:146
+#: inc/apis/schemas/checkout-form-create.php:73
+#: inc/apis/schemas/checkout-form-update.php:73
+#: inc/apis/schemas/customer-create.php:81
+#: inc/apis/schemas/customer-update.php:81
+#: inc/apis/schemas/payment-create.php:106
+#: inc/apis/schemas/payment-update.php:106
+#: inc/apis/schemas/site-create.php:146
+#: inc/apis/schemas/site-update.php:146
 msgid "Model creation date."
 msgstr ""
 
-#: inc/api/schemas/checkout-form-create.php:78
-#: inc/api/schemas/checkout-form-update.php:78
-#: inc/api/schemas/customer-create.php:86
-#: inc/api/schemas/customer-update.php:86
-#: inc/api/schemas/discount-code-create.php:111
-#: inc/api/schemas/discount-code-update.php:111
-#: inc/api/schemas/domain-create.php:65
-#: inc/api/schemas/domain-update.php:65
-#: inc/api/schemas/event-create.php:62
-#: inc/api/schemas/event-update.php:62
-#: inc/api/schemas/payment-create.php:111
-#: inc/api/schemas/payment-update.php:111
-#: inc/api/schemas/site-create.php:151
-#: inc/api/schemas/site-update.php:151
-#: inc/api/schemas/webhook-create.php:68
-#: inc/api/schemas/webhook-update.php:68
+#: inc/apis/schemas/checkout-form-create.php:78
+#: inc/apis/schemas/checkout-form-update.php:78
+#: inc/apis/schemas/customer-create.php:86
+#: inc/apis/schemas/customer-update.php:86
+#: inc/apis/schemas/discount-code-create.php:111
+#: inc/apis/schemas/discount-code-update.php:111
+#: inc/apis/schemas/domain-create.php:65
+#: inc/apis/schemas/domain-update.php:65
+#: inc/apis/schemas/event-create.php:62
+#: inc/apis/schemas/event-update.php:62
+#: inc/apis/schemas/payment-create.php:111
+#: inc/apis/schemas/payment-update.php:111
+#: inc/apis/schemas/site-create.php:151
+#: inc/apis/schemas/site-update.php:151
+#: inc/apis/schemas/webhook-create.php:68
+#: inc/apis/schemas/webhook-update.php:68
 msgid "Model last modification date."
 msgstr ""
 
-#: inc/api/schemas/customer-create.php:23
-#: inc/api/schemas/customer-update.php:23
+#: inc/apis/schemas/customer-create.php:23
+#: inc/apis/schemas/customer-update.php:23
 msgid "The WordPress user ID attached to this customer."
 msgstr ""
 
-#: inc/api/schemas/customer-create.php:28
-#: inc/api/schemas/customer-update.php:28
+#: inc/apis/schemas/customer-create.php:28
+#: inc/apis/schemas/customer-update.php:28
 msgid "Date when the customer was created."
 msgstr ""
 
-#: inc/api/schemas/customer-create.php:33
-#: inc/api/schemas/customer-update.php:33
+#: inc/apis/schemas/customer-create.php:33
+#: inc/apis/schemas/customer-update.php:33
 msgid "Email verification status - either `none`, `pending`, or `verified`."
 msgstr ""
 
-#: inc/api/schemas/customer-create.php:43
-#: inc/api/schemas/customer-update.php:43
+#: inc/apis/schemas/customer-create.php:43
+#: inc/apis/schemas/customer-update.php:43
 msgid "Date this customer last logged in."
 msgstr ""
 
-#: inc/api/schemas/customer-create.php:48
-#: inc/api/schemas/customer-update.php:48
+#: inc/apis/schemas/customer-create.php:48
+#: inc/apis/schemas/customer-update.php:48
 msgid "Whether or not the customer has trialed before."
 msgstr ""
 
-#: inc/api/schemas/customer-create.php:53
-#: inc/api/schemas/customer-update.php:53
+#: inc/apis/schemas/customer-create.php:53
+#: inc/apis/schemas/customer-update.php:53
 msgid "If this customer is a VIP customer or not."
 msgstr ""
 
-#: inc/api/schemas/customer-create.php:58
-#: inc/api/schemas/customer-update.php:58
+#: inc/apis/schemas/customer-create.php:58
+#: inc/apis/schemas/customer-update.php:58
 msgid "List of IP addresses used by this customer."
 msgstr ""
 
-#: inc/api/schemas/customer-create.php:63
-#: inc/api/schemas/customer-update.php:63
+#: inc/apis/schemas/customer-create.php:63
+#: inc/apis/schemas/customer-update.php:63
 msgid "Any extra information related to this customer."
 msgstr ""
 
-#: inc/api/schemas/customer-create.php:68
-#: inc/api/schemas/customer-update.php:68
+#: inc/apis/schemas/customer-create.php:68
+#: inc/apis/schemas/customer-update.php:68
 msgid "The customer type. Can be 'customer'."
 msgstr ""
 
-#: inc/api/schemas/customer-create.php:76
-#: inc/api/schemas/customer-update.php:76
+#: inc/apis/schemas/customer-create.php:76
+#: inc/apis/schemas/customer-update.php:76
 msgid "The form used to signup."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:23
-#: inc/api/schemas/discount-code-update.php:23
+#: inc/apis/schemas/discount-code-create.php:23
+#: inc/apis/schemas/discount-code-update.php:23
 msgid "Your discount code name, which is used as discount code title as well."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:28
-#: inc/api/schemas/discount-code-update.php:28
+#: inc/apis/schemas/discount-code-create.php:28
+#: inc/apis/schemas/discount-code-update.php:28
 msgid "A unique identification to redeem the discount code. E.g. PROMO10."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:33
-#: inc/api/schemas/discount-code-update.php:33
+#: inc/apis/schemas/discount-code-create.php:33
+#: inc/apis/schemas/discount-code-update.php:33
 msgid "A description for the discount code, usually a short text."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:38
-#: inc/api/schemas/discount-code-update.php:38
+#: inc/apis/schemas/discount-code-create.php:38
+#: inc/apis/schemas/discount-code-update.php:38
 msgid "Number of times this discount was applied."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:43
-#: inc/api/schemas/discount-code-update.php:43
+#: inc/apis/schemas/discount-code-create.php:43
+#: inc/apis/schemas/discount-code-update.php:43
 msgid "The number of times this discount can be used before becoming inactive."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:48
-#: inc/api/schemas/discount-code-update.php:48
+#: inc/apis/schemas/discount-code-create.php:48
+#: inc/apis/schemas/discount-code-update.php:48
 msgid "Wether or not we should apply the discount to membership renewals."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:53
-#: inc/api/schemas/discount-code-update.php:53
+#: inc/apis/schemas/discount-code-create.php:53
+#: inc/apis/schemas/discount-code-update.php:53
 msgid "The type of the discount code. Can be 'percentage' (e.g. 10%% OFF), 'absolute' (e.g. $10 OFF)."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:62
-#: inc/api/schemas/discount-code-update.php:62
+#: inc/apis/schemas/discount-code-create.php:62
+#: inc/apis/schemas/discount-code-update.php:62
 msgid "Amount discounted in cents."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:67
-#: inc/api/schemas/discount-code-update.php:67
+#: inc/apis/schemas/discount-code-create.php:67
+#: inc/apis/schemas/discount-code-update.php:67
 msgid "Type of the discount for the setup fee value. Can be a percentage or absolute."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:76
-#: inc/api/schemas/discount-code-update.php:76
+#: inc/apis/schemas/discount-code-create.php:76
+#: inc/apis/schemas/discount-code-update.php:76
 msgid "Amount discounted for setup fees in cents."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:81
-#: inc/api/schemas/discount-code-update.php:81
+#: inc/apis/schemas/discount-code-create.php:81
+#: inc/apis/schemas/discount-code-update.php:81
 msgid "Set this discount code as active (true), which means available to be used, or inactive (false)."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:86
-#: inc/api/schemas/discount-code-update.php:86
+#: inc/apis/schemas/discount-code-create.php:86
+#: inc/apis/schemas/discount-code-update.php:86
 msgid "Start date for the coupon code to be considered valid."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:91
-#: inc/api/schemas/discount-code-update.php:91
+#: inc/apis/schemas/discount-code-create.php:91
+#: inc/apis/schemas/discount-code-update.php:91
 msgid "Expiration date for the coupon code."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:96
-#: inc/api/schemas/discount-code-update.php:96
+#: inc/apis/schemas/discount-code-create.php:96
+#: inc/apis/schemas/discount-code-update.php:96
 msgid "Date when this discount code was created."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:101
-#: inc/api/schemas/discount-code-update.php:101
+#: inc/apis/schemas/discount-code-create.php:101
+#: inc/apis/schemas/discount-code-update.php:101
 msgid "The list of products that allows this discount code to be used. If empty, all products will accept this code."
 msgstr ""
 
-#: inc/api/schemas/discount-code-create.php:106
-#: inc/api/schemas/discount-code-update.php:106
+#: inc/apis/schemas/discount-code-create.php:106
+#: inc/apis/schemas/discount-code-update.php:106
 msgid "This discount code will be limited to be used in certain products? If set to true, you must define a list of allowed products."
 msgstr ""
 
-#: inc/api/schemas/domain-create.php:23
-#: inc/api/schemas/domain-update.php:23
+#: inc/apis/schemas/domain-create.php:23
+#: inc/apis/schemas/domain-update.php:23
 msgid "Your Domain name. You don't need to put http or https in front of your domain in this field. e.g: example.com."
 msgstr ""
 
-#: inc/api/schemas/domain-create.php:28
-#: inc/api/schemas/domain-update.php:28
+#: inc/apis/schemas/domain-create.php:28
+#: inc/apis/schemas/domain-update.php:28
 msgid "The blog ID attached to this domain."
 msgstr ""
 
-#: inc/api/schemas/domain-create.php:33
-#: inc/api/schemas/domain-update.php:33
+#: inc/apis/schemas/domain-create.php:33
+#: inc/apis/schemas/domain-update.php:33
 msgid "Set this domain as active (true), which means available to be used, or inactive (false)."
 msgstr ""
 
-#: inc/api/schemas/domain-create.php:38
-#: inc/api/schemas/domain-update.php:38
+#: inc/apis/schemas/domain-create.php:38
+#: inc/apis/schemas/domain-update.php:38
 msgid "Define true to set this as primary domain of a site, meaning it's the main url, or set false."
 msgstr ""
 
-#: inc/api/schemas/domain-create.php:43
-#: inc/api/schemas/domain-update.php:43
+#: inc/apis/schemas/domain-create.php:43
+#: inc/apis/schemas/domain-update.php:43
 msgid "If this domain has some SSL security or not."
 msgstr ""
 
-#: inc/api/schemas/domain-create.php:48
-#: inc/api/schemas/domain-update.php:48
+#: inc/apis/schemas/domain-create.php:48
+#: inc/apis/schemas/domain-update.php:48
 msgid "The state of the domain model object. Can be one of this options: checking-dns, checking-ssl-cert, done-without-ssl, done and failed."
 msgstr ""
 
-#: inc/api/schemas/domain-create.php:60
-#: inc/api/schemas/domain-update.php:60
+#: inc/apis/schemas/domain-create.php:60
+#: inc/apis/schemas/domain-update.php:60
 msgid "Date when the domain was created. If no date is set, the current date and time will be used."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:23
-#: inc/api/schemas/email-update.php:23
+#: inc/apis/schemas/email-create.php:23
+#: inc/apis/schemas/email-update.php:23
 msgid "The email style. Can be 'html' or 'plain-text'."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:32
-#: inc/api/schemas/email-update.php:32
+#: inc/apis/schemas/email-create.php:32
+#: inc/apis/schemas/email-update.php:32
 msgid "Whether or not this is a scheduled email."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:42
-#: inc/api/schemas/email-update.php:42
+#: inc/apis/schemas/email-create.php:42
+#: inc/apis/schemas/email-update.php:42
 msgid "The event that needs to be fired for this email to be sent."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:47
-#: inc/api/schemas/email-update.php:47
+#: inc/apis/schemas/email-create.php:47
+#: inc/apis/schemas/email-update.php:47
 msgid "The amount of hours that the email will wait before is sent."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:52
-#: inc/api/schemas/email-update.php:52
+#: inc/apis/schemas/email-create.php:52
+#: inc/apis/schemas/email-update.php:52
 msgid "The amount of days that the email will wait before is sent."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:57
-#: inc/api/schemas/email-update.php:57
+#: inc/apis/schemas/email-create.php:57
+#: inc/apis/schemas/email-update.php:57
 msgid "The type of schedule. Can be 'days' or 'hours'."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:66
-#: inc/api/schemas/email-update.php:66
+#: inc/apis/schemas/email-create.php:66
+#: inc/apis/schemas/email-update.php:66
 msgid "The name being set as title."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:71
-#: inc/api/schemas/email-update.php:71
+#: inc/apis/schemas/email-create.php:71
+#: inc/apis/schemas/email-update.php:71
 msgid "If has a custom sender."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:76
-#: inc/api/schemas/email-update.php:76
+#: inc/apis/schemas/email-create.php:76
+#: inc/apis/schemas/email-update.php:76
 msgid "The name of the custom sender. E.g. From: John Doe."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:81
-#: inc/api/schemas/email-update.php:81
+#: inc/apis/schemas/email-create.php:81
+#: inc/apis/schemas/email-update.php:81
 msgid "The email of the custom sender. E.g. From: johndoe@gmail.com."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:86
-#: inc/api/schemas/email-update.php:86
+#: inc/apis/schemas/email-create.php:86
+#: inc/apis/schemas/email-update.php:86
 msgid "If we should send this to a customer or to the network admin. Can be 'customer' or 'admin'."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:95
-#: inc/api/schemas/email-update.php:95
+#: inc/apis/schemas/email-create.php:95
+#: inc/apis/schemas/email-update.php:95
 msgid "Checks if we should send a copy of the email to the admin."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:100
-#: inc/api/schemas/email-update.php:100
+#: inc/apis/schemas/email-create.php:100
+#: inc/apis/schemas/email-update.php:100
 msgid "Set this email as active (true), which means available will fire when the event occur, or inactive (false)."
 msgstr ""
 
-#: inc/api/schemas/email-create.php:105
-#: inc/api/schemas/email-update.php:105
+#: inc/apis/schemas/email-create.php:105
+#: inc/apis/schemas/email-update.php:105
 msgid "Whether or not this is a legacy email."
 msgstr ""
 
-#: inc/api/schemas/event-create.php:23
-#: inc/api/schemas/event-update.php:23
+#: inc/apis/schemas/event-create.php:23
+#: inc/apis/schemas/event-update.php:23
 msgid "Severity of the problem."
 msgstr ""
 
-#: inc/api/schemas/event-create.php:28
-#: inc/api/schemas/event-update.php:28
+#: inc/apis/schemas/event-create.php:28
+#: inc/apis/schemas/event-update.php:28
 msgid "Date when the event was created."
 msgstr ""
 
-#: inc/api/schemas/event-create.php:33
-#: inc/api/schemas/event-update.php:33
+#: inc/apis/schemas/event-create.php:33
+#: inc/apis/schemas/event-update.php:33
 msgid "Payload of the event."
 msgstr ""
 
-#: inc/api/schemas/event-create.php:38
-#: inc/api/schemas/event-update.php:38
+#: inc/apis/schemas/event-create.php:38
+#: inc/apis/schemas/event-update.php:38
 msgid "The type of user responsible for initiating the event. There are two options: Manual and System. By default, the event is saved as manual."
 msgstr ""
 
-#: inc/api/schemas/event-create.php:47
-#: inc/api/schemas/event-update.php:47
+#: inc/apis/schemas/event-create.php:47
+#: inc/apis/schemas/event-update.php:47
 msgid "The type of object related to this event. It's usually the model name."
 msgstr ""
 
-#: inc/api/schemas/event-create.php:52
-#: inc/api/schemas/event-update.php:52
+#: inc/apis/schemas/event-create.php:52
+#: inc/apis/schemas/event-update.php:52
 msgid "The event slug. It needs to be unique and preferably make it clear what it is about. Example: account_created is about creating an account."
 msgstr ""
 
-#: inc/api/schemas/event-create.php:57
-#: inc/api/schemas/event-update.php:57
+#: inc/apis/schemas/event-create.php:57
+#: inc/apis/schemas/event-update.php:57
 msgid "The ID of the related objects."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:25
-#: inc/api/schemas/membership-update.php:25
+#: inc/apis/schemas/membership-create.php:25
+#: inc/apis/schemas/membership-update.php:25
 msgid "The ID of the customer attached to this membership."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:30
-#: inc/api/schemas/membership-update.php:30
+#: inc/apis/schemas/membership-create.php:30
+#: inc/apis/schemas/membership-update.php:30
 msgid "The user ID attached to this membership."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:35
-#: inc/api/schemas/membership-update.php:35
+#: inc/apis/schemas/membership-create.php:35
+#: inc/apis/schemas/membership-update.php:35
 msgid "The plan ID associated with the membership."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:40
-#: inc/api/schemas/membership-update.php:40
+#: inc/apis/schemas/membership-create.php:40
+#: inc/apis/schemas/membership-update.php:40
 msgid "Additional products related to this membership. Services, Packages or other types of products."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:45
-#: inc/api/schemas/membership-update.php:45
+#: inc/apis/schemas/membership-create.php:45
+#: inc/apis/schemas/membership-update.php:45
 msgid "The currency that this membership. It's a 3-letter code. E.g. 'USD'."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:50
-#: inc/api/schemas/membership-update.php:50
+#: inc/apis/schemas/membership-create.php:50
+#: inc/apis/schemas/membership-update.php:50
 msgid "The interval period between a charge. Only the interval amount, the unit will be defined in another property."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:55
-#: inc/api/schemas/membership-update.php:55
+#: inc/apis/schemas/membership-create.php:55
+#: inc/apis/schemas/membership-update.php:55
 msgid "The duration amount type. Can be 'day', 'week', 'month' or 'year'."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:66
-#: inc/api/schemas/membership-update.php:66
+#: inc/apis/schemas/membership-create.php:66
+#: inc/apis/schemas/membership-update.php:66
 msgid "The product amount."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:71
-#: inc/api/schemas/membership-update.php:71
+#: inc/apis/schemas/membership-create.php:71
+#: inc/apis/schemas/membership-update.php:71
 msgid "The initial amount charged for this membership, including the setup fee."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:76
-#: inc/api/schemas/membership-update.php:76
+#: inc/apis/schemas/membership-create.php:76
+#: inc/apis/schemas/membership-update.php:76
 msgid "Date of creation of this membership."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:81
-#: inc/api/schemas/membership-update.php:81
+#: inc/apis/schemas/membership-create.php:81
+#: inc/apis/schemas/membership-update.php:81
 msgid "Date when this membership was activated."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:86
-#: inc/api/schemas/membership-update.php:86
+#: inc/apis/schemas/membership-create.php:86
+#: inc/apis/schemas/membership-update.php:86
 msgid "Date when the trial period ends, if this membership has or had a trial period."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:91
-#: inc/api/schemas/membership-create.php:96
-#: inc/api/schemas/membership-update.php:91
-#: inc/api/schemas/membership-update.php:96
+#: inc/apis/schemas/membership-create.php:91
+#: inc/apis/schemas/membership-create.php:96
+#: inc/apis/schemas/membership-update.php:91
+#: inc/apis/schemas/membership-update.php:96
 msgid "Date when the membership was cancelled."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:101
-#: inc/api/schemas/membership-update.php:101
+#: inc/apis/schemas/membership-create.php:101
+#: inc/apis/schemas/membership-update.php:101
 msgid "Date when the membership will expiry."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:106
-#: inc/api/schemas/membership-update.php:106
+#: inc/apis/schemas/membership-create.php:106
+#: inc/apis/schemas/membership-update.php:106
 msgid "Change of the payment completion for the plan value."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:111
-#: inc/api/schemas/membership-update.php:111
+#: inc/apis/schemas/membership-create.php:111
+#: inc/apis/schemas/membership-update.php:111
 msgid "If this membership should auto-renewal."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:116
-#: inc/api/schemas/membership-update.php:116
+#: inc/apis/schemas/membership-create.php:116
+#: inc/apis/schemas/membership-update.php:116
 msgid "Amount of times this membership got billed."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:121
-#: inc/api/schemas/membership-update.php:121
+#: inc/apis/schemas/membership-create.php:121
+#: inc/apis/schemas/membership-update.php:121
 msgid "Maximum times we should charge this membership."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:126
-#: inc/api/schemas/membership-update.php:126
+#: inc/apis/schemas/membership-create.php:126
+#: inc/apis/schemas/membership-update.php:126
 msgid "The membership status. Can be 'pending', 'active', 'on-hold', 'expired', 'cancelled' or other values added by third-party add-ons."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:132
-#: inc/api/schemas/membership-update.php:132
+#: inc/apis/schemas/membership-create.php:132
+#: inc/apis/schemas/membership-update.php:132
 msgid "The ID of the customer on the payment gateway database."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:137
-#: inc/api/schemas/membership-update.php:137
+#: inc/apis/schemas/membership-create.php:137
+#: inc/apis/schemas/membership-update.php:137
 msgid "The ID of the subscription on the payment gateway database."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:142
-#: inc/api/schemas/membership-update.php:142
+#: inc/apis/schemas/membership-create.php:142
+#: inc/apis/schemas/membership-update.php:142
 msgid "ID of the gateway being used on this subscription."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:147
-#: inc/api/schemas/membership-update.php:147
+#: inc/apis/schemas/membership-create.php:147
+#: inc/apis/schemas/membership-update.php:147
 msgid "Signup method used to create this membership."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:152
-#: inc/api/schemas/membership-update.php:152
+#: inc/apis/schemas/membership-create.php:152
+#: inc/apis/schemas/membership-update.php:152
 msgid "Plan that this membership upgraded from."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:157
-#: inc/api/schemas/membership-update.php:157
+#: inc/apis/schemas/membership-create.php:157
+#: inc/apis/schemas/membership-update.php:157
 msgid "Date this membership was last modified."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:162
-#: inc/api/schemas/membership-update.php:162
+#: inc/apis/schemas/membership-create.php:162
+#: inc/apis/schemas/membership-update.php:162
 msgid "If this membership is a disabled one."
 msgstr ""
 
-#: inc/api/schemas/membership-create.php:167
-#: inc/api/schemas/membership-update.php:167
+#: inc/apis/schemas/membership-create.php:167
+#: inc/apis/schemas/membership-update.php:167
 msgid "If this membership is recurring (true), which means the customer paid a defined amount each period of time, or not recurring (false)."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:25
-#: inc/api/schemas/payment-update.php:25
+#: inc/apis/schemas/payment-create.php:25
+#: inc/apis/schemas/payment-update.php:25
 msgid "The ID of the customer attached to this payment."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:30
-#: inc/api/schemas/payment-update.php:30
+#: inc/apis/schemas/payment-create.php:30
+#: inc/apis/schemas/payment-update.php:30
 msgid "The ID of the membership attached to this payment."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:35
-#: inc/api/schemas/payment-update.php:35
+#: inc/apis/schemas/payment-create.php:35
+#: inc/apis/schemas/payment-update.php:35
 msgid "The ID from another payment that this payment is related to."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:40
-#: inc/api/schemas/payment-update.php:40
+#: inc/apis/schemas/payment-create.php:40
+#: inc/apis/schemas/payment-update.php:40
 msgid "The currency of this payment. It's a 3-letter code. E.g. 'USD'."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:45
-#: inc/api/schemas/payment-update.php:45
+#: inc/apis/schemas/payment-create.php:45
+#: inc/apis/schemas/payment-update.php:45
 msgid "Value before taxes, discounts, fees and other changes."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:50
-#: inc/api/schemas/payment-update.php:50
+#: inc/apis/schemas/payment-create.php:50
+#: inc/apis/schemas/payment-update.php:50
 msgid "Total amount refunded."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:55
-#: inc/api/schemas/payment-update.php:55
+#: inc/apis/schemas/payment-create.php:55
+#: inc/apis/schemas/payment-update.php:55
 msgid "The amount, in currency, of the tax."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:60
-#: inc/api/schemas/payment-update.php:60
+#: inc/apis/schemas/payment-create.php:60
+#: inc/apis/schemas/payment-update.php:60
 msgid "Discount code used."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:65
-#: inc/api/schemas/payment-update.php:65
+#: inc/apis/schemas/payment-create.php:65
+#: inc/apis/schemas/payment-update.php:65
 msgid "This takes into account fees, discounts and credits."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:70
-#: inc/api/schemas/payment-update.php:70
+#: inc/apis/schemas/payment-create.php:70
+#: inc/apis/schemas/payment-update.php:70
 msgid "The payment status: Can be 'pending', 'completed', 'refunded', 'partially-refunded', 'partially-paid', 'failed', 'cancelled' or other values added by third-party add-ons."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:76
-#: inc/api/schemas/payment-update.php:76
+#: inc/apis/schemas/payment-create.php:76
+#: inc/apis/schemas/payment-update.php:76
 msgid "ID of the gateway being used on this payment."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:81
-#: inc/api/schemas/payment-update.php:81
+#: inc/apis/schemas/payment-create.php:81
+#: inc/apis/schemas/payment-update.php:81
 msgid "The ID of the product of this payment."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:86
-#: inc/api/schemas/payment-update.php:86
+#: inc/apis/schemas/payment-create.php:86
+#: inc/apis/schemas/payment-update.php:86
 msgid "The ID of the payment on the gateway, if it exists."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:91
-#: inc/api/schemas/payment-update.php:91
+#: inc/apis/schemas/payment-create.php:91
+#: inc/apis/schemas/payment-update.php:91
 msgid "The total value of the discounts applied to this payment."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:96
-#: inc/api/schemas/payment-update.php:96
+#: inc/apis/schemas/payment-create.php:96
+#: inc/apis/schemas/payment-update.php:96
 msgid "Sequential invoice number assigned to this payment."
 msgstr ""
 
-#: inc/api/schemas/payment-create.php:101
-#: inc/api/schemas/payment-update.php:101
+#: inc/apis/schemas/payment-create.php:101
+#: inc/apis/schemas/payment-update.php:101
 msgid "Holds if we need to cancel the membership on refund."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:23
-#: inc/api/schemas/product-update.php:23
+#: inc/apis/schemas/product-create.php:23
+#: inc/apis/schemas/product-update.php:23
 msgid "The ID of the feature image of the product."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:28
-#: inc/api/schemas/product-update.php:28
+#: inc/apis/schemas/product-create.php:28
+#: inc/apis/schemas/product-update.php:28
 msgid "The product slug. It needs to be unique and preferably make it clear what it is about. Example: my_new_product."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:33
-#: inc/api/schemas/product-update.php:33
+#: inc/apis/schemas/product-create.php:33
+#: inc/apis/schemas/product-update.php:33
 msgid "Your product name, which is used as product title as well."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:38
-#: inc/api/schemas/product-update.php:38
+#: inc/apis/schemas/product-create.php:38
+#: inc/apis/schemas/product-update.php:38
 msgid "A description for the product, usually a short text."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:43
-#: inc/api/schemas/product-update.php:43
+#: inc/apis/schemas/product-create.php:43
+#: inc/apis/schemas/product-update.php:43
 msgid "The currency that this product accepts. It's a 3-letter code. E.g. 'USD'."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:48
-#: inc/api/schemas/product-update.php:48
+#: inc/apis/schemas/product-create.php:48
+#: inc/apis/schemas/product-update.php:48
 msgid "The pricing type can be 'free', 'paid' or 'contact_us'."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:58
-#: inc/api/schemas/product-update.php:58
+#: inc/apis/schemas/product-create.php:58
+#: inc/apis/schemas/product-update.php:58
 msgid "The duration of the trial period of this product, if the product has one."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:63
-#: inc/api/schemas/product-update.php:63
+#: inc/apis/schemas/product-create.php:63
+#: inc/apis/schemas/product-update.php:63
 msgid "The unit of the trial duration amount. Can be day, week, month or year."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:74
-#: inc/api/schemas/product-update.php:74
+#: inc/apis/schemas/product-create.php:74
+#: inc/apis/schemas/product-update.php:74
 msgid "Time interval between charges."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:79
-#: inc/api/schemas/product-update.php:79
+#: inc/apis/schemas/product-create.php:79
+#: inc/apis/schemas/product-update.php:79
 msgid "Time interval unit between charges."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:90
-#: inc/api/schemas/product-update.php:90
+#: inc/apis/schemas/product-create.php:90
+#: inc/apis/schemas/product-update.php:90
 msgid "The value of this product. E.g. 19.99."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:95
-#: inc/api/schemas/product-update.php:95
+#: inc/apis/schemas/product-create.php:95
+#: inc/apis/schemas/product-update.php:95
 msgid "The setup fee value, if the product has one. E.g. 159.99."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:100
-#: inc/api/schemas/product-update.php:100
+#: inc/apis/schemas/product-create.php:100
+#: inc/apis/schemas/product-update.php:100
 msgid "Set this product as active (true), which means available to be used, or inactive (false)."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:105
-#: inc/api/schemas/product-update.php:105
+#: inc/apis/schemas/product-create.php:105
+#: inc/apis/schemas/product-update.php:105
 msgid "The default product types are 'product', 'service' and 'package'. More types can be add using the product type filter."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:115
-#: inc/api/schemas/product-update.php:115
+#: inc/apis/schemas/product-create.php:115
+#: inc/apis/schemas/product-update.php:115
 msgid "The ID from another Product that this product is related to."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:120
-#: inc/api/schemas/product-update.php:120
+#: inc/apis/schemas/product-create.php:120
+#: inc/apis/schemas/product-update.php:120
 msgid "Set this product as a recurring one (true), which means the customer paid a defined amount each period of time, or not recurring (false)."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:125
-#: inc/api/schemas/product-update.php:125
+#: inc/apis/schemas/product-create.php:125
+#: inc/apis/schemas/product-update.php:125
 msgid "The number of times we should charge this product."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:130
-#: inc/api/schemas/product-update.php:130
-#: inc/api/schemas/webhook-create.php:53
-#: inc/api/schemas/webhook-update.php:53
+#: inc/apis/schemas/product-create.php:130
+#: inc/apis/schemas/product-update.php:130
+#: inc/apis/schemas/webhook-create.php:53
+#: inc/apis/schemas/webhook-update.php:53
 msgid "Date when this was created."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:135
-#: inc/api/schemas/product-update.php:135
+#: inc/apis/schemas/product-create.php:135
+#: inc/apis/schemas/product-update.php:135
 msgid "Date when this was last modified."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:140
-#: inc/api/schemas/product-update.php:140
+#: inc/apis/schemas/product-create.php:140
+#: inc/apis/schemas/product-update.php:140
 msgid "Set this product as a taxable one (true), which means tax rules are applied to, or not taxable (false)."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:145
-#: inc/api/schemas/product-update.php:145
+#: inc/apis/schemas/product-create.php:145
+#: inc/apis/schemas/product-update.php:145
 msgid "Category of taxes applied to this product. You need to set this if taxable is set to true."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:150
-#: inc/api/schemas/product-update.php:150
+#: inc/apis/schemas/product-create.php:150
+#: inc/apis/schemas/product-update.php:150
 msgid "If the product is the 'contact_us' type, it will need a label for the contact us button."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:155
-#: inc/api/schemas/product-update.php:155
+#: inc/apis/schemas/product-create.php:155
+#: inc/apis/schemas/product-update.php:155
 msgid "The url where the contact us button will lead to."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:160
-#: inc/api/schemas/product-update.php:160
+#: inc/apis/schemas/product-create.php:160
+#: inc/apis/schemas/product-update.php:160
 msgid "A list (array) of features of the product."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:165
-#: inc/api/schemas/product-update.php:165
+#: inc/apis/schemas/product-create.php:165
+#: inc/apis/schemas/product-update.php:165
 msgid "The customer role of this product."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:170
-#: inc/api/schemas/product-update.php:170
+#: inc/apis/schemas/product-create.php:170
+#: inc/apis/schemas/product-update.php:170
 msgid "The available addons of this product."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:175
-#: inc/api/schemas/product-update.php:175
+#: inc/apis/schemas/product-create.php:175
+#: inc/apis/schemas/product-update.php:175
 msgid "The group of this product, if has any."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:180
-#: inc/api/schemas/product-update.php:180
+#: inc/apis/schemas/product-create.php:180
+#: inc/apis/schemas/product-update.php:180
 msgid "If the legacy options are enabled."
 msgstr ""
 
-#: inc/api/schemas/product-create.php:195
-#: inc/api/schemas/product-update.php:195
+#: inc/apis/schemas/product-create.php:195
+#: inc/apis/schemas/product-update.php:195
 msgid "Feature list for pricing tables."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:23
-#: inc/api/schemas/site-update.php:23
+#: inc/apis/schemas/site-create.php:23
+#: inc/apis/schemas/site-update.php:23
 msgid "The categories this site belongs to."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:28
-#: inc/api/schemas/site-update.php:28
+#: inc/apis/schemas/site-create.php:28
+#: inc/apis/schemas/site-update.php:28
 msgid "The ID of the feature image of the site."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:33
-#: inc/api/schemas/site-update.php:33
+#: inc/apis/schemas/site-create.php:33
+#: inc/apis/schemas/site-update.php:33
 msgid "The network ID for this site."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:38
-#: inc/api/schemas/site-update.php:38
+#: inc/apis/schemas/site-create.php:38
+#: inc/apis/schemas/site-update.php:38
 msgid "The site title."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:43
-#: inc/api/schemas/site-update.php:43
+#: inc/apis/schemas/site-create.php:43
+#: inc/apis/schemas/site-update.php:43
 msgid "The site name."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:48
-#: inc/api/schemas/site-update.php:48
+#: inc/apis/schemas/site-create.php:48
+#: inc/apis/schemas/site-update.php:48
 msgid "A description for the site, usually a short text."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:53
-#: inc/api/schemas/site-update.php:53
+#: inc/apis/schemas/site-create.php:53
+#: inc/apis/schemas/site-update.php:53
 msgid "The site domain. You don't need to put http or https in front of your domain in this field. e.g: example.com."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:58
-#: inc/api/schemas/site-update.php:58
+#: inc/apis/schemas/site-create.php:58
+#: inc/apis/schemas/site-update.php:58
 msgid "Path of the site. Used when in sub-directory mode."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:63
-#: inc/api/schemas/site-update.php:63
+#: inc/apis/schemas/site-create.php:63
+#: inc/apis/schemas/site-update.php:63
 msgid "Date when the site was registered."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:68
-#: inc/api/schemas/site-update.php:68
+#: inc/apis/schemas/site-create.php:68
+#: inc/apis/schemas/site-update.php:68
 msgid "Date of the last update on this site."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:73
-#: inc/api/schemas/site-update.php:73
+#: inc/apis/schemas/site-create.php:73
+#: inc/apis/schemas/site-update.php:73
 msgid "Holds the ID of the customer that owns this site."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:78
-#: inc/api/schemas/site-update.php:78
+#: inc/apis/schemas/site-create.php:78
+#: inc/apis/schemas/site-update.php:78
 msgid "Set true if this site is a public one, false if not."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:83
-#: inc/api/schemas/site-update.php:83
+#: inc/apis/schemas/site-create.php:83
+#: inc/apis/schemas/site-update.php:83
 msgid "Is this an archived site."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:88
-#: inc/api/schemas/site-update.php:88
+#: inc/apis/schemas/site-create.php:88
+#: inc/apis/schemas/site-update.php:88
 msgid "Is this a site with mature content."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:93
-#: inc/api/schemas/site-update.php:93
+#: inc/apis/schemas/site-create.php:93
+#: inc/apis/schemas/site-update.php:93
 msgid "Is this an spam site."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:98
-#: inc/api/schemas/site-update.php:98
+#: inc/apis/schemas/site-create.php:98
+#: inc/apis/schemas/site-update.php:98
 msgid "Is this site deleted."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:103
-#: inc/api/schemas/site-update.php:103
+#: inc/apis/schemas/site-create.php:103
+#: inc/apis/schemas/site-update.php:103
 msgid "The ID of the language being used on this site."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:108
-#: inc/api/schemas/site-update.php:108
+#: inc/apis/schemas/site-create.php:108
+#: inc/apis/schemas/site-update.php:108
 msgid "The ID of the customer that owns this site."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:113
-#: inc/api/schemas/site-update.php:113
+#: inc/apis/schemas/site-create.php:113
+#: inc/apis/schemas/site-update.php:113
 msgid "The ID of the membership associated with this site, if any."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:118
-#: inc/api/schemas/site-update.php:118
+#: inc/apis/schemas/site-create.php:118
+#: inc/apis/schemas/site-update.php:118
 msgid "The ID of the templated used to create this site."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:123
-#: inc/api/schemas/site-update.php:123
+#: inc/apis/schemas/site-create.php:123
+#: inc/apis/schemas/site-update.php:123
 msgid "The type of this particular site. Can be default, site_template, customer_owned, pending, external, main or other values added by third-party add-ons."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:136
-#: inc/api/schemas/site-update.php:136
+#: inc/apis/schemas/site-create.php:136
+#: inc/apis/schemas/site-update.php:136
 msgid "Keeps signup options for the site."
 msgstr ""
 
-#: inc/api/schemas/site-create.php:141
-#: inc/api/schemas/site-update.php:141
+#: inc/apis/schemas/site-create.php:141
+#: inc/apis/schemas/site-update.php:141
 msgid "Keeps signup meta for the site."
 msgstr ""
 
-#: inc/api/schemas/webhook-create.php:23
-#: inc/api/schemas/webhook-update.php:23
+#: inc/apis/schemas/webhook-create.php:23
+#: inc/apis/schemas/webhook-update.php:23
 msgid "Webhook name, which is used as product title as well."
 msgstr ""
 
-#: inc/api/schemas/webhook-create.php:28
-#: inc/api/schemas/webhook-update.php:28
+#: inc/apis/schemas/webhook-create.php:28
+#: inc/apis/schemas/webhook-update.php:28
 msgid "The URL used for the webhook call."
 msgstr ""
 
-#: inc/api/schemas/webhook-create.php:33
-#: inc/api/schemas/webhook-update.php:33
+#: inc/apis/schemas/webhook-create.php:33
+#: inc/apis/schemas/webhook-update.php:33
 msgid "The event that needs to be fired for this webhook to be sent."
 msgstr ""
 
-#: inc/api/schemas/webhook-create.php:38
-#: inc/api/schemas/webhook-update.php:38
+#: inc/apis/schemas/webhook-create.php:38
+#: inc/apis/schemas/webhook-update.php:38
 msgid "How many times this webhook was sent."
 msgstr ""
 
-#: inc/api/schemas/webhook-create.php:43
-#: inc/api/schemas/webhook-update.php:43
+#: inc/apis/schemas/webhook-create.php:43
+#: inc/apis/schemas/webhook-update.php:43
 msgid "Set this webhook as active (true), which means available will fire when the event occur, or inactive (false)."
 msgstr ""
 
-#: inc/api/schemas/webhook-create.php:48
-#: inc/api/schemas/webhook-update.php:48
+#: inc/apis/schemas/webhook-create.php:48
+#: inc/apis/schemas/webhook-update.php:48
 msgid "Is this webhook hidden."
 msgstr ""
 
-#: inc/api/schemas/webhook-create.php:58
-#: inc/api/schemas/webhook-update.php:58
+#: inc/apis/schemas/webhook-create.php:58
+#: inc/apis/schemas/webhook-update.php:58
 msgid "The integration that created this webhook."
 msgstr ""
 
-#: inc/api/schemas/webhook-create.php:63
-#: inc/api/schemas/webhook-update.php:63
+#: inc/apis/schemas/webhook-create.php:63
+#: inc/apis/schemas/webhook-update.php:63
 msgid "The date when this webhook last fail."
 msgstr ""
 
-#: inc/api/trait-rest-api.php:174
-#: inc/api/trait-rest-api.php:247
-#: inc/api/trait-rest-api.php:305
+#: inc/apis/trait-mcp-abilities.php:93
+msgid "Multisite Ultimate"
+msgstr ""
+
+#: inc/apis/trait-mcp-abilities.php:94
+msgid "CRUD operations for Multisite Ultimate entities including customers, sites, products, memberships, and more."
+msgstr ""
+
+#: inc/apis/trait-mcp-abilities.php:115
+msgid "You do not have permission to access this resource."
+msgstr ""
+
+#. translators: %s: entity name (e.g., Customer, Site, Product)
+#: inc/apis/trait-mcp-abilities.php:180
+#, php-format
+msgid "Get %s by ID"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:182
+#, php-format
+msgid "Retrieve a single %s by its ID"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:191
+#, php-format
+msgid "The ID of the %s to retrieve"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:202
+#, php-format
+msgid "The %s object"
+msgstr ""
+
+#. translators: %s: entity name (e.g., Customer, Site, Product)
+#: inc/apis/trait-mcp-abilities.php:231
+#, php-format
+msgid "List %s"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:233
+#, php-format
+msgid "Retrieve a list of %s with optional filters"
+msgstr ""
+
+#: inc/apis/trait-mcp-abilities.php:241
+msgid "Number of items to retrieve per page"
+msgstr ""
+
+#: inc/apis/trait-mcp-abilities.php:246
+msgid "Page number to retrieve"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:257
+#, php-format
+msgid "Array of %s objects"
+msgstr ""
+
+#: inc/apis/trait-mcp-abilities.php:264
+msgid "Total number of items"
+msgstr ""
+
+#. translators: %s: entity name (e.g., Customer, Site, Product)
+#: inc/apis/trait-mcp-abilities.php:289
+#, php-format
+msgid "Create %s"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#. translators: %s is the singular value of the model, such as Product, or Payment.
+#: inc/apis/trait-mcp-abilities.php:291
+#: inc/list-tables/class-base-list-table.php:510
+#, php-format
+msgid "Create a new %s"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:301
+#, php-format
+msgid "The created %s object"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:325
+#, php-format
+msgid "The ID of the %s to update"
+msgstr ""
+
+#. translators: %s: entity name (e.g., Customer, Site, Product)
+#: inc/apis/trait-mcp-abilities.php:339
+#, php-format
+msgid "Update %s"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:341
+#, php-format
+msgid "Update an existing %s"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:351
+#, php-format
+msgid "The updated %s object"
+msgstr ""
+
+#. translators: %s: entity name (e.g., Customer, Site, Product)
+#: inc/apis/trait-mcp-abilities.php:374
+#, php-format
+msgid "Delete %s"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:376
+#, php-format
+msgid "Delete a %s by its ID"
+msgstr ""
+
+#. translators: %s: entity name (e.g., customer, site, product)
+#: inc/apis/trait-mcp-abilities.php:385
+#, php-format
+msgid "The ID of the %s to delete"
+msgstr ""
+
+#: inc/apis/trait-mcp-abilities.php:395
+msgid "Whether the deletion was successful"
+msgstr ""
+
+#: inc/apis/trait-mcp-abilities.php:464
+#: inc/apis/trait-mcp-abilities.php:566
+#: inc/apis/trait-mcp-abilities.php:623
+msgid "ID is required"
+msgstr ""
+
+#. translators: %s: entity name (e.g., Customer, Site, Product)
+#: inc/apis/trait-mcp-abilities.php:474
+#: inc/apis/trait-mcp-abilities.php:579
+#: inc/apis/trait-mcp-abilities.php:633
+#, php-format
+msgid "%s not found"
+msgstr ""
+
+#: inc/apis/trait-mcp-abilities.php:547
+msgid "Failed to save item"
+msgstr ""
+
+#: inc/apis/trait-mcp-abilities.php:604
+msgid "Failed to update item"
+msgstr ""
+
+#: inc/apis/trait-rest-api.php:174
+#: inc/apis/trait-rest-api.php:247
+#: inc/apis/trait-rest-api.php:305
 #: inc/models/class-base-model.php:646
 #: inc/models/class-site.php:1435
 msgid "Item not found."
 msgstr ""
 
-#: inc/api/trait-rest-api.php:226
+#: inc/apis/trait-rest-api.php:226
 msgid "Something went wrong (Code 1)."
 msgstr ""
 
 #. translators: 1. Object class name; 2. Set method name
-#: inc/api/trait-rest-api.php:266
-#: inc/api/trait-wp-cli.php:340
+#: inc/apis/trait-rest-api.php:266
+#: inc/apis/trait-wp-cli.php:340
 #, php-format
 msgid "The %1$s object does not have a %2$s method"
 msgstr ""
 
-#: inc/api/trait-rest-api.php:286
+#: inc/apis/trait-rest-api.php:286
 msgid "Something went wrong (Code 2)."
 msgstr ""
 
-#: inc/api/trait-wp-cli.php:121
+#: inc/apis/trait-wp-cli.php:121
 msgid "The id for the resource."
 msgstr ""
 
-#: inc/api/trait-wp-cli.php:136
+#: inc/apis/trait-wp-cli.php:136
 msgid "No description found."
 msgstr ""
 
-#: inc/api/trait-wp-cli.php:155
+#: inc/apis/trait-wp-cli.php:155
 msgid "Output just the id when the operation is successful."
 msgstr ""
 
-#: inc/api/trait-wp-cli.php:164
+#: inc/apis/trait-wp-cli.php:164
 msgid "Render response in a particular format."
 msgstr ""
 
-#: inc/api/trait-wp-cli.php:180
+#: inc/apis/trait-wp-cli.php:180
 msgid "Limit response to specific fields. Defaults to id, name"
 msgstr ""
 
@@ -6699,50 +6869,50 @@ msgstr ""
 msgid "Signup Credit for %s"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:110
+#: inc/checkout/class-checkout-pages.php:108
 msgid "Ultimate Multisite Compatibility Mode"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:111
+#: inc/checkout/class-checkout-pages.php:109
 msgid "Toggle this option on if Ultimate Multisite elements are not loading correctly or at all."
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:190
+#: inc/checkout/class-checkout-pages.php:188
 msgid "<strong>Error:</strong> The password you entered is incorrect."
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:220
+#: inc/checkout/class-checkout-pages.php:218
 #: inc/integrations/host-providers/class-closte-host-provider.php:256
 msgid "Something went wrong"
 msgstr ""
 
 #. translators: %1$s and %2$s are <strong></strong> HTML tags
-#: inc/checkout/class-checkout-pages.php:424
+#: inc/checkout/class-checkout-pages.php:422
 #, php-format
 msgid "Your email address is not yet verified. Your site %1$s will only be activated %2$s after your email address is verified. Check your inbox and verify your email address."
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:428
+#: inc/checkout/class-checkout-pages.php:426
 msgid "Resend verification email →"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:633
+#: inc/checkout/class-checkout-pages.php:631
 msgid "Ultimate Multisite - Register Page"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:634
+#: inc/checkout/class-checkout-pages.php:632
 msgid "Ultimate Multisite - Login Page"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:635
+#: inc/checkout/class-checkout-pages.php:633
 msgid "Ultimate Multisite - Site Blocked Page"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:636
+#: inc/checkout/class-checkout-pages.php:634
 msgid "Ultimate Multisite - Membership Update Page"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:637
+#: inc/checkout/class-checkout-pages.php:635
 msgid "Ultimate Multisite - New Site Page"
 msgstr ""
 
@@ -6810,9 +6980,9 @@ msgid "OFF"
 msgstr ""
 
 #: inc/checkout/class-legacy-checkout.php:252
-#: inc/models/class-membership.php:902
-#: inc/models/class-product.php:636
-#: inc/models/class-product.php:717
+#: inc/models/class-membership.php:911
+#: inc/models/class-product.php:645
+#: inc/models/class-product.php:726
 #: views/checkout/templates/pricing-table/legacy.php:163
 #: views/legacy/signup/pricing-table/plan.php:29
 #: views/legacy/signup/pricing-table/plan.php:48
@@ -6862,7 +7032,7 @@ msgid "Select the title your site is going to have."
 msgstr ""
 
 #: inc/checkout/class-legacy-checkout.php:455
-#: inc/list-tables/class-site-list-table.php:273
+#: inc/list-tables/class-site-list-table.php:271
 #: views/emails/customer/site-published.php:25
 msgid "URL"
 msgstr ""
@@ -7218,7 +7388,7 @@ msgstr ""
 #: inc/checkout/signup-fields/class-signup-field-pricing-table.php:286
 #: inc/checkout/signup-fields/class-signup-field-steps.php:216
 #: inc/checkout/signup-fields/class-signup-field-template-selection.php:365
-#: inc/ui/class-template-switching-element.php:356
+#: inc/ui/class-template-switching-element.php:357
 msgid "Template does not exist."
 msgstr ""
 
@@ -7285,7 +7455,7 @@ msgstr ""
 #: inc/checkout/signup-fields/class-signup-field-payment.php:59
 #: inc/list-tables/class-payment-list-table-widget.php:41
 #: inc/list-tables/class-payment-list-table.php:41
-#: inc/managers/class-payment-manager.php:69
+#: inc/managers/class-payment-manager.php:74
 #: inc/models/class-checkout-form.php:747
 #: views/emails/admin/payment-received.php:15
 #: views/emails/customer/payment-received.php:16
@@ -7559,7 +7729,7 @@ msgstr ""
 
 #: inc/checkout/signup-fields/class-signup-field-template-selection.php:58
 #: inc/compat/class-legacy-shortcodes.php:525
-#: inc/list-tables/class-site-list-table.php:357
+#: inc/list-tables/class-site-list-table.php:355
 msgid "Templates"
 msgstr ""
 
@@ -7973,7 +8143,7 @@ msgid "Forum Discussions"
 msgstr ""
 
 #. translators: First placeholder is the mapping ID, second is the site ID.
-#: inc/class-domain-mapping.php:386
+#: inc/class-domain-mapping.php:458
 #, php-format
 msgid "Unable to delete mapping %1$d for site %2$d"
 msgstr ""
@@ -8026,6 +8196,52 @@ msgstr ""
 
 #: inc/class-maintenance-mode.php:193
 msgid "Allow your customers and super admins to quickly take sites offline via a toggle on the site dashboard."
+msgstr ""
+
+#. translators: %s: error message from the exception
+#: inc/class-mcp-adapter.php:104
+#, php-format
+msgid "Failed to initialize MCP adapter: %s"
+msgstr ""
+
+#: inc/class-mcp-adapter.php:141
+msgid "Ultimate Multisite MCP Server"
+msgstr ""
+
+#: inc/class-mcp-adapter.php:142
+msgid "AI-accessible Ultimate Multisite operations via MCP"
+msgstr ""
+
+#: inc/class-mcp-adapter.php:176
+msgid "MCP Adapter Settings"
+msgstr ""
+
+#: inc/class-mcp-adapter.php:177
+msgid "Options related to the Model Context Protocol (MCP) adapter. MCP allows AI assistants to interact with Ultimate Multisite programmatically."
+msgstr ""
+
+#: inc/class-mcp-adapter.php:186
+msgid "Enable MCP Adapter"
+msgstr ""
+
+#: inc/class-mcp-adapter.php:187
+msgid "Tick this box to enable the Model Context Protocol (MCP) adapter. This allows AI assistants to interact with Ultimate Multisite through the Abilities API."
+msgstr ""
+
+#: inc/class-mcp-adapter.php:196
+msgid "MCP Server URL"
+msgstr ""
+
+#: inc/class-mcp-adapter.php:198
+msgid "This is the URL where the MCP server is accessible via HTTP."
+msgstr ""
+
+#: inc/class-mcp-adapter.php:211
+msgid "STDIO Command"
+msgstr ""
+
+#: inc/class-mcp-adapter.php:213
+msgid "This is the WP-CLI command to run the MCP server via STDIO transport."
 msgstr ""
 
 #: inc/class-newsletter.php:45
@@ -8189,7 +8405,7 @@ msgstr ""
 #. translators: %s is a relative past date.
 #: inc/class-scripts.php:307
 #: inc/functions/date.php:156
-#: inc/list-tables/class-base-list-table.php:838
+#: inc/list-tables/class-base-list-table.php:850
 #: views/admin-pages/fields/field-text-display.php:43
 #: views/admin-pages/fields/field-text-edit.php:46
 #, php-format
@@ -8803,7 +9019,7 @@ msgid "Use %%YEAR%%, %%MONTH%%, and %%DAY%% to create a dynamic placeholder. E.g
 msgstr ""
 
 #: inc/class-settings.php:1434
-#: inc/ui/class-jumper.php:208
+#: inc/ui/class-jumper.php:209
 msgid "Payment Gateways"
 msgstr ""
 
@@ -8815,7 +9031,7 @@ msgstr ""
 #: inc/class-settings.php:1451
 #: inc/list-tables/class-broadcast-list-table.php:481
 #: inc/list-tables/class-email-list-table.php:40
-#: inc/ui/class-jumper.php:210
+#: inc/ui/class-jumper.php:211
 msgid "Emails"
 msgstr ""
 
@@ -8936,20 +9152,20 @@ msgid "Remove all saved data for Ultimate Multisite when the plugin is uninstall
 msgstr ""
 
 #. translators: the placeholder is an error message
-#: inc/class-sunrise.php:291
+#: inc/class-sunrise.php:292
 #, php-format
 msgid "Sunrise copy failed: %s"
 msgstr ""
 
-#: inc/class-sunrise.php:294
+#: inc/class-sunrise.php:295
 msgid "Sunrise upgrade attempt succeeded."
 msgstr ""
 
-#: inc/class-user-switching.php:74
+#: inc/class-user-switching.php:77
 msgid "This feature requires the plugin <strong>User Switching</strong> to be installed and active."
 msgstr ""
 
-#: inc/class-user-switching.php:79
+#: inc/class-user-switching.php:82
 #: views/customers/widget-avatar.php:69
 msgid "Install User Switching"
 msgstr ""
@@ -14495,7 +14711,7 @@ msgstr ""
 
 #. translators: %s is a relative past date.
 #: inc/functions/date.php:156
-#: inc/list-tables/class-base-list-table.php:838
+#: inc/list-tables/class-base-list-table.php:850
 #: views/admin-pages/fields/field-text-display.php:43
 #: views/admin-pages/fields/field-text-edit.php:46
 #, php-format
@@ -14556,7 +14772,7 @@ msgstr ""
 msgid "Test Product"
 msgstr ""
 
-#: inc/functions/settings.php:113
+#: inc/functions/settings.php:111
 msgid "Side Panel"
 msgstr ""
 
@@ -14890,7 +15106,7 @@ msgid "Something has gone wrong, please try again"
 msgstr ""
 
 #: inc/gateways/class-paypal-gateway.php:783
-#: inc/list-tables/class-base-list-table.php:661
+#: inc/list-tables/class-base-list-table.php:673
 #: inc/managers/class-form-manager.php:499
 #: inc/ui/class-billing-info-element.php:383
 #: inc/ui/class-current-site-element.php:487
@@ -15161,25 +15377,26 @@ msgstr ""
 
 #. translators: %s id the template site id and %s is the error message returned.
 #: inc/helpers/class-site-duplicator.php:121
+#: inc/helpers/class-site-duplicator.php:144
 #, php-format
 msgid "Attempt to override site %1$d with data from site %2$d failed: %3$s"
 msgstr ""
 
 #. translators: %1$d is the ID of the site template used, and %2$d is the ID of the overriden site.
-#: inc/helpers/class-site-duplicator.php:145
+#: inc/helpers/class-site-duplicator.php:151
 #, php-format
 msgid "Attempt to override site %1$d with data from site %2$d successful."
 msgstr ""
 
-#: inc/helpers/class-site-duplicator.php:201
+#: inc/helpers/class-site-duplicator.php:206
 msgid "You need to provide a valid site to duplicate."
 msgstr ""
 
-#: inc/helpers/class-site-duplicator.php:223
+#: inc/helpers/class-site-duplicator.php:228
 msgid "An attempt to create a new site failed."
 msgstr ""
 
-#: inc/helpers/class-site-duplicator.php:287
+#: inc/helpers/class-site-duplicator.php:298
 msgid "We were not able to create a new admin user for the site being duplicated."
 msgstr ""
 
@@ -15612,58 +15829,58 @@ msgid "Plugin not found."
 msgstr ""
 
 #. translators: %s is the name of a host provider (e.g. Cloudways, WPMUDev, Closte...).
-#: inc/integrations/host-providers/class-base-host-provider.php:207
+#: inc/integrations/host-providers/class-base-host-provider.php:212
 #, php-format
 msgid "%s Integration"
 msgstr ""
 
-#: inc/integrations/host-providers/class-base-host-provider.php:211
+#: inc/integrations/host-providers/class-base-host-provider.php:216
 msgid "Go to the setup wizard to setup this integration."
 msgstr ""
 
 #. translators: %1$s will be replaced with the integration title. E.g. RunCloud
-#: inc/integrations/host-providers/class-base-host-provider.php:238
+#: inc/integrations/host-providers/class-base-host-provider.php:243
 #, php-format
 msgid "It looks like you are using %1$s as your hosting provider, yet the %1$s integration module is not active. In order for the domain mapping integration to work with %1$s, you might want to activate that module."
 msgstr ""
 
 #. translators: %s is the integration name.
-#: inc/integrations/host-providers/class-base-host-provider.php:245
+#: inc/integrations/host-providers/class-base-host-provider.php:250
 #, php-format
 msgid "Activate %s"
 msgstr ""
 
 #. translators: %1$s will be replaced with the integration title. E.g. RunCloud.
-#: inc/integrations/host-providers/class-base-host-provider.php:271
+#: inc/integrations/host-providers/class-base-host-provider.php:276
 #, php-format
 msgid "It looks like you are using %1$s as your hosting provider, yet the %1$s integration module was not properly setup. In order for the domain mapping integration to work with %1$s, you need to configure that module."
 msgstr ""
 
 #. translators: %s is the integration name
-#: inc/integrations/host-providers/class-base-host-provider.php:278
+#: inc/integrations/host-providers/class-base-host-provider.php:283
 #, php-format
 msgid "Setup %s"
 msgstr ""
 
 #. translators: %s is the name of the integration e.g. RunCloud
-#: inc/integrations/host-providers/class-base-host-provider.php:555
+#: inc/integrations/host-providers/class-base-host-provider.php:560
 #, php-format
 msgid "Send API calls to %s servers with domain names added to this network"
 msgstr ""
 
 #. translators: %s is the name of the integration e.g. RunCloud
-#: inc/integrations/host-providers/class-base-host-provider.php:563
+#: inc/integrations/host-providers/class-base-host-provider.php:568
 #, php-format
 msgid "Fetch and install a SSL certificate on %s platform after the domain is added."
 msgstr ""
 
 #. translators: %s is the name of the integration e.g. RunCloud
-#: inc/integrations/host-providers/class-base-host-provider.php:567
+#: inc/integrations/host-providers/class-base-host-provider.php:572
 #, php-format
 msgid "Fetch and install a SSL certificate on %s platform after the domain is added. This needs to be done manually."
 msgstr ""
 
-#: inc/integrations/host-providers/class-base-host-provider.php:638
+#: inc/integrations/host-providers/class-base-host-provider.php:643
 msgid "No description provided."
 msgstr ""
 
@@ -15850,17 +16067,120 @@ msgstr ""
 msgid "Add a new SubDomain on cPanel whenever a new site gets created on your network"
 msgstr ""
 
-#: inc/integrations/host-providers/class-gridpane-host-provider.php:211
-#: inc/integrations/host-providers/class-gridpane-host-provider.php:219
+#: inc/integrations/host-providers/class-gridpane-host-provider.php:209
+#: inc/integrations/host-providers/class-gridpane-host-provider.php:217
 msgid "We were not able to successfully establish a connection."
 msgstr ""
 
-#: inc/integrations/host-providers/class-gridpane-host-provider.php:226
+#: inc/integrations/host-providers/class-gridpane-host-provider.php:224
 msgid "Connection successfully established."
 msgstr ""
 
-#: inc/integrations/host-providers/class-gridpane-host-provider.php:250
+#: inc/integrations/host-providers/class-gridpane-host-provider.php:248
 msgid "GridPane is the world's first hosting control panel built exclusively for serious WordPress professionals."
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:98
+msgid "Hestia API URL"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:99
+msgid "Base API endpoint, typically https://your-hestia:8083/api/"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:100
+msgid "e.g. https://server.example.com:8083/api/"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:103
+msgid "Hestia API Username"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:104
+msgid "Hestia user for API calls (often admin)"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:105
+#: inc/integrations/host-providers/class-hestia-host-provider.php:121
+msgid "e.g. admin"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:109
+msgid "Hestia API Password"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:110
+msgid "Optional if using API hash authentication."
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:111
+msgid "••••••••"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:114
+msgid "Hestia API Hash (Token)"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:115
+msgid "Optional: API hash/token alternative to password. Provide either this OR a password."
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:116
+msgid "e.g. 1a2b3c4d..."
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:119
+msgid "Hestia Account (Owner)"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:120
+msgid "The Hestia user that owns the web domain (first argument to v-add-web-domain-alias)."
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:124
+msgid "Base Web Domain"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:125
+msgid "Existing Hestia web domain that your WordPress is served from. Aliases will be attached to this."
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:126
+msgid "e.g. network.example.com"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:129
+msgid "Restart Web Service"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:130
+msgid "Whether to restart/reload services after alias changes (yes/no). Defaults to yes."
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:131
+msgid "yes"
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:150
+msgid "Missing WU_HESTIA_ACCOUNT or WU_HESTIA_WEB_DOMAIN; cannot add alias."
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:177
+msgid "Missing WU_HESTIA_ACCOUNT or WU_HESTIA_WEB_DOMAIN; cannot remove alias."
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:229
+msgid "Integrates with Hestia Control Panel to add and remove web domain aliases automatically when domains are mapped or removed."
+msgstr ""
+
+#: inc/integrations/host-providers/class-hestia-host-provider.php:272
+msgid "Missing WU_HESTIA_API_URL"
+msgstr ""
+
+#. translators: %1$d: HTTP status code, %2$s: Response body
+#: inc/integrations/host-providers/class-hestia-host-provider.php:323
+#, php-format
+msgid "HTTP %1$d from Hestia API: %2$s"
 msgstr ""
 
 #: inc/integrations/host-providers/class-runcloud-host-provider.php:93
@@ -16061,105 +16381,99 @@ msgstr ""
 msgid "...but you will see them here once they get created."
 msgstr ""
 
-#. translators: %s is the singular value of the model, such as Product, or Payment.
-#: inc/list-tables/class-base-list-table.php:510
-#, php-format
-msgid "Create a new %s"
-msgstr ""
-
-#: inc/list-tables/class-base-list-table.php:597
+#: inc/list-tables/class-base-list-table.php:609
 msgid "No items found"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:619
+#: inc/list-tables/class-base-list-table.php:631
 #: views/wizards/host-integrations/activation.php:97
 msgid "Activate"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:620
+#: inc/list-tables/class-base-list-table.php:632
 #: views/wizards/host-integrations/activation.php:97
 msgid "Deactivate"
 msgstr ""
 
 #. translators: %s number of total items.
-#: inc/list-tables/class-base-list-table.php:775
+#: inc/list-tables/class-base-list-table.php:787
 #, php-format
 msgid "%s item"
 msgid_plural "%s items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/list-tables/class-base-list-table.php:830
+#: inc/list-tables/class-base-list-table.php:842
 #: views/checkout/templates/pricing-table/legacy.php:183
 #: views/legacy/signup/pricing-table/plan.php:54
 msgid "--"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:862
+#: inc/list-tables/class-base-list-table.php:874
 msgid "No membership found"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:912
+#: inc/list-tables/class-base-list-table.php:924
 msgid "No payment found"
 msgstr ""
 
 #. translators: %s the payment total.
-#: inc/list-tables/class-base-list-table.php:935
+#: inc/list-tables/class-base-list-table.php:947
 #, php-format
 msgid "Total %s"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1025
+#: inc/list-tables/class-base-list-table.php:1037
 #: inc/list-tables/class-broadcast-list-table.php:289
 #: inc/list-tables/class-payment-list-table.php:135
 msgid "No product found"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1078
+#: inc/list-tables/class-base-list-table.php:1090
 msgid "No site found"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1203
+#: inc/list-tables/class-base-list-table.php:1215
 #: inc/ui/class-my-sites-element.php:160
 #: views/checkout/templates/template-selection/clean.php:50
 #: views/checkout/templates/template-selection/minimal.php:44
 msgid "All"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1208
+#: inc/list-tables/class-base-list-table.php:1220
 msgid "Today"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1213
+#: inc/list-tables/class-base-list-table.php:1225
 msgid "Yesterday"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1218
+#: inc/list-tables/class-base-list-table.php:1230
 msgid "Last 7 Days"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1223
+#: inc/list-tables/class-base-list-table.php:1235
 msgid "Last 30 Days"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1228
+#: inc/list-tables/class-base-list-table.php:1240
 msgid "Current Month"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1233
+#: inc/list-tables/class-base-list-table.php:1245
 msgid "Last 12 Months"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1238
+#: inc/list-tables/class-base-list-table.php:1250
 msgid "Year to Date"
 msgstr ""
 
-#: inc/list-tables/class-base-list-table.php:1243
+#: inc/list-tables/class-base-list-table.php:1255
 msgid "Custom"
 msgstr ""
 
 #. translators: %s will be replaced with a plural label
-#: inc/list-tables/class-base-list-table.php:1393
+#: inc/list-tables/class-base-list-table.php:1395
 #, php-format
 msgid "All %s"
 msgstr ""
@@ -16172,7 +16486,7 @@ msgstr ""
 #: inc/list-tables/class-checkout-form-list-table.php:68
 #: inc/list-tables/class-customer-list-table.php:155
 #: inc/list-tables/class-discount-code-list-table.php:67
-#: inc/list-tables/class-domain-list-table.php:89
+#: inc/list-tables/class-domain-list-table.php:88
 #: inc/list-tables/class-email-list-table.php:113
 #: inc/list-tables/class-line-item-list-table.php:102
 #: inc/list-tables/class-membership-list-table-widget.php:129
@@ -16181,7 +16495,7 @@ msgstr ""
 #: inc/list-tables/class-payment-list-table-widget.php:115
 #: inc/list-tables/class-payment-list-table.php:85
 #: inc/list-tables/class-product-list-table.php:71
-#: inc/list-tables/class-site-list-table.php:132
+#: inc/list-tables/class-site-list-table.php:130
 #: inc/list-tables/class-webhook-list-table.php:74
 #: views/admin-pages/fields/field-text-edit.php:71
 #: views/base/checkout-forms/js-templates.php:99
@@ -16202,13 +16516,13 @@ msgstr ""
 #: inc/list-tables/class-broadcast-list-table.php:422
 #: inc/list-tables/class-checkout-form-list-table.php:201
 #: inc/list-tables/class-customer-list-table.php:245
-#: inc/list-tables/class-domain-list-table.php:168
+#: inc/list-tables/class-domain-list-table.php:167
 #: inc/list-tables/class-email-list-table.php:201
 #: inc/list-tables/class-event-list-table.php:215
 #: inc/list-tables/class-membership-list-table.php:183
 #: inc/list-tables/class-payment-list-table.php:186
 #: inc/list-tables/class-product-list-table.php:258
-#: inc/list-tables/class-site-list-table.php:278
+#: inc/list-tables/class-site-list-table.php:276
 #: inc/list-tables/class-webhook-list-table.php:179
 #: views/emails/admin/domain-created.php:24
 #: views/emails/admin/domain-created.php:73
@@ -16261,7 +16575,7 @@ msgstr ""
 #: inc/list-tables/class-checkout-form-list-table.php:78
 #: inc/list-tables/class-email-list-table.php:114
 #: inc/list-tables/class-product-list-table.php:81
-#: inc/list-tables/class-site-list-table.php:140
+#: inc/list-tables/class-site-list-table.php:138
 msgid "Duplicate"
 msgstr ""
 
@@ -16316,7 +16630,7 @@ msgstr ""
 #: inc/list-tables/class-customer-list-table.php:224
 #: inc/list-tables/class-event-list-table.php:185
 #: inc/list-tables/class-payment-list-table.php:143
-#: inc/list-tables/class-site-list-table.php:256
+#: inc/list-tables/class-site-list-table.php:254
 #: views/admin-pages/fields/field-text.php:46
 #: views/base/customers/grid-item.php:109
 #: views/base/responsive-table-row.php:145
@@ -16443,7 +16757,7 @@ msgid "No Limits"
 msgstr ""
 
 #: inc/list-tables/class-discount-code-list-table.php:173
-#: inc/list-tables/class-domain-list-table.php:190
+#: inc/list-tables/class-domain-list-table.php:189
 #: views/dashboard-widgets/domain-mapping.php:62
 msgid "Inactive"
 msgstr ""
@@ -16461,7 +16775,7 @@ msgstr ""
 msgid "Dates"
 msgstr ""
 
-#: inc/list-tables/class-domain-list-table.php:166
+#: inc/list-tables/class-domain-list-table.php:165
 #: inc/list-tables/class-sites-domain-list-table.php:63
 #: views/dashboard-widgets/domain-mapping.php:103
 #: views/dashboard-widgets/my-sites.php:73
@@ -16469,25 +16783,25 @@ msgstr ""
 msgid "Primary"
 msgstr ""
 
-#: inc/list-tables/class-domain-list-table.php:167
-#: inc/list-tables/class-domain-list-table.php:210
-#: inc/list-tables/class-domain-list-table.php:213
+#: inc/list-tables/class-domain-list-table.php:166
+#: inc/list-tables/class-domain-list-table.php:209
+#: inc/list-tables/class-domain-list-table.php:212
 msgid "HTTPS"
 msgstr ""
 
-#: inc/list-tables/class-domain-list-table.php:199
+#: inc/list-tables/class-domain-list-table.php:198
 msgid "Is Primary"
 msgstr ""
 
-#: inc/list-tables/class-domain-list-table.php:201
+#: inc/list-tables/class-domain-list-table.php:200
 msgid "Not Primary Domain"
 msgstr ""
 
-#: inc/list-tables/class-domain-list-table.php:212
+#: inc/list-tables/class-domain-list-table.php:211
 msgid "Non-HTTPS"
 msgstr ""
 
-#: inc/list-tables/class-domain-list-table.php:221
+#: inc/list-tables/class-domain-list-table.php:220
 msgid "Verification Stage"
 msgstr ""
 
@@ -16563,27 +16877,27 @@ msgid "Severity"
 msgstr ""
 
 #: inc/list-tables/class-event-list-table.php:233
-#: inc/models/class-event.php:159
+#: inc/models/class-event.php:160
 msgid "Success"
 msgstr ""
 
 #: inc/list-tables/class-event-list-table.php:234
-#: inc/models/class-event.php:160
+#: inc/models/class-event.php:161
 msgid "Neutral"
 msgstr ""
 
 #: inc/list-tables/class-event-list-table.php:235
-#: inc/models/class-event.php:161
+#: inc/models/class-event.php:162
 msgid "Info"
 msgstr ""
 
 #: inc/list-tables/class-event-list-table.php:236
-#: inc/models/class-event.php:162
+#: inc/models/class-event.php:163
 msgid "Warning"
 msgstr ""
 
 #: inc/list-tables/class-event-list-table.php:237
-#: inc/models/class-event.php:163
+#: inc/models/class-event.php:164
 msgid "Fatal"
 msgstr ""
 
@@ -16682,8 +16996,8 @@ msgstr ""
 #: inc/list-tables/class-membership-list-table-widget.php:176
 #: inc/list-tables/class-membership-list-table.php:139
 #: inc/list-tables/class-product-list-table.php:146
-#: inc/models/class-membership.php:835
-#: inc/models/class-product.php:779
+#: inc/models/class-membership.php:844
+#: inc/models/class-product.php:788
 #, php-format
 msgid "every %2$s"
 msgid_plural "every %1$s %2$s"
@@ -16694,8 +17008,8 @@ msgstr[1] ""
 #: inc/list-tables/class-membership-list-table-widget.php:184
 #: inc/list-tables/class-membership-list-table.php:147
 #: inc/list-tables/class-product-list-table.php:154
-#: inc/models/class-membership.php:887
-#: inc/models/class-product.php:736
+#: inc/models/class-membership.php:896
+#: inc/models/class-product.php:745
 #, php-format
 msgid "for %s cycle"
 msgid_plural "for %s cycles"
@@ -16810,28 +17124,28 @@ msgstr ""
 msgid "Registered %s"
 msgstr ""
 
-#: inc/list-tables/class-site-list-table.php:157
+#: inc/list-tables/class-site-list-table.php:155
 #: views/base/sites/grid-item.php:58
 msgid "Publish Site"
 msgstr ""
 
-#: inc/list-tables/class-site-list-table.php:313
+#: inc/list-tables/class-site-list-table.php:311
 msgid "VIP Status"
 msgstr ""
 
-#: inc/list-tables/class-site-list-table.php:315
+#: inc/list-tables/class-site-list-table.php:313
 msgid "Regular Sites"
 msgstr ""
 
-#: inc/list-tables/class-site-list-table.php:316
+#: inc/list-tables/class-site-list-table.php:314
 msgid "VIP Sites"
 msgstr ""
 
-#: inc/list-tables/class-site-list-table.php:326
+#: inc/list-tables/class-site-list-table.php:324
 msgid "Site Since"
 msgstr ""
 
-#: inc/list-tables/class-site-list-table.php:345
+#: inc/list-tables/class-site-list-table.php:343
 msgid "All Sites"
 msgstr ""
 
@@ -16878,7 +17192,7 @@ msgstr ""
 msgid "Count"
 msgstr ""
 
-#: inc/list-tables/customer-panel/class-site-list-table.php:76
+#: inc/list-tables/customer-panel/class-site-list-table.php:63
 #: views/checkout/templates/template-selection/clean.php:33
 #: views/checkout/templates/template-selection/legacy.php:32
 #: views/checkout/templates/template-selection/minimal.php:28
@@ -16886,277 +17200,285 @@ msgstr ""
 msgid "Your Sites"
 msgstr ""
 
-#: inc/managers/class-broadcast-manager.php:131
+#: inc/managers/class-broadcast-manager.php:134
 msgid "No product or customer target was selected."
 msgstr ""
 
-#: inc/managers/class-customer-manager.php:92
+#: inc/managers/class-customer-manager.php:97
 msgid "Error: you are not allowed to perform this action."
 msgstr ""
 
-#: inc/managers/class-customer-manager.php:100
+#: inc/managers/class-customer-manager.php:105
 msgid "Error: customer not found."
 msgstr ""
 
 #. translators: the placeholder is the login URL
-#: inc/managers/class-customer-manager.php:203
+#: inc/managers/class-customer-manager.php:229
 #, php-format
 msgid "You must be authenticated in order to verify your email address. <a href=%s>Click here</a> to access your account."
 msgstr ""
 
-#: inc/managers/class-customer-manager.php:219
+#: inc/managers/class-customer-manager.php:245
 msgid "<strong>ERROR:</strong> Invalid verification key."
 msgstr ""
 
-#: inc/managers/class-customer-manager.php:225
-#: inc/managers/class-customer-manager.php:239
+#: inc/managers/class-customer-manager.php:251
+#: inc/managers/class-customer-manager.php:265
 msgid "<strong>Error:</strong> Invalid verification key."
 msgstr ""
 
-#: inc/managers/class-customer-manager.php:229
-#: inc/managers/class-customer-manager.php:233
-#: inc/managers/class-customer-manager.php:243
+#: inc/managers/class-customer-manager.php:255
+#: inc/managers/class-customer-manager.php:259
+#: inc/managers/class-customer-manager.php:269
 msgid "Invalid verification key."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:343
+#: inc/managers/class-domain-manager.php:344
 msgid "Domain Mapping Settings"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:344
+#: inc/managers/class-domain-manager.php:345
 msgid "Define the domain mapping settings for your network."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:353
+#: inc/managers/class-domain-manager.php:354
 msgid "Enable Domain Mapping?"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:354
+#: inc/managers/class-domain-manager.php:355
 msgid "Do you want to enable domain mapping?"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:364
+#: inc/managers/class-domain-manager.php:365
 msgid "Force Admin Redirect"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:365
+#: inc/managers/class-domain-manager.php:366
 msgid "Select how you want your users to access the admin panel if they have mapped domains."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:365
+#: inc/managers/class-domain-manager.php:366
 msgid "Force Redirect to Mapped Domain: your users with mapped domains will be redirected to theirdomain.com/wp-admin, even if they access using yournetworkdomain.com/wp-admin."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:365
+#: inc/managers/class-domain-manager.php:366
 msgid "Force Redirect to Network Domain: your users with mapped domains will be redirect to yournetworkdomain.com/wp-admin, even if they access using theirdomain.com/wp-admin."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:371
+#: inc/managers/class-domain-manager.php:372
 msgid "Allow access to the admin by both mapped domain and network domain"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:372
+#: inc/managers/class-domain-manager.php:373
 msgid "Force Redirect to Mapped Domain"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:373
+#: inc/managers/class-domain-manager.php:374
 msgid "Force Redirect to Network Domain"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:382
+#: inc/managers/class-domain-manager.php:383
 msgid "Enable Custom Domains?"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:383
+#: inc/managers/class-domain-manager.php:384
 msgid "Toggle this option if you wish to allow end-customers to add their own domains. This can be controlled on a plan per plan basis."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:396
+#: inc/managers/class-domain-manager.php:397
 msgid "Add New Domain Instructions"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:397
+#: inc/managers/class-domain-manager.php:398
 msgid "Display a customized message with instructions for the mapping and alerting the end-user of the risks of mapping a misconfigured domain."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:398
-msgid "You can use the placeholder <code>%NETWORK_DOMAIN%</code> and <code>%NETWORK_IP%</code>."
-msgstr ""
-
-#: inc/managers/class-domain-manager.php:415
-msgid "DNS Check Interval"
-msgstr ""
-
-#: inc/managers/class-domain-manager.php:416
-msgid "Set the interval in seconds between DNS and SSL certificate checks for domains."
+#: inc/managers/class-domain-manager.php:399
+msgid "You can use the placeholder <code>%NETWORK_DOMAIN%</code> and <code>%NETWORK_IP%.</code> HTML is allowed."
 msgstr ""
 
 #: inc/managers/class-domain-manager.php:417
+msgid "DNS Check Interval"
+msgstr ""
+
+#: inc/managers/class-domain-manager.php:418
+msgid "Set the interval in seconds between DNS and SSL certificate checks for domains."
+msgstr ""
+
+#: inc/managers/class-domain-manager.php:419
 msgid "Minimum: 10 seconds, Maximum: 300 seconds (5 minutes). Default: 300 seconds."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:435
+#: inc/managers/class-domain-manager.php:437
 msgid "Create www Subdomain Automatically?"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:436
+#: inc/managers/class-domain-manager.php:438
 msgid "Control when www subdomains should be automatically created for mapped domains."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:437
+#: inc/managers/class-domain-manager.php:439
 msgid "This setting applies to all hosting integrations and determines when a www version of the domain should be automatically created."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:441
+#: inc/managers/class-domain-manager.php:443
 msgid "Always - Create www subdomain for all domains"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:442
+#: inc/managers/class-domain-manager.php:444
 msgid "Only for main domains (e.g., example.com but not subdomain.example.com)"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:443
+#: inc/managers/class-domain-manager.php:445
 msgid "Never - Do not automatically create www subdomains"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:496
+#: inc/managers/class-domain-manager.php:498
 msgid "Single Sign-On Settings"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:497
+#: inc/managers/class-domain-manager.php:499
 msgid "Settings to configure the Single Sign-On functionality of Ultimate Multisite, responsible for keeping customers and admins logged in across all network domains."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:506
+#: inc/managers/class-domain-manager.php:508
 msgid "Enable Single Sign-On"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:507
+#: inc/managers/class-domain-manager.php:509
 msgid "Enables the Single Sign-on functionality."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:517
+#: inc/managers/class-domain-manager.php:519
 msgid "Restrict SSO Checks to Login Pages"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:518
+#: inc/managers/class-domain-manager.php:520
 msgid "The Single Sign-on feature adds one extra ajax calls to every page load on sites with custom domains active to check if it should perform an auth loopback. You can restrict these extra calls to the login pages of sub-sites using this option. If enabled, SSO will only work on login pages."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:531
+#: inc/managers/class-domain-manager.php:533
 msgid "Enable SSO Loading Overlay"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:532
+#: inc/managers/class-domain-manager.php:534
 msgid "When active, a loading overlay will be added on-top of the site currently being viewed while the SSO auth loopback is performed on the background."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:551
+#: inc/managers/class-domain-manager.php:547
+msgid "Enable Magic Links"
+msgstr ""
+
+#: inc/managers/class-domain-manager.php:548
+msgid "Enables magic link authentication for custom domains. Magic links provide a fallback authentication method for browsers that don't support third-party cookies. When enabled, dashboard and site links will automatically log users in when accessing sites with custom domains. Tokens are cryptographically secure, one-time use, and expire after 10 minutes."
+msgstr ""
+
+#: inc/managers/class-domain-manager.php:564
 msgid "Cool! You're about to make this site accessible using your own domain name!"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:553
+#: inc/managers/class-domain-manager.php:566
 msgid "For that to work, you'll need to create a new CNAME record pointing to <code>%NETWORK_DOMAIN%</code> on your DNS manager."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:555
+#: inc/managers/class-domain-manager.php:568
 msgid "After you finish that step, come back to this screen and click the button below."
 msgstr ""
 
 #. translators: %s is the domain name
-#: inc/managers/class-domain-manager.php:652
+#: inc/managers/class-domain-manager.php:665
 #, php-format
 msgid "Starting Check for %s"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:662
+#: inc/managers/class-domain-manager.php:675
 msgid "- DNS propagation finished, advancing domain to next step..."
 msgstr ""
 
 #. translators: %d is the number of minutes to try again.
-#: inc/managers/class-domain-manager.php:689
+#: inc/managers/class-domain-manager.php:702
 #, php-format
 msgid "- DNS propagation checks tried for the max amount of times (5 times, one every %d minutes). Marking as failed."
 msgstr ""
 
 #. translators: %d is the number of minutes before trying again.
-#: inc/managers/class-domain-manager.php:698
+#: inc/managers/class-domain-manager.php:711
 #, php-format
 msgid "- DNS propagation not finished, retrying in %d minutes..."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:723
+#: inc/managers/class-domain-manager.php:736
 msgid "- Valid SSL cert found. Marking domain as done."
 msgstr ""
 
 #. translators: %d is the number of minutes to try again.
-#: inc/managers/class-domain-manager.php:739
+#: inc/managers/class-domain-manager.php:752
 #, php-format
 msgid "- SSL checks tried for the max amount of times (5 times, one every %d minutes). Marking as ready without SSL."
 msgstr ""
 
 #. translators: %d is the number of minutes before trying again.
-#: inc/managers/class-domain-manager.php:748
+#: inc/managers/class-domain-manager.php:761
 #, php-format
 msgid "- SSL Cert not found, retrying in %d minute(s)..."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:837
+#: inc/managers/class-domain-manager.php:850
 msgid "A valid domain was not passed."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:850
-#: inc/managers/class-domain-manager.php:859
+#: inc/managers/class-domain-manager.php:863
+#: inc/managers/class-domain-manager.php:872
 msgid "Not able to fetch DNS entries."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:910
+#: inc/managers/class-domain-manager.php:923
 msgid "Invalid Integration ID"
 msgstr ""
 
 #. translators: %s is the name of the missing constant
-#: inc/managers/class-domain-manager.php:923
+#: inc/managers/class-domain-manager.php:936
 #, php-format
 msgid "The necessary constants were not found on your wp-config.php file: %s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: URL being tested
-#: inc/managers/class-domain-manager.php:1030
+#: inc/managers/class-domain-manager.php:1048
 #, php-format
 msgid "Testing domain verification via Loopback using %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Error Message
-#: inc/managers/class-domain-manager.php:1053
+#: inc/managers/class-domain-manager.php:1071
 #, php-format
 msgid "Failed to connect via %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: HTTP Response Code
-#: inc/managers/class-domain-manager.php:1071
+#: inc/managers/class-domain-manager.php:1089
 #, php-format
 msgid "Loopback request via %1$s returned HTTP %2$d"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Json error, %3$s part of the response
-#: inc/managers/class-domain-manager.php:1088
+#: inc/managers/class-domain-manager.php:1106
 #, php-format
 msgid "Loopback response via %1$s is not valid JSON: %2$s : %3$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number
-#: inc/managers/class-domain-manager.php:1104
+#: inc/managers/class-domain-manager.php:1122
 #, php-format
 msgid "Domain verification successful via Loopback using %1$s. Domain ID %2$d confirmed."
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number, %3$s Domain ID number
-#: inc/managers/class-domain-manager.php:1117
+#: inc/managers/class-domain-manager.php:1135
 #, php-format
 msgid "Loopback response via %1$s did not contain expected domain ID. Expected: %2$d, Got: %3$s"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:1128
+#: inc/managers/class-domain-manager.php:1146
 msgid "Domain verification failed via loopback on all protocols (HTTPS with SSL, HTTPS without SSL, HTTP)."
 msgstr ""
 
@@ -17248,72 +17570,72 @@ msgstr ""
 msgid "You have a new pending payment!"
 msgstr ""
 
-#: inc/managers/class-event-manager.php:194
+#: inc/managers/class-event-manager.php:199
 msgid "No event was selected."
 msgstr ""
 
-#: inc/managers/class-event-manager.php:200
+#: inc/managers/class-event-manager.php:205
 msgid "Event was not found."
 msgstr ""
 
-#: inc/managers/class-event-manager.php:206
+#: inc/managers/class-event-manager.php:211
 msgid "Data not found."
 msgstr ""
 
-#: inc/managers/class-event-manager.php:369
+#: inc/managers/class-event-manager.php:380
 msgid "Payment Received"
 msgstr ""
 
-#: inc/managers/class-event-manager.php:370
+#: inc/managers/class-event-manager.php:381
 msgid "This event is fired every time a new payment is received, regardless of the payment status."
 msgstr ""
 
-#: inc/managers/class-event-manager.php:392
+#: inc/managers/class-event-manager.php:403
 msgid "Site Published"
 msgstr ""
 
-#: inc/managers/class-event-manager.php:393
+#: inc/managers/class-event-manager.php:404
 msgid "This event is fired every time a new site is created tied to a membership, or transitions from a pending state to a published state."
 msgstr ""
 
-#: inc/managers/class-event-manager.php:409
+#: inc/managers/class-event-manager.php:420
 msgid "Email Verification Needed"
 msgstr ""
 
-#: inc/managers/class-event-manager.php:410
+#: inc/managers/class-event-manager.php:421
 msgid "This event is fired every time a new customer is added with an email verification status of pending."
 msgstr ""
 
-#: inc/managers/class-event-manager.php:427
+#: inc/managers/class-event-manager.php:438
 msgid "New Domain Mapping Added"
 msgstr ""
 
-#: inc/managers/class-event-manager.php:428
+#: inc/managers/class-event-manager.php:439
 msgid "This event is fired every time a new domain mapping is added by a customer."
 msgstr ""
 
-#: inc/managers/class-event-manager.php:451
+#: inc/managers/class-event-manager.php:462
 msgid "New Renewal Payment Created"
 msgstr ""
 
-#: inc/managers/class-event-manager.php:452
+#: inc/managers/class-event-manager.php:463
 msgid "This event is fired every time a new renewal payment is created by Ultimate Multisite."
 msgstr ""
 
 #. translators: %1$s is the model name, %2$s is the event type.
-#: inc/managers/class-event-manager.php:473
+#: inc/managers/class-event-manager.php:484
 #, php-format
 msgid "%1$s %2$s"
 msgstr ""
 
 #. translators: %1$s is the model name, %2$s is the event type.
-#: inc/managers/class-event-manager.php:475
+#: inc/managers/class-event-manager.php:486
 #, php-format
 msgid "This event is fired every time a %1$s is %2$s by Ultimate Multisite."
 msgstr ""
 
 #. Translators:  1: Number of successfully removed events.  2: Number of failed events to remove.
-#: inc/managers/class-event-manager.php:626
+#: inc/managers/class-event-manager.php:637
 #, php-format
 msgid "Removed %1$d events successfully. Failed to remove %2$d events."
 msgstr ""
@@ -17627,16 +17949,14 @@ msgstr ""
 msgid "This is the number of sites the customer will be able to create under this membership."
 msgstr ""
 
-#: inc/managers/class-membership-manager.php:130
-#: inc/managers/class-membership-manager.php:154
-#: inc/managers/class-membership-manager.php:188
-#: inc/managers/class-membership-manager.php:194
-#: inc/managers/class-membership-manager.php:209
-#: inc/managers/class-membership-manager.php:214
-#: inc/managers/class-membership-manager.php:306
-#: inc/managers/class-membership-manager.php:378
-#: inc/managers/class-payment-manager.php:331
-#: inc/managers/class-payment-manager.php:376
+#: inc/managers/class-membership-manager.php:134
+#: inc/managers/class-membership-manager.php:157
+#: inc/managers/class-membership-manager.php:191
+#: inc/managers/class-membership-manager.php:198
+#: inc/managers/class-membership-manager.php:310
+#: inc/managers/class-membership-manager.php:382
+#: inc/managers/class-payment-manager.php:336
+#: inc/managers/class-payment-manager.php:381
 #: inc/ui/class-site-actions-element.php:587
 #: inc/ui/class-site-actions-element.php:929
 #: inc/ui/class-site-actions-element.php:1117
@@ -17702,77 +18022,77 @@ msgstr ""
 msgid "Hide all admin notices on network sites, except for Ultimate Multisite broadcasts."
 msgstr ""
 
-#: inc/managers/class-payment-manager.php:172
+#: inc/managers/class-payment-manager.php:177
 msgid "Pending Payments"
 msgstr ""
 
-#: inc/managers/class-payment-manager.php:228
+#: inc/managers/class-payment-manager.php:233
 msgid "You have pending payments on your account!"
 msgstr ""
 
-#: inc/managers/class-payment-manager.php:228
+#: inc/managers/class-payment-manager.php:233
 msgid "You do not have pending payments on your account!"
 msgstr ""
 
-#: inc/managers/class-payment-manager.php:255
+#: inc/managers/class-payment-manager.php:260
 #: views/dashboard-widgets/invoices.php:60
 #: views/emails/customer/renewal-payment-created.php:14
 msgid "Pay Now"
 msgstr ""
 
-#: inc/managers/class-payment-manager.php:299
+#: inc/managers/class-payment-manager.php:304
 msgid "This invoice does not exist."
 msgstr ""
 
-#: inc/managers/class-site-manager.php:117
+#: inc/managers/class-site-manager.php:121
 msgid "Site names can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: inc/managers/class-site-manager.php:134
+#: inc/managers/class-site-manager.php:138
 msgid "Site names can only contain lowercase letters (a-z), numbers, and hyphens."
 msgstr ""
 
-#: inc/managers/class-site-manager.php:167
+#: inc/managers/class-site-manager.php:171
 msgid "You do not have the necessary permissions to create a site to this membership"
 msgstr ""
 
 #. translators: %s: link to the login page
-#: inc/managers/class-site-manager.php:316
+#: inc/managers/class-site-manager.php:320
 #, php-format
 msgid "This site is not available at the moment.<br><small>If you are the site admin, click <a href=\"%s\">here</a> to login.</small>"
 msgstr ""
 
-#: inc/managers/class-site-manager.php:317
+#: inc/managers/class-site-manager.php:321
 msgid "Site not available"
 msgstr ""
 
-#: inc/managers/class-site-manager.php:375
+#: inc/managers/class-site-manager.php:379
 msgid "We were not able to fetch the screenshot."
 msgstr ""
 
-#: inc/managers/class-site-manager.php:414
+#: inc/managers/class-site-manager.php:418
 msgid "Ultimate Multisite - Search Engines"
 msgstr ""
 
-#: inc/managers/class-site-manager.php:431
+#: inc/managers/class-site-manager.php:435
 msgid "Your Ultimate Multisite settings are configured to <strong>prevent search engines such as Google from indexing your template sites</strong>."
 msgstr ""
 
 #. translators: %s: link to the settings page
-#: inc/managers/class-site-manager.php:434
+#: inc/managers/class-site-manager.php:438
 #, php-format
 msgid "If you are experiencing negative SEO impacts on other sites in your network, consider disabling this setting <a href=\"%s\">here</a>."
 msgstr ""
 
-#: inc/managers/class-site-manager.php:531
+#: inc/managers/class-site-manager.php:535
 msgid "Hey there! We highly recommend managing your network sites using the Ultimate Multisite &rarr; Sites page. <br>If you want to avoid confusion, you can also hide this page from the admin panel completely on the Ultimate Multisite &rarr; Settings &rarr; Whitelabel options."
 msgstr ""
 
-#: inc/managers/class-site-manager.php:540
+#: inc/managers/class-site-manager.php:544
 msgid "Go to the Ultimate Multisite Sites page &rarr;"
 msgstr ""
 
-#: inc/managers/class-site-manager.php:544
+#: inc/managers/class-site-manager.php:548
 msgid "Go to the Whitelabel Settings &rarr;"
 msgstr ""
 
@@ -17784,7 +18104,7 @@ msgstr ""
 msgid "Not available"
 msgstr ""
 
-#: inc/managers/class-webhook-manager.php:198
+#: inc/managers/class-webhook-manager.php:201
 msgid "You do not have enough permissions to send a test event."
 msgstr ""
 
@@ -17852,12 +18172,12 @@ msgstr ""
 msgid "Create Site"
 msgstr ""
 
-#: inc/models/class-customer.php:207
+#: inc/models/class-customer.php:216
 msgid "User Deleted"
 msgstr ""
 
-#: inc/models/class-customer.php:263
-#: inc/models/class-customer.php:280
+#: inc/models/class-customer.php:272
+#: inc/models/class-customer.php:289
 msgid "none"
 msgstr ""
 
@@ -17884,50 +18204,50 @@ msgstr ""
 msgid "%1$s OFF on Setup Fees"
 msgstr ""
 
-#: inc/models/class-domain.php:565
+#: inc/models/class-domain.php:563
 msgid "Domain deleted and logs cleared..."
 msgstr ""
 
-#: inc/models/class-event.php:166
+#: inc/models/class-event.php:167
 msgid "Note"
 msgstr ""
 
-#: inc/models/class-event.php:306
+#: inc/models/class-event.php:307
 msgid "The <strong>{{model}}</strong> #{{object_id}} was changed: {{payload}}"
 msgstr ""
 
-#: inc/models/class-event.php:307
+#: inc/models/class-event.php:308
 msgid "The <strong>{{model}}</strong> #{{object_id}} was created."
 msgstr ""
 
-#: inc/models/class-event.php:311
+#: inc/models/class-event.php:312
 msgid "No Message"
 msgstr ""
 
-#: inc/models/class-membership.php:674
-#: inc/models/class-membership.php:751
+#: inc/models/class-membership.php:683
+#: inc/models/class-membership.php:760
 msgid "Swap Cart is invalid."
 msgstr ""
 
-#: inc/models/class-membership.php:747
+#: inc/models/class-membership.php:756
 msgid "Schedule date is invalid."
 msgstr ""
 
 #. translators: times billed / subscription duration in cycles. e.g. 1/12 cycles
-#: inc/models/class-membership.php:851
+#: inc/models/class-membership.php:860
 #, php-format
 msgid "%1$s / %2$s cycles"
 msgstr ""
 
 #. translators: the place holder is the number of times the membership was billed.
-#: inc/models/class-membership.php:856
+#: inc/models/class-membership.php:865
 #, php-format
 msgid "%1$s / until cancelled"
 msgstr ""
 
 #. translators: %1$s is the formatted price, %2$s the duration, and %3$s the duration unit (day, week, month, etc)
-#: inc/models/class-membership.php:876
-#: inc/models/class-product.php:725
+#: inc/models/class-membership.php:885
+#: inc/models/class-product.php:734
 #, php-format
 msgid "%1$s every %3$s"
 msgid_plural "%1$s every %2$s %3$s"
@@ -17935,8 +18255,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %1$s is the formatted price of the product
-#: inc/models/class-membership.php:896
-#: inc/models/class-product.php:745
+#: inc/models/class-membership.php:905
+#: inc/models/class-product.php:754
 #, php-format
 msgid "%1$s one time payment"
 msgstr ""
@@ -17959,17 +18279,17 @@ msgstr ""
 msgid "Processed on %s"
 msgstr ""
 
-#: inc/models/class-product.php:713
+#: inc/models/class-product.php:722
 msgid "Contact us"
 msgstr ""
 
 #. translators: %1$s is the formatted price of the setup fee
-#: inc/models/class-product.php:753
+#: inc/models/class-product.php:762
 #, php-format
 msgid "Setup Fee of %1$s"
 msgstr ""
 
-#: inc/models/class-product.php:774
+#: inc/models/class-product.php:783
 msgid "one-time payment"
 msgstr ""
 
@@ -18045,7 +18365,7 @@ msgstr ""
 msgid "Placeholders successfully updated!"
 msgstr ""
 
-#: inc/sso/class-sso.php:949
+#: inc/sso/class-sso.php:962
 msgid "SSO secret creation failed."
 msgstr ""
 
@@ -18565,15 +18885,15 @@ msgstr ""
 msgid "Make it Primary"
 msgstr ""
 
-#: inc/ui/class-domain-mapping-element.php:644
+#: inc/ui/class-domain-mapping-element.php:661
 msgid "Something wrong happenned."
 msgstr ""
 
-#: inc/ui/class-domain-mapping-element.php:714
+#: inc/ui/class-domain-mapping-element.php:731
 msgid "Domain not secured with HTTPS"
 msgstr ""
 
-#: inc/ui/class-domain-mapping-element.php:719
+#: inc/ui/class-domain-mapping-element.php:736
 msgid "Domain secured with HTTPS"
 msgstr ""
 
@@ -18591,70 +18911,70 @@ msgstr ""
 msgid "Limit the number of invoices to show."
 msgstr ""
 
-#: inc/ui/class-jumper.php:188
-#: inc/ui/class-jumper.php:534
+#: inc/ui/class-jumper.php:189
+#: inc/ui/class-jumper.php:535
 msgid "Custom Links"
 msgstr ""
 
-#: inc/ui/class-jumper.php:207
+#: inc/ui/class-jumper.php:208
 msgid "Network Settings"
 msgstr ""
 
-#: inc/ui/class-jumper.php:209
+#: inc/ui/class-jumper.php:210
 msgid "Domain Mapping & SSL"
 msgstr ""
 
-#: inc/ui/class-jumper.php:211
+#: inc/ui/class-jumper.php:212
 msgid "Styling"
 msgstr ""
 
-#: inc/ui/class-jumper.php:212
-#: inc/ui/class-jumper.php:489
+#: inc/ui/class-jumper.php:213
 #: inc/ui/class-jumper.php:490
+#: inc/ui/class-jumper.php:491
 msgid "Tools"
 msgstr ""
 
-#: inc/ui/class-jumper.php:213
+#: inc/ui/class-jumper.php:214
 msgid "Advanced"
 msgstr ""
 
-#: inc/ui/class-jumper.php:214
+#: inc/ui/class-jumper.php:215
 msgid "Activation & Support"
 msgstr ""
 
 #. translators: The placeholder represents the title of the Settings tab.
-#: inc/ui/class-jumper.php:221
+#: inc/ui/class-jumper.php:222
 #, php-format
 msgid "Settings: %s"
 msgstr ""
 
-#: inc/ui/class-jumper.php:224
+#: inc/ui/class-jumper.php:225
 msgid "Settings: Webhooks"
 msgstr ""
 
-#: inc/ui/class-jumper.php:226
+#: inc/ui/class-jumper.php:227
 msgid "System Info: Logs"
 msgstr ""
 
-#: inc/ui/class-jumper.php:234
+#: inc/ui/class-jumper.php:235
 msgid "Main Site Dashboard"
 msgstr ""
 
 #. translators: the %s placeholder is the key combination to trigger the Jumper.
-#: inc/ui/class-jumper.php:301
+#: inc/ui/class-jumper.php:302
 #, php-format
 msgid "<strong>Quick Tip:</strong> Use %s to jump between pages."
 msgstr ""
 
-#: inc/ui/class-jumper.php:320
+#: inc/ui/class-jumper.php:321
 msgid "Nothing found for"
 msgstr ""
 
-#: inc/ui/class-jumper.php:409
+#: inc/ui/class-jumper.php:410
 msgid "Regenerating Jumper menu items"
 msgstr ""
 
-#: inc/ui/class-jumper.php:499
+#: inc/ui/class-jumper.php:500
 #: views/ui/jumper-trigger.php:12
 #: views/ui/jumper-trigger.php:14
 #: views/ui/toolbox.php:84
@@ -18662,31 +18982,31 @@ msgstr ""
 msgid "Jumper"
 msgstr ""
 
-#: inc/ui/class-jumper.php:500
+#: inc/ui/class-jumper.php:501
 msgid "Spotlight-like search bar that allows you to easily access everything on your network."
 msgstr ""
 
-#: inc/ui/class-jumper.php:509
+#: inc/ui/class-jumper.php:510
 msgid "Enable Jumper"
 msgstr ""
 
-#: inc/ui/class-jumper.php:510
+#: inc/ui/class-jumper.php:511
 msgid "Turn this option on to make the Jumper available on your network."
 msgstr ""
 
-#: inc/ui/class-jumper.php:520
+#: inc/ui/class-jumper.php:521
 msgid "Trigger Key"
 msgstr ""
 
-#: inc/ui/class-jumper.php:521
+#: inc/ui/class-jumper.php:522
 msgid "Change the keyboard key used in conjunction with ctrl + alt (or cmd + option), to trigger the Jumper box."
 msgstr ""
 
-#: inc/ui/class-jumper.php:535
+#: inc/ui/class-jumper.php:536
 msgid "Use this textarea to add custom links to the Jumper. Add one per line, with the format \"Title : url\"."
 msgstr ""
 
-#: inc/ui/class-jumper.php:536
+#: inc/ui/class-jumper.php:537
 msgid "Tile of Custom Link : http://link.com"
 msgstr ""
 
@@ -19133,19 +19453,19 @@ msgstr ""
 msgid "You need to provide a valid template to duplicate."
 msgstr ""
 
-#: inc/ui/class-template-switching-element.php:363
+#: inc/ui/class-template-switching-element.php:364
 msgid "&larr; Back to Template Selection"
 msgstr ""
 
-#: inc/ui/class-template-switching-element.php:384
+#: inc/ui/class-template-switching-element.php:385
 msgid "Confirm template switch?"
 msgstr ""
 
-#: inc/ui/class-template-switching-element.php:385
+#: inc/ui/class-template-switching-element.php:386
 msgid "Switching your current template completely overwrites the content of your site with the contents of the newly chosen template. All customizations will be lost. This action cannot be undone."
 msgstr ""
 
-#: inc/ui/class-template-switching-element.php:400
+#: inc/ui/class-template-switching-element.php:401
 msgid "Process Switch"
 msgstr ""
 
@@ -19196,11 +19516,11 @@ msgstr ""
 msgid "No sites found"
 msgstr ""
 
-#: inc/ui/class-tours.php:100
+#: inc/ui/class-tours.php:101
 msgid "Next"
 msgstr ""
 
-#: inc/ui/class-tours.php:101
+#: inc/ui/class-tours.php:102
 #: views/base/filter.php:65
 msgid "Close"
 msgstr ""

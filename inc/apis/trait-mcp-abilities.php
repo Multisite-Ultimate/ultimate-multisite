@@ -84,11 +84,11 @@ trait MCP_Abilities {
 			return;
 		}
 
-		if (wp_has_ability_category('multisite-ultimate')) {
+		if (wp_has_ability_category('ultimate-multisite')) {
 			return;
 		}
 		wp_register_ability_category(
-			'multisite-ultimate',
+			'ultimate-multisite',
 			[
 				'label'       => __('Multisite Ultimate', 'ultimate-multisite'),
 				'description' => __('CRUD operations for Multisite Ultimate entities including customers, sites, products, memberships, and more.', 'ultimate-multisite'),
@@ -180,7 +180,7 @@ trait MCP_Abilities {
 				'label'               => sprintf(__('Get %s by ID', 'ultimate-multisite'), $display_name),
 				// translators: %s: entity name (e.g., customer, site, product)
 				'description'         => sprintf(__('Retrieve a single %s by its ID', 'ultimate-multisite'), strtolower($display_name)),
-				'category'            => 'multisite-ultimate',
+				'category'            => 'ultimate-multisite',
 				'execute_callback'    => [$this, 'mcp_get_item'],
 				'permission_callback' => [$this, 'mcp_permission_callback'],
 				'input_schema'        => [
@@ -231,7 +231,7 @@ trait MCP_Abilities {
 				'label'               => sprintf(__('List %s', 'ultimate-multisite'), $display_name),
 				// translators: %s: entity name (e.g., customer, site, product)
 				'description'         => sprintf(__('Retrieve a list of %s with optional filters', 'ultimate-multisite'), strtolower($display_name)),
-				'category'            => 'multisite-ultimate',
+				'category'            => 'ultimate-multisite',
 				'execute_callback'    => [$this, 'mcp_get_items'],
 				'permission_callback' => [$this, 'mcp_permission_callback'],
 				'input_schema'        => [
@@ -289,7 +289,7 @@ trait MCP_Abilities {
 				'label'               => sprintf(__('Create %s', 'ultimate-multisite'), $display_name),
 				// translators: %s: entity name (e.g., customer, site, product)
 				'description'         => sprintf(__('Create a new %s', 'ultimate-multisite'), strtolower($display_name)),
-				'category'            => 'multisite-ultimate',
+				'category'            => 'ultimate-multisite',
 				'execute_callback'    => [$this, 'mcp_create_item'],
 				'permission_callback' => [$this, 'mcp_permission_callback'],
 				'input_schema'        => $input_schema,
@@ -339,7 +339,7 @@ trait MCP_Abilities {
 				'label'               => sprintf(__('Update %s', 'ultimate-multisite'), $display_name),
 				// translators: %s: entity name (e.g., customer, site, product)
 				'description'         => sprintf(__('Update an existing %s', 'ultimate-multisite'), strtolower($display_name)),
-				'category'            => 'multisite-ultimate',
+				'category'            => 'ultimate-multisite',
 				'execute_callback'    => [$this, 'mcp_update_item'],
 				'permission_callback' => [$this, 'mcp_permission_callback'],
 				'input_schema'        => $input_schema,
@@ -374,7 +374,7 @@ trait MCP_Abilities {
 				'label'               => sprintf(__('Delete %s', 'ultimate-multisite'), $display_name),
 				// translators: %s: entity name (e.g., customer, site, product)
 				'description'         => sprintf(__('Delete a %s by its ID', 'ultimate-multisite'), strtolower($display_name)),
-				'category'            => 'multisite-ultimate',
+				'category'            => 'ultimate-multisite',
 				'execute_callback'    => [$this, 'mcp_delete_item'],
 				'permission_callback' => [$this, 'mcp_permission_callback'],
 				'input_schema'        => [

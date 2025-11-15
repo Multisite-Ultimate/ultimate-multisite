@@ -115,6 +115,11 @@ class Admin_Bar_Magic_Links {
 			);
 		}
 
+		if ( 1 === count($blogs) ) {
+			wp_safe_redirect(get_admin_url(current($blogs)->userblog_id));
+			exit;
+		}
+
 		$output = '<p>' . sprintf(
 			/* translators: 1: Site title. */
 			__('You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.'),

@@ -1,7 +1,7 @@
 # Ultimate Multisite
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/superdav42/wp-multisite-waas/refs/heads/main/assets/img/logo.png" alt="Ultimate Multisite Logo" width="300">
+  <img src="https://github.com/Boofola/ultimate-multisite/blob/main/assets/img/logo-white.png" alt="Ultimate Multisite Logo" width="300">
 </p>
 
 <p align="center">

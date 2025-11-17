@@ -76,6 +76,8 @@ class Customer_Manager extends Base_Manager {
 
 		add_action('wu_transition_customer_email_verification', [$this, 'transition_customer_email_verification'], 10, 3);
 
+		add_action('wu_event_customer_created', [$this, 'customer_created_email_verification']);
+
 		add_action('init', [$this, 'maybe_verify_email_address']);
 
 		add_action('wu_maybe_create_customer', [$this, 'maybe_add_to_main_site'], 10, 2);
@@ -170,6 +172,28 @@ class Customer_Manager extends Base_Manager {
 		}
 
 		$customer = wu_get_customer($customer_id);
+
+		if ($customer) {
+			$customer->send_verification_email();
+		}
+	}
+
+
+	/**
+	 * Send customer email verification when new customer is created with pending.
+	 *
+	 * @since 2.4.8
+	 *
+	 * @param array $payload Event Payload.
+	 * @return void
+	 */
+	public function customer_created_email_verification($payload): void {
+
+		if ('pending' !== $payload['customer_email_verification']) {
+			return;
+		}
+
+		$customer = wu_get_customer($payload['customer_id']);
 
 		if ($customer) {
 			$customer->send_verification_email();

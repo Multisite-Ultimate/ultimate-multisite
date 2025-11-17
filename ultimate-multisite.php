@@ -4,7 +4,7 @@
  * Description: Transform your WordPress Multisite into a Website as a Service (WaaS) platform supporting site cloning, re-selling, and domain mapping integrations with many hosting providers.
  * Plugin URI: https://ultimatemultisite.com
  * Text Domain: ultimate-multisite
- * Version: 2.4.7
+ * Version: 3.0.2
  * Author: Ultimate Multisite Community
  * Author URI: https://github.com/superdav42/wp-multisite-waas
  * GitHub Plugin URI: https://github.com/superdav42/wp-multisite-waas
@@ -27,10 +27,10 @@
  * You should have received a copy of the GNU General Public License
  * along with Ultimate Multisite. If not, see <http://www.gnu.org/licenses/>.
  *
- * @author   Arindo Duque and NextPress and the Ultimate Multisite Community
+ * @author   Arindo Duque, NextPress, WPMUDEV, and the Ultimate Multisite Community
  * @category Core
- * @package  WP_Ultimo
- * @version 2.4.7
+ * @package  Ultimate_Multisite
+ * @version 3.0.2
  */
 
 // Exit if accessed directly
@@ -127,3 +127,18 @@ if ( ! function_exists('WP_Ultimo')) {
 }
 // Initialize and set to global for back-compat
 $GLOBALS['WP_Ultimo'] = WP_Ultimo();
+
+
+/**
+ * Load OpenSRS Integration
+ */
+if ( file_exists( WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-integration.php' ) ) {
+	require_once WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-integration.php';
+	require_once WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-product-integration.php';
+	require_once WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-checkout-integration.php';
+	require_once WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-customer-dashboard.php';
+	require_once WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-admin-dashboard.php';
+	
+	// Initialize the integration
+	\WP_Ultimo\Integrations\OpenSRS\OpenSRS_Integration::get_instance();
+}

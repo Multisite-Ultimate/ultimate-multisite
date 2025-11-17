@@ -127,18 +127,4 @@ if ( ! function_exists('WP_Ultimo')) {
 }
 // Initialize and set to global for back-compat
 $GLOBALS['WP_Ultimo'] = WP_Ultimo();
-
-
-/**
- * Load OpenSRS Integration
- */
-if ( file_exists( WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-integration.php' ) ) {
-	require_once WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-integration.php';
-	require_once WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-product-integration.php';
-	require_once WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-checkout-integration.php';
-	require_once WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-customer-dashboard.php';
-	require_once WP_ULTIMO_PLUGIN_DIR . 'inc/integrations/opensrs/class-opensrs-admin-dashboard.php';
-	
-	// Initialize the integration
-	\WP_Ultimo\Integrations\OpenSRS\OpenSRS_Integration::get_instance();
-}
+// End of ultimate-multisite.php

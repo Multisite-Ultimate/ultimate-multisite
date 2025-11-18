@@ -88,7 +88,7 @@ class Post_Type_Limits {
 
 		foreach ($emulated_post_types as $index => $pt) {
 			// Verify that $pt is an array
-			if (!is_array($pt)) {
+			if ( ! is_array($pt)) {
 				$needs_update = true;
 				continue;
 			}

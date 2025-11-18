@@ -78,7 +78,7 @@ class Post_Type_Limits {
 
 		$emulated_post_types = wu_get_setting('emulated_post_types', []);
 
-		if (!is_array($emulated_post_types) || empty($emulated_post_types)) {
+		if ( ! is_array($emulated_post_types) || empty($emulated_post_types)) {
 			return;
 		}
 

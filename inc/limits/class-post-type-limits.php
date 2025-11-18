@@ -84,7 +84,7 @@ class Post_Type_Limits {
 
 		// Clean up corrupted data automatically
 		$cleaned_post_types = [];
-		$needs_update = false;
+		$needs_update       = false;
 
 		foreach ($emulated_post_types as $index => $pt) {
 			// Verify that $pt is an array

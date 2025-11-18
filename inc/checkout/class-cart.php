@@ -10,6 +10,7 @@
 namespace WP_Ultimo\Checkout;
 
 use WP_Ultimo\Database\Memberships\Membership_Status;
+use WP_Ultimo\Database\Payments\Payment_Status;
 use Arrch\Arrch as Array_Search;
 
 // Exit if accessed directly
@@ -474,13 +475,18 @@ class Cart implements \JsonSerializable {
 		$this->cart_type = 'new';
 
 		if (is_array($this->attributes->products)) {
-			/*
-			 * Otherwise, we add the products to build the cart.
-			 */
-			foreach ($this->attributes->products as $product_id) {
-				$this->add_product($product_id);
-			}
-		}
+ 		/*
+ 		 * Otherwise, we add the products to build the cart.
+ 		 */
+ 		foreach ($this->attributes->products as $product_id) {
+ 			$this->add_product($product_id);
+ 		}
+
+ 		/*
+ 		 * Cancel conflicting pending payments for new checkouts.
+ 		 */
+ 		$this->cancel_conflicting_pending_payments();
+ 	}
 	}
 
 	/**
@@ -2770,5 +2776,34 @@ class Cart implements \JsonSerializable {
 			],
 			$base_url
 		);
+	}
+
+	/**
+	 * Cancels conflicting pending payments for new checkouts.
+	 *
+	 * @since 2.1.4
+	 * @return void
+	 */
+	protected function cancel_conflicting_pending_payments(): void {
+
+		if ($this->cart_type !== 'new' || !$this->customer) {
+			return;
+		}
+
+		$pending_payments = wu_get_payments([
+			'customer_id' => $this->customer->get_id(),
+			'status' => Payment_Status::PENDING,
+		]);
+
+		foreach ($pending_payments as $payment) {
+			// Cancel if it's not the same cart (simple check: different total or products)
+			$payment_total = $payment->get_total();
+			$cart_total = $this->get_total();
+
+			if (abs($payment_total - $cart_total) > 0.01) { // Allow small differences
+				$payment->set_status(Payment_Status::CANCELLED);
+				$payment->save();
+			}
+		}
 	}
 }

@@ -1841,7 +1841,17 @@ class Site extends Base_Model implements Limitable, Notable {
 
 		global $wpdb;
 
-		$cache = wp_cache_get('site_categories', 'sites');
+		$site_ids = [];
+
+		foreach ($sites as $site) {
+			if ($site instanceof Site) {
+				$site_ids[] = $site->get_id();
+			}
+		}
+
+		$cache_key = 'site_categories_' . implode(':', $site_ids);
+
+		$cache = wp_cache_get($cache_key, 'sites');
 
 		if (is_array($cache)) {
 			return $cache;
@@ -1851,43 +1861,24 @@ class Site extends Base_Model implements Limitable, Notable {
 
 		$query = "SELECT DISTINCT meta_value FROM {$wpdb->base_prefix}blogmeta WHERE meta_key = %s";
 
-		if ( ! empty($sites)) {
-
-			// Ensures that $sites is a indexed array
-			$sites = array_values($sites);
-
-			if (is_a($sites[0], self::class)) {
-				$array_sites = json_decode(json_encode($sites), true); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
-
-				$sites = array_values(array_column($array_sites, 'blog_id'));
-			}
-
-			$query .= ' AND blog_id IN (' . implode(', ', $sites) . ')';
+		if ( ! empty($site_ids)) {
+			$query .= ' AND blog_id IN (' . implode(', ', $site_ids) . ')';
 		}
 
-		$results = $wpdb->get_results($wpdb->prepare($query, 'wu_categories'), ARRAY_A); // phpcs:ignore
+		$results = $wpdb->get_results($wpdb->prepare($query, 'wu_categories')); // phpcs:ignore
 
-		$all_arrays = array_column($results, 'meta_value');
-
-		$all_arrays = array_map('maybe_unserialize', $all_arrays);
-
-		if ($all_arrays) {
-			$filtered_array = [];
-
-			foreach ($all_arrays as $array) {
-				if (is_array($array)) {
-					$filtered_array = array_merge($filtered_array, $array);
+		foreach ($results as $category_array_raw) {
+			$category_array = maybe_unserialize($category_array_raw->meta_value);
+			if ( is_array($category_array) ) {
+				foreach ($category_array as $category) {
+					if ( ! isset($final_array[ $category ])) {
+						$final_array[ $category ] = $category;
+					}
 				}
 			}
-
-			$all_arrays = array_filter($filtered_array);
-
-			$all_arrays = array_unique($all_arrays);
-
-			$final_array = array_combine($all_arrays, $all_arrays);
 		}
 
-		wp_cache_set('site_categories', $final_array, 'sites');
+		wp_cache_set($cache_key, $final_array, 'sites');
 
 		return $final_array;
 	}

@@ -231,7 +231,7 @@ We recommend running this in a staging environment before updating your producti
 Version [2.4.8] - Released on 2025-XX-XX
 - New: Added MCP (Model Context Protocol) Server integration.
 - New: Added support for multi-network installations with network-specific customers, memberships, and products.
-- New: Added magic login links for SSO when third party cookies are disabled.
+- New: Added magic login links for SSO when third-party cookies are disabled.
 - New: Added admin notice when invalid COOKIE_DOMAIN constant is detected.
 - Fixed: WooCommerce subscriptions incorrectly set to staging mode when site is duplicated.
 - Fixed: Single-Sign-On (SSO) authentication issues with custom domains.

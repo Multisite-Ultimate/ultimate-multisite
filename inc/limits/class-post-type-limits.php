@@ -94,7 +94,7 @@ class Post_Type_Limits {
 			}
 
 			// Verify that required keys exist (allow empty values for new entries)
-			if (!isset($pt['post_type']) || !isset($pt['label'])) {
+			if ( ! isset($pt['post_type']) || ! isset($pt['label'])) {
 				$needs_update = true;
 				continue;
 			}

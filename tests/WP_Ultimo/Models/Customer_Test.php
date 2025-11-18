@@ -386,4 +386,21 @@ class Customer_Test extends WP_UnitTestCase {
 		$this->assertEquals('searchuser', $search_results['user_login']);
 		$this->assertEquals('search@example.com', $search_results['user_email']);
 	}
+
+	/**
+	 * Tear down test environment.
+	 */
+	public function tearDown(): void {
+		// Clean up created customers
+		$customers = Customer::get_all();
+		if ($customers) {
+			foreach ($customers as $customer) {
+				if ($customer->get_id()) {
+					$customer->delete();
+				}
+			}
+		}
+		
+		parent::tearDown();
+	}
 }

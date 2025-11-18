@@ -30,7 +30,7 @@ class Magic_Link {
 	 * @since 2.0.0
 	 * @var string
 	 */
-	const TOKEN_QUERY_VAR = 'wu_magic_token';
+	const TOKEN_QUERY_ARG = 'wu_magic_token';
 
 	/**
 	 * Transient prefix for storing tokens.
@@ -58,26 +58,10 @@ class Magic_Link {
 
 		add_action('init', array($this, 'handle_magic_link'), 5);
 
-		add_filter('query_vars', array($this, 'add_query_vars'));
-
 		add_filter('removable_query_args', array($this, 'add_removable_query_args'));
 
 		// Hook into frontend admin my site URLs to add magic links.
 		add_filter('wp_frontend_admin/my_site_url', array($this, 'maybe_convert_to_magic_link'), 15);
-	}
-
-	/**
-	 * Add custom query vars.
-	 *
-	 * @since 2.0.0
-	 * @param array $vars Existing query vars.
-	 * @return array Modified query vars.
-	 */
-	public function add_query_vars($vars) {
-
-		$vars[] = self::TOKEN_QUERY_VAR;
-
-		return $vars;
 	}
 
 	/**
@@ -89,7 +73,7 @@ class Magic_Link {
 	 */
 	public function add_removable_query_args($args) {
 
-		$args[] = self::TOKEN_QUERY_VAR;
+		$args[] = self::TOKEN_QUERY_ARG;
 
 		return $args;
 	}
@@ -146,7 +130,7 @@ class Magic_Link {
 
 		$magic_link = add_query_arg(
 			array(
-				self::TOKEN_QUERY_VAR => $token,
+				self::TOKEN_QUERY_ARG => $token,
 			),
 			$site_url
 		);
@@ -204,7 +188,7 @@ class Magic_Link {
 	 */
 	public function handle_magic_link(): void {
 
-		$token = wu_request(self::TOKEN_QUERY_VAR);
+		$token = wu_request(self::TOKEN_QUERY_ARG);
 
 		if ( empty($token) ) {
 			return;
@@ -254,7 +238,7 @@ class Magic_Link {
 		}
 
 		// Remove the token from the URL and redirect.
-		$redirect_to = remove_query_arg(self::TOKEN_QUERY_VAR, $redirect_to);
+		$redirect_to = remove_query_arg(self::TOKEN_QUERY_ARG, $redirect_to);
 
 		nocache_headers();
 

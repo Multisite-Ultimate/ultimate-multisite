@@ -228,6 +228,18 @@ We recommend running this in a staging environment before updating your producti
 
 == Changelog ==
 
+Version [2.4.8] - Released on 2025-XX-XX
+- New: Added MCP (Model Context Protocol) Server integration.
+- New: Added support for multi-network installations with network-specific customers, memberships, and products.
+- New: Added magic login links for SSO when third-party cookies are disabled.
+- New: Added admin notice when invalid COOKIE_DOMAIN constant is detected.
+- Fixed: WooCommerce subscriptions incorrectly set to staging mode when site is duplicated.
+- Fixed: Single-Sign-On (SSO) authentication issues with custom domains.
+- Fixed: Template switching functionality and improved singleton pattern usage across codebase.
+- Improved: Enhanced domain mapping element and login form handling.
+- Improved: Better redirect handling for sites within the network.
+- Improved: Faster site creation after checkout.
+
 Version [2.4.7] - Released on 2025-10-31
 - Fixed: Conflict with YesCookie plugin.
 - Improved: Thumbnail image quality on template selection in the checkout.

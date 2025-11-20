@@ -10,7 +10,6 @@
 namespace WP_Ultimo\Checkout;
 
 use WP_Ultimo\Database\Memberships\Membership_Status;
-use WP_Ultimo\Database\Payments\Payment_Status;
 use Arrch\Arrch as Array_Search;
 
 // Exit if accessed directly
@@ -355,10 +354,11 @@ class Cart implements \JsonSerializable {
 		$this->set_discount_code($this->attributes->discount_code);
 
 		/*
-		 * Delegates the logic to another
-		 * method that builds up the cart.
+		 * Delegates the logic to Cart_Builder
+		 * that builds up the cart.
 		 */
-		$this->build_cart();
+		$builder = new Cart_Builder($this);
+		$builder->build_cart();
 
 		/*
 		 * Also set the auto-renew status.
@@ -386,6 +386,119 @@ class Cart implements \JsonSerializable {
 		 * @param $this \WP_Ultimo\Checkout\Cart The cart object.
 		 */
 		do_action('wu_cart_after_setup', $this); // @phpstan-ignore-line
+	}
+
+	/**
+	 * Get an attribute value from the cart attributes.
+	 *
+	 * @param string $key The attribute key.
+	 * @param mixed  $default_value The default value if not found.
+	 *
+	 * @return mixed
+	 */
+	public function get_attribute(string $key, $default_value = null) {
+
+		return $this->attributes->{$key} ?? $default_value;
+	}
+
+	/**
+	 * Set the cart type.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $cart_type The cart type.
+	 * @return void
+	 */
+	public function set_cart_type(string $cart_type): void {
+
+		$this->cart_type = $cart_type;
+	}
+
+	/**
+	 * Set the duration.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param int $duration The duration value.
+	 * @return void
+	 */
+	public function set_duration($duration): void {
+
+		$this->duration = $duration;
+	}
+
+	/**
+	 * Set the duration unit.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param string $duration_unit The duration unit.
+	 * @return void
+	 */
+	public function set_duration_unit($duration_unit): void {
+
+		$this->duration_unit = $duration_unit;
+	}
+
+	/**
+	 * Set the plan ID.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param int $plan_id The plan ID.
+	 * @return void
+	 */
+	public function set_plan_id(int $plan_id): void {
+
+		$this->plan_id = $plan_id;
+	}
+
+	/**
+	 * Set the billing cycles.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param int $billing_cycles The number of billing cycles.
+	 * @return void
+	 */
+	public function set_billing_cycles(int $billing_cycles): void {
+
+		$this->billing_cycles = $billing_cycles;
+	}
+
+	/**
+	 * Add a product to the products array.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param \WP_Ultimo\Models\Product $product The product to add.
+	 * @return void
+	 */
+	public function add_to_products($product): void {
+
+		$this->products[] = $product;
+	}
+
+	/**
+	 * Clear all products from the cart.
+	 *
+	 * @since 2.2.0
+	 * @return void
+	 */
+	public function clear_products(): void {
+
+		$this->products = [];
+	}
+
+	/**
+	 * Clear all line items from the cart.
+	 *
+	 * @since 2.2.0
+	 * @return void
+	 */
+	public function clear_line_items(): void {
+
+		$this->line_items = [];
 	}
 
 	/**Null
@@ -429,65 +542,6 @@ class Cart implements \JsonSerializable {
 		return apply_filters('wu_cart_is_tax_exempt', false, $this);
 	}
 
-	/**
-	 * Builds the cart.
-	 *
-	 * Here, we try to determine the type of
-	 * cart so we can properly set it up, based
-	 * on the payment, membership, and products passed.
-	 *
-	 * @since 2.0.0
-	 * @return void
-	 */
-	protected function build_cart() {
-		/*
-		 * Maybe deal with payment recovery first.
-		 */
-		$is_recovery_cart = $this->build_from_payment($this->attributes->payment_id);
-
-		/*
-		 * If we are recovering a payment, we stop right here.
-		 * The pending payment object has all the info we need
-		 * in order to build the proper cart.
-		 */
-		if ($is_recovery_cart) {
-			return;
-		}
-
-		/*
-		 * The next step is to deal with membership changes.
-		 * These include downgrades/upgrades and addons.
-		 */
-		$is_membership_change = $this->build_from_membership($this->attributes->membership_id);
-
-		/*
-		 * If this is a membership change,
-		 * we can return as our work is done.
-		 */
-		if ($is_membership_change) {
-			return;
-		}
-
-		/*
-		 * Otherwise, we add the the products normally,
-		 * and set the cart as new.
-		 */
-		$this->cart_type = 'new';
-
-		if (is_array($this->attributes->products)) {
- 		/*
- 		 * Otherwise, we add the products to build the cart.
- 		 */
- 		foreach ($this->attributes->products as $product_id) {
- 			$this->add_product($product_id);
- 		}
-
- 		/*
- 		 * Cancel conflicting pending payments for new checkouts.
- 		 */
- 		$this->cancel_conflicting_pending_payments();
- 	}
-	}
 
 	/**
 	 * Creates a string that describes the cart.
@@ -539,782 +593,6 @@ class Cart implements \JsonSerializable {
 		$this->cart_descriptor = $descriptor;
 	}
 
-	/**
-	 * Decides if we are trying to recover a payment.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param int $payment_id A valid payment ID.
-	 */
-	protected function build_from_payment($payment_id): bool {
-		/*
-		 * No valid payment id passed, so we
-		 * are not trying to recover a payment.
-		 */
-		if (empty($payment_id)) {
-			return false;
-		}
-
-		/*
-		 * Now, let's try to fetch the payment in question.
-		 */
-		$payment = wu_get_payment($payment_id);
-
-		if ( ! $payment) {
-			$this->errors->add('payment_not_found', __('The payment in question was not found.', 'ultimate-multisite'));
-
-			return true;
-		}
-
-		/*
-		 * The payment exists, set it globally.
-		 */
-		$this->payment = $payment;
-
-		/*
-		 * Adds the country to calculate taxes.
-		 */
-		$this->country = $this->country ?: ($this->customer ? $this->customer->get_country() : '');
-
-		/*
-		 * Set the currency in the cart
-		 */
-		$this->set_currency($payment->get_currency());
-
-		/*
-		 * Check for the correct permissions.
-		 *
-		 * For obvious reasons, only the customer that owns
-		 * a payment can pay it. Let's check for that.
-		 */
-		if (empty($this->customer) || $this->customer->get_id() !== $payment->get_customer_id()) {
-			$this->errors->add('lacks_permission', __('You are not allowed to modify this payment.', 'ultimate-multisite'));
-
-			return true;
-		}
-
-		/*
-		 * Sets the membership as well, to prevent issues
-		 */
-		$membership = $payment->get_membership();
-
-		if ( ! $membership) {
-			$this->errors->add('membership_not_found', __('The membership in question was not found.', 'ultimate-multisite'));
-
-			return true;
-		}
-
-		if ($payment->get_discount_code()) {
-			/**
-			 *  First check if is a membership discount code;
-			 */
-			$discount_code = $membership->get_discount_code();
-
-			if ($discount_code && $discount_code->get_code() === $payment->get_discount_code()) {
-				$this->add_discount_code($discount_code);
-			} else {
-				$this->add_discount_code($payment->get_discount_code());
-			}
-		}
-
-		/*
-		 * Sets membership globally.
-		 */
-		$this->membership    = $membership;
-		$this->duration      = $membership->get_duration();
-		$this->duration_unit = $membership->get_duration_unit();
-
-		/*
-		 * Finally, copy the line items from the payment.
-		 */
-		foreach ($payment->get_line_items() as $line_item) {
-			$product = $line_item->get_product();
-
-			if ($product) {
-				if ($product->is_recurring() && ($product->get_duration_unit() !== $this->duration_unit || $product->get_duration() !== $this->duration)) {
-					$product_variation = $product->get_as_variation($this->duration, $this->duration_unit);
-
-					/*
-					 * Checks if the variation exists before re-setting the product.
-					 */
-					if ($product_variation) {
-						$product = $product_variation;
-					}
-				}
-
-				$this->products[] = $product;
-
-				if ($line_item->get_type() === 'product' && $product->get_type() === 'plan') {
-					/*
-					 * If we already have a plan, we can't add
-					 * another one.
-					 */
-					if (empty($this->plan_id)) {
-						$this->plan_id        = $product->get_id();
-						$this->billing_cycles = $product->get_billing_cycles();
-
-						$this->duration      = $line_item->get_duration();
-						$this->duration_unit = $line_item->get_duration_unit();
-					}
-				}
-			}
-
-			$this->add_line_item($line_item);
-		}
-
-		/*
-		 * If the payment is completed
-		 * this can't be a retry, so we skip
-		 * the rest.
-		 */
-		if ($payment->get_status() === 'completed') {
-			/**
-			 * We should return false to continue in case of membership updates.
-			 */
-			return false;
-		}
-
-		/*
-		 * Check for payment status.
-		 *
-		 * We want to make sure we only allow for repayment of pending,
-		 * cancelled, or abandoned payments
-		 */
-		$allowed_status = apply_filters(
-			'wu_cart_set_payment_allowed_status',
-			[
-				'pending',
-			]
-		);
-
-		if ( ! in_array($payment->get_status(), $allowed_status, true)) {
-			$this->errors->add('invalid_status', __('The payment in question has an invalid status.', 'ultimate-multisite'));
-
-			return true;
-		}
-
-		/*
-		 * If the membership is active or is
-		 * already in trial this can't be a
-		 * retry, so we skip the rest.
-		 */
-		if ($membership->is_active() || ($membership->get_status() === Membership_Status::TRIALING && ! $this->has_trial())) {
-			return false;
-		}
-
-		/*
-		 * We got here, that means
-		 * the intend behind this cart was to actually
-		 * recover a payment.
-		 *
-		 * That means we can safely set the cart type to retry.
-		 */
-		$this->cart_type = 'retry';
-
-		return true;
-	}
-
-	/**
-	 * Uses the membership to decide if this is a upgrade/downgrade/addon cart.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param int $membership_id A valid membership ID.
-	 */
-	protected function build_from_membership($membership_id): bool {
-		/*
-		 * No valid membership id passed, so we
-		 * are not trying to change a membership.
-		 */
-		if (empty($membership_id)) {
-			return false;
-		}
-
-		/*
-		 * We got here, that means
-		 * the intend behind this cart was to actually
-		 * change a membership.
-		 *
-		 * We can set the cart type provisionally.
-		 * This assignment might change in the future, as we make
-		 * additional assertions about the contents of the cart.
-		 */
-		$this->cart_type = 'upgrade';
-
-		/*
-		 * Now, let's try to fetch the membership in question.
-		 */
-		$membership = wu_get_membership($membership_id);
-
-		if ( ! $membership) {
-			$this->errors->add('membership_not_found', __('The membership in question was not found.', 'ultimate-multisite'));
-
-			return true;
-		}
-
-		/*
-		 * The membership exists, set it globally.
-		 */
-		$this->membership = $membership;
-
-		/*
-		 * In the case of membership changes,
-		 * the status is not that relevant, as customers
-		 * might want to make changes to memberships that are
-		 * active, cancelled, etc.
-		 *
-		 * We do need to check for permissions, though.
-		 * Only the customer that owns a membership can change it.
-		 */
-		if (empty($this->customer) || $this->customer->get_id() !== $membership->get_customer_id()) {
-			$this->errors->add('lacks_permission', __('You are not allowed to modify this membership.', 'ultimate-multisite'));
-
-			return true;
-		}
-
-		/*
-		 * Adds the country to calculate taxes.
-		 */
-		$this->country = $this->country ?: $this->customer->get_country();
-
-		/*
-		 * Set the currency in cart
-		 */
-		$this->set_currency($membership->get_currency());
-
-		/*
-		 * If we get to this point, we now need to assess
-		 * what are the changes being made.
-		 *
-		 * First, we need to see if there are actual products
-		 * being added, and process those.
-		 */
-		if (empty($this->attributes->products)) {
-			if ($this->payment) {
-				/**
-				 *  If we do not have any change but we have a already
-				 *  created payment it means that this cart is to pay
-				 *  for this.
-				 */
-				return false;
-			}
-
-			$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'ultimate-multisite'));
-
-			return true;
-		}
-
-		/*
-		 * Otherwise, we add the products to build the cart.
-		 */
-		foreach ($this->attributes->products as $product_id) {
-			$this->add_product($product_id);
-		}
-
-		/*
-		 * With products added, let's check if this is an addon.
-		 *
-		 * An addon cart adds a new product or service to the current membership.
-		 * If this cart, after adding the products, doesn't have a plan, it means
-		 * it should continue to use the membership plan, and the other products
-		 * must be added to the membership.
-		 */
-		if (empty($this->plan_id)) {
-			if (count($this->products) === 0) {
-				$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'ultimate-multisite'));
-
-				return true;
-			}
-
-			/*
-			 * Set the type to addon.
-			 */
-			$this->cart_type = 'addon';
-
-			/*
-			 * Sets the durations to avoid problems
-			 * with addon purchases.
-			 */
-			$plan_product = $membership->get_plan();
-
-			if ($plan_product && ! $membership->is_free()) {
-				$this->duration      = $plan_product->get_duration();
-				$this->duration_unit = $plan_product->get_duration_unit();
-			}
-
-			/*
-			 * Checks the membership to see if we need to add back the
-			 * setup fee.
-			 *
-			 * If the membership was already successfully charged once,
-			 * it probably means that the setup fee was already paid, so we can skip it.
-			 */
-			add_filter('wu_apply_signup_fee', fn() => $membership->get_times_billed() <= 0);
-
-			/*
-			 * Adds the membership plan back in, for completeness.
-			 * This is also useful to make sure we present
-			 * the totals correctly for the customer.
-			 */
-			$this->add_product($membership->get_plan_id());
-
-			/*
-			 * Adds the credit line, after
-			 * calculating pro-rate.
-			 */
-			$this->calculate_prorate_credits();
-
-			return true;
-		}
-
-		/*
-		 * With products added, let's check if the plan is changing.
-		 *
-		 * A plan change implies a upgrade or a downgrade, which we will determine
-		 * below.
-		 *
-		 * A plan change can take many forms.
-		 * - Different plan altogether;
-		 * - Same plan with different periodicity;
-		 * - upgrade to lifetime;
-		 * - downgrade to free;
-		 */
-		$is_plan_change = false;
-
-		if ($membership->get_plan_id() !== $this->plan_id || $membership->get_duration_unit() !== $this->duration_unit || $membership->get_duration() !== $this->duration) {
-			$is_plan_change = true;
-		}
-
-		/*
-		 * Checks for periodicity changes.
-		 */
-		$old_periodicity = sprintf('%s-%s', $membership->get_duration(), $membership->get_duration_unit());
-		$new_periodicity = sprintf('%s-%s', $this->duration, $this->duration_unit);
-
-		if ($old_periodicity !== $new_periodicity) {
-			$is_plan_change = true;
-		}
-
-		/*
-		 * If there is no plan change, but the product count is > 1
-		 * We know that there is another product in this cart other than the
-		 * plan, so this is again an addon cart.
-		 */
-		if (count($this->products) > 1 && false === $is_plan_change) {
-			/*
-			 * Set the type to addon.
-			 */
-			$this->cart_type = 'addon';
-
-			/*
-			 * Sets the durations to avoid problems
-			 * with addon purchases.
-			 */
-			$plan_product = $membership->get_plan();
-
-			if ($plan_product && ! $membership->is_free()) {
-				$this->duration      = $plan_product->get_duration();
-				$this->duration_unit = $plan_product->get_duration_unit();
-			}
-
-			/*
-			 * Checks the membership to see if we need to add back the
-			 * setup fee.
-			 *
-			 * If the membership was already successfully charged once,
-			 * it probably means that the setup fee was already paid, so we can skip it.
-			 */
-			add_filter('wu_apply_signup_fee', fn() => $membership->get_times_billed() <= 0);
-
-			/*
-			 * Adds the credit line, after
-			 * calculating pro-rate.
-			 */
-			$this->calculate_prorate_credits();
-
-			return true;
-		}
-
-		/*
-		 * We'll probably never enter in this if, but we
-		 * hev it here to prevent bugs.
-		 */
-		if ( ! $is_plan_change || ($this->get_plan_id() === $membership->get_plan_id() && $membership->get_duration_unit() === $this->duration_unit && $membership->get_duration() === $this->duration)) {
-			$this->products   = [];
-			$this->line_items = [];
-
-			$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'ultimate-multisite'));
-
-			return true;
-		} else {
-			$new_plan        = $this->get_plan();
-			$new_limitations = $new_plan->get_limitations();
-			$sites           = $this->get_membership()->get_sites(false);
-			foreach ($sites as $site) {
-				switch_to_blog($site->get_id());
-
-				$overlimits = $new_limitations->post_types->check_all_post_types();
-
-				if ( $overlimits ) {
-					foreach ( $overlimits as $post_type_slug => $limit ) {
-						$post_type = get_post_type_object($post_type_slug);
-
-						$this->errors->add(
-							'overlimits_' . $post_type_slug,
-							sprintf(
-							// translators: %1$d: current number of posts, %2$s: post type name, %3$d: posts quota, %4$s: post type name, %5$d: number of posts to be deleted, %6$s: post type name.
-								esc_html__('Your site currently has %1$d %2$s but the new plan is limited to %3$d %4$s. You must trash %5$d %6$s before you can downgrade your plan.', 'ultimate-multisite'),
-								$limit['current'],
-								$limit['current'] > 1 ? $post_type->labels->name : $post_type->labels->singular_name,
-								$limit['limit'],
-								$limit['limit'] > 1 ? $post_type->labels->name : $post_type->labels->singular_name,
-								$limit['current'] - $limit['limit'],
-								$limit['current'] - $limit['limit'] > 1 ? $post_type->labels->name : $post_type->labels->singular_name
-							)
-						);
-					}
-					restore_current_blog();
-
-					return true;
-				}
-
-				// Check domain mapping limits for downgrade
-				$domain_overlimits = $new_limitations->domain_mapping->check_all_domains($site->get_id());
-
-				if ( $domain_overlimits ) {
-					$domain_count = $domain_overlimits['current'];
-					$domain_limit = $domain_overlimits['limit'];
-
-					if (0 === $domain_limit) {
-						$this->errors->add(
-							'overlimits',
-							sprintf(
-								esc_html__('This new plan does NOT support custom domains. You must remove all custom domains before you can downgrade your plan.', 'ultimate-multisite'),
-							)
-						);
-					} else {
-						$this->errors->add(
-							'overlimits',
-							sprintf(
-							// translators: %1$d: current number of custom domains, %2$s: 'custom domain' or 'custom domains', %3$d: domain limit, %4$s: 'custom domain' or 'custom domains', %5$d: number of domains to be removed, %6$s: 'custom domain' or 'custom domains'.
-								esc_html__('Your site currently has %1$d %2$s but the new plan is limited to %3$d %4$s. You must remove %5$d %6$s before you can downgrade your plan.', 'ultimate-multisite'),
-								$domain_count,
-								$domain_count > 1 ? __('custom domains', 'ultimate-multisite') : __('custom domain', 'ultimate-multisite'),
-								$domain_limit,
-								$domain_limit > 1 ? __('custom domains', 'ultimate-multisite') : __('custom domain', 'ultimate-multisite'),
-								$domain_count - $domain_limit,
-								($domain_count - $domain_limit) > 1 ? __('custom domains', 'ultimate-multisite') : __('custom domain', 'ultimate-multisite')
-							)
-						);
-					}
-					restore_current_blog();
-
-					return true;
-				}
-				restore_current_blog();
-			}
-		}
-
-		/*
-		 * Upgrade to Lifetime.
-		 */
-		if ( ! $this->has_recurring() && ! $this->is_free()) {
-			/*
-			 * Adds the credit line, after
-			 * calculating pro-rate.
-			 */
-			$this->calculate_prorate_credits();
-
-			return true;
-		}
-
-		/*
-		 * If we get to this point, we know that this is either
-		 * an upgrade or a downgrade, so we need to determine which.
-		 *
-		 * Since by default we set the value to upgrade,
-		 * we just need to check for a downgrade scenario.
-		 */
-		$days_in_old_cycle = wu_get_days_in_cycle($membership->get_duration_unit(), $membership->get_duration());
-		$days_in_new_cycle = wu_get_days_in_cycle($this->duration_unit, $this->duration);
-
-		$old_price_per_day = $days_in_old_cycle > 0 ? $membership->get_amount() / $days_in_old_cycle : $membership->get_amount();
-		$new_price_per_day = $days_in_new_cycle > 0 ? $this->get_recurring_total() / $days_in_new_cycle : $this->get_recurring_total();
-
-		$is_same_product = $membership->get_plan_id() === $this->plan_id;
-
-		/**
-		 * Here we search for variations of the plans
-		 * with the same duration to avoid mistakens
-		 * when setting a downgrade cart.
-		 */
-		if ($days_in_old_cycle !== $days_in_new_cycle) {
-			$old_plan = $membership->get_plan();
-			$new_plan = $this->get_plan();
-
-			$variations = $this->search_for_same_period_plans($old_plan, $new_plan);
-
-			if ($variations) {
-				$old_plan = $variations[0];
-				$new_plan = $variations[1];
-
-				$days_in_old_cycle_plan = wu_get_days_in_cycle($old_plan->get_duration_unit(), $old_plan->get_duration());
-				$days_in_new_cycle_plan = wu_get_days_in_cycle($new_plan->get_duration_unit(), $new_plan->get_duration());
-
-				$old_price_per_day = $days_in_old_cycle_plan > 0 ? $old_plan->get_amount() / $days_in_old_cycle_plan : $old_plan->get_amount();
-				$new_price_per_day = $days_in_new_cycle_plan > 0 ? $new_plan->get_amount() / $days_in_new_cycle_plan : $new_plan->get_amount();
-			}
-		}
-
-		if ( ! $membership->is_free() && $old_price_per_day < $new_price_per_day && $days_in_old_cycle > $days_in_new_cycle && $membership->get_status() === Membership_Status::ACTIVE) {
-			$this->products   = [];
-			$this->line_items = [];
-
-			$description = sprintf(
-				1 === $membership->get_duration() ? '%2$s' : '%1$s %2$s',
-				$membership->get_duration(),
-				wu_get_translatable_string(($membership->get_duration() <= 1 ? $membership->get_duration_unit() : $membership->get_duration_unit() . 's'))
-			);
-
-			// Translators: Placeholder receives the recurring period description
-			$message = sprintf(__('You already have an active %s agreement.', 'ultimate-multisite'), $description);
-
-			$this->errors->add('no_changes', $message);
-
-			return true;
-		}
-
-		/*
-		 * If is the same product and the customer will start to pay less
-		 * or if is not the same product and the price per day is smaller
-		 * this is a downgrade
-		 */
-		if (($is_same_product && $membership->get_amount() > $this->get_recurring_total()) || (! $is_same_product && $old_price_per_day > $new_price_per_day)) {
-			$this->cart_type = 'downgrade';
-
-			// If membership is active or trialing we will schedule the swap
-			if ($membership->is_active() || $membership->get_status() === Membership_Status::TRIALING) {
-				$line_item_params = apply_filters(
-					'wu_checkout_credit_line_item_params',
-					[
-						'type'         => 'credit',
-						'title'        => __('Scheduled Swap Credit', 'ultimate-multisite'),
-						'description'  => __('Swap scheduled to next billing cycle.', 'ultimate-multisite'),
-						'discountable' => false,
-						'taxable'      => false,
-						'quantity'     => 1,
-						'unit_price'   => - $this->get_total(),
-					]
-				);
-
-				$credit_line_item = new Line_Item($line_item_params);
-
-				$this->add_line_item($credit_line_item);
-			}
-		}
-
-		// If this is an upgrade, we need to prorate the current amount
-		if ('upgrade' === $this->cart_type) {
-			$this->calculate_prorate_credits();
-		}
-
-		/*
-		 * All set!
-		 */
-		return true;
-	}
-
-	/**
-	 * Search for variations of the plans with same duration.
-	 *
-	 * @since 2.0.20
-	 * @param \WP_Ultimo\Models\Product $plan_a The first plan without variations.
-	 * @param \WP_Ultimo\Models\Product $plan_b The second plan without variations.
-	 * @return mixed[]|false
-	 */
-	protected function search_for_same_period_plans($plan_a, $plan_b) {
-
-		if ($plan_a->get_duration_unit() === $plan_b->get_duration_unit() && $plan_a->get_duration() === $plan_b->get_duration()) {
-			return [
-				$plan_a,
-				$plan_b,
-			];
-		}
-
-		$plan_a_variation = $plan_a->get_as_variation($plan_b->get_duration(), $plan_b->get_duration_unit());
-
-		if ($plan_a_variation) {
-			return [
-				$plan_a_variation,
-				$plan_b,
-			];
-		}
-
-		$plan_b_variation = $plan_b->get_as_variation($plan_a->get_duration(), $plan_a->get_duration_unit());
-
-		if ($plan_b_variation) {
-			return [
-				$plan_a,
-				$plan_b_variation,
-			];
-		}
-
-		if ($this->duration_unit && $this->duration && ($plan_b->get_duration_unit() !== $this->duration_unit || $plan_b->get_duration() !== $this->duration)) {
-			$plan_a_variation = $plan_a->get_as_variation($this->duration, $this->duration_unit);
-
-			if ( ! $plan_a_variation) {
-				return false;
-			}
-
-			if ($plan_b->get_duration_unit() === $plan_a_variation->get_duration_unit() && $plan_b->get_duration() === $plan_a_variation->get_duration()) {
-				return [
-					$plan_a_variation,
-					$plan_b,
-				];
-			}
-
-			$plan_b_variation = $plan_b->get_as_variation($this->duration, $this->duration_unit);
-
-			if ($plan_b_variation) {
-				return [
-					$plan_a_variation,
-					$plan_b_variation,
-				];
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Calculate pro-rate credits.
-	 *
-	 * @since 2.0.0
-	 * @return void
-	 */
-	protected function calculate_prorate_credits() {
-		/*
-		 * Now we come to the craziest part: pro-rating!
-		 *
-		 * This is super hard to get right, but we basically need to add
-		 * new line items to account for the time using the old plan.
-		 */
-
-		/*
-		 * If the membership is in trial period there's nothing to prorate.
-		 */
-		if ($this->membership->get_status() === Membership_Status::TRIALING) {
-			return;
-		}
-
-		if ($this->membership->is_lifetime() || ! $this->membership->is_recurring()) {
-			$credit = $this->membership->get_initial_amount();
-		} else {
-			$days_unused = $this->membership->get_remaining_days_in_cycle();
-
-			$days_in_old_cycle = wu_get_days_in_cycle($this->membership->get_duration_unit(), $this->membership->get_duration());
-
-			$old_price_per_day = $days_in_old_cycle > 0 ? $this->membership->get_amount() / $days_in_old_cycle : $this->membership->get_amount();
-
-			if (($this->membership->get_date_created() && wu_date($this->membership->get_date_created())->format('Y-m-d') === wu_date()->format('Y-m-d')) ||
-				($this->membership->get_date_renewed() && wu_date($this->membership->get_date_renewed())->format('Y-m-d') === wu_date()->format('Y-m-d'))) {
-				// If the membership was created today, We'll use the average days in the cycle to prevent some odd numbers.
-				$days_unused = $days_in_old_cycle;
-			}
-
-			$credit = $days_unused * $old_price_per_day;
-
-			if ($credit > $this->membership->get_amount()) {
-				$credit = $this->membership->get_amount();
-			}
-		}
-
-		/*
-		 * No credits
-		 */
-		if (empty($credit)) {
-			return;
-		}
-
-		/*
-		 * Checks if we need to add back the value of the
-		 * setup fee
-		 */
-		$has_setup_fee = $this->get_line_items_by_type('fee');
-
-		if ( ! empty($has_setup_fee) || $this->get_cart_type() === 'upgrade') {
-			$old_plan = $this->membership->get_plan();
-
-			$new_plan = $this->get_plan();
-
-			if ($old_plan && $new_plan) {
-				$old_setup_fee = $old_plan->get_setup_fee();
-				$new_setup_fee = $new_plan->get_setup_fee();
-
-				$fee_credit = $old_setup_fee < $new_setup_fee ? $old_setup_fee : $new_setup_fee;
-
-				if ($fee_credit > 0) {
-					$new_line_item = new Line_Item(
-						[
-							'product'     => $old_plan,
-							'type'        => 'fee',
-							'description' => '--',
-							'title'       => '',
-							'taxable'     => $old_plan->is_taxable(),
-							'recurring'   => false,
-							'unit_price'  => $fee_credit,
-							'quantity'    => 1,
-						]
-					);
-
-					$new_line_item = $this->apply_taxes_to_item($new_line_item);
-
-					$new_line_item->recalculate_totals();
-
-					$credit += $new_line_item->get_total();
-				}
-			}
-		}
-
-		/**
-		 * Allow plugin developers to meddle with the credit value.
-		 *
-		 * @since 2.0.0
-		 *
-		 * @param int  $credit The credit amount.
-		 * @param self $cart This cart object.
-		 */
-		$credit = apply_filters('wu_checkout_calculate_prorate_credits', $credit, $this);
-
-		$credit = round($credit, wu_currency_decimal_filter());
-
-		/*
-		 * No credits
-		 */
-		if (empty($credit)) {
-			return;
-		}
-
-		$line_item_params = apply_filters(
-			'wu_checkout_credit_line_item_params',
-			[
-				'type'         => 'credit',
-				'title'        => __('Credit', 'ultimate-multisite'),
-				'description'  => __('Prorated amount based on the previous membership.', 'ultimate-multisite'),
-				'discountable' => false,
-				'taxable'      => false,
-				'quantity'     => 1,
-				'unit_price'   => - $credit,
-			]
-		);
-
-		/*
-		 * Finally, we add the credit to the purchase.
-		 */
-		$credit_line_item = new Line_Item($line_item_params);
-
-		$this->add_line_item($credit_line_item);
-	}
 
 	/**
 	 * Adds a discount code to the cart.
@@ -2776,34 +2054,5 @@ class Cart implements \JsonSerializable {
 			],
 			$base_url
 		);
-	}
-
-	/**
-	 * Cancels conflicting pending payments for new checkouts.
-	 *
-	 * @since 2.1.4
-	 * @return void
-	 */
-	protected function cancel_conflicting_pending_payments(): void {
-
-		if ($this->cart_type !== 'new' || !$this->customer) {
-			return;
-		}
-
-		$pending_payments = wu_get_payments([
-			'customer_id' => $this->customer->get_id(),
-			'status' => Payment_Status::PENDING,
-		]);
-
-		foreach ($pending_payments as $payment) {
-			// Cancel if it's not the same cart (simple check: different total or products)
-			$payment_total = $payment->get_total();
-			$cart_total = $this->get_total();
-
-			if (abs($payment_total - $cart_total) > 0.01) { // Allow small differences
-				$payment->set_status(Payment_Status::CANCELLED);
-				$payment->save();
-			}
-		}
 	}
 }

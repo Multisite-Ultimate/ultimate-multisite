@@ -1848,9 +1848,9 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 * @since 2.0.0
 	 *
 	 * @param array $site_info Site info.
-	 * @return bool
+	 * @return Site
 	 */
-	public function create_pending_site($site_info): bool {
+	public function create_pending_site($site_info): Site {
 
 		global $current_site;
 
@@ -1865,17 +1865,16 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			]
 		);
 
-		$site = new \WP_Ultimo\Models\Site($site_info);
+		$site = new Site($site_info);
 
-		return (bool) $this->update_meta('pending_site', $site);
+		$this->update_meta('pending_site', $site);
+		return $site;
 	}
 
 	/**
-	 * Updates a pending site to the membership meta data.
+	 * Updates a pending site to the membership meta-data.
 	 *
-	 * @since 2.0.11
-	 *
-	 * @param \WP_Ultimo\Models\Site $site Site info.
+	 * @param Site $site Site info.
 	 * @return bool
 	 */
 	public function update_pending_site($site) {
@@ -1886,8 +1885,8 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	/**
 	 * Returns the pending site, if any.
 	 *
+	 * @return Site|false
 	 * @since 2.0.0
-	 * @return \WP_Ultimo\Models\Site|false
 	 */
 	public function get_pending_site() {
 

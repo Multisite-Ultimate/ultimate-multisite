@@ -48,6 +48,9 @@ function wu_get_checkout_forms($query = []) {
  */
 function wu_get_checkout_form_by_slug($checkout_form_slug) {
 
+	if ( ! $checkout_form_slug) {
+		return false;
+	}
 	/**
 	 * Fixed case: Upgrade/Downgrade forms.
 	 *

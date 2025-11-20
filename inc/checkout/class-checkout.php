@@ -130,7 +130,7 @@ class Checkout {
 	 * @since 2.1.4
 	 * @var array
 	 */
-	 protected $pending_payments;
+	protected $pending_payments;
 
 	/**
 	 * The customer object.
@@ -184,7 +184,7 @@ class Checkout {
 		add_action('init', [$this, 'add_rewrite_rules'], 20);
 
 		// Schedule draft cleanup
-		if (!wp_next_scheduled('wu_cleanup_draft_payments')) {
+		if (! wp_next_scheduled('wu_cleanup_draft_payments')) {
 			wp_schedule_event(time(), 'daily', 'wu_cleanup_draft_payments');
 		}
 		add_action('wu_cleanup_draft_payments', [$this, 'cleanup_expired_drafts']);
@@ -407,12 +407,12 @@ class Checkout {
 		// Handle cancel pending payment request
 		if (wu_request('cancel_pending_payment')) {
 			$payment_id = wu_request('cancel_pending_payment');
-			$payment = wu_get_payment($payment_id);
+			$payment    = wu_get_payment($payment_id);
 			if ($payment && $payment->get_status() === Payment_Status::PENDING && $this->can_user_cancel_payment($payment)) {
 				$payment->set_status(Payment_Status::CANCELLED);
 				$payment->save();
 				// Clear session if it was this payment
-				if ($this->session->get('payment_id') == $payment_id) {
+				if ((int) $this->session->get('payment_id') === (int) $payment_id) {
 					$this->session->set('payment_id', null);
 				}
 			}
@@ -466,8 +466,9 @@ class Checkout {
 
 		// Create draft payment if products selected and no draft exists
 		$products = $this->request_or_session('products', []);
-		if (!empty($products) && !$this->session->get('draft_payment_id')) {
-			$this->create_draft_payment($products);
+		if (! empty($products) && ! $this->session->get('draft_payment_id')) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedIf
+			// TODO: Get this working, later.
+			// $this->create_draft_payment($products);
 		}
 
 		wu_no_cache(); // Prevent the registration page from being cached.
@@ -624,7 +625,17 @@ class Checkout {
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
+		// Clean up draft payment if it exists
+		$draft_payment_id = $this->session->get('draft_payment_id');
+		if ($draft_payment_id) {
+			$draft_payment = wu_get_payment($draft_payment_id);
+			if ($draft_payment && $draft_payment->get_status() === Payment_Status::DRAFT) {
+				$draft_payment->delete();
+			}
+		}
+
 		$this->session->set('signup', []);
+		$this->session->set('draft_payment_id', null);
 		$this->session->commit();
 
 		wp_send_json_success($results);
@@ -1525,6 +1536,20 @@ class Checkout {
 		 */
 		$payment = wu_create_payment($payment_data);
 
+		if (is_wp_error($payment)) {
+			// Log the error and return it to halt order processing
+			wu_log_add(
+				'checkout',
+				sprintf(
+					'Failed to create payment during order submission: %s (Code: %s)',
+					$payment->get_error_message(),
+					$payment->get_error_code()
+				),
+				\Psr\Log\LogLevel::ERROR
+			);
+			return $payment;
+		}
+
 		/*
 		 * Then, if this is a trial,
 		 * we need to set the payment value to zero.
@@ -1757,20 +1782,6 @@ class Checkout {
 		if ( ! empty($variables['order']->discount_code)) {
 			$variables['discount_code'] = $variables['order']->discount_code->get_code();
 		}
-
-		/*
-		 * Add pending payments info for UI
-		 */
-		// $pending = [];
-		// foreach ($this->pending_payments as $payment) {
-		// 	$pending[] = [
-		// 		'id' => $payment->get_id(),
-		// 		'hash' => $payment->get_hash(),
-		// 		'total' => $payment->get_total(),
-		// 		'date_created' => $payment->get_date_created(),
-		// 	];
-		// }
-		// $variables['pending_payments'] = $pending;
 
 		/**
 		 * Allow plugin developers to filter the pre-sets of a checkout page.
@@ -2540,15 +2551,19 @@ class Checkout {
 
 		$expired_date = gmdate('Y-m-d H:i:s', strtotime('-30 days'));
 
-		$expired_drafts = wu_get_payments([
-			'status' => Payment_Status::DRAFT,
-			'date_created__lt' => $expired_date,
-		]);
+		$expired_drafts = wu_get_payments(
+			[
+				'status'           => Payment_Status::DRAFT,
+				'date_created__lt' => $expired_date,
+			]
+		);
 
-		$expired_pendings = wu_get_payments([
-			'status' => Payment_Status::PENDING,
-			'date_created__lt' => $expired_date,
-		]);
+		$expired_pendings = wu_get_payments(
+			[
+				'status'           => Payment_Status::PENDING,
+				'date_created__lt' => $expired_date,
+			]
+		);
 
 		foreach (array_merge($expired_drafts, $expired_pendings) as $payment) {
 			if ($payment->get_status() === Payment_Status::PENDING) {
@@ -2569,20 +2584,20 @@ class Checkout {
 	public function handle_cancel_payment(): void {
 
 		$payment_id = wu_request('cancel_payment');
-		if (!$payment_id) {
+		if (! $payment_id) {
 			return;
 		}
 
-		if (!wp_verify_nonce(wu_request('_wpnonce'), 'cancel_payment_' . $payment_id)) {
+		if (! wp_verify_nonce(wu_request('_wpnonce'), 'cancel_payment_' . $payment_id)) {
 			return;
 		}
 
 		$payment = wu_get_payment($payment_id);
-		if (!$payment || $payment->get_status() !== Payment_Status::PENDING) {
+		if (! $payment || $payment->get_status() !== Payment_Status::PENDING) {
 			return;
 		}
 
-		if (!$this->can_user_cancel_payment($payment)) {
+		if (! $this->can_user_cancel_payment($payment)) {
 			return;
 		}
 
@@ -2622,6 +2637,20 @@ class Checkout {
 
 		$payment = wu_create_payment($payment_data);
 
+		if (is_wp_error($payment)) {
+			// Log the error but allow checkout to continue
+			wu_log_add(
+				'checkout',
+				sprintf(
+					'Failed to create draft payment: %s (Code: %s)',
+					$payment->get_error_message(),
+					$payment->get_error_code()
+				),
+				\Psr\Log\LogLevel::WARNING
+			);
+			return;
+		}
+
 		if ($payment) {
 			$this->session->set('draft_payment_id', $payment->get_id());
 			$payment->update_meta('checkout_session', $this->session->get());
@@ -2638,12 +2667,12 @@ class Checkout {
 	protected function save_draft_progress(): void {
 
 		$draft_payment_id = $this->session->get('draft_payment_id');
-		if (!$draft_payment_id) {
+		if (! $draft_payment_id) {
 			return;
 		}
 
 		$draft_payment = wu_get_payment($draft_payment_id);
-		if (!$draft_payment || $draft_payment->get_status() !== Payment_Status::DRAFT) {
+		if (! $draft_payment || $draft_payment->get_status() !== Payment_Status::DRAFT) {
 			return;
 		}
 
@@ -2660,7 +2689,7 @@ class Checkout {
 	 */
 	protected function can_user_cancel_payment($payment): bool {
 
-		if (!is_user_logged_in()) {
+		if (! is_user_logged_in()) {
 			return false;
 		}
 

@@ -41,13 +41,6 @@ class Checkout_Test extends WP_UnitTestCase {
 		$this->assertTrue(true); // Placeholder
 	}
 
-	/**
-	 * Test saving draft progress.
-	 */
-	public function test_save_draft_progress() {
-		$this->markTestSkipped('Test requires complex session mocking');
-	}
-
 	public static function tear_down_after_class() {
 		self::$customer->delete();
 		parent::tear_down_after_class();

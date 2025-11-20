@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-15T17:05:01+00:00\n"
+"POT-Creation-Date: 2025-11-20T01:23:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ultimate-multisite\n"
@@ -127,7 +127,7 @@ msgstr ""
 #: inc/installers/class-default-content-installer.php:264
 #: inc/list-tables/class-membership-list-table-widget.php:166
 #: inc/list-tables/class-membership-list-table.php:129
-#: inc/list-tables/class-payment-list-table.php:222
+#: inc/list-tables/class-payment-list-table.php:235
 #: inc/list-tables/class-product-list-table.php:136
 #: inc/managers/class-gateway-manager.php:400
 #: views/base/addons.php:208
@@ -287,8 +287,8 @@ msgstr ""
 #: inc/list-tables/class-membership-list-table-widget.php:263
 #: inc/list-tables/class-membership-list-table.php:177
 #: inc/list-tables/class-membership-list-table.php:223
-#: inc/list-tables/class-payment-list-table.php:181
-#: inc/list-tables/class-payment-list-table.php:206
+#: inc/list-tables/class-payment-list-table.php:194
+#: inc/list-tables/class-payment-list-table.php:219
 #: inc/list-tables/customer-panel/class-invoice-list-table.php:34
 #: views/dashboard-widgets/current-membership.php:121
 #: views/wizards/setup/installation_steps.php:17
@@ -359,7 +359,7 @@ msgstr ""
 #: inc/admin-pages/class-broadcast-edit-admin-page.php:370
 #: inc/admin-pages/class-edit-admin-page.php:489
 #: inc/admin-pages/class-tax-rates-admin-page.php:193
-#: inc/checkout/class-checkout.php:1563
+#: inc/checkout/class-checkout.php:1634
 #: views/base/edit/widget-tabs.php:106
 #: views/dashboard-statistics/filter.php:28
 #: views/dashboard-statistics/widget-mrr-growth.php:16
@@ -1405,7 +1405,7 @@ msgstr ""
 
 #: inc/admin-pages/class-customer-edit-admin-page.php:880
 #: inc/database/memberships/class-membership-status.php:68
-#: inc/database/payments/class-payment-status.php:90
+#: inc/database/payments/class-payment-status.php:94
 #: inc/database/sites/class-site-type.php:71
 #: inc/installers/class-core-installer.php:71
 #: inc/installers/class-core-installer.php:81
@@ -1420,8 +1420,8 @@ msgstr ""
 #: inc/installers/class-recommended-plugins-installer.php:49
 #: inc/installers/class-recommended-plugins-installer.php:60
 #: inc/list-tables/class-membership-list-table.php:287
-#: inc/list-tables/class-payment-list-table.php:208
-#: inc/list-tables/class-payment-list-table.php:266
+#: inc/list-tables/class-payment-list-table.php:221
+#: inc/list-tables/class-payment-list-table.php:279
 #: inc/list-tables/class-site-list-table.php:361
 #: views/dashboard-widgets/my-sites.php:56
 msgid "Pending"
@@ -2232,7 +2232,7 @@ msgstr ""
 #: inc/list-tables/class-event-list-table.php:214
 #: inc/list-tables/class-membership-list-table.php:181
 #: inc/list-tables/class-payment-list-table-widget.php:222
-#: inc/list-tables/class-payment-list-table.php:185
+#: inc/list-tables/class-payment-list-table.php:198
 #: inc/list-tables/customer-panel/class-invoice-list-table.php:36
 #: views/emails/customer/renewal-payment-created.php:45
 msgid "Created at"
@@ -2312,7 +2312,7 @@ msgstr ""
 #: inc/list-tables/class-membership-list-table-widget.php:264
 #: inc/list-tables/class-membership-list-table.php:178
 #: inc/list-tables/class-payment-list-table-widget.php:220
-#: inc/list-tables/class-payment-list-table.php:182
+#: inc/list-tables/class-payment-list-table.php:195
 #: inc/list-tables/class-site-list-table.php:273
 #: inc/managers/class-customer-manager.php:68
 #: views/emails/admin/payment-received.php:125
@@ -3003,7 +3003,7 @@ msgstr ""
 #: inc/admin-pages/class-product-list-admin-page.php:98
 #: inc/admin-pages/class-product-list-admin-page.php:109
 #: inc/admin-pages/class-top-admin-nav-menu.php:103
-#: inc/checkout/class-checkout.php:1871
+#: inc/checkout/class-checkout.php:1956
 #: inc/checkout/signup-fields/class-signup-field-pricing-table.php:170
 #: inc/checkout/signup-fields/class-signup-field-products.php:149
 #: inc/checkout/signup-fields/class-signup-field-products.php:150
@@ -3194,7 +3194,7 @@ msgstr ""
 #: inc/admin-pages/class-payment-edit-admin-page.php:1086
 #: inc/list-tables/class-customers-membership-list-table.php:81
 #: inc/list-tables/class-customers-payment-list-table.php:67
-#: inc/list-tables/class-payment-list-table.php:220
+#: inc/list-tables/class-payment-list-table.php:233
 msgid "Gateway"
 msgstr ""
 
@@ -3537,7 +3537,7 @@ msgid "Select the line item type."
 msgstr ""
 
 #: inc/admin-pages/class-payment-edit-admin-page.php:667
-#: inc/list-tables/class-payment-list-table.php:210
+#: inc/list-tables/class-payment-list-table.php:223
 msgid "Refund"
 msgstr ""
 
@@ -3546,7 +3546,7 @@ msgid "Fee"
 msgstr ""
 
 #: inc/admin-pages/class-payment-edit-admin-page.php:669
-#: inc/checkout/class-cart.php:1296
+#: inc/checkout/class-cart.php:1302
 msgid "Credit"
 msgstr ""
 
@@ -3658,7 +3658,7 @@ msgstr ""
 #: inc/admin-pages/class-payment-edit-admin-page.php:976
 #: inc/list-tables/class-line-item-list-table.php:217
 #: inc/list-tables/class-payment-list-table-widget.php:221
-#: inc/list-tables/class-payment-list-table.php:184
+#: inc/list-tables/class-payment-list-table.php:197
 #: inc/list-tables/customer-panel/class-invoice-list-table.php:35
 #: views/checkout/paypal/confirm.php:95
 #: views/dashboard-widgets/current-membership.php:349
@@ -3703,7 +3703,7 @@ msgstr ""
 #: inc/admin-pages/class-payment-list-admin-page.php:114
 #: inc/list-tables/class-membership-list-table-widget.php:41
 #: inc/list-tables/class-membership-list-table.php:39
-#: inc/list-tables/class-payment-list-table.php:183
+#: inc/list-tables/class-payment-list-table.php:196
 #: inc/list-tables/class-site-list-table.php:274
 #: inc/managers/class-membership-manager.php:66
 #: inc/ui/class-current-membership-element.php:130
@@ -4503,6 +4503,12 @@ msgstr ""
 #: inc/admin-pages/class-setup-wizard-admin-page.php:684
 #: inc/integrations/host-providers/class-base-host-provider.php:200
 msgid "Activated"
+msgstr ""
+
+#. translators: %s code snippet.
+#: inc/admin-pages/class-setup-wizard-admin-page.php:773
+#, php-format
+msgid "The SUNRISE constant is missing. Domain mapping and plugin/theme limits will not function until `%s` is added to wp-config.php. Please complete the setup to attempt to do this automatically."
 msgstr ""
 
 #: inc/admin-pages/class-setup-wizard-admin-page.php:775
@@ -6747,118 +6753,118 @@ msgstr ""
 msgid "Limit response to specific fields. Defaults to id, name"
 msgstr ""
 
-#: inc/checkout/class-cart.php:558
+#: inc/checkout/class-cart.php:564
 msgid "The payment in question was not found."
 msgstr ""
 
-#: inc/checkout/class-cart.php:585
+#: inc/checkout/class-cart.php:591
 msgid "You are not allowed to modify this payment."
 msgstr ""
 
-#: inc/checkout/class-cart.php:596
-#: inc/checkout/class-cart.php:744
+#: inc/checkout/class-cart.php:602
+#: inc/checkout/class-cart.php:750
 msgid "The membership in question was not found."
 msgstr ""
 
-#: inc/checkout/class-cart.php:685
+#: inc/checkout/class-cart.php:691
 msgid "The payment in question has an invalid status."
 msgstr ""
 
-#: inc/checkout/class-cart.php:764
+#: inc/checkout/class-cart.php:770
 #: inc/gateways/class-base-stripe-gateway.php:269
 msgid "You are not allowed to modify this membership."
 msgstr ""
 
-#: inc/checkout/class-cart.php:796
-#: inc/checkout/class-cart.php:818
-#: inc/checkout/class-cart.php:940
+#: inc/checkout/class-cart.php:802
+#: inc/checkout/class-cart.php:824
+#: inc/checkout/class-cart.php:946
 msgid "This cart proposes no changes to the current membership."
 msgstr ""
 
 #. translators: %1$d: current number of posts, %2$s: post type name, %3$d: posts quota, %4$s: post type name, %5$d: number of posts to be deleted, %6$s: post type name.
-#: inc/checkout/class-cart.php:960
+#: inc/checkout/class-cart.php:966
 #, php-format
 msgid "Your site currently has %1$d %2$s but the new plan is limited to %3$d %4$s. You must trash %5$d %6$s before you can downgrade your plan."
 msgstr ""
 
-#: inc/checkout/class-cart.php:986
+#: inc/checkout/class-cart.php:992
 msgid "This new plan does NOT support custom domains. You must remove all custom domains before you can downgrade your plan."
 msgstr ""
 
 #. translators: %1$d: current number of custom domains, %2$s: 'custom domain' or 'custom domains', %3$d: domain limit, %4$s: 'custom domain' or 'custom domains', %5$d: number of domains to be removed, %6$s: 'custom domain' or 'custom domains'.
-#: inc/checkout/class-cart.php:994
+#: inc/checkout/class-cart.php:1000
 #, php-format
 msgid "Your site currently has %1$d %2$s but the new plan is limited to %3$d %4$s. You must remove %5$d %6$s before you can downgrade your plan."
 msgstr ""
 
-#: inc/checkout/class-cart.php:996
-#: inc/checkout/class-cart.php:998
-#: inc/checkout/class-cart.php:1000
+#: inc/checkout/class-cart.php:1002
+#: inc/checkout/class-cart.php:1004
+#: inc/checkout/class-cart.php:1006
 msgid "custom domains"
 msgstr ""
 
-#: inc/checkout/class-cart.php:996
-#: inc/checkout/class-cart.php:998
-#: inc/checkout/class-cart.php:1000
+#: inc/checkout/class-cart.php:1002
+#: inc/checkout/class-cart.php:1004
+#: inc/checkout/class-cart.php:1006
 msgid "custom domain"
 msgstr ""
 
 #. Translators: Placeholder receives the recurring period description
-#: inc/checkout/class-cart.php:1074
+#: inc/checkout/class-cart.php:1080
 #, php-format
 msgid "You already have an active %s agreement."
 msgstr ""
 
-#: inc/checkout/class-cart.php:1095
+#: inc/checkout/class-cart.php:1101
 msgid "Scheduled Swap Credit"
 msgstr ""
 
-#: inc/checkout/class-cart.php:1096
+#: inc/checkout/class-cart.php:1102
 msgid "Swap scheduled to next billing cycle."
 msgstr ""
 
-#: inc/checkout/class-cart.php:1297
+#: inc/checkout/class-cart.php:1303
 msgid "Prorated amount based on the previous membership."
 msgstr ""
 
 #. translators: %s is the coupon code being used, all-caps. e.g. PROMO10OFF
-#: inc/checkout/class-cart.php:1333
+#: inc/checkout/class-cart.php:1339
 #, php-format
 msgid "The code %s do not exist or is no longer valid."
 msgstr ""
 
 #. translators: two intervals
-#: inc/checkout/class-cart.php:1414
+#: inc/checkout/class-cart.php:1420
 #, php-format
 msgid "Interval %1$s and %2$s do not match."
 msgstr ""
 
-#: inc/checkout/class-cart.php:1577
+#: inc/checkout/class-cart.php:1583
 msgid "The product you are trying to add does not exist."
 msgstr ""
 
-#: inc/checkout/class-cart.php:1589
+#: inc/checkout/class-cart.php:1595
 msgid "The product you are trying to add does not exist for the selected duration."
 msgstr ""
 
-#: inc/checkout/class-cart.php:1603
+#: inc/checkout/class-cart.php:1609
 msgid "Theres already a plan in this membership."
 msgstr ""
 
 #. translators: respectively, product name, duration, and duration unit.
-#: inc/checkout/class-cart.php:1665
+#: inc/checkout/class-cart.php:1671
 #, php-format
 msgid "%1$s does not have a valid price variation for that billing period (every %2$s %3$s(s)) and was not added to the cart."
 msgstr ""
 
 #. translators: placeholder is the product name.
-#: inc/checkout/class-cart.php:1729
+#: inc/checkout/class-cart.php:1735
 #, php-format
 msgid "Signup Fee for %s"
 msgstr ""
 
 #. translators: placeholder is the product name.
-#: inc/checkout/class-cart.php:1729
+#: inc/checkout/class-cart.php:1735
 #, php-format
 msgid "Signup Credit for %s"
 msgstr ""
@@ -6910,57 +6916,57 @@ msgstr ""
 msgid "Ultimate Multisite - New Site Page"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:656
-#: inc/checkout/class-checkout.php:664
-#: inc/checkout/class-checkout.php:2095
-#: inc/checkout/class-checkout.php:2101
+#: inc/checkout/class-checkout.php:727
+#: inc/checkout/class-checkout.php:735
+#: inc/checkout/class-checkout.php:2180
+#: inc/checkout/class-checkout.php:2186
 msgid "Payment gateway not registered."
 msgstr ""
 
-#: inc/checkout/class-checkout.php:971
+#: inc/checkout/class-checkout.php:1042
 msgid "The email address you entered is already in use."
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1023
+#: inc/checkout/class-checkout.php:1094
 msgid "Something wrong happened while attempting to save the customer billing address"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1564
+#: inc/checkout/class-checkout.php:1635
 msgid "The item was added!"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1565
+#: inc/checkout/class-checkout.php:1636
 msgid "The Password entered is too weak."
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1867
+#: inc/checkout/class-checkout.php:1952
 msgid "Password confirmation"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1868
+#: inc/checkout/class-checkout.php:1953
 msgid "Email confirmation"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1869
+#: inc/checkout/class-checkout.php:1954
 msgid "Template ID"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1870
+#: inc/checkout/class-checkout.php:1955
 msgid "Valid password"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1872
+#: inc/checkout/class-checkout.php:1957
 msgid "Payment Gateway"
 msgstr ""
 
 #. translators: %s payment id.
-#: inc/checkout/class-checkout.php:2064
+#: inc/checkout/class-checkout.php:2149
 #, php-format
 msgid "Payment (%s) not found."
 msgstr ""
 
 #. translators: %s is the membership ID
-#: inc/checkout/class-checkout.php:2199
+#: inc/checkout/class-checkout.php:2284
 #, php-format
 msgid "Checkout failed for customer %s: "
 msgstr ""
@@ -13065,36 +13071,40 @@ msgid "Expired"
 msgstr ""
 
 #: inc/database/memberships/class-membership-status.php:73
-#: inc/database/payments/class-payment-status.php:96
+#: inc/database/payments/class-payment-status.php:100
 #: inc/list-tables/class-membership-list-table.php:305
 msgid "Cancelled"
 msgstr ""
 
-#: inc/database/payments/class-payment-status.php:91
-#: inc/list-tables/class-payment-list-table.php:209
-#: inc/list-tables/class-payment-list-table.php:260
+#: inc/database/payments/class-payment-status.php:95
+#: inc/list-tables/class-payment-list-table.php:222
+#: inc/list-tables/class-payment-list-table.php:273
 msgid "Completed"
 msgstr ""
 
-#: inc/database/payments/class-payment-status.php:92
-#: inc/list-tables/class-payment-list-table.php:278
+#: inc/database/payments/class-payment-status.php:96
+#: inc/list-tables/class-payment-list-table.php:291
 #: views/dashboard-statistics/widget-revenue.php:57
 msgid "Refunded"
 msgstr ""
 
-#: inc/database/payments/class-payment-status.php:93
-#: inc/list-tables/class-payment-list-table.php:272
+#: inc/database/payments/class-payment-status.php:97
+#: inc/list-tables/class-payment-list-table.php:285
 msgid "Partially Refunded"
 msgstr ""
 
-#: inc/database/payments/class-payment-status.php:94
+#: inc/database/payments/class-payment-status.php:98
 msgid "Partially Paid"
 msgstr ""
 
-#: inc/database/payments/class-payment-status.php:95
-#: inc/list-tables/class-payment-list-table.php:212
-#: inc/list-tables/class-payment-list-table.php:284
+#: inc/database/payments/class-payment-status.php:99
+#: inc/list-tables/class-payment-list-table.php:225
+#: inc/list-tables/class-payment-list-table.php:297
 msgid "Failed"
+msgstr ""
+
+#: inc/database/payments/class-payment-status.php:101
+msgid "Draft"
 msgstr ""
 
 #: inc/database/products/class-product-type.php:60
@@ -14917,7 +14927,7 @@ msgid "Empty product ID."
 msgstr ""
 
 #: inc/gateways/class-manual-gateway.php:90
-#: inc/list-tables/class-payment-list-table.php:223
+#: inc/list-tables/class-payment-list-table.php:236
 #: inc/managers/class-gateway-manager.php:424
 msgid "Manual"
 msgstr ""
@@ -15286,7 +15296,7 @@ msgid "Saved Cards"
 msgstr ""
 
 #: inc/gateways/class-stripe-gateway.php:77
-#: inc/list-tables/class-payment-list-table.php:225
+#: inc/list-tables/class-payment-list-table.php:238
 #: inc/managers/class-gateway-manager.php:406
 msgid "Stripe"
 msgstr ""
@@ -15433,10 +15443,16 @@ msgstr ""
 #. translators: %s is the field identifier
 #: inc/helpers/class-validator.php:86
 #, php-format
-msgid "The %s must be integer"
+msgid "The %s must be an integer"
 msgstr ""
 
-#: inc/helpers/class-validator.php:95
+#. translators: %1Password confirmation$s is the field name; %2$s is the 2nd field name.
+#: inc/helpers/class-validator.php:88
+#, php-format
+msgid "Oops! Your %1$s and %2$s don’t match."
+msgstr ""
+
+#: inc/helpers/class-validator.php:97
 #: inc/models/class-discount-code.php:660
 #: views/base/filter.php:123
 #: views/base/filter.php:131
@@ -15445,7 +15461,7 @@ msgstr ""
 msgid "and"
 msgstr ""
 
-#: inc/helpers/class-validator.php:96
+#: inc/helpers/class-validator.php:98
 #: views/base/filter.php:124
 #: views/base/filter.php:132
 msgid "or"
@@ -16061,59 +16077,6 @@ msgstr ""
 msgid "Add a new SubDomain on cPanel whenever a new site gets created on your network"
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:103
-msgid "Enhance API Token"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:104
-msgid "Your bearer token"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:107
-msgid "Enhance API URL"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:108
-msgid "e.g. https://your-enhance-server.com"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:111
-#: views/wizards/host-integrations/runcloud-instructions.php:12
-msgid "Server ID"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:112
-msgid "UUID of your server"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:246
-msgid "Server ID is not configured"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:260
-msgid "Connection successful"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:264
-msgid "Failed to connect to Enhance API"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:388
-msgid "Enhance is a modern control panel that provides powerful hosting automation and management capabilities."
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:412
-msgid "Add domains to Enhance Control Panel whenever a new domain mapping gets created on your network"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:413
-msgid "SSL certificates will be automatically provisioned via LetsEncrypt when DNS resolves"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:419
-msgid "Add subdomains to Enhance Control Panel whenever a new site gets created on your network"
-msgstr ""
-
 #: inc/integrations/host-providers/class-gridpane-host-provider.php:209
 #: inc/integrations/host-providers/class-gridpane-host-provider.php:217
 msgid "We were not able to successfully establish a connection."
@@ -16351,8 +16314,8 @@ msgid "You reached your membership users limit."
 msgstr ""
 
 #: inc/limits/class-customer-user-role-limits.php:74
-#: inc/limits/class-post-type-limits.php:138
-#: inc/limits/class-post-type-limits.php:145
+#: inc/limits/class-post-type-limits.php:184
+#: inc/limits/class-post-type-limits.php:191
 msgid "Limit Reached"
 msgstr ""
 
@@ -16366,20 +16329,20 @@ msgstr ""
 msgid "Upgrade to unlock"
 msgstr ""
 
-#: inc/limits/class-post-type-limits.php:136
+#: inc/limits/class-post-type-limits.php:182
 msgid "Your plan does not support this post type."
 msgstr ""
 
-#: inc/limits/class-post-type-limits.php:143
+#: inc/limits/class-post-type-limits.php:189
 msgid "You reached your plan's post limit."
 msgstr ""
 
-#: inc/limits/class-post-type-limits.php:198
+#: inc/limits/class-post-type-limits.php:244
 msgid "Your plan does not support media upload."
 msgstr ""
 
 #. translators: %d is the number of images allowed.
-#: inc/limits/class-post-type-limits.php:225
+#: inc/limits/class-post-type-limits.php:271
 #, php-format
 msgid "You reached your media upload limit of %d images. Upgrade your account to unlock more media uploads."
 msgstr ""
@@ -16472,7 +16435,7 @@ msgstr ""
 
 #: inc/list-tables/class-base-list-table.php:1037
 #: inc/list-tables/class-broadcast-list-table.php:289
-#: inc/list-tables/class-payment-list-table.php:135
+#: inc/list-tables/class-payment-list-table.php:148
 msgid "No product found"
 msgstr ""
 
@@ -16567,7 +16530,7 @@ msgstr ""
 #: inc/list-tables/class-email-list-table.php:201
 #: inc/list-tables/class-event-list-table.php:215
 #: inc/list-tables/class-membership-list-table.php:183
-#: inc/list-tables/class-payment-list-table.php:186
+#: inc/list-tables/class-payment-list-table.php:199
 #: inc/list-tables/class-product-list-table.php:258
 #: inc/list-tables/class-site-list-table.php:276
 #: inc/list-tables/class-webhook-list-table.php:179
@@ -16676,7 +16639,7 @@ msgstr ""
 
 #: inc/list-tables/class-customer-list-table.php:224
 #: inc/list-tables/class-event-list-table.php:185
-#: inc/list-tables/class-payment-list-table.php:143
+#: inc/list-tables/class-payment-list-table.php:156
 #: inc/list-tables/class-site-list-table.php:254
 #: views/admin-pages/fields/field-text.php:46
 #: views/base/customers/grid-item.php:109
@@ -16950,7 +16913,7 @@ msgstr ""
 
 #: inc/list-tables/class-event-list-table.php:243
 #: inc/list-tables/class-membership-list-table.php:234
-#: inc/list-tables/class-payment-list-table.php:235
+#: inc/list-tables/class-payment-list-table.php:248
 msgid "Created At"
 msgstr ""
 
@@ -17075,7 +17038,7 @@ msgid "Ref."
 msgstr ""
 
 #: inc/list-tables/class-membership-list-table.php:171
-#: inc/list-tables/class-payment-list-table.php:175
+#: inc/list-tables/class-payment-list-table.php:188
 #: views/emails/admin/domain-created.php:122
 #: views/emails/admin/payment-received.php:54
 #: views/emails/admin/payment-received.php:107
@@ -17130,15 +17093,28 @@ msgstr ""
 msgid "Item Description"
 msgstr ""
 
-#: inc/list-tables/class-payment-list-table.php:211
-msgid "Partial"
+#: inc/list-tables/class-payment-list-table.php:103
+msgid "Cancel this pending payment"
+msgstr ""
+
+#: inc/list-tables/class-payment-list-table.php:108
+msgid "Are you sure you want to cancel this pending payment?"
+msgstr ""
+
+#: inc/list-tables/class-payment-list-table.php:109
+#: views/dashboard-widgets/current-membership.php:315
+msgid "Cancel"
 msgstr ""
 
 #: inc/list-tables/class-payment-list-table.php:224
+msgid "Partial"
+msgstr ""
+
+#: inc/list-tables/class-payment-list-table.php:237
 msgid "Paypal"
 msgstr ""
 
-#: inc/list-tables/class-payment-list-table.php:254
+#: inc/list-tables/class-payment-list-table.php:267
 msgid "All Payments"
 msgstr ""
 
@@ -17490,42 +17466,42 @@ msgid "The necessary constants were not found on your wp-config.php file: %s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: URL being tested
-#: inc/managers/class-domain-manager.php:1053
+#: inc/managers/class-domain-manager.php:1048
 #, php-format
 msgid "Testing domain verification via Loopback using %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Error Message
-#: inc/managers/class-domain-manager.php:1076
+#: inc/managers/class-domain-manager.php:1071
 #, php-format
 msgid "Failed to connect via %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: HTTP Response Code
-#: inc/managers/class-domain-manager.php:1094
+#: inc/managers/class-domain-manager.php:1089
 #, php-format
 msgid "Loopback request via %1$s returned HTTP %2$d"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Json error, %3$s part of the response
-#: inc/managers/class-domain-manager.php:1111
+#: inc/managers/class-domain-manager.php:1106
 #, php-format
 msgid "Loopback response via %1$s is not valid JSON: %2$s : %3$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number
-#: inc/managers/class-domain-manager.php:1127
+#: inc/managers/class-domain-manager.php:1122
 #, php-format
 msgid "Domain verification successful via Loopback using %1$s. Domain ID %2$d confirmed."
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number, %3$s Domain ID number
-#: inc/managers/class-domain-manager.php:1140
+#: inc/managers/class-domain-manager.php:1135
 #, php-format
 msgid "Loopback response via %1$s did not contain expected domain ID. Expected: %2$d, Got: %3$s"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:1151
+#: inc/managers/class-domain-manager.php:1146
 msgid "Domain verification failed via loopback on all protocols (HTTPS with SSL, HTTPS without SSL, HTTP)."
 msgstr ""
 
@@ -20412,10 +20388,6 @@ msgstr ""
 msgid "Cancel %s"
 msgstr ""
 
-#: views/dashboard-widgets/current-membership.php:315
-msgid "Cancel"
-msgstr ""
-
 #: views/dashboard-widgets/current-membership.php:334
 msgid "No packages or services found."
 msgstr ""
@@ -21246,6 +21218,10 @@ msgstr ""
 
 #: views/wizards/host-integrations/runcloud-instructions.php:12
 msgid "as well as find the"
+msgstr ""
+
+#: views/wizards/host-integrations/runcloud-instructions.php:12
+msgid "Server ID"
 msgstr ""
 
 #: views/wizards/host-integrations/runcloud-instructions.php:12

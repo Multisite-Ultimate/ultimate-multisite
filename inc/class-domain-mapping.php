@@ -10,7 +10,6 @@
 namespace WP_Ultimo;
 
 use WP_Ultimo\Models\Domain;
-use WP_Ultimo\Models\Site;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -28,7 +27,7 @@ class Domain_Mapping {
 	 * Keeps a copy of the current mapping.
 	 *
 	 * @since 2.0.0
-	 * @var \WP_Ultimo\Models\Domain
+	 * @var Domain
 	 */
 	public $current_mapping = null;
 
@@ -53,6 +52,13 @@ class Domain_Mapping {
 		} else {
 			$this->maybe_startup();
 		}
+
+		/*
+		 * Allow redirects to any host that belongs to this network
+		 * (either a mapped domain or a site's original domain).
+		 * Always run this to allow wp_safe_redirect in any context.
+		 */
+		add_filter('allowed_redirect_hosts', [$this, 'allow_network_redirect_hosts'], 20, 2);
 	}
 
 	/**
@@ -135,12 +141,6 @@ class Domain_Mapping {
 		 */
 		add_action('ms_loaded', [$this, 'register_mapped_filters'], 11);
 
-		/*
-		 * Allow redirects to any host that belongs to this network
-		 * (either a mapped domain or a site's original domain).
-		 */
-		add_filter('allowed_redirect_hosts', [$this, 'allow_network_redirect_hosts'], 20, 2);
-
 		/**
 		 * On WP Ultimo 1.X builds we used Mercator. The Mercator actions and filters are now deprecated.
 		 */
@@ -156,7 +156,7 @@ class Domain_Mapping {
 					[
 						'active'        => true,
 						'blog_id'       => $site_id,
-						'stage__not_in' => \WP_Ultimo\Models\Domain::INACTIVE_STAGES,
+						'stage__not_in' => Domain::INACTIVE_STAGES,
 						'fields'        => 'domain',
 					]
 				);
@@ -235,7 +235,7 @@ class Domain_Mapping {
 
 		// 1) Check mapped domains (including www/no-www variants)
 		$domains_to_check = $this->get_www_and_nowww_versions($host);
-		$mapping          = \WP_Ultimo\Models\Domain::get_by_domain($domains_to_check);
+		$mapping          = Domain::get_by_domain($domains_to_check);
 
 		if ($mapping && ! is_wp_error($mapping)) {
 			$allowed_hosts[] = $host;
@@ -281,7 +281,7 @@ class Domain_Mapping {
 	public function fix_sso_target_site($target_site, $domain) {
 
 		if ( ! $target_site || ! $target_site->blog_id) {
-			$mapping = \WP_Ultimo\Models\Domain::get_by_domain($domain);
+			$mapping = Domain::get_by_domain($domain);
 
 			if ($mapping) {
 				$target_site = get_site($mapping->get_site_id());
@@ -385,7 +385,7 @@ class Domain_Mapping {
 		 * be mapped too, simply filter here.
 		 *
 		 * @param boolean $is_active Should the mapping be treated as active?
-		 * @param \WP_Ultimo\Models\Domain $mapping Mapping that we're inspecting
+		 * @param Domain $mapping Mapping that we're inspecting
 		 * @param string $domain
 		 */
 		$is_active = apply_filters('wu_use_domain_mapping', $mapping->is_active(), $mapping, $domain);
@@ -556,11 +556,11 @@ class Domain_Mapping {
 	/**
 	 * Replaces the URL.
 	 *
-	 * @since 2.0.0
+	 * @param string      $url URL to replace.
+	 * @param null|Domain $current_mapping The current mapping.
 	 *
-	 * @param string                        $url URL to replace.
-	 * @param null|\WP_Ultimo\Models\Domain $current_mapping The current mapping.
 	 * @return string
+	 * @since 2.0.0
 	 */
 	public function replace_url($url, $current_mapping = null) {
 

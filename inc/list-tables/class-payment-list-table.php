@@ -97,6 +97,19 @@ class Payment_List_Table extends Base_List_Table {
 			),
 		];
 
+		if ($item->get_status() === Payment_Status::PENDING) {
+			$actions['cancel'] = sprintf(
+				'<a title="%s" href="%s" onclick="return confirm(\'%s\');">%s</a>',
+				__('Cancel this pending payment', 'ultimate-multisite'),
+				add_query_arg([
+					'cancel_payment' => $item->get_id(),
+					'_wpnonce' => wp_create_nonce('cancel_payment_' . $item->get_id()),
+				]),
+				__('Are you sure you want to cancel this pending payment?', 'ultimate-multisite'),
+				__('Cancel', 'ultimate-multisite')
+			);
+		}
+
 		$html = "<span class='wu-font-mono'><strong>{$code}</strong></span>";
 
 		return $html . $this->row_actions($actions);

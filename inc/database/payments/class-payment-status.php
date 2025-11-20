@@ -40,6 +40,8 @@ class Payment_Status extends Enum {
 
 	const CANCELLED = 'cancelled';
 
+	const DRAFT = 'draft';
+
 	/**
 	 * Returns an array with values => CSS Classes.
 	 *
@@ -56,6 +58,7 @@ class Payment_Status extends Enum {
 			static::PARTIAL        => 'wu-bg-yellow-200 wu-text-yellow-700',
 			static::FAILED         => 'wu-bg-red-200 wu-text-red-700',
 			static::CANCELLED      => 'wu-bg-orange-200 wu-text-orange-700',
+			static::DRAFT          => 'wu-bg-blue-200 wu-text-blue-700',
 		];
 	}
 
@@ -75,6 +78,7 @@ class Payment_Status extends Enum {
 			static::PARTIAL        => 'wu-align-middle dashicons-wu-cw wu-text-yellow-700',
 			static::FAILED         => 'wu-align-middle dashicons-wu-circle-with-cross wu-text-red-700',
 			static::CANCELLED      => 'wu-align-middle dashicons-wu-circle-with-cross wu-text-orange-700',
+			static::DRAFT          => 'wu-align-middle dashicons-wu-edit wu-text-blue-700',
 		];
 	}
 
@@ -94,6 +98,7 @@ class Payment_Status extends Enum {
 			static::PARTIAL        => __('Partially Paid', 'ultimate-multisite'),
 			static::FAILED         => __('Failed', 'ultimate-multisite'),
 			static::CANCELLED      => __('Cancelled', 'ultimate-multisite'),
+			static::DRAFT          => __('Draft', 'ultimate-multisite'),
 		];
 	}
 }

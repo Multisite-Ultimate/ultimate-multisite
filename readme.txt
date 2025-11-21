@@ -228,7 +228,7 @@ We recommend running this in a staging environment before updating your producti
 
 == Changelog ==
 
-Version [2.4.8] - Released on 2025-XX-XX
+Version [2.4.8] - Released on 2025-11-21
 - New: Added MCP (Model Context Protocol) Server integration.
 - New: Added support for multi-network installations with network-specific customers, memberships, and products.
 - New: Added magic login links for SSO when third-party cookies are disabled.

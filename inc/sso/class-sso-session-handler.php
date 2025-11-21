@@ -40,11 +40,11 @@ class SSO_Session_Handler implements SessionInterface {
 	/**
 	 * Build the handler with the SSO manager.
 	 *
-	 * @param SSO|null $sso_manager The sso manager.
+	 * @param ?SSO $sso_manager The sso manager.
 	 *
 	 * @since 2.0.11
 	 */
-	public function __construct(SSO $sso_manager = null) {
+	public function __construct(?SSO $sso_manager = null) {
 		$this->sso_manager = $sso_manager;
 	}
 

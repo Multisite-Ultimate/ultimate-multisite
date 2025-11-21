@@ -125,6 +125,14 @@ class Checkout {
 	protected $gateway_id;
 
 	/**
+	 * Pending payments for the current user.
+	 *
+	 * @since 2.1.4
+	 * @var array
+	 */
+	protected $pending_payments;
+
+	/**
 	 * The customer object.
 	 *
 	 * @since 2.1.2
@@ -174,6 +182,14 @@ class Checkout {
 		 * Add the rewrite rules.
 		 */
 		add_action('init', [$this, 'add_rewrite_rules'], 20);
+
+		// Schedule draft cleanup
+		if (! wp_next_scheduled('wu_cleanup_draft_payments')) {
+			wp_schedule_event(time(), 'daily', 'wu_cleanup_draft_payments');
+		}
+		add_action('wu_cleanup_draft_payments', [$this, 'cleanup_expired_drafts']);
+
+		add_action('init', [$this, 'handle_cancel_payment']);
 
 		add_filter('wu_request', [$this, 'get_checkout_from_query_vars'], 10, 2);
 
@@ -306,6 +322,7 @@ class Checkout {
 				'duration_unit',
 				'template_id',
 				'wu_preselected',
+				'resume_checkout',
 			]
 		);
 
@@ -374,6 +391,51 @@ class Checkout {
 			$this->session = wu_get_session('signup');
 		}
 
+		// Handle resume checkout from URL
+		$resume_hash = wu_request('resume_checkout');
+		if ($resume_hash) {
+			$resume_payment = wu_get_payment_by_hash($resume_hash);
+			if ($resume_payment && $resume_payment->get_status() === Payment_Status::DRAFT) {
+				$this->session->set('draft_payment_id', $resume_payment->get_id());
+				$saved_session = $resume_payment->get_meta('checkout_session');
+				if ($saved_session) {
+					$this->session->set('signup', $saved_session);
+				}
+			}
+		}
+
+		// Handle cancel pending payment request
+		if (wu_request('cancel_pending_payment')) {
+			$payment_id = wu_request('cancel_pending_payment');
+			$payment    = wu_get_payment($payment_id);
+			if ($payment && $payment->get_status() === Payment_Status::PENDING && $this->can_user_cancel_payment($payment)) {
+				$payment->set_status(Payment_Status::CANCELLED);
+				$payment->save();
+				// Clear session if it was this payment
+				if ((int) $this->session->get('payment_id') === (int) $payment_id) {
+					$this->session->set('payment_id', null);
+				}
+			}
+		}
+
+		// Load from draft payment if exists
+		$draft_payment_id = $this->session->get('draft_payment_id');
+		if ($draft_payment_id) {
+			$draft_payment = wu_get_payment($draft_payment_id);
+			if ($draft_payment && $draft_payment->get_status() === Payment_Status::DRAFT) {
+				$saved_session = $draft_payment->get_meta('checkout_session');
+				if ($saved_session) {
+					$this->session->set('signup', array_merge($this->session->get('signup') ?? [], $saved_session));
+				}
+			} else {
+				// Invalid draft, remove
+				$this->session->set('draft_payment_id', null);
+			}
+		}
+
+		// Detect pending payments
+		// $this->detect_pending_payments();
+
 		if ($this->checkout_form) {
 			$this->steps = $this->checkout_form->get_steps_to_show();
 
@@ -401,6 +463,13 @@ class Checkout {
 		}
 
 		$this->already_setup = true;
+
+		// Create draft payment if products selected and no draft exists
+		$products = $this->request_or_session('products', []);
+		if (! empty($products) && ! $this->session->get('draft_payment_id')) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedIf
+			// TODO: Get this working, later.
+			// $this->create_draft_payment($products);
+		}
 
 		wu_no_cache(); // Prevent the registration page from being cached.
 	}
@@ -492,6 +561,9 @@ class Checkout {
 				wp_send_json_error($validation);
 			}
 
+			// Auto-save progress to draft payment
+			$this->save_draft_progress();
+
 			wp_send_json_success([]);
 		}
 	}
@@ -553,7 +625,17 @@ class Checkout {
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
+		// Clean up draft payment if it exists
+		$draft_payment_id = $this->session->get('draft_payment_id');
+		if ($draft_payment_id) {
+			$draft_payment = wu_get_payment($draft_payment_id);
+			if ($draft_payment && $draft_payment->get_status() === Payment_Status::DRAFT) {
+				$draft_payment->delete();
+			}
+		}
+
 		$this->session->set('signup', []);
+		$this->session->set('draft_payment_id', null);
 		$this->session->commit();
 
 		wp_send_json_success($results);
@@ -1453,6 +1535,20 @@ class Checkout {
 		 * Create new payment.
 		 */
 		$payment = wu_create_payment($payment_data);
+
+		if (is_wp_error($payment)) {
+			// Log the error and return it to halt order processing
+			wu_log_add(
+				'checkout',
+				sprintf(
+					'Failed to create payment during order submission: %s (Code: %s)',
+					$payment->get_error_message(),
+					$payment->get_error_code()
+				),
+				\Psr\Log\LogLevel::ERROR
+			);
+			return $payment;
+		}
 
 		/*
 		 * Then, if this is a trial,
@@ -2441,5 +2537,163 @@ class Checkout {
 		if (wu_request('status') !== 'error') {
 			return;
 		}
+	}
+
+	/**
+	 * Cleans up expired draft and pending payments (older than 30 days).
+	 *
+	 * @since 2.1.4
+	 * @return void
+	 */
+	public function cleanup_expired_drafts(): void {
+
+		global $wpdb;
+
+		$expired_date = gmdate('Y-m-d H:i:s', strtotime('-30 days'));
+
+		$expired_drafts = wu_get_payments(
+			[
+				'status'           => Payment_Status::DRAFT,
+				'date_created__lt' => $expired_date,
+			]
+		);
+
+		$expired_pendings = wu_get_payments(
+			[
+				'status'           => Payment_Status::PENDING,
+				'date_created__lt' => $expired_date,
+			]
+		);
+
+		foreach (array_merge($expired_drafts, $expired_pendings) as $payment) {
+			if ($payment->get_status() === Payment_Status::PENDING) {
+				$payment->set_status(Payment_Status::CANCELLED);
+				$payment->save();
+			} else {
+				$payment->delete();
+			}
+		}
+	}
+
+	/**
+	 * Handles cancel payment requests.
+	 *
+	 * @since 2.1.4
+	 * @return void
+	 */
+	public function handle_cancel_payment(): void {
+
+		$payment_id = wu_request('cancel_payment');
+		if (! $payment_id) {
+			return;
+		}
+
+		if (! wp_verify_nonce(wu_request('_wpnonce'), 'cancel_payment_' . $payment_id)) {
+			return;
+		}
+
+		$payment = wu_get_payment($payment_id);
+		if (! $payment || $payment->get_status() !== Payment_Status::PENDING) {
+			return;
+		}
+
+		if (! $this->can_user_cancel_payment($payment)) {
+			return;
+		}
+
+		$payment->set_status(Payment_Status::CANCELLED);
+		$payment->save();
+
+		// Redirect back
+		wp_safe_redirect(remove_query_arg(['cancel_payment', '_wpnonce']));
+		exit;
+	}
+
+	/**
+	 * Creates a draft payment for incomplete checkouts.
+	 *
+	 * @since 2.1.4
+	 *
+	 * @param array $products List of products.
+	 * @return void
+	 */
+	protected function create_draft_payment($products): void {
+
+		$cart = new Cart(
+			[
+				'products'      => $products,
+				'cart_type'     => 'new',
+				'duration'      => $this->request_or_session('duration'),
+				'duration_unit' => $this->request_or_session('duration_unit'),
+			]
+		);
+
+		if ($cart->is_valid() === false) {
+			return; // Don't create draft if cart is invalid
+		}
+
+		$payment_data           = $cart->to_payment_data();
+		$payment_data['status'] = Payment_Status::DRAFT;
+
+		$payment = wu_create_payment($payment_data);
+
+		if (is_wp_error($payment)) {
+			// Log the error but allow checkout to continue
+			wu_log_add(
+				'checkout',
+				sprintf(
+					'Failed to create draft payment: %s (Code: %s)',
+					$payment->get_error_message(),
+					$payment->get_error_code()
+				),
+				\Psr\Log\LogLevel::WARNING
+			);
+			return;
+		}
+
+		if ($payment) {
+			$this->session->set('draft_payment_id', $payment->get_id());
+			$payment->update_meta('checkout_session', $this->session->get());
+			$this->session->commit();
+		}
+	}
+
+	/**
+	 * Saves the current checkout progress to the draft payment.
+	 *
+	 * @since 2.1.4
+	 * @return void
+	 */
+	protected function save_draft_progress(): void {
+
+		$draft_payment_id = $this->session->get('draft_payment_id');
+		if (! $draft_payment_id) {
+			return;
+		}
+
+		$draft_payment = wu_get_payment($draft_payment_id);
+		if (! $draft_payment || $draft_payment->get_status() !== Payment_Status::DRAFT) {
+			return;
+		}
+
+		$draft_payment->update_meta('checkout_session', $this->session->get());
+	}
+
+	/**
+	 * Checks if the current user can cancel a payment.
+	 *
+	 * @since 2.1.4
+	 *
+	 * @param \WP_Ultimo\Models\Payment $payment The payment object.
+	 * @return bool
+	 */
+	protected function can_user_cancel_payment($payment): bool {
+
+		if (! is_user_logged_in()) {
+			return false;
+		}
+
+		$customer = wu_get_current_customer();
+		return $customer && $customer->get_id() === $payment->get_customer_id();
 	}
 }

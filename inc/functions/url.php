@@ -21,10 +21,10 @@ function wu_get_current_url() {
 	 * the initiator URL.
 	 */
 	if (wp_doing_ajax() && isset($_SERVER['HTTP_REFERER'])) {
-		return sanitize_text_field(wp_unslash($_SERVER['HTTP_REFERER']));
+		return sanitize_url(wp_unslash($_SERVER['HTTP_REFERER']));
 	}
 
-	return (is_ssl() ? 'https://' : 'http://') . strtolower(sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST']?? ''))) . sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']?? ''));
+	return (is_ssl() ? 'https://' : 'http://') . strtolower(sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST']?? ''))) . sanitize_url(wp_unslash($_SERVER['REQUEST_URI']?? ''));
 }
 
 /**
@@ -136,7 +136,7 @@ function wu_get_admin_url($blog_id = null, $path = '', $scheme = 'admin') {
  * @return false|string
  */
 function wu_get_home_url($blog_id = null) {
-	$site            = wu_get_site($blog_id);
+	$site = wu_get_site($blog_id);
 
 	if (! $site) {
 		return get_home_url($blog_id);

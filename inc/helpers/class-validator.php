@@ -83,7 +83,9 @@ class Validator {
 				// translators: %s is the field identifier
 				'lowercase'        => sprintf(__('The %s must be lowercase', 'ultimate-multisite'), ':attribute'),
 				// translators: %s is the field identifier
-				'integer'          => sprintf(__('The %s must be integer', 'ultimate-multisite'), ':attribute'),
+				'integer'          => sprintf(__('The %s must be an integer', 'ultimate-multisite'), ':attribute'),
+				// translators: %1Password confirmation$s is the field name; %2$s is the 2nd field name.
+				'same'             => sprintf(__('Oops! Your %1$s and %2$s don’t match.', 'ultimate-multisite'), ':attribute', ':field'),
 			],
 			$this
 		);

@@ -336,7 +336,7 @@ class Checkout_Element extends Base_Element {
 		if ($customer && $membership && 'wu-finish-checkout' !== $slug) {
 			$published_sites = $membership->get_published_sites();
 
-			$pending_payment = $membership ? $membership->get_last_pending_payment() : false;
+			$pending_payment = $membership->get_last_pending_payment();
 
 			if ($pending_payment && ! $membership->is_active() && $membership->get_status() !== Membership_Status::TRIALING) {
 				/**

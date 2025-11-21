@@ -67,7 +67,7 @@ This method requires command-line access to your server and familiarity with Git
    ```bash
    cd wp-content/plugins/
    git clone https://github.com/Multisite-Ultimate/ultimate-multisite.git
-   cd wp-multisite-waas
+   cd ultimate-multisite
    ```
 
 2. Install the required dependencies using Composer:

@@ -370,6 +370,69 @@ class Payment_Test extends WP_UnitTestCase {
 		$this->assertStringContainsString('action=invoice', $invoice_url);
 	}
 
+	/**
+	 * Test draft payment status.
+	 */
+	public function test_draft_status(): void {
+		$status = new Payment_Status(Payment_Status::DRAFT);
+		$this->assertEquals('Draft', $status->get_label());
+		$this->assertEquals('wu-bg-blue-200 wu-text-blue-700', $status->get_classes());
+		$this->assertEquals('wu-align-middle dashicons-wu-edit wu-text-blue-700', $status->get_icon_classes());
+	}
+
+	/**
+	 * Test cancelling a pending payment.
+	 */
+	public function test_cancel_pending_payment(): void {
+		$customer = self::$customer;
+		wp_set_current_user($customer->get_user_id(), $customer->get_username());
+
+		$product = wu_create_product([
+			'name' => 'Test Plan',
+			'slug' => 'test-plan',
+			'pricing_type' => 'paid',
+			'amount' => 10,
+			'currency' => 'USD',
+			'recurring' => false,
+			'type' => 'plan',
+		]);
+
+		if (is_wp_error($product)) {
+			$this->fail('Failed to create product: ' . $product->get_error_message());
+		}
+
+		$membership = wu_create_membership([
+			'customer_id' => $customer->get_id(),
+			'plan_id' => $product->get_id(),
+			'status' => Membership_Status::ACTIVE,
+		]);
+
+		if (is_wp_error($membership)) {
+			$this->fail('Failed to create membership: ' . $membership->get_error_message());
+		}
+
+		$payment = wu_create_payment([
+			'customer_id' => $customer->get_id(),
+			'membership_id' => $membership->get_id(),
+			'currency' => 'USD',
+			'subtotal' => 100.00,
+			'total' => 100.00,
+			'status' => Payment_Status::PENDING,
+			'gateway' => 'manual',
+		]);
+
+		$this->assertInstanceOf(Payment::class, $payment, 'Payment creation failed');
+		$this->assertGreaterThan(0, $payment->get_id(), 'Payment ID not set');
+		$this->assertEquals(Payment_Status::PENDING, $payment->get_status());
+
+		// Simulate cancel
+		$payment->set_status(Payment_Status::CANCELLED);
+		$payment->save();
+
+		$saved_payment = wu_get_payment($payment->get_id());
+		$this->assertEquals(Payment_Status::CANCELLED, $saved_payment->get_status());
+	}
+
 	public static function tear_down_after_class() {
 		global $wpdb;
 		self::$customer->delete();

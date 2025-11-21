@@ -400,8 +400,7 @@ class Checkout_Element extends Base_Element {
 				return;
 			}
 
-			if ( ! wu_multiple_memberships_enabled() && $membership) {
-
+			if ( ! wu_multiple_memberships_enabled() && $membership->is_active()) {
 				/**
 				 * Allow developers to add new form slugs to bypass this behaviour.
 				 *
@@ -430,7 +429,7 @@ class Checkout_Element extends Base_Element {
 				}
 			}
 
-			if ($membership && $membership->get_customer_id() !== $customer->get_id()) {
+			if ($membership->get_customer_id() !== $customer->get_id()) {
 				printf('<p>%s</p>', esc_html__('You are not allowed to change this membership!', 'ultimate-multisite'));
 
 				return;
@@ -442,7 +441,7 @@ class Checkout_Element extends Base_Element {
 			 *  a error message informing the user about and with buttons to allow
 			 *  account upgrade and/or to buy a new membership.
 			 */
-			if ($membership && ! empty($atts['membership_limitations'])) {
+			if (! empty($atts['membership_limitations'])) {
 				$limits = $membership->get_limitations();
 
 				foreach ($atts['membership_limitations'] as $limitation) {

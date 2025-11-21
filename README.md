@@ -1,7 +1,7 @@
 # Ultimate Multisite
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/superdav42/wp-multisite-waas/refs/heads/main/assets/img/logo.png" alt="Ultimate Multisite Logo" width="300">
+  <img src="https://github.com/Multisite-Ultimate/ultimate-multisite/blob/main/assets/img/logo.png" alt="Ultimate Multisite Logo" width="300">
 </p>
 
 <p align="center">
@@ -13,13 +13,13 @@
   <a href="https://wordpress.org/"><img src="https://img.shields.io/badge/WordPress-6.8%20Tested-green.svg" alt="WordPress: 6.8 Tested"></a>
   <a href="https://php.net/"><img src="https://img.shields.io/badge/PHP-7.4.0%2B-purple.svg" alt="PHP: 7.4.0+"></a>
   <a href="https://php.net/"><img src="https://img.shields.io/badge/Up%20To%20PHP-8.4.6-purple.svg" alt="Up To PHP: 8.4.6"></a>
-  <a href="https://github.com/superdav42/wp-multisite-waas/releases"><img src="https://img.shields.io/github/v/release/superdav42/wp-multisite-waas" alt="Latest Release"></a>
+  <a href="https://github.com/Multisite-Ultimate/ultimate-multisite/releases"><img src="https://img.shields.io/github/v/release/Multisite-Ultimate/ultimate-multisite" alt="Latest Release"></a>
 </p>
 <p align="center">
-  <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/tests.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/tests.yml/badge.svg" alt="Unit & Integration Tests"></a>
-  <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/e2e.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/e2e.yml/badge.svg" alt="E2E Tests"></a>
-  <a href="https://codecov.io/gh/superdav42/wp-multisite-waas"><img src="https://codecov.io/gh/superdav42/wp-multisite-waas/branch/main/graph/badge.svg" alt="Code Coverage"></a>
-  <a href="https://github.com/superdav42/wp-multisite-waas/actions/workflows/code-quality.yml"><img src="https://github.com/superdav42/wp-multisite-waas/actions/workflows/code-quality.yml/badge.svg" alt="Code Quality"></a>
+  <a href="https://github.com/Multisite-Ultimate/ultimate-multisite/actions/workflows/tests.yml"><img src="https://github.com/Multisite-Ultimate/ultimate-multisite/actions/workflows/tests.yml/badge.svg" alt="Unit & Integration Tests"></a>
+  <a href="https://github.com/Multisite-Ultimate/ultimate-multisite/actions/workflows/e2e.yml"><img src="https://github.com/Multisite-Ultimate/ultimate-multisite/actions/workflows/e2e.yml/badge.svg" alt="E2E Tests"></a>
+  <a href="https://codecov.io/gh/Multisite-Ultimate/ultimate-multisite"><img src="https://codecov.io/gh/Multisite-Ultimate/ultimate-multisite/branch/main/graph/badge.svg" alt="Code Coverage"></a>
+  <a href="https://github.com/Multisite-Ultimate/ultimate-multisite/actions/workflows/code-quality.yml"><img src="https://github.com/Multisite-Ultimate/ultimate-multisite/actions/workflows/code-quality.yml/badge.svg" alt="Code Quality"></a>
 </p>
 
 ## 🌟 Overview
@@ -51,7 +51,7 @@ There are two recommended ways to install Ultimate Multisite:
 
 ### Method 1: Using the pre-packaged release (Recommended)
 
-1. Download the latest release ZIP from the [Releases page](https://github.com/superdav42/wp-multisite-waas/releases)
+1. Download the latest release ZIP from the [Releases page](https://github.com/Multisite-Ultimate/ultimate-multisite/releases)
 2. Log in to your WordPress Network Admin dashboard
 3. Navigate to Plugins > Add New > Upload Plugin
 4. Choose the downloaded ZIP file and click "Install Now"
@@ -66,8 +66,8 @@ This method requires command-line access to your server and familiarity with Git
 
    ```bash
    cd wp-content/plugins/
-   git clone https://github.com/superdav42/wp-multisite-waas.git
-   cd wp-multisite-waas
+   git clone https://github.com/Multisite-Ultimate/ultimate-multisite.git
+   cd ultimate-multisite
    ```
 
 2. Install the required dependencies using Composer:
@@ -88,7 +88,7 @@ This method requires command-line access to your server and familiarity with Git
   <li>You've downloaded the repository directly from GitHub without using a release package</li>
   <li>The composer dependencies haven't been installed</li>
 </ul>
-<p><strong>Solution:</strong> Use the pre-packaged release from the <a href="https://github.com/superdav42/wp-multisite-waas/releases">Releases page</a> or run <code>composer install</code> in the plugin directory.</p>
+<p><strong>Solution:</strong> Use the pre-packaged release from the <a href="https://github.com/Multisite-Ultimate/ultimate-multisite/releases">Releases page</a> or run <code>composer install</code> in the plugin directory.</p>
 </details>
 
 <details>
@@ -100,7 +100,7 @@ This method requires command-line access to your server and familiarity with Git
 <details>
 <summary><strong>"Class 'WP_Ultimo\Database\Sites\Site_Query' not found"</strong></summary>
 <p>This error can occur if the plugin's autoloader isn't properly loading all the necessary classes.</p>
-<p><strong>Solution:</strong> Use the pre-packaged release from the <a href="https://github.com/superdav42/wp-multisite-waas/releases">Releases page</a> which includes all required files.</p>
+<p><strong>Solution:</strong> Use the pre-packaged release from the <a href="https://github.com/Multisite-Ultimate/ultimate-multisite/releases">Releases page</a> which includes all required files.</p>
 </details>
 
 ## 🚀 Contributing
@@ -111,7 +111,7 @@ We welcome contributions to Ultimate Multisite! Here's how you can contribute ef
 
 1. **Quick Setup:**
    ```bash
-   git clone https://github.com/superdav42/wp-multisite-waas.git
+   git clone https://github.com/Multisite-Ultimate/ultimate-multisite.git
    cd wp-multisite-waas
    npm run dev:setup  # Installs dependencies and sets up Git hooks
    ```
@@ -191,7 +191,7 @@ See [readme](tests/e2e/README.md) for e2e testing.
 
 ## 🆘 Support
 
-For support, please open an issue on the [GitHub repository](https://github.com/superdav42/wp-multisite-waas/issues).
+For support, please open an issue on the [GitHub repository](https://github.com/Multisite-Ultimate/ultimate-multisite/issues).
 
 ## ⚠️ Upgrade Notice
 
@@ -301,13 +301,13 @@ Ultimate Multisite is an open-source project with contributions from:
 
 - [aanduque](https://github.com/aanduque)
 - [superdav42](https://github.com/superdav42)
-- [And the community](https://github.com/superdav42/wp-multisite-waas/graphs/contributors)
+- [And the community](https://github.com/Multisite-Ultimate/ultimate-multisite/graphs/contributors)
 
 ## 📄 License
 
 Ultimate Multisite is licensed under the GPL v2 or later.
 
-Copyright © 2024 [Ultimate Multisite Contributors](https://github.com/superdav42/wp-multisite-waas/graphs/contributors)
+Copyright © 2024 [Ultimate Multisite Contributors](https://github.com/Multisite-Ultimate/ultimate-multisite/graphs/contributors)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as

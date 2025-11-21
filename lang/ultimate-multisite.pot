@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-20T01:23:05+00:00\n"
+"POT-Creation-Date: 2025-11-12T23:02:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ultimate-multisite\n"
@@ -1420,8 +1420,8 @@ msgstr ""
 #: inc/installers/class-recommended-plugins-installer.php:49
 #: inc/installers/class-recommended-plugins-installer.php:60
 #: inc/list-tables/class-membership-list-table.php:287
-#: inc/list-tables/class-payment-list-table.php:221
-#: inc/list-tables/class-payment-list-table.php:279
+#: inc/list-tables/class-payment-list-table.php:208
+#: inc/list-tables/class-payment-list-table.php:266
 #: inc/list-tables/class-site-list-table.php:361
 #: views/dashboard-widgets/my-sites.php:56
 msgid "Pending"
@@ -2312,7 +2312,7 @@ msgstr ""
 #: inc/list-tables/class-membership-list-table-widget.php:264
 #: inc/list-tables/class-membership-list-table.php:178
 #: inc/list-tables/class-payment-list-table-widget.php:220
-#: inc/list-tables/class-payment-list-table.php:195
+#: inc/list-tables/class-payment-list-table.php:182
 #: inc/list-tables/class-site-list-table.php:273
 #: inc/managers/class-customer-manager.php:68
 #: views/emails/admin/payment-received.php:125
@@ -3703,7 +3703,7 @@ msgstr ""
 #: inc/admin-pages/class-payment-list-admin-page.php:114
 #: inc/list-tables/class-membership-list-table-widget.php:41
 #: inc/list-tables/class-membership-list-table.php:39
-#: inc/list-tables/class-payment-list-table.php:196
+#: inc/list-tables/class-payment-list-table.php:183
 #: inc/list-tables/class-site-list-table.php:274
 #: inc/managers/class-membership-manager.php:66
 #: inc/ui/class-current-membership-element.php:130
@@ -16639,7 +16639,7 @@ msgstr ""
 
 #: inc/list-tables/class-customer-list-table.php:224
 #: inc/list-tables/class-event-list-table.php:185
-#: inc/list-tables/class-payment-list-table.php:156
+#: inc/list-tables/class-payment-list-table.php:143
 #: inc/list-tables/class-site-list-table.php:254
 #: views/admin-pages/fields/field-text.php:46
 #: views/base/customers/grid-item.php:109

@@ -92,7 +92,9 @@
             "php-http/discovery": true,
             "wp-ultimo/autoloader-plugin": true
         },
-        "autoloader-suffix": "230080190a3968d4856a2879371108a7"
+        "autoloader-suffix": "230080190a3968d4856a2879371108a7",
+        "optimize-autoloader": true,
+        "classmap-authoritative": true
     },
     "archive": {
         "exclude": [

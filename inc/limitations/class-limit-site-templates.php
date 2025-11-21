@@ -115,7 +115,7 @@ class Limit_Site_Templates extends Limit {
 	public function get_default_permissions($type) {
 
 		return [
-			'behavior' => 'available',
+			'behavior' => 'not_available',
 		];
 	}
 

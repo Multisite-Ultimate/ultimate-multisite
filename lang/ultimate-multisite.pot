@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Multisite 2.4.7\n"
+"Project-Id-Version: Ultimate Multisite 2.4.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ultimate-multisite\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-12T23:02:43+00:00\n"
+"POT-Creation-Date: 2025-11-21T19:45:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ultimate-multisite\n"
@@ -46,7 +46,7 @@ msgstr ""
 
 #. Author URI of the plugin
 #: ultimate-multisite.php
-msgid "https://github.com/superdav42/wp-multisite-waas"
+msgid "https://github.com/Multisite-Ultimate/ultimate-multisite"
 msgstr ""
 
 #: data/translatable-strings.php:13
@@ -359,7 +359,7 @@ msgstr ""
 #: inc/admin-pages/class-broadcast-edit-admin-page.php:370
 #: inc/admin-pages/class-edit-admin-page.php:489
 #: inc/admin-pages/class-tax-rates-admin-page.php:193
-#: inc/checkout/class-checkout.php:1634
+#: inc/checkout/class-checkout.php:1659
 #: views/base/edit/widget-tabs.php:106
 #: views/dashboard-statistics/filter.php:28
 #: views/dashboard-statistics/widget-mrr-growth.php:16
@@ -1420,8 +1420,8 @@ msgstr ""
 #: inc/installers/class-recommended-plugins-installer.php:49
 #: inc/installers/class-recommended-plugins-installer.php:60
 #: inc/list-tables/class-membership-list-table.php:287
-#: inc/list-tables/class-payment-list-table.php:208
-#: inc/list-tables/class-payment-list-table.php:266
+#: inc/list-tables/class-payment-list-table.php:221
+#: inc/list-tables/class-payment-list-table.php:279
 #: inc/list-tables/class-site-list-table.php:361
 #: views/dashboard-widgets/my-sites.php:56
 msgid "Pending"
@@ -2312,7 +2312,7 @@ msgstr ""
 #: inc/list-tables/class-membership-list-table-widget.php:264
 #: inc/list-tables/class-membership-list-table.php:178
 #: inc/list-tables/class-payment-list-table-widget.php:220
-#: inc/list-tables/class-payment-list-table.php:182
+#: inc/list-tables/class-payment-list-table.php:195
 #: inc/list-tables/class-site-list-table.php:273
 #: inc/managers/class-customer-manager.php:68
 #: views/emails/admin/payment-received.php:125
@@ -3003,7 +3003,7 @@ msgstr ""
 #: inc/admin-pages/class-product-list-admin-page.php:98
 #: inc/admin-pages/class-product-list-admin-page.php:109
 #: inc/admin-pages/class-top-admin-nav-menu.php:103
-#: inc/checkout/class-checkout.php:1956
+#: inc/checkout/class-checkout.php:1967
 #: inc/checkout/signup-fields/class-signup-field-pricing-table.php:170
 #: inc/checkout/signup-fields/class-signup-field-products.php:149
 #: inc/checkout/signup-fields/class-signup-field-products.php:150
@@ -3703,7 +3703,7 @@ msgstr ""
 #: inc/admin-pages/class-payment-list-admin-page.php:114
 #: inc/list-tables/class-membership-list-table-widget.php:41
 #: inc/list-tables/class-membership-list-table.php:39
-#: inc/list-tables/class-payment-list-table.php:183
+#: inc/list-tables/class-payment-list-table.php:196
 #: inc/list-tables/class-site-list-table.php:274
 #: inc/managers/class-membership-manager.php:66
 #: inc/ui/class-current-membership-element.php:130
@@ -4179,10 +4179,7 @@ msgid "\"Default\" will follow the settings of the checkout form: if you have a 
 msgstr ""
 
 #: inc/admin-pages/class-product-edit-admin-page.php:888
-#: inc/tax/class-tax.php:232
-#: inc/ui/class-site-actions-element.php:184
-#: views/limitations/plugin-selector.php:80
-msgid "Default"
+msgid "Default - Allow All Site Templates"
 msgstr ""
 
 #: inc/admin-pages/class-product-edit-admin-page.php:889
@@ -6843,28 +6840,28 @@ msgstr ""
 msgid "The product you are trying to add does not exist."
 msgstr ""
 
-#: inc/checkout/class-cart.php:1595
+#: inc/checkout/class-cart.php:1602
 msgid "The product you are trying to add does not exist for the selected duration."
 msgstr ""
 
-#: inc/checkout/class-cart.php:1609
-msgid "Theres already a plan in this membership."
+#: inc/checkout/class-cart.php:1617
+msgid "There's already a plan in this membership."
 msgstr ""
 
 #. translators: respectively, product name, duration, and duration unit.
-#: inc/checkout/class-cart.php:1671
+#: inc/checkout/class-cart.php:1684
 #, php-format
 msgid "%1$s does not have a valid price variation for that billing period (every %2$s %3$s(s)) and was not added to the cart."
 msgstr ""
 
 #. translators: placeholder is the product name.
-#: inc/checkout/class-cart.php:1735
+#: inc/checkout/class-cart.php:1748
 #, php-format
 msgid "Signup Fee for %s"
 msgstr ""
 
 #. translators: placeholder is the product name.
-#: inc/checkout/class-cart.php:1735
+#: inc/checkout/class-cart.php:1748
 #, php-format
 msgid "Signup Credit for %s"
 msgstr ""
@@ -6916,57 +6913,57 @@ msgstr ""
 msgid "Ultimate Multisite - New Site Page"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:727
-#: inc/checkout/class-checkout.php:735
-#: inc/checkout/class-checkout.php:2180
-#: inc/checkout/class-checkout.php:2186
+#: inc/checkout/class-checkout.php:738
+#: inc/checkout/class-checkout.php:746
+#: inc/checkout/class-checkout.php:2191
+#: inc/checkout/class-checkout.php:2197
 msgid "Payment gateway not registered."
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1042
+#: inc/checkout/class-checkout.php:1053
 msgid "The email address you entered is already in use."
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1094
+#: inc/checkout/class-checkout.php:1105
 msgid "Something wrong happened while attempting to save the customer billing address"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1635
+#: inc/checkout/class-checkout.php:1660
 msgid "The item was added!"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1636
+#: inc/checkout/class-checkout.php:1661
 msgid "The Password entered is too weak."
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1952
+#: inc/checkout/class-checkout.php:1963
 msgid "Password confirmation"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1953
+#: inc/checkout/class-checkout.php:1964
 msgid "Email confirmation"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1954
+#: inc/checkout/class-checkout.php:1965
 msgid "Template ID"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1955
+#: inc/checkout/class-checkout.php:1966
 msgid "Valid password"
 msgstr ""
 
-#: inc/checkout/class-checkout.php:1957
+#: inc/checkout/class-checkout.php:1968
 msgid "Payment Gateway"
 msgstr ""
 
 #. translators: %s payment id.
-#: inc/checkout/class-checkout.php:2149
+#: inc/checkout/class-checkout.php:2160
 #, php-format
 msgid "Payment (%s) not found."
 msgstr ""
 
 #. translators: %s is the membership ID
-#: inc/checkout/class-checkout.php:2284
+#: inc/checkout/class-checkout.php:2295
 #, php-format
 msgid "Checkout failed for customer %s: "
 msgstr ""
@@ -8387,7 +8384,7 @@ msgid "Ultimate Multisite needs to be network active to run properly. You can \"
 msgstr ""
 
 #: inc/class-requirements.php:346
-#: inc/ui/class-checkout-element.php:522
+#: inc/ui/class-checkout-element.php:521
 msgid "here"
 msgstr ""
 
@@ -16077,6 +16074,59 @@ msgstr ""
 msgid "Add a new SubDomain on cPanel whenever a new site gets created on your network"
 msgstr ""
 
+#: inc/integrations/host-providers/class-enhance-host-provider.php:103
+msgid "Enhance API Token"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:104
+msgid "Your bearer token"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:107
+msgid "Enhance API URL"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:108
+msgid "e.g. https://your-enhance-server.com"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:111
+#: views/wizards/host-integrations/runcloud-instructions.php:12
+msgid "Server ID"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:112
+msgid "UUID of your server"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:246
+msgid "Server ID is not configured"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:260
+msgid "Connection successful"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:264
+msgid "Failed to connect to Enhance API"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:388
+msgid "Enhance is a modern control panel that provides powerful hosting automation and management capabilities."
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:412
+msgid "Add domains to Enhance Control Panel whenever a new domain mapping gets created on your network"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:413
+msgid "SSL certificates will be automatically provisioned via LetsEncrypt when DNS resolves"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:419
+msgid "Add subdomains to Enhance Control Panel whenever a new site gets created on your network"
+msgstr ""
+
 #: inc/integrations/host-providers/class-gridpane-host-provider.php:209
 #: inc/integrations/host-providers/class-gridpane-host-provider.php:217
 msgid "We were not able to successfully establish a connection."
@@ -16639,7 +16689,7 @@ msgstr ""
 
 #: inc/list-tables/class-customer-list-table.php:224
 #: inc/list-tables/class-event-list-table.php:185
-#: inc/list-tables/class-payment-list-table.php:143
+#: inc/list-tables/class-payment-list-table.php:156
 #: inc/list-tables/class-site-list-table.php:254
 #: views/admin-pages/fields/field-text.php:46
 #: views/base/customers/grid-item.php:109
@@ -16729,7 +16779,7 @@ msgstr ""
 
 #: inc/list-tables/class-customers-site-list-table.php:106
 #: inc/list-tables/class-memberships-site-list-table.php:81
-#: views/limitations/site-template-selector.php:66
+#: views/limitations/site-template-selector.php:65
 #: views/limitations/theme-selector.php:81
 msgid "Not Available"
 msgstr ""
@@ -17466,42 +17516,42 @@ msgid "The necessary constants were not found on your wp-config.php file: %s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: URL being tested
-#: inc/managers/class-domain-manager.php:1048
+#: inc/managers/class-domain-manager.php:1053
 #, php-format
 msgid "Testing domain verification via Loopback using %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Error Message
-#: inc/managers/class-domain-manager.php:1071
+#: inc/managers/class-domain-manager.php:1076
 #, php-format
 msgid "Failed to connect via %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: HTTP Response Code
-#: inc/managers/class-domain-manager.php:1089
+#: inc/managers/class-domain-manager.php:1094
 #, php-format
 msgid "Loopback request via %1$s returned HTTP %2$d"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Json error, %3$s part of the response
-#: inc/managers/class-domain-manager.php:1106
+#: inc/managers/class-domain-manager.php:1111
 #, php-format
 msgid "Loopback response via %1$s is not valid JSON: %2$s : %3$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number
-#: inc/managers/class-domain-manager.php:1122
+#: inc/managers/class-domain-manager.php:1127
 #, php-format
 msgid "Domain verification successful via Loopback using %1$s. Domain ID %2$d confirmed."
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number, %3$s Domain ID number
-#: inc/managers/class-domain-manager.php:1135
+#: inc/managers/class-domain-manager.php:1140
 #, php-format
 msgid "Loopback response via %1$s did not contain expected domain ID. Expected: %2$d, Got: %3$s"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:1146
+#: inc/managers/class-domain-manager.php:1151
 msgid "Domain verification failed via loopback on all protocols (HTTPS with SSL, HTTPS without SSL, HTTP)."
 msgstr ""
 
@@ -18442,6 +18492,12 @@ msgstr ""
 msgid "Regular"
 msgstr ""
 
+#: inc/tax/class-tax.php:232
+#: inc/ui/class-site-actions-element.php:184
+#: views/limitations/plugin-selector.php:80
+msgid "Default"
+msgstr ""
+
 #: inc/tax/class-tax.php:295
 msgid "You don't have permission to alter tax rates"
 msgstr ""
@@ -18668,63 +18724,63 @@ msgstr ""
 msgid "Resend verification email"
 msgstr ""
 
-#: inc/ui/class-checkout-element.php:419
+#: inc/ui/class-checkout-element.php:418
 msgid "You already have a membership!"
 msgstr ""
 
-#: inc/ui/class-checkout-element.php:425
+#: inc/ui/class-checkout-element.php:424
 msgid "Go to my account"
 msgstr ""
 
-#: inc/ui/class-checkout-element.php:434
+#: inc/ui/class-checkout-element.php:433
 msgid "You are not allowed to change this membership!"
 msgstr ""
 
 #. Translators: Placeholder receives the limit name
-#: inc/ui/class-checkout-element.php:466
+#: inc/ui/class-checkout-element.php:465
 #, php-format
 msgid "You reached your membership %s limit!"
 msgstr ""
 
-#: inc/ui/class-checkout-element.php:474
+#: inc/ui/class-checkout-element.php:473
 msgid "Buy a new membership"
 msgstr ""
 
-#: inc/ui/class-checkout-element.php:499
+#: inc/ui/class-checkout-element.php:498
 msgid "Upgrade your account"
 msgstr ""
 
-#: inc/ui/class-checkout-element.php:514
+#: inc/ui/class-checkout-element.php:513
 msgid "You need to be the account owner to complete this payment."
 msgstr ""
 
-#: inc/ui/class-checkout-element.php:516
+#: inc/ui/class-checkout-element.php:515
 msgid "You need to be logged in to complete a payment"
 msgstr ""
 
 #. Translators: %s is replaced with <a href="{login_url}">here</a>
-#: inc/ui/class-checkout-element.php:520
+#: inc/ui/class-checkout-element.php:519
 #, php-format
 msgid "Click %s to sign in."
 msgstr ""
 
 #. translators: %s is the id of the form. e.g. main-form
-#: inc/ui/class-checkout-element.php:537
+#: inc/ui/class-checkout-element.php:536
 #, php-format
 msgid "Checkout form %s not found."
 msgstr ""
 
 #. translators: %s is the id of the form. e.g. main-form
-#: inc/ui/class-checkout-element.php:544
+#: inc/ui/class-checkout-element.php:543
 #, php-format
 msgid "Checkout form %s contains no fields."
 msgstr ""
 
-#: inc/ui/class-checkout-element.php:549
+#: inc/ui/class-checkout-element.php:548
 msgid "Registration is not available at this time."
 msgstr ""
 
-#: inc/ui/class-checkout-element.php:557
+#: inc/ui/class-checkout-element.php:556
 msgid "Registration is closed for your location."
 msgstr ""
 
@@ -20815,7 +20871,7 @@ msgstr ""
 msgid "No categories"
 msgstr ""
 
-#: views/limitations/site-template-selector.php:65
+#: views/limitations/site-template-selector.php:66
 #: views/limitations/theme-selector.php:80
 msgid "Available"
 msgstr ""
@@ -21218,10 +21274,6 @@ msgstr ""
 
 #: views/wizards/host-integrations/runcloud-instructions.php:12
 msgid "as well as find the"
-msgstr ""
-
-#: views/wizards/host-integrations/runcloud-instructions.php:12
-msgid "Server ID"
 msgstr ""
 
 #: views/wizards/host-integrations/runcloud-instructions.php:12

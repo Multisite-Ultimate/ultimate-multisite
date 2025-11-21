@@ -6,8 +6,8 @@
  * Text Domain: ultimate-multisite
  * Version: 2.4.8
  * Author: Ultimate Multisite Community
- * Author URI: https://github.com/superdav42/wp-multisite-waas
- * GitHub Plugin URI: https://github.com/superdav42/wp-multisite-waas
+ * Author URI: https://github.com/Multisite-Ultimate/ultimate-multisite
+ * GitHub Plugin URI: https://github.com/Multisite-Ultimate/ultimate-multisite
  * Network: true
  * License: GPL2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html

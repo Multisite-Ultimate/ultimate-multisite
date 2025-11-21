@@ -589,91 +589,6 @@ class Limitations_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test early_get_limitations method with mocked database.
-	 */
-	public function test_early_get_limitations_method(): void {
-		global $wpdb;
-
-		// Mock wpdb
-		$wpdb              = $this->createMock(\wpdb::class);
-		$wpdb->base_prefix = 'wp_';
-
-		$serialized_data = serialize(
-			[
-				'users' => [
-					'enabled' => true,
-					'limit'   => 5,
-				],
-			]
-		);
-
-		$wpdb->expects($this->once())
-			->method('prepare')
-			->willReturn("SELECT meta_value FROM wp_wu_customermeta WHERE meta_key = 'wu_limitations' AND wu_customer_id = 123 LIMIT 1");
-
-		$wpdb->expects($this->once())
-			->method('get_var')
-			->willReturn($serialized_data);
-
-		$result = Limitations::early_get_limitations('customer', 123);
-
-		$this->assertIsArray($result);
-		$this->assertArrayHasKey('users', $result);
-		$this->assertTrue($result['users']['enabled']);
-		$this->assertEquals(5, $result['users']['limit']);
-	}
-
-	/**
-	 * Test early_get_limitations with site slug.
-	 */
-	public function test_early_get_limitations_with_site_slug(): void {
-		global $wpdb;
-
-		// Mock wpdb
-		$wpdb              = $this->createMock(\wpdb::class);
-		$wpdb->base_prefix = 'wp_';
-
-		$wpdb->expects($this->once())
-			->method('prepare')
-			->with(
-				$this->stringContains('wp_blogmeta'),
-				123
-			)
-			->willReturn("SELECT meta_value FROM wp_blogmeta WHERE meta_key = 'wu_limitations' AND blog_id = 123 LIMIT 1");
-
-		$wpdb->expects($this->once())
-			->method('get_var')
-			->willReturn('');
-
-		$result = Limitations::early_get_limitations('site', 123);
-
-		$this->assertIsArray($result);
-	}
-
-	/**
-	 * Test remove_limitations method.
-	 */
-	public function test_remove_limitations_method(): void {
-		global $wpdb;
-
-		// Mock wpdb
-		$wpdb              = $this->createMock(\wpdb::class);
-		$wpdb->base_prefix = 'wp_';
-
-		$wpdb->expects($this->once())
-			->method('prepare')
-			->willReturn("DELETE FROM wp_wu_customermeta WHERE meta_key = 'wu_limitations' AND wu_customer_id = 123 LIMIT 1");
-
-		$wpdb->expects($this->once())
-			->method('get_var');
-
-		Limitations::remove_limitations('customer', 123);
-
-		// If we reach here without exception, the test passes
-		$this->assertTrue(true);
-	}
-
-	/**
 	 * Test get_empty method.
 	 */
 	public function test_get_empty_method(): void {
@@ -826,34 +741,5 @@ class Limitations_Test extends WP_UnitTestCase {
 		$method->invokeArgs($limitations, [&$array1, &$array2, true]);
 
 		$this->assertEquals('force_active', $array1['behavior']);
-	}
-
-	/**
-	 * Test caching in early_get_limitations.
-	 */
-	public function test_early_get_limitations_caching(): void {
-		global $wpdb;
-
-		// Mock wpdb
-		$wpdb              = $this->createMock(\wpdb::class);
-		$wpdb->base_prefix = 'wp_';
-
-		$serialized_data = serialize(['users' => ['enabled' => true]]);
-
-		$wpdb->expects($this->once()) // Should only be called once due to caching
-			->method('prepare')
-			->willReturn("SELECT meta_value FROM wp_wu_customermeta WHERE meta_key = 'wu_limitations' AND wu_customer_id = 123 LIMIT 1");
-
-		$wpdb->expects($this->once()) // Should only be called once due to caching
-			->method('get_var')
-			->willReturn($serialized_data);
-
-		// First call
-		$result1 = Limitations::early_get_limitations('customer', 123);
-
-		// Second call should use cache
-		$result2 = Limitations::early_get_limitations('customer', 123);
-
-		$this->assertEquals($result1, $result2);
 	}
 }

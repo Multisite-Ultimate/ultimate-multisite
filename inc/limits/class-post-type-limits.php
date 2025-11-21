@@ -78,29 +78,75 @@ class Post_Type_Limits {
 
 		$emulated_post_types = wu_get_setting('emulated_post_types', []);
 
-		if (is_array($emulated_post_types) && ! empty($emulated_post_types)) {
-			foreach ($emulated_post_types as $pt) {
-				$pt = (object) $pt;
+		if ( ! is_array($emulated_post_types) || empty($emulated_post_types)) {
+			return;
+		}
 
-				$existing_pt = get_post_type_object($pt->post_type);
+		// Clean up corrupted data automatically
+		$cleaned_post_types = [];
+		$needs_update       = false;
 
-				if ($existing_pt) {
-					continue;
-				}
-
-				register_post_type(
-					$pt->post_type,
-					[
-						'label'               => $pt->label,
-						'exclude_from_search' => true,
-						'public'              => true,
-						'show_in_menu'        => false,
-						'has_archive'         => false,
-						'can_export'          => false,
-						'delete_with_user'    => false,
-					]
-				);
+		foreach ($emulated_post_types as $index => $pt) {
+			// Verify that $pt is an array
+			if ( ! is_array($pt)) {
+				$needs_update = true;
+				continue;
 			}
+
+			// Verify that required keys exist (allow empty values for new entries)
+			if ( ! isset($pt['post_type']) || ! isset($pt['label'])) {
+				$needs_update = true;
+				continue;
+			}
+
+			// Add data (even if empty, to allow users to fill in new post types)
+			$cleaned_post_types[] = [
+				'post_type' => isset($pt['post_type']) ? sanitize_key($pt['post_type']) : '',
+				'label'     => isset($pt['label']) ? sanitize_text_field($pt['label']) : '',
+			];
+		}
+
+		// Save cleaned data if there were any changes
+		if ($needs_update) {
+			wu_save_setting('emulated_post_types', $cleaned_post_types);
+			$emulated_post_types = $cleaned_post_types;
+		}
+
+		// Register only valid post types (skip empty ones)
+		foreach ($emulated_post_types as $pt) {
+			// Skip if post_type or label is empty
+			if (empty($pt['post_type']) || empty($pt['label'])) {
+				continue;
+			}
+
+			$post_type = sanitize_key($pt['post_type']);
+			$label     = sanitize_text_field($pt['label']);
+
+			// Skip if sanitization resulted in empty values
+			if (empty($post_type) || empty($label)) {
+				continue;
+			}
+
+			// Check if post type is already registered
+			$existing_pt = get_post_type_object($post_type);
+
+			if ($existing_pt) {
+				continue;
+			}
+
+			// Register the post type
+			register_post_type(
+				$post_type,
+				[
+					'label'               => $label,
+					'exclude_from_search' => true,
+					'public'              => true,
+					'show_in_menu'        => false,
+					'has_archive'         => false,
+					'can_export'          => false,
+					'delete_with_user'    => false,
+				]
+			);
 		}
 	}
 

@@ -134,7 +134,7 @@ class Session_Cookie implements Session {
 	public function commit($expire = null): bool {
 
 		if (null === $expire) {
-			$expire = HOUR_IN_SECONDS;
+			$expire = 7 * DAY_IN_SECONDS;
 		}
 
 		$value = wp_json_encode($this->data, JSON_UNESCAPED_UNICODE);

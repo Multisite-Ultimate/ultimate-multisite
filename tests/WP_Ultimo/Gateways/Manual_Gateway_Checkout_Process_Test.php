@@ -6,7 +6,7 @@ use WP_Ultimo\Database\Memberships\Membership_Status;
 use WP_Ultimo\Database\Payments\Payment_Status;
 use WP_Ultimo\Models\Customer;
 
-class Manual_Gateway_Process_Checkout_Test extends \WP_UnitTestCase {
+class Manual_Gateway_Checkout_Process_Test extends \WP_UnitTestCase {
 	/**
 	 * @var \WP_Ultimo\Gateways\Manual_Gateway
 	 */

@@ -885,7 +885,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					'tooltip'           => __('"Default" will follow the settings of the checkout form: if you have a template selection field in there, all the templates selected will show up. If no field is present, then a default WordPress site will be created. <br><br>"Assign Site Template" forces new accounts with this plan to use a particular template site (this option removes the template selection field from the signup, if one exists). <br><br>Finally, "Choose Available Site Templates", overrides the templates selected on the checkout form with the templates selected here, while also giving you the chance of pre-select a template to be used as default.', 'ultimate-multisite'),
 					'value'             => 'default',
 					'options'           => [
-						'default'                    => __('Default', 'ultimate-multisite'),
+						'default'                    => __('Default - Allow All Site Templates', 'ultimate-multisite'),
 						'assign_template'            => __('Assign Site Template', 'ultimate-multisite'),
 						'choose_available_templates' => __('Choose Available Site Templates', 'ultimate-multisite'),
 					],

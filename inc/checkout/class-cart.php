@@ -2794,7 +2794,7 @@ class Cart implements \JsonSerializable {
 	/**
 	 * Cancels conflicting pending payments for new checkouts.
 	 *
-	 * @since 2.1.4
+	 * @since 2.4.8
 	 * @return void
 	 */
 	protected function cancel_conflicting_pending_payments(): void {
@@ -2811,14 +2811,29 @@ class Cart implements \JsonSerializable {
 		);
 
 		foreach ($pending_payments as $payment) {
-			// Cancel if it's not the same cart (simple check: different total or products)
-			$payment_total = $payment->get_total();
-			$cart_total    = $this->get_total();
+			$current_line_items  = $this->get_line_items();
+			$existing_line_items = $payment->get_line_items();
 
-			if (abs($payment_total - $cart_total) > 0.01) { // Allow small differences
+			$product_count  = 0;
+			$products_found = 0;
+			foreach ($current_line_items as $current_line_item) {
+				if ($current_line_item->get_type() === 'product') {
+					++$product_count;
+					foreach ($existing_line_items as $existing_line_item) {
+						if ($current_line_item->get_product_id() === $existing_line_item->get_product_id()) {
+							++$products_found;
+						}
+					}
+				}
+			}
+
+			if ($product_count !== $products_found) {
+				// Customer selected different products. Cancel pending payment.
 				$payment->set_status(Payment_Status::CANCELLED);
 				$payment->save();
+				$payment->get_membership()->cancel();
 			}
+			// Pending payment is the same. Nothing to do, Let the form element show the pay pending payment message.
 		}
 	}
 }

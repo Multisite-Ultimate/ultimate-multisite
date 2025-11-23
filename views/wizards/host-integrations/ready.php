@@ -15,7 +15,7 @@ defined('ABSPATH') || exit;
 	</h1>
 	<p class="wu-text-lg wu-text-gray-600 wu-my-4">
 		<?php // translators: % site title ?>
-		<?php esc_html(sprintf(__('The integration with %s was correctly setup and is now ready! Now, every time a new domain is added to your platform, Ultimate Multisite will sync that with your application automatically.', 'ultimate-multisite'), $integration->get_title())); ?>
+		<?php echo esc_html(sprintf(__('The integration with %s was correctly setup and is now ready! Now, every time a new domain is added to your platform, Ultimate Multisite will sync that with your application automatically.', 'ultimate-multisite'), $integration->get_title())); ?>
 	</p>
 	</div>
 

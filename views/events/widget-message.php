@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
 	<h3 class="wu-my-1 wu-text-2xs wu-uppercase"><?php echo esc_html__('Message', 'ultimate-multisite'); ?></h3>
 
 	<span class="wu-my-1 wu-inline-block">
-		<?php wp_kses($object->get_message(), wu_kses_allowed_html()); ?>
+		<?php echo wp_kses($object->get_message(), wu_kses_allowed_html()); ?>
 	</span>
 
 	</li>

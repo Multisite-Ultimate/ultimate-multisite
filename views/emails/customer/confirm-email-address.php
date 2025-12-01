@@ -7,7 +7,7 @@
 defined('ABSPATH') || exit;
 ?>
 <?php // translators: %s: Customer Name ?>
-<p><?php esc_html(sprintf(__('Hey %s,', 'ultimate-multisite'), '{{customer_name}}')); ?></p>
+<p><?php echo esc_html(sprintf(__('Hey %s,', 'ultimate-multisite'), '{{customer_name}}')); ?></p>
 
 <p><?php echo esc_html__('Thanks for creating an account! You\'re only a step away from being ready.', 'ultimate-multisite'); ?></p>
 

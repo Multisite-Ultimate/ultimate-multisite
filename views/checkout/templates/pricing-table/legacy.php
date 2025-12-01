@@ -205,7 +205,7 @@ if (null !== $first_recurring_product) {
 
 					<sup class="superscript">
 
-					<?php esc_html(wu_get_currency_symbol($product->get_currency())); ?>
+					<?php echo esc_html(wu_get_currency_symbol($product->get_currency())); ?>
 
 					</sup>
 

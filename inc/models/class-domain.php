@@ -55,6 +55,14 @@ class Domain extends Base_Model {
 	protected $primary_domain = false;
 
 	/**
+	 * Original primary_domain value before changes (for tracking edits).
+	 *
+	 * @since 2.0.0
+	 * @var boolean|null
+	 */
+	protected $original_primary;
+
+	/**
 	 * Should this domain be forced to be used only on HTTPS?
 	 *
 	 * @since 2.0.0
@@ -296,6 +304,10 @@ class Domain extends Base_Model {
 	 */
 	public function set_primary_domain($primary_domain): void {
 
+		if ($this->id > 0 && !isset($this->original_primary)) {
+			$this->original_primary = $this->primary_domain;
+		}
+
 		$this->primary_domain = $primary_domain;
 	}
 
@@ -483,6 +495,8 @@ class Domain extends Base_Model {
 
 		$before_changes = clone $this;
 
+		$was_new = ! $this->exists();
+
 		$results = parent::save();
 
 		if (is_wp_error($results) === false) {
@@ -517,7 +531,7 @@ class Domain extends Base_Model {
 					 */
 					do_action_deprecated('mercator.mapping.updated', $deprecated_args, '2.0.0', 'wu_domain_post_save');
 			}
-
+			
 			/*
 			 * Resets cache.
 			 *
@@ -525,6 +539,22 @@ class Domain extends Base_Model {
 			 * after a change is made.
 			 */
 			wp_cache_flush();
+
+			/*
+			 * If this domain was just set as primary, unset other primaries for this site.
+			 */
+			if ($this->primary_domain && ($was_new || (isset($this->original_primary) && ! $this->original_primary))) {
+				$old_primary_domains = wu_get_domains(
+					[
+						'primary_domain' => true,
+						'blog_id'        => $this->blog_id,
+						'id__not_in'     => [$this->id],
+						'fields'         => 'ids',
+					]
+				);
+
+				do_action('wu_async_remove_old_primary_domains', $old_primary_domains);
+			}
 		}
 
 		return $results;

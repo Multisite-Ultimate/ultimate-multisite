@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
 
 <p class="wu-text-lg wu-text-gray-600 wu-my-4 wu-mb-6">
 
-	<?php esc_html_e('You'll need to get your', 'ultimate-multisite'); ?> <strong><?php esc_html_e('API Key', 'ultimate-multisite'); ?></strong> <?php esc_html_e('and', 'ultimate-multisite'); ?> <strong><?php esc_html_e('DNS Zone ID', 'ultimate-multisite'); ?></strong> <?php esc_html_e('for your BunnyNet DNS zone.', 'ultimate-multisite'); ?>
+	<?php esc_html_e('You\'ll need to get your', 'ultimate-multisite'); ?> <strong><?php esc_html_e('API Key', 'ultimate-multisite'); ?></strong> <?php esc_html_e('and', 'ultimate-multisite'); ?> <strong><?php esc_html_e('DNS Zone ID', 'ultimate-multisite'); ?></strong> <?php esc_html_e('for your BunnyNet DNS zone.', 'ultimate-multisite'); ?>
 
 </p>
 

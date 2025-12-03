@@ -733,7 +733,7 @@
         },
         request(action, data, success_handler, error_handler) {
 
-          const actual_ajax_url = (action === 'wu_validate_form' || action === 'wu_create_order') ? wu_checkout.late_ajaxurl : wu_checkout.ajaxurl;
+          const actual_ajax_url = (action === 'wu_validate_form' || action === 'wu_create_order' || action === 'wu_render_field_template') ? wu_checkout.late_ajaxurl : wu_checkout.ajaxurl;
 
           jQuery.ajax({
             method: 'POST',

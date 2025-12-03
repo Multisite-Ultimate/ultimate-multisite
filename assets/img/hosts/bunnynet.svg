@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="200" height="80" fill="#FF6C37" rx="8"/>
+
+  <!-- Bunny Icon (simplified) -->
+  <g transform="translate(20, 20)">
+    <!-- Bunny head -->
+    <circle cx="20" cy="25" r="15" fill="white"/>
+
+    <!-- Bunny ears -->
+    <ellipse cx="13" cy="15" rx="4" ry="12" fill="white"/>
+    <ellipse cx="27" cy="15" rx="4" ry="12" fill="white"/>
+
+    <!-- Eyes -->
+    <circle cx="16" cy="24" r="2" fill="#FF6C37"/>
+    <circle cx="24" cy="24" r="2" fill="#FF6C37"/>
+
+    <!-- Nose -->
+    <circle cx="20" cy="28" r="1.5" fill="#FF6C37"/>
+  </g>
+
+  <!-- Text: BunnyNet -->
+  <text x="70" y="45" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">
+    BunnyNet
+  </text>
+
+  <!-- CDN subtext -->
+  <text x="70" y="60" font-family="Arial, sans-serif" font-size="10" fill="white" opacity="0.8">
+    CDN & DNS
+  </text>
+</svg>

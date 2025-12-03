@@ -377,7 +377,7 @@ class Site_Actions_Element extends Base_Element {
 					[
 						'page' => 'wu-template-switching',
 					],
-					get_admin_url($this->site->get_id())
+					get_admin_url($this->site->get_id(), 'admin.php')
 				),
 			];
 		}

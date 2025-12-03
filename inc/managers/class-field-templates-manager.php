@@ -59,6 +59,10 @@ class Field_Templates_Manager extends Base_Manager {
 
 		$template_parts = explode('/', (string) $template);
 
+		if (count($template_parts) < 2 ) {
+			wp_send_json_error(new \WP_Error('template', __('Invalid template name.', 'ultimate-multisite')));
+		}
+
 		$template_class = $this->get_template_class($template_parts[0], $template_parts[1]);
 
 		if ( ! $template_class) {

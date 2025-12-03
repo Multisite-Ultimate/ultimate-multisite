@@ -168,7 +168,7 @@ class Site_Manager extends Base_Manager {
 				$customer = wu_get_current_customer();
 
 				if ( ! $customer || ! $membership || $customer->get_id() !== $membership->get_customer_id()) {
-					$errors->add('not-owner', __('You do not have the necessary permissions to create a site to this membership', 'ultimate-multisite'));
+					$errors->add('not-owner', __('You do not have the necessary permissions to add a site to this membership', 'ultimate-multisite'));
 				}
 
 				if ($errors->has_errors() === false) {

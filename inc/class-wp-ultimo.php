@@ -210,6 +210,8 @@ final class WP_Ultimo {
 		do_action('wp_ultimo_load');
 
 		add_action('init', [$this, 'after_init']);
+
+		add_filter('user_has_cap', [$this, 'grant_customer_capabilities'], 10, 4);
 	}
 
 	/**
@@ -947,5 +949,39 @@ final class WP_Ultimo {
 			$this->addon_repository = new Addon_Repository();
 		}
 		return $this->addon_repository;
+	}
+
+	/**
+	 * Grants wu_manage_membership capability to administrators who are customers.
+	 *
+	 * This filter dynamically adds the wu_manage_membership capability to users who:
+	 * - Have the administrator role (or manage_options capability)
+	 * - Are also Ultimate Multisite customers
+	 *
+	 * @since 2.4.8
+	 *
+	 * @param array   $allcaps All capabilities of the user.
+	 * @param array   $caps    Required capabilities.
+	 * @param array   $args    Argument array.
+	 * @param WP_User $user    The user object.
+	 * @return array Modified capabilities.
+	 */
+	public function grant_customer_capabilities($allcaps, $caps, $args, $user) {
+
+		// Only check when wu_manage_membership capability is being checked
+		if (! in_array('wu_manage_membership', $caps, true)) {
+			return $allcaps;
+		}
+
+		// Check if user is an administrator and a customer
+		if (isset($allcaps['manage_options']) && $allcaps['manage_options']) {
+			$customer = wu_get_customer_by_user_id($user->ID);
+
+			if ($customer) {
+				$allcaps['wu_manage_membership'] = true;
+			}
+		}
+
+		return $allcaps;
 	}
 }

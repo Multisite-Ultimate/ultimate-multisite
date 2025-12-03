@@ -352,7 +352,7 @@ class Signup_Field_Template_Selection extends Base_Signup_Field {
 			'sites'          => $sites,
 			'name'           => $attributes['name'],
 			'cols'           => $attributes['cols'],
-			'categories'     => $attributes['template_selection_categories'] ?: \WP_Ultimo\Models\Site::get_all_categories($sites),
+			'categories'     => $attributes['template_selection_categories'] ?? \WP_Ultimo\Models\Site::get_all_categories($sites),
 			'customer_sites' => $customer_sites,
 		];
 

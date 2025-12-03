@@ -33,14 +33,6 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 	protected $type = 'submenu';
 
 	/**
-	 * Is this a top-level menu or a submenu?
-	 *
-	 * @since 1.8.2
-	 * @var string
-	 */
-	protected $parent = 'none';
-
-	/**
 	 * This page has no parent, so we need to highlight another sub-menu.
 	 *
 	 * @since 2.0.0
@@ -67,8 +59,8 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 	 * @var array
 	 */
 	protected $supported_panels = [
-		'user_admin_menu' => 'read',
-		'admin_menu'      => 'read',
+		'user_admin_menu' => 'wu_manage_membership',
+		'admin_menu'      => 'wu_manage_membership',
 	];
 
 	/**

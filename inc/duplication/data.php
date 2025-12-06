@@ -182,7 +182,7 @@ if ( ! class_exists('MUCD_Data') ) {
 			switch_to_blog($from_site_id);
 
 			$dir             = wp_upload_dir();
-			$from_upload_url = str_replace(network_site_url(), get_bloginfo('url') . '/', $dir['baseurl']);
+			$from_upload_url = $dir['baseurl'];
 			$from_blog_url   = get_blog_option($from_site_id, 'siteurl');
 
 			restore_current_blog();
@@ -190,7 +190,7 @@ if ( ! class_exists('MUCD_Data') ) {
 			switch_to_blog($to_site_id);
 
 			$dir           = wp_upload_dir();
-			$to_upload_url = str_replace(network_site_url(), get_bloginfo('url') . '/', $dir['baseurl']);
+			$to_upload_url = $dir['baseurl'];
 			$to_blog_url   = get_blog_option($to_site_id, 'siteurl');
 
 			restore_current_blog();

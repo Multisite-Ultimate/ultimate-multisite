@@ -29,6 +29,7 @@ class Domain_Manager extends Base_Manager {
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
 	use \WP_Ultimo\Apis\MCP_Abilities;
+	use \WP_Ultimo\Apis\Command_Palette;
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
@@ -134,6 +135,8 @@ class Domain_Manager extends Base_Manager {
 		$this->enable_wp_cli();
 
 		$this->enable_mcp_abilities();
+
+		$this->enable_command_palette();
 
 		$this->set_cookie_domain();
 

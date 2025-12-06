@@ -450,9 +450,14 @@ final class WP_Ultimo {
 		WP_Ultimo\Debug\Debug::get_instance();
 
 		/*
-		 * Loads the Jumper UI
+		 * Loads the Command Palette integration
 		 */
-		WP_Ultimo\UI\Jumper::get_instance();
+		WP_Ultimo\UI\Command_Palette_Manager::get_instance();
+
+		/*
+		 * Loads the Command Palette REST controller
+		 */
+		WP_Ultimo\Apis\Command_Palette_Rest_Controller::get_instance();
 
 		/*
 		 * Loads the Template Previewer

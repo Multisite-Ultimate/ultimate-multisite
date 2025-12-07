@@ -33,11 +33,50 @@ fi
 # Run PHPCS on staged files
 echo -e "${YELLOW}Running PHPCS...${NC}"
 HAS_PHPCS_ERRORS=0
+PHPCS_FAILED_FILES=""
 for FILE in $STAGED_FILES; do
     if [ -f "$FILE" ]; then
-        vendor/bin/phpcs --colors "$FILE" || HAS_PHPCS_ERRORS=1
+        if ! vendor/bin/phpcs --colors "$FILE"; then
+            PHPCS_FAILED_FILES="$PHPCS_FAILED_FILES $FILE"
+            HAS_PHPCS_ERRORS=1
+        fi
     fi
 done
+
+# If PHPCS found errors, try to auto-fix them with PHPCBF
+if [ $HAS_PHPCS_ERRORS -ne 0 ]; then
+    echo -e "${YELLOW}PHPCS found errors. Running PHPCBF to auto-fix...${NC}"
+
+    FIXED_FILES=""
+    for FILE in $PHPCS_FAILED_FILES; do
+        if [ -f "$FILE" ]; then
+            # Run phpcbf (it returns 1 if it made changes, 0 if no changes needed)
+            vendor/bin/phpcbf "$FILE" || true
+
+            # Re-run phpcs to check if the file is now clean
+            if vendor/bin/phpcs --colors "$FILE" 2>&1; then
+                echo -e "${GREEN}✓ Auto-fixed: $FILE${NC}"
+                FIXED_FILES="$FIXED_FILES $FILE"
+                # Stage the fixed file
+                git add "$FILE"
+            else
+                echo -e "${RED}✗ Could not fully fix: $FILE${NC}"
+            fi
+        fi
+    done
+
+    # Re-check if there are still errors after auto-fixing
+    HAS_PHPCS_ERRORS=0
+    for FILE in $STAGED_FILES; do
+        if [ -f "$FILE" ]; then
+            vendor/bin/phpcs --colors "$FILE" > /dev/null 2>&1 || HAS_PHPCS_ERRORS=1
+        fi
+    done
+
+    if [ $HAS_PHPCS_ERRORS -eq 0 ]; then
+        echo -e "${GREEN}All PHPCS errors have been auto-fixed!${NC}"
+    fi
+fi
 
 # Run PHPStan on staged files
 echo -e "${YELLOW}Running PHPStan...${NC}"
@@ -56,6 +95,10 @@ fi
 # Exit with error if any checks failed
 if [ $HAS_PHPCS_ERRORS -ne 0 ] || [ $HAS_PHPSTAN_ERRORS -ne 0 ]; then
     echo -e "${RED}Pre-commit checks failed!${NC}"
+    if [ $HAS_PHPCS_ERRORS -ne 0 ]; then
+        echo -e "${YELLOW}Some PHPCS errors could not be auto-fixed. Please fix them manually.${NC}"
+        echo -e "${YELLOW}Run 'vendor/bin/phpcs' to see remaining errors.${NC}"
+    fi
     echo -e "${YELLOW}To bypass these checks, use: git commit --no-verify${NC}"
     exit 1
 fi

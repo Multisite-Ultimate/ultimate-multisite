@@ -416,14 +416,14 @@ const setBoxWidth = (width) => {
 window.wubox = {
   /**
    * Initializes the box.
-   * 
+   *
    * @param domChunk The DOM chunk to be used as the box content.
    * @param addGlobalListeners Whether or not to add global listeners.
    */
   init: initBox,
   /**
    * Progarmmatically shows the box.
-   * 
+   *
    * @param caption The title of the box.
    * @param url The URL to be loaded in the box.
    * @param imageGroup The image group to be used in the box.
@@ -431,7 +431,7 @@ window.wubox = {
   show: showBox,
   /**
    * Removes the current opened box.
-   * 
+   *
    */
   remove: removeBox,
   /**
@@ -446,5 +446,28 @@ window.wubox = {
 };
 window.addEventListener("DOMContentLoaded", () => {
   window.wubox.init(".wubox", true, true);
+
+  // Mark wubox as ready and process any queued early clicks
+  window.__wuboxReady = true;
+
+  // Remove the early click listener - no longer needed
+  if (window.__wuboxEarlyClickHandler) {
+    document.removeEventListener('click', window.__wuboxEarlyClickHandler, true);
+    delete window.__wuboxEarlyClickHandler;
+  }
+
+  if (window.__wuboxEarlyClicks && window.__wuboxEarlyClicks.length > 0) {
+    // Remove duplicates - only keep unique elements
+    const uniqueClicks = [...new Set(window.__wuboxEarlyClicks)];
+
+    uniqueClicks.forEach((target) => {
+      const caption = target.title || target.name || '';
+      const url = target.href || target.alt;
+      const imageGroup = target.rel || false;
+	  target.style.cursor = '';
+      window.wubox.show(caption, url, imageGroup);
+    });
+    window.__wuboxEarlyClicks = [];
+  }
 });
 })()

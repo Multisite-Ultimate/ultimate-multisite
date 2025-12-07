@@ -105,8 +105,30 @@ class Site_Template_Limits {
 	 */
 	public function maybe_force_template_selection($template_id, $membership) {
 
-		if ($membership && $membership->get_limitations()->site_templates->get_mode() === 'assign_template') {
-			$template_id = $membership->get_limitations()->site_templates->get_pre_selected_site_template();
+		if ( ! $membership) {
+			return $template_id;
+		}
+
+		$limitations = $membership->get_limitations()->site_templates;
+		$mode        = $limitations->get_mode();
+
+		// Mode: assign_template - always use the pre-selected template
+		if ('assign_template' === $mode) {
+			return $limitations->get_pre_selected_site_template();
+		}
+
+		// Mode: choose_available_templates or default - use fallback if no template selected
+		if (empty($template_id)) {
+			$pre_selected = $limitations->get_pre_selected_site_template();
+
+			if ($pre_selected) {
+				// Verify the pre-selected template is available
+				$available_templates = $limitations->get_available_site_templates();
+
+				if ($available_templates && in_array($pre_selected, $available_templates, true)) {
+					return $pre_selected;
+				}
+			}
 		}
 
 		return $template_id;

@@ -368,6 +368,14 @@ class Email_Manager extends Base_Manager {
 	 */
 	public function create_all_system_emails(): void {
 
+		/*
+		 * Ensure system emails are registered before trying to create them.
+		 * This is necessary during setup wizard when init hook may not have run yet.
+		 */
+		if (empty($this->registered_default_system_emails)) {
+			$this->register_all_default_system_emails();
+		}
+
 		$system_emails = wu_get_default_system_emails();
 
 		foreach ($system_emails as $email_key => $email_value) {

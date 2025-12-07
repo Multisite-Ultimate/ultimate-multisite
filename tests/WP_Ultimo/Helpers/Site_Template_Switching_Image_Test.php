@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile WordPress.Files.FileName
 /**
  * Test case for Template Switching with Image Preservation.
  *
@@ -145,16 +146,16 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 		}
 
 		// Create Template A with images
-		$this->template_a_id = $this->create_template_with_images('Template A', 'template-a');
+		$this->template_a_id   = $this->create_template_with_images('Template A', 'template-a');
 		$this->created_sites[] = $this->template_a_id;
 
 		// Create Template B with images
-		$this->template_b_id = $this->create_template_with_images('Template B', 'template-b');
+		$this->template_b_id   = $this->create_template_with_images('Template B', 'template-b');
 		$this->created_sites[] = $this->template_b_id;
 
 		// Create customer site based on Template A
 		$this->customer_site_id = $this->create_customer_site_from_template($this->template_a_id);
-		$this->created_sites[] = $this->customer_site_id;
+		$this->created_sites[]  = $this->customer_site_id;
 	}
 
 	/**
@@ -181,19 +182,19 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 		$images = [];
 
 		// Create featured image
-		$featured_image_id = $this->create_test_image($slug . '-featured.jpg', $title . ' Featured Image');
+		$featured_image_id  = $this->create_test_image($slug . '-featured.jpg', $title . ' Featured Image');
 		$images['featured'] = $featured_image_id;
 
 		// Create gallery images
 		$gallery_images = [];
 		for ($i = 1; $i <= 3; $i++) {
-			$gallery_image_id = $this->create_test_image($slug . "-gallery-{$i}.jpg", $title . " Gallery Image {$i}");
-			$gallery_images[] = $gallery_image_id;
-			$images["gallery_{$i}"] = $gallery_image_id;
+			$gallery_image_id         = $this->create_test_image($slug . "-gallery-{$i}.jpg", $title . " Gallery Image {$i}");
+			$gallery_images[]         = $gallery_image_id;
+			$images[ "gallery_{$i}" ] = $gallery_image_id;
 		}
 
 		// Create inline content image
-		$inline_image_id = $this->create_test_image($slug . '-inline.jpg', $title . ' Inline Image');
+		$inline_image_id  = $this->create_test_image($slug . '-inline.jpg', $title . ' Inline Image');
 		$images['inline'] = $inline_image_id;
 
 		// Get image URL for inline content
@@ -244,7 +245,7 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 		restore_current_blog();
 
 		// Store image references for later verification
-		if ($slug === 'template-a') {
+		if ('template-a' === $slug) {
 			$this->template_a_images = $images;
 		} else {
 			$this->template_b_images = $images;
@@ -265,10 +266,12 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 		$upload_dir = wp_upload_dir();
 
 		// Create a simple test image file (1x1 transparent GIF)
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- Test data, not obfuscation
 		$image_data = base64_decode('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
-		$file_path = $upload_dir['path'] . '/' . $filename;
+		$file_path  = $upload_dir['path'] . '/' . $filename;
 
 		// Write image file
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- Test environment, direct file operations acceptable
 		file_put_contents($file_path, $image_data);
 
 		// Create attachment
@@ -314,8 +317,8 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 		// Try to get existing wu_site record
 		$existing_sites = wu_get_sites(
 			[
-				'blog_id'     => $site_id,
-				'number'      => 1,
+				'blog_id' => $site_id,
+				'number'  => 1,
 			]
 		);
 
@@ -365,6 +368,7 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 		// Verify featured image exists
 		$posts_with_featured = get_posts(
 			[
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Acceptable in test environment
 				'meta_query' => [
 					[
 						'key'     => '_thumbnail_id',
@@ -628,7 +632,7 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 	 */
 	public function test_copy_files_parameter_respected() {
 		// Create a new customer site without copying files
-		$site_id = self::factory()->blog->create(
+		$site_id               = self::factory()->blog->create(
 			[
 				'domain' => 'no-files.example.com',
 				'path'   => '/',

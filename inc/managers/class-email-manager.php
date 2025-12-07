@@ -367,7 +367,6 @@ class Email_Manager extends Base_Manager {
 	 * @return void
 	 */
 	public function create_all_system_emails(): void {
-
 		/*
 		 * Ensure system emails are registered before trying to create them.
 		 * This is necessary during setup wizard when init hook may not have run yet.

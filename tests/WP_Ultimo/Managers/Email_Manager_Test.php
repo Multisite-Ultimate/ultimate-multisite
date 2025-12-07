@@ -37,7 +37,7 @@ class Email_Manager_Test extends \WP_UnitTestCase {
 	public function test_create_all_system_emails_registers_before_creating(): void {
 		// Use reflection to access the protected property
 		$reflection = new \ReflectionClass($this->manager);
-		$property = $reflection->getProperty('registered_default_system_emails');
+		$property   = $reflection->getProperty('registered_default_system_emails');
 		$property->setAccessible(true);
 
 		// Reset the property to null to simulate the initial state
@@ -45,7 +45,7 @@ class Email_Manager_Test extends \WP_UnitTestCase {
 
 		// Get count of existing emails before
 		$emails_before = wu_get_all_system_emails();
-		$count_before = count($emails_before);
+		$count_before  = count($emails_before);
 
 		// Call create_all_system_emails
 		$this->manager->create_all_system_emails();
@@ -57,7 +57,7 @@ class Email_Manager_Test extends \WP_UnitTestCase {
 
 		// Verify emails were actually created
 		$emails_after = wu_get_all_system_emails();
-		$count_after = count($emails_after);
+		$count_after  = count($emails_after);
 
 		$this->assertGreaterThan($count_before, $count_after, 'System emails should have been created');
 	}
@@ -68,7 +68,7 @@ class Email_Manager_Test extends \WP_UnitTestCase {
 	public function test_register_all_default_system_emails_populates_registry(): void {
 		// Use reflection to access the protected property
 		$reflection = new \ReflectionClass($this->manager);
-		$property = $reflection->getProperty('registered_default_system_emails');
+		$property   = $reflection->getProperty('registered_default_system_emails');
 		$property->setAccessible(true);
 
 		// Reset the property to null
@@ -125,7 +125,7 @@ class Email_Manager_Test extends \WP_UnitTestCase {
 
 		// Get count before
 		$emails_before = wu_get_all_system_emails();
-		$count_before = count($emails_before);
+		$count_before  = count($emails_before);
 
 		// Try to create the same system email twice
 		$email_data = [
@@ -144,7 +144,7 @@ class Email_Manager_Test extends \WP_UnitTestCase {
 
 		// Verify count didn't increase by more than 1
 		$emails_after = wu_get_all_system_emails();
-		$count_after = count($emails_after);
+		$count_after  = count($emails_after);
 
 		$this->assertLessThanOrEqual($count_before + 1, $count_after, 'Should not create duplicate emails');
 	}

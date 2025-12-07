@@ -37,6 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
+          composer install
 
       - name: Build plugin
         run: npm run build

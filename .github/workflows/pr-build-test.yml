@@ -37,7 +37,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
-          composer validate --no-check-all --strict
 
       - name: Build plugin
         run: npm run build

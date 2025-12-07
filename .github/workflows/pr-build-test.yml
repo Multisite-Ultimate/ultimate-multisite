@@ -1,0 +1,161 @@
+name: PR Build and Playground Test
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '**'
+      - '.github/workflows/pr-build-test.yml'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build:
+    name: Build Plugin for Testing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mysqli, mbstring, xml, zip
+          tools: composer
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          composer validate --no-check-all --strict
+
+      - name: Build plugin
+        run: npm run build
+
+      - name: Get artifact path
+        id: artifact
+        run: |
+          ARCHIVE_PATH=$(ls -t ultimate-multisite-*.zip | head -1)
+          echo "path=$ARCHIVE_PATH" >> $GITHUB_OUTPUT
+          echo "name=$(basename $ARCHIVE_PATH)" >> $GITHUB_OUTPUT
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.artifact.outputs.name }}
+          path: ${{ steps.artifact.outputs.path }}
+          retention-days: 30
+
+      - name: Upload to temporary public hosting
+        id: upload
+        run: |
+          # Upload to transfer.sh for temporary public URL (14 days retention)
+          UPLOAD_URL=$(curl --upload-file ${{ steps.artifact.outputs.path }} https://transfer.sh/${{ steps.artifact.outputs.name }})
+          echo "url=$UPLOAD_URL" >> $GITHUB_OUTPUT
+          echo "Uploaded to: $UPLOAD_URL"
+
+      - name: Create Playground Blueprint
+        id: blueprint
+        run: |
+          # Create a blueprint JSON for this PR build
+          cat > pr-blueprint.json <<EOF
+          {
+            "\$schema": "https://playground.wordpress.net/blueprint-schema.json",
+            "meta": {
+              "title": "Ultimate Multisite PR #${{ github.event.pull_request.number }} Test",
+              "description": "Test build from PR #${{ github.event.pull_request.number }}"
+            },
+            "landingPage": "/wp-admin/network/admin.php?page=wp-ultimo-setup",
+            "preferredVersions": {
+              "php": "8.2",
+              "wp": "latest"
+            },
+            "phpExtensionBundles": ["kitchen-sink"],
+            "features": {
+              "networking": true
+            },
+            "steps": [
+              {
+                "step": "enableMultisite"
+              },
+              {
+                "step": "installPlugin",
+                "pluginZipFile": {
+                  "resource": "url",
+                  "url": "${{ steps.upload.outputs.url }}"
+                },
+                "options": {
+                  "activate": true
+                }
+              },
+              {
+                "step": "login",
+                "username": "admin",
+                "password": "password"
+              }
+            ]
+          }
+          EOF
+
+          # Upload blueprint to transfer.sh
+          BLUEPRINT_URL=$(curl --upload-file pr-blueprint.json https://transfer.sh/pr-${{ github.event.pull_request.number }}-blueprint.json)
+          echo "blueprint_url=$BLUEPRINT_URL" >> $GITHUB_OUTPUT
+
+          # Create Playground URL with blueprint parameter
+          PLAYGROUND_URL="https://playground.wordpress.net/?blueprint-url=${BLUEPRINT_URL}"
+          echo "url=$PLAYGROUND_URL" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## 🔨 Build Complete - Ready for Testing!
+
+            Your PR build is ready! You can test it in two ways:
+
+            ### 🌐 Test in WordPress Playground (Recommended)
+            Click the link below to instantly test this PR in your browser - no installation needed!
+
+            **[🚀 Launch in Playground](${{ steps.blueprint.outputs.url }})**
+
+            This will:
+            - Set up a fresh WordPress Multisite installation
+            - Install and activate this PR build
+            - Take you directly to the Ultimate Multisite setup wizard
+
+            Login credentials: \`admin\` / \`password\`
+
+            ### 📦 Download Build Artifact
+            Alternatively, download the build and test locally:
+
+            - **Build:** \`${{ steps.artifact.outputs.name }}\`
+            - **Download:** Available in the [Actions artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - **Temporary URL:** ${{ steps.upload.outputs.url }} _(expires in 14 days)_
+
+            ---
+
+            <details>
+            <summary>📋 Build Details</summary>
+
+            - **Commit:** ${{ github.event.pull_request.head.sha }}
+            - **Branch:** \`${{ github.event.pull_request.head.ref }}\`
+            - **Triggered by:** @${{ github.event.pull_request.user.login }}
+
+            </details>`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

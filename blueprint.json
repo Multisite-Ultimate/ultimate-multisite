@@ -2,11 +2,11 @@
   "$schema": "https://playground.wordpress.net/blueprint-schema.json",
   "meta": {
     "title": "Ultimate Multisite Demo",
-    "description": "A demo of Ultimate Multisite running in your browser.",
-    "author": "superdav42",
-    "categories": ["Multisite", "Site"]
+    "description": "A demo of Ultimate Multisite running in your browser - transform your WordPress Multisite into a Website as a Service platform.",
+    "author": "Ultimate Multisite Community",
+    "categories": ["Multisite", "Site Management", "WaaS"]
   },
-  "landingPage": "\/wp-admin\/network\/admin.php?page=wp-ultimo-setup",
+  "landingPage": "/wp-admin/network/admin.php?page=wp-ultimo-setup",
   "preferredVersions": {
     "php": "8.2",
     "wp": "latest"
@@ -17,19 +17,12 @@
   "features": {
     "networking": true
   },
+  "plugins": [
+    "ultimate-multisite"
+  ],
   "steps": [
     {
       "step": "enableMultisite"
-    },
-    {
-      "step": "installPlugin",
-      "pluginZipFile": {
-        "resource": "url",
-        "url": "https:\/\/github.com\/superdav42\/wp-multisite-waas\/releases\/download\/v2.4.1\/multisite-ultimate.zip"
-      },
-      "options": {
-        "activate": true
-      }
     },
     {
       "step": "login",

@@ -40,6 +40,9 @@ jobs:
           composer install
 
       - name: Build plugin
+        env:
+          MU_CLIENT_ID: ${{ secrets.MU_CLIENT_ID }}
+          MU_CLIENT_SECRET: ${{ secrets.MU_CLIENT_SECRET }}
         run: npm run build
 
       - name: Get artifact path

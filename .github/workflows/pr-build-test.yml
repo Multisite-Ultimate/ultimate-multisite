@@ -93,26 +93,22 @@ jobs:
             },
             "landingPage": "/wp-admin/network/admin.php?page=wp-ultimo-setup",
             "preferredVersions": {
-              "php": "8.2",
+              "php": "8.4",
               "wp": "latest"
             },
             "phpExtensionBundles": ["kitchen-sink"],
             "features": {
               "networking": true
             },
+            "plugins": [
+              {
+                "resource": "url",
+                "url": "PLUGIN_URL_PLACEHOLDER"
+              }
+            ],
             "steps": [
               {
                 "step": "enableMultisite"
-              },
-              {
-                "step": "installPlugin",
-                "pluginZipFile": {
-                  "resource": "url",
-                  "url": "PLUGIN_URL_PLACEHOLDER"
-                },
-                "options": {
-                  "activate": true
-                }
               },
               {
                 "step": "login",

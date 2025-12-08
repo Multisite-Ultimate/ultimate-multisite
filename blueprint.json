@@ -18,11 +18,22 @@
     "networking": true
   },
   "plugins": [
-    "ultimate-multisite"
+    {
+      "resource": "url",
+      "url": "https://mygratis.site/app/uploads/sites/29/2025/12/ultimate-multisite.zip"
+    }
   ],
   "steps": [
     {
       "step": "enableMultisite"
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp site create --slug=site01"
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp plugin activate ultimate-multisite --network"
     },
     {
       "step": "login",

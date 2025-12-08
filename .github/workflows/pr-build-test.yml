@@ -132,7 +132,8 @@ jobs:
 
           # URL encode the blueprint for Playground
           BLUEPRINT_JSON=$(cat pr-blueprint.json | jq -c .)
-          PLAYGROUND_URL="https://playground.wordpress.net/#${BLUEPRINT_JSON}"
+          BLUEPRINT_ENCODED=$(echo "$BLUEPRINT_JSON" | jq -sRr @base64)
+          PLAYGROUND_URL="https://playground.wordpress.net/#${BLUEPRINT_ENCODED}"
 
           echo "url=$PLAYGROUND_URL" >> $GITHUB_OUTPUT
           echo "Playground URL generated"

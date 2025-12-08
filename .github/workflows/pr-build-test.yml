@@ -48,7 +48,7 @@ jobs:
       - name: Get artifact path
         id: artifact
         run: |
-          ARCHIVE_PATH=$(ls -t ultimate-multisite-*.zip | head -1)
+          ARCHIVE_PATH=$(ls -t ultimate-multisite*.zip | head -1)
           echo "path=$ARCHIVE_PATH" >> $GITHUB_OUTPUT
           echo "name=$(basename $ARCHIVE_PATH)" >> $GITHUB_OUTPUT
 

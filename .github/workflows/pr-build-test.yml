@@ -93,7 +93,7 @@ jobs:
             },
             "landingPage": "/wp-admin/network/admin.php?page=wp-ultimo-setup",
             "preferredVersions": {
-              "php": "8.4",
+              "php": "8.3",
               "wp": "latest"
             },
             "phpExtensionBundles": ["kitchen-sink"],

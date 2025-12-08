@@ -8,7 +8,7 @@
   },
   "landingPage": "/wp-admin/network/admin.php?page=wp-ultimo-setup",
   "preferredVersions": {
-    "php": "8.2",
+    "php": "8.3",
     "wp": "latest"
   },
   "phpExtensionBundles": [

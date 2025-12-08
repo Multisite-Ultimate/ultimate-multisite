@@ -143,38 +143,22 @@ jobs:
           script: |
             const comment = `## 🔨 Build Complete - Ready for Testing!
 
-            Your PR build is ready! Test it instantly in your browser or download for local testing.
-
-            ### 🌐 Test in WordPress Playground (Recommended)
-            Click the link below to instantly test this PR in your browser - no installation needed!
-
-            **[🚀 Launch in Playground](${{ steps.blueprint.outputs.url }})**
-
-            This will:
-            - Set up a fresh WordPress Multisite installation
-            - Install and activate this PR build automatically
-            - Take you directly to the Ultimate Multisite setup wizard
-
-            Login credentials: \`admin\` / \`password\`
-
-            ### 📦 Download Build Artifact
-            Alternatively, download the build and test locally:
+            ### 📦 Download Build Artifact (Recommended)
+            Download the zip build, upload to WordPress and test:
 
             - **Build:** \`${{ steps.artifact.outputs.name }}\`
             - **[⬇️ Download from GitHub Actions](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})**
-            - **[⬇️ Direct Download (nightly.link)](${{ steps.nightlylink.outputs.url }})**
+            - **[⬇️ Download without Github Account (nightly.link)](${{ steps.nightlylink.outputs.url }})**
 
-            ---
+            ### 🌐 Test in WordPress Playground (Very Experimental)
+            Click the link below to instantly test this PR in your browser - no installation needed!
+            Playground support for multisite is very limitied, hopefully it will get better in the future.
 
-            <details>
-            <summary>📋 Build Details</summary>
+            **[🚀 Launch in Playground](${{ steps.blueprint.outputs.url }})**
 
-            - **Commit:** ${{ github.event.pull_request.head.sha }}
-            - **Branch:** \`${{ github.event.pull_request.head.ref }}\`
-            - **Triggered by:** @${{ github.event.pull_request.user.login }}
-            - **Artifact retention:** 30 days
+            Login credentials: \`admin\` / \`password\`
 
-            </details>`;
+            `;
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,

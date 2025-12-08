@@ -45,12 +45,23 @@ jobs:
           MU_CLIENT_SECRET: ${{ secrets.MU_CLIENT_SECRET }}
         run: npm run build
 
-      - name: Get artifact path
+      - name: Prepare artifact for upload
         id: artifact
         run: |
+          # Find the built zip file
           ARCHIVE_PATH=$(ls -t ultimate-multisite*.zip | head -1)
-          echo "path=$ARCHIVE_PATH" >> $GITHUB_OUTPUT
-          echo "name=$(basename $ARCHIVE_PATH)" >> $GITHUB_OUTPUT
+          ARCHIVE_NAME=$(basename "$ARCHIVE_PATH" .zip)
+
+          # Extract the zip so GitHub Actions will zip it once (not double-zip)
+          mkdir -p artifact-temp
+          unzip -q "$ARCHIVE_PATH" -d artifact-temp
+
+          # The extracted folder should contain the plugin
+          PLUGIN_DIR=$(ls -d artifact-temp/ultimate-multisite* | head -1)
+
+          echo "path=$PLUGIN_DIR" >> $GITHUB_OUTPUT
+          echo "name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
+          echo "Prepared artifact: $PLUGIN_DIR as $ARCHIVE_NAME"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -63,6 +74,7 @@ jobs:
         id: nightlylink
         run: |
           # Create public download URL using nightly.link
+          # nightly.link will automatically add .zip extension
           NIGHTLY_URL="https://nightly.link/${{ github.repository }}/actions/runs/${{ github.run_id }}/${{ steps.artifact.outputs.name }}.zip"
           echo "url=$NIGHTLY_URL" >> $GITHUB_OUTPUT
           echo "Public artifact URL: $NIGHTLY_URL"
@@ -75,6 +87,7 @@ jobs:
           {
             "$schema": "https://playground.wordpress.net/blueprint-schema.json",
             "meta": {
+              "author": "Ultimate Multisite",
               "title": "Ultimate Multisite PR #${{ github.event.pull_request.number }} Test",
               "description": "Test build from PR #${{ github.event.pull_request.number }}"
             },

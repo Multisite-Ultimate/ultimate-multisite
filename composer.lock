@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "04f32a1d8ea7d8a81fb5e715bfc7c785",
+    "content-hash": "cb2d45765e1edc0ba8eb9510154108dd",
     "packages": [
         {
             "name": "amphp/amp",
@@ -2164,16 +2164,16 @@
         },
         {
             "name": "mpdf/mpdf",
-            "version": "v8.2.6",
+            "version": "v8.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "dd30e3b01061cf8dfe65e7041ab4cc46d8ebdd44"
+                "reference": "b59670a09498689c33ce639bac8f5ba26721dab3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/dd30e3b01061cf8dfe65e7041ab4cc46d8ebdd44",
-                "reference": "dd30e3b01061cf8dfe65e7041ab4cc46d8ebdd44",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/b59670a09498689c33ce639bac8f5ba26721dab3",
+                "reference": "b59670a09498689c33ce639bac8f5ba26721dab3",
                 "shasum": ""
             },
             "require": {
@@ -2241,7 +2241,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-08-18T08:51:51+00:00"
+            "time": "2025-12-01T10:18:02+00:00"
         },
         {
             "name": "mpdf/psr-http-message-shim",
@@ -2528,16 +2528,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "5.6.4",
+            "version": "5.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "90a04bcbf03784066f16038e87e23a0a83cee3c2"
+                "reference": "90614c73d3800e187615e2dd236ad0e2a01bf761"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/90a04bcbf03784066f16038e87e23a0a83cee3c2",
-                "reference": "90a04bcbf03784066f16038e87e23a0a83cee3c2",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/90614c73d3800e187615e2dd236ad0e2a01bf761",
+                "reference": "90614c73d3800e187615e2dd236ad0e2a01bf761",
                 "shasum": ""
             },
             "require": {
@@ -2586,22 +2586,22 @@
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
             "support": {
                 "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
-                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/5.6.4"
+                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/5.6.5"
             },
-            "time": "2025-11-17T21:13:10+00:00"
+            "time": "2025-11-27T19:50:05+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.11.0",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "8cbe6100e8971efbf8e2e7da3a202ba83eafd5a3"
+                "reference": "92a98ada2b93d9b201a613cb5a33584dde25f195"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/8cbe6100e8971efbf8e2e7da3a202ba83eafd5a3",
-                "reference": "8cbe6100e8971efbf8e2e7da3a202ba83eafd5a3",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/92a98ada2b93d9b201a613cb5a33584dde25f195",
+                "reference": "92a98ada2b93d9b201a613cb5a33584dde25f195",
                 "shasum": ""
             },
             "require": {
@@ -2644,9 +2644,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.11.0"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.12.0"
             },
-            "time": "2025-11-19T20:28:58+00:00"
+            "time": "2025-11-21T15:09:14+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",
@@ -4867,7 +4867,7 @@
                 "issues": "https://github.com/wordpress/mcp-adapter/issues",
                 "source": "https://github.com/wordpress/mcp-adapter"
             },
-            "time": "2025-11-17T17:41:57+00:00"
+            "time": "2025-12-04T19:18:46+00:00"
         },
         {
             "name": "wp-cli/process",
@@ -6170,21 +6170,21 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "6.6.1",
+            "version": "6.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "fd8e5c6b1badb998844ad34ce0abcd71a0aeb396"
+                "reference": "134e98916fa2f663afa623970af345cd788e8967"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/fd8e5c6b1badb998844ad34ce0abcd71a0aeb396",
-                "reference": "fd8e5c6b1badb998844ad34ce0abcd71a0aeb396",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/134e98916fa2f663afa623970af345cd788e8967",
+                "reference": "134e98916fa2f663afa623970af345cd788e8967",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "marc-mabe/php-enum": "^4.0",
+                "marc-mabe/php-enum": "^4.4",
                 "php": "^7.2 || ^8.0"
             },
             "require-dev": {
@@ -6239,9 +6239,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/6.6.1"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.6.3"
             },
-            "time": "2025-11-07T18:30:29+00:00"
+            "time": "2025-12-02T10:21:33+00:00"
         },
         {
             "name": "marc-mabe/php-enum",
@@ -6412,16 +6412,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.6.2",
+            "version": "v5.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "3a454ca033b9e06b63282ce19562e892747449bb"
+                "reference": "dca41cd15c2ac9d055ad70dbfd011130757d1f82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/3a454ca033b9e06b63282ce19562e892747449bb",
-                "reference": "3a454ca033b9e06b63282ce19562e892747449bb",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/dca41cd15c2ac9d055ad70dbfd011130757d1f82",
+                "reference": "dca41cd15c2ac9d055ad70dbfd011130757d1f82",
                 "shasum": ""
             },
             "require": {
@@ -6464,9 +6464,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.6.2"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.7.0"
             },
-            "time": "2025-10-21T19:32:17+00:00"
+            "time": "2025-12-06T11:56:16+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -6588,16 +6588,16 @@
         },
         {
             "name": "php-stubs/wordpress-stubs",
-            "version": "v6.8.3",
+            "version": "v6.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "abeb5a8b58fda7ac21f15ee596f302f2959a7114"
+                "reference": "5171cb6650e6c583a96943fd6ea0dfa3e1089a8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/abeb5a8b58fda7ac21f15ee596f302f2959a7114",
-                "reference": "abeb5a8b58fda7ac21f15ee596f302f2959a7114",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/5171cb6650e6c583a96943fd6ea0dfa3e1089a8a",
+                "reference": "5171cb6650e6c583a96943fd6ea0dfa3e1089a8a",
                 "shasum": ""
             },
             "conflict": {
@@ -6633,9 +6633,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.8.3"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.9.0"
             },
-            "time": "2025-09-30T20:58:47+00:00"
+            "time": "2025-12-03T23:06:24+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -7075,11 +7075,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.32",
+            "version": "2.1.33",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e126cad1e30a99b137b8ed75a85a676450ebb227",
-                "reference": "e126cad1e30a99b137b8ed75a85a676450ebb227",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9e800e6bee7d5bd02784d4c6069b48032d16224f",
+                "reference": "9e800e6bee7d5bd02784d4c6069b48032d16224f",
                 "shasum": ""
             },
             "require": {
@@ -7124,7 +7124,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-11T15:18:17+00:00"
+            "time": "2025-12-05T10:24:31+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -7447,16 +7447,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.29",
+            "version": "9.6.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9ecfec57835a5581bc888ea7e13b51eb55ab9dd3"
+                "reference": "945d0b7f346a084ce5549e95289962972c4272e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9ecfec57835a5581bc888ea7e13b51eb55ab9dd3",
-                "reference": "9ecfec57835a5581bc888ea7e13b51eb55ab9dd3",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/945d0b7f346a084ce5549e95289962972c4272e5",
+                "reference": "945d0b7f346a084ce5549e95289962972c4272e5",
                 "shasum": ""
             },
             "require": {
@@ -7530,7 +7530,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.29"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.31"
             },
             "funding": [
                 {
@@ -7554,7 +7554,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-09-24T06:29:11+00:00"
+            "time": "2025-12-06T07:45:52+00:00"
         },
         {
             "name": "react/promise",
@@ -7631,16 +7631,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.2.8",
+            "version": "2.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "303aa811649ccd1d32e51e62d5c85949d01b5f1b"
+                "reference": "7bd21a40b0332b93d4bfee284093d7400696902d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/303aa811649ccd1d32e51e62d5c85949d01b5f1b",
-                "reference": "303aa811649ccd1d32e51e62d5c85949d01b5f1b",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/7bd21a40b0332b93d4bfee284093d7400696902d",
+                "reference": "7bd21a40b0332b93d4bfee284093d7400696902d",
                 "shasum": ""
             },
             "require": {
@@ -7679,7 +7679,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.2.8"
+                "source": "https://github.com/rectorphp/rector/tree/2.2.11"
             },
             "funding": [
                 {
@@ -7687,7 +7687,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-12T18:38:00+00:00"
+            "time": "2025-12-02T11:23:46+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -11999,16 +11999,16 @@
         },
         {
             "name": "wp-coding-standards/wpcs",
-            "version": "3.2.0",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
-                "reference": "d2421de7cec3274ae622c22c744de9a62c7925af"
+                "reference": "7795ec6fa05663d716a549d0b44e47ffc8b0d4a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/d2421de7cec3274ae622c22c744de9a62c7925af",
-                "reference": "d2421de7cec3274ae622c22c744de9a62c7925af",
+                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/7795ec6fa05663d716a549d0b44e47ffc8b0d4a6",
+                "reference": "7795ec6fa05663d716a549d0b44e47ffc8b0d4a6",
                 "shasum": ""
             },
             "require": {
@@ -12016,17 +12016,17 @@
                 "ext-libxml": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlreader": "*",
-                "php": ">=5.4",
-                "phpcsstandards/phpcsextra": "^1.4.0",
+                "php": ">=7.2",
+                "phpcsstandards/phpcsextra": "^1.5.0",
                 "phpcsstandards/phpcsutils": "^1.1.0",
-                "squizlabs/php_codesniffer": "^3.13.0"
+                "squizlabs/php_codesniffer": "^3.13.4"
             },
             "require-dev": {
                 "php-parallel-lint/php-console-highlighter": "^1.0.0",
                 "php-parallel-lint/php-parallel-lint": "^1.4.0",
-                "phpcompatibility/php-compatibility": "^9.0",
+                "phpcompatibility/php-compatibility": "^10.0.0@dev",
                 "phpcsstandards/phpcsdevtools": "^1.2.0",
-                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
+                "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "suggest": {
                 "ext-iconv": "For improved results",
@@ -12061,7 +12061,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-07-24T20:08:31+00:00"
+            "time": "2025-11-25T12:08:04+00:00"
         },
         {
             "name": "yoast/phpunit-polyfills",

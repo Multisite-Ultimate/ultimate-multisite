@@ -1,4 +1,4 @@
-name: PR Build and Test
+name: PR Build and Playground Test
 
 on:
   pull_request:
@@ -59,33 +59,94 @@ jobs:
           path: ${{ steps.artifact.outputs.path }}
           retention-days: 30
 
+      - name: Generate nightly.link URL
+        id: nightlylink
+        run: |
+          # Create public download URL using nightly.link
+          NIGHTLY_URL="https://nightly.link/${{ github.repository }}/actions/runs/${{ github.run_id }}/${{ steps.artifact.outputs.name }}.zip"
+          echo "url=$NIGHTLY_URL" >> $GITHUB_OUTPUT
+          echo "Public artifact URL: $NIGHTLY_URL"
+
+      - name: Create Playground Blueprint
+        id: blueprint
+        run: |
+          # Create a blueprint JSON for WordPress Playground
+          cat > pr-blueprint.json <<'EOF'
+          {
+            "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+            "meta": {
+              "title": "Ultimate Multisite PR #${{ github.event.pull_request.number }} Test",
+              "description": "Test build from PR #${{ github.event.pull_request.number }}"
+            },
+            "landingPage": "/wp-admin/network/admin.php?page=wp-ultimo-setup",
+            "preferredVersions": {
+              "php": "8.2",
+              "wp": "latest"
+            },
+            "phpExtensionBundles": ["kitchen-sink"],
+            "features": {
+              "networking": true
+            },
+            "steps": [
+              {
+                "step": "enableMultisite"
+              },
+              {
+                "step": "installPlugin",
+                "pluginZipFile": {
+                  "resource": "url",
+                  "url": "PLUGIN_URL_PLACEHOLDER"
+                },
+                "options": {
+                  "activate": true
+                }
+              },
+              {
+                "step": "login",
+                "username": "admin",
+                "password": "password"
+              }
+            ]
+          }
+          EOF
+
+          # Replace placeholder with actual nightly.link URL
+          sed -i "s|PLUGIN_URL_PLACEHOLDER|${{ steps.nightlylink.outputs.url }}|g" pr-blueprint.json
+
+          # URL encode the blueprint for Playground
+          BLUEPRINT_JSON=$(cat pr-blueprint.json | jq -c .)
+          BLUEPRINT_ENCODED=$(echo "$BLUEPRINT_JSON" | jq -sRr @uri)
+          PLAYGROUND_URL="https://playground.wordpress.net/#${BLUEPRINT_ENCODED}"
+
+          echo "url=$PLAYGROUND_URL" >> $GITHUB_OUTPUT
+          echo "Playground URL generated"
+
       - name: Comment on PR
         uses: actions/github-script@v7
         with:
           script: |
             const comment = `## 🔨 Build Complete - Ready for Testing!
 
+            Your PR build is ready! Test it instantly in your browser or download for local testing.
+
+            ### 🌐 Test in WordPress Playground (Recommended)
+            Click the link below to instantly test this PR in your browser - no installation needed!
+
+            **[🚀 Launch in Playground](${{ steps.blueprint.outputs.url }})**
+
+            This will:
+            - Set up a fresh WordPress Multisite installation
+            - Install and activate this PR build automatically
+            - Take you directly to the Ultimate Multisite setup wizard
+
+            Login credentials: \`admin\` / \`password\`
+
             ### 📦 Download Build Artifact
+            Alternatively, download the build and test locally:
 
-            Your PR build is ready for testing!
-
-            **Build:** \`${{ steps.artifact.outputs.name }}\`
-
-            **[⬇️ Download Artifact](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})**
-
-            Click the download link above, then scroll down to the "Artifacts" section to download the build.
-
-            ### 🧪 How to Test
-
-            1. Download the artifact zip file
-            2. Extract it to get the plugin zip
-            3. Install on a WordPress Multisite network
-            4. Network activate the plugin
-
-            Or test in WordPress Playground:
-            1. Go to [WordPress Playground](https://playground.wordpress.net/)
-            2. Enable multisite
-            3. Upload and activate the downloaded plugin zip
+            - **Build:** \`${{ steps.artifact.outputs.name }}\`
+            - **[⬇️ Download from GitHub Actions](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})**
+            - **[⬇️ Direct Download (nightly.link)](${{ steps.nightlylink.outputs.url }})**
 
             ---
 

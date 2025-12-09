@@ -4,6 +4,8 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
 <div class="wu-styling <?php echo esc_attr($className); ?>">
 
@@ -16,7 +18,7 @@
 		<?php
 
 		// translators: 1$s is the display name of the user currently logged in.
-		printf(wp_kses_post(__('Not %1$s? <a href="%2$s" class="wu-no-underline">Log in</a> using your account.', 'multisite-ultimate')), esc_html(wp_get_current_user()->display_name), esc_url($login_url));
+		printf(wp_kses_post(__('Not %1$s? <a href="%2$s" class="wu-no-underline">Log in</a> using your account.', 'ultimate-multisite')), esc_html(wp_get_current_user()->display_name), esc_url($login_url));
 
 		?>
 
@@ -44,12 +46,12 @@
 		<div class="wu-ml-auto">
 
 			<a
-			title="<?php esc_attr_e('Update Billing Address', 'multisite-ultimate'); ?>"
+			title="<?php esc_attr_e('Update Billing Address', 'ultimate-multisite'); ?>"
 			class="wu-text-sm wu-no-underline button"
 			href="<?php echo esc_attr(wu_get_registration_url()); ?>"
 			>
 
-			<?php esc_html_e('Create an Account', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Create an Account', 'ultimate-multisite'); ?>
 
 			</a>
 

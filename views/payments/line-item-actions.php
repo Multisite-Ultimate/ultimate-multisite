@@ -4,6 +4,7 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
 ?>
 <div class="wu-bg-gray-100 wu-mt-3 wu--mb-3 wu--mx-3 wu-p-4 wu-flex wu-border-solid wu-border-0 wu-border-t wu-border-gray-300">
 
@@ -41,7 +42,7 @@
 
 		<span class="wu-text-xs wu-font-bold wu-uppercase wu-text-gray-600">
 
-		<?php esc_html_e('Refunds:', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Refunds:', 'ultimate-multisite'); ?>
 
 		</span>
 
@@ -57,7 +58,7 @@
 
 		<span class="wu-text-xs wu-font-bold wu-uppercase wu-text-gray-700">
 
-		<?php esc_html_e('Total:', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Total:', 'ultimate-multisite'); ?>
 
 		</span>
 

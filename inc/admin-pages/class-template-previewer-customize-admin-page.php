@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Customize/Add New Template Previewer Page.
+ * Ultimate Multisite Customize/Add New Template Previewer Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\UI\Template_Previewer;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Template Previewer Customize/Add New Admin Page.
+ * Ultimate Multisite Template Previewer Customize/Add New Admin Page.
  */
 class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 
@@ -97,14 +97,14 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 				'fields' => [
 					'preview_url_parameter' => [
 						'type'  => 'text',
-						'title' => __('URL Parameter', 'multisite-ultimate'),
-						'desc'  => __('This is the URL parameter Multisite Ultimate will use to generate the template preview URLs.', 'multisite-ultimate'),
+						'title' => __('URL Parameter', 'ultimate-multisite'),
+						'desc'  => __('This is the URL parameter Ultimate Multisite will use to generate the template preview URLs.', 'ultimate-multisite'),
 						'value' => Template_Previewer::get_instance()->get_setting('preview_url_parameter', 'template-preview'),
 					],
 					'enabled'               => [
 						'type'      => 'toggle',
-						'title'     => __('Active', 'multisite-ultimate'),
-						'desc'      => __('If your site templates are not loading, you can disable the top-bar using this setting.', 'multisite-ultimate'),
+						'title'     => __('Active', 'ultimate-multisite'),
+						'desc'      => __('If your site templates are not loading, you can disable the top-bar using this setting.', 'ultimate-multisite'),
 						'value'     => Template_Previewer::get_instance()->get_setting('enabled', true),
 						'html_attr' => [],
 					],
@@ -112,11 +112,11 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 			]
 		);
 
-		$custom_logo_id = Template_Previewer::get_instance()->get_setting('custom_logo');
+		$custom_logo = Template_Previewer::get_instance()->get_setting('custom_logo');
 
-		$custom_logo = wp_get_attachment_image_src($custom_logo_id, 'full');
+		$custom_logo_args = wp_get_attachment_image_src($custom_logo, 'full');
 
-		$custom_logo = $custom_logo ? $custom_logo[0] : false;
+		$custom_logo_url = $custom_logo_args ? $custom_logo_args[0] : false;
 
 		$fields = [
 			'tab'                         => [
@@ -129,16 +129,16 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 					'v-model' => 'tab',
 				],
 				'options'           => [
-					'general' => __('General', 'multisite-ultimate'),
-					'colors'  => __('Colors', 'multisite-ultimate'),
-					'images'  => __('Images', 'multisite-ultimate'),
+					'general' => __('General', 'ultimate-multisite'),
+					'colors'  => __('Colors', 'ultimate-multisite'),
+					'images'  => __('Images', 'ultimate-multisite'),
 				],
 			],
 
 			'display_responsive_controls' => [
 				'type'              => 'toggle',
-				'title'             => __('Show Responsive Controls', 'multisite-ultimate'),
-				'desc'              => __('Toggle to show or hide the responsive controls.', 'multisite-ultimate'),
+				'title'             => __('Show Responsive Controls', 'ultimate-multisite'),
+				'desc'              => __('Toggle to show or hide the responsive controls.', 'ultimate-multisite'),
 				'value'             => true,
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "general")',
@@ -150,8 +150,8 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 			],
 			'button_text'                 => [
 				'type'              => 'text',
-				'title'             => __('Button Text', 'multisite-ultimate'),
-				'value'             => __('Use this Template', 'multisite-ultimate'),
+				'title'             => __('Button Text', 'ultimate-multisite'),
+				'value'             => __('Use this Template', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "general")',
 					'v-cloak' => 1,
@@ -163,8 +163,8 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 
 			'bg_color'                    => [
 				'type'              => 'color-picker',
-				'title'             => __('Background Color', 'multisite-ultimate'),
-				'desc'              => __('Choose the background color for the top-bar.', 'multisite-ultimate'),
+				'title'             => __('Background Color', 'ultimate-multisite'),
+				'desc'              => __('Choose the background color for the top-bar.', 'ultimate-multisite'),
 				'value'             => '#f9f9f9',
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "colors")',
@@ -176,8 +176,8 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 			],
 			'button_bg_color'             => [
 				'type'              => 'color-picker',
-				'title'             => __('Button BG Color', 'multisite-ultimate'),
-				'desc'              => __('Pick the background color for the button.', 'multisite-ultimate'),
+				'title'             => __('Button BG Color', 'ultimate-multisite'),
+				'desc'              => __('Pick the background color for the button.', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "colors")',
 					'v-cloak' => 1,
@@ -189,8 +189,8 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 
 			'use_custom_logo'             => [
 				'type'              => 'toggle',
-				'title'             => __('Use Custom Logo', 'multisite-ultimate'),
-				'desc'              => __('You can set a different logo to be used on the top-bar.', 'multisite-ultimate'),
+				'title'             => __('Use Custom Logo', 'ultimate-multisite'),
+				'desc'              => __('You can set a different logo to be used on the top-bar.', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "images")',
 					'v-cloak' => 1,
@@ -202,10 +202,10 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 			'custom_logo'                 => [
 				'type'              => 'image',
 				'stacked'           => true,
-				'title'             => __('Custom Logo', 'multisite-ultimate'),
-				'desc'              => __('The logo is displayed on the preview page top-bar.', 'multisite-ultimate'),
-				'value'             => $custom_logo_id,
-				'img'               => $custom_logo,
+				'title'             => __('Custom Logo', 'ultimate-multisite'),
+				'desc'              => __('The logo is displayed on the preview page top-bar.', 'ultimate-multisite'),
+				'value'             => $custom_logo,
+				'img'               => $custom_logo_url,
 				'wrapper_html_attr' => [
 					'v-show'  => 'require("tab", "images") && require("use_custom_logo", true)',
 					'v-cloak' => 1,
@@ -226,7 +226,7 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 		$this->add_fields_widget(
 			'customizer',
 			[
-				'title'     => __('Customizer', 'multisite-ultimate'),
+				'title'     => __('Customizer', 'ultimate-multisite'),
 				'position'  => 'side',
 				'fields'    => $fields,
 				'html_attr' => [
@@ -247,7 +247,7 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Customize Template Previewer', 'multisite-ultimate');
+		return __('Customize Template Previewer', 'ultimate-multisite');
 	}
 
 	/**
@@ -258,7 +258,7 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Customize Template Previewer', 'multisite-ultimate');
+		return __('Customize Template Previewer', 'ultimate-multisite');
 	}
 
 	/**
@@ -281,13 +281,13 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'customize_label'   => __('Customize Template Previewer', 'multisite-ultimate'),
-			'add_new_label'     => __('Customize Template Previewer', 'multisite-ultimate'),
-			'edit_label'        => __('Edit Template Previewer', 'multisite-ultimate'),
-			'updated_message'   => __('Template Previewer updated with success!', 'multisite-ultimate'),
-			'title_placeholder' => __('Enter Template Previewer Name', 'multisite-ultimate'),
-			'title_description' => __('This name is used for internal reference only.', 'multisite-ultimate'),
-			'save_button_label' => __('Save Changes', 'multisite-ultimate'),
+			'customize_label'   => __('Customize Template Previewer', 'ultimate-multisite'),
+			'add_new_label'     => __('Customize Template Previewer', 'ultimate-multisite'),
+			'edit_label'        => __('Edit Template Previewer', 'ultimate-multisite'),
+			'updated_message'   => __('Template Previewer updated with success!', 'ultimate-multisite'),
+			'title_placeholder' => __('Enter Template Previewer Name', 'ultimate-multisite'),
+			'title_description' => __('This name is used for internal reference only.', 'ultimate-multisite'),
+			'save_button_label' => __('Save Changes', 'ultimate-multisite'),
 			'save_description'  => '',
 		];
 	}
@@ -301,7 +301,50 @@ class Template_Previewer_Customize_Admin_Page extends Customizer_Admin_Page {
 	public function handle_save(): void {
 
 		// Nonce checked in calling method.
-		$settings = Template_Previewer::get_instance()->save_settings($_POST); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$allowed_settings = [
+			'bg_color',
+			'button_bg_color',
+			'logo_url',
+			'button_text',
+			'preview_url_parameter',
+			'display_responsive_controls',
+			'use_custom_logo',
+			'custom_logo',
+			'enabled',
+		];
+
+		$settings_to_save = [];
+
+		foreach ($allowed_settings as $setting) {
+			if (isset($_POST[ $setting ])) { // phpcs:ignore WordPress.Security.NonceVerification
+				$value = wp_unslash($_POST[ $setting ]); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+				switch ($setting) {
+					case 'bg_color':
+					case 'button_bg_color':
+						$settings_to_save[ $setting ] = sanitize_hex_color($value);
+						break;
+					case 'display_responsive_controls':
+					case 'use_custom_logo':
+					case 'enabled':
+						$settings_to_save[ $setting ] = wu_string_to_bool($value);
+						break;
+					case 'custom_logo':
+						$settings_to_save[ $setting ] = absint($value);
+						break;
+					case 'logo_url':
+						$settings_to_save[ $setting ] = esc_url_raw($value);
+						break;
+					case 'button_text':
+					case 'preview_url_parameter':
+					default:
+						$settings_to_save[ $setting ] = sanitize_text_field($value);
+						break;
+				}
+			}
+		}
+
+		Template_Previewer::get_instance()->save_settings($settings_to_save);
 
 		$array_params = [
 			'updated' => 1,

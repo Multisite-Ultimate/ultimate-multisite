@@ -312,9 +312,9 @@ function wu_generate_event_payload($model_name, $model = false): array {
 			'domain_domain'       => $payload['domain'],
 			'domain_site_id'      => $payload['blog_id'],
 			'domain_stage'        => $payload['stage'],
-			'domain_active'       => var_export(wu_string_to_bool($payload['active']), true),
-			'domain_primary'      => var_export(wu_string_to_bool($payload['primary_domain']), true),
-			'domain_secure'       => var_export(wu_string_to_bool($payload['secure']), true),
+			'domain_active'       => var_export(wu_string_to_bool($payload['active']), true), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
+			'domain_primary'      => var_export(wu_string_to_bool($payload['primary_domain']), true), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
+			'domain_secure'       => var_export(wu_string_to_bool($payload['secure']), true), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
 			'domain_date_created' => $payload['date_created'],
 			'domain_manage_url'   => wu_network_admin_url(
 				'wp-ultimo-edit-domain',

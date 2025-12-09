@@ -4,6 +4,8 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
 <div id="wp-ultimo-wrap" class="<?php wu_wrap_use_container(); ?> wrap">
 
@@ -22,13 +24,13 @@
 		<?php do_action('wu_page_edit_after_title', $object, $page); ?>
 	</h1>
 
-	<?php if (isset($_GET['updated'])) : ?>
+	<?php if (isset($_GET['updated'])) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
 		<div id="message" class="updated notice wu-admin-notice notice-success is-dismissible below-h2">
 			<p><?php echo esc_html($labels['updated_message']); ?></p>
 		</div>
 	<?php endif; ?>
 
-	<?php if (isset($_GET['notice'])) : ?>
+	<?php if (isset($_GET['notice'])) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
 		<div id="message" class="updated notice wu-admin-notice notice-success is-dismissible below-h2">
 			<p><?php echo esc_html($labels['updated_message']); ?></p>
 		</div>
@@ -76,8 +78,8 @@
 				 * Allow plugin developers to add additional information below the text input
 				 *
 				 * @since 1.8.2
-				 * @param object  Object holding the information
-				 * @param WU_Page Multisite Ultimate Page instance
+				 * @param object  $object Object holding the information
+				 * @param WU_Page $page Ultimate Multisite Page instance
 				 */
 				do_action('wu_edit_page_after_title_input', $object, $page);
 				?>
@@ -122,7 +124,7 @@
 			 * Allow plugin developers to add new metaboxes
 			 *
 			 * @since 1.8.2
-			 * @param object Object being edited right now
+			 * @param object $object Object being edited right now
 			 */
 			do_meta_boxes($screen->id, 'side', $object);
 			?>
@@ -134,7 +136,7 @@
 			 * Allow plugin developers to add new metaboxes
 			 *
 			 * @since 1.8.2
-			 * @param object Object being edited right now
+			 * @param object $object Object being edited right now
 			 */
 			do_meta_boxes($screen->id, 'side-bottom', $object);
 			?>
@@ -151,7 +153,7 @@
 			 * Allow plugin developers to add new metaboxes
 			 *
 			 * @since 1.8.2
-			 * @param object Object being edited right now
+			 * @param object $object Object being edited right now
 			 */
 			do_meta_boxes($screen->id, 'normal', $object);
 
@@ -159,7 +161,7 @@
 			 * Allow developers to add additional elements after the modals are printed.
 			 *
 			 * @since 2.0.0
-			 * @param object Object being edited right now
+			 * @param object $object Object being edited right now
 			 */
 			do_action("wu_edit_{$screen->id}_after_normal", $object);
 
@@ -169,7 +171,7 @@
 			 * Allow plugin developers to add new metaboxes
 			 *
 			 * @since 1.8.2
-			 * @param object Object being edited right now
+			 * @param object $object Object being edited right now
 			 */
 			do_meta_boxes($screen->id, 'advanced', $object);
 
@@ -210,8 +212,8 @@
 	 * Allow plugin developers to add scripts to the bottom of the page
 	 *
 	 * @since 1.8.2
-	 * @param object  Object holding the information
-	 * @param WU_Page Multisite Ultimate Page instance
+	 * @param object  $object Object holding the information
+	 * @param WU_Page $page Ultimate Multisite Page instance
 	 */
 	do_action('wu_page_edit_footer', $object, $page);
 	?>

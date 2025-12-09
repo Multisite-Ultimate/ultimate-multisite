@@ -9,28 +9,13 @@
 
 namespace WP_Ultimo\Integrations\Host_Providers\CPanel_API;
 
-use WP_Ultimo\Logger;
+defined('ABSPATH') || exit;
 
 /**
  * CPanel API wrapper to send the calls.
  */
 class CPanel_API {
 
-	/**
-	 * Holds the name of the cookis file.
-	 *
-	 * @since 2.0.0
-	 * @var string
-	 */
-	private $cookie_file;
-
-	/**
-	 * Holds the curl file.
-	 *
-	 * @since 2.0.0
-	 * @var string
-	 */
-	private $curlfile;
 
 	/**
 	 * Holds the cookie tokens
@@ -104,24 +89,11 @@ class CPanel_API {
 		$this->host     = $host;
 		$this->port     = $port;
 		$this->log      = $log;
-		// Generates the cookie file
-		$this->generate_cookie();
-		$this->cookie_file = Logger::get_logs_folder() . 'integration-cpanel-cookie.log';
 
 		// Signs up
 		$this->sign_in();
 	}
 
-	/**
-	 * Generate the Cookie File, that is used to make API requests to CPanel.
-	 *
-	 * @since 1.6.2
-	 * @return void
-	 */
-	public function generate_cookie(): void {
-
-		wu_log_add('integration-cpanel-cookie', '');
-	}
 
 	/**
 	 * Logs error or success messages.
@@ -135,7 +107,7 @@ class CPanel_API {
 	}
 
 	/**
-	 * Sends the request to the CPanel API.
+	 * Sends the request to the CPanel API using WordPress HTTP API.
 	 *
 	 * @since 1.6.2
 	 * @param string $url URL endpoint.
@@ -144,77 +116,81 @@ class CPanel_API {
 	 */
 	private function request($url, $params = []) {
 
-		if ($this->log) {
-			$curl_log = fopen($this->curlfile, 'a+');
-		}
+		// Get stored cookies from transient
+		$cookies = get_transient('wu_cpanel_cookies_' . md5($this->host . $this->username)) ?: [];
 
-		if ( ! file_exists($this->cookie_file)) {
-			try {
-				fopen($this->cookie_file, 'w');
-			} catch (\Exception $ex) {
-				if ( ! file_exists($this->cookie_file)) {
-					$this->log($ex . __('Cookie file missing.', 'multisite-ultimate'));
-
-					return false;
-				}
-			}
-		} elseif ( ! is_writable($this->cookie_file)) {
-			$this->log(__('Cookie file not writable', 'multisite-ultimate'));
-
-			return false;
-		}
-
-		$ch = curl_init();
-
-		$curl_opts = [
-			CURLOPT_URL            => $url,
-			CURLOPT_SSL_VERIFYPEER => false,
-			CURLOPT_SSL_VERIFYHOST => false,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_COOKIEJAR      => realpath($this->cookie_file),
-			CURLOPT_COOKIEFILE     => realpath($this->cookie_file),
-			CURLOPT_HTTPHEADER     => [
-				CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0',
-				'Host: ' . $this->host,
-				'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-				'Accept-Language: en-US,en;q=0.5',
-				'Accept-Encoding: gzip, deflate',
-				'Connection: keep-alive',
-				'Content-Type: application/x-www-form-urlencoded',
+		// Prepare request arguments
+		$args = [
+			'timeout'     => 30,
+			'redirection' => 5,
+			'httpversion' => '1.1',
+			'sslverify'   => false,
+			'cookies'     => $cookies,
+			'headers'     => [
+				'User-Agent'      => 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0',
+				'Host'            => $this->host,
+				'Accept'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+				'Accept-Language' => 'en-US,en;q=0.5',
+				'Accept-Encoding' => 'gzip, deflate',
+				'Connection'      => 'keep-alive',
+				'Content-Type'    => 'application/x-www-form-urlencoded',
 			],
 		];
 
-		if ( ! empty($params)) {
-			$curl_opts[ CURLOPT_POST ]       = true;
-			$curl_opts[ CURLOPT_POSTFIELDS ] = $params;
+		// Add POST data if provided
+		if (! empty($params)) {
+			$args['method'] = 'POST';
+			$args['body']   = $params;
 		}
 
-		if ($this->log) {
-			$curl_opts[ CURLOPT_STDERR ]      = $curl_log;
-			$curl_opts[ CURLOPT_FAILONERROR ] = false;
-			$curl_opts[ CURLOPT_VERBOSE ]     = true;
+		if (! empty($params)) {
+			$response = wp_remote_post($url, $args);
+		} else {
+			$response = wp_remote_get($url, $args);
 		}
 
-		curl_setopt_array($ch, $curl_opts);
-
-		$answer = curl_exec($ch);
-
-		if (curl_error($ch)) {
-
-			// translators: %s is the cURL error.
-			$this->log(sprintf(__('cPanel API Error: %s', 'multisite-ultimate'), curl_error($ch)));
-
+		if (is_wp_error($response)) {
+			// translators: %s is the error.
+			$this->log(sprintf(__('cPanel API Error: %s', 'ultimate-multisite'), $response->get_error_message()));
 			return false;
 		}
 
-		curl_close($ch);
+		// Save cookies from response headers to transient
+		$this->save_cookies_from_response($response);
 
-		if ($this->log) {
-			fclose($curl_log);
+		$body = wp_remote_retrieve_body($response);
+
+		return $body;
+	}
+
+	/**
+	 * Save cookies from response headers to transient.
+	 *
+	 * @since 2.4.1
+	 * @param array $response HTTP response.
+	 */
+	private function save_cookies_from_response($response) {
+		$headers     = wp_remote_retrieve_headers($response);
+		$set_cookies = isset($headers['set-cookie']) ? $headers['set-cookie'] : [];
+
+		if (! is_array($set_cookies)) {
+			$set_cookies = [$set_cookies];
 		}
 
-		return (@gzdecode($answer)) ? gzdecode($answer) : $answer; // phpcs:ignore
+		if (! empty($set_cookies)) {
+			$cookies = [];
+			foreach ($set_cookies as $cookie) {
+				// Parse cookie string to extract name and value
+				if (preg_match('/^([^=]+)=([^;]*)/', $cookie, $matches)) {
+					$cookies[ $matches[1] ] = $matches[2];
+				}
+			}
+
+			if (! empty($cookies)) {
+				// Store cookies in transient for 1 hour
+				set_transient('wu_cpanel_cookies_' . md5($this->host . $this->username), $cookies, HOUR_IN_SECONDS);
+			}
+		}
 	}
 
 	/**
@@ -247,7 +223,7 @@ class CPanel_API {
 			$this->homepage = $this->get_base_url() . $reply['redirect'];
 			$this->ex_page  = $this->get_base_url() . "/{$this->cpsess}/execute/";
 		} else {
-			$this->log(__('Cannot connect to your cPanel server : Invalid Credentials', 'multisite-ultimate'));
+			$this->log(__('Cannot connect to your cPanel server : Invalid Credentials', 'ultimate-multisite'));
 		}
 	}
 

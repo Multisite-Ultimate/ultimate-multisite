@@ -11,6 +11,8 @@ namespace WP_Ultimo\Models\Traits;
 
 use WP_Ultimo\Objects\Note;
 
+defined('ABSPATH') || exit;
+
 /**
  * Singleton trait.
  */

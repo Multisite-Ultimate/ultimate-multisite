@@ -9,8 +9,6 @@
 
 namespace WP_Ultimo\UI;
 
-use WP_Ultimo\UI\Base_Element;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -50,7 +48,7 @@ class Billing_Info_Element extends Base_Element {
 	 * The membership object.
 	 *
 	 * @since 2.2.0
-	 * @var \WP_Ultimo\Membership
+	 * @var \WP_Ultimo\Models\Membership
 	 */
 	protected $membership;
 
@@ -58,7 +56,7 @@ class Billing_Info_Element extends Base_Element {
 	 * The site object.
 	 *
 	 * @since 2.2.0
-	 * @var \WP_Ultimo\Site
+	 * @var \WP_Ultimo\Models\Site
 	 */
 	protected $site;
 
@@ -114,14 +112,14 @@ class Billing_Info_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Billing Information', 'multisite-ultimate');
+		return __('Billing Information', 'ultimate-multisite');
 	}
 
 	/**
@@ -130,14 +128,14 @@ class Billing_Info_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
+		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
 	}
 
 	/**
@@ -162,16 +160,16 @@ class Billing_Info_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'multisite-ultimate'),
-			'desc'  => __('General', 'multisite-ultimate'),
+			'title' => __('General', 'ultimate-multisite'),
+			'desc'  => __('General', 'ultimate-multisite'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Title', 'multisite-ultimate'),
-			'value'   => __('Billing Address', 'multisite-ultimate'),
-			'desc'    => __('Leave blank to hide the title completely.', 'multisite-ultimate'),
+			'title'   => __('Title', 'ultimate-multisite'),
+			'value'   => __('Billing Address', 'ultimate-multisite'),
+			'desc'    => __('Leave blank to hide the title completely.', 'ultimate-multisite'),
 			'tooltip' => '',
 		];
 
@@ -186,7 +184,7 @@ class Billing_Info_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Billing Information',
 	 *  'Form',
 	 *  'Cart',
@@ -199,7 +197,7 @@ class Billing_Info_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'Billing Information',
 			'Form',
 			'Cart',
@@ -223,7 +221,7 @@ class Billing_Info_Element extends Base_Element {
 	public function defaults() {
 
 		return [
-			'title' => __('Billing Address', 'multisite-ultimate'),
+			'title' => __('Billing Address', 'ultimate-multisite'),
 		];
 	}
 
@@ -270,7 +268,14 @@ class Billing_Info_Element extends Base_Element {
 	 * @param string|null $content The content inside the shortcode.
 	 * @return string
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
+
+		$this->ensure_setup();
+
+		// Return empty if no membership available (e.g., during SEO processing)
+		if ( ! $this->membership) {
+			return;
+		}
 
 		$atts['membership'] = $this->membership;
 
@@ -284,7 +289,7 @@ class Billing_Info_Element extends Base_Element {
 			]
 		);
 
-		return wu_get_template_contents('dashboard-widgets/billing-info', $atts);
+		wu_get_template('dashboard-widgets/billing-info', $atts);
 	}
 
 	/**
@@ -325,8 +330,8 @@ class Billing_Info_Element extends Base_Element {
 		$fields['billing-title'] = [
 			'type'            => 'header',
 			'order'           => 1,
-			'title'           => __('Your Address', 'multisite-ultimate'),
-			'desc'            => __('Enter your billing address here. This info will be used on your invoices.', 'multisite-ultimate'),
+			'title'           => __('Your Address', 'ultimate-multisite'),
+			'desc'            => __('Enter your billing address here. This info will be used on your invoices.', 'ultimate-multisite'),
 			'wrapper_classes' => 'wu-col-span-2',
 		];
 
@@ -336,7 +341,7 @@ class Billing_Info_Element extends Base_Element {
 
 		$fields['submit'] = [
 			'type'            => 'submit',
-			'title'           => __('Save Changes', 'multisite-ultimate'),
+			'title'           => __('Save Changes', 'ultimate-multisite'),
 			'value'           => 'save',
 			'classes'         => 'button button-primary wu-w-full',
 			'wrapper_classes' => 'wu-col-span-2',
@@ -375,14 +380,14 @@ class Billing_Info_Element extends Base_Element {
 		$membership = wu_get_membership_by_hash(wu_request('membership'));
 
 		if ( ! $membership) {
-			$error = new \WP_Error('membership-dont-exist', __('Something went wrong.', 'multisite-ultimate'));
+			$error = new \WP_Error('membership-dont-exist', __('Something went wrong.', 'ultimate-multisite'));
 
 			wp_send_json_error($error);
 		}
 
 		$billing_address = $membership->get_billing_address();
 
-		$billing_address->attributes($_POST); // phpcs:ignore WordPress.Security.NonceVerification
+		$billing_address->load_attributes_from_post();
 
 		$valid_address = $billing_address->validate();
 

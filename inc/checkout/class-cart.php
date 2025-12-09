@@ -10,6 +10,7 @@
 namespace WP_Ultimo\Checkout;
 
 use WP_Ultimo\Database\Memberships\Membership_Status;
+use WP_Ultimo\Database\Payments\Payment_Status;
 use Arrch\Arrch as Array_Search;
 
 // Exit if accessed directly
@@ -475,11 +476,16 @@ class Cart implements \JsonSerializable {
 
 		if (is_array($this->attributes->products)) {
 			/*
-			 * Otherwise, we add the products to build the cart.
-			 */
+			* Otherwise, we add the products to build the cart.
+			*/
 			foreach ($this->attributes->products as $product_id) {
 				$this->add_product($product_id);
 			}
+
+			/*
+			* Cancel conflicting pending payments for new checkouts.
+			*/
+			$this->cancel_conflicting_pending_payments();
 		}
 	}
 
@@ -555,7 +561,7 @@ class Cart implements \JsonSerializable {
 		$payment = wu_get_payment($payment_id);
 
 		if ( ! $payment) {
-			$this->errors->add('payment_not_found', __('The payment in question was not found.', 'multisite-ultimate'));
+			$this->errors->add('payment_not_found', __('The payment in question was not found.', 'ultimate-multisite'));
 
 			return true;
 		}
@@ -582,7 +588,7 @@ class Cart implements \JsonSerializable {
 		 * a payment can pay it. Let's check for that.
 		 */
 		if (empty($this->customer) || $this->customer->get_id() !== $payment->get_customer_id()) {
-			$this->errors->add('lacks_permission', __('You are not allowed to modify this payment.', 'multisite-ultimate'));
+			$this->errors->add('lacks_permission', __('You are not allowed to modify this payment.', 'ultimate-multisite'));
 
 			return true;
 		}
@@ -593,7 +599,7 @@ class Cart implements \JsonSerializable {
 		$membership = $payment->get_membership();
 
 		if ( ! $membership) {
-			$this->errors->add('membership_not_found', __('The membership in question was not found.', 'multisite-ultimate'));
+			$this->errors->add('membership_not_found', __('The membership in question was not found.', 'ultimate-multisite'));
 
 			return true;
 		}
@@ -682,7 +688,7 @@ class Cart implements \JsonSerializable {
 		);
 
 		if ( ! in_array($payment->get_status(), $allowed_status, true)) {
-			$this->errors->add('invalid_status', __('The payment in question has an invalid status.', 'multisite-ultimate'));
+			$this->errors->add('invalid_status', __('The payment in question has an invalid status.', 'ultimate-multisite'));
 
 			return true;
 		}
@@ -741,7 +747,7 @@ class Cart implements \JsonSerializable {
 		$membership = wu_get_membership($membership_id);
 
 		if ( ! $membership) {
-			$this->errors->add('membership_not_found', __('The membership in question was not found.', 'multisite-ultimate'));
+			$this->errors->add('membership_not_found', __('The membership in question was not found.', 'ultimate-multisite'));
 
 			return true;
 		}
@@ -761,7 +767,7 @@ class Cart implements \JsonSerializable {
 		 * Only the customer that owns a membership can change it.
 		 */
 		if (empty($this->customer) || $this->customer->get_id() !== $membership->get_customer_id()) {
-			$this->errors->add('lacks_permission', __('You are not allowed to modify this membership.', 'multisite-ultimate'));
+			$this->errors->add('lacks_permission', __('You are not allowed to modify this membership.', 'ultimate-multisite'));
 
 			return true;
 		}
@@ -793,7 +799,7 @@ class Cart implements \JsonSerializable {
 				return false;
 			}
 
-			$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'multisite-ultimate'));
+			$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'ultimate-multisite'));
 
 			return true;
 		}
@@ -815,7 +821,7 @@ class Cart implements \JsonSerializable {
 		 */
 		if (empty($this->plan_id)) {
 			if (count($this->products) === 0) {
-				$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'multisite-ultimate'));
+				$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'ultimate-multisite'));
 
 				return true;
 			}
@@ -937,7 +943,7 @@ class Cart implements \JsonSerializable {
 			$this->products   = [];
 			$this->line_items = [];
 
-			$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'multisite-ultimate'));
+			$this->errors->add('no_changes', __('This cart proposes no changes to the current membership.', 'ultimate-multisite'));
 
 			return true;
 		} else {
@@ -947,25 +953,6 @@ class Cart implements \JsonSerializable {
 			foreach ($sites as $site) {
 				switch_to_blog($site->get_id());
 
-				if ( class_exists('\TUTOR\Tutor') ) {
-					// TODO: move code to later in WordPress init timing.
-					// This code in needed because the post type check happens before Tutor can register it's post types.
-					\Closure::bind(
-						function () {
-							$tutor                 = \TUTOR\Tutor::instance();
-							$GLOBALS['wp_rewrite'] = new \WP_Rewrite();
-
-							$tutor->post_types->register_course_post_types();
-							$tutor->post_types->register_lesson_post_types();
-							$tutor->post_types->register_quiz_post_types();
-							$tutor->post_types->register_topic_post_types();
-							$tutor->post_types->register_assignments_post_types();
-						},
-						null,
-						\TUTOR\Tutor::class
-					)();
-				}
-
 				$overlimits = $new_limitations->post_types->check_all_post_types();
 
 				if ( $overlimits ) {
@@ -973,16 +960,50 @@ class Cart implements \JsonSerializable {
 						$post_type = get_post_type_object($post_type_slug);
 
 						$this->errors->add(
-							'overlimits',
+							'overlimits_' . $post_type_slug,
 							sprintf(
 							// translators: %1$d: current number of posts, %2$s: post type name, %3$d: posts quota, %4$s: post type name, %5$d: number of posts to be deleted, %6$s: post type name.
-								esc_html__('You site currently has %1$d %2$s but the new plan is limited to %3$d %4$s. You must trash %5$d %6$s before you can downgrade your plan.', 'multisite-ultimate'),
+								esc_html__('Your site currently has %1$d %2$s but the new plan is limited to %3$d %4$s. You must trash %5$d %6$s before you can downgrade your plan.', 'ultimate-multisite'),
 								$limit['current'],
 								$limit['current'] > 1 ? $post_type->labels->name : $post_type->labels->singular_name,
 								$limit['limit'],
 								$limit['limit'] > 1 ? $post_type->labels->name : $post_type->labels->singular_name,
 								$limit['current'] - $limit['limit'],
 								$limit['current'] - $limit['limit'] > 1 ? $post_type->labels->name : $post_type->labels->singular_name
+							)
+						);
+					}
+					restore_current_blog();
+
+					return true;
+				}
+
+				// Check domain mapping limits for downgrade
+				$domain_overlimits = $new_limitations->domain_mapping->check_all_domains($site->get_id());
+
+				if ( $domain_overlimits ) {
+					$domain_count = $domain_overlimits['current'];
+					$domain_limit = $domain_overlimits['limit'];
+
+					if (0 === $domain_limit) {
+						$this->errors->add(
+							'overlimits',
+							sprintf(
+								esc_html__('This new plan does NOT support custom domains. You must remove all custom domains before you can downgrade your plan.', 'ultimate-multisite'),
+							)
+						);
+					} else {
+						$this->errors->add(
+							'overlimits',
+							sprintf(
+							// translators: %1$d: current number of custom domains, %2$s: 'custom domain' or 'custom domains', %3$d: domain limit, %4$s: 'custom domain' or 'custom domains', %5$d: number of domains to be removed, %6$s: 'custom domain' or 'custom domains'.
+								esc_html__('Your site currently has %1$d %2$s but the new plan is limited to %3$d %4$s. You must remove %5$d %6$s before you can downgrade your plan.', 'ultimate-multisite'),
+								$domain_count,
+								$domain_count > 1 ? __('custom domains', 'ultimate-multisite') : __('custom domain', 'ultimate-multisite'),
+								$domain_limit,
+								$domain_limit > 1 ? __('custom domains', 'ultimate-multisite') : __('custom domain', 'ultimate-multisite'),
+								$domain_count - $domain_limit,
+								($domain_count - $domain_limit) > 1 ? __('custom domains', 'ultimate-multisite') : __('custom domain', 'ultimate-multisite')
 							)
 						);
 					}
@@ -1056,7 +1077,7 @@ class Cart implements \JsonSerializable {
 			);
 
 			// Translators: Placeholder receives the recurring period description
-			$message = sprintf(__('You already have an active %s agreement.', 'multisite-ultimate'), $description);
+			$message = sprintf(__('You already have an active %s agreement.', 'ultimate-multisite'), $description);
 
 			$this->errors->add('no_changes', $message);
 
@@ -1071,14 +1092,14 @@ class Cart implements \JsonSerializable {
 		if (($is_same_product && $membership->get_amount() > $this->get_recurring_total()) || (! $is_same_product && $old_price_per_day > $new_price_per_day)) {
 			$this->cart_type = 'downgrade';
 
-			// If membership is active or trialing we will schendule the swap
+			// If membership is active or trialing we will schedule the swap
 			if ($membership->is_active() || $membership->get_status() === Membership_Status::TRIALING) {
 				$line_item_params = apply_filters(
 					'wu_checkout_credit_line_item_params',
 					[
 						'type'         => 'credit',
-						'title'        => __('Scheduled Swap Credit', 'multisite-ultimate'),
-						'description'  => __('Swap scheduled to next billing cycle.', 'multisite-ultimate'),
+						'title'        => __('Scheduled Swap Credit', 'ultimate-multisite'),
+						'description'  => __('Swap scheduled to next billing cycle.', 'ultimate-multisite'),
 						'discountable' => false,
 						'taxable'      => false,
 						'quantity'     => 1,
@@ -1180,7 +1201,7 @@ class Cart implements \JsonSerializable {
 		 */
 
 		/*
-		 * If the membership is in trial period theres nothing to prorate.
+		 * If the membership is in trial period there's nothing to prorate.
 		 */
 		if ($this->membership->get_status() === Membership_Status::TRIALING) {
 			return;
@@ -1278,8 +1299,8 @@ class Cart implements \JsonSerializable {
 			'wu_checkout_credit_line_item_params',
 			[
 				'type'         => 'credit',
-				'title'        => __('Credit', 'multisite-ultimate'),
-				'description'  => __('Prorated amount based on the previous membership.', 'multisite-ultimate'),
+				'title'        => __('Credit', 'ultimate-multisite'),
+				'description'  => __('Prorated amount based on the previous membership.', 'ultimate-multisite'),
 				'discountable' => false,
 				'taxable'      => false,
 				'quantity'     => 1,
@@ -1315,7 +1336,7 @@ class Cart implements \JsonSerializable {
 		if (empty($discount_code)) {
 
 			// translators: %s is the coupon code being used, all-caps. e.g. PROMO10OFF
-			$this->errors->add('discount_code', sprintf(__('The code %s do not exist or is no longer valid.', 'multisite-ultimate'), $code));
+			$this->errors->add('discount_code', sprintf(__('The code %s do not exist or is no longer valid.', 'ultimate-multisite'), $code));
 
 			return false;
 		}
@@ -1396,7 +1417,7 @@ class Cart implements \JsonSerializable {
 
 			if ($line_item_interval !== $interval) {
 				// translators: two intervals
-				$this->errors->add('wrong', sprintf(__('Interval %1$s and %2$s do not match.', 'multisite-ultimate'), $line_item_interval, $interval));
+				$this->errors->add('wrong', sprintf(__('Interval %1$s and %2$s do not match.', 'ultimate-multisite'), $line_item_interval, $interval));
 
 				return false;
 			}
@@ -1559,11 +1580,18 @@ class Cart implements \JsonSerializable {
 		$product = is_numeric($product_id_or_slug) ? wu_get_product($product_id_or_slug) : wu_get_product_by_slug($product_id_or_slug);
 
 		if ( ! $product) {
-			$message = __('The product you are trying to add does not exist.', 'multisite-ultimate');
+			$message = __('The product you are trying to add does not exist.', 'ultimate-multisite');
 
 			$this->errors->add('missing-product', $message);
 
 			return false;
+		}
+
+		// Check if this product is already in the cart (prevents duplicates when building from payment/membership)
+		foreach ($this->products as $existing_product) {
+			if ($existing_product->get_id() === $product->get_id()) {
+				return true; // Silently skip duplicate
+			}
 		}
 
 		// Here we check if the product is recurring and if so, get the correct variation
@@ -1571,7 +1599,7 @@ class Cart implements \JsonSerializable {
 			$product = $product->get_as_variation($this->duration, $this->duration_unit);
 
 			if ( ! $product) {
-				$message = __('The product you are trying to add does not exist for the selected duration.', 'multisite-ultimate');
+				$message = __('The product you are trying to add does not exist for the selected duration.', 'ultimate-multisite');
 
 				$this->errors->add('missing-price-variations', $message);
 
@@ -1581,15 +1609,21 @@ class Cart implements \JsonSerializable {
 
 		if ($product->get_type() === 'plan') {
 			/*
-			 * If we already have a plan, we can't add
-			 * another one. Bail.
+			 * If we already have a plan, we can't add another one
+			 * unless it's the same plan (which can happen when
+			 * building from payment/membership and products are passed).
 			 */
-			if ( ! empty($this->plan_id)) {
-				$message = __('Theres already a plan in this membership.', 'multisite-ultimate');
+			if ( ! empty($this->plan_id) && $this->plan_id !== $product->get_id()) {
+				$message = __("There's already a plan in this membership.", 'ultimate-multisite');
 
 				$this->errors->add('plan-already-added', $message);
 
 				return false;
+			}
+
+			// If it's the same plan, just skip adding it again
+			if ($this->plan_id === $product->get_id()) {
+				return true;
 			}
 
 			$this->plan_id        = $product->get_id();
@@ -1647,7 +1681,7 @@ class Cart implements \JsonSerializable {
 					 * price variation. We need to add an error.
 					 */
 					// translators: respectively, product name, duration, and duration unit.
-					$message = sprintf(__('%1$s does not have a valid price variation for that billing period (every %2$s %3$s(s)) and was not added to the cart.', 'multisite-ultimate'), $product->get_name(), $this->duration, $this->duration_unit);
+					$message = sprintf(__('%1$s does not have a valid price variation for that billing period (every %2$s %3$s(s)) and was not added to the cart.', 'ultimate-multisite'), $product->get_name(), $this->duration, $this->duration_unit);
 
 					$this->errors->add('missing-price-variations', $message);
 
@@ -1711,7 +1745,7 @@ class Cart implements \JsonSerializable {
 		}
 
 		// translators: placeholder is the product name.
-		$description = ($product->get_setup_fee() > 0) ? __('Signup Fee for %s', 'multisite-ultimate') : __('Signup Credit for %s', 'multisite-ultimate');
+		$description = ($product->get_setup_fee() > 0) ? __('Signup Fee for %s', 'ultimate-multisite') : __('Signup Credit for %s', 'ultimate-multisite');
 
 		$description = sprintf($description, $product->get_name());
 
@@ -2181,6 +2215,14 @@ class Cart implements \JsonSerializable {
 		 */
 		$smallest_trial = 300 * YEAR_IN_SECONDS;
 
+		if ($this->get_cart_type() === 'downgrade') {
+			$membership = $this->membership;
+
+			if ($membership && ($membership->is_active() || $membership->get_status() === Membership_Status::TRIALING)) {
+				return strtotime($membership->get_date_expiration());
+			}
+		}
+
 		foreach ($this->get_all_products() as $product) {
 			if ( ! $product->has_trial()) {
 				$smallest_trial = 0;
@@ -2206,7 +2248,7 @@ class Cart implements \JsonSerializable {
 	 * Returns the timestamp of the next charge, if recurring.
 	 *
 	 * @since 2.0.0
-	 * @return string|false
+	 * @return int unix timestamp
 	 */
 	public function get_billing_next_charge_date() {
 		/*
@@ -2747,5 +2789,51 @@ class Cart implements \JsonSerializable {
 			],
 			$base_url
 		);
+	}
+
+	/**
+	 * Cancels conflicting pending payments for new checkouts.
+	 *
+	 * @since 2.4.8
+	 * @return void
+	 */
+	protected function cancel_conflicting_pending_payments(): void {
+
+		if ('new' !== $this->cart_type || ! $this->customer) {
+			return;
+		}
+
+		$pending_payments = wu_get_payments(
+			[
+				'customer_id' => $this->customer->get_id(),
+				'status'      => Payment_Status::PENDING,
+			]
+		);
+
+		foreach ($pending_payments as $payment) {
+			$current_line_items  = $this->get_line_items();
+			$existing_line_items = $payment->get_line_items();
+
+			$product_count  = 0;
+			$products_found = 0;
+			foreach ($current_line_items as $current_line_item) {
+				if ($current_line_item->get_type() === 'product') {
+					++$product_count;
+					foreach ($existing_line_items as $existing_line_item) {
+						if ($current_line_item->get_product_id() === $existing_line_item->get_product_id()) {
+							++$products_found;
+						}
+					}
+				}
+			}
+
+			if ($product_count !== $products_found) {
+				// Customer selected different products. Cancel pending payment.
+				$payment->set_status(Payment_Status::CANCELLED);
+				$payment->save();
+				$payment->get_membership()->cancel();
+			}
+			// Pending payment is the same. Nothing to do, Let the form element show the pay pending payment message.
+		}
 	}
 }

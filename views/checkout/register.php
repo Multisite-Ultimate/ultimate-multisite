@@ -1,3 +1,6 @@
+<?php
+defined('ABSPATH') || exit;
+?>
 <form id="wu_form" method="post" class="wu-styling wu-relative">
 
 	<?php
@@ -11,7 +14,7 @@
 		'product-fields',
 		$product_fields,
 		[
-			'title' => __('Products', 'multisite-ultimate'),
+			'title' => __('Products', 'ultimate-multisite'),
 			'views' => 'checkout/fields',
 		]
 	);

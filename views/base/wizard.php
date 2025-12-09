@@ -4,6 +4,8 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
 <div id="wp-ultimo-wrap" class="wrap wu-wrap <?php echo esc_attr($classes); ?>">
 
@@ -37,7 +39,7 @@
 
 		<div class="md:wu-w-2/12 wu-pt-10">
 
-		<span class="wu-uppercase wu-block wu-px-4 wu-text-gray-700 wu-font-bold">
+		<span class="wu-uppercase wu-block wu-px-4 wu-text-gray-700 wu-font-bold" data-testid="wizard-menu-heaing">
 
 		<?php echo esc_html($page->get_title()); ?>
 
@@ -45,16 +47,16 @@
 
 		<?php
 		/**
-		 * Allow plugin developers to add additional buttons to list pages
+		 * Allow plugin developers to add additional buttons to list pages.
 		 *
 		 * @since 1.8.2
-		 * @param WU_Page Multisite Ultimate Page instance
+		 * @param WU_Page $page Ultimate Multisite Page instance
 		 */
 		do_action('wu_page_wizard_after_title', $page);
 		?>
 
 			<!-- Navigator -->
-			<ul class="">
+			<ul class="" data-testid="wizard-menu">
 
 				<?php
 
@@ -82,15 +84,15 @@
 					<?php if (wu_get_isset($section, 'separator')) : ?>
 
 						<!-- Separator Item -->
-						<li class="wu-sticky wu-py-2 wu-px-4">&nbsp;</li>
+						<li class="wu-sticky wu-py-2 wu-px-4" data-testid="wizard-menu-separator">&nbsp;</li>
 
 					<?php else : ?>
 
 						<!-- Menu Item -->
-						<li class="wu-sticky">
+						<li class="wu-sticky" data-testid="<?php echo $current_section === $section_name ? 'wizard-menu-item-active' : 'wizard-menu-item'; ?>">
 
 							<!-- Menu Link -->
-							<a href="<?php echo esc_url($page->get_section_link($section_name)); ?>" class="wu-block wu-py-2 wu-px-4 wu-no-underline wu-text-sm wu-rounded <?php echo ! $clickable_navigation && ! $is_pre_current_section ? 'wu-pointer-events-none' : ''; ?> <?php echo $current_section === $section_name ? 'wu-bg-gray-300 wu-text-gray-800' : 'wu-text-gray-600 hover:wu-text-gray-700'; ?>">
+							<a href="<?php echo esc_url($page->get_section_link($section_name)); ?>" class="wu-block wu-py-2 wu-px-4 wu-no-underline wu-text-sm wu-rounded <?php echo ! $clickable_navigation && ! $is_pre_current_section ? 'wu-pointer-events-none' : ''; ?> <?php echo $current_section === $section_name ? 'wu-bg-gray-300 wu-text-gray-800' : 'wu-text-gray-600 hover:wu-text-gray-700'; ?>" data-testid="<?php echo $current_section === $section_name ? 'wizard-menu-item-link-active' : 'wizard-menu-item-link'; ?>">
 								<?php echo esc_html($section['title']); ?>
 							</a>
 							<!-- End Menu Link -->
@@ -127,7 +129,7 @@
 
 		</div>
 
-		<div class="md:wu-w-8/12 wu-px-4 metabox-holder">
+		<div class="md:wu-w-8/12 wu-px-4 metabox-holder" data-testid="wizard-section-<?php echo esc_attr($current_section); ?>">
 
 			<form method="post" id="<?php echo esc_attr($form_id); ?>">
 
@@ -157,10 +159,10 @@
 
 	<?php
 	/**
-	 * Allow plugin developers to add scripts to the bottom of the page
+	 * Allow plugin developers to add scripts to the bottom of the page.
 	 *
 	 * @since 1.8.2
-	 * @param WU_Page Multisite Ultimate Page instance
+	 * @param WU_Page $page Ultimate Multisite Page instance
 	 */
 	do_action('wu_page_wizard_footer', $page);
 	?>

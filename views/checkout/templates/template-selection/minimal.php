@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/pricing-table/frequency-selector.php.
  *
- * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
+ * HOWEVER, on occasion Ultimate Multisite will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -25,7 +25,7 @@ $sites = array_map('wu_get_site', $sites ?? []);
 
 $categories ??= [];
 
-$customer_sites_category = __('Your Sites', 'multisite-ultimate');
+$customer_sites_category = __('Your Sites', 'ultimate-multisite');
 
 $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) : [];
 
@@ -41,7 +41,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 				:class="$parent.template_category === '' ? 'current wu-font-semibold' : ''"
 				v-on:click.prevent="$parent.template_category = ''"
 			>
-				<?php esc_html_e('All', 'multisite-ultimate'); ?>
+				<?php esc_html_e('All', 'ultimate-multisite'); ?>
 			</a>
 		</li>
 
@@ -81,7 +81,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 	<div id="wu-site-template-container-grid">
 
-		<?php foreach ($sites as $site_template) : ?>
+		<?php foreach ($sites as $site_template) : /** @var $site_template \WP_Ultimo\Models\Site */ ?>
 
 			<?php
 			if ($site_template->get_type() !== 'site_template' && ! in_array($site_template->get_id(), $customer_sites, true)) {
@@ -94,11 +94,12 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 			<div
 				id="wu-site-template-<?php echo esc_attr($site_template->get_id()); ?>"
+				:class="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?> ? 'wu-selected-template' : ''"
 				v-show="!$parent.template_category || <?php echo esc_attr(wp_json_encode($categories)); ?>.join(',').indexOf($parent.template_category) > -1"
 				v-cloak
 			>
 
-				<img class="wu-site-template-image" src="<?php echo esc_attr($site_template->get_featured_image()); ?>" alt="<?php echo esc_attr($site_template->get_title()); ?>">
+				<img class="wu-site-template-image" src="<?php echo esc_attr($site_template->get_featured_image('wu-thumb-large')); ?>" alt="<?php echo esc_attr($site_template->get_title()); ?>">
 
 				<h3 class="wu-site-template-title">
 					<?php echo esc_html($site_template->get_title()); ?>
@@ -110,19 +111,19 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 
 				<div class="wu-site-template-preview-block">
 
-					<a class="wu-site-template-selector" <?php echo $site_template->get_preview_url_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-						<?php esc_html_e('View Template Preview', 'multisite-ultimate'); ?>
+					<a class="wu-site-template-selector" <?php $site_template->get_preview_url_attrs(); ?>>
+						<?php esc_html_e('View Template Preview', 'ultimate-multisite'); ?>
 					</a>
 
 				</div>
 
-				<label for="wu-site-template-id-<?php echo esc_attr($site_template->get_id()); ?>">
+				<label for="wu-site-template-id-<?php echo esc_attr($site_template->get_id()); ?>" :class="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?> ? 'wu-selected-template-label' : ''">
 
 					<input id="wu-site-template-id-<?php echo esc_attr($site_template->get_id()); ?>" type="radio" name="template_id" v-model="$parent.template_id" value="<?php echo esc_attr($site_template->get_id()); ?>" />
 
-					<a class="wu-site-template-selector" @click.prevent="" href="#">
+					<a class="wu-site-template-selector" :class="$parent.template_id == <?php echo esc_attr($site_template->get_id()); ?> ? 'wu-selected-template-button' : ''" @click.prevent="" href="#">
 
-						<?php esc_html_e('Select this Template', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Select this Template', 'ultimate-multisite'); ?>
 
 					</a>
 

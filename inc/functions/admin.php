@@ -15,16 +15,16 @@ defined('ABSPATH') || exit;
  * @since 2.0.0
  *
  * @param array $args List of the page arguments.
- * @return string
+ * @return void
  */
 function wu_render_empty_state($args = []) {
 
 	$args = wp_parse_args(
 		$args,
 		[
-			'message'                  => __('This is not yet available...', 'multisite-ultimate'),
-			'sub_message'              => __('We\'re still working on this part of the product.', 'multisite-ultimate'),
-			'link_label'               => __('&larr; Go Back', 'multisite-ultimate'),
+			'message'                  => __('This is not yet available...', 'ultimate-multisite'),
+			'sub_message'              => __('We\'re still working on this part of the product.', 'ultimate-multisite'),
+			'link_label'               => __('&larr; Go Back', 'ultimate-multisite'),
 			'link_url'                 => 'javascript:history.go(-1)',
 			'link_classes'             => '',
 			'link_icon'                => '',
@@ -32,7 +32,7 @@ function wu_render_empty_state($args = []) {
 		]
 	);
 
-	return wu_get_template_contents('base/empty-state', $args);
+	wu_get_template('base/empty-state', $args);
 }
 
 /**
@@ -53,20 +53,20 @@ function wu_wrap_use_container() {
  * @param array $args Main arguments.
  * @param array $first_row The first row of icons + labels.
  * @param array $second_row The second row, on the right.
- * @return string
+ * @return void
  */
-function wu_responsive_table_row($args = [], $first_row = [], $second_row = []) {
+function wu_responsive_table_row($args = [], $first_row = [], $second_row = []) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 	$args = wp_parse_args(
 		$args,
 		[
 			'id'     => '',
-			'title'  => __('No Title', 'multisite-ultimate'),
+			'title'  => __('No Title', 'ultimate-multisite'),
 			'url'    => '#',
 			'status' => '',
 			'image'  => '',
 		]
 	);
 
-	return wu_get_template_contents('base/responsive-table-row', compact('args', 'first_row', 'second_row'));
+	wu_get_template('base/responsive-table-row', compact('args', 'first_row', 'second_row'));
 }

@@ -1,7 +1,14 @@
 <?php
+defined('ABSPATH') || exit;
 
 if ( ! class_exists('MUCD_Log') ) {
 
+	/**
+	 * Multisite Ultimate Clone Duplicator Log class.
+	 *
+	 * Handles logging operations during site duplication to track
+	 * progress, errors, and debug information.
+	 */
 	class MUCD_Log {
 
 		/**
@@ -35,9 +42,9 @@ if ( ! class_exists('MUCD_Log') ) {
 		 * Constructor
 		 *
 		 * @since 0.2.0
-		 * @param boolean $mod is log active
-		 * @param string  $log_dir_path log directory
-		 * @param string  $log_file_name log file name
+		 * @param bool   $mod           Whether logging is active.
+		 * @param string $log_dir_path  Log directory path.
+		 * @param string $log_file_name Log file name.
 		 */
 		public function __construct($mod, $log_dir_path = '', $log_file_name = '') {
 			$this->mod           = $mod;
@@ -99,7 +106,7 @@ if ( ! class_exists('MUCD_Log') ) {
 		 * @return boolean True if plugin can writes the log, or false
 		 */
 		public function can_write() {
-			return (is_resource($this->fp) && is_writable($this->log_file_path));
+			return (is_resource($this->fp) && is_writable($this->log_file_path)); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable
 		}
 
 		/**
@@ -120,11 +127,11 @@ if ( ! class_exists('MUCD_Log') ) {
 		 */
 		private function init_file(): bool {
 			if (MUCD_Files::init_dir($this->log_dir_path) !== false) {
-				if ( ! $this->fp = @fopen($this->log_file_path, 'a') ) {
+				if ( ! $this->fp = @fopen($this->log_file_path, 'a') ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
 					return false;
 				}
 
-				chmod($this->log_file_path, 0777);
+				chmod($this->log_file_path, 0777); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_chmod
 				return true;
 			}
 
@@ -135,13 +142,13 @@ if ( ! class_exists('MUCD_Log') ) {
 		 * Writes a message in log file
 		 *
 		 * @since 0.2.0
-		 * @param  string $message the message to write
-		 * @return boolean True on success, False on failure
+		 * @param  string $message The message to write to the log.
+		 * @return bool   True on success, False on failure.
 		 */
 		public function write_log($message): bool {
 			if (false !== $this->mod && $this->can_write() ) {
-				$time = @date('[d/M/Y:H:i:s]');
-				fwrite($this->fp, "$time $message" . "\r\n");
+				$time = @gmdate('[d/M/Y:H:i:s]');
+				fwrite($this->fp, "$time $message" . "\r\n"); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite
 				return true;
 			}
 
@@ -154,7 +161,7 @@ if ( ! class_exists('MUCD_Log') ) {
 		 * @since 0.2.0
 		 */
 		public function close_log(): void {
-			@fclose($this->fp);
+			@fclose($this->fp); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
 		}
 	}
 }

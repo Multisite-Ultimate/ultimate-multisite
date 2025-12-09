@@ -183,7 +183,7 @@ abstract class Base_Model implements \JsonSerializable {
 		$value = call_user_func([$this, "get_{$field}"]);
 
 		if ( ! is_numeric($value)) {
-			_doing_it_wrong(__METHOD__, esc_html__('You can only use numeric fields to generate hashes.', 'multisite-ultimate'), '2.0.0');
+			_doing_it_wrong(__METHOD__, esc_html__('You can only use numeric fields to generate hashes.', 'ultimate-multisite'), '2.0.0');
 
 			return false;
 		}
@@ -252,11 +252,47 @@ abstract class Base_Model implements \JsonSerializable {
 	}
 
 	/**
+	 * @return $this
+	 */
+	public function load_attributes_from_post() {
+		// Nonce check handled in calling method.
+		foreach ($_POST as $key => $value) { // phpcs:ignore WordPress.Security.NonceVerification
+			if ('meta' === $key && is_array($value)) {
+				$value      = wu_clean(wp_unslash($value));
+				$this->meta = is_array($this->meta) ? array_merge($this->meta, $value) : $value;
+			}
+
+			if (method_exists($this, "set_$key")) {
+				call_user_func([$this, "set_$key"], wu_clean(wp_unslash($value)));
+			}
+
+			$mapping = wu_get_isset($this->_mappings, $key);
+
+			if ($mapping && method_exists($this, "set_$mapping")) {
+				call_user_func([$this, "set_$mapping"], wu_clean(wp_unslash($value)));
+			}
+		}
+
+		/*
+		 * Keeps the original.
+		 */
+		if (null === $this->_original) {
+			$original = get_object_vars($this);
+
+			unset($original['_original']);
+
+			$this->_original = $original;
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Return the model schema. useful to list all models fields.
 	 *
 	 * @since 2.0.0
 	 * @return Schema
-	 * @throws \ReflectionException
+	 * @throws \ReflectionException When reflection operations fail on the query class.
 	 */
 	public static function get_schema() {
 
@@ -296,7 +332,7 @@ abstract class Base_Model implements \JsonSerializable {
 	 *
 	 * @param int $item_id The item id.
 	 *
-	 * @return object|false Base_Model
+	 * @return static|false Base_Model
 	 */
 	public static function get_by_id($item_id) {
 
@@ -561,9 +597,7 @@ abstract class Base_Model implements \JsonSerializable {
 		}
 
 		if ( ! empty($meta)) {
-			$this->update_meta_batch($meta);
-
-			$saved = true;
+			$saved = $this->update_meta_batch($meta);
 		}
 
 		/**
@@ -609,7 +643,7 @@ abstract class Base_Model implements \JsonSerializable {
 	public function delete() {
 
 		if ( ! $this->get_id()) {
-			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'multisite-ultimate'));
+			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'ultimate-multisite'));
 		}
 
 		/**
@@ -683,12 +717,12 @@ abstract class Base_Model implements \JsonSerializable {
 
 		if ( ! $this->get_meta_table_name()) {
 
-			// _doing_it_wrong(__METHOD__, __('This model does not support metadata.', 'multisite-ultimate'), '2.0.0');
+			// _doing_it_wrong(__METHOD__, __('This model does not support metadata.', 'ultimate-multisite'), '2.0.0');
 
 			return false;
 		}
 
-		// _doing_it_wrong(__METHOD__, __('Model metadata only works for already saved models.', 'multisite-ultimate'), '2.0.0');
+		// _doing_it_wrong(__METHOD__, __('Model metadata only works for already saved models.', 'ultimate-multisite'), '2.0.0');
 		return ! (! $this->get_id() && ! $this->_mocked);
 	}
 
@@ -732,7 +766,7 @@ abstract class Base_Model implements \JsonSerializable {
 		}
 
 		if ( ! is_array($meta)) {
-			_doing_it_wrong(__METHOD__, esc_html__('This method expects an array as argument.', 'multisite-ultimate'), '2.0.0');
+			_doing_it_wrong(__METHOD__, esc_html__('This method expects an array as argument.', 'ultimate-multisite'), '2.0.0');
 
 			return false;
 		}

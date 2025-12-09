@@ -9,8 +9,6 @@
 
 namespace WP_Ultimo\Integrations\Host_Providers;
 
-use WP_Ultimo\Integrations\Host_Providers\Base_Host_Provider;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -137,7 +135,7 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 	 * @since 2.0.0
 	 * @param string $domain The domain name being mapped.
 	 * @param int    $site_id ID of the site that is receiving that mapping.
-	 * @return object\WP_Error
+	 * @return object|\WP_Error
 	 */
 	public function on_add_domain($domain, $site_id) {
 
@@ -157,7 +155,7 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 	 * @since 2.0.0
 	 * @param string $domain The domain name being removed.
 	 * @param int    $site_id ID of the site that is receiving that mapping.
-	 * @return object\WP_Error
+	 * @return object|\WP_Error
 	 */
 	public function on_remove_domain($domain, $site_id) {
 
@@ -208,7 +206,7 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 		if (wu_get_isset($results, 'message') === 'This action is unauthorized.') {
 			wp_send_json_error(
 				[
-					'error' => __('We were not able to successfully establish a connection.', 'multisite-ultimate'),
+					'error' => __('We were not able to successfully establish a connection.', 'ultimate-multisite'),
 				]
 			);
 		}
@@ -216,14 +214,14 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 		if (is_wp_error($results)) {
 			wp_send_json_error(
 				[
-					'error' => __('We were not able to successfully establish a connection.', 'multisite-ultimate'),
+					'error' => __('We were not able to successfully establish a connection.', 'ultimate-multisite'),
 				]
 			);
 		}
 
 		wp_send_json_success(
 			[
-				'success' => __('Connection successfully established.', 'multisite-ultimate'),
+				'success' => __('Connection successfully established.', 'ultimate-multisite'),
 			]
 		);
 	}
@@ -247,7 +245,7 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __("GridPane is the world's first hosting control panel built exclusively for serious WordPress professionals.", 'multisite-ultimate');
+		return __("GridPane is the world's first hosting control panel built exclusively for serious WordPress professionals.", 'ultimate-multisite');
 	}
 
 	/**

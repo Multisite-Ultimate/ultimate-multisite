@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate System Info Admin Page.
+ * Ultimate Multisite System Info Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\Logger;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate System Info Admin Page.
+ * Ultimate Multisite System Info Admin Page.
  */
 class System_Info_Admin_Page extends Base_Admin_Page {
 
@@ -92,8 +92,10 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 	public function register_scripts(): void {
 
 		wp_enqueue_script('dashboard');
-
 		wp_enqueue_script('clipboard');
+		wp_enqueue_style('wu-system-info', wu_get_asset('system-info.css', 'css'), [], wu_get_version());
+
+		wp_add_inline_script('clipboard', 'var clipboard = new ClipboardJS(".btn");');
 	}
 
 	/**
@@ -150,7 +152,7 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('System Info', 'multisite-ultimate');
+		return __('System Info', 'ultimate-multisite');
 	}
 
 	/**
@@ -161,7 +163,7 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('System Info', 'multisite-ultimate');
+		return __('System Info', 'ultimate-multisite');
 	}
 
 	/**
@@ -172,7 +174,7 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Dashboard', 'multisite-ultimate');
+		return __('Dashboard', 'ultimate-multisite');
 	}
 
 	/**
@@ -217,10 +219,10 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 		$memory_usage = $this->get_memory_usage();
 
 		// translators: %s is the number of seconds.
-		$max_execution_time = sprintf(__('%s seconds', 'multisite-ultimate'), ini_get('max_execution_time'));
+		$max_execution_time = sprintf(__('%s seconds', 'ultimate-multisite'), ini_get('max_execution_time'));
 
 		$all_options            = $this->get_all_options();
-		$all_options_serialized = serialize($all_options);
+		$all_options_serialized = serialize($all_options); // phpcs:ignore
 		$all_options_bytes      = round(mb_strlen($all_options_serialized, '8bit') / 1024, 2);
 		$all_options_transients = $this->get_transients_in_options($all_options);
 
@@ -243,7 +245,7 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 			$array_constants[] = [
 				'tooltip' => '',
 				'title'   => $constant,
-				'value'   => defined($constant) ? (is_bool(constant($constant)) ? __('Enabled', 'multisite-ultimate') : constant($constant)) : __('Disabled', 'multisite-ultimate'),
+				'value'   => defined($constant) ? (is_bool(constant($constant)) ? __('Enabled', 'ultimate-multisite') : constant($constant)) : __('Disabled', 'ultimate-multisite'),
 			];
 		}
 
@@ -312,8 +314,8 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 			[
 				'WordPress and System Settings'      => [
 					'wp-ultimo-version'      => [
-						'tooltip' => 'Multisite Ultimate current version installed locally',
-						'title'   => 'Multisite Ultimate Version',
+						'tooltip' => 'Ultimate Multisite current version installed locally',
+						'title'   => 'Ultimate Multisite Version',
 						'value'   => wu_get_version(),
 					],
 					'wordpress-version'      => [
@@ -349,37 +351,37 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 					'content-directory'      => [
 						'tooltip' => '',
 						'title'   => 'Content Directory',
-						'value'   => WP_CONTENT_DIR,
+						'value'   => WP_CONTENT_DIR, // This is acceptable for system info display
 					],
 					'content-url'            => [
 						'tooltip' => '',
 						'title'   => 'Content URL',
-						'value'   => WP_CONTENT_URL,
+						'value'   => content_url(),
 					],
 					'plugins-directory'      => [
 						'tooltip' => '',
 						'title'   => 'Plugins Directory',
-						'value'   => WP_PLUGIN_DIR,
+						'value'   => WP_PLUGIN_DIR, // This is acceptable for system info display
 					],
 					'pluguins-url'           => [
 						'tooltip' => '',
 						'title'   => 'Plugins URL',
-						'value'   => WP_PLUGIN_URL,
+						'value'   => plugins_url(),
 					],
 					'uploads-directory'      => [
 						'tooltip' => '',
 						'title'   => 'Uploads Directory',
-						'value'   => (defined('UPLOADS') ? UPLOADS : WP_CONTENT_DIR . '/uploads'),
+						'value'   => wp_upload_dir()['basedir'],
 					],
 					'cookie-domain'          => [
 						'tooltip' => '',
 						'title'   => 'Cookie Domain',
-						'value'   => defined('COOKIE_DOMAIN') ? COOKIE_DOMAIN ?: __('Disabled', 'multisite-ultimate') : __('Not set', 'multisite-ultimate'),
+						'value'   => defined('COOKIE_DOMAIN') ? COOKIE_DOMAIN ?: __('Disabled', 'ultimate-multisite') : __('Not set', 'ultimate-multisite'),
 					],
 					'multisite-active'       => [
 						'tooltip' => '',
 						'title'   => 'Multi-Site Active',
-						'value'   => is_multisite() ? __('Yes', 'multisite-ultimate') : __('No', 'multisite-ultimate'),
+						'value'   => is_multisite() ? __('Yes', 'ultimate-multisite') : __('No', 'ultimate-multisite'),
 					],
 					'php-current-time-gmt'   => [
 						'tooltip' => '',
@@ -404,12 +406,12 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 					'php-curl-support'       => [
 						'tooltip' => '',
 						'title'   => 'PHP cURL Support',
-						'value'   => function_exists('curl_init') ? __('Yes', 'multisite-ultimate') : __('No', 'multisite-ultimate'),
+						'value'   => function_exists('curl_init') ? __('Yes', 'ultimate-multisite') : __('No', 'ultimate-multisite'),
 					],
 					'php-gd-time'            => [
 						'tooltip' => '',
 						'title'   => 'PHP GD Support',
-						'value'   => function_exists('gd_info') ? __('Yes', 'multisite-ultimate') : __('No', 'multisite-ultimate'),
+						'value'   => function_exists('gd_info') ? __('Yes', 'ultimate-multisite') : __('No', 'ultimate-multisite'),
 					],
 					'php-memory-limit'       => [
 						'tooltip' => '',
@@ -464,47 +466,47 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 					'wp-debug'               => [
 						'tooltip' => '',
 						'title'   => 'WP Options Transients',
-						'value'   => defined('WP_DEBUG') ? WP_DEBUG ? __('Enabled', 'multisite-ultimate') : __('Disabled', 'multisite-ultimate') : __('Not set', 'multisite-ultimate'),
+						'value'   => defined('WP_DEBUG') ? WP_DEBUG ? __('Enabled', 'ultimate-multisite') : __('Disabled', 'ultimate-multisite') : __('Not set', 'ultimate-multisite'),
 					],
 					'script-debug'           => [
 						'tooltip' => '',
 						'title'   => 'WP Options Transients',
-						'value'   => defined('SCRIPT_DEBUG') ? SCRIPT_DEBUG ? __('Enabled', 'multisite-ultimate') : __('Disabled', 'multisite-ultimate') : __('Not set', 'multisite-ultimate'),
+						'value'   => defined('SCRIPT_DEBUG') ? SCRIPT_DEBUG ? __('Enabled', 'ultimate-multisite') : __('Disabled', 'ultimate-multisite') : __('Not set', 'ultimate-multisite'),
 					],
 					'save-queries'           => [
 						'tooltip' => '',
 						'title'   => 'WP Options Transients',
-						'value'   => defined('SAVEQUERIES') ? SAVEQUERIES ? __('Enabled', 'multisite-ultimate') : __('Disabled', 'multisite-ultimate') : __('Not set', 'multisite-ultimate'),
+						'value'   => defined('SAVEQUERIES') ? SAVEQUERIES ? __('Enabled', 'ultimate-multisite') : __('Disabled', 'ultimate-multisite') : __('Not set', 'ultimate-multisite'),
 					],
 					'autosave-interval'      => [
 						'tooltip' => '',
 						'title'   => 'WP Options Transients',
-						'value'   => defined('AUTOSAVE_INTERVAL') ? AUTOSAVE_INTERVAL ?: __('Disabled', 'multisite-ultimate') : __('Not set', 'multisite-ultimate'),
+						'value'   => defined('AUTOSAVE_INTERVAL') ? AUTOSAVE_INTERVAL ?: __('Disabled', 'ultimate-multisite') : __('Not set', 'ultimate-multisite'),
 					],
 					'wp_post_revisions'      => [
 						'tooltip' => '',
 						'title'   => 'WP Options Transients',
-						'value'   => defined('WP_POST_REVISIONS') ? WP_POST_REVISIONS ?: __('Disabled', 'multisite-ultimate') : __('Not set', 'multisite-ultimate'),
+						'value'   => defined('WP_POST_REVISIONS') ? WP_POST_REVISIONS ?: __('Disabled', 'ultimate-multisite') : __('Not set', 'ultimate-multisite'),
 					],
 					'disable_wp_cron'        => [
 						'tooltip' => '',
 						'title'   => 'DISABLE_WP_CRON',
-						'value'   => defined('DISABLE_WP_CRON') ? DISABLE_WP_CRON ?: __('Yes', 'multisite-ultimate') : __('No', 'multisite-ultimate'),
+						'value'   => defined('DISABLE_WP_CRON') ? DISABLE_WP_CRON ?: __('Yes', 'ultimate-multisite') : __('No', 'ultimate-multisite'),
 					],
 					'wp_lang'                => [
 						'tooltip' => '',
 						'title'   => 'WPLANG',
-						'value'   => defined('WPLANG') ? WPLANG ?: __('Yes', 'multisite-ultimate') : __('No', 'multisite-ultimate'),
+						'value'   => defined('WPLANG') ? WPLANG ?: __('Yes', 'ultimate-multisite') : __('No', 'ultimate-multisite'),
 					],
 					'wp_memory_limit'        => [
 						'tooltip' => '',
 						'title'   => 'WP_MEMORY_LIMIT',
-						'value'   => (defined('WP_MEMORY_LIMIT') && WP_MEMORY_LIMIT) ? WP_MEMORY_LIMIT : __('Not set', 'multisite-ultimate'),
+						'value'   => (defined('WP_MEMORY_LIMIT') && WP_MEMORY_LIMIT) ? WP_MEMORY_LIMIT : __('Not set', 'ultimate-multisite'),
 					],
 					'wp_max_memory_limit'    => [
 						'tooltip' => '',
 						'title'   => 'WP_MAX_MEMORY_LIMIT',
-						'value'   => (defined('WP_MAX_MEMORY_LIMIT') && WP_MAX_MEMORY_LIMIT) ? WP_MAX_MEMORY_LIMIT : __('Not set', 'multisite-ultimate'),
+						'value'   => (defined('WP_MAX_MEMORY_LIMIT') && WP_MAX_MEMORY_LIMIT) ? WP_MAX_MEMORY_LIMIT : __('Not set', 'ultimate-multisite'),
 					],
 					'operating-system'       => [
 						'tooltip' => '',
@@ -534,14 +536,14 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 				'Active Plugins'                     => $array_active_plugins,
 				'Active Plugins on Main Site'        => $array_active_plugins_main_site,
 
-				'Multisite Ultimate Database Status' => $array_wu_tables,
+				'Ultimate Multisite Database Status' => $array_wu_tables,
 
-				'Multisite Ultimate Core Settings'   => array_merge(
+				'Ultimate Multisite Core Settings'   => array_merge(
 					[
 						'logs-directory' => [
 							'tooltip' => '',
 							'title'   => 'Logs Directory',
-							'value'   => is_writable(Logger::get_logs_folder()) ? __('Writable', 'multisite-ultimate') : __('Not Writable', 'multisite-ultimate'),
+							'value'   => wp_is_writable(Logger::get_logs_folder()) ? __('Writable', 'ultimate-multisite') : __('Not Writable', 'ultimate-multisite'),
 						],
 					],
 					$wpultimo_settings
@@ -560,25 +562,19 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 	public function generate_text_file_system_info(): void {
 
 		$file_name = sprintf("$this->id-%s.txt", gmdate('Y-m-d'));
-		$txt       = fopen($file_name, 'w') || die('Unable to open file!');
-
-		foreach ($this->get_data() as $type) {
-			foreach ($type as $item) {
-				fwrite($txt, $item['title'] . ': ' . $item['value'] . PHP_EOL);
-			}
-		}
-
-		fclose($txt);
 
 		header('Content-Description: File Transfer');
 		header('Content-Disposition: attachment; filename=' . basename($file_name));
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate');
 		header('Pragma: public');
-		header('Content-Length: ' . filesize($file_name));
 		header('Content-Type: text/plain');
-		readfile($file_name);
 
+		foreach ($this->get_data() as $type) {
+			foreach ($type as $item) {
+				echo esc_html($item['title'] . ': ' . $item['value'] . PHP_EOL);
+			}
+		}
 		die;
 	}
 
@@ -632,29 +628,28 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 		$known   = ['Version', $browser_name_short, 'other'];
 		$pattern = '#(?<browser>' . implode('|', $known) . ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
 
-		if ( ! preg_match_all($pattern, (string) $user_agent, $matches)) {
-			// We have no matching number just continue
-		}
+		if ( preg_match_all($pattern, (string) $user_agent, $matches)) {
 
-		// See how many we have
-		$i = count($matches['browser']);
+			// See how many we have
+			$i = count($matches['browser']);
 
-		if (1 !== $i) {
+			if (1 !== $i) {
 
-			// We will have two since we are not using 'other' argument yet
-			// See if version is before or after the name
-			if (strripos((string) $user_agent, 'Version') < strripos((string) $user_agent, (string) $browser_name_short)) {
-				$version = $matches['version'][0];
+				// We will have two since we are not using 'other' argument yet
+				// See if version is before or after the name
+				if (strripos((string) $user_agent, 'Version') < strripos((string) $user_agent, (string) $browser_name_short)) {
+					$version = $matches['version'][0];
+				} else {
+					$version = $matches['version'][1];
+				}
 			} else {
-				$version = $matches['version'][1];
+				$version = $matches['version'][0];
 			}
-		} else {
-			$version = $matches['version'][0];
-		}
 
-		// Check if we have a version number
-		if (empty($version)) {
-			$version = '?';
+			// Check if we have a version number
+			if (empty($version)) {
+				$version = '?';
+			}
 		}
 
 		return [
@@ -716,7 +711,7 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 	}
 
 	/**
-	 * Return all the desired Multisite Ultimate Settings
+	 * Return all the desired Ultimate Multisite Settings
 	 *
 	 * @since 1.1.5
 	 * @return array
@@ -741,7 +736,7 @@ class System_Info_Admin_Page extends Base_Admin_Page {
 
 		$return_settings = [];
 
-		$settings = new \WP_Ultimo\Settings();
+		$settings = \WP_Ultimo\Settings::get_instance();
 
 		foreach ($settings->get_all() as $setting => $value) {
 			$add = true;

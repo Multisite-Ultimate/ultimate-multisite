@@ -4,8 +4,10 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
-<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<div class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<?php
 	/**
@@ -23,7 +25,7 @@
 
 	<?php foreach ($field->options as $option_value => $option_name) : ?>
 		<label class="wu-block" for="field-<?php echo esc_attr($field->id); ?>-<?php echo esc_attr($option_value); ?>">
-			<input id="field-<?php echo esc_attr($field->id); ?>-<?php echo esc_attr($option_value); ?>" type="radio" name="<?php echo esc_attr($field->id); ?>" value="<?php echo esc_attr($option_value); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php checked($field->value == $option_value); ?>>
+			<input id="field-<?php echo esc_attr($field->id); ?>-<?php echo esc_attr($option_value); ?>" type="radio" name="<?php echo esc_attr($field->id); ?>" value="<?php echo esc_attr($option_value); ?>" <?php $field->print_html_attributes(); ?> <?php checked($field->value == $option_value); ?>>
 			<?php echo esc_html($option_name); ?>
 		</label>
 	<?php endforeach; ?>

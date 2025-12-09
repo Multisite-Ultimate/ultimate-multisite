@@ -278,11 +278,9 @@ class Gateway_Manager extends Base_Manager {
 		$gateway = wu_get_gateway($gateway_id);
 
 		if ( ! $gateway) {
-			$error = new \WP_Error('missing_gateway', esc_html__('Missing gateway parameter.', 'multisite-ultimate'));
-
 			wp_die(
-				$error, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				esc_html__('Error', 'multisite-ultimate'),
+				esc_html__('Missing gateway parameter.', 'ultimate-multisite'),
+				esc_html__('Error', 'ultimate-multisite'),
 				[
 					'back_link' => true,
 					'response'  => '200',
@@ -310,8 +308,8 @@ class Gateway_Manager extends Base_Manager {
 
 			if (is_wp_error($results)) {
 				wp_die(
-					$results, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					esc_html__('Error', 'multisite-ultimate'),
+					esc_html($results->get_error_message()),
+					esc_html__('Error', 'ultimate-multisite'),
 					[
 						'back_link' => true,
 						'response'  => '200',
@@ -319,11 +317,9 @@ class Gateway_Manager extends Base_Manager {
 				);
 			}
 		} catch (\Throwable $e) {
-			$error = new \WP_Error('confirm-error-' . $e->getCode(), $e->getMessage());
-
 			wp_die(
-				$error, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				esc_html__('Error', 'multisite-ultimate'),
+				esc_html($e->getMessage()),
+				esc_html__('Error', 'ultimate-multisite'),
 				[
 					'back_link' => true,
 					'response'  => '200',
@@ -362,8 +358,8 @@ class Gateway_Manager extends Base_Manager {
 			'payment-gateways',
 			'active_gateways',
 			[
-				'title'   => __('Active Payment Gateways', 'multisite-ultimate'),
-				'desc'    => __('Payment gateways are what your customers will use to pay.', 'multisite-ultimate'),
+				'title'   => __('Active Payment Gateways', 'ultimate-multisite'),
+				'desc'    => __('Payment gateways are what your customers will use to pay.', 'ultimate-multisite'),
 				'type'    => 'multiselect',
 				'columns' => 2,
 				'options' => [$this, 'get_gateways_as_options'],
@@ -401,31 +397,31 @@ class Gateway_Manager extends Base_Manager {
 		/*
 		 * Free Payments
 		 */
-		wu_register_gateway('free', __('Free', 'multisite-ultimate'), '', Free_Gateway::class, true);
+		wu_register_gateway('free', __('Free', 'ultimate-multisite'), '', Free_Gateway::class, true);
 
 		/*
 		 * Stripe Payments
 		 */
-		$stripe_desc = __('Stripe is a suite of payment APIs that powers commerce for businesses of all sizes, including subscription management.', 'multisite-ultimate');
-		wu_register_gateway('stripe', __('Stripe', 'multisite-ultimate'), $stripe_desc, Stripe_Gateway::class);
+		$stripe_desc = __('Stripe is a suite of payment APIs that powers commerce for businesses of all sizes, including subscription management.', 'ultimate-multisite');
+		wu_register_gateway('stripe', __('Stripe', 'ultimate-multisite'), $stripe_desc, Stripe_Gateway::class);
 
 		/*
 		 * Stripe Checkout Payments
 		 */
-		$stripe_checkout_desc = __('Stripe Checkout is the hosted solution for checkouts using Stripe.', 'multisite-ultimate');
-		wu_register_gateway('stripe-checkout', __('Stripe Checkout', 'multisite-ultimate'), $stripe_checkout_desc, Stripe_Checkout_Gateway::class);
+		$stripe_checkout_desc = __('Stripe Checkout is the hosted solution for checkouts using Stripe.', 'ultimate-multisite');
+		wu_register_gateway('stripe-checkout', __('Stripe Checkout', 'ultimate-multisite'), $stripe_checkout_desc, Stripe_Checkout_Gateway::class);
 
 		/*
 		 * PayPal Payments
 		 */
-		$paypal_desc = __('PayPal is the leading provider in checkout solutions and it is the easier way to get your network subscriptions going.', 'multisite-ultimate');
-		wu_register_gateway('paypal', __('PayPal', 'multisite-ultimate'), $paypal_desc, PayPal_Gateway::class);
+		$paypal_desc = __('PayPal is the leading provider in checkout solutions and it is the easier way to get your network subscriptions going.', 'ultimate-multisite');
+		wu_register_gateway('paypal', __('PayPal', 'ultimate-multisite'), $paypal_desc, PayPal_Gateway::class);
 
 		/*
 		 * Manual Payments
 		 */
-		$manual_desc = __('Use the Manual Gateway to allow users to pay you directly via bank transfers, checks, or other channels.', 'multisite-ultimate');
-		wu_register_gateway('manual', __('Manual', 'multisite-ultimate'), $manual_desc, Manual_Gateway::class);
+		$manual_desc = __('Use the Manual Gateway to allow users to pay you directly via bank transfers, checks, or other channels.', 'ultimate-multisite');
+		wu_register_gateway('manual', __('Manual', 'ultimate-multisite'), $manual_desc, Manual_Gateway::class);
 	}
 
 	/**

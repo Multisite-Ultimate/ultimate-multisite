@@ -47,8 +47,8 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_checkout_header',
 			[
-				'title'           => __('Stripe Checkout', 'multisite-ultimate'),
-				'desc'            => __('Use the settings section below to configure Stripe Checkout as a payment method.', 'multisite-ultimate'),
+				'title'           => __('Stripe Checkout', 'ultimate-multisite'),
+				'desc'            => __('Use the settings section below to configure Stripe Checkout as a payment method.', 'ultimate-multisite'),
 				'type'            => 'header',
 				'show_as_submenu' => true,
 				'require'         => [
@@ -61,10 +61,10 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_checkout_public_title',
 			[
-				'title'   => __('Stripe Public Name', 'multisite-ultimate'),
-				'tooltip' => __('The name to display on the payment method selection field. By default, "Credit Card" is used.', 'multisite-ultimate'),
+				'title'   => __('Stripe Public Name', 'ultimate-multisite'),
+				'tooltip' => __('The name to display on the payment method selection field. By default, "Credit Card" is used.', 'ultimate-multisite'),
 				'type'    => 'text',
-				'default' => __('Credit Card', 'multisite-ultimate'),
+				'default' => __('Credit Card', 'ultimate-multisite'),
 				'require' => [
 					'active_gateways' => 'stripe-checkout',
 				],
@@ -75,8 +75,8 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_checkout_sandbox_mode',
 			[
-				'title'     => __('Stripe Checkout Sandbox Mode', 'multisite-ultimate'),
-				'desc'      => __('Toggle this to put Stripe on sandbox mode. This is useful for testing and making sure Stripe is correctly setup to handle your payments.', 'multisite-ultimate'),
+				'title'     => __('Stripe Checkout Sandbox Mode', 'ultimate-multisite'),
+				'desc'      => __('Toggle this to put Stripe on sandbox mode. This is useful for testing and making sure Stripe is correctly setup to handle your payments.', 'ultimate-multisite'),
 				'type'      => 'toggle',
 				'default'   => 1,
 				'html_attr' => [
@@ -94,10 +94,10 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_checkout_test_pk_key',
 			[
-				'title'       => __('Stripe Test Publishable Key', 'multisite-ultimate'),
+				'title'       => __('Stripe Test Publishable Key', 'ultimate-multisite'),
 				'desc'        => ! empty($pk_test_status) ? sprintf($error_message_wrap, $pk_test_status) : '',
-				'tooltip'     => __('Make sure you are placing the TEST keys, not the live ones.', 'multisite-ultimate'),
-				'placeholder' => __('pk_test_***********', 'multisite-ultimate'),
+				'tooltip'     => __('Make sure you are placing the TEST keys, not the live ones.', 'ultimate-multisite'),
+				'placeholder' => __('pk_test_***********', 'ultimate-multisite'),
 				'type'        => 'text',
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
@@ -114,10 +114,10 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_checkout_test_sk_key',
 			[
-				'title'       => __('Stripe Test Secret Key', 'multisite-ultimate'),
+				'title'       => __('Stripe Test Secret Key', 'ultimate-multisite'),
 				'desc'        => ! empty($sk_test_status) ? sprintf($error_message_wrap, $sk_test_status) : '',
-				'tooltip'     => __('Make sure you are placing the TEST keys, not the live ones.', 'multisite-ultimate'),
-				'placeholder' => __('sk_test_***********', 'multisite-ultimate'),
+				'tooltip'     => __('Make sure you are placing the TEST keys, not the live ones.', 'ultimate-multisite'),
+				'placeholder' => __('sk_test_***********', 'ultimate-multisite'),
 				'type'        => 'text',
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
@@ -134,10 +134,10 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_checkout_live_pk_key',
 			[
-				'title'       => __('Stripe Live Publishable Key', 'multisite-ultimate'),
+				'title'       => __('Stripe Live Publishable Key', 'ultimate-multisite'),
 				'desc'        => ! empty($pk_status) ? sprintf($error_message_wrap, $pk_status) : '',
-				'tooltip'     => __('Make sure you are placing the LIVE keys, not the test ones.', 'multisite-ultimate'),
-				'placeholder' => __('pk_live_***********', 'multisite-ultimate'),
+				'tooltip'     => __('Make sure you are placing the LIVE keys, not the test ones.', 'ultimate-multisite'),
+				'placeholder' => __('pk_live_***********', 'ultimate-multisite'),
 				'type'        => 'text',
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
@@ -154,10 +154,10 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 			'payment-gateways',
 			'stripe_checkout_live_sk_key',
 			[
-				'title'       => __('Stripe Live Secret Key', 'multisite-ultimate'),
+				'title'       => __('Stripe Live Secret Key', 'ultimate-multisite'),
 				'desc'        => ! empty($sk_status) ? sprintf($error_message_wrap, $sk_status) : '',
-				'tooltip'     => __('Make sure you are placing the LIVE keys, not the test ones.', 'multisite-ultimate'),
-				'placeholder' => __('sk_live_***********', 'multisite-ultimate'),
+				'tooltip'     => __('Make sure you are placing the LIVE keys, not the test ones.', 'ultimate-multisite'),
+				'placeholder' => __('sk_live_***********', 'ultimate-multisite'),
 				'type'        => 'text',
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
@@ -168,15 +168,15 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 			]
 		);
 
-		$webhook_message = sprintf('<span class="wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded wu-mt-3 wu-mb-0 wu-block wu-text-xs">%s</span>', __('Whenever you change your Stripe settings, Multisite Ultimate will automatically check the webhook URLs on your Stripe account to make sure we get notified about changes in subscriptions and payments.', 'multisite-ultimate'));
+		$webhook_message = sprintf('<span class="wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded wu-mt-3 wu-mb-0 wu-block wu-text-xs">%s</span>', __('Whenever you change your Stripe settings, Ultimate Multisite will automatically check the webhook URLs on your Stripe account to make sure we get notified about changes in subscriptions and payments.', 'ultimate-multisite'));
 
 		wu_register_settings_field(
 			'payment-gateways',
 			'stripe_checkout_webhook_listener_explanation',
 			[
-				'title'           => __('Webhook Listener URL', 'multisite-ultimate'),
+				'title'           => __('Webhook Listener URL', 'ultimate-multisite'),
 				'desc'            => $webhook_message,
-				'tooltip'         => __('This is the URL Stripe should send webhook calls to.', 'multisite-ultimate'),
+				'tooltip'         => __('This is the URL Stripe should send webhook calls to.', 'ultimate-multisite'),
 				'type'            => 'text-display',
 				'copy'            => true,
 				'default'         => $this->get_webhook_listener_url(),
@@ -347,7 +347,7 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 			$subscription_data['subscription_data']['trial_end'] = $this->order->get_billing_start_date();
 		}
 
-		$session = $this->get_stripe_client()->checkout->sessions->create($subscription_data);
+		$session = $this->get_stripe_client()->checkout->sessions->create(apply_filters('wu_stripe_checkout_subscription_data', $subscription_data, $this));
 
 		// Add the client secret to the JSON success data.
 		return [
@@ -397,7 +397,7 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 	 */
 	public function fields(): string {
 
-		$message = __('You will be redirected to a checkout to complete the purchase.', 'multisite-ultimate');
+		$message = __('You will be redirected to a checkout to complete the purchase.', 'ultimate-multisite');
 
 		return sprintf('<p class="wu-p-4 wu-bg-yellow-200">%s</p>', $message);
 	}
@@ -419,7 +419,7 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 				$fields = [
 					"payment_method_{$payment_method}" => [
 						'type'          => 'text-display',
-						'title'         => __('Saved Cards', 'multisite-ultimate'),
+						'title'         => __('Saved Cards', 'ultimate-multisite'),
 						'display_value' => $card,
 					],
 				];

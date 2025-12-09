@@ -66,7 +66,7 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Site Title', 'multisite-ultimate');
+		return __('Site Title', 'ultimate-multisite');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a Site Title field. This value is used to set the site title for the site being created.', 'multisite-ultimate');
+		return __('Adds a Site Title field. This value is used to set the site title for the site being created.', 'ultimate-multisite');
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a Site Title field. This value is used to set the site title for the site being created.', 'multisite-ultimate');
+		return __('Adds a Site Title field. This value is used to set the site title for the site being created.', 'ultimate-multisite');
 	}
 
 	/**
@@ -164,8 +164,8 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 		return [
 			'auto_generate_site_title' => [
 				'type'      => 'toggle',
-				'title'     => __('Auto-generate?', 'multisite-ultimate'),
-				'desc'      => __('Check this option to auto-generate this field based on the username of the customer.', 'multisite-ultimate'),
+				'title'     => __('Auto-generate?', 'ultimate-multisite'),
+				'desc'      => __('Check this option to auto-generate this field based on the username of the customer.', 'ultimate-multisite'),
 				'tooltip'   => '',
 				'value'     => 0,
 				'html_attr' => [
@@ -195,11 +195,9 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 					'value' => 'username',
 				],
 				'site_title'               => [
-					'type'      => 'hidden',
-					'id'        => 'site_title',
-					'html_attr' => [
-						'v-bind:value' => 'username',
-					],
+					'type'  => 'hidden',
+					'id'    => 'site_title',
+					'value' => 'autogenerate',
 				],
 			];
 		}
@@ -217,6 +215,11 @@ class Signup_Field_Site_Title extends Base_Signup_Field {
 				'value'             => $this->get_value(),
 				'wrapper_html_attr' => [
 					'style' => $this->calculate_style_attr(),
+				],
+				'html_attr'         => [
+					'v-on:input'        => 'site_url = $event.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, "")',
+					'v-model'           => 'site_title',
+					'v-init:site_title' => "'{$this->get_value()}'",
 				],
 			],
 		];

@@ -1,8 +1,9 @@
-/* global Shepherd, _, wu_tours, ajaxurl, wu_tours_vars */
+/* global _, wu_tours, ajaxurl, wu_tours_vars */
+import Shepherd from 'shepherd.js';
+
 (function($) {
 
   $(document).ready(function() {
-
     _.each(wu_tours, function(tour, tour_id) {
 
       window[tour_id] = new Shepherd.Tour({

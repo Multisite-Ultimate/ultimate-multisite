@@ -10,9 +10,9 @@
 namespace WP_Ultimo\Models;
 
 use Psr\Log\LogLevel;
-use WP_Ultimo\Models\Base_Model;
-use WP_Ultimo\Objects\Limitations;
 use WP_Ultimo\Database\Sites\Site_Type;
+use WP_Ultimo\Models\Interfaces\Limitable;
+use WP_Ultimo\Models\Interfaces\Notable;
 use WP_Ultimo\UI\Template_Previewer;
 
 // Exit if accessed directly
@@ -23,7 +23,7 @@ defined('ABSPATH') || exit;
  *
  * @since 2.0.0
  */
-class Site extends Base_Model implements Limitable {
+class Site extends Base_Model implements Limitable, Notable {
 
 	use Traits\Limitable;
 	use \WP_Ultimo\Traits\WP_Ultimo_Site_Deprecated;
@@ -189,7 +189,7 @@ class Site extends Base_Model implements Limitable {
 	 * @since 2.0.0
 	 * @var null|\WP_Ultimo\Models\Membership
 	 */
-	private $_membership;
+	private $membership;
 
 	/**
 	 * The site template id used to create this site.
@@ -427,19 +427,14 @@ class Site extends Base_Model implements Limitable {
 	 *
 	 * @since 2.0.0
 	 */
-	public function get_preview_url_attrs(): string {
+	public function get_preview_url_attrs(): void {
 
-		$is_enabled = Template_Previewer::get_instance()->get_setting('enabled', true);
-
-		$href = 'href="%s" target="_blank"';
-
-		if ( ! $is_enabled) {
-			return sprintf($href, $this->get_active_site_url());
+		if ( ! Template_Previewer::get_instance()->get_setting('enabled', true)) {
+			printf('href="%s" target="_blank"', esc_attr($this->get_active_site_url()));
+			return;
 		}
 
-		$onclick = 'onclick="window.open(\'%s\')"';
-
-		return sprintf($onclick, add_query_arg('open', 1, $this->get_preview_url()));
+		printf('onclick="window.open(\'%s\')"', esc_attr(add_query_arg('open', 1, $this->get_preview_url())));
 	}
 
 	/**
@@ -604,7 +599,7 @@ class Site extends Base_Model implements Limitable {
 	 */
 	public function get_path(): string {
 
-		return trim($this->path, '/');
+		return $this->path;
 	}
 
 	/**
@@ -754,12 +749,12 @@ class Site extends Base_Model implements Limitable {
 	 * Set is this a public site?.
 	 *
 	 * @since 2.0.0
-	 * @param bool $public Set true if this site is a public one, false if not.
+	 * @param bool $is_public Set true if this site is a public one, false if not.
 	 * @return void
 	 */
-	public function set_public($public): void {
+	public function set_public($is_public): void {
 
-		$this->public = $public;
+		$this->public = $is_public;
 	}
 
 	/**
@@ -1001,14 +996,14 @@ class Site extends Base_Model implements Limitable {
 	 */
 	public function get_membership() {
 
-		if (null !== $this->_membership) {
-			return $this->_membership;
+		if (null !== $this->membership) {
+			return $this->membership;
 		}
 
 		if (function_exists('wu_get_membership')) {
-			$this->_membership = wu_get_membership($this->get_membership_id());
+			$this->membership = wu_get_membership($this->get_membership_id());
 
-			return $this->_membership;
+			return $this->membership;
 		}
 
 		global $wpdb;
@@ -1029,9 +1024,9 @@ class Site extends Base_Model implements Limitable {
 			return false;
 		}
 
-		$this->_membership = new \WP_Ultimo\Models\Membership($results);
+		$this->membership = new \WP_Ultimo\Models\Membership($results);
 
-		return $this->_membership;
+		return $this->membership;
 	}
 
 	/**
@@ -1234,7 +1229,7 @@ class Site extends Base_Model implements Limitable {
 	 */
 	public function get_site_url() {
 
-		$url = set_url_scheme(esc_url(sprintf($this->get_domain() . '/' . $this->get_path())));
+		$url = set_url_scheme(esc_url(sprintf($this->get_domain() . '/' . trim($this->get_path(), '/'))));
 
 		return $url;
 	}
@@ -1437,7 +1432,7 @@ class Site extends Base_Model implements Limitable {
 	public function delete() {
 
 		if ( ! $this->get_id()) {
-			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'multisite-ultimate'));
+			return new \WP_Error("wu_{$this->model}_delete_unsaved_item", __('Item not found.', 'ultimate-multisite'));
 		}
 
 		/**
@@ -1463,9 +1458,9 @@ class Site extends Base_Model implements Limitable {
 		 * @since 2.0.0
 		 *
 		 * @param bool       $result True if the object was successfully deleted.
-		 * @param Base_Model $this   The object instance.
+		 * @param Base_Model $model   The object instance.
 		 */
-		do_action("wu_{$this->model}_post_delete", $result, $this); // @phpstan-ignore-line
+		do_action("wu_{$this->model}_post_delete", $result, $this);
 
 		wp_cache_flush();
 
@@ -1485,7 +1480,7 @@ class Site extends Base_Model implements Limitable {
 		if ($transient) {
 			add_filter(
 				'wu_search_and_replace_on_duplication',
-				function ($replace_list, $from_site_id, $to_site_id) use ($transient) {
+				function ($replace_list, $from_site_id, $to_site_id) use ($transient) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 					foreach ($transient as $transient_key => $transient_value) {
 						$key = sprintf('{{%s}}', $transient_key);
@@ -1611,10 +1606,9 @@ class Site extends Base_Model implements Limitable {
 				 * @since 2.0.0
 				 *
 				 * @param array      $data The object data that will be stored.
-				 * @param \WP_Ultimo\Models\Base_Model $this The object instance.
+				 * @param \WP_Ultimo\Models\Base_Model $site The object instance.
 				 */
-				do_action('wu_site_created', $data, $this); // @phpstan-ignore-line
-
+				do_action('wu_site_created', $data, $this);
 			}
 
 			if ( ! is_wp_error($saved) && wu_get_setting('enable_screenshot_generator', true)) {
@@ -1679,7 +1673,11 @@ class Site extends Base_Model implements Limitable {
 
 			$user_id = $customer->get_user_id();
 
-			add_user_to_blog($this->get_id(), $user_id, $role);
+			// only add user to blog if they are not already a member, or we are downgrading their role.
+			// Without this check the user could lose additional roles added manually or with hooks.
+			if ('administrator' !== $role || ! is_user_member_of_blog($user_id, $this->get_id())) {
+				add_user_to_blog($this->get_id(), $user_id, $role);
+			}
 		} elseif ($this->get_type() !== Site_Type::CUSTOMER_OWNED && $original_customer_id) {
 			$user_id = wu_get_customer($original_customer_id)->get_user_id();
 
@@ -1745,7 +1743,7 @@ class Site extends Base_Model implements Limitable {
 	 *
 	 * @param string $type Type to return. Can be customer_owned or template.
 	 * @param array  $query_args Additional query args.
-	 * @return array
+	 * @return Site[]
 	 */
 	public static function get_all_by_type($type = 'customer_owned', $query_args = []) {
 
@@ -1843,7 +1841,17 @@ class Site extends Base_Model implements Limitable {
 
 		global $wpdb;
 
-		$cache = wp_cache_get('site_categories', 'sites');
+		$site_ids = [];
+
+		foreach ($sites as $site) {
+			if ($site instanceof Site) {
+				$site_ids[] = $site->get_id();
+			}
+		}
+
+		$cache_key = 'site_categories_' . implode(':', $site_ids);
+
+		$cache = wp_cache_get($cache_key, 'sites');
 
 		if (is_array($cache)) {
 			return $cache;
@@ -1853,43 +1861,24 @@ class Site extends Base_Model implements Limitable {
 
 		$query = "SELECT DISTINCT meta_value FROM {$wpdb->base_prefix}blogmeta WHERE meta_key = %s";
 
-		if ( ! empty($sites)) {
-
-			// Ensures that $sites is a indexed array
-			$sites = array_values($sites);
-
-			if (is_a($sites[0], self::class)) {
-				$array_sites = json_decode(json_encode($sites), true);
-
-				$sites = array_values(array_column($array_sites, 'blog_id'));
-			}
-
-			$query .= ' AND blog_id IN (' . implode(', ', $sites) . ')';
+		if ( ! empty($site_ids)) {
+			$query .= ' AND blog_id IN (' . implode(', ', $site_ids) . ')';
 		}
 
-		$results = $wpdb->get_results($wpdb->prepare($query, 'wu_categories'), ARRAY_A); // phpcs:ignore
+		$results = $wpdb->get_results($wpdb->prepare($query, 'wu_categories')); // phpcs:ignore
 
-		$all_arrays = array_column($results, 'meta_value');
-
-		$all_arrays = array_map('maybe_unserialize', $all_arrays);
-
-		if ($all_arrays) {
-			$filtered_array = [];
-
-			foreach ($all_arrays as $array) {
-				if (is_array($array)) {
-					$filtered_array = array_merge($filtered_array, $array);
+		foreach ($results as $category_array_raw) {
+			$category_array = maybe_unserialize($category_array_raw->meta_value);
+			if ( is_array($category_array) ) {
+				foreach ($category_array as $category) {
+					if ( ! isset($final_array[ $category ])) {
+						$final_array[ $category ] = $category;
+					}
 				}
 			}
-
-			$all_arrays = array_filter($filtered_array);
-
-			$all_arrays = array_unique($all_arrays);
-
-			$final_array = array_combine($all_arrays, $all_arrays);
 		}
 
-		wp_cache_set('site_categories', $final_array, 'sites');
+		wp_cache_set($cache_key, $final_array, 'sites');
 
 		return $final_array;
 	}

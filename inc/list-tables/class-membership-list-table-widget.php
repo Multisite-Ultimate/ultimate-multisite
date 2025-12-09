@@ -38,8 +38,8 @@ class Membership_List_Table_Widget extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Membership', 'multisite-ultimate'),  // singular name of the listed records
-				'plural'   => __('Memberships', 'multisite-ultimate'), // plural name of the listed records
+				'singular' => __('Membership', 'ultimate-multisite'),  // singular name of the listed records
+				'plural'   => __('Memberships', 'ultimate-multisite'), // plural name of the listed records
 				'ajax'     => true,                         // does this table support ajax?
 			]
 		);
@@ -115,7 +115,7 @@ class Membership_List_Table_Widget extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Membership $item Membership object.
+	 * @param \WP_Ultimo\Models\Membership $item Membership object.
 	 */
 	public function column_hash($item): string {
 
@@ -126,8 +126,8 @@ class Membership_List_Table_Widget extends Base_List_Table {
 		$code = sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-membership', $url_atts), $item->get_hash());
 
 		$actions = [
-			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-membership', $url_atts), __('Edit', 'multisite-ultimate')),
-			'delete' => sprintf('<a href="%s">%s</a>', '', __('Delete', 'multisite-ultimate')),
+			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-membership', $url_atts), __('Edit', 'ultimate-multisite')),
+			'delete' => sprintf('<a href="%s">%s</a>', '', __('Delete', 'ultimate-multisite')),
 		];
 
 		$html = "<span class='wu-font-mono'><strong>{$code}</strong></span>";
@@ -163,7 +163,7 @@ class Membership_List_Table_Widget extends Base_List_Table {
 	public function column_amount($item) {
 
 		if (empty($item->get_amount())) {
-			return __('Free', 'multisite-ultimate');
+			return __('Free', 'ultimate-multisite');
 		}
 
 		$amount = wu_format_currency($item->get_amount(), $item->get_currency());
@@ -173,7 +173,7 @@ class Membership_List_Table_Widget extends Base_List_Table {
 
 			$message = sprintf(
 				// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
-                _n('every %2$s', 'every %1$s %2$s', $duration, 'multisite-ultimate'), // phpcs:ignore
+                _n('every %2$s', 'every %1$s %2$s', $duration, 'ultimate-multisite'), // phpcs:ignore
 				$duration,
 				$item->get_duration_unit()
 			);
@@ -181,14 +181,14 @@ class Membership_List_Table_Widget extends Base_List_Table {
 			if ( ! $item->is_forever_recurring()) {
 				$billing_cycles_message = sprintf(
 					// translators: %s is the number of billing cycles.
-					_n('for %s cycle', 'for %s cycles', $item->get_billing_cycles(), 'multisite-ultimate'),
+					_n('for %s cycle', 'for %s cycles', $item->get_billing_cycles(), 'ultimate-multisite'),
 					$item->get_billing_cycles()
 				);
 
 				$message .= ' ' . $billing_cycles_message;
 			}
 		} else {
-			$message = __('one time payment', 'multisite-ultimate');
+			$message = __('one time payment', 'ultimate-multisite');
 		}
 
 		return sprintf('%s<br><small>%s</small>', $amount, $message);
@@ -199,7 +199,7 @@ class Membership_List_Table_Widget extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Membership $item Membership object.
+	 * @param \WP_Ultimo\Models\Membership $item Membership object.
 	 * @return string
 	 */
 	public function column_customer($item) {
@@ -207,7 +207,7 @@ class Membership_List_Table_Widget extends Base_List_Table {
 		$customer = $item->get_customer();
 
 		if ( ! $customer) {
-			$not_found = __('No customer found', 'multisite-ultimate');
+			$not_found = __('No customer found', 'ultimate-multisite');
 
 			return "<div class='wu-py-1 wu-px-2 wu-flex-grow wu-block wu-rounded wu-items-center wu-border wu-border-solid wu-border-gray-300 wu-bg-gray-100 wu-relative wu-overflow-hidden'>
 				<span class='dashicons dashicons-wu-block wu-text-gray-600 wu-px-1 wu-pr-3'>&nbsp;</span>
@@ -259,20 +259,20 @@ class Membership_List_Table_Widget extends Base_List_Table {
 	public function get_columns() {
 
 		$columns = [
-			'hash'     => __('Ref.', 'multisite-ultimate'),
-			'status'   => __('Status', 'multisite-ultimate'),
-			'customer' => __('Customer', 'multisite-ultimate'),
-			'amount'   => __('Price', 'multisite-ultimate'),
+			'hash'     => __('Ref.', 'ultimate-multisite'),
+			'status'   => __('Status', 'ultimate-multisite'),
+			'customer' => __('Customer', 'ultimate-multisite'),
+			'amount'   => __('Price', 'ultimate-multisite'),
 		];
 
 		return $columns;
 	}
 
 	/**
-	 * Overrides the parent method to include the custom ajax functionality for Multisite Ultimate.
+	 * Overrides the parent method to include the custom ajax functionality for Ultimate Multisite.
 	 *
 	 * @since 2.0.0
 	 * @return void
 	 */
-	public function _js_vars(): void {}
+	public function _js_vars(): void {} // phpcs:ignore PSR2
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Dashboard Statistics.
+ * Ultimate Multisite Dashboard Statistics.
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -19,13 +19,11 @@ use WP_Ultimo\Database\Payments\Payment_Status;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Dashboard Statistics
+ * Ultimate Multisite Dashboard Statistics
  *
  * @since 2.0.0
  */
 class Dashboard_Statistics {
-
-	use \WP_Ultimo\Traits\Singleton;
 
 	/**
 	 * The initial date of the statistics.
@@ -49,12 +47,11 @@ class Dashboard_Statistics {
 	protected $types = [];
 
 	/**
-	 * Loads the hooks we need for dismissing notices
+	 * Constructor.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @param array $args With the start_date, end_date and the data type functions.
-	 * @return void.
 	 */
 	public function __construct($args = []) {
 
@@ -66,14 +63,6 @@ class Dashboard_Statistics {
 			$this->types = $args['types'];
 		}
 	}
-
-	/**
-	 * Runs on singleton instantiation.
-	 *
-	 * @since 2.0.0
-	 * @return void.
-	 */
-	public function init(): void {}
 
 	/**
 	 * Main function to call the get data functions based on the array of types.

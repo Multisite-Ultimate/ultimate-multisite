@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate base Installer Class.
+ * Ultimate Multisite base Installer Class.
  *
  * @package WP_Ultimo
  * @subpackage Installers
@@ -10,10 +10,12 @@
 namespace WP_Ultimo\Installers;
 
 // Exit if accessed directly
+use Psr\Log\LogLevel;
+
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate base Installer Class.
+ * Ultimate Multisite base Installer Class.
  *
  * @since 2.0.0
  */
@@ -69,9 +71,9 @@ class Base_Installer {
 	 * @param bool|\WP_Error $status Status of the installer.
 	 * @param string         $installer The installer name.
 	 * @param object         $wizard Wizard class.
-	 * @return bool|\WP_Error
+	 * @return void
 	 */
-	public function handle($status, $installer, $wizard) {
+	public function handle($status, $installer, $wizard) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		global $wpdb;
 
@@ -83,7 +85,7 @@ class Base_Installer {
 		* No installer on this class.
 		*/
 		if ( ! is_callable($callable)) {
-			return $status;
+			return;
 		}
 
 		try {
@@ -92,12 +94,10 @@ class Base_Installer {
 			call_user_func($callable);
 		} catch (\Throwable $e) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-
-			return new \WP_Error(esc_html($installer), esc_html($e->getMessage()));
+			wu_log_add(\WP_Ultimo::LOG_HANDLE, $e->getMessage(), LogLevel::ERROR);
+			return;
 		}
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-
-		return $status;
 	}
 }

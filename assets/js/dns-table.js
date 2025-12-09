@@ -22,7 +22,7 @@
             url: ajaxurl,
             data: {
                 action: 'wu_get_dns_records',
-                domain: '<?php echo esc_js($domain->get_domain()); ?>',
+                domain: window.wu_dns_table_config.domain,
             },
             success: function(data) {
 

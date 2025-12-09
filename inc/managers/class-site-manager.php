@@ -14,6 +14,7 @@ namespace WP_Ultimo\Managers;
 use WP_Ultimo\Helpers\Screenshot;
 use WP_Ultimo\Database\Sites\Site_Type;
 use WP_Ultimo\Database\Memberships\Membership_Status;
+use WP_Ultimo\Models\Site;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -27,6 +28,7 @@ class Site_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
@@ -57,6 +59,8 @@ class Site_Manager extends Base_Manager {
 
 		$this->enable_wp_cli();
 
+		$this->enable_mcp_abilities();
+
 		add_action('after_setup_theme', [$this, 'additional_thumbnail_sizes']);
 
 		add_action('wp_ajax_wu_get_screenshot', [$this, 'get_site_screenshot']);
@@ -83,11 +87,11 @@ class Site_Manager extends Base_Manager {
 
 		add_filter('mucd_string_to_replace', [$this, 'search_and_replace_on_duplication'], 10, 3);
 
-		add_filter('wu_site_created', [$this, 'search_and_replace_for_new_site'], 10, 2);
+		add_action('wu_site_created', [$this, 'search_and_replace_for_new_site'], 10, 2);
 
 		add_action('wu_handle_bulk_action_form_site_delete-pending', [$this, 'handle_delete_pending_sites'], 100, 3);
 
-		add_action('users_list_table_query_args', [$this, 'hide_super_admin_from_list'], 10, 1);
+		add_filter('users_list_table_query_args', [$this, 'hide_super_admin_from_list'], 10, 1);
 
 		add_action('wu_before_handle_order_submission', [$this, 'maybe_validate_add_new_site'], 15);
 
@@ -114,7 +118,7 @@ class Site_Manager extends Base_Manager {
 
 		$blogname_errors = $errors->get_error_messages('blogname');
 
-		$message_to_ignore = __('Site names can only contain lowercase letters (a-z) and numbers.');
+		$message_to_ignore = __('Site names can only contain lowercase letters (a-z) and numbers.', 'ultimate-multisite');
 
 		$error_key = array_search($message_to_ignore, $blogname_errors, true);
 
@@ -131,7 +135,7 @@ class Site_Manager extends Base_Manager {
 			}
 
 			if (preg_match('/[^a-z0-9-]+/', (string) $result['blogname'])) {
-				$result['errors']->add('blogname', __('Site names can only contain lowercase letters (a-z), numbers, and hyphens.', 'multisite-ultimate'));
+				$result['errors']->add('blogname', __('Site names can only contain lowercase letters (a-z), numbers, and hyphens.', 'ultimate-multisite'));
 			}
 		}
 
@@ -164,7 +168,7 @@ class Site_Manager extends Base_Manager {
 				$customer = wu_get_current_customer();
 
 				if ( ! $customer || ! $membership || $customer->get_id() !== $membership->get_customer_id()) {
-					$errors->add('not-owner', __('You do not have the necessary permissions to create a site to this membership', 'multisite-ultimate'));
+					$errors->add('not-owner', __('You do not have the necessary permissions to create a site to this membership', 'ultimate-multisite'));
 				}
 
 				if ($errors->has_errors() === false) {
@@ -312,16 +316,9 @@ class Site_Manager extends Base_Manager {
 			}
 
 			wp_die(
-				new \WP_Error( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					'not-available',
-					// translators: %s: link to the login page
-					sprintf(__('This site is not available at the moment.<br><small>If you are the site admin, click <a href="%s">here</a> to login.</small>', 'multisite-ultimate'), wp_login_url()), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					[
-						'title' => esc_html__('Site not available', 'multisite-ultimate'),
-					]
-				),
-				'',
-				['code' => 200]
+				// translators: %s: link to the login page
+				sprintf(wp_kses_post(__('This site is not available at the moment.<br><small>If you are the site admin, click <a href="%s">here</a> to login.</small>', 'ultimate-multisite')), esc_attr(wp_login_url())),
+				esc_html__('Site not available', 'ultimate-multisite'),
 			);
 		}
 	}
@@ -332,14 +329,14 @@ class Site_Manager extends Base_Manager {
 	 * @since 2.0.0
 	 *
 	 * @param int $site_id The site ID.
-	 * @return mixed
+	 * @return void
 	 */
 	public function async_get_site_screenshot($site_id) {
 
 		$site = wu_get_site($site_id);
 
 		if ( ! $site) {
-			return false;
+			return;
 		}
 
 		$domain = $site->get_active_site_url();
@@ -347,12 +344,12 @@ class Site_Manager extends Base_Manager {
 		$attachment_id = Screenshot::take_screenshot($domain);
 
 		if ( ! $attachment_id) {
-			return false;
+			return;
 		}
 
 		$site->set_featured_image_id($attachment_id);
 
-		return $site->save();
+		$site->save();
 	}
 
 	/**
@@ -369,7 +366,7 @@ class Site_Manager extends Base_Manager {
 
 		if ( ! $site) {
 			wp_send_json_error(
-				new \WP_Error('missing-site', __('Site not found.', 'multisite-ultimate'))
+				new \WP_Error('missing-site', __('Site not found.', 'ultimate-multisite'))
 			);
 		}
 
@@ -379,7 +376,7 @@ class Site_Manager extends Base_Manager {
 
 		if ( ! $attachment_id) {
 			wp_send_json_error(
-				new \WP_Error('error', __('We were not able to fetch the screenshot.', 'multisite-ultimate'))
+				new \WP_Error('error', __('We were not able to fetch the screenshot.', 'ultimate-multisite'))
 			);
 		}
 
@@ -394,7 +391,7 @@ class Site_Manager extends Base_Manager {
 	}
 
 	/**
-	 * Add the additional sizes required by Multisite Ultimate.
+	 * Add the additional sizes required by Ultimate Multisite.
 	 *
 	 * Add for the main site only.
 	 *
@@ -418,7 +415,7 @@ class Site_Manager extends Base_Manager {
 	public function add_no_index_warning(): void {
 
 		if (wu_get_setting('stop_template_indexing', false)) {
-			add_meta_box('wu-warnings', __('Multisite Ultimate - Search Engines', 'multisite-ultimate'), [$this, 'render_no_index_warning'], 'dashboard-network', 'normal', 'high');
+			add_meta_box('wu-warnings', __('Ultimate Multisite - Search Engines', 'ultimate-multisite'), [$this, 'render_no_index_warning'], 'dashboard-network', 'normal', 'high');
 		}
 	}
 
@@ -435,10 +432,10 @@ class Site_Manager extends Base_Manager {
 
 			<div class="wu-border-l-4 wu-border-yellow-500 wu-border-solid wu-border-0 wu-px-4 wu-py-2 wu--m-3">
 
-				<p><?php echo wp_kses_post(__('Your Multisite Ultimate settings are configured to <strong>prevent search engines such as Google from indexing your template sites</strong>.', 'multisite-ultimate')); ?></p>
+				<p><?php echo wp_kses_post(__('Your Ultimate Multisite settings are configured to <strong>prevent search engines such as Google from indexing your template sites</strong>.', 'ultimate-multisite')); ?></p>
 
 				<?php // translators: %s: link to the settings page ?>
-				<p><?php echo wp_kses_post(sprintf(__('If you are experiencing negative SEO impacts on other sites in your network, consider disabling this setting <a href="%s">here</a>.', 'multisite-ultimate'), wu_network_admin_url('wp-ultimo-settings', ['tab' => 'sites']))); ?></p>
+				<p><?php echo wp_kses_post(sprintf(__('If you are experiencing negative SEO impacts on other sites in your network, consider disabling this setting <a href="%s">here</a>.', 'ultimate-multisite'), wu_network_admin_url('wp-ultimo-settings', ['tab' => 'sites']))); ?></p>
 
 			</div>
 
@@ -492,21 +489,17 @@ class Site_Manager extends Base_Manager {
 			return;
 		}
 
-		// phpcs:disable
-
-		?>
-
-    <style type="text/css">
-
-			#login h1 a, .login h1 a {
-				background-image: url(<?php echo $logo; ?>);
-				background-position: center center;
-				background-size: contain;
-			}
-
-    </style>
-
-		<?php // phpcs:enable
+		wp_add_inline_style(
+			'login',
+			sprintf(
+				'#login h1 a, .login h1 a {
+                    background-image: url(%s);
+                    background-position: center center;
+                    background-size: contain;
+                }',
+				esc_url($logo)
+			)
+		);
 	}
 
 	/**
@@ -532,14 +525,14 @@ class Site_Manager extends Base_Manager {
 	}
 
 	/**
-	 * Add notices to default site page, recommending the Multisite Ultimate option.
+	 * Add notices to default site page, recommending the Ultimate Multisite option.
 	 *
 	 * @since 2.0.0
 	 * @return void
 	 */
 	public function add_notices_to_default_site_page(): void {
 
-		$notice = __('Hey there! We highly recommend managing your network sites using the Multisite Ultimate &rarr; Sites page. <br>If you want to avoid confusion, you can also hide this page from the admin panel completely on the Multisite Ultimate &rarr; Settings &rarr; Whitelabel options.', 'multisite-ultimate');
+		$notice = __('Hey there! We highly recommend managing your network sites using the Ultimate Multisite &rarr; Sites page. <br>If you want to avoid confusion, you can also hide this page from the admin panel completely on the Ultimate Multisite &rarr; Settings &rarr; Whitelabel options.', 'ultimate-multisite');
 
 		WP_Ultimo()->notices->add(
 			$notice,
@@ -548,11 +541,11 @@ class Site_Manager extends Base_Manager {
 			'wu-sites-use-wp-ultimo',
 			[
 				[
-					'title' => __('Go to the Multisite Ultimate Sites page &rarr;', 'multisite-ultimate'),
+					'title' => __('Go to the Ultimate Multisite Sites page &rarr;', 'ultimate-multisite'),
 					'url'   => wu_network_admin_url('wp-ultimo-sites'),
 				],
 				[
-					'title' => __('Go to the Whitelabel Settings &rarr;', 'multisite-ultimate'),
+					'title' => __('Go to the Whitelabel Settings &rarr;', 'ultimate-multisite'),
 					'url'   => wu_network_admin_url(
 						'wp-ultimo-settings',
 						[
@@ -609,8 +602,8 @@ class Site_Manager extends Base_Manager {
 	 * Handles search and replace for new blogs from WordPress.
 	 *
 	 * @since 1.7.0
-	 * @param array  $data The date being saved.
-	 * @param object $site The site object.
+	 * @param array $data The date being saved.
+	 * @param Site  $site The site object.
 	 * @return void
 	 */
 	public static function search_and_replace_for_new_site($data, $site): void {

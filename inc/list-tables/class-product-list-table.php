@@ -36,8 +36,8 @@ class Product_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Product', 'multisite-ultimate'),  // singular name of the listed records
-				'plural'   => __('Products', 'multisite-ultimate'), // plural name of the listed records
+				'singular' => __('Product', 'ultimate-multisite'),  // singular name of the listed records
+				'plural'   => __('Products', 'ultimate-multisite'), // plural name of the listed records
 				'ajax'     => true,                        // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_network_admin_url('wp-ultimo-edit-product'),
@@ -52,7 +52,7 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item Product object.
+	 * @param \WP_Ultimo\Models\Product $item Product object.
 	 * @return string
 	 */
 	public function column_name($item) {
@@ -68,7 +68,7 @@ class Product_List_Table extends Base_List_Table {
 		$title = "<strong>$title</strong>";
 
 		$actions = [
-			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-product', $url_atts), __('Edit', 'multisite-ultimate')),
+			'edit'      => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-product', $url_atts), __('Edit', 'ultimate-multisite')),
 			'duplicate' => sprintf(
 				'<a href="%s">%s</a>',
 				wu_network_admin_url(
@@ -78,9 +78,9 @@ class Product_List_Table extends Base_List_Table {
 						'id'     => $item->get_id(),
 					]
 				),
-				__('Duplicate', 'multisite-ultimate')
+				__('Duplicate', 'ultimate-multisite')
 			),
-			'delete'    => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'multisite-ultimate'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'multisite-ultimate')),
+			'delete'    => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'ultimate-multisite'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'ultimate-multisite')),
 		];
 
 		return $title . $this->row_actions($actions);
@@ -91,7 +91,7 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item Product object.
+	 * @param \WP_Ultimo\Models\Product $item Product object.
 	 * @return string
 	 */
 	public function column_type($item) {
@@ -108,7 +108,7 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item Product object.
+	 * @param \WP_Ultimo\Models\Product $item Product object.
 	 * @return string
 	 */
 	public function column_slug($item) {
@@ -123,17 +123,17 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item Product object.
+	 * @param \WP_Ultimo\Models\Product $item Product object.
 	 * @return string
 	 */
 	public function column_amount($item) {
 
 		if ($item->get_pricing_type() === 'contact_us') {
-			return __('None', 'multisite-ultimate') . sprintf('<br><small>%s</small>', __('Requires contact', 'multisite-ultimate'));
+			return __('None', 'ultimate-multisite') . sprintf('<br><small>%s</small>', __('Requires contact', 'ultimate-multisite'));
 		}
 
 		if (empty($item->get_amount())) {
-			return __('Free', 'multisite-ultimate');
+			return __('Free', 'ultimate-multisite');
 		}
 
 		$amount = wu_format_currency($item->get_amount(), $item->get_currency());
@@ -143,7 +143,7 @@ class Product_List_Table extends Base_List_Table {
 
 			$message = sprintf(
 				// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
-				_n('every %2$s', 'every %1$s %2$s', $duration, 'multisite-ultimate'), // phpcs:ignore
+				_n('every %2$s', 'every %1$s %2$s', $duration, 'ultimate-multisite'), // phpcs:ignore
 				$duration,
 				$item->get_duration_unit()
 			);
@@ -151,14 +151,14 @@ class Product_List_Table extends Base_List_Table {
 			if ( ! $item->is_forever_recurring()) {
 				$billing_cycles_message = sprintf(
 					// translators: %s is the number of billing cycles.
-					_n('for %s cycle', 'for %s cycles', $item->get_billing_cycles(), 'multisite-ultimate'),
+					_n('for %s cycle', 'for %s cycles', $item->get_billing_cycles(), 'ultimate-multisite'),
 					$item->get_billing_cycles()
 				);
 
 				$message .= ' ' . $billing_cycles_message;
 			}
 		} else {
-			$message = __('one time payment', 'multisite-ultimate');
+			$message = __('one time payment', 'ultimate-multisite');
 		}
 
 		return sprintf('%s<br><small>%s</small>', $amount, $message);
@@ -169,17 +169,17 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item Product object.
+	 * @param \WP_Ultimo\Models\Product $item Product object.
 	 * @return string
 	 */
 	public function column_setup_fee($item) {
 
 		if ($item->get_pricing_type() === 'contact_us') {
-			return __('None', 'multisite-ultimate') . sprintf('<br><small>%s</small>', __('Requires contact', 'multisite-ultimate'));
+			return __('None', 'ultimate-multisite') . sprintf('<br><small>%s</small>', __('Requires contact', 'ultimate-multisite'));
 		}
 
 		if ( ! $item->has_setup_fee()) {
-			return __('No Setup Fee', 'multisite-ultimate');
+			return __('No Setup Fee', 'ultimate-multisite');
 		}
 
 		return wu_format_currency($item->get_setup_fee(), $item->get_currency());
@@ -201,7 +201,7 @@ class Product_List_Table extends Base_List_Table {
 			$product = wu_get_product($product);
 
 			if ( ! $product) {
-				WP_Ultimo()->notices->add(__('Product not found.', 'multisite-ultimate'), 'error', 'network-admin');
+				WP_Ultimo()->notices->add(__('Product not found.', 'ultimate-multisite'), 'error', 'network-admin');
 
 				return;
 			}
@@ -209,7 +209,7 @@ class Product_List_Table extends Base_List_Table {
 			$new_product = $product->duplicate();
 
 			// translators: the %s is the thing copied.
-			$new_name = sprintf(__('Copy of %s', 'multisite-ultimate'), $product->get_name());
+			$new_name = sprintf(__('Copy of %s', 'ultimate-multisite'), $product->get_name());
 
 			$new_product->set_name($new_name);
 
@@ -250,12 +250,12 @@ class Product_List_Table extends Base_List_Table {
 		$columns = [
 			'cb'                => '<input type="checkbox" />',
 			'featured_image_id' => '<span class="dashicons-wu-image"></span>',
-			'name'              => __('Name', 'multisite-ultimate'),
-			'type'              => __('Type', 'multisite-ultimate'),
-			'slug'              => __('Slug', 'multisite-ultimate'),
-			'amount'            => __('Price', 'multisite-ultimate'),
-			'setup_fee'         => __('Setup Fee', 'multisite-ultimate'),
-			'id'                => __('ID', 'multisite-ultimate'),
+			'name'              => __('Name', 'ultimate-multisite'),
+			'type'              => __('Type', 'ultimate-multisite'),
+			'slug'              => __('Slug', 'ultimate-multisite'),
+			'amount'            => __('Price', 'ultimate-multisite'),
+			'setup_fee'         => __('Setup Fee', 'ultimate-multisite'),
+			'id'                => __('ID', 'ultimate-multisite'),
 		];
 
 		return $columns;
@@ -266,7 +266,7 @@ class Product_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Product $item The line item being displayed.
+	 * @param \WP_Ultimo\Models\Product $item The line item being displayed.
 	 * @return void
 	 */
 	public function single_row_grid($item): void {
@@ -304,25 +304,25 @@ class Product_List_Table extends Base_List_Table {
 			'all'     => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'all'),
-				'label' => __('All Products', 'multisite-ultimate'),
+				'label' => __('All Products', 'ultimate-multisite'),
 				'count' => 0,
 			],
 			'plan'    => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'plan'),
-				'label' => __('Plans', 'multisite-ultimate'),
+				'label' => __('Plans', 'ultimate-multisite'),
 				'count' => 0,
 			],
 			'package' => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'package'),
-				'label' => __('Packages', 'multisite-ultimate'),
+				'label' => __('Packages', 'ultimate-multisite'),
 				'count' => 0,
 			],
 			'service' => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'service'),
-				'label' => __('Services', 'multisite-ultimate'),
+				'label' => __('Services', 'ultimate-multisite'),
 				'count' => 0,
 			],
 		];

@@ -4,7 +4,7 @@
  *
  * Abstract class that makes it easy to create new admin pages.
  *
- * Most of Multisite Ultimate pages are implemented using this class, which means that the filters and hooks
+ * Most of Ultimate Multisite pages are implemented using this class, which means that the filters and hooks
  * listed below can be used to append content to all of our pages at once.
  *
  * @package WP_Ultimo
@@ -16,6 +16,8 @@ namespace WP_Ultimo\Admin_Pages;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
+
+use WP_List_Table;
 
 /**
  * Abstract class that makes it easy to create new admin pages.
@@ -47,7 +49,7 @@ abstract class List_Admin_Page extends Base_Admin_Page {
 	 * Holds the WP_List_Table instance to be used on the list
 	 *
 	 * @since 1.8.2
-	 * @var WP_List_Table
+	 * @var \WP_List_Table
 	 */
 	protected $table;
 
@@ -123,8 +125,8 @@ abstract class List_Admin_Page extends Base_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Object removed successfully.', 'multisite-ultimate'),
-			'search_label'    => __('Search Object', 'multisite-ultimate'),
+			'deleted_message' => __('Object removed successfully.', 'ultimate-multisite'),
+			'search_label'    => __('Search Object', 'ultimate-multisite'),
 		];
 	}
 
@@ -214,10 +216,10 @@ abstract class List_Admin_Page extends Base_Admin_Page {
 	}
 
 	/**
-	 * Dumb function. Child classes need to implement this to set the table that Multisite Ultimate will use
+	 * Dumb function. Child classes need to implement this to set the table that Ultimate Multisite will use
 	 *
 	 * @since 1.8.2
-	 * @return WP_List_Table
+	 * @return \WP_List_Table
 	 */
 	public function get_table() {
 

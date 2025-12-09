@@ -68,8 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
     CreateCookie("wu_template", value);
     window.close();
   }));
+  const loadingIndicator = document.getElementById("wu-loading-indicator");
   iframe == null ? void 0 : iframe.addEventListener("load", () => {
     var _a2;
+    if (loadingIndicator) {
+      loadingIndicator.style.display = "none";
+    }
     if (isIOS()) {
       const body = (_a2 = document.getElementById("iframe")) == null ? void 0 : _a2.getElementsByTagName("body")[0];
       body == null ? void 0 : body.classList.add("wu-fix-safari-preview");
@@ -105,6 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleList();
     const target = event.currentTarget;
     const href = target.getAttribute("href") || "";
+    if (loadingIndicator) {
+      loadingIndicator.style.display = "flex";
+    }
     iframe.src = target.getAttribute("data-frame") || "";
     const selector = document.getElementById("template_selector");
     const selectorText = selector.firstChild;
@@ -119,8 +126,8 @@ document.addEventListener("DOMContentLoaded", () => {
     desktop: "100%",
     tabletlandscape: "1040px",
     tabletportrait: "788px",
-    mobilelandscape: "500px",
-    mobileportrait: "340px",
+    mobilelandscape: "815px",
+    mobileportrait: "375px",
     placebo: "0px"
   };
   document.querySelectorAll(".responsive a").forEach((element) => element.addEventListener("click", (event) => {

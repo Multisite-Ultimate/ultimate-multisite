@@ -16,7 +16,7 @@ use WP_Ultimo\Database\Payments\Payment_Status;
 use WP_Ultimo\Models\Product;
 
 /**
- * Creates an cart with the parameters of the purchase being placed.
+ * Creates a cart with the parameters of the purchase being placed.
  *
  * @package WP_Ultimo
  * @subpackage Checkout
@@ -1100,7 +1100,7 @@ class Line_Item implements \JsonSerializable {
 
 		$description = sprintf(
 			// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
-			_n('%2$s', 'every %1$s %2$s', $this->get_duration(), 'multisite-ultimate'), // phpcs:ignore
+			_n('%2$s', 'every %1$s %2$s', $this->get_duration(), 'ultimate-multisite'), // phpcs:ignore
 			$this->get_duration(),
 			wu_get_translatable_string(($this->get_duration() <= 1 ? $this->get_duration_unit() : $this->get_duration_unit() . 's'))
 		);
@@ -1155,7 +1155,7 @@ class Line_Item implements \JsonSerializable {
 				'payment_status' => false,
 			]
 		);
-
+		// TODO: This doesn't seem to work:
 		$query['date_query']['column'] = 'p.date_created';
 
 		$date_query = new \WP_Date_Query($query['date_query']);
@@ -1187,6 +1187,10 @@ class Line_Item implements \JsonSerializable {
 		// phpcs:enable;
 
 		$results = $wpdb->get_results($query); // phpcs:ignore
+
+		if (! $results) {
+			return [];
+		}
 
 		foreach ($results as &$ln) {
 			$copy = $ln;

@@ -4,6 +4,7 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
 ?>
 <div class="wu-my-6">
 
@@ -13,7 +14,7 @@
 
 		<label for="<?php echo esc_attr($field->id); ?>">
 
-		<?php echo $field->title; ?>
+		<?php echo esc_html($field->title); ?>
 
 		</label>
 
@@ -41,11 +42,7 @@
 
 </div>
 
-<script type="text/javascript">
-(function($) {
-	$(function() {
-		// Add Color Picker to all inputs that have 'color-field' class
-		$('.field-<?php echo esc_attr($field->id); ?>').wpColorPicker();
-	});
-})(jQuery);
-</script>
+<?php
+wp_enqueue_script('wu-color-field', wu_get_asset('color-field.js', 'js'), ['jquery', 'wp-color-picker'], wu_get_version(), true);
+wp_add_inline_script('wu-color-field', 'var wu_color_field_ids = wu_color_field_ids || []; wu_color_field_ids.push("' . esc_js($field->id) . '");', 'before');
+?>

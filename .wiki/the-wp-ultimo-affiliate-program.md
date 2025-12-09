@@ -1,6 +1,6 @@
-# The Multisite Ultimate Affiliate Program
+# The Ultimate Multisite Affiliate Program
 
-You can become a Multisite Ultimate affiliate by joining our Lemon Squeezy affiliate program.
+You can become a Ultimate Multisite affiliate by joining our Lemon Squeezy affiliate program.
 
 First go to our affiliates page on <https://store.wpultimo.com/affiliates>, and click the button to become an affiliate.  
 ![](https://docs.nextpress.us/uploads/d63c485e-f614-4a5a-b86d-4f604036e979.png)
@@ -15,9 +15,9 @@ You will receive a confirmation email from Lemon Squeezy once your application i
 You can manage and view all of your affiliate memberships, referrals and payouts on your Affiliate Hub.  
 ![](https://docs.nextpress.us/uploads/ce97a82d-ab63-4a43-bfa3-eb62e10e29bf.png)
 
-## **How does Multisite Ultimate’s affiliate program work?**
+## **How does Ultimate Multisite’s affiliate program work?**
 
-If you become a Multisite Ultimate affiliate you will have a referral URL to sell Multisite Ultimate on your website, page or other social network.
+If you become a Ultimate Multisite affiliate you will have a referral URL to sell Ultimate Multisite on your website, page or other social network.
 
 Each sale made through this link gives you a 20% commission on the license value.
 

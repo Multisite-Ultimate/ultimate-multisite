@@ -14,8 +14,9 @@
 
 namespace WP_Ultimo\SSO;
 
+use Jasny\SSO\Server\BrokerException;
 use Jasny\SSO\Server\SessionInterface;
-use Jasny\SSO\ServerException;
+use Jasny\SSO\Server\ServerException;
 use WP_Ultimo\SSO\Exception\SSO_Session_Exception;
 
 // Exit if accessed directly
@@ -32,18 +33,18 @@ class SSO_Session_Handler implements SessionInterface {
 	 * The SSO manager instance.
 	 *
 	 * @since 2.0.11
-	 * @var \WP_Ultimo\SSO
+	 * @var SSO
 	 */
 	public $sso_manager;
 
 	/**
 	 * Build the handler with the SSO manager.
 	 *
-	 * @since 2.0.11
+	 * @param ?SSO $sso_manager The sso manager.
 	 *
-	 * @param \WP_Ultimo\SSO\SSO|null $sso_manager The sso manager.
+	 * @since 2.0.11
 	 */
-	public function __construct(\WP_Ultimo\SSO\SSO $sso_manager = null) {
+	public function __construct(?SSO $sso_manager = null) {
 		$this->sso_manager = $sso_manager;
 	}
 
@@ -52,7 +53,7 @@ class SSO_Session_Handler implements SessionInterface {
 	 *
 	 * @since 2.0.11
 	 */
- public function getId(): string { // phpcs:ignore
+	public function getId(): string {
 		return $this->sso_manager->input('broker');
 	}
 
@@ -61,10 +62,9 @@ class SSO_Session_Handler implements SessionInterface {
 	 *
 	 * @since 2.0.11
 	 *
-	 * @throws ServerException If session can't be started.
 	 * @throws SSO_Session_Exception If session can't be started.
 	 */
- public function start(): void { // phpcs:ignore
+	public function start(): void {
 
 		$site_hash = $this->sso_manager->input('broker');
 
@@ -87,7 +87,7 @@ class SSO_Session_Handler implements SessionInterface {
 	 *
 	 * @param string $id The session id.
 	 */
- public function resume(string $id): void { // phpcs:ignore
+	public function resume(string $id): void {
 
 		$decoded_id = $this->sso_manager->decode($id, $this->sso_manager->salt());
 
@@ -105,7 +105,7 @@ class SSO_Session_Handler implements SessionInterface {
 	 *
 	 * @since 2.0.11
 	 */
- public function isActive(): bool { // phpcs:ignore
+	public function isActive(): bool {
 		return false;
 	}
 }

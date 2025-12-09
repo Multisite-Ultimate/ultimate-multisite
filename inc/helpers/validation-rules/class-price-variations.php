@@ -1,4 +1,4 @@
-<?php // phpcs:disable
+<?php
 /**
  * Adds a validation rules that allows us to check if a given parameter is unique.
  *
@@ -36,90 +36,73 @@ class Price_Variations extends Rule {
 	 * @var array
 	 */
 	protected $fillableParams = ['duration', 'duration_unit']; // phpcs:ignore
-  /**
-   * Performs the actual check.
-   *
-   * @since 2.0.0
-   *
-   * @param mixed $value Value being checked.
-   */
-  public function check($value) : bool {
+	/**
+	 * Performs the actual check.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param mixed $value Value being checked.
+	 */
+	public function check($value): bool {
 
-    if (is_string($value)) {
+		if (is_string($value)) {
+			$value = maybe_unserialize($value);
+		}
 
-      $value = maybe_unserialize($value);
+		if (! is_array($value)) {
+			return false;
+		}
 
-    }
+		foreach ($value as $price_variation) {
 
-    if (!is_array($value)) {
+			/**
+			 * Validation Duration
+			 */
+			$duration = wu_get_isset($price_variation, 'duration', false);
 
-      return false;
+			if (! is_numeric($duration) || (int) $duration <= 0) {
+				return false;
+			}
 
-    }
+			/**
+			 * Validation Unit
+			 */
+			$unit = wu_get_isset($price_variation, 'duration_unit', false);
 
-    foreach ($value as $price_variation) {
+			$allowed_units = [
+				'day',
+				'week',
+				'month',
+				'year',
+			];
 
-      /**
-       * Validation Duration
-       */
-      $duration = wu_get_isset($price_variation, 'duration', false);
+			if (! in_array($unit, $allowed_units, true)) {
+				return false;
+			}
 
-      if (!is_numeric($duration) || (int) $duration <= 0) {
+			/**
+			 * Check if it is the same as the main duration
+			 */
+			if ($this->parameter('duration') == $duration && $this->parameter('duration_unit') === $unit) {
+				$this->message = __('This product cannot have a price variation for the same duration and duration unit values as the product itself.', 'ultimate-multisite');
 
-        return false;
+				return false;
+			}
 
-      }
+			/**
+			 * Validation Amount
+			 */
+			$amount = wu_get_isset($price_variation, 'amount', false);
 
-      /**
-       * Validation Unit
-       */
-      $unit = wu_get_isset($price_variation, 'duration_unit', false);
+			if ($amount) {
+				$amount = wu_to_float($amount);
+			}
 
-      $allowed_units = [
-        'day',
-        'week',
-        'month',
-        'year',
-      ];
+			if (! is_numeric($amount)) {
+				return false;
+			}
+		}
 
-      if (!in_array($unit, $allowed_units, true)) {
-
-        return false;
-
-      }
-
-      /**
-       * Check if it is the same as the main duration
-       */
-      if ($this->parameter('duration') == $duration && $this->parameter('duration_unit') === $unit) {
-
-        $this->message = 'This product cannot have a price variation for the same duration and duration unit values as the product itself.';
-
-        return false;
-
-      }
-
-      /**
-       * Validation Amount
-       */
-      $amount = wu_get_isset($price_variation, 'amount', false);
-
-      if ($amount) {
-
-        $amount = wu_to_float($amount);
-
-      }
-
-      if (!is_numeric($amount)) {
-
-        return false;
-
-      }
-
-    }
-
-    return true;
-
+		return true;
 	}
-
 }

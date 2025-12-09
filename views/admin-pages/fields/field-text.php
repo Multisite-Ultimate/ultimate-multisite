@@ -4,8 +4,10 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
-<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<div class="wu-block wu-w-full">
 
@@ -30,7 +32,7 @@
 		<div class="wu-flex">
 
 		<div class="wu-w-full wu-my-1">
-			<input class="form-control wu-w-full" name="<?php echo esc_attr($field->id); ?>" type="text" placeholder="<?php echo esc_attr($field->placeholder); ?>" value="<?php echo esc_attr($field->value); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<input class="form-control wu-w-full" name="<?php echo esc_attr($field->id); ?>" type="text" placeholder="<?php echo esc_attr($field->placeholder); ?>" value="<?php echo esc_attr($field->value); ?>" <?php $field->print_html_attributes(); ?>>
 		</div>
 
 		<?php if (wu_get_isset($field->html_attr, 'data-base-link')) : ?>
@@ -41,7 +43,7 @@
 				target="_blank"
 				class="button"
 				v-show='<?php echo esc_js(wu_get_isset($field->html_attr, 'v-model')); ?>'
-				<?php echo wu_tooltip_text(__('View', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php wu_tooltip_text(__('View', 'ultimate-multisite')); ?>
 			>
 				<span class="dashicons-wu-popup wu-m-0 wu-p-0"></span>
 			</a>
@@ -53,13 +55,13 @@
 
 	<?php elseif ($field->money) : ?>
 
-		<money class="form-control wu-w-full wu-my-1" name="<?php echo esc_attr($field->id); ?>" type="<?php echo esc_attr($field->type); ?>" placeholder="<?php echo esc_attr($field->placeholder); ?>" value="<?php echo esc_attr($field->value); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>></money>
+		<money class="form-control wu-w-full wu-my-1" name="<?php echo esc_attr($field->id); ?>" type="<?php echo esc_attr($field->type); ?>" placeholder="<?php echo esc_attr($field->placeholder); ?>" value="<?php echo esc_attr($field->value); ?>" <?php $field->print_html_attributes(); ?>></money>
 
-		<input class="form-control wu-w-full wu-my-1" name="<?php echo esc_attr($field->id); ?>" type="<?php echo esc_attr($field->type); ?>" placeholder="<?php echo esc_attr($field->placeholder); ?>" value="<?php echo esc_attr($field->value); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> v-if="false">
+		<input class="form-control wu-w-full wu-my-1" name="<?php echo esc_attr($field->id); ?>" type="<?php echo esc_attr($field->type); ?>" placeholder="<?php echo esc_attr($field->placeholder); ?>" value="<?php echo esc_attr($field->value); ?>" <?php $field->print_html_attributes(); ?> v-if="false">
 
 	<?php else : ?>
 
-		<input class="form-control wu-w-full wu-my-1" name="<?php echo esc_attr($field->id); ?>" type="<?php echo esc_attr($field->type); ?>" placeholder="<?php echo esc_attr($field->placeholder); ?>" value="<?php echo esc_attr($field->value); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+		<input class="form-control wu-w-full wu-my-1" name="<?php echo esc_attr($field->id); ?>" type="<?php echo esc_attr($field->type); ?>" placeholder="<?php echo esc_attr($field->placeholder); ?>" value="<?php echo esc_attr($field->value); ?>" <?php $field->print_html_attributes(); ?>>
 
 	<?php endif; ?>
 

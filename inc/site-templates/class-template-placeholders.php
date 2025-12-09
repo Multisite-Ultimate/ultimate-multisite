@@ -161,12 +161,27 @@ class Template_Placeholders {
 			wp_send_json(
 				[
 					'code'    => 'not-enough-permissions',
-					'message' => __('You don\'t have permission to alter placeholders.', 'multisite-ultimate'),
+					'message' => __('You don\'t have permission to alter placeholders.', 'ultimate-multisite'),
 				]
 			);
 		}
 
-		$data = json_decode(file_get_contents('php://input'), true);
+		// Init filesystem if not yet initiated.
+		WP_Filesystem();
+
+		// Get POST body HTML data.
+		global $wp_filesystem;
+		$data = json_decode($wp_filesystem->get_contents('php://input'), true);
+
+		if (null === $data) {
+			wp_send_json(
+				[
+					'code'    => 'invalid-input',
+					'message' => __('The JSON provided is invalid', 'ultimate-multisite'),
+				]
+			);
+		}
+		$data = wu_clean($data);
 
 		$placeholders = $data['placeholders'] ?? [];
 
@@ -180,7 +195,7 @@ class Template_Placeholders {
 		wp_send_json(
 			[
 				'code'    => 'success',
-				'message' => __('Placeholders successfully updated!', 'multisite-ultimate'),
+				'message' => __('Placeholders successfully updated!', 'ultimate-multisite'),
 			]
 		);
 	}

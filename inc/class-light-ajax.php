@@ -16,7 +16,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Adds a lighter ajax option to Multisite Ultimate.
+ * Adds a lighter ajax option to Ultimate Multisite.
  *
  * @since 1.9.14
  */
@@ -101,7 +101,8 @@ class Light_Ajax {
 			]
 		);
 
-		$action = isset($_REQUEST['wu-when']) ? base64_decode((string) $_REQUEST['wu-when']) : 'plugins_loaded'; // phpcs:ignore WordPress
+		// nonce checked in process_light_ajax().
+		$action = isset($_REQUEST['wu-when']) ? base64_decode(sanitize_text_field(wp_unslash($_REQUEST['wu-when']))) : 'plugins_loaded'; // phpcs:ignore WordPress
 
 		return in_array($action, $allowed_list, true) ? $action : 'plugins_loaded';
 	}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Dashboard Admin Page.
+ * Ultimate Multisite Dashboard Admin Page.
  */
 class Customer_List_Admin_Page extends List_Admin_Page {
 
@@ -66,7 +66,7 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 		}
 
 		if ( ! wp_verify_nonce(wu_request('nonce'), 'wu_export_customers')) {
-			wp_die(esc_html__('You do not have permissions to access this file.', 'multisite-ultimate'));
+			wp_die(esc_html__('You do not have permissions to access this file.', 'ultimate-multisite'));
 		}
 
 		$customer_data = array_map(
@@ -183,14 +183,14 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 					'v-model' => 'type',
 				],
 				'options'   => [
-					'existing' => __('Existing User', 'multisite-ultimate'),
-					'new'      => __('Invite New', 'multisite-ultimate'),
+					'existing' => __('Existing User', 'ultimate-multisite'),
+					'new'      => __('Invite New', 'ultimate-multisite'),
 				],
 			],
 			'user_id'       => [
 				'type'              => 'model',
-				'title'             => __('Existing User', 'multisite-ultimate'),
-				'placeholder'       => __('Search WordPress user...', 'multisite-ultimate'),
+				'title'             => __('Existing User', 'ultimate-multisite'),
+				'placeholder'       => __('Search WordPress user...', 'ultimate-multisite'),
 				'tooltip'           => '',
 				'min'               => 1,
 				'wrapper_html_attr' => [
@@ -206,24 +206,24 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 			],
 			'username'      => [
 				'type'              => 'text',
-				'title'             => __('Username', 'multisite-ultimate'),
-				'placeholder'       => __('E.g. johnsmith', 'multisite-ultimate'),
+				'title'             => __('Username', 'ultimate-multisite'),
+				'placeholder'       => __('E.g. johnsmith', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show' => "require('type', 'new')",
 				],
 			],
 			'email_address' => [
 				'type'              => 'email',
-				'title'             => __('Email Address', 'multisite-ultimate'),
-				'placeholder'       => __('E.g. customer@wpultimo.dev', 'multisite-ultimate'),
+				'title'             => __('Email Address', 'ultimate-multisite'),
+				'placeholder'       => __('E.g. customer@wpultimo.dev', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show' => "require('type', 'new')",
 				],
 			],
 			'set_password'  => [
 				'type'              => 'toggle',
-				'title'             => __('Set Password', 'multisite-ultimate'),
-				'desc'              => __('If not set, the user will be asked to set a password after accepting the invite.', 'multisite-ultimate'),
+				'title'             => __('Set Password', 'ultimate-multisite'),
+				'desc'              => __('If not set, the user will be asked to set a password after accepting the invite.', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show' => "require('type', 'new')",
 				],
@@ -233,21 +233,18 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 			],
 			'password'      => [
 				'type'              => 'password',
-				'title'             => __('Password', 'multisite-ultimate'),
-				'placeholder'       => __('E.g. p@$$w0rd', 'multisite-ultimate'),
+				'title'             => __('Password', 'ultimate-multisite'),
+				'placeholder'       => __('E.g. p@$$w0rd', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
 					'v-show' => "require('type', 'new') && require('set_password', true)",
 				],
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Create Customer', 'multisite-ultimate'),
+				'title'           => __('Create Customer', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
-				'html_attr'       => [
-					// 'v-bind:disabled' => '!confirmed',
-				],
 			],
 		];
 
@@ -332,8 +329,8 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Customer removed successfully.', 'multisite-ultimate'),
-			'search_label'    => __('Search Customer', 'multisite-ultimate'),
+			'deleted_message' => __('Customer removed successfully.', 'ultimate-multisite'),
+			'search_label'    => __('Search Customer', 'ultimate-multisite'),
 		];
 	}
 
@@ -345,7 +342,7 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Customers', 'multisite-ultimate');
+		return __('Customers', 'ultimate-multisite');
 	}
 
 	/**
@@ -356,7 +353,7 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Customers', 'multisite-ultimate');
+		return __('Customers', 'ultimate-multisite');
 	}
 
 	/**
@@ -367,7 +364,7 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Customers', 'multisite-ultimate');
+		return __('Customers', 'ultimate-multisite');
 	}
 
 	/**
@@ -380,13 +377,13 @@ class Customer_List_Admin_Page extends List_Admin_Page {
 
 		return [
 			[
-				'label'   => __('Add Customer', 'multisite-ultimate'),
+				'label'   => __('Add Customer', 'ultimate-multisite'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('add_new_customer'),
 			],
 			[
-				'label' => __('Export as CSV', 'multisite-ultimate'),
+				'label' => __('Export as CSV', 'ultimate-multisite'),
 				'icon'  => 'wu-export',
 				'url'   => add_query_arg(
 					[

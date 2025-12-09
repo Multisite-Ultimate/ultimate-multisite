@@ -4,6 +4,12 @@ namespace WP_Ultimo\Models;
 
 use WP_UnitTestCase;
 
+/**
+ * Test class for Checkout Form model functionality.
+ *
+ * Tests checkout form creation, settings management, field handling,
+ * template processing, country restrictions, and validation rules.
+ */
 class Checkout_Form_Test extends WP_UnitTestCase {
 
 	/**

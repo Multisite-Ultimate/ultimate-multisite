@@ -37,7 +37,7 @@ jobs:
 
       - name: Verify version matches
         run: |
-          WP_VERSION=$(grep -m 1 "Version: " wp-multisite-waas.php | awk -F' ' '{print $2}')
+          WP_VERSION=$(grep -m 1 "Version: " ultimate-multisite.php | awk -F' ' '{print $2}')
           README_VERSION=$(grep -m 1 "Stable tag: " readme.txt | awk -F' ' '{print $3}')
           PKG_VERSION=$(node -p "require('./package.json').version")
           
@@ -66,11 +66,11 @@ jobs:
         with:
           files: |
             build/wp-multisite-waas-${{ env.VERSION }}.zip
-          name: Multisite Ultimate ${{ env.VERSION }}
+          name: Ultimate Multisite ${{ env.VERSION }}
           draft: true
           prerelease: true
           body: |
-            # Multisite Ultimate ${{ env.VERSION }}
+            # Ultimate Multisite ${{ env.VERSION }}
             
             ## What's Changed
             

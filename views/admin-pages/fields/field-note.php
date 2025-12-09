@@ -4,8 +4,11 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+/** @var $field \WP_Ultimo\UI\Field */
+
 ?>
-<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<?php
 
@@ -25,7 +28,7 @@
 
 	<div class="<?php echo esc_attr('wu-my-0 ' . $field->classes); ?>">
 
-	<?php echo $field->desc; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		<?php echo wp_kses($field->desc, wu_kses_allowed_html()); ?>
 
 	</div>
 

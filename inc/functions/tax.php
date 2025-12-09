@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
 use WP_Ultimo\Tax\Tax;
 
 /**
- * Checks if Multisite Ultimate should collect taxes.
+ * Checks if Ultimate Multisite should collect taxes.
  *
  * @since 2.0.0
  * @return bool

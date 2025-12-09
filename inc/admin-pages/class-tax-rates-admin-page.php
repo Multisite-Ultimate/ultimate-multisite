@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate About Admin Page.
+ * Ultimate Multisite About Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\Tax\Tax;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate About Admin Page.
+ * Ultimate Multisite About Admin Page.
  */
 class Tax_Rates_Admin_Page extends Base_Admin_Page {
 
@@ -72,7 +72,7 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Tax Rates', 'multisite-ultimate');
+		return __('Tax Rates', 'ultimate-multisite');
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Tax Rates', 'multisite-ultimate');
+		return __('Tax Rates', 'ultimate-multisite');
 	}
 
 	/**
@@ -94,7 +94,7 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Tax Rates', 'multisite-ultimate');
+		return __('Tax Rates', 'ultimate-multisite');
 	}
 
 	/**
@@ -110,11 +110,11 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 		$columns = apply_filters(
 			'wu_tax_rates_columns',
 			[
-				'title'    => __('Label', 'multisite-ultimate'),
-				'country'  => __('Country', 'multisite-ultimate'),
-				'state'    => __('State / Province', 'multisite-ultimate'),
-				'city'     => __('City', 'multisite-ultimate'),
-				'tax_rate' => __('Tax Rate (%)', 'multisite-ultimate'),
+				'title'    => __('Label', 'ultimate-multisite'),
+				'country'  => __('Country', 'ultimate-multisite'),
+				'state'    => __('State / Province', 'ultimate-multisite'),
+				'city'     => __('City', 'ultimate-multisite'),
+				'tax_rate' => __('Tax Rate (%)', 'ultimate-multisite'),
 				'move'     => '',
 			]
 		);
@@ -145,9 +145,9 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 			'wu-tax-rates',
 			'wu_tax_ratesl10n',
 			[
-				'name'                                => __('Tax', 'multisite-ultimate'),
-				'confirm_message'                     => __('Are you sure you want to delete this rows?', 'multisite-ultimate'),
-				'confirm_delete_tax_category_message' => __('Are you sure you want to delete this tax category?', 'multisite-ultimate'),
+				'name'                                => __('Tax', 'ultimate-multisite'),
+				'confirm_message'                     => __('Are you sure you want to delete this rows?', 'ultimate-multisite'),
+				'confirm_delete_tax_category_message' => __('Are you sure you want to delete this tax category?', 'ultimate-multisite'),
 			]
 		);
 
@@ -172,7 +172,7 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 				'widget_id'             => $id,
 				'before'                => '',
 				'after'                 => '',
-				'title'                 => __('Fields', 'multisite-ultimate'),
+				'title'                 => __('Fields', 'ultimate-multisite'),
 				'position'              => 'side',
 				'screen'                => get_current_screen(),
 				'fields'                => [],
@@ -190,7 +190,7 @@ class Tax_Rates_Admin_Page extends Base_Admin_Page {
 				if (wu_get_isset($atts['html_attr'], 'data-wu-app')) {
 					$atts['fields']['loading'] = [
 						'type'              => 'note',
-						'desc'              => sprintf('<div class="wu-block wu-text-center wu-blinking-animation wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">%s</div>', __('Loading...', 'multisite-ultimate')),
+						'desc'              => sprintf('<div class="wu-block wu-text-center wu-blinking-animation wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">%s</div>', __('Loading...', 'ultimate-multisite')),
 						'wrapper_html_attr' => [
 							'v-if' => 0,
 						],

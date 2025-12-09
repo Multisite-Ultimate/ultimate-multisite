@@ -4,6 +4,7 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
 ?>
 <div class="wu-my-6">
 
@@ -13,7 +14,7 @@
 
 		<label for="<?php echo esc_attr($field->id); ?>">
 
-		<?php echo $field->title; ?>
+		<?php echo esc_html($field->title); ?>
 
 		</label>
 
@@ -27,7 +28,7 @@
 
 			<option <?php selected(wu_get_setting($field->id), $value); ?> value="<?php echo esc_attr($value); ?>">
 
-			<?php echo $option; ?>
+			<?php echo esc_html($option); ?>
 
 			</option>
 

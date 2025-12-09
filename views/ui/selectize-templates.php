@@ -4,6 +4,7 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
 ?>
 <!-- WP User Template -->
 <script type="text/html" id="wu-template-user">
@@ -20,7 +21,7 @@
 
 		<span class="wu-block">{{ display_name }} (#{{ ID }})</span>
 
-		<small>{{ typeof user_email !== 'undefined' ? user_email : '<?php esc_html_e('Undefined'); ?>' }}</small>
+		<small>{{ typeof user_email !== 'undefined' ? user_email : '<?php esc_html_e('Undefined', 'ultimate-multisite'); ?>' }}</small>
 
 	</div>
 
@@ -44,7 +45,7 @@
 
 		<span class="wu-block">{{ display_name }} (#{{ id }})</span>
 
-		<small>{{ typeof user_email !== 'undefined' ? user_email : '<?php esc_html_e('Undefined'); ?>' }}</small>
+		<small>{{ typeof user_email !== 'undefined' ? user_email : '<?php esc_html_e('Undefined', 'ultimate-multisite'); ?>' }}</small>
 
 	</div>
 
@@ -180,7 +181,7 @@
 
 		<span class="wu-block">{{ text }}</span>
 
-		<small><?php esc_html_e('Network Admin', 'multisite-ultimate'); ?> &rarr; {{ group }}</small>
+		<small><?php esc_html_e('Network Admin', 'ultimate-multisite'); ?> &rarr; {{ group }}</small>
 
 	</div>
 
@@ -216,7 +217,7 @@
 
 		<span class="wu-block">{{ domain }}</span>
 
-		<small><?php esc_html_e('Mapped Domain', 'multisite-ultimate'); ?></small>
+		<small><?php esc_html_e('Mapped Domain', 'ultimate-multisite'); ?></small>
 
 	</div>
 
@@ -324,7 +325,7 @@
 
 	<div class="wu-p-4 wu-block wu-flex wu-items-center">
 
-	<?php esc_html_e('Nothing Found...', 'multisite-ultimate'); ?>
+	<?php esc_html_e('Nothing Found...', 'ultimate-multisite'); ?>
 
 	</div>
 

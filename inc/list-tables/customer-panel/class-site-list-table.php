@@ -31,7 +31,7 @@ class Site_List_Table extends Parent_Site_List_Table {
 		parent::__construct();
 
 		$this->modes = [
-			'grid' => __('Grid View'),
+			'grid' => __('Grid View', 'ultimate-multisite'),
 		];
 
 		$this->current_mode = 'grid';
@@ -49,19 +49,6 @@ class Site_List_Table extends Parent_Site_List_Table {
 	}
 
 	/**
-	 * Clears filters.
-	 *
-	 * @since 2.0.0
-	 */
-	public function get_filters(): array {
-
-		return [
-			'filters'      => [],
-			'date_filters' => [],
-		];
-	}
-
-	/**
 	 * Clears views.
 	 *
 	 * @since 2.0.0
@@ -73,7 +60,7 @@ class Site_List_Table extends Parent_Site_List_Table {
 			'all' => [
 				'field' => 'type',
 				'url'   => add_query_arg('type', 'all'),
-				'label' => __('Your Sites', 'multisite-ultimate'),
+				'label' => __('Your Sites', 'ultimate-multisite'),
 				'count' => 0,
 			],
 		];

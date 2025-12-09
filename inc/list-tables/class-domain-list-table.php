@@ -9,7 +9,6 @@
 
 namespace WP_Ultimo\List_Tables;
 
-use WP_Ultimo\Models\Domain;
 use WP_Ultimo\Database\Domains\Domain_Stage;
 
 // Exit if accessed directly
@@ -39,8 +38,8 @@ class Domain_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Domain', 'multisite-ultimate'),  // singular name of the listed records
-				'plural'   => __('Domains', 'multisite-ultimate'), // plural name of the listed records
+				'singular' => __('Domain', 'ultimate-multisite'),  // singular name of the listed records
+				'plural'   => __('Domains', 'ultimate-multisite'), // plural name of the listed records
 				'ajax'     => true,                       // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_get_form_url('add_new_domain'),
@@ -72,7 +71,7 @@ class Domain_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Domain $item Domain object.
+	 * @param \WP_Ultimo\Models\Domain $item Domain object.
 	 */
 	public function column_domain($item): string {
 
@@ -86,8 +85,8 @@ class Domain_List_Table extends Base_List_Table {
 		$html = "<span class='wu-font-mono'><strong>{$domain}</strong></span>";
 
 		$actions = [
-			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-domain', $url_atts), __('Edit', 'multisite-ultimate')),
-			'delete' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'multisite-ultimate'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'multisite-ultimate')),
+			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-domain', $url_atts), __('Edit', 'ultimate-multisite')),
+			'delete' => sprintf('<a title="%s" class="wubox" href="%s">%s</a>', __('Delete', 'ultimate-multisite'), wu_get_form_url('delete_modal', $url_atts), __('Delete', 'ultimate-multisite')),
 		];
 
 		return $html . $this->row_actions($actions);
@@ -98,12 +97,12 @@ class Domain_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Domain $item Domain object.
+	 * @param \WP_Ultimo\Models\Domain $item Domain object.
 	 * @return string
 	 */
 	public function column_active($item) {
 
-		return $item->is_active() ? __('Yes', 'multisite-ultimate') : __('No', 'multisite-ultimate');
+		return $item->is_active() ? __('Yes', 'ultimate-multisite') : __('No', 'ultimate-multisite');
 	}
 
 	/**
@@ -111,12 +110,12 @@ class Domain_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Domain $item Domain object.
+	 * @param \WP_Ultimo\Models\Domain $item Domain object.
 	 * @return string
 	 */
 	public function column_primary_domain($item) {
 
-		return $item->is_primary_domain() ? __('Yes', 'multisite-ultimate') : __('No', 'multisite-ultimate');
+		return $item->is_primary_domain() ? __('Yes', 'ultimate-multisite') : __('No', 'ultimate-multisite');
 	}
 
 	/**
@@ -124,12 +123,12 @@ class Domain_List_Table extends Base_List_Table {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param WP_Ultimo\Models\Domain $item Domain object.
+	 * @param \WP_Ultimo\Models\Domain $item Domain object.
 	 * @return string
 	 */
 	public function column_secure($item) {
 
-		return $item->is_secure() ? __('Yes', 'multisite-ultimate') : __('No', 'multisite-ultimate');
+		return $item->is_secure() ? __('Yes', 'ultimate-multisite') : __('No', 'ultimate-multisite');
 	}
 
 	/**
@@ -159,13 +158,13 @@ class Domain_List_Table extends Base_List_Table {
 
 		$columns = [
 			'cb'             => '<input type="checkbox" />',
-			'domain'         => __('Domain', 'multisite-ultimate'),
-			'stage'          => __('Stage', 'multisite-ultimate'),
-			'blog_id'        => __('Site', 'multisite-ultimate'),
-			'active'         => __('Active', 'multisite-ultimate'),
-			'primary_domain' => __('Primary', 'multisite-ultimate'),
-			'secure'         => __('HTTPS', 'multisite-ultimate'),
-			'id'             => __('ID', 'multisite-ultimate'),
+			'domain'         => __('Domain', 'ultimate-multisite'),
+			'stage'          => __('Stage', 'ultimate-multisite'),
+			'blog_id'        => __('Site', 'ultimate-multisite'),
+			'active'         => __('Active', 'ultimate-multisite'),
+			'primary_domain' => __('Primary', 'ultimate-multisite'),
+			'secure'         => __('HTTPS', 'ultimate-multisite'),
+			'id'             => __('ID', 'ultimate-multisite'),
 		];
 
 		return $columns;
@@ -185,10 +184,10 @@ class Domain_List_Table extends Base_List_Table {
 				 * Active
 				 */
 				'active'         => [
-					'label'   => __('Active', 'multisite-ultimate'),
+					'label'   => __('Active', 'ultimate-multisite'),
 					'options' => [
-						0 => __('Inactive', 'multisite-ultimate'),
-						1 => __('Active', 'multisite-ultimate'),
+						0 => __('Inactive', 'ultimate-multisite'),
+						1 => __('Active', 'ultimate-multisite'),
 					],
 				],
 
@@ -196,10 +195,10 @@ class Domain_List_Table extends Base_List_Table {
 				 * Primay
 				 */
 				'primary_domain' => [
-					'label'   => __('Is Primary', 'multisite-ultimate'),
+					'label'   => __('Is Primary', 'ultimate-multisite'),
 					'options' => [
-						0 => __('Not Primary Domain', 'multisite-ultimate'),
-						1 => __('Primary Domain', 'multisite-ultimate'),
+						0 => __('Not Primary Domain', 'ultimate-multisite'),
+						1 => __('Primary Domain', 'ultimate-multisite'),
 					],
 				],
 
@@ -207,10 +206,10 @@ class Domain_List_Table extends Base_List_Table {
 				 * Secure (HTTPS)
 				 */
 				'secure'         => [
-					'label'   => __('HTTPS', 'multisite-ultimate'),
+					'label'   => __('HTTPS', 'ultimate-multisite'),
 					'options' => [
-						0 => __('Non-HTTPS', 'multisite-ultimate'),
-						1 => __('HTTPS', 'multisite-ultimate'),
+						0 => __('Non-HTTPS', 'ultimate-multisite'),
+						1 => __('HTTPS', 'ultimate-multisite'),
 					],
 				],
 
@@ -218,7 +217,7 @@ class Domain_List_Table extends Base_List_Table {
 				 * Stage
 				 */
 				'stage'          => [
-					'label'   => __('Verification Stage', 'multisite-ultimate'),
+					'label'   => __('Verification Stage', 'ultimate-multisite'),
 					'options' => Domain_Stage::to_array(),
 				],
 

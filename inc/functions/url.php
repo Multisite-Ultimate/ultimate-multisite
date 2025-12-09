@@ -21,10 +21,10 @@ function wu_get_current_url() {
 	 * the initiator URL.
 	 */
 	if (wp_doing_ajax() && isset($_SERVER['HTTP_REFERER'])) {
-		return sanitize_text_field(wp_unslash($_SERVER['HTTP_REFERER']));
+		return sanitize_url(wp_unslash($_SERVER['HTTP_REFERER']));
 	}
 
-	return (is_ssl() ? 'https://' : 'http://') . strtolower(sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST']?? ''))) . sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']?? ''));
+	return (is_ssl() ? 'https://' : 'http://') . strtolower(sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST']?? ''))) . sanitize_url(wp_unslash($_SERVER['REQUEST_URI']?? ''));
 }
 
 /**
@@ -42,11 +42,11 @@ function wu_replace_scheme($url, $new_scheme = '') {
 }
 
 /**
- * Wrapper to the network_admin_url function for Multisite Ultimate admin urls.
+ * Wrapper to the network_admin_url function for Ultimate Multisite admin urls.
  *
  * @since 2.0.0
  *
- * @param string $path Multisite Ultimate page.
+ * @param string $path Ultimate Multisite page.
  * @param array  $query URL query parameters.
  * @return string
  */
@@ -92,4 +92,71 @@ function wu_ajax_url($when = null, $query_args = [], $site_id = false, $scheme =
 	$url = add_query_arg($query_args, $base_url);
 
 	return apply_filters('wu_ajax_url', $url, $query_args, $when, $site_id);
+}
+
+
+/**
+ * Adds a magic link if needed.
+ *
+ * @param ?int    $blog_id Blog id.
+ * @param string  $path    Path.
+ * @param ?string $scheme  Scheme.
+ *
+ * @return false|string
+ */
+function wu_get_admin_url($blog_id = null, $path = '', $scheme = 'admin') {
+	if (! $blog_id) {
+		return get_admin_url($blog_id, $path, $scheme);
+	}
+
+	$current_user_id = get_current_user_id();
+	$admin_url       = get_admin_url($blog_id, $path, $scheme);
+
+	if ( ! $current_user_id ) {
+		return $admin_url;
+	}
+
+	$magic_link = \WP_Ultimo\SSO\Magic_Link::get_instance();
+
+	// Check if a magic link is needed.
+	if ( ! $magic_link->site_needs_magic_link($blog_id) ) {
+		return $admin_url;
+	}
+
+	$magic_link_url = $magic_link->generate_magic_link($current_user_id, $blog_id, $admin_url);
+
+	return $magic_link_url ?: get_admin_url($blog_id, $path, $scheme);
+}
+
+/**
+ * Adds a magic link if needed.
+ *
+ * @param ?int $blog_id Blog id.
+ *
+ * @return false|string
+ */
+function wu_get_home_url($blog_id = null) {
+	$site = wu_get_site($blog_id);
+
+	if (! $site) {
+		return get_home_url($blog_id);
+	}
+
+	$home_url        = $site->get_active_site_url();
+	$current_user_id = get_current_user_id();
+
+	if ( ! $current_user_id) {
+		return $home_url;
+	}
+
+	$magic_link = \WP_Ultimo\SSO\Magic_Link::get_instance();
+
+	// Check if magic link is needed.
+	if ( ! $magic_link->site_needs_magic_link($blog_id) ) {
+		return $home_url;
+	}
+
+	$magic_link_url = $magic_link->generate_magic_link($current_user_id, $blog_id, $home_url);
+
+	return $magic_link_url ?: get_home_url($blog_id);
 }

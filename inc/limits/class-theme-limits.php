@@ -57,14 +57,14 @@ class Theme_Limits {
 		 * We need to bail if we're inside the WP CLI context and the
 		 * `skip-plugins` flag is present.
 		 *
-		 * This is due to the fact that without Multisite Ultimate being loaded,
+		 * This is due to the fact that without Ultimate Multisite being loaded,
 		 * the functions and classes we'll need to perform any kind of proper
 		 * checks won't be available. To validate if we're being loaded or not,
 		 * we check for the function `wu_get_product`.
 		 *
 		 * @since 2.1.0
 		 */
-		if (wu_cli_is_plugin_skipped('multisite-ultimate')) {
+		if (wu_cli_is_plugin_skipped('ultimate-multisite')) {
 			return;
 		}
 
@@ -91,8 +91,6 @@ class Theme_Limits {
 			add_filter('wp_prepare_themes_for_js', [$this, 'maybe_remove_activate_button']);
 
 			add_action('admin_enqueue_scripts', [$this, 'hacky_remove_activate_button']);
-
-			add_action('admin_footer-themes.php', [$this, 'modify_backbone_template']);
 
 			add_action('customize_changeset_save_data', [$this, 'prevent_theme_activation_on_customizer'], 99, 2);
 		}
@@ -126,7 +124,7 @@ class Theme_Limits {
 		if ($theme_limitations->allowed($new_theme, 'not_available')) {
 			$response = [
 				'code'    => 'not-available',
-				'message' => __('This theme is not available on your current plan.', 'multisite-ultimate'),
+				'message' => __('This theme is not available on your current plan.', 'ultimate-multisite'),
 			];
 
 			wp_send_json($response, 'not-available');
@@ -168,12 +166,22 @@ class Theme_Limits {
 		}
 
 		$upgrade_button = wu_generate_upgrade_to_unlock_button(
-			__('Upgrade to unlock', 'multisite-ultimate'),
+			__('Upgrade to unlock', 'ultimate-multisite'),
 			[
 				'module'  => 'themes',
 				'type'    => 'EXTENSION',
 				'classes' => 'button',
 			]
+		);
+
+		wp_add_inline_script(
+			'theme',
+			'if (typeof wu_theme_settings !== "undefined") {
+				let content = document.getElementById("tmpl-theme").innerHTML;
+				content = content.replace(new RegExp("(<a class=\\"button activate\\"[^<]*<\\/a>)", "g"), "<# if ( !wu_theme_settings.themes_not_available.includes(data.id) ) { #>$1<# } else { #> {{{ wu_theme_settings.replacement_message.replace(\\"EXTENSION\\", data.id) }}} <# } #>");
+				document.getElementById("tmpl-theme").innerHTML = content;
+			}',
+			'before'
 		);
 
 		wp_localize_script(
@@ -184,31 +192,6 @@ class Theme_Limits {
 				'replacement_message'  => $upgrade_button,
 			]
 		);
-	}
-
-	/**
-	 * Modifies the default WordPress theme page template.
-	 *
-	 * @since 2.0.0
-	 * @return void
-	 */
-	public function modify_backbone_template(): void { // phpcs:disable ?>
-
-		<script type="text/javascript">
-
-			if (typeof wu_theme_settings !== 'undefined') {
-
-				let content = document.getElementById("tmpl-theme").innerHTML;
-
-				content = content.replace(new RegExp('(<a class="button activate".*<\/a>)', 'g'), '<# if ( !wu_theme_settings.themes_not_available.includes(data.id) ) { #>$1<# } else { #> {{{ wu_theme_settings.replacement_message.replace("EXTENSION", data.id) }}} <# } #>');
-
-				document.getElementById("tmpl-theme").innerHTML = content;
-
-			}
-
-		</script>
-
-		<?php // phpcs:enable
 	}
 
 	/**

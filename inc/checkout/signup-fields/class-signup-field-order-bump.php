@@ -56,7 +56,7 @@ class Signup_Field_Order_Bump extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Order Bump', 'multisite-ultimate');
+		return __('Order Bump', 'ultimate-multisite');
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Signup_Field_Order_Bump extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a product offer that the customer can click to add to the current cart.', 'multisite-ultimate');
+		return __('Adds a product offer that the customer can click to add to the current cart.', 'ultimate-multisite');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Signup_Field_Order_Bump extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a product offer that the customer can click to add to the current cart.', 'multisite-ultimate');
+		return __('Adds a product offer that the customer can click to add to the current cart.', 'ultimate-multisite');
 	}
 
 	/**
@@ -166,9 +166,9 @@ class Signup_Field_Order_Bump extends Base_Signup_Field {
 		$editor_fields = [
 			'product'                     => [
 				'type'        => 'model',
-				'title'       => __('Product', 'multisite-ultimate'),
-				'placeholder' => __('e.g. Premium', 'multisite-ultimate'),
-				'desc'        => __('Select the product that will be presented to the customer as an add-on option.', 'multisite-ultimate'),
+				'title'       => __('Product', 'ultimate-multisite'),
+				'placeholder' => __('e.g. Premium', 'ultimate-multisite'),
+				'desc'        => __('Select the product that will be presented to the customer as an add-on option.', 'ultimate-multisite'),
 				'tooltip'     => '',
 				'order'       => 12,
 				'html_attr'   => [
@@ -182,19 +182,20 @@ class Signup_Field_Order_Bump extends Base_Signup_Field {
 			'display_product_description' => [
 				'order' => 13,
 				'type'  => 'toggle',
-				'title' => __('Display Product Description', 'multisite-ultimate'),
-				'desc'  => __('Toggle to display the product description as well, if one is available.', 'multisite-ultimate'),
+				'title' => __('Display Product Description', 'ultimate-multisite'),
+				'desc'  => __('Toggle to display the product description as well, if one is available.', 'ultimate-multisite'),
 				'value' => 0,
 			],
 			'display_product_image'       => [
 				'order' => 14,
 				'type'  => 'toggle',
-				'title' => __('Display Product Image', 'multisite-ultimate'),
-				'desc'  => __('Toggle to display the product image as well, if one is available.', 'multisite-ultimate'),
+				'title' => __('Display Product Image', 'ultimate-multisite'),
+				'desc'  => __('Toggle to display the product image as well, if one is available.', 'ultimate-multisite'),
 				'value' => 1,
 			],
 		];
 
+		// phpcs:disable
 		// $editor_fields['order_bump_template'] = array(
 		// 'type'   => 'group',
 		// 'desc'   => Field_Templates_Manager::get_instance()->render_preview_block('order_bump'),
@@ -202,8 +203,8 @@ class Signup_Field_Order_Bump extends Base_Signup_Field {
 		// 'fields' => array(
 		// 'order_bump_template' => array(
 		// 'type'            => 'select',
-		// 'title'           => __('Layout', 'multisite-ultimate'),
-		// 'placeholder'     => __('Select your Layout', 'multisite-ultimate'),
+		// 'title'           => __('Layout', 'ultimate-multisite'),
+		// 'placeholder'     => __('Select your Layout', 'ultimate-multisite'),
 		// 'options'         => array($this, 'get_templates'),
 		// 'wrapper_classes' => 'wu-flex-grow',
 		// 'html_attr'       => array(
@@ -219,8 +220,9 @@ class Signup_Field_Order_Bump extends Base_Signup_Field {
 		// 'order'           => 99,
 		// 'wrapper_classes' => 'sm:wu-p-0 sm:wu-block',
 		// 'classes'         => '',
-		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized order bump templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'multisite-ultimate')),
+		// 'desc'            => sprintf('<div class="wu-p-4 wu-bg-blue-100 wu-text-grey-600">%s</div>', __('Want to add customized order bump templates?<br><a target="_blank" class="wu-no-underline" href="https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow">See how you can do that here</a>.', 'ultimate-multisite')),
 		// );
+		// phpcs:enable
 
 		return $editor_fields;
 	}
@@ -247,12 +249,18 @@ class Signup_Field_Order_Bump extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('order_bump', $attributes['order_bump_template']);
 
-		$content = $template_class ? $template_class->render_container($attributes) : __('Template does not exist.', 'multisite-ultimate');
+		$desc = function () use ($attributes, $template_class) {
+			if ($template_class) {
+				$template_class->render_container($attributes);
+			} else {
+				esc_html_e('Template does not exist.', 'ultimate-multisite');
+			}
+		};
 
 		return [
 			$attributes['id'] => [
 				'type'            => 'note',
-				'desc'            => $content,
+				'desc'            => $desc,
 				'wrapper_classes' => $attributes['element_classes'],
 			],
 		];

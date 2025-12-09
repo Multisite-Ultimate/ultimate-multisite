@@ -4,6 +4,7 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
 ?>
 <div id="payments-tax-breakthrough" class="wu-widget-inset">
 
@@ -21,7 +22,7 @@
 
 			<?php if ( ! empty($payment)) : ?>
 			<tr>
-			<td><span class="wu-font-bold wu-uppercase wu-text-xs wu-text-gray-700"><?php esc_html_e('Total', 'multisite-ultimate'); ?></span></td>
+			<td><span class="wu-font-bold wu-uppercase wu-text-xs wu-text-gray-700"><?php esc_html_e('Total', 'ultimate-multisite'); ?></span></td>
 			<td><?php echo esc_html(wu_format_currency($payment->get_tax_total())); ?></td>
 			</tr>
 		<?php endif; ?>
@@ -30,7 +31,7 @@
 
 		<tr>
 			<td colspan="2">
-			<?php esc_html_e('No tax rates.', 'multisite-ultimate'); ?>
+			<?php esc_html_e('No tax rates.', 'ultimate-multisite'); ?>
 			</td>
 		</tr>
 
@@ -41,9 +42,4 @@
 
 </div>
 
-<style>
-#wu-line_item_list_table .tablenav.bottom,
-#wu-line_item_list_table tfoot {
-	display: none;
-}
-</style>
+<?php wp_enqueue_style('wu-tax-details', wu_get_asset('tax-details.css', 'css'), [], wu_get_version()); ?>

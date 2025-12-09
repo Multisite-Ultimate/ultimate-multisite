@@ -11,6 +11,7 @@
 
 namespace WP_Ultimo\Managers;
 
+use Psr\Log\LogLevel;
 use WP_Ultimo\Managers\Base_Manager;
 use WP_Ultimo\Models\Payment;
 use WP_Ultimo\Logger;
@@ -29,8 +30,10 @@ class Payment_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
+	const LOG_FILE_NAME = 'payments';
 	/**
 	 * The manager slug.
 	 *
@@ -59,6 +62,8 @@ class Payment_Manager extends Base_Manager {
 
 		$this->enable_wp_cli();
 
+		$this->enable_mcp_abilities();
+
 		$this->register_forms();
 
 		add_action(
@@ -66,7 +71,7 @@ class Payment_Manager extends Base_Manager {
 			function () {
 				Event_Manager::register_model_events(
 					'payment',
-					__('Payment', 'multisite-ultimate'),
+					__('Payment', 'ultimate-multisite'),
 					['created', 'updated']
 				);
 			}
@@ -169,10 +174,10 @@ class Payment_Manager extends Base_Manager {
 		wp_enqueue_style('wu-admin');
 		add_wubox();
 
-		$form_title = __('Pending Payments', 'multisite-ultimate');
+		$form_title = __('Pending Payments', 'ultimate-multisite');
 		$form_url   = wu_get_form_url('pending_payments');
 
-		wp_add_inline_script('wubox', "document.addEventListener('DOMContentLoaded', function(){wubox.show('$form_title', '$form_url');});");
+		wp_add_inline_script('wubox', sprintf("document.addEventListener('DOMContentLoaded', function(){wubox.show('%s', '%s');});", esc_js($form_title), $form_url));
 
 		// Show only after user login
 		delete_user_meta($user_id, 'wu_show_pending_payment_popup');
@@ -225,7 +230,7 @@ class Payment_Manager extends Base_Manager {
 			}
 		}
 
-		$message = ! empty($pending_payments) ? __('You have pending payments on your account!', 'multisite-ultimate') : __('You do not have pending payments on your account!', 'multisite-ultimate');
+		$message = ! empty($pending_payments) ? __('You have pending payments on your account!', 'ultimate-multisite') : __('You do not have pending payments on your account!', 'ultimate-multisite');
 
 		/**
 		 * Allow user to change the message about the pending payments.
@@ -252,7 +257,7 @@ class Payment_Manager extends Base_Manager {
 
 			$url = $payment->get_payment_url();
 
-			$html = sprintf('<a href="%s" class="button-primary">%s</a>', $url, __('Pay Now', 'multisite-ultimate'));
+			$html = sprintf('<a href="%s" class="button-primary">%s</a>', $url, __('Pay Now', 'ultimate-multisite'));
 
 			$title = $slug;
 
@@ -290,13 +295,13 @@ class Payment_Manager extends Base_Manager {
 			 * Validates nonce.
 			 */
 			if ( ! wp_verify_nonce(wu_request('key'), 'see_invoice')) {
-				wp_die(esc_html__('You do not have permissions to access this file.', 'multisite-ultimate'));
+				wp_die(esc_html__('You do not have permissions to access this file.', 'ultimate-multisite'));
 			}
 
 			$payment = wu_get_payment_by_hash(wu_request('reference'));
 
 			if ( ! $payment) {
-				wp_die(esc_html__('This invoice does not exist.', 'multisite-ultimate'));
+				wp_die(esc_html__('This invoice does not exist.', 'ultimate-multisite'));
 			}
 
 			$invoice = new Invoice($payment);
@@ -317,7 +322,7 @@ class Payment_Manager extends Base_Manager {
 	 *
 	 * @param int $payment_id The ID of the payment being transferred.
 	 * @param int $target_customer_id The new owner.
-	 * @return mixed
+	 * @return void
 	 */
 	public function async_transfer_payment($payment_id, $target_customer_id) {
 
@@ -328,7 +333,8 @@ class Payment_Manager extends Base_Manager {
 		$target_customer = wu_get_customer($target_customer_id);
 
 		if ( ! $payment || ! $target_customer || $payment->get_customer_id() === $target_customer->get_id()) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
+			wu_log_add(self::LOG_FILE_NAME, __('An unexpected error happened.', 'ultimate-multisite'), LogLevel::ERROR);
+			return;
 		}
 
 		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -344,18 +350,17 @@ class Payment_Manager extends Base_Manager {
 
 			if (is_wp_error($saved)) {
 				$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-				return $saved;
+				wu_log_add(self::LOG_FILE_NAME, $saved->get_error_message(), LogLevel::ERROR);
+				return;
 			}
 		} catch (\Throwable $e) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			wu_log_add(self::LOG_FILE_NAME, $e->getMessage(), LogLevel::ERROR);
 
-			return new \WP_Error('exception', $e->getMessage());
+			return;
 		}
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-		return true;
 	}
 
 	/**
@@ -364,7 +369,7 @@ class Payment_Manager extends Base_Manager {
 	 * @since 2.0.0
 	 *
 	 * @param int $payment_id The ID of the payment being deleted.
-	 * @return mixed
+	 * @return void
 	 */
 	public function async_delete_payment($payment_id) {
 
@@ -373,7 +378,8 @@ class Payment_Manager extends Base_Manager {
 		$payment = wu_get_payment($payment_id);
 
 		if ( ! $payment) {
-			return new \WP_Error('error', __('An unexpected error happened.', 'multisite-ultimate'));
+			wu_log_add(self::LOG_FILE_NAME, __('An unexpected error happened.', 'ultimate-multisite'), LogLevel::ERROR);
+			return;
 		}
 
 		$wpdb->query('START TRANSACTION'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -387,18 +393,17 @@ class Payment_Manager extends Base_Manager {
 
 			if (is_wp_error($saved)) {
 				$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-				return $saved;
+				wu_log_add(self::LOG_FILE_NAME, $saved->get_error_message(), LogLevel::ERROR);
+				return;
 			}
 		} catch (\Throwable $e) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
-			return new \WP_Error('exception', $e->getMessage());
+			wu_log_add(self::LOG_FILE_NAME, $e->getMessage(), LogLevel::ERROR);
+			return;
 		}
 
 		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-		return true;
 	}
 
 	/**

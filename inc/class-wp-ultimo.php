@@ -1,16 +1,18 @@
 <?php
 /**
- * Multisite Ultimate main class.
+ * Ultimate Multisite main class.
  *
  * @package WP_Ultimo
  * @since 2.0.0
  */
 
 // Exit if accessed directly
+use WP_Ultimo\Addon_Repository;
+
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate main class
+ * Ultimate Multisite main class
  *
  * This class instantiates our dependencies and loads the things
  * our plugin needs to run.
@@ -29,7 +31,15 @@ final class WP_Ultimo {
 	 * @since 2.1.0
 	 * @var string
 	 */
-	const VERSION = '2.4.0';
+	const VERSION = '2.4.8';
+
+	/**
+	 * Core log handle for Ultimate Multisite.
+	 *
+	 * @since 2.4.4
+	 * @var string
+	 */
+	const LOG_HANDLE = 'ultimate-multisite-core';
 
 	/**
 	 * Version of the Plugin.
@@ -40,16 +50,16 @@ final class WP_Ultimo {
 	public $version = self::VERSION;
 
 	/**
-	 * Tables registered by Multisite Ultimate.
+	 * Tables registered by Ultimate Multisite.
 	 *
 	 * @var array
 	 */
 	public $tables = [];
 
 	/**
-	 * Checks if Multisite Ultimate was loaded or not.
+	 * Checks if Ultimate Multisite was loaded or not.
 	 *
-	 * This is set to true when all the Multisite Ultimate requirements are met.
+	 * This is set to true when all the Ultimate Multisite requirements are met.
 	 *
 	 * @since 2.0.0
 	 * @var boolean
@@ -94,6 +104,8 @@ final class WP_Ultimo {
 	 */
 	public $currents;
 
+	private Addon_Repository $addon_repository;
+
 	/**
 	 * Loads the necessary components into the main class
 	 *
@@ -137,14 +149,16 @@ final class WP_Ultimo {
 		new WP_Ultimo\Admin_Pages\Setup_Wizard_Admin_Page();
 
 		/*
-		 * Loads the Multisite Ultimate settings helper class.
+		 * Loads the Ultimate Multisite settings helper class.
 		 */
 		$this->settings = WP_Ultimo\Settings::get_instance();
 
+		// These must be loaded here so the settings are in the setup wizard.
 		WP_Ultimo\Newsletter::get_instance();
+		\WP_Ultimo\Credits::get_instance();
 
 		/*
-		 * Check if the Multisite Ultimate requirements are present.
+		 * Check if the Ultimate Multisite requirements are present.
 		 *
 		 * Everything we need to run our setup install needs top be loaded before this
 		 * and have no dependencies outside of the classes loaded so far.
@@ -161,12 +175,12 @@ final class WP_Ultimo {
 		$this->currents = WP_Ultimo\Current::get_instance();
 
 		/*
-		 * Loads the Multisite Ultimate admin notices helper class.
+		 * Loads the Ultimate Multisite admin notices helper class.
 		 */
 		$this->notices = WP_Ultimo\Admin_Notices::get_instance();
 
 		/*
-		 * Loads the Multisite Ultimate scripts handler
+		 * Loads the Ultimate Multisite scripts handler
 		 */
 		$this->scripts = WP_Ultimo\Scripts::get_instance();
 
@@ -204,11 +218,14 @@ final class WP_Ultimo {
 	 * @return void
 	 */
 	public function after_init() {
-		/*
+		/**
 		 * Loads admin pages
+		 *
 		 * @todo: move this to a manager in the future?
 		 */
 		$this->load_admin_pages();
+
+		$this->get_addon_repository()->init();
 
 		/*
 		 * Checks Sunrise versions
@@ -242,7 +259,7 @@ final class WP_Ultimo {
 	 * Loads public apis that should be on the global scope
 	 *
 	 * This method is responsible for loading and exposing public apis that
-	 * plugin developers will use when creating extensions for Multisite Ultimate.
+	 * plugin developers will use when creating extensions for Ultimate Multisite.
 	 * Things like render functions, helper methods, etc.
 	 *
 	 * @since 2.0.0
@@ -351,7 +368,7 @@ final class WP_Ultimo {
 		 * Checkout and Registration.
 		 *
 		 * Loads functions that interact with the checkout
-		 * and the registration elements of Multisite Ultimate.
+		 * and the registration elements of Ultimate Multisite.
 		 *
 		 * @see wu_is_registration_page()
 		 */
@@ -405,11 +422,16 @@ final class WP_Ultimo {
 		 */
 		if (is_admin()) {
 			require_once wu_path('inc/functions/admin.php');
+
+			/*
+			 * Configuration Checker for multisite setup issues
+			 */
+			\WP_Ultimo\Admin\Configuration_Checker::get_instance();
 		}
 	}
 
 	/**
-	 * Load extra the Multisite Ultimate elements
+	 * Load extra the Ultimate Multisite elements
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -419,6 +441,8 @@ final class WP_Ultimo {
 		 * SSO Functionality
 		 */
 		WP_Ultimo\SSO\SSO::get_instance();
+
+		WP_Ultimo\SSO\Magic_Link::get_instance();
 
 		/*
 		 * Loads the debugger tools
@@ -551,9 +575,9 @@ final class WP_Ultimo {
 		);
 
 		/*
-		 * Dashboard Statistics
+		 * Network Plugins/Themes usage columns
 		 */
-		\WP_Ultimo\Dashboard_Statistics::get_instance();
+		\WP_Ultimo\Admin\Network_Usage_Columns::get_instance();
 
 		/*
 		 * Loads User Switching
@@ -571,16 +595,6 @@ final class WP_Ultimo {
 		\WP_Ultimo\Compat\Gutenberg_Support::get_instance();
 
 		/*
-		 * Backwards compatibility with 1.X for products
-		 */
-		\WP_Ultimo\Compat\Product_Compat::get_instance();
-
-		/*
-		 * Backwards compatibility with 1.X for discount codes
-		 */
-		\WP_Ultimo\Compat\Discount_Code_Compat::get_instance();
-
-		/*
 		 * Elementor compatibility Layer
 		 */
 		\WP_Ultimo\Compat\Elementor_Compat::get_instance();
@@ -590,6 +604,10 @@ final class WP_Ultimo {
 		 */
 		\WP_Ultimo\Compat\General_Compat::get_instance();
 
+		\WP_Ultimo\Compat\Login_WP_Compat::get_instance();
+
+		\WP_Ultimo\Compat\Honeypot_Compat::get_instance();
+
 		/*
 		 * Loads Basic White-labeling
 		 */
@@ -598,10 +616,12 @@ final class WP_Ultimo {
 		/*
 		 * Adds support to multiple accounts.
 		 *
-		 * This used to be an add-on on Multisite Ultimate 1.X
-		 * Now it is native, but needs to be activated on Multisite Ultimate settings.
+		 * This used to be an add-on on Ultimate Multisite 1.X
+		 * Now it is native, but needs to be activated on Ultimate Multisite settings.
 		 */
 		\WP_Ultimo\Compat\Multiple_Accounts_Compat::get_instance();
+		\WP_Ultimo\Compat\Edit_Users_Compat::get_instance();
+		\WP_Ultimo\Compat\Auto_Delete_Users_Compat::get_instance();
 
 		/*
 		 * Network Admin Widgets
@@ -609,18 +629,26 @@ final class WP_Ultimo {
 		\WP_Ultimo\Dashboard_Widgets::get_instance();
 
 		/*
-		 *  Admin Themes Compatibility for Multisite Ultimate
+		 *  Admin Themes Compatibility for Ultimate Multisite
 		 */
 		\WP_Ultimo\Admin_Themes_Compatibility::get_instance();
+
+		add_filter(
+			'action_scheduler_lock_class',
+			// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+			fn ($class_name) => \WP_Ultimo\Compat\ActionScheduler_OptionLock_UM::class
+		);
 
 		/*
 		 * Cron Schedules
 		 */
 		\WP_Ultimo\Cron::get_instance();
+
+		\WP_Ultimo\MCP_Adapter::get_instance();
 	}
 
 	/**
-	 * Load the Multisite Ultimate Admin Pages.
+	 * Load the Ultimate Multisite Admin Pages.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -642,9 +670,9 @@ final class WP_Ultimo {
 		new WP_Ultimo\Admin_Pages\Top_Admin_Nav_Menu();
 
 		/*
-		 * The about admin page.
+		 * Initialize magic links for admin bar My Sites menu.
 		 */
-		new WP_Ultimo\Admin_Pages\About_Admin_Page();
+		\WP_Ultimo\SSO\Admin_Bar_Magic_Links::get_instance();
 
 		/*
 		 * Loads the Checkout Form admin page.
@@ -780,11 +808,13 @@ final class WP_Ultimo {
 		 */
 		new WP_Ultimo\Tax\Dashboard_Taxes_Tab();
 
+		new WP_Ultimo\Admin_Pages\Addons_Admin_Page();
+
 		do_action('wp_ultimo_admin_pages');
 	}
 
 	/**
-	 * Load extra the Multisite Ultimate managers.
+	 * Load extra the Ultimate Multisite managers.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -894,10 +924,28 @@ final class WP_Ultimo {
 		 * Loads the Cache manager.
 		 */
 		WP_Ultimo\Managers\Cache_Manager::get_instance();
+		WP_Ultimo\Orphaned_Tables_Manager::get_instance();
+		WP_Ultimo\Orphaned_Users_Manager::get_instance();
 
 		/**
 		 * Loads views overrides
 		 */
 		WP_Ultimo\Views::get_instance();
+	}
+
+	/**
+	 * Gets the addon repository instance.
+	 *
+	 * Returns a singleton instance of the Addon_Repository class that manages
+	 * addon installations and updates for WP Ultimo.
+	 *
+	 * @since 2.0.0
+	 * @return Addon_Repository The addon repository instance.
+	 */
+	public function get_addon_repository(): Addon_Repository {
+		if (! isset($this->addon_repository)) {
+			$this->addon_repository = new Addon_Repository();
+		}
+		return $this->addon_repository;
 	}
 }

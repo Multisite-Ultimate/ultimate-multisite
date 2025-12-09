@@ -16,8 +16,10 @@ defined('ABSPATH') || exit;
  * into a magic call handler and others.
  *
  * @since 1.0.0
+ * @property-read string $name
  */
 abstract class Table extends \BerlinDB\Database\Table {
+	use Network_Prefix;
 
 	/**
 	 * Table prefix.
@@ -33,7 +35,7 @@ abstract class Table extends \BerlinDB\Database\Table {
 	 * @since 2.0.0
 	 * @var bool
 	 */
-	protected $_exists;
+	private bool $exists;
 
 	/**
 	 * Overrides the is_upgradeable method.
@@ -45,13 +47,13 @@ abstract class Table extends \BerlinDB\Database\Table {
 	 * @since 2.0.0
 	 * @return boolean
 	 */
-	public function is_upgradeable() {
+	public function is_upgradeable(): bool {
 
 		if ( ! is_main_network()) {
 			return false;
 		}
 
-		return (bool) is_main_site();
+		return is_main_site();
 	}
 
 	/**
@@ -60,12 +62,20 @@ abstract class Table extends \BerlinDB\Database\Table {
 	 * @since 2.0.0
 	 * @return boolean
 	 */
-	public function exists() {
+	public function exists(): bool {
 
-		if (null === $this->_exists) {
-			$this->_exists = parent::exists();
+		if (! isset($this->exists)) {
+			$this->exists = parent::exists();
 		}
 
-		return $this->_exists;
+		return $this->exists;
+	}
+
+	/**
+	 * Change the prefix if needed.
+	 */
+	public function __construct() {
+		$this->update_prefix_with_network_id();
+		parent::__construct();
 	}
 }

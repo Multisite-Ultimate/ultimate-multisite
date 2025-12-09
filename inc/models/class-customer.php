@@ -10,9 +10,12 @@
 namespace WP_Ultimo\Models;
 
 use WP_Ultimo\Models\Base_Model;
+use WP_Ultimo\Models\Interfaces\Billable;
+use WP_Ultimo\Models\Interfaces\Notable;
 use WP_Ultimo\Models\Membership;
 use WP_Ultimo\Models\Site;
 use WP_Ultimo\Models\Payment;
+use WP_User;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -22,7 +25,7 @@ defined('ABSPATH') || exit;
  *
  * @since 2.0.0
  */
-class Customer extends Base_Model {
+class Customer extends Base_Model implements Billable, Notable {
 
 	use Traits\Billable;
 	use Traits\Notable;
@@ -114,6 +117,14 @@ class Customer extends Base_Model {
 	protected $extra_information;
 
 	/**
+	 * Network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @var int|null
+	 */
+	protected $network_id;
+
+	/**
 	 * Query Class to the static query methods.
 	 *
 	 * @since 2.0.0
@@ -127,7 +138,7 @@ class Customer extends Base_Model {
 	 * @since 2.2.0
 	 * @var string
 	 */
-	public $_user;
+	public $_user; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
 	/**
 	 * Set the validation rules for this particular model.
@@ -153,6 +164,7 @@ class Customer extends Base_Model {
 			'ips'                => 'array',
 			'extra_information'  => 'default:',
 			'signup_form'        => 'default:',
+			'network_id'         => 'integer|nullable',
 		];
 	}
 
@@ -201,7 +213,7 @@ class Customer extends Base_Model {
 		$user = $this->get_user();
 
 		if (empty($user)) {
-			return __('User Deleted', 'multisite-ultimate');
+			return __('User Deleted', 'ultimate-multisite');
 		}
 
 		return $user->display_name;
@@ -257,7 +269,7 @@ class Customer extends Base_Model {
 		$user = $this->get_user();
 
 		if (empty($user)) {
-			return __('none', 'multisite-ultimate');
+			return __('none', 'ultimate-multisite');
 		}
 
 		return $user->user_login;
@@ -274,7 +286,7 @@ class Customer extends Base_Model {
 		$user = $this->get_user();
 
 		if (empty($user)) {
-			return __('none', 'multisite-ultimate');
+			return __('none', 'ultimate-multisite');
 		}
 
 		return $user->user_email;
@@ -565,7 +577,7 @@ class Customer extends Base_Model {
 	 * Returns the subscriptions attached to this customer.
 	 *
 	 * @since 2.0.0
-	 * @return array
+	 * @return Membership[]
 	 */
 	public function get_memberships() {
 
@@ -871,5 +883,28 @@ class Customer extends Base_Model {
 	public function set_signup_form($signup_form): void {
 
 		$this->signup_form = $signup_form;
+	}
+
+	/**
+	 * Get the network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @return int|null
+	 */
+	public function get_network_id() {
+
+		return $this->network_id ? absint($this->network_id) : null;
+	}
+
+	/**
+	 * Set the network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @param int|null $network_id Network ID.
+	 * @return void
+	 */
+	public function set_network_id($network_id): void {
+
+		$this->network_id = $network_id ? absint($network_id) : null;
 	}
 }

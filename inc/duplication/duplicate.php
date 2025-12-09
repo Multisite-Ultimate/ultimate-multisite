@@ -1,4 +1,5 @@
 <?php
+defined('ABSPATH') || exit;
 
 if ( ! class_exists('MUCD_Duplicate') ) {
 	require_once WP_ULTIMO_PLUGIN_DIR . '/inc/duplication/option.php';
@@ -7,6 +8,12 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 	require_once WP_ULTIMO_PLUGIN_DIR . '/inc/duplication/log.php';
 	require_once WP_ULTIMO_PLUGIN_DIR . '/inc/duplication/functions.php';
 
+	/**
+	 * Multisite Ultimate Clone Duplicator main class.
+	 *
+	 * Coordinates the site duplication process by orchestrating file copying,
+	 * database operations, and configuration updates.
+	 */
 	class MUCD_Duplicate {
 
 		public static $log;
@@ -24,8 +31,8 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 		 * Main function of the plugin : duplicates a site
 		 *
 		 * @since 0.2.0
-		 * @param  array $data parameters from form
-		 * @return $form_message result messages of the process
+		 * @param  array $data parameters from form.
+		 * @return array $form_message result messages of the process
 		 */
 		public static function duplicate_site($data) {
 
@@ -77,7 +84,7 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 			self::bypass_server_limit();
 
 			// Copy Site - File
-			if ('yes' == $copy_file) {
+			if ('yes' === $copy_file) {
 				do_action('mucd_before_copy_files', $from_site_id, $to_site_id);
 				$result = MUCD_Files::copy_files($from_site_id, $to_site_id);
 				do_action('mucd_after_copy_files', $from_site_id, $to_site_id);
@@ -110,8 +117,8 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 		 * Creates an admin user if no user exists with this email
 		 *
 		 * @since 0.2.0
-		 * @param  string $email the email
-		 * @param  string $domain the domain
+		 * @param  string $email the email.
+		 * @param  string $domain the domain.
 		 * @return int id of the user
 		 */
 		public static function create_admin($email, $domain) {
@@ -126,7 +133,7 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 				if ( false == $user_id ) {
 					return new \WP_Error('file_copy', MUCD_NETWORK_PAGE_DUPLICATE_ADMIN_ERROR_CREATE_USER);
 				} else {
-					wp_new_user_notification($user_id, $password);
+					wp_new_user_notification($user_id);
 				}
 			}
 
@@ -137,24 +144,19 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 		 * Copy users and roles from one site to another
 		 *
 		 * @since 0.2.0
-		 * @param  int $from_site_id duplicated site id
-		 * @param  int $to_site_id   new site id
+		 * @param  int $from_site_id duplicated site id.
+		 * @param  int $to_site_id   new site id.
 		 */
 		public static function copy_users($from_site_id, $to_site_id): void {
 
 			global $wpdb;
-
-			// Bugfix Pierre Dargham : relocating this declaration outside of the loop
-			// PHP < 5.3
-			function user_array_map($a) {
-				return $a[0]; }
 
 			if (is_main_site($from_site_id)) {
 				$is_from_main_site = true;
 				$args              = ['fields' => 'ids'];
 				$all_sites_ids     = MUCD_Functions::get_sites($args);
 				if ( ! empty($all_sites_ids)) {
-					$all_sites_ids = array_map('user_array_map', $all_sites_ids);
+					$all_sites_ids = array_map(fn($a) => $a[0], $all_sites_ids);
 				}
 			} else {
 				$is_from_main_site = false;
@@ -175,14 +177,14 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 			switch_to_blog($to_site_id);
 
 			foreach ($users as $user) {
-				if ($user->user_email != $admin_email) {
+				if ($user->user_email !== $admin_email) {
 					add_user_to_blog($to_site_id, $user->ID, 'subscriber');
 
-					$all_meta = array_map('user_array_map', get_user_meta($user->ID));
+					$all_meta = array_map(fn($a) => $a[0], get_user_meta($user->ID));
 
 					foreach ($all_meta as $metakey => $metavalue) {
 						$prefix = substr($metakey, 0, $from_site_prefix_length);
-						if ($prefix == $from_site_prefix) {
+						if ($prefix === $from_site_prefix) {
 							$raw_meta_name = substr($metakey, $from_site_prefix_length);
 							if ($is_from_main_site) {
 								$parts = explode('_', $raw_meta_name, 2);
@@ -204,13 +206,13 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 		 * Init log object
 		 *
 		 * @since 0.2.0
-		 * @param  array $data data from FORM
+		 * @param  array $data data from FORM.
 		 */
 		public static function init_log($data): void {
 			// INIT LOG AND SAVE OPTION
 			if (isset($data['log']) && 'yes' == $data['log'] ) {
 				if (isset($data['log-path']) && ! empty($data['log-path'])) {
-					$log_name = @date('Y_m_d_His') . '-' . $data['domain'] . '.log';
+					$log_name = @gmdate('Y_m_d_His') . '-' . $data['domain'] . '.log';
 					if (! str_ends_with((string) $data['log-path'], '/')) {
 						$data['log-path'] .= '/';
 					}
@@ -246,7 +248,7 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 		 * Writes a message in log file
 		 *
 		 * @since 0.2.0
-		 * @param  string $msg the message
+		 * @param  string $msg the message.
 		 */
 		public static function write_log($msg): void {
 			if (self::log() !== false) {
@@ -295,8 +297,8 @@ if ( ! class_exists('MUCD_Duplicate') ) {
 		 * @since 0.2.0
 		 */
 		public static function bypass_server_limit(): void {
-			@ini_set('memory_limit', '1024M');
-			@ini_set('max_execution_time', '0');
+			@ini_set('memory_limit', '1024M'); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
+			set_time_limit(0); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
 		}
 	}
 

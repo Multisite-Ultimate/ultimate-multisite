@@ -54,7 +54,7 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 	 */
 	public function get_title() {
 
-		return __('Period Select', 'multisite-ultimate');
+		return __('Period Select', 'ultimate-multisite');
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 	 */
 	public function get_description() {
 
-		return __('Adds a period selector, that allows customers to switch between different billing periods.', 'multisite-ultimate');
+		return __('Adds a period selector, that allows customers to switch between different billing periods.', 'ultimate-multisite');
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 	 */
 	public function get_tooltip() {
 
-		return __('Adds a period selector, that allows customers to switch between different billing periods.', 'multisite-ultimate');
+		return __('Adds a period selector, that allows customers to switch between different billing periods.', 'ultimate-multisite');
 	}
 
 	/**
@@ -134,7 +134,7 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 
 		return [
 			'id'       => 'period_selection',
-			'name'     => __('Plan Duration Switch', 'multisite-ultimate'),
+			'name'     => __('Plan Duration Switch', 'ultimate-multisite'),
 			'required' => true,
 		];
 	}
@@ -169,8 +169,8 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 			'fields' => [
 				'period_selection_template' => [
 					'type'            => 'select',
-					'title'           => __('Period Selector Template', 'multisite-ultimate'),
-					'placeholder'     => __('Select your Template', 'multisite-ultimate'),
+					'title'           => __('Period Selector Template', 'ultimate-multisite'),
+					'placeholder'     => __('Select your Template', 'ultimate-multisite'),
 					'options'         => [$this, 'get_template_options'],
 					'wrapper_classes' => 'wu-flex-grow',
 					'html_attr'       => [
@@ -182,14 +182,14 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 
 		$editor_fields['period_options_header'] = [
 			'type'  => 'small-header',
-			'title' => __('Options', 'multisite-ultimate'),
-			'desc'  => __('Add different options below. These need to match your product price variations.', 'multisite-ultimate'),
+			'title' => __('Options', 'ultimate-multisite'),
+			'desc'  => __('Add different options below. These need to match your product price variations.', 'ultimate-multisite'),
 			'order' => 90,
 		];
 
 		$editor_fields['period_options_empty'] = [
 			'type'              => 'note',
-			'desc'              => __('Add the first option using the button below.', 'multisite-ultimate'),
+			'desc'              => __('Add the first option using the button below.', 'ultimate-multisite'),
 			'classes'           => 'wu-text-gray-600 wu-text-xs wu-text-center wu-w-full',
 			'wrapper_classes'   => 'wu-bg-gray-100 wu-items-end',
 			'order'             => 90.5,
@@ -212,12 +212,12 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 			'fields'            => [
 				'period_options_remove'        => [
 					'type'            => 'note',
-					'desc'            => sprintf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => period_options.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', __('Remove', 'multisite-ultimate')),
+					'desc'            => sprintf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => period_options.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', __('Remove', 'ultimate-multisite')),
 					'wrapper_classes' => 'wu-absolute wu-top-0 wu-right-0',
 				],
 				'period_options_duration'      => [
 					'type'            => 'number',
-					'title'           => __('Duration', 'multisite-ultimate'),
+					'title'           => __('Duration', 'ultimate-multisite'),
 					'placeholder'     => '',
 					'wrapper_classes' => 'wu-w-2/12',
 					'min'             => 1,
@@ -237,16 +237,16 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 						'v-bind:name' => '"period_options[" + index + "][duration_unit]"',
 					],
 					'options'         => [
-						'day'   => __('Days', 'multisite-ultimate'),
-						'week'  => __('Weeks', 'multisite-ultimate'),
-						'month' => __('Months', 'multisite-ultimate'),
-						'year'  => __('Years', 'multisite-ultimate'),
+						'day'   => __('Days', 'ultimate-multisite'),
+						'week'  => __('Weeks', 'ultimate-multisite'),
+						'month' => __('Months', 'ultimate-multisite'),
+						'year'  => __('Years', 'ultimate-multisite'),
 					],
 				],
 				'period_options_label'         => [
 					'type'            => 'text',
-					'title'           => __('Label', 'multisite-ultimate'),
-					'placeholder'     => __('e.g. Monthly', 'multisite-ultimate'),
+					'title'           => __('Label', 'ultimate-multisite'),
+					'placeholder'     => __('e.g. Monthly', 'ultimate-multisite'),
 					'wrapper_classes' => 'wu-w-5/12',
 					'html_attr'       => [
 						'v-model'     => 'period_option.label',
@@ -259,7 +259,7 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 		$editor_fields['repeat'] = [
 			'order'             => 92,
 			'type'              => 'submit',
-			'title'             => __('+ Add option', 'multisite-ultimate'),
+			'title'             => __('+ Add option', 'ultimate-multisite'),
 			'classes'           => 'wu-uppercase wu-text-2xs wu-text-blue-700 wu-border-none wu-bg-transparent wu-font-bold wu-text-right wu-w-full wu-cursor-pointer',
 			'wrapper_classes'   => 'wu-bg-gray-100 wu-items-end',
 			'wrapper_html_attr' => [
@@ -297,7 +297,13 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 
 		$template_class = Field_Templates_Manager::get_instance()->get_template_class('period_selection', $attributes['period_selection_template']);
 
-		$content = $template_class ? $template_class->render_container($attributes) : __('Template does not exist.', 'multisite-ultimate');
+		$desc = function () use ($attributes, $template_class) {
+			if ($template_class) {
+				$template_class->render_container($attributes);
+			} else {
+				esc_html_e('Template does not exist.', 'ultimate-multisite');
+			}
+		};
 
 		$checkout_fields = [];
 
@@ -305,7 +311,7 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 			'type'            => 'note',
 			'id'              => $attributes['id'],
 			'wrapper_classes' => $attributes['element_classes'],
-			'desc'            => $content,
+			'desc'            => $desc,
 		];
 
 		$checkout_fields['duration'] = [

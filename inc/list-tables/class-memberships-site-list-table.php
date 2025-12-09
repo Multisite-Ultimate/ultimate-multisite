@@ -46,7 +46,7 @@ class Memberships_Site_List_Table extends Customers_Site_List_Table {
 
 		$redirect = current_user_can('edit_others_posts') ? 'wp-ultimo-edit-site' : 'wp-ultimo-sites';
 
-		echo wu_responsive_table_row( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		wu_responsive_table_row(
 			[
 				'id'     => $item->get_id(),
 				'title'  => $item->get_title(),
@@ -62,14 +62,14 @@ class Memberships_Site_List_Table extends Customers_Site_List_Table {
 			[
 				'link'      => [
 					'icon'  => 'dashicons-wu-link1 wu-align-middle wu-mr-1',
-					'label' => __('Visit Site', 'multisite-ultimate'),
-					'value' => __('Homepage', 'multisite-ultimate'),
+					'label' => __('Visit Site', 'ultimate-multisite'),
+					'value' => __('Homepage', 'ultimate-multisite'),
 					'url'   => $item->get_active_site_url(),
 				],
 				'dashboard' => [
 					'icon'  => 'dashicons-wu-browser wu-align-middle wu-mr-1',
-					'label' => __('Go to the Dashboard', 'multisite-ultimate'),
-					'value' => __('Dashboard', 'multisite-ultimate'),
+					'label' => __('Go to the Dashboard', 'ultimate-multisite'),
+					'value' => __('Dashboard', 'ultimate-multisite'),
 					'url'   => get_admin_url($item->get_id()),
 				],
 			],
@@ -78,9 +78,9 @@ class Memberships_Site_List_Table extends Customers_Site_List_Table {
 					'icon'  => 'dashicons-wu-calendar1 wu-align-middle wu-mr-1',
 					'label' => '',
 					'value' => $item->get_type() === 'pending' ?
-						__('Not Available', 'multisite-ultimate') :
+						__('Not Available', 'ultimate-multisite') :
 						// translators: %s is a placeholder for the human-readable time difference, e.g., "2 hours ago"
-						sprintf(__('Created %s', 'multisite-ultimate'), wu_human_time_diff(strtotime((string) $item->get_date_registered()))),
+						sprintf(__('Created %s', 'ultimate-multisite'), wu_human_time_diff(strtotime((string) $item->get_date_registered()))),
 				],
 			]
 		);

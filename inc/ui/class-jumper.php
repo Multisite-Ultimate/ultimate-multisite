@@ -40,11 +40,12 @@ class Jumper {
 	protected $transient_key = 'wu-jumper-menu-list';
 
 	/**
-	 * Element construct.
+	 * Initialize the singleton.
 	 *
 	 * @since 2.0.0
+	 * @return void
 	 */
-	public function __construct() {
+	public function init(): void {
 
 		add_action('init', [$this, 'add_settings'], 20);
 
@@ -185,53 +186,53 @@ class Jumper {
 		$custom_links = $this->get_user_custom_links();
 
 		if ( ! empty($custom_links)) {
-			$links[ __('Custom Links', 'multisite-ultimate') ] = $custom_links;
+			$links[ __('Custom Links', 'ultimate-multisite') ] = $custom_links;
 		}
 
 		return $links;
 	}
 
 	/**
-	 * Add Multisite Ultimate settings links to the Jumper menu.
+	 * Add Ultimate Multisite settings links to the Jumper menu.
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array $links Multisite Ultimate settings array.
+	 * @param array $links Ultimate Multisite settings array.
 	 * @return array
 	 */
 	public function add_wp_ultimo_extra_links($links) {
 
 		if (isset($links['WP Ultimo'])) {
 			$settings_tabs = [
-				'general'        => __('General', 'multisite-ultimate'),
-				'network'        => __('Network Settings', 'multisite-ultimate'),
-				'gateways'       => __('Payment Gateways', 'multisite-ultimate'),
-				'domain_mapping' => __('Domain Mapping & SSL', 'multisite-ultimate'),
-				'emails'         => __('Emails', 'multisite-ultimate'),
-				'styling'        => __('Styling', 'multisite-ultimate'),
-				'tools'          => __('Tools', 'multisite-ultimate'),
-				'advanced'       => __('Advanced', 'multisite-ultimate'),
-				'activation'     => __('Activation & Support', 'multisite-ultimate'),
+				'general'        => __('General', 'ultimate-multisite'),
+				'network'        => __('Network Settings', 'ultimate-multisite'),
+				'gateways'       => __('Payment Gateways', 'ultimate-multisite'),
+				'domain_mapping' => __('Domain Mapping & SSL', 'ultimate-multisite'),
+				'emails'         => __('Emails', 'ultimate-multisite'),
+				'styling'        => __('Styling', 'ultimate-multisite'),
+				'tools'          => __('Tools', 'ultimate-multisite'),
+				'advanced'       => __('Advanced', 'ultimate-multisite'),
+				'activation'     => __('Activation & Support', 'ultimate-multisite'),
 			];
 
 			foreach ($settings_tabs as $tab => $tab_label) {
 				$url = network_admin_url('admin.php?page=wp-ultimo-settings&wu-tab=' . $tab);
 
 				// translators: The placeholder represents the title of the Settings tab.
-				$links['WP Ultimo'][ $url ] = sprintf(__('Settings: %s', 'multisite-ultimate'), $tab_label);
+				$links['WP Ultimo'][ $url ] = sprintf(__('Settings: %s', 'ultimate-multisite'), $tab_label);
 			}
 
-			$links['WP Ultimo'][ network_admin_url('admin.php?page=wp-ultimo-settings&wu-tab=tools') ] = __('Settings: Webhooks', 'multisite-ultimate');
+			$links['WP Ultimo'][ network_admin_url('admin.php?page=wp-ultimo-settings&wu-tab=tools') ] = __('Settings: Webhooks', 'ultimate-multisite');
 
-			$links['WP Ultimo'][ network_admin_url('admin.php?page=wp-ultimo-system-info&wu-tab=logs') ] = __('System Info: Logs', 'multisite-ultimate');
+			$links['WP Ultimo'][ network_admin_url('admin.php?page=wp-ultimo-system-info&wu-tab=logs') ] = __('System Info: Logs', 'ultimate-multisite');
 
 			/**
 			 * Adds Main Site Dashboard
 			 */
-			if (isset($links[ __('Sites') ])) {
-				$main_site_url = get_admin_url(get_current_site()->blog_id);
+			if (isset($links[ __('Sites') ])) { // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+				$main_site_url = get_admin_url(get_current_site()->site_id);
 
-				$links[ __('Sites') ][ $main_site_url ] = __('Main Site Dashboard', 'multisite-ultimate');
+				$links[ __('Sites') ][ $main_site_url ] = __('Main Site Dashboard', 'ultimate-multisite'); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 			}
 		}
 
@@ -298,7 +299,7 @@ class Jumper {
 		$html = trim($html, '+');
 
 		// translators: the %s placeholder is the key combination to trigger the Jumper.
-		return '<span class="wu-keys">' . sprintf(__('<strong>Quick Tip:</strong> Use %s to jump between pages.', 'multisite-ultimate'), $html) . '</span>' . $text;
+		return '<span class="wu-keys">' . sprintf(__('<strong>Quick Tip:</strong> Use %s to jump between pages.', 'ultimate-multisite'), $html) . '</span>' . $text;
 	}
 
 	/**
@@ -317,11 +318,11 @@ class Jumper {
 			'wu-jumper',
 			'wu_jumper_vars',
 			[
-				'not_found_message' => __('Nothing found for', 'multisite-ultimate'),
+				'not_found_message' => __('Nothing found for', 'ultimate-multisite'),
 				'trigger_key'       => $this->get_defined_trigger_key(),
 				'network_base_url'  => network_admin_url(),
 				'ajaxurl'           => wu_ajax_url(),
-				'base_url'          => get_admin_url(get_current_site()->blog_id),
+				'base_url'          => get_admin_url(get_current_site()->site_id),
 			]
 		);
 
@@ -406,7 +407,7 @@ class Jumper {
 
 		return Logger::track_time(
 			'jumper',
-			__('Regenerating Jumper menu items', 'multisite-ultimate'),
+			__('Regenerating Jumper menu items', 'ultimate-multisite'),
 			function () {
 
 				global $menu, $submenu;
@@ -475,7 +476,7 @@ class Jumper {
 	}
 
 	/**
-	 * Filter the Multisite Ultimate settings to add Jumper options
+	 * Filter the Ultimate Multisite settings to add Jumper options
 	 *
 	 * @since 2.0.0
 	 *
@@ -486,8 +487,8 @@ class Jumper {
 		wu_register_settings_section(
 			'tools',
 			[
-				'title' => __('Tools', 'multisite-ultimate'),
-				'desc'  => __('Tools', 'multisite-ultimate'),
+				'title' => __('Tools', 'ultimate-multisite'),
+				'desc'  => __('Tools', 'ultimate-multisite'),
 				'icon'  => 'dashicons-wu-tools',
 			]
 		);
@@ -496,8 +497,8 @@ class Jumper {
 			'tools',
 			'tools_header',
 			[
-				'title' => __('Jumper', 'multisite-ultimate'),
-				'desc'  => __('Spotlight-like search bar that allows you to easily access everything on your network.', 'multisite-ultimate'),
+				'title' => __('Jumper', 'ultimate-multisite'),
+				'desc'  => __('Spotlight-like search bar that allows you to easily access everything on your network.', 'ultimate-multisite'),
 				'type'  => 'header',
 			]
 		);
@@ -506,8 +507,8 @@ class Jumper {
 			'tools',
 			'enable_jumper',
 			[
-				'title'   => __('Enable Jumper', 'multisite-ultimate'),
-				'desc'    => __('Turn this option on to make the Jumper available on your network.', 'multisite-ultimate'),
+				'title'   => __('Enable Jumper', 'ultimate-multisite'),
+				'desc'    => __('Turn this option on to make the Jumper available on your network.', 'ultimate-multisite'),
 				'type'    => 'toggle',
 				'default' => 1,
 			]
@@ -517,8 +518,8 @@ class Jumper {
 			'tools',
 			'jumper_key',
 			[
-				'title'   => __('Trigger Key', 'multisite-ultimate'),
-				'desc'    => __('Change the keyboard key used in conjunction with ctrl + alt (or cmd + option), to trigger the Jumper box.', 'multisite-ultimate'),
+				'title'   => __('Trigger Key', 'ultimate-multisite'),
+				'desc'    => __('Change the keyboard key used in conjunction with ctrl + alt (or cmd + option), to trigger the Jumper box.', 'ultimate-multisite'),
 				'type'    => 'text',
 				'default' => 'g',
 				'require' => [
@@ -531,9 +532,9 @@ class Jumper {
 			'tools',
 			'jumper_custom_links',
 			[
-				'title'       => __('Custom Links', 'multisite-ultimate'),
-				'desc'        => __('Use this textarea to add custom links to the Jumper. Add one per line, with the format "Title : url".', 'multisite-ultimate'),
-				'placeholder' => __('Tile of Custom Link : http://link.com', 'multisite-ultimate'),
+				'title'       => __('Custom Links', 'ultimate-multisite'),
+				'desc'        => __('Use this textarea to add custom links to the Jumper. Add one per line, with the format "Title : url".', 'ultimate-multisite'),
+				'placeholder' => __('Tile of Custom Link : http://link.com', 'ultimate-multisite'),
 				'type'        => 'textarea',
 				'html_attr'   => [
 					'rows' => 4,

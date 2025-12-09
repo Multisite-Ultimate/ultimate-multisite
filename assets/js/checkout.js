@@ -15,7 +15,7 @@
    */
   hooks.addAction('wu_on_create_order', 'nextpress/wp-ultimo', function (checkout, data) {
 
-    if (typeof data.order.extra.template_id !== 'undefined') {
+    if (typeof data.order.extra.template_id !== 'undefined' && data.order.extra.template_id) {
 
       checkout.template_id = data.order.extra.template_id;
 
@@ -68,9 +68,9 @@
      * Listens for changes and set the template if one is detected.
      */
     wu_listen_to_cookie_change('wu_template', function (value) {
-
-      checkout.template_id = value;
-
+        if (value) {
+            checkout.template_id = value;
+        }
     });
 
   });
@@ -733,7 +733,7 @@
         },
         request(action, data, success_handler, error_handler) {
 
-          const actual_ajax_url = action === 'wu_validate_form' ? wu_checkout.late_ajaxurl : wu_checkout.ajaxurl;
+          const actual_ajax_url = (action === 'wu_validate_form' || action === 'wu_create_order') ? wu_checkout.late_ajaxurl : wu_checkout.ajaxurl;
 
           jQuery.ajax({
             method: 'POST',

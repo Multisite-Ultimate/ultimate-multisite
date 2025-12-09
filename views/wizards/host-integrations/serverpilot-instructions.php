@@ -4,6 +4,7 @@
  *
  * @since 2.1.2
  */
+defined('ABSPATH') || exit;
 ?>
 <article id="fullArticle">
 	<h1 id="step-1-getting-a-serverpilot-api-key" class="intercom-align-left" data-post-processed="true">Step 1: Getting the API Key and the Client ID</h1>

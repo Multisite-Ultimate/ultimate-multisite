@@ -7,12 +7,13 @@
 	<exclude-pattern>/vendor/</exclude-pattern>
 	<exclude-pattern>/node_modules/</exclude-pattern>
 	<exclude-pattern>/dependencies/</exclude-pattern>
+	<exclude-pattern>/../wordpress/</exclude-pattern>
 
 	<!-- How to scan -->
 	<!-- Usage instructions: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Usage -->
 	<!-- Annotated ruleset: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
 	<arg value="sp"/> <!-- Show sniff and progress -->
-	<arg name="basepath" value="./"/><!-- Strip the file paths down to the relevant bit -->
+	<!-- <arg name="basepath" value="./"/>--><!-- Strip the file paths down to the relevant bit -->
 	<arg name="colors"/>
 	<arg name="extensions" value="php"/>
 	<arg name="parallel" value="8"/><!-- Enables parallel processing when available for faster results. -->
@@ -42,16 +43,7 @@
         <exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited" />
         <exclude name="Generic.Commenting.DocComment.MissingShort" />
         <exclude name="Squiz.Commenting.FileComment.MissingPackageTag" />
-	</rule>
-	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
-		<properties>
-			<!-- Value: replace the function, class, and variable prefixes used. Separate multiple prefixes with a comma. -->
-			<property name="prefixes" type="array">
-                <element value="wu_"/>
-                <element value="wp_ultimo"/>
-            </property>
-		</properties>
-		<exclude-pattern>/views/</exclude-pattern>
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals" />
 	</rule>
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
 		<properties>
@@ -78,7 +70,7 @@
 	</rule>
 	<rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
         <properties>
-            <property name="spacing" value="0"/>read_notes
+            <property name="spacing" value="0"/>
             <property name="ignoreNewlines" value="true"/>
         </properties>
     </rule>
@@ -100,6 +92,15 @@
                 <element key="12" value="wu_transfer_sites"/>
                 <element key="13" value="wu_read_financial" />
                 <element key="14" value="wu_manage_invoice" />
+                <element key="15" value="wu_delete_memberships" />
+                <element key="16" value="read_tax_rates" />
+                <element key="17" value="wu_read_dashboard" />
+                <element key="18" value="wu_read_memberships" />
+                <element key="19" value="wu_read_customers" />
+                <element key="20" value="wu_read_products" />
+                <element key="21" value="wu_read_payments" />
+                <element key="22" value="wu_read_discount_codes" />
+                <element key="23" value="wu_read_settings" />
             </property>
         </properties>
     </rule>
@@ -110,6 +111,11 @@
             </property>
         </properties>
     </rule>
-
-
+    <rule ref="WordPress.WP.I18n.MissingArgDomain">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="ultimate-multisite"/>
+            </property>
+        </properties>
+    </rule>
 </ruleset>

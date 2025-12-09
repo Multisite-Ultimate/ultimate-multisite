@@ -4,6 +4,8 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
 <div id="wp-ultimo-wrap" class="<?php wu_wrap_use_container(); ?> wrap wu-styling">
 	<h1 class="wp-heading-inline">
@@ -42,7 +44,7 @@
 	 * Allow plugin developers to add additional buttons to list pages
 	 *
 	 * @since 1.8.2
-	 * @param WU_Page Multisite Ultimate Page instance
+	 * @param WU_Page $page Ultimate Multisite Page instance
 	 */
 	do_action('wu_page_dash_after_title', $page);
 	?>

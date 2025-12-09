@@ -6,8 +6,6 @@
  * @since   2.0.0
  */
 
-use WP_Ultimo\Dependencies\Intervention\Image\ImageManagerStatic as Image;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -17,7 +15,7 @@ defined('ABSPATH') || exit;
 require_once wu_path('inc/functions/options.php');
 
 /**
- * Returns an array with all the Multisite Ultimate settings.
+ * Returns an array with all the Ultimate Multisite settings.
  *
  * @since 2.0.0
  * @return array
@@ -33,12 +31,12 @@ function wu_get_all_settings() {
  * @since 2.0.0
  *
  * @param  string $setting Settings name to return.
- * @param  mixed  $default Default value for the setting if it doesn't exist.
+ * @param  mixed  $default_value Default value for the setting if it doesn't exist.
  * @return mixed The value of that setting
  */
-function wu_get_setting($setting, $default = false) {
+function wu_get_setting($setting, $default_value = false) {
 
-	return WP_Ultimo()->settings->get_setting($setting, $default);
+	return WP_Ultimo()->settings->get_setting($setting, $default_value);
 }
 
 /**
@@ -84,6 +82,7 @@ function wu_register_settings_section($section_slug, $atts) {
  * @param string $section_slug Section to which this field will be added to.
  * @param string $field_slug ID of the field. This is used to later retrieve the value saved on this setting.
  * @param array  $atts Field attributes such as title, description, tooltip, default value, etc.
+ * @param int    $priority Priority of the field. Lower numbers correspond with earlier execution. Default 10.
  * @return void
  */
 function wu_register_settings_field($section_slug, $field_slug, $atts, $priority = 10) {
@@ -109,7 +108,7 @@ function wu_register_settings_side_panel($section_slug, $atts) {
 	$atts = wp_parse_args(
 		$atts,
 		[
-			'title'  => __('Side Panel', 'multisite-ultimate'),
+			'title'  => __('Side Panel', 'ultimate-multisite'),
 			'render' => '__return_false',
 			'show'   => '__return_true',
 		]

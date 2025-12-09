@@ -13,7 +13,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Adds a lighter ajax option to Multisite Ultimate.
+ * Adds a lighter ajax option to Ultimate Multisite.
  *
  * @since 1.9.14
  */
@@ -48,7 +48,7 @@ class Views {
 	 */
 	public function custom_locate_template($template_names, $load = false, $use_require_once = true) {
 
-		is_multisite() && switch_to_blog(get_current_site()->blog_id);
+		is_multisite() && switch_to_blog(get_current_site()->site_id);
 
 		$stylesheet_path = get_stylesheet_directory();
 

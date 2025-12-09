@@ -26,6 +26,7 @@ class Webhook_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
@@ -71,6 +72,8 @@ class Webhook_Manager extends Base_Manager {
 		$this->enable_rest_api();
 
 		$this->enable_wp_cli();
+
+		$this->enable_mcp_abilities();
 
 		add_action('init', [$this, 'register_webhook_listeners']);
 
@@ -195,7 +198,7 @@ class Webhook_Manager extends Base_Manager {
 		if ( ! current_user_can('manage_network')) {
 			wp_send_json(
 				[
-					'response' => __('You do not have enough permissions to send a test event.', 'multisite-ultimate'),
+					'response' => __('You do not have enough permissions to send a test event.', 'ultimate-multisite'),
 					'webhooks' => Webhook::get_items_as_array(),
 				]
 			);
@@ -223,59 +226,6 @@ class Webhook_Manager extends Base_Manager {
 	}
 
 	/**
-	 * Reads the log file and displays the content.
-	 *
-	 * @return void.
-	 */
-	public function serve_logs(): void {
-
-		echo '<style>
-			body {
-				font-family: monospace;
-				line-height: 20px;
-			}
-			pre {
-				background: #ececec;
-				border: solid 1px #ccc;
-				padding: 10px;
-				border-radius: 3px;
-			}
-			hr {
-				margin: 25px 0;
-				border-top: 1px solid #cecece;
-				border-bottom: transparent;
-			}
-		</style>
-		';
-
-		if ( ! current_user_can('manage_network')) {
-			esc_html_e('You do not have enough permissions to read the logs of this webhook.', 'multisite-ultimate');
-			exit;
-		}
-
-		$id = absint($_REQUEST['id'] ?? 0); // phpcs:ignore WordPress.Security.NonceVerification
-
-		$logs = array_map(
-			function ($line): string {
-
-				$line = str_replace(' - ', ' </strong> - ', $line);
-
-				$matches = [];
-
-				$line = str_replace('\'', '\\\'', $line);
-				$line = preg_replace('~(\{(?:[^{}]|(?R))*\})~', '<pre><script>document.write(JSON.stringify(JSON.parse(\'${1}\'), null, 2));</script></pre>', $line);
-
-				return '<strong>' . $line . '<hr>';
-			},
-			Logger::read_lines("webhook-$id", 5)
-		);
-
-		echo implode('', $logs); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-		exit;
-	}
-
-	/**
 	 * Log a webhook sent for later reference.
 	 *
 	 * @since 2.0.0
@@ -293,7 +243,7 @@ class Webhook_Manager extends Base_Manager {
 		$message = sprintf('Sent a %s event to the URL %s with data: %s ', $event_name, $url, wp_json_encode($data));
 
 		if ( ! $is_error) {
-			$message .= empty($response) ? sprintf('Got response: %s', $response) : 'To debug the remote server response, turn the "Wait for Response" option on the Multisite Ultimate Settings > API & Webhooks Tab';
+			$message .= empty($response) ? sprintf('Got response: %s', $response) : 'To debug the remote server response, turn the "Wait for Response" option on the Ultimate Multisite Settings > API & Webhooks Tab';
 		} else {
 			$message .= sprintf('Got error: %s', $response);
 		}

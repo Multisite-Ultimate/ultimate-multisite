@@ -4,6 +4,7 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
 ?>
 <div class="wu-styling <?php echo esc_attr($className); ?>">
 
@@ -16,7 +17,7 @@
 
 		<h3 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
-			<?php esc_html_e('Actions', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Actions', 'ultimate-multisite'); ?>
 
 		</h3>
 
@@ -61,7 +62,7 @@
 
 			<h3 class="wu-m-0 <?php echo esc_attr(wu_env_picker('', 'wu-widget-title')); ?>">
 
-			<?php esc_html_e('Danger Zone', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Danger Zone', 'ultimate-multisite'); ?>
 
 			</h3>
 

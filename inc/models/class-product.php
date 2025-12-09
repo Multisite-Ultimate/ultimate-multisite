@@ -12,15 +12,15 @@ namespace WP_Ultimo\Models;
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
-use WP_Ultimo\Models\Base_Model;
 use WP_Ultimo\Database\Products\Product_Type;
+use WP_Ultimo\Models\Interfaces\Limitable;
 
 /**
  * Product model class. Implements the Base Model.
  *
  * @since 2.0.0
  */
-class Product extends Base_Model {
+class Product extends Base_Model implements Limitable {
 
 	use Traits\Limitable;
 	use \WP_Ultimo\Traits\WP_Ultimo_Plan_Deprecated;
@@ -238,6 +238,14 @@ class Product extends Base_Model {
 	protected $product_group;
 
 	/**
+	 * Network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @var int|null
+	 */
+	protected $network_id;
+
+	/**
 	 * Contact us Label.
 	 *
 	 * @since 2.0.0
@@ -275,7 +283,7 @@ class Product extends Base_Model {
 	 * @since 2.0.0
 	 * @var array
 	 */
-	protected $_mappings = [
+	protected $_mappings = [ // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 		'product_group' => 'group',
 	];
 
@@ -323,7 +331,21 @@ class Product extends Base_Model {
 			'contact_us_label'    => 'default:',
 			'contact_us_link'     => 'url:http,https',
 			'customer_role'       => 'alpha_dash',
+			'network_id'          => 'integer|nullable',
 		];
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function load_attributes_from_post() {
+		parent::load_attributes_from_post();
+
+		if (isset($_POST['description'])) { // phpcs:ignore WordPress.Security.NonceVerification
+			$this->set_description(sanitize_post_field('post_content', wp_unslash($_POST['description']), $this->get_id(), 'db')); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification
+		}
+
+		return $this;
 	}
 
 	/**
@@ -620,11 +642,11 @@ class Product extends Base_Model {
 	public function get_formatted_amount($key = 'amount') {
 
 		if ($this->is_free()) {
-			return __('Free!', 'multisite-ultimate');
+			return __('Free!', 'ultimate-multisite');
 		}
 
 		if ($this->get_pricing_type() === 'contact_us') {
-			return $this->get_contact_us_label() ?: __('Contact Us', 'multisite-ultimate');
+			return $this->get_contact_us_label() ?: __('Contact Us', 'ultimate-multisite');
 		}
 
 		return wu_format_currency($this->get_amount(), $this->get_currency());
@@ -697,11 +719,11 @@ class Product extends Base_Model {
 		$pricing = [];
 
 		if ($this->get_pricing_type() === 'contact_us') {
-			return __('Contact us', 'multisite-ultimate');
+			return __('Contact us', 'ultimate-multisite');
 		}
 
 		if ($this->is_free()) {
-			return __('Free!', 'multisite-ultimate');
+			return __('Free!', 'ultimate-multisite');
 		}
 
 		if ($this->is_recurring()) {
@@ -709,7 +731,7 @@ class Product extends Base_Model {
 
 			$message = sprintf(
 				// translators: %1$s is the formatted price, %2$s the duration, and %3$s the duration unit (day, week, month, etc)
-				_n('%1$s every %3$s', '%1$s every %2$s %3$s', $duration, 'multisite-ultimate'), // phpcs:ignore
+				_n('%1$s every %3$s', '%1$s every %2$s %3$s', $duration, 'ultimate-multisite'), // phpcs:ignore
 				wu_format_currency($this->get_amount(), $this->get_currency()),
 				$duration,
 				wu_get_translatable_string($duration <= 1 ? $this->get_duration_unit() : $this->get_duration_unit() . 's')
@@ -720,7 +742,7 @@ class Product extends Base_Model {
 			if ( ! $this->is_forever_recurring()) {
 				$billing_cycles_message = sprintf(
 					// translators: %s is the number of billing cycles.
-					_n('for %s cycle', 'for %s cycles', $this->get_billing_cycles(), 'multisite-ultimate'),
+					_n('for %s cycle', 'for %s cycles', $this->get_billing_cycles(), 'ultimate-multisite'),
 					$this->get_billing_cycles()
 				);
 
@@ -729,7 +751,7 @@ class Product extends Base_Model {
 		} else {
 			$pricing['subscription'] = sprintf(
 				// translators: %1$s is the formatted price of the product
-				__('%1$s one time payment', 'multisite-ultimate'),
+				__('%1$s one time payment', 'ultimate-multisite'),
 				wu_format_currency($this->get_amount(), $this->get_currency())
 			);
 		}
@@ -737,7 +759,7 @@ class Product extends Base_Model {
 		if ($this->has_setup_fee() && $include_fees) {
 			$pricing['fee'] = sprintf(
 				// translators: %1$s is the formatted price of the setup fee
-				__('Setup Fee of %1$s', 'multisite-ultimate'),
+				__('Setup Fee of %1$s', 'ultimate-multisite'),
 				wu_format_currency($this->get_setup_fee(), $this->get_currency())
 			);
 		}
@@ -758,12 +780,12 @@ class Product extends Base_Model {
 		}
 
 		if ( ! $this->is_recurring()) {
-			return __('one-time payment', 'multisite-ultimate');
+			return __('one-time payment', 'ultimate-multisite');
 		}
 
 		$description = sprintf(
 			// translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
-			_n('every %2$s', 'every %1$s %2$s', $this->get_duration(), 'multisite-ultimate'), // phpcs:ignore
+			_n('every %2$s', 'every %1$s %2$s', $this->get_duration(), 'ultimate-multisite'), // phpcs:ignore
 			$this->get_duration(),
 			wu_get_translatable_string($this->get_duration() <= 1 ? $this->get_duration_unit() : $this->get_duration_unit() . 's')
 		);
@@ -1352,8 +1374,8 @@ class Product extends Base_Model {
 	/**
 	 * Creates a copy of the given model adn resets it's id to a 'new' state.
 	 *
+	 * @return Base_Model|Product
 	 * @since 2.0.0
-	 * @return \WP_Ultimo\Model\Base_Model
 	 */
 	public function duplicate() {
 
@@ -1373,7 +1395,11 @@ class Product extends Base_Model {
 	public function get_available_addons() {
 
 		if (null === $this->available_addons) {
-			$this->available_addons = $this->get_meta('wu_available_addons', []);
+			$this->available_addons = $this->get_meta(
+				'wu_
+			available_addons',
+				[]
+			);
 
 			if (is_string($this->available_addons)) {
 				$this->available_addons = explode(',', $this->available_addons);
@@ -1478,5 +1504,28 @@ class Product extends Base_Model {
 	public function limitations_to_merge() {
 
 		return [];
+	}
+
+	/**
+	 * Get the network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @return int|null
+	 */
+	public function get_network_id() {
+
+		return $this->network_id ? absint($this->network_id) : null;
+	}
+
+	/**
+	 * Set the network ID for multinetwork support.
+	 *
+	 * @since 2.3.0
+	 * @param int|null $network_id Network ID.
+	 * @return void
+	 */
+	public function set_network_id($network_id): void {
+
+		$this->network_id = $network_id ? absint($network_id) : null;
 	}
 }

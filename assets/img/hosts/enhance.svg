@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="200" height="60" fill="#1a1a2e" rx="5"/>
+
+  <!-- Icon - Stylized "E" -->
+  <g transform="translate(15, 15)">
+    <path d="M 0 0 L 20 0 L 20 5 L 5 5 L 5 12.5 L 18 12.5 L 18 17.5 L 5 17.5 L 5 25 L 20 25 L 20 30 L 0 30 Z" fill="#00d9ff"/>
+  </g>
+
+  <!-- Text "Enhance" -->
+  <text x="50" y="37" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff">Enhance</text>
+
+  <!-- Subtitle -->
+  <text x="50" y="50" font-family="Arial, sans-serif" font-size="10" fill="#00d9ff">Control Panel</text>
+</svg>

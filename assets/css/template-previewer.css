@@ -235,6 +235,42 @@ a {
   width: 100%;
 }
 
+.wu-loading-indicator {
+  position: absolute;
+  top: 62px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #fff;
+  z-index: 1000;
+}
+
+.wu-loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-top: 4px solid #00a1ff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: wu-spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes wu-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.wu-loading-text {
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
 .logo {
   float: left;
   margin-right: 40px;

@@ -78,7 +78,7 @@ abstract class Limit implements \JsonSerializable {
 	 * @since 2.0.0
 	 * @var bool
 	 */
-	private bool $enabled_default_value = true;
+	protected bool $enabled_default_value = true;
 
 	/**
 	 * Constructs the limit module.
@@ -97,9 +97,9 @@ abstract class Limit implements \JsonSerializable {
 	 * @since 2.0.0
 	 * @return string
 	 */
-	public function __serialize() { // phpcs:ignore
+	public function __serialize() {
 
-		return serialize($this->to_array());
+		return serialize($this->to_array()); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize
 	}
 
 	/**
@@ -110,9 +110,9 @@ abstract class Limit implements \JsonSerializable {
 	 * @param string $data The un-serialized data.
 	 * @return void
 	 */
-	public function __unserialize($data) { // phpcs:ignore
+	public function __unserialize($data) {
 
-		$this->setup(unserialize($data));
+		$this->setup(unserialize($data));  // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize
 	}
 
 	/**
@@ -299,7 +299,7 @@ abstract class Limit implements \JsonSerializable {
 	 */
 	public function handle_enabled() {
 
-		$module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification
+		$module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		return (bool) wu_get_isset($module, 'enabled', false);
 	}
@@ -325,7 +325,7 @@ abstract class Limit implements \JsonSerializable {
 	 */
 	public function handle_limit() {
 
-		$module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification
+		$module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		return wu_get_isset($module, 'limit', null);
 	}

@@ -10,6 +10,7 @@
 namespace WP_Ultimo\Models;
 
 use WP_Ultimo\Models\Base_Model;
+use WP_Ultimo\Models\Interfaces\Notable;
 use WP_Ultimo\Database\Payments\Payment_Status;
 use WP_Ultimo\Checkout\Line_Item;
 use WP_Ultimo\Models\Customer;
@@ -24,7 +25,7 @@ defined('ABSPATH') || exit;
  *
  * @since 2.0.0
  */
-class Payment extends Base_Model {
+class Payment extends Base_Model implements Notable {
 
 	use Traits\Notable;
 
@@ -548,13 +549,13 @@ class Payment extends Base_Model {
 		$gateway = $this->get_gateway();
 
 		if ( ! $gateway) {
-			return __('None', 'multisite-ultimate');
+			return __('None', 'ultimate-multisite');
 		}
 
 		$gateway_class = wu_get_gateway($gateway);
 
 		if ( ! $gateway_class) {
-			return __('None', 'multisite-ultimate');
+			return __('None', 'ultimate-multisite');
 		}
 
 		$title = $gateway_class->get_public_title();
@@ -611,12 +612,14 @@ class Payment extends Base_Model {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param Line_Item[] $line_items THe line items.
+	 * @param Line_Item[] $line_items The line items.
 	 * @return void
 	 */
 	public function set_line_items(array $line_items): void {
 
 		$line_items = array_filter($line_items);
+
+		$line_items = array_map(fn($item) => is_array($item) ? new \WP_Ultimo\Checkout\Line_Item($item) : $item, $line_items);
 
 		$this->meta['wu_line_items'] = $line_items;
 
@@ -635,7 +638,7 @@ class Payment extends Base_Model {
 
 		$line_items = $this->get_line_items();
 
-		if ( ! is_a($line_item, self::class)) {
+		if ( ! is_a($line_item, Line_Item::class)) {
 			return;
 		}
 
@@ -935,7 +938,7 @@ class Payment extends Base_Model {
 
 		$prefix = str_replace($search, $replace, (string) $prefix);
 
-		return sprintf('%s%s %s', $prefix, $this->invoice_number, $provisional ? __('(provisional)', 'multisite-ultimate') : '');
+		return sprintf('%s%s %s', $prefix, $this->invoice_number, $provisional ? __('(provisional)', 'ultimate-multisite') : '');
 	}
 
 	/**
@@ -1017,7 +1020,7 @@ class Payment extends Base_Model {
 	 * An example of how that would work:
 	 * 1. Admin issues a refund on the admin panel;
 	 * 2. PayPal (for example), process the refund request
-	 *    and sends back a IPN (webhook call) telling Multisite Ultimate
+	 *    and sends back a IPN (webhook call) telling Ultimate Multisite
 	 *    that the refund was issued successfully;
 	 * 3. The IPN handler listens for that event and calls this
 	 *    to reflect the refund in the original WU payment.
@@ -1055,11 +1058,11 @@ class Payment extends Base_Model {
 		 * it is a partial refund.
 		 */
 		if ($amount >= $this->get_total()) {
-			$title = __('Full Refund', 'multisite-ultimate');
+			$title = __('Full Refund', 'ultimate-multisite');
 
 			$new_status = Payment_Status::REFUND;
 		} else {
-			$title = __('Partial Refund', 'multisite-ultimate');
+			$title = __('Partial Refund', 'ultimate-multisite');
 
 			$new_status = Payment_Status::PARTIAL_REFUND;
 		}
@@ -1069,7 +1072,7 @@ class Payment extends Base_Model {
 		$formatted_value = date_i18n(get_option('date_format'), $time);
 
 		// translators: %s is the date of processing.
-		$description = sprintf(__('Processed on %s', 'multisite-ultimate'), $formatted_value);
+		$description = sprintf(__('Processed on %s', 'ultimate-multisite'), $formatted_value);
 
 		$line_item_data = [
 			'type'         => 'refund',

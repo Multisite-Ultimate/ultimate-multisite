@@ -19,6 +19,16 @@ require_once WP_ULTIMO_PLUGIN_DIR . '/inc/duplication/duplicate.php';
 if ( ! defined('MUCD_PRIMARY_SITE_ID')) {
 	define('MUCD_PRIMARY_SITE_ID', get_current_network_id()); // phpcs:ignore
 }
+if ( ! defined('MUCD_NETWORK_PAGE_DUPLICATE_COPY_FILE_ERROR')) {
+	// translators: %s the file path that failed.
+	define('MUCD_NETWORK_PAGE_DUPLICATE_COPY_FILE_ERROR', __('Failed to copy files : check permissions on <strong>%s</strong>', 'ultimate-multisite')); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
+}
+if ( ! defined('MUCD_NETWORK_PAGE_DUPLICATE_VIEW_LOG')) {
+	define('MUCD_NETWORK_PAGE_DUPLICATE_VIEW_LOG', __('View log', 'ultimate-multisite')); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
+}
+if ( ! defined('MUCD_MAX_NUMBER_OF_SITE')) {
+	define('MUCD_MAX_NUMBER_OF_SITE', 5000); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
+}
 
 /**
  * Exposes the public API to handle site duplication.
@@ -56,7 +66,7 @@ class Site_Duplicator {
 		if (is_wp_error($duplicate_site)) {
 
 			// translators: %s id the template site id and %s is the error message returned.
-			$message = sprintf(__('Attempt to duplicate site %1$d failed: %2$s', 'multisite-ultimate'), $from_site_id, $duplicate_site->get_error_message());
+			$message = sprintf(__('Attempt to duplicate site %1$d failed: %2$s', 'ultimate-multisite'), $from_site_id, $duplicate_site->get_error_message());
 
 			wu_log_add('site-duplication', $message, LogLevel::ERROR);
 
@@ -64,7 +74,7 @@ class Site_Duplicator {
 		}
 
 		// translators: %1$d is the ID of the site template used, and %2$d is the id of the new site.
-		$message = sprintf(__('Attempt to duplicate site %1$d successful - New site id: %2$d', 'multisite-ultimate'), $from_site_id, $duplicate_site);
+		$message = sprintf(__('Attempt to duplicate site %1$d successful - New site id: %2$d', 'ultimate-multisite'), $from_site_id, $duplicate_site);
 
 		wu_log_add('site-duplication', $message);
 
@@ -108,7 +118,7 @@ class Site_Duplicator {
 		if (is_wp_error($duplicate_site_id)) {
 
 			// translators: %s id the template site id and %s is the error message returned.
-			$message = sprintf(__('Attempt to override site %1$d with data from site %2$d failed: %3$s', 'multisite-ultimate'), $from_site_id, $to_site_id, $duplicate_site_id->get_error_message());
+			$message = sprintf(__('Attempt to override site %1$d with data from site %2$d failed: %3$s', 'ultimate-multisite'), $from_site_id, $to_site_id, $duplicate_site_id->get_error_message());
 
 			wu_log_add('site-duplication', $message, LogLevel::ERROR);
 
@@ -129,15 +139,20 @@ class Site_Duplicator {
 
 		$saved = $new_to_site->save();
 
-		if ($saved) {
+		if (is_wp_error($saved)) {
+			// translators: %s id the template site id and %s is the error message returned.
+			$message = sprintf(__('Attempt to override site %1$d with data from site %2$d failed: %3$s', 'ultimate-multisite'), $from_site_id, $to_site_id, $saved->get_error_message());
 
-			// translators: %1$d is the ID of the site template used, and %2$d is the ID of the overriden site.
-			$message = sprintf(__('Attempt to override site %1$d with data from site %2$d successful.', 'multisite-ultimate'), $from_site_id, $duplicate_site_id);
-
-			wu_log_add('site-duplication', $message);
-
-			return $saved;
+			wu_log_add('site-duplication', $message, LogLevel::ERROR);
+			return false;
 		}
+
+		// translators: %1$d is the ID of the site template used, and %2$d is the ID of the overriden site.
+		$message = sprintf(__('Attempt to override site %1$d with data from site %2$d successful.', 'ultimate-multisite'), $from_site_id, $duplicate_site_id);
+
+		wu_log_add('site-duplication', $message);
+
+		return $saved;
 	}
 
 	/**
@@ -188,7 +203,7 @@ class Site_Duplicator {
 		$wpdb->hide_errors();
 
 		if ( ! $args->from_site_id) {
-			return new \WP_Error('from_site_id_required', __('You need to provide a valid site to duplicate.', 'multisite-ultimate'));
+			return new \WP_Error('from_site_id_required', __('You need to provide a valid site to duplicate.', 'ultimate-multisite'));
 		}
 
 		$user_id = ! empty($args->user_id) ? $args->user_id : self::create_admin($args->email, $site_domain);
@@ -210,7 +225,7 @@ class Site_Duplicator {
 		}
 
 		if ( ! is_numeric($args->to_site_id)) {
-			return new \WP_Error('site_creation_failed', __('An attempt to create a new site failed.', 'multisite-ultimate'));
+			return new \WP_Error('site_creation_failed', __('An attempt to create a new site failed.', 'ultimate-multisite'));
 		}
 
 		if ( ! is_super_admin($user_id) && ! get_user_option('primary_blog', $user_id)) {
@@ -220,7 +235,7 @@ class Site_Duplicator {
 		\MUCD_Duplicate::bypass_server_limit();
 
 		if ($args->copy_files) {
-			$result = \MUCD_Files::copy_files($args->from_site_id, $args->to_site_id);
+			\MUCD_Files::copy_files($args->from_site_id, $args->to_site_id);
 		}
 
 		/**
@@ -228,10 +243,10 @@ class Site_Duplicator {
 		 */
 		add_filter('send_site_admin_email_change_email', '__return_false');
 
-		$result = \MUCD_Data::copy_data($args->from_site_id, $args->to_site_id);
+		\MUCD_Data::copy_data($args->from_site_id, $args->to_site_id);
 
 		if ($args->keep_users) {
-			$result = \MUCD_Duplicate::copy_users($args->from_site_id, $args->to_site_id);
+			\MUCD_Duplicate::copy_users($args->from_site_id, $args->to_site_id);
 		}
 
 		wp_cache_flush();
@@ -249,6 +264,12 @@ class Site_Duplicator {
 			]
 		);
 
+		/*
+		 * Reset WooCommerce Subscriptions staging mode detection
+		 * to prevent the duplicated site from being locked in staging mode.
+		 */
+		self::reset_woocommerce_subscriptions_staging_mode($args->to_site_id);
+
 		return $args->to_site_id;
 	}
 
@@ -258,7 +279,7 @@ class Site_Duplicator {
 	 * @since 2.0.0
 	 * @param  string $email The email.
 	 * @param  string $domain The domain.
-	 * @return int Id of the user created.
+	 * @return int|\WP_Error Id of the user created.
 	 */
 	public static function create_admin($email, $domain) {
 
@@ -274,12 +295,98 @@ class Site_Duplicator {
 			$user_id = wpmu_create_user($domain, $password, $email);
 
 			if (false === $user_id) {
-				return new \WP_Error('user_creation_error', __('We were not able to create a new admin user for the site being duplicated.', 'multisite-ultimate'));
+				return new \WP_Error('user_creation_error', __('We were not able to create a new admin user for the site being duplicated.', 'ultimate-multisite'));
 			} else {
 				wp_new_user_notification($user_id);
 			}
 		}
 
 		return $user_id;
+	}
+
+	/**
+	 * Resets WooCommerce Subscriptions staging mode detection for a duplicated site.
+	 *
+	 * When a site is duplicated, WooCommerce Subscriptions detects the URL change
+	 * and enters "staging mode", which disables automatic payments and subscription
+	 * emails. This method resets the stored site URL to match the new site's URL,
+	 * preventing the staging mode from being triggered.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int $site_id The ID of the newly duplicated site.
+	 * @return void
+	 */
+	protected static function reset_woocommerce_subscriptions_staging_mode($site_id) {
+
+		if ( ! $site_id) {
+			return;
+		}
+		// Ensure plugin.php is loaded for is_plugin_active_for_network()
+		if ( ! function_exists('is_plugin_active_for_network')) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+		// Check if WooCommerce Subscriptions is active on the site
+		if ( ! is_plugin_active_for_network('woocommerce-subscriptions/woocommerce-subscriptions.php')) {
+			switch_to_blog($site_id);
+
+			$active_plugins = get_option('active_plugins', []);
+
+			restore_current_blog();
+
+			if ( ! in_array('woocommerce-subscriptions/woocommerce-subscriptions.php', $active_plugins, true)) {
+				return;
+			}
+		}
+
+		// Switch to the duplicated site context
+		switch_to_blog($site_id);
+
+		try {
+			// Get the current site URL
+			$site_url = get_site_url();
+
+			// Validate that we have a non-empty site URL
+			if (empty($site_url) || ! is_string($site_url)) {
+				// Skip updates if site URL is invalid
+				return;
+			}
+
+			// Parse the URL scheme and validate the result
+			$scheme = wp_parse_url($site_url, PHP_URL_SCHEME);
+
+			// Validate wp_parse_url returned a valid scheme
+			if (empty($scheme) || ! is_string($scheme)) {
+				// Skip updates if URL parsing failed
+				return;
+			}
+
+			// Generate the obfuscated key that WooCommerce Subscriptions uses
+			// It inserts '_[wc_subscriptions_siteurl]_' in the middle of the URL
+			$scheme_with_separator   = $scheme . '://';
+			$site_url_without_scheme = str_replace($scheme_with_separator, '', $site_url);
+
+			// Validate the URL without scheme is a non-empty string
+			if (empty($site_url_without_scheme) || ! is_string($site_url_without_scheme)) {
+				// Skip updates if URL manipulation failed
+				return;
+			}
+
+			$obfuscated_url = $scheme_with_separator . substr_replace(
+				$site_url_without_scheme,
+				'_[wc_subscriptions_siteurl]_',
+				intval(strlen($site_url_without_scheme) / 2),
+				0
+			);
+
+			// Update the WooCommerce Subscriptions site URL option
+			update_option('wc_subscriptions_siteurl', $obfuscated_url);
+
+			// Delete the "ignore notice" option to ensure a clean state
+			delete_option('wcs_ignore_duplicate_siteurl_notice');
+		} finally {
+			// Always restore the original blog context, even if errors or exceptions occur
+			restore_current_blog();
+		}
 	}
 }

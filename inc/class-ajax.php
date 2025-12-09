@@ -13,11 +13,11 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Adds a lighter ajax option to Multisite Ultimate.
+ * Adds a lighter ajax option to Ultimate Multisite.
  *
  * @since 1.9.14
  */
-class Ajax {
+class Ajax implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 
@@ -26,7 +26,7 @@ class Ajax {
 	 *
 	 * @since 2.0.0
 	 */
-	public function __construct() {
+	public function init(): void {
 		/*
 		 * Load search endpoints.
 		 */
@@ -104,7 +104,7 @@ class Ajax {
 			[
 				'model'   => 'membership',
 				'query'   => [],
-				'exclude' => [],
+				'exclude' => [], // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 			]
 		);
 
@@ -117,9 +117,9 @@ class Ajax {
 
 		if ($args['exclude']) {
 			if (is_string($args['exclude'])) {
-				$args['exclude'] = explode(',', $args['exclude']);
+				$args['exclude'] = explode(',', $args['exclude']); // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 
-				$args['exclude'] = array_map('trim', $args['exclude']);
+				$args['exclude'] = array_map('trim', $args['exclude']); // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 			}
 
 			$query['id__not_in'] = $args['exclude'];
@@ -162,7 +162,7 @@ class Ajax {
 					'post_type'   => 'page',
 					'post_status' => 'publish',
 					'numberposts' => -1,
-					'exclude'     => $query['id__not_in'] ?? '',
+					'exclude'     => $query['id__not_in'] ?? '', // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 				]
 			);
 		} elseif ('setting' === $args['model']) {
@@ -304,7 +304,7 @@ class Ajax {
 	}
 
 	/**
-	 * Search for Multisite Ultimate settings to help customers find them.
+	 * Search for Ultimate Multisite settings to help customers find them.
 	 *
 	 * @since 2.0.0
 	 *

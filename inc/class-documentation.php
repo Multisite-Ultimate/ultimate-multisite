@@ -19,7 +19,7 @@ defined('ABSPATH') || exit;
  *
  * @since 2.0.0
  */
-class Documentation {
+class Documentation implements \WP_Ultimo\Interfaces\Singleton {
 
 	use \WP_Ultimo\Traits\Singleton;
 
@@ -47,7 +47,7 @@ class Documentation {
 
 		$links = [];
 
-		// Multisite Ultimate Dashboard
+		// Ultimate Multisite Dashboard
 		$links['wp-ultimo'] = 'https://github.com/superdav42/wp-multisite-waas/wiki';
 
 		// Settings Page

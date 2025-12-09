@@ -4,15 +4,16 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
 ?>
 <div id="wu-tax-rates" class="<?php wu_wrap_use_container(); ?> wrap wp-ultimo">
 
 	<h1 class="wp-heading-inline">
-		<?php esc_html_e('Tax Rates', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Tax Rates', 'ultimate-multisite'); ?>
 	</h1>
 
 	<a href="<?php echo esc_url(network_admin_url('admin.php?page=wp-ultimo-settings&tab=taxes')); ?>" class="page-title-action">
-		<?php esc_html_e('Go to the Tax Settings Page', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Go to the Tax Settings Page', 'ultimate-multisite'); ?>
 	</a>
 
 	<!-- <p class="description"></p> -->
@@ -27,14 +28,14 @@
 
 		<div v-show="creating">
 
-			<input type="text" style="background: white !important;" class="button wu-bg-white" v-model="create_name" placeholder="<?php esc_html_e('Tax Category Name', 'multisite-ultimate'); ?>">
+			<input type="text" style="background: white !important;" class="button wu-bg-white" v-model="create_name" placeholder="<?php esc_html_e('Tax Category Name', 'ultimate-multisite'); ?>">
 
 			<button class="button button-primary" v-on:click.prevent="add_tax_category" v-bind:disabled="create_name.length <= 3">
-			<?php esc_html_e('Create', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Create', 'ultimate-multisite'); ?>
 			</button>
 
 			<button class="button action" v-on:click.prevent="creating = false">
-			<?php esc_html_e('&larr; Back', 'multisite-ultimate'); ?>
+			<?php esc_html_e('&larr; Back', 'ultimate-multisite'); ?>
 			</button>
 
 		</div>
@@ -42,7 +43,7 @@
 		<div v-show="switching">
 
 			<button class="button action" v-on:click.prevent="switching = false">
-			<?php esc_html_e('&larr; Back', 'multisite-ultimate'); ?>
+			<?php esc_html_e('&larr; Back', 'ultimate-multisite'); ?>
 			</button>
 
 			<select v-model="tax_category" class="wu-bg-white">
@@ -58,17 +59,17 @@
 			<input type="text" style="background: white !important;" class="button wu-bg-white" v-model="data[tax_category].name">
 
 			<button class="button action" v-on:click.prevent="switching = true">
-			<?php esc_html_e('Switch', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Switch', 'ultimate-multisite'); ?>
 			</button>
 
 			<button class="button action" v-on:click.prevent="delete_tax_category">
-			<?php esc_html_e('Delete', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Delete', 'ultimate-multisite'); ?>
 			</button>
 
 			&nbsp;
 
 			<button class="button action wu-ml-3" v-on:click.prevent="creating = true">
-			<?php esc_html_e('Add new Tax Category', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Add new Tax Category', 'ultimate-multisite'); ?>
 			</button>
 
 		</div>
@@ -79,7 +80,7 @@
 
 		<span class="displaying-num">
 
-			{{data[tax_category].rates.length}} <?php esc_html_e('item(s)', 'multisite-ultimate'); ?>
+			{{data[tax_category].rates.length}} <?php esc_html_e('item(s)', 'ultimate-multisite'); ?>
 
 		</span>
 
@@ -98,7 +99,7 @@
 			<th id="cb" class="manage-column column-cb" style="width: 50px;">
 
 			<label class="screen-reader-text" for="wu-select-2">
-				<?php esc_html_e('Select All'); ?>
+				<?php esc_html_e('Select All', 'ultimate-multisite'); ?>
 			</label>
 
 			<input v-bind:disabled="!data[tax_category].rates" v-model="toggle" v-on:click="select_all" id="wu-select-2"
@@ -126,7 +127,7 @@
 
 			<div class="wu-p-4">
 
-				<?php esc_html_e('Loading Tax Rates...', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Loading Tax Rates...', 'ultimate-multisite'); ?>
 
 			</div>
 
@@ -140,7 +141,7 @@
 
 			<div class="wu-p-4">
 
-				<?php esc_html_e('No items to display', 'multisite-ultimate'); ?>
+				<?php esc_html_e('No items to display', 'ultimate-multisite'); ?>
 
 			</div>
 
@@ -166,7 +167,7 @@
 
 			<label class="screen-reader-text" for="wu-select-1">
 
-				<?php esc_html_e('Select'); ?> {{item.title}}
+				<?php esc_html_e('Select', 'ultimate-multisite'); ?> {{item.title}}
 
 			</label>
 
@@ -240,7 +241,7 @@
 				:options="item.state_options" 
 				model="state" 
 				style="width: 100%;"
-				placeholder="<?php esc_attr_e('Leave blank to apply to all', 'multisite-ultimate'); ?>"
+				placeholder="<?php esc_attr_e('Leave blank to apply to all', 'ultimate-multisite'); ?>"
 				></selectizer>
 
 						<?php
@@ -255,7 +256,7 @@
 				:country="item.country" 
 				model="city" 
 				style="width: 100%;"
-				placeholder="<?php esc_attr_e('Leave blank to apply to all', 'multisite-ultimate'); ?>"
+				placeholder="<?php esc_attr_e('Leave blank to apply to all', 'ultimate-multisite'); ?>"
 				v-cloak
 				></selectizer>
 
@@ -305,7 +306,7 @@
 
 			<label class="screen-reader-text" for="wu-select">
 
-				<?php esc_html_e('Select All'); ?>
+				<?php esc_html_e('Select All', 'ultimate-multisite'); ?>
 
 			</label>
 
@@ -338,13 +339,13 @@
 
 		<button v-on:click.prevent="add_row" class="button">
 
-		<?php esc_html_e('Add new Row', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Add new Row', 'ultimate-multisite'); ?>
 
 		</button>
 
 		<button v-on:click.prevent="delete_rows" class="button">
 
-		<?php esc_html_e('Delete Selected Rows', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Delete Selected Rows', 'ultimate-multisite'); ?>
 
 		</button>
 
@@ -370,11 +371,11 @@
 
 		<span v-if="changed && !saveMessage && !saving" class="description"
 		style="display: inline-block; line-height: 28px; margin-right: 10px;">
-		<?php esc_html_e('Save your changes!', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Save your changes!', 'ultimate-multisite'); ?>
 		</span>
 
 		<span v-if="saving" class="description" style="display: inline-block; line-height: 28px; margin-right: 10px;">
-		<?php esc_html_e('Saving...', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Saving...', 'ultimate-multisite'); ?>
 		</span>
 
 		<span v-if="saveMessage" class="description"
@@ -384,7 +385,7 @@
 
 		<button v-on:click.prevent="save" v-bind:disabled="saving" class="button button-primary">
 
-		<?php esc_html_e('Save Tax Rates'); ?>
+		<?php esc_html_e('Save Tax Rates', 'ultimate-multisite'); ?>
 
 		</button>
 
@@ -401,5 +402,4 @@
 	</form>
 
 	<br class="clear">
-
 </div>

@@ -41,7 +41,7 @@ function wu_get_template($view, $args = [], $default_view = false) {
 	 * Allows developers to add additional folders to the replaceable list.
 	 *
 	 * Be careful, as allowing additional folders might cause
-	 * out-of-date copies to be loaded instead of the Multisite Ultimate versions.
+	 * out-of-date copies to be loaded instead of the Ultimate Multisite versions.
 	 *
 	 * @since 2.0.0
 	 * @param array $replaceable_views List of allowed folders.

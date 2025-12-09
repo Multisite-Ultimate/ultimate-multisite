@@ -54,10 +54,8 @@ class Invoice {
 	/**
 	 * Constructs the invoice object.
 	 *
-	 * @since 2.0.0
-	 *
-	 * @param \WP_Ultimo\Checkout\Cart $payment The payment.
-	 * @param array                    $atts Attributes to make available on template.
+	 * @param \WP_Ultimo\Models\Payment $payment The payment.
+	 * @param array                     $atts Attributes to make available on template.
 	 */
 	public function __construct($payment, $atts = []) {
 
@@ -91,7 +89,7 @@ class Invoice {
 	 */
 	private function pdf_setup(): void {
 
-		$this->printer = new Mpdf(
+		$this->printer                     = new Mpdf(
 			[
 				'mode'             => '+aCJK',
 				'autoScriptToLang' => true,
@@ -99,12 +97,13 @@ class Invoice {
 				'tempDir'          => get_temp_dir(),
 			]
 		);
+		$this->printer->curlFollowLocation = true;
 
 		$this->printer->setDefaultFont($this->font);
 
 		$this->printer->SetProtection(['print']);
 
-		$this->printer->SetTitle(__('Invoice', 'multisite-ultimate'));
+		$this->printer->SetTitle(__('Invoice', 'ultimate-multisite'));
 
 		$this->printer->SetAuthor($this->company_name);
 
@@ -169,6 +168,8 @@ class Invoice {
 
 		$atts['billing_address'] = $atts['membership'] ? $atts['membership']->get_billing_address()->to_array() : [];
 
+		wp_enqueue_style('wu-invoice', wu_get_asset('invoice.css', 'css'), [], \WP_Ultimo::VERSION);
+
 		return wu_get_template_contents('invoice/template', $atts);
 	}
 
@@ -187,6 +188,11 @@ class Invoice {
 		wu_try_unlimited_server_limits();
 
 		$this->pdf_setup();
+
+		// Define constant to indicate PDF generation context for templates
+		if ( ! defined('WU_GENERATING_PDF')) {
+			define('WU_GENERATING_PDF', true);
+		}
 
 		$this->printer->WriteHTML($this->render());
 
@@ -251,7 +257,7 @@ class Invoice {
 				'use_custom_logo' => false,
 				'custom_logo'     => false,
 				'footer_message'  => '',
-				'paid_tag_text'   => __('Paid', 'multisite-ultimate'),
+				'paid_tag_text'   => __('Paid', 'ultimate-multisite'),
 			]
 		);
 

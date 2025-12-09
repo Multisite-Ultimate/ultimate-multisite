@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/signup/princing-table/princing-table.php.
  *
- * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
+ * HOWEVER, on occasion Ultimate Multisite will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -20,36 +20,6 @@ if ( ! defined('ABSPATH')) {
 }
 
 ?>
-
-<?php
-
-/**
- * Get the Colors to be used
- */
-$primary_color  = wu_color($atts['primary_color']);
-$accent_color   = wu_color($atts['accent_color']);
-$accent_color_2 = wu_color($accent_color->darken(4));
-
-?>
-
-<style>
-
-	.wu-content-plan .plan-tier h4 {
-	background-color: #<?php echo esc_html($primary_color->getHex()); ?>;
-	color: <?php echo $primary_color->isDark() ? 'white' : '#333'; ?> !important;
-	}
-
-	.wu-content-plan .plan-tier.callout h6 {
-	background-color: #<?php echo esc_html($accent_color->getHex()); ?>;
-	color: <?php echo $accent_color->isDark() ? '#f9f9f9' : 'rgba(39,65,90,.5)'; ?> !important;
-	}
-
-	.wu-content-plan .plan-tier.callout h4 {
-	background-color: #<?php echo esc_html($accent_color_2->getHex()); ?>;
-	color: <?php echo $accent_color->isDark() ? 'white' : '#333'; ?> !important;
-	}
-
-</style>
 
 <div class="wu-setup-content wu-content-<?php echo isset($is_shortcode) && $is_shortcode ? 'shortcode-plan' : 'plan'; ?>">
 
@@ -119,18 +89,7 @@ if (empty($plans)) {
 
 
 
-<script type="text/javascript">
-
-	(function ($) {
-	$(document).ready(function () {
-		/**
-		* Select the default pricing option
-		*/
-		setTimeout(function() {
-		$('[data-frequency-selector="<?php echo esc_attr(wu_get_setting('default_pricing_option', 1)); ?>"]').click();
-		}, 100);
-
-	});
-	})(jQuery);
-
-</script>
+<?php
+wp_enqueue_script('wu-pricing-table', wu_get_asset('pricing-table.js', 'js'), ['jquery'], wu_get_version(), true);
+wp_add_inline_script('wu-pricing-table', 'var wu_default_pricing_option = "' . esc_js(wu_get_setting('default_pricing_option', 1)) . '";', 'before');
+?>

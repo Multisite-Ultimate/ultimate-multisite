@@ -54,9 +54,7 @@
 
         return _.filter(app.addons, function(addon, slug) {
 
-          addon.slug = slug;
-
-          if (app.category !== 'all' && ! _.contains(addon.categories.map((item) => item.toLowerCase()), app.category.toLowerCase())) {
+          if (app.category !== 'all' && ! addon.categories.some(cat => cat.slug === app.category) ) {
 
             return false;
 
@@ -142,6 +140,11 @@
       category() {
 
         return wu_main_addon_app.category;
+
+      },
+      available_categories() {
+
+        return wu_main_addon_app.categories;
 
       },
     },

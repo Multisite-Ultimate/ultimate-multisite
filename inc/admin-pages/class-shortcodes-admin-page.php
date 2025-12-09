@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Shortcodes Admin Page.
+ * Ultimate Multisite Shortcodes Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -15,7 +15,7 @@ use WP_Ultimo\UI\Base_Element;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Shortcodes Admin Page.
+ * Ultimate Multisite Shortcodes Admin Page.
  */
 class Shortcodes_Admin_Page extends Base_Admin_Page {
 
@@ -80,7 +80,7 @@ class Shortcodes_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Available Shortcodes', 'multisite-ultimate');
+		return __('Available Shortcodes', 'ultimate-multisite');
 	}
 
 	/**
@@ -91,7 +91,7 @@ class Shortcodes_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Available Shortcodes', 'multisite-ultimate');
+		return __('Available Shortcodes', 'ultimate-multisite');
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Shortcodes_Admin_Page extends Base_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Dashboard', 'multisite-ultimate');
+		return __('Dashboard', 'ultimate-multisite');
 	}
 
 	/**
@@ -154,16 +154,16 @@ class Shortcodes_Admin_Page extends Base_Admin_Page {
 						$params[ $key ]['options'] = implode(' | ', array_keys(wu_get_isset($value, 'options', [])));
 						break;
 					case 'int':
-						$params[ $key ]['options'] = __('integer', 'multisite-ultimate');
+						$params[ $key ]['options'] = __('integer', 'ultimate-multisite');
 						break;
 					case 'number':
-						$params[ $key ]['options'] = __('number', 'multisite-ultimate');
+						$params[ $key ]['options'] = __('number', 'ultimate-multisite');
 						break;
 					case 'text':
-						$params[ $key ]['options'] = __('text', 'multisite-ultimate');
+						$params[ $key ]['options'] = __('text', 'ultimate-multisite');
 						break;
 					case 'textarea':
-						$params[ $key ]['options'] = __('text', 'multisite-ultimate');
+						$params[ $key ]['options'] = __('text', 'ultimate-multisite');
 						break;
 					default:
 						$params[ $key ]['options'] = $value['type'];

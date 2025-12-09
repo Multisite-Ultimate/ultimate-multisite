@@ -12,6 +12,8 @@ namespace WP_Ultimo\Models\Traits;
 use WP_Ultimo\Database\Sites\Site_Type;
 use WP_Ultimo\Objects\Limitations;
 
+defined('ABSPATH') || exit;
+
 /**
  * Singleton trait.
  */
@@ -23,7 +25,7 @@ trait Limitable {
 	 * @since 2.0.0
 	 * @var array
 	 */
-	protected $_limitations = [];
+	protected array $limitations = [];
 
 	/**
 	 * @inheritDoc
@@ -31,7 +33,16 @@ trait Limitable {
 	abstract public function limitations_to_merge();
 
 	/**
-	 * @inheritdoc
+	 * Gets the limitations for this model.
+	 *
+	 * Returns a Limitations object containing the limitations for this model.
+	 * Can optionally merge limitations from parent models in a waterfall manner,
+	 * and can exclude this model's own limitations for comparison purposes.
+	 *
+	 * @since 2.0.0
+	 * @param bool $waterfall Whether to merge limitations from parent models. Default true.
+	 * @param bool $skip_self Whether to skip this model's own limitations. Default false.
+	 * @return \WP_Ultimo\Objects\Limitations The limitations object.
 	 */
 	public function get_limitations($waterfall = true, $skip_self = false) {
 
@@ -49,7 +60,7 @@ trait Limitable {
 
 		$cache_key = $this->get_id() . $cache_key . $this->model;
 
-		$cached_version = wu_get_isset($this->_limitations, $cache_key);
+		$cached_version = wu_get_isset($this->limitations, $cache_key);
 
 		if ( ! empty($cached_version)) {
 			return $cached_version;
@@ -84,7 +95,7 @@ trait Limitable {
 			$limitations = $limitations->merge($modules_data);
 		}
 
-		$this->_limitations[ $cache_key ] = $limitations;
+		$this->limitations[ $cache_key ] = $limitations;
 
 		return $limitations;
 	}

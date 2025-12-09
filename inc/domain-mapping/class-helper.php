@@ -225,13 +225,13 @@ class Helper {
 			}
 
 			// Close the stream after processing.
-			fclose($stream);
+			fclose($stream); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
 		} catch (\Exception $e) {
 			// Log the error message.
 			wu_log_add(
 				'domain-ssl-checks',
 				// translators: % error message
-				sprintf(__('Certificate Invalid: %s', 'multisite-ultimate'), $e->getMessage()),
+				sprintf(__('Certificate Invalid: %s', 'ultimate-multisite'), $e->getMessage()),
 				LogLevel::ERROR
 			);
 		}

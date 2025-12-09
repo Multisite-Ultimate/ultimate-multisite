@@ -11,6 +11,8 @@ namespace WP_Ultimo\Integrations\Host_Providers;
 
 use Psr\Log\LogLevel;
 
+defined('ABSPATH') || exit;
+
 /**
  * This base class should be extended to implement new host integrations for SSL and domains.
  */
@@ -74,7 +76,7 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 	 */
 	public function detect() {
 
-		return defined('WP_PLUGIN_DIR') && preg_match('/\/srv\/users\/(.+)\/apps\/(.+)/', (string) WP_PLUGIN_DIR);
+		return preg_match('/\/srv\/users\/(.+)\/apps\/(.+)/', WP_ULTIMO_PLUGIN_DIR);
 	}
 
 	/**
@@ -87,19 +89,19 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 
 		return [
 			'WU_SERVER_PILOT_CLIENT_ID' => [
-				'title'       => __('ServerPilot Client ID', 'multisite-ultimate'),
-				'desc'        => __('Your ServerPilot Client ID.', 'multisite-ultimate'),
-				'placeholder' => __('e.g. cid_lSmjevkdoSOpasYVqm', 'multisite-ultimate'),
+				'title'       => __('ServerPilot Client ID', 'ultimate-multisite'),
+				'desc'        => __('Your ServerPilot Client ID.', 'ultimate-multisite'),
+				'placeholder' => __('e.g. cid_lSmjevkdoSOpasYVqm', 'ultimate-multisite'),
 			],
 			'WU_SERVER_PILOT_API_KEY'   => [
-				'title'       => __('ServerPilot API Key', 'multisite-ultimate'),
-				'desc'        => __('The API Key retrieved in the previous step.', 'multisite-ultimate'),
-				'placeholder' => __('e.g. eYP0Jo3Fzzm5SOZCi5nLR0Mki2lbYZ', 'multisite-ultimate'),
+				'title'       => __('ServerPilot API Key', 'ultimate-multisite'),
+				'desc'        => __('The API Key retrieved in the previous step.', 'ultimate-multisite'),
+				'placeholder' => __('e.g. eYP0Jo3Fzzm5SOZCi5nLR0Mki2lbYZ', 'ultimate-multisite'),
 			],
 			'WU_SERVER_PILOT_APP_ID'    => [
-				'title'       => __('ServerPilot App ID', 'multisite-ultimate'),
-				'desc'        => __('The App ID retrieved in the previous step.', 'multisite-ultimate'),
-				'placeholder' => __('e.g. 940288', 'multisite-ultimate'),
+				'title'       => __('ServerPilot App ID', 'ultimate-multisite'),
+				'desc'        => __('The App ID retrieved in the previous step.', 'ultimate-multisite'),
+				'placeholder' => __('e.g. 940288', 'ultimate-multisite'),
 			],
 		];
 	}
@@ -117,10 +119,16 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 		$current_domain_list = $this->get_server_pilot_domains();
 
 		if ($current_domain_list && is_array($current_domain_list)) {
+			$domains_to_add = [$domain];
+
+			if (\WP_Ultimo\Managers\Domain_Manager::get_instance()->should_create_www_subdomain($domain)) {
+				$domains_to_add[] = 'www.' . $domain;
+			}
+
 			$this->send_server_pilot_api_request(
 				'',
 				[
-					'domains' => array_merge($current_domain_list, [$domain, 'www.' . $domain]),
+					'domains' => array_merge($current_domain_list, $domains_to_add),
 				]
 			);
 
@@ -270,7 +278,7 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 		 */
 
 		// translators: %s is the wp_json_encode of the error.
-		wu_log_add('integration-serverpilot', sprintf(__('An error occurred while trying to get the current list of domains: %s', 'multisite-ultimate'), wp_json_encode($app_info)), LogLevel::ERROR);
+		wu_log_add('integration-serverpilot', sprintf(__('An error occurred while trying to get the current list of domains: %s', 'ultimate-multisite'), wp_json_encode($app_info)), LogLevel::ERROR);
 
 		return false;
 	}
@@ -311,7 +319,7 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 	 */
 	public function get_description() {
 
-		return __('ServerPilot is a cloud service for hosting WordPress and other PHP websites on servers at DigitalOcean, Amazon, Google, or any other server provider. You can think of ServerPilot as a modern, centralized hosting control panel.', 'multisite-ultimate');
+		return __('ServerPilot is a cloud service for hosting WordPress and other PHP websites on servers at DigitalOcean, Amazon, Google, or any other server provider. You can think of ServerPilot as a modern, centralized hosting control panel.', 'ultimate-multisite');
 	}
 
 	/**

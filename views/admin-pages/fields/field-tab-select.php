@@ -4,8 +4,10 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
-<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?> wu-bg-gray-200" style="margin-bottom: -1px;" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?> wu-bg-gray-200" style="margin-bottom: -1px;" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<div class="wu--m-4 wu-px-1">
 
@@ -18,7 +20,7 @@
 
 		<?php echo esc_html($option_label); ?>
 
-		<input class="wu-w-0 wu-h-0 wu-overflow-hidden wu-hidden" type="radio" name="<?php echo esc_attr($field->id); ?>" value="<?php echo esc_attr($option_value); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+		<input class="wu-w-0 wu-h-0 wu-overflow-hidden wu-hidden" type="radio" name="<?php echo esc_attr($field->id); ?>" value="<?php echo esc_attr($option_value); ?>" <?php $field->print_html_attributes(); ?>>
 
 		</label>
 

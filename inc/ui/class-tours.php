@@ -30,11 +30,12 @@ class Tours {
 	protected $tours = [];
 
 	/**
-	 * Element construct.
+	 * Initialize the singleton.
 	 *
 	 * @since 2.0.0
+	 * @return void
 	 */
-	public function __construct() {
+	public function init(): void {
 
 		add_action('wp_ajax_wu_mark_tour_as_finished', [$this, 'mark_as_finished']);
 
@@ -72,9 +73,10 @@ class Tours {
 	 */
 	public function register_scripts(): void {
 
-		WP_Ultimo()->scripts->register_script('wu-shepherd', wu_get_asset('lib/shepherd.js', 'js'), []);
+		WP_Ultimo()->scripts->register_script_module('shepherd.js', wu_get_asset('lib/shepherd.js', 'js'));
+		WP_Ultimo()->scripts->register_style('shepherd', wu_get_asset('lib/shepherd.css', 'css'));
 
-		WP_Ultimo()->scripts->register_script('wu-tours', wu_get_asset('tours.js', 'js'), ['wu-shepherd', 'underscore']);
+		WP_Ultimo()->scripts->register_script_module('wu-tours', wu_get_asset('tours.js', 'js'), ['shepherd.js', 'underscore']);
 	}
 
 	/**
@@ -86,22 +88,24 @@ class Tours {
 	public function enqueue_scripts(): void {
 
 		if ($this->has_tours()) {
-			wp_localize_script('wu-tours', 'wu_tours', $this->tours);
+			// It's not possible to localize a module so we'll just use wu-admin which will always be there. See https://core.trac.wordpress.org/ticket/60234
+			wp_localize_script('wu-admin', 'wu_tours', $this->tours);
 
 			wp_localize_script(
-				'wu-tours',
+				'wu-admin',
 				'wu_tours_vars',
 				[
 					'ajaxurl' => wu_ajax_url(),
 					'nonce'   => wp_create_nonce('wu_tour_finished'),
 					'i18n'    => [
-						'next'   => __('Next', 'multisite-ultimate'),
-						'finish' => __('Close', 'multisite-ultimate'),
+						'next'   => __('Next', 'ultimate-multisite'),
+						'finish' => __('Close', 'ultimate-multisite'),
 					],
 				]
 			);
 
-			wp_enqueue_script('wu-tours');
+			wp_enqueue_script_module('wu-tours');
+			wp_enqueue_style('shepherd');
 		}
 	}
 

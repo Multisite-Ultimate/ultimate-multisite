@@ -9,6 +9,8 @@
 
 namespace WP_Ultimo\Traits;
 
+defined('ABSPATH') || exit;
+
 /**
  * Singleton trait.
  */
@@ -24,7 +26,7 @@ trait Singleton {
 	/**
 	 * Returns the instance of WP_Ultimo
 	 *
-	 * @return object
+	 * @return static
 	 */
 	public static function get_instance(): object {
 
@@ -57,5 +59,11 @@ trait Singleton {
 	public function has_parents(): bool {
 
 		return (bool) class_parents($this);
+	}
+
+	/**
+	 * Private constructor so get_instance() must be used and init() will always be called.
+	 */
+	final private function __construct() {
 	}
 }

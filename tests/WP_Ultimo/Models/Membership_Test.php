@@ -190,7 +190,7 @@ class Membership_Test extends \WP_UnitTestCase {
 		);
 
 		// Case 5: Expiration date is in the past, should return 0.
-		$this->membership->set_date_expiration(date('Y-m-d H:i:s', strtotime('-5 days')));
+		$this->membership->set_date_expiration(gmdate('Y-m-d H:i:s', strtotime('-5 days')));
 		$remaining_days = $this->membership->get_remaining_days_in_cycle();
 		$this->assertEquals(
 			0,

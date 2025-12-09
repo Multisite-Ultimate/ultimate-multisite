@@ -53,7 +53,7 @@ class Minimal_Template_Selection_Field_Template extends Base_Field_Template {
 	 */
 	public function get_title() {
 
-		return __('Minimal', 'multisite-ultimate');
+		return __('Minimal', 'ultimate-multisite');
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Minimal_Template_Selection_Field_Template extends Base_Field_Template {
 	 */
 	public function get_description() {
 
-		return __('A simple template with clean markup and no styling, ready to be customized with custom CSS.', 'multisite-ultimate');
+		return __('A simple template with clean markup and no styling, ready to be customized with custom CSS.', 'ultimate-multisite');
 	}
 
 	/**

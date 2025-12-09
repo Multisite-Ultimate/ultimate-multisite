@@ -1,7 +1,7 @@
 # RunCloud Integration
 
 ## Overview
-RunCloud is a cloud-based server management platform that allows you to easily deploy and manage web applications on your own cloud servers. This integration enables automatic domain syncing and SSL certificate management between Multisite Ultimate and RunCloud.
+RunCloud is a cloud-based server management platform that allows you to easily deploy and manage web applications on your own cloud servers. This integration enables automatic domain syncing and SSL certificate management between Ultimate Multisite and RunCloud.
 
 ## Features
 - Automatic domain syncing
@@ -49,7 +49,7 @@ define('WU_RUNCLOUD_APP_ID', 'your_app_id');
 
 ### 4. Enable the Integration
 
-1. In your WordPress admin, go to Multisite Ultimate > Settings
+1. In your WordPress admin, go to Ultimate Multisite > Settings
 2. Navigate to the "Domain Mapping" tab
 3. Scroll down to "Host Integrations"
 4. Enable the RunCloud integration
@@ -57,7 +57,7 @@ define('WU_RUNCLOUD_APP_ID', 'your_app_id');
 
 ## How It Works
 
-When a domain is mapped in Multisite Ultimate:
+When a domain is mapped in Ultimate Multisite:
 
 1. The integration sends a request to RunCloud's API to add the domain to your application
 2. If the domain is successfully added, the integration will also redeploy SSL certificates
@@ -78,6 +78,6 @@ For subdomain installations, the integration will automatically handle the creat
 - Check the RunCloud SSL settings for your application
 
 ### Domain Not Added
-- Check the Multisite Ultimate logs for any error messages
+- Check the Ultimate Multisite logs for any error messages
 - Verify that the domain is not already added to RunCloud
 - Ensure that your RunCloud plan supports multiple domains

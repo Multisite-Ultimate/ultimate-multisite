@@ -1,6 +1,6 @@
 # Event: Register an account via Zapier
 
-In the article [Integrating Multisite Ultimate with Zapier](1677127282-integrating-wp-ultimo-with-zapier.html), we discussed how to use Zapier to perform different actions within Multisite Ultimate based on triggers and events. In this article, we will show how you can integrate 3rd party applications. We will use Google Sheets as the source of data and send the information to Multisite Ultimate to register an account.
+In the article [Integrating Ultimate Multisite with Zapier](1677127282-integrating-wp-ultimo-with-zapier.html), we discussed how to use Zapier to perform different actions within Ultimate Multisite based on triggers and events. In this article, we will show how you can integrate 3rd party applications. We will use Google Sheets as the source of data and send the information to Ultimate Multisite to register an account.
 
 First, you need to create a **Google Sheet** under your Google Drive. Make sure you properly define each column so that you can easily map the data later.
 
@@ -22,11 +22,11 @@ Under **"Set up trigger** ", you will need to select and specify the google spre
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-E1RjprMVNM.png)If your test is successful, you should see the result showing some values from your spreadsheets. Click "**Continue** " to proceed.
 
-![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-FNVMJRdoBs.png)The next step is to set up the second action that will create or register an account in Multisite Ultimate. On the search field select "**Multisite Ultimate(2.0.2)** "
+![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-FNVMJRdoBs.png)The next step is to set up the second action that will create or register an account in Ultimate Multisite. On the search field select "**Ultimate Multisite(2.0.2)** "
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-bbSevglDSJ.png)
 
-Under the "**Event** " field, select "**Register an Account in Multisite Ultimate** " then click the "**Continue** " button.
+Under the "**Event** " field, select "**Register an Account in Ultimate Multisite** " then click the "**Continue** " button.
 
 ![](https://wp-ultimo-space.fra1.cdn.digitaloceanspaces.com/hs-file-DZTN6Hno0w.png)Under "**Set up an action** ", you will see different fields available for customer data, memberships, products, etc. You can map the values under your google sheet and assign them to the proper field where they should be populated as shown in the screenshot below.
 

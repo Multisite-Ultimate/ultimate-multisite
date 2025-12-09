@@ -9,6 +9,8 @@
 
 namespace WP_Ultimo\Traits;
 
+defined('ABSPATH') || exit;
+
 /**
  * WP_Ultimo_Site_Deprecated trait.
  */
@@ -39,7 +41,7 @@ trait WP_Ultimo_Site_Deprecated {
 		 *
 		 * @since 2.0.0
 		 */
-		_doing_it_wrong(esc_html($key), esc_html__('Product keys should not be accessed directly', 'multisite-ultimate'), '2.0.0');
+		_doing_it_wrong(esc_html($key), esc_html__('Product keys should not be accessed directly', 'ultimate-multisite'), '2.0.0');
 
 		return $value;
 	}

@@ -143,69 +143,59 @@ function wu_print_signup_field($field_slug, $field, $results) {
 		$elements = implode(', ', $elements);
 
 		wp_enqueue_script('jquery');
-		?>
+		
+		$script_data = [
+			'requires' => $field['requires'],
+			'field_slug' => $field_slug,
+			'elements' => $elements
+		];
+		
+		wp_add_inline_script('jquery', sprintf('
+			document.addEventListener("DOMContentLoaded", function() {
+				var requires = %s,
+					target_field = document.getElementById("%s-field");
 
-    <script type="text/javascript">
-			document.addEventListener('DOMContentLoaded', function() {
-				var requires = <?php echo wp_json_encode($field['requires']); ?>,
-						target_field = document.getElementById('<?php echo $field_slug; ?>-field');
-
-        var display_field = function(target_field, requires, velocity) {
-
-          var conditions_count = Object.keys(requires).length,
-              conditions_met   = 0;
+				var display_field = function(target_field, requires, velocity) {
+					var conditions_count = Object.keys(requires).length,
+						conditions_met = 0;
 
 					requires.forEach(function(element, value) {
-
 						var element = document.getElementById(element),
-						    element_value = element.value;
+							element_value = element.value;
 
 						if (element.type === "checkbox") {
+							var is_checked = element.checked;
+							if (is_checked === value) {
+								conditions_met++;
+							}
+							return true;
+						}
 
-              var is_checked = element.checked;
+						value = Array.isArray(value) ? value : [value];
+						if (value.indexOf(element_value) > -1) {
+							conditions_met++;
+						}
+					});
 
-              if (is_checked === value) {
-                conditions_met++;
-              }
+					if (conditions_met === conditions_count) {
+						target_field.slideDown(velocity);
+					} else {
+						target_field.slideUp(velocity);
+					}
+				}
 
-              return true;
+				display_field(target_field, requires, 0);
 
-            }
-
-            value = Array.isArray(value) ? value : [value];
-
-            if (value.indexOf(element_value) > -1) {
-
-              conditions_met++;
-
-            }
-
-          });
-
-          if (conditions_met === conditions_count) {
-
-            target_field.slideDown(velocity);
-
-          } else {
-
-            target_field.slideUp(velocity);
-
-          } // end
-
-        }
-
-        display_field(target_field, requires, 0);
-
-				[<?php echo $elements; ?>].forEach(function(element) {
-					document.getElementById(element).addEventListener('change', function() {
+				[%s].forEach(function(element) {
+					document.getElementById(element).addEventListener("change", function() {
 						display_field(target_field, requires, 300);
 					});
 				});
-
-			});
-    </script>
-
-		<?php
+			});',
+			wp_json_encode($script_data['requires']),
+			esc_js($script_data['field_slug']),
+			$script_data['elements']
+		), 'after');
 
 	}
 
@@ -243,7 +233,7 @@ function wu_print_signup_field($field_slug, $field, $results) {
 
     <p <?php echo $wrapper_attributes; ?> id="<?php echo $field_slug; ?>-field" <?php echo $wrapper_attributes; ?> style="<?php echo $display ? '' : 'display: none'; ?>" >
 
-      <label for="<?php echo $field_slug; ?>"><?php echo $field['name']; ?> <?php echo wu_tooltip($field['tooltip']); ?><br>
+      <label for="<?php echo $field_slug; ?>"><?php echo $field['name']; ?> <?php wu_tooltip($field['tooltip']); ?><br>
       <input <?php echo $attributes; ?> <?php echo isset($field['required']) && $field['required'] ? 'required' : ''; ?> type="<?php echo $field['type']; ?>" name="<?php echo $field_slug; ?>" id="<?php echo $field_slug; ?>" class="input" value="<?php echo $results[$field_slug] ?? ''; ?>" size="20"></label>
 
 
@@ -276,24 +266,29 @@ function wu_print_signup_field($field_slug, $field, $results) {
 				?>
 
       <span class="password-input-wrapper" style="display: block;">
-        <label for="<?php echo $field_slug; ?>"><?php echo $field['name']; ?> <?php echo wu_tooltip($field['tooltip']); ?><br>
+        <label for="<?php echo $field_slug; ?>"><?php echo $field['name']; ?> <?php wu_tooltip($field['tooltip']); ?><br>
         <input <?php echo $attributes; ?> <?php echo isset($field['required']) && $field['required'] ? 'required' : ''; ?> type="<?php echo $field['type']; ?>" name="<?php echo $field_slug; ?>" id="<?php echo $field_slug; ?>" class="input" value="<?php echo $results[$field_slug] ?? ''; ?>"  data-reveal="1" data-pw="<?php echo esc_attr( wp_generate_password( 16 ) ); ?>" class="input" size="20" autocomplete="off" aria-describedby="pass-strength-result" />
       </span>
 
-      <span style="display: block; margin-top: -16px; opacity: 1; height: 36px;" id="pass-strength-result" class="hide-if-no-js" aria-live="polite"><?php _e( 'Strength indicator' ); ?></span>
+      <span style="display: block; margin-top: -16px; opacity: 1; height: 36px;" id="pass-strength-result" class="hide-if-no-js" aria-live="polite"><?php esc_html_e('Strength indicator', 'ultimate-multisite'); ?></span>
 
-      <script>
-				document.addEventListener('DOMContentLoaded', function() {
-					var input = document.getElementById('<?php echo $field_slug; ?>');
-					input.addEventListener('keyup', function() {
-						wu_check_pass_strength('#<?php echo $field_slug; ?>', '#<?php echo $field_slug; ?>');
+      <?php
+      wp_add_inline_script('jquery', sprintf('
+				document.addEventListener("DOMContentLoaded", function() {
+					var input = document.getElementById("%s");
+					input.addEventListener("keyup", function() {
+						wu_check_pass_strength("#%s", "#%s");
 					});
-				});
-      </script>
+				});',
+				esc_js($field_slug),
+				esc_js($field_slug),
+				esc_js($field_slug)
+			), 'after');
+			?>
 
 			<?php else : ?>
 
-      <label for="<?php echo $field_slug; ?>"><?php echo $field['name']; ?> <?php echo wu_tooltip($field['tooltip']); ?><br>
+      <label for="<?php echo $field_slug; ?>"><?php echo $field['name']; ?> <?php wu_tooltip($field['tooltip']); ?><br>
       <input <?php echo $attributes; ?> <?php echo isset($field['required']) && $field['required'] ? 'required' : ''; ?> type="<?php echo $field['type']; ?>" name="<?php echo $field_slug; ?>" id="<?php echo $field_slug; ?>" class="input" value="<?php echo $results[$field_slug] ?? ''; ?>" size="20"></label>
 
     <?php endif; ?>
@@ -334,7 +329,7 @@ function wu_print_signup_field($field_slug, $field, $results) {
       <input name="signup_form_id" type="hidden" value="1">
 
       <button id="wp-submit" <?php echo $attributes; ?> type="submit" class="button button-primary button-large button-next" value="1" name="save_step">
-			<?php esc_attr_e($field['name'], 'multisite-ultimate'); ?>
+			<?php echo esc_attr($field['name']); ?>
       </button>
 
 			<?php wp_nonce_field('signup_form_1', '_signup_form'); ?>
@@ -352,7 +347,7 @@ function wu_print_signup_field($field_slug, $field, $results) {
 
     <p <?php echo $wrapper_attributes; ?> id="<?php echo $field_slug; ?>-field" style="<?php echo $display ? '' : 'display: none'; ?>">
 
-      <label for="<?php echo $field_slug; ?>"><?php echo $field['name']; ?> <?php echo wu_tooltip($field['tooltip']); ?><br>
+      <label for="<?php echo $field_slug; ?>"><?php echo $field['name']; ?> <?php wu_tooltip($field['tooltip']); ?><br>
 
       <select <?php echo $attributes; ?> <?php echo isset($field['required']) && $field['required'] ? 'required' : ''; ?> name="<?php echo $field_slug; ?>" id="<?php echo $field_slug; ?>" class="input" value="<?php echo $results[$field_slug] ?? ''; ?>">
 
@@ -410,7 +405,7 @@ function wu_print_signup_field($field_slug, $field, $results) {
 
 }
 /**
- * Alias function to allow creation of users for Multisite Ultimate.
+ * Alias function to allow creation of users for Ultimate Multisite.
  *
  * User Data should contain: user_login, user_email, user_pass;
  * Plan Data should contain: plan_id, plan_freq;
@@ -428,7 +423,7 @@ function wu_create_user(array $user_data, array $plan_data, array $user_meta = [
 }
 
 /**
- * Alias function to allow creation of sites for Multisite Ultimate.
+ * Alias function to allow creation of sites for Ultimate Multisite.
  *
  * Site Data should contain: blog_title, blogname, and role;
  * Site Meta is an associative array containing key => value pairs to be saved as meta fields on that site.

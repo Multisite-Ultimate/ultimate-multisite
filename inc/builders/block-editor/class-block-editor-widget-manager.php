@@ -36,7 +36,7 @@ class Block_Editor_Widget_Manager {
 
 			add_action('init', [$this, 'register_scripts']);
 
-			add_action('wu_element_is_preview', [$this, 'is_block_preview']);
+			add_filter('wu_element_is_preview', [$this, 'is_block_preview']);
 		}
 	}
 
@@ -111,7 +111,7 @@ class Block_Editor_Widget_Manager {
 			[
 				'attributes'      => $attributes,
 				'editor_script'   => 'wu-blocks',
-				'render_callback' => \Closure::fromCallable([$element, 'display']),
+				'render_callback' => \Closure::fromCallable([$element, 'get_content']),
 			]
 		);
 	}
@@ -172,7 +172,7 @@ class Block_Editor_Widget_Manager {
 	}
 
 	/**
-	 * Registers the block so Multisite Ultimate can add it on the JS side.
+	 * Registers the block so Ultimate Multisite can add it on the JS side.
 	 *
 	 * @since 2.0.0
 	 *

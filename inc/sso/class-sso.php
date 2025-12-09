@@ -15,7 +15,9 @@
 
 namespace WP_Ultimo\SSO;
 
-use Exception;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use WP_Ultimo\Helpers\Hash;
 use Jasny\SSO\Server\Server;
 use Jasny\SSO\Server\ServerException;
@@ -25,6 +27,9 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Psr16Cache;
 use WP_Ultimo\SSO\Exception\SSO_Exception;
+use WP_Ultimo\SSO\Exception\SSO_Session_Exception;
+
+defined('ABSPATH') || exit;
 
 /**
  * Handles Sign-sign on.
@@ -34,6 +39,8 @@ use WP_Ultimo\SSO\Exception\SSO_Exception;
 class SSO {
 
 	use \WP_Ultimo\Traits\Singleton;
+
+	const LOG_FILE_NAME = 'sso';
 
 	/**
 	 * The cache system for sessions.
@@ -123,7 +130,7 @@ class SSO {
 	 *
 	 * @param string $hash Hashed content to be decoded.
 	 * @param string $salt The salt string to be used.
-	 * @return string The original content.
+	 * @return string|int The original content.
 	 */
 	public function decode($hash, $salt) {
 		return Hash::decode($hash, $salt);
@@ -229,7 +236,7 @@ class SSO {
 		 */
 		add_action('wu_sso_handle', 'wu_no_cache');
 
-		add_action('wu_sso_handle', 'send_origin_headers');
+		add_filter('wu_sso_handle', 'send_origin_headers', 10, 0);
 
 		add_action('plugins_loaded', [$this, 'handle_requests'], 0);
 
@@ -272,7 +279,7 @@ class SSO {
 		 *
 		 * This needs to be delayed until the init as SSO is something that runs on sunrise.
 		 *
-		 * @param self $this The SSO class.
+		 * @param self $sso The SSO class.
 		 * @since 2.0.0
 		 */
 		do_action('wu_sso_loaded', $this);
@@ -324,11 +331,8 @@ class SSO {
 
 		$broker = $this->get_broker();
 
-		if ( ! $broker) {
-		}
-
 		if ($broker->is_must_redirect_call()) {
-			return false;
+			return null;
 		}
 
 		$sso_path = $this->get_url_path();
@@ -358,8 +362,6 @@ class SSO {
 		if ( ! wu_is_same_domain() && ! is_user_logged_in() && ! $should_skip_redirect) {
 			nocache_headers();
 
-			$test = get_admin_url();
-
 			$redirect_after = 'index.php' === $pagenow ? '' : $this->get_current_url();
 
 			$redirect_url = add_query_arg(
@@ -369,7 +371,7 @@ class SSO {
 				wp_login_url($redirect_after)
 			);
 
-			wp_redirect($redirect_url);
+			wp_safe_redirect($redirect_url);
 
 			exit;
 		}
@@ -385,6 +387,7 @@ class SSO {
 			'',
 			remove_query_arg('sso', 'https://a.com/' . sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'] ?? '')))
 		);
+		return null;
 	}
 
 	/**
@@ -411,7 +414,7 @@ class SSO {
 
 		$action = str_replace($this->get_url_path(), 'sso', $action);
 
-		$action = trim((string) wu_replace_dashes($action), '/');
+		$action = trim(wu_replace_dashes($action), '/');
 
 		do_action('wu_sso_handle', $action, $return_type, $this);
 
@@ -435,7 +438,7 @@ class SSO {
 		try {
 			$verification_code = $server->attach();
 			$error             = null;
-		} catch (Exception\SSO_Session_Exception $e) {
+		} catch (SSO_Session_Exception $e) {
 			if (is_ssl()) {
 				$verification_code = null;
 
@@ -456,19 +459,19 @@ class SSO {
 		}
 
 		if ('jsonp' === $response_type) {
-			$data = wp_json_encode(
-				$error ?? [ // phpcs:ignore
-					'code'       => 200,
-					'verify'     => $verification_code,
-					'return_url' => $this->input('return_url', ''),
-				]
+			printf(
+				'wu.sso(%s, %d);',
+				wp_json_encode(
+					$error ?? [
+						'code'       => 200,
+						'verify'     => $verification_code,
+						'return_url' => $this->input('return_url', ''),
+					]
+				),
+				200
 			);
 
-			$response_code = 200; // phpcs:ignore
-
-			echo "wu.sso($data, $response_code);"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-			status_header($response_code);
+			status_header(200);
 
 			exit;
 		} elseif ('redirect' === $response_type) {
@@ -484,7 +487,7 @@ class SSO {
 
 			$url = add_query_arg($args, $return_url);
 
-			wp_redirect($url, 303, 'WP-Ultimo-SSO');
+			wp_safe_redirect($url, 303, 'WP-Ultimo-SSO');
 
 			exit;
 		}
@@ -521,7 +524,7 @@ class SSO {
 
 			$redirect_url = $this->get_final_return_url($url);
 
-			wp_redirect($redirect_url, 302, 'WP-Ultimo-SSO');
+			wp_safe_redirect($redirect_url, 302, 'WP-Ultimo-SSO');
 
 			exit;
 		}
@@ -544,7 +547,7 @@ class SSO {
 				);
 			}
 
-			wp_redirect($attach_url, 302, 'WP-Ultimo-SSO');
+			wp_safe_redirect($attach_url, 302, 'WP-Ultimo-SSO');
 
 			exit();
 		}
@@ -641,7 +644,9 @@ class SSO {
 				wp_set_auth_cookie($this->get_target_user_id(), true);
 
 				if ('wp-login.php' === $pagenow) {
-					wp_redirect(wu_request('redirect_to', get_admin_url()));
+					// Query Monitor will cause an infinite loop, so we remove our filter to avoid calling it again.
+					remove_filter('determine_current_user', [$this, 'determine_current_user'], 90);
+					wp_safe_redirect(wu_request('redirect_to', get_admin_url()));
 					exit;
 				}
 
@@ -654,10 +659,11 @@ class SSO {
 			 * on if we are not able to validate the customer.
 			 *
 			 * @throws ServerException
-			 * @throws SsoException
+			 * @throws SSO_Exception
 			 * @throws BrokerException
 			 * @throws NotAttachedException
 			 */
+			wu_log_add(self::LOG_FILE_NAME, $exception->__toString(), LogLevel::ERROR);
 		}
 
 		return $current_user_id;
@@ -738,13 +744,13 @@ class SSO {
 		];
 
 		$options = [
-			'server_url'            => $home_site,
-			'return_url'            => $this->get_current_url(),
-			'is_user_logged_in'     => is_user_logged_in() || $this->get_isset($_COOKIE, 'wu_sso_denied'),
-			'expiration_in_minutes' => 5 / (24 * 60),
-			'filtered_url'          => remove_query_arg($removable_query_args, $this->get_current_url()),
-			'img_folder'            => dirname((string) wu_get_asset('img', 'img')),
-			'use_overlay'           => $this->get_setting('enable_sso_loading_overlay', true),
+			'server_url'         => $home_site,
+			'return_url'         => $this->get_current_url(),
+			'is_user_logged_in'  => is_user_logged_in() || $this->get_isset($_COOKIE, 'wu_sso_denied'),
+			'expiration_in_days' => 5 / (24 * 60), // cookie expires in 5 mins.
+			'filtered_url'       => remove_query_arg($removable_query_args, $this->get_current_url()),
+			'img_folder'         => dirname((string) wu_get_asset('img', 'img')),
+			'use_overlay'        => $this->get_setting('enable_sso_loading_overlay', true),
 		];
 
 		wp_localize_script('wu-sso', 'wu_sso_config', $options);
@@ -806,15 +812,20 @@ class SSO {
 		];
 
 		$args = [
-			$sso_path => 'done',
+			$sso_path     => 'done',
+			'redirect_to' => rawurlencode($query_values['redirect_to'] ?? implode('/', $fragments)),
 		];
 
-		if (isset($query_values['redirect_to'])) {
-			$args['redirect_to'] = rawurlencode($query_values['redirect_to']);
-		}
-
 		// We should use the login URL to avoid cache issues.
-		$login_url = wp_login_url(wu_get_isset($query_values, 'redirect_to', implode('/', $fragments)));
+		$login_url      = wp_login_url();
+		$login_url_host = wp_parse_url($login_url, PHP_URL_HOST);
+
+		$site_host = wp_parse_url(get_site_url(), PHP_URL_HOST);
+		if ($login_url_host && strtolower($login_url_host) !== strtolower($site_host)) {
+			// The login url is on a different domain, and this won't work for SSO.
+			// Probably some plugin is changing it with login_url filter, so we get the default one.
+			$login_url = site_url('wp-login.php', 'login');
+		}
 
 		return add_query_arg($args, $login_url);
 	}
@@ -887,7 +898,7 @@ class SSO {
 	 * Returns a PSR16-compatible cache implementation.
 	 *
 	 * @since 2.0.11
-	 * @return Psr\SimpleCache\CacheInterface
+	 * @return \Psr\SimpleCache\CacheInterface
 	 */
 	public function cache() {
 
@@ -929,6 +940,7 @@ class SSO {
 		if (null === $this->logger) {
 			return apply_filters('wu_sso_logger', $this->logger, $this);
 		}
+		return $this->logger;
 	}
 
 	/**
@@ -938,7 +950,7 @@ class SSO {
 	 *
 	 * @param string $date The date to use.
 	 * @return string The hashed secret.
-	 * @throws Exception\SSO_Exception Failure.
+	 * @throws SSO_Exception Failure.
 	 */
 	public function calculate_secret_from_date($date) {
 
@@ -947,7 +959,7 @@ class SSO {
 		try {
 			$int_version = (int) \DateTime::createFromFormat('Y-m-d H:i:s', $date, $tz)->format('mdisY');
 		} catch (\Throwable $exception) {
-			throw new SSO_Exception(esc_html__('SSO secret creation failed.', 'multisite-ultimate'), 500);
+			throw new SSO_Exception(esc_html__('SSO secret creation failed.', 'ultimate-multisite'), 500);
 		}
 
 		return wp_hash($int_version);

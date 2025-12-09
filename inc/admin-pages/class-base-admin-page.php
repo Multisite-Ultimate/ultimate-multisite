@@ -4,7 +4,7 @@
  *
  * Abstract class that makes it easy to create new admin pages.
  *
- * Most of Multisite Ultimate pages are implemented using this class, which means that the filters and hooks
+ * Most of Ultimate Multisite pages are implemented using this class, which means that the filters and hooks
  * listed below can be used to append content to all of our pages at once.
  *
  * @package WP_Ultimo
@@ -171,6 +171,29 @@ abstract class Base_Admin_Page {
 	 * @since 1.8.2
 	 */
 	public function __construct() {
+		if ( ! doing_action('init') && ! did_action('init') ) {
+			_doing_it_wrong(
+				__FUNCTION__,
+				sprintf(
+					/* translators: 1: The current class. 2: 'init'. */
+					esc_html__('Admin page %1$s loaded too early. Admin page should be loaded at the %2$s action or later.'),
+					'<code>' . static::class . '</code>',
+					'<code>init</code>'
+				),
+				'2.4.6'
+			);
+			add_action('init', [$this, 'start_init']);
+		} else {
+			$this->start_init();
+		}
+	}
+
+	/**
+	 * Where the real init happens.
+	 *
+	 * @return void
+	 */
+	public function start_init() {
 		/*
 		 * Adds the page to all the necessary admin panels.
 		 */
@@ -195,15 +218,15 @@ abstract class Base_Admin_Page {
 		 *
 		 * Unlike the wu_page_load, which only runs when a specific page
 		 * is being seen, this hook runs at registration for every admin page
-		 * being added using Multisite Ultimate code.
+		 * being added using Ultimate Multisite code.
 		 *
 		 * @since 2.0.0
 		 * @param string $page_id The ID of this page.
+		 * @param string $page_hook The hook name of this page.
 		 * @return void
 		 */
 		do_action('wu_page_added', $this->id, $this->page_hook);
 	}
-
 	/**
 	 * Returns the ID of the admin page.
 	 *
@@ -358,7 +381,8 @@ abstract class Base_Admin_Page {
 		 * Allow plugin developers to add additional content before we print the page.
 		 *
 		 * @since 1.8.2
-		 * @param string $this->id The id of this page.
+		 * @param string $page_id The id of this page.
+		 * @param object $page The page object.
 		 * @return void
 		 */
 		do_action('wu_page_before_render', $this->id, $this);
@@ -367,7 +391,8 @@ abstract class Base_Admin_Page {
 		 * Allow plugin developers to add additional content before we print the page.
 		 *
 		 * @since 1.8.2
-		 * @param string $this->id The id of this page.
+		 * @param string $page_id The id of this page.
+		 * @param object $page The page object.
 		 * @return void
 		 */
 		do_action("wu_page_{$this->id}_before_render", $this->id, $this);
@@ -381,7 +406,8 @@ abstract class Base_Admin_Page {
 		 * Allow plugin developers to add additional content after we print the page
 		 *
 		 * @since 1.8.2
-		 * @param string $this->id The id of this page
+		 * @param string $page_id The id of this page
+		 * @param object $page The page object.
 		 * @return void
 		 */
 		do_action('wu_page_after_render', $this->id, $this);
@@ -390,7 +416,8 @@ abstract class Base_Admin_Page {
 		 * Allow plugin developers to add additional content after we print the page
 		 *
 		 * @since 1.8.2
-		 * @param string $this->id The id of this page
+		 * @param string $page_id The id of this page
+		 * @param object $page The page object.
 		 * @return void
 		 */
 		do_action("wu_page_{$this->id}_after_render", $this->id, $this);
@@ -472,7 +499,7 @@ abstract class Base_Admin_Page {
 	}
 
 	/**
-	 * Adds Multisite Ultimate branding to this page, if that's the case.
+	 * Adds Ultimate Multisite branding to this page, if that's the case.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -509,7 +536,7 @@ abstract class Base_Admin_Page {
 	}
 
 	/**
-	 * Adds the Multisite Ultimate branding header.
+	 * Adds the Ultimate Multisite branding header.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -525,7 +552,7 @@ abstract class Base_Admin_Page {
 	}
 
 	/**
-	 * Adds the Multisite Ultimate branding footer.
+	 * Adds the Ultimate Multisite branding footer.
 	 *
 	 * @since 2.0.0
 	 * @return void
@@ -548,7 +575,7 @@ abstract class Base_Admin_Page {
 	 */
 	public function add_admin_body_classes(): void {
 
-		add_action(
+		add_filter(
 			'admin_body_class',
 			function ($classes) {
 
@@ -599,7 +626,7 @@ abstract class Base_Admin_Page {
 			add_action("load-$this->page_hook", [$this, 'add_admin_body_classes'], 20);
 
 			/*
-			 * Add the page to Multisite Ultimate branding (aka top-bar and footer)
+			 * Add the page to Ultimate Multisite branding (aka top-bar and footer)
 			 */
 			if (is_network_admin()) {
 				add_action("load-$this->page_hook", [$this, 'add_branding']);
@@ -609,7 +636,7 @@ abstract class Base_Admin_Page {
 			 * Allow plugin developers to add additional hooks
 			 *
 			 * @since 1.8.2
-			 * @param string
+			 * @param string $page_hook The page hook.
 			 */
 			do_action('wu_enqueue_extra_hooks', $this->page_hook);
 		}
@@ -626,7 +653,7 @@ abstract class Base_Admin_Page {
 		if (wu_get_documentation_url($this->get_id(), false)) {
 			$this->action_links[] = [
 				'url'   => wu_get_documentation_url($this->get_id()),
-				'label' => __('Documentation', 'multisite-ultimate'),
+				'label' => __('Documentation', 'ultimate-multisite'),
 				'icon'  => 'wu-open-book',
 			];
 		}
@@ -635,7 +662,8 @@ abstract class Base_Admin_Page {
 		 * Allow plugin developers, and ourselves, to add action links to our edit pages
 		 *
 		 * @since 1.8.2
-		 * @param WU_Page_Edit $this This instance
+		 * @param array $action_links The action links.
+		 * @param Base_Admin_Page $page This instance.
 		 * @return array
 		 */
 		return apply_filters('wu_page_get_title_links', $this->action_links, $this);

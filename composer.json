@@ -1,8 +1,8 @@
 {
-    "name": "devstone/multisite-ultimate",
-    "url": "https://MultisiteUltimate.org",
+    "name": "devstone/ultimate-multisite",
+    "homepage": "https://UltimateMultisite.com",
     "description": "The Multisite Website as a Service (WaaS) plugin.",
-    "version": "2.4.0",
+    "version": "2.4.8",
     "authors": [
         {
             "name": "Arindo Duque",
@@ -22,10 +22,19 @@
             "inc"
         ]
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "composer-plugins/wp-ultimo-autoloader-plugin"
+        }
+    ],
     "type": "wordpress-plugin",
     "require": {
         "php": ">=7.4.1",
         "automattic/jetpack-autoloader": "^5.0.0",
+        "wp-ultimo/autoloader-plugin": "dev-main",
+        "wordpress/abilities-api": "^0.1.1",
+        "wordpress/mcp-adapter": "dev-trunk#7a2d22cff92328bc94f5b1648a66ae4273e949c5",
         "rpnzl/arrch": "dev-master#994258bbefb7722243211654c4f78813312cd5ed",
         "amphp/amp": "^2.6.2",
         "amphp/byte-stream": "^1.8.1",
@@ -38,7 +47,7 @@
         "berlindb/core": "^2.0.1",
         "mexitek/phpcolors": "^1.0.4",
         "phpdocumentor/reflection-docblock": "^5.3.0",
-        "stripe/stripe-php": "^10.21.0",
+        "stripe/stripe-php": "^17.4.0",
         "hashids/hashids": "^4.1.0",
         "rakit/validation": "dev-master#ff003a35cdf5030a5f2482299f4c93f344a35b29",
         "ifsnop/mysqldump-php": "^2.12",
@@ -67,7 +76,8 @@
         "fakerphp/faker": "^1.24",
         "rector/rector": "^2.0.8",
         "szepeviktor/phpstan-wordpress": "^2.0.1",
-        "phpstan/extension-installer": "^1.1"
+        "phpstan/extension-installer": "^1.1",
+        "wp-cli/wp-cli-bundle": "^2.12"
     },
     "config": {
         "platform": {
@@ -79,18 +89,26 @@
             "automattic/jetpack-autoloader": true,
             "cweagans/composer-patches": true,
             "phpstan/extension-installer": true,
-            "php-http/discovery": true
-        }
+            "php-http/discovery": true,
+            "wp-ultimo/autoloader-plugin": true
+        },
+        "autoloader-suffix": "230080190a3968d4856a2879371108a7",
+        "optimize-autoloader": true,
+        "classmap-authoritative": true
     },
     "archive": {
         "exclude": [
             "tests",
+            "cypress.env.json",
+            "cypress.config.js",
+            "cypress.config.dev.js",
+            "cypress.config.test.js",
+            ".wp-env.json",
             "bin",
             "phpunit.xml.dist",
             "composer.lock",
             ".phpcs.xml.dist",
             ".circleci",
-            "addons",
             ".idea",
             "node_modules",
             ".gitignore",
@@ -109,28 +127,60 @@
             ".wiki",
             "codeception.yml",
             "CLAUDE.md",
-            "patches"
+            ".claude",
+            "patches",
+            "composer-plugins",
+            "blueprint.json",
+            "vendor/amphp/sync/docs/Gemfile",
+            "vendor/amphp/dns/docs/Gemfile",
+            "vendor/stripe/stripe-php/API_VERSION",
+            "vendor/amphp/hpack/src/Internal/amp-hpack.h",
+            "vendor/amphp/socket/docs/Gemfile",
+            "vendor/delight-im/cookie/.travis-ci-apache",
+            "vendor/doctrine",
+            ".distignore",
+            "encrypt-sectrets.php",
+            "scripts",
+            "mu-plugins",
+            "DEPLOY.md",
+            "deploy.sh",
+            ".vscode"
         ]
     },
     "extra": {
+        "patches": {
+            "berlindb/core": [
+                "patches/berlindb-core-src-database-table-php.patch",
+                "patches/berlindb-core-src-database-query-php.patch",
+                "patches/berlindb-core-src-database-column-php.patch"
+            ],
+            "jasny/sso": [
+                "patches/jasny-sso-src-broker-cookies-php.patch"
+            ]
+        },
         "installer-paths": {
             "vendor/woocommerce/{$name}/": [
                 "type:wordpress-plugin"
             ]
-        },
-        "patches": {
-            "jasny/sso": [
-                "patches/jasny-sso-src-broker-cookies-php.patch"
-            ],
-            "berlindb/core": [
-                "patches/berlindb-core-src-database-query-php.patch",
-                "patches/berlindb-core-src-database-column-php.patch"
-            ]
         }
     },
     "scripts": {
-        "post-update-cmd": "cd vendor/mpdf/mpdf/ttfonts && rm -f AboriginalSansREGULAR.ttf Aegean.otf Aegyptus.otf Akkadian.otf ayar.ttf damase_v.2.ttf DBSILBR.ttf DejaVuSerif.ttf Dhyana-Regular.ttf DejaVuSansMono-Oblique.ttf DejaVuSerif-BoldItalic.ttf DhyanaOFL.txt DejaVuSerifCondensed-BoldItalic.ttf DejaVuSansMono-Bold.ttf DejaVuSerif-Italic.ttf DejaVuSansMono.ttf DejaVuSansMono-BoldOblique.ttf DejaVuSerif-Bold.ttf Dhyana-Bold.ttf DejaVuSerifCondensed-Italic.ttf DejaVuSansCondensed-BoldOblique.ttf DejaVuSansCondensed-Oblique.ttf DejaVuSans-Oblique.ttf DejaVuSans-BoldOblique.ttf DejaVuSans-Bold.ttf DejaVuSans.ttf FreeMonoBoldOblique.ttf FreeMonoOblique.ttf FreeSans.ttf FreeSansBold.ttf FreeSansBoldOblique.ttf FreeSansOblique.ttf FreeSerif.ttf FreeSerifBold.ttf FreeSerifBoldItalic.ttf FreeSerifItalic.ttf Garuda.ttf Garuda-Bold.ttf Garuda-BoldOblique.ttf Garuda-Oblique.ttf GNUFreeFontinfo.txt Jomolhari.ttf Jomolhari-OFL.txt kaputaunicode.ttf KhmerOFL.txt KhmerOS.ttf lannaalif-v1-03.ttf 'Lateef font OFL.txt' LateefRegOT.ttf Lohit-Kannada.ttf LohitKannadaOFL.txt ocrb10.ttf ocrbinfo.txt Padauk-book.ttf Pothana2000.ttf Quivira.otf Sun-ExtA.ttf Sun-ExtB.ttf SundaneseUnicode-1.0.5.ttf SyrCOMEdessa.otf SyrCOMEdessa_license.txt TaameyDavidCLM-LICENSE.txt TaameyDavidCLM-Medium.ttf TaiHeritagePro.ttf Tharlon-Regular.ttf TharlonOFL.txt UnBatang_0613.ttf Uthman.otf 'XB Riyaz.ttf' 'XB RiyazBd.ttf' 'XB RiyazBdIt.ttf' 'XB RiyazIt.ttf' 'XW Zar Font Info.txt' ZawgyiOne.ttf Abyssinica_SIL.ttf",
-        "post-install-cmd": "cd vendor/mpdf/mpdf/ttfonts && rm -f AboriginalSansREGULAR.ttf Aegean.otf Aegyptus.otf Akkadian.otf ayar.ttf damase_v.2.ttf DBSILBR.ttf DejaVuSerif.ttf Dhyana-Regular.ttf DejaVuSansMono-Oblique.ttf DejaVuSerif-BoldItalic.ttf DhyanaOFL.txt DejaVuSerifCondensed-BoldItalic.ttf DejaVuSansMono-Bold.ttf DejaVuSerif-Italic.ttf DejaVuSansMono.ttf DejaVuSansMono-BoldOblique.ttf DejaVuSerif-Bold.ttf Dhyana-Bold.ttf DejaVuSerifCondensed-Italic.ttf DejaVuSansCondensed-BoldOblique.ttf DejaVuSansCondensed-Oblique.ttf DejaVuSans-Oblique.ttf DejaVuSans-BoldOblique.ttf DejaVuSans-Bold.ttf DejaVuSans.ttf FreeMonoBoldOblique.ttf FreeMonoOblique.ttf FreeSans.ttf FreeSansBold.ttf FreeSansBoldOblique.ttf FreeSansOblique.ttf FreeSerif.ttf FreeSerifBold.ttf FreeSerifBoldItalic.ttf FreeSerifItalic.ttf Garuda.ttf Garuda-Bold.ttf Garuda-BoldOblique.ttf Garuda-Oblique.ttf GNUFreeFontinfo.txt Jomolhari.ttf Jomolhari-OFL.txt kaputaunicode.ttf KhmerOFL.txt KhmerOS.ttf lannaalif-v1-03.ttf 'Lateef font OFL.txt' LateefRegOT.ttf Lohit-Kannada.ttf LohitKannadaOFL.txt ocrb10.ttf ocrbinfo.txt Padauk-book.ttf Pothana2000.ttf Quivira.otf Sun-ExtA.ttf Sun-ExtB.ttf SundaneseUnicode-1.0.5.ttf SyrCOMEdessa.otf SyrCOMEdessa_license.txt TaameyDavidCLM-LICENSE.txt TaameyDavidCLM-Medium.ttf TaiHeritagePro.ttf Tharlon-Regular.ttf TharlonOFL.txt UnBatang_0613.ttf Uthman.otf 'XB Riyaz.ttf' 'XB RiyazBd.ttf' 'XB RiyazBdIt.ttf' 'XB RiyazIt.ttf' 'XW Zar Font Info.txt' ZawgyiOne.ttf Abyssinica_SIL.ttf"
+        "post-install-cmd": [
+            "@php scripts/remove-mpdf-fonts.php"
+        ],
+        "post-update-cmd": [
+            "@php scripts/remove-mpdf-fonts.php"
+        ],
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-html=coverage-html --coverage-clover=coverage.xml",
+        "lint": "phpcs",
+        "lint:fix": "phpcbf",
+        "stan": "phpstan analyse",
+        "quality": [
+            "@lint",
+            "@stan"
+        ],
+        "setup-hooks": "bash bin/setup-hooks.sh"
     },
     "autoload-dev": {
         "psr-4": {

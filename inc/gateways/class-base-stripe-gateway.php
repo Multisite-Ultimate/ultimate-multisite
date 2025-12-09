@@ -150,7 +150,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$this->setup_api_keys($id);
 
 		if (method_exists(Stripe\Stripe::class, 'setAppInfo')) {
-			Stripe\Stripe::setAppInfo('WordPress Multisite Ultimate', wu_get_version(), esc_url(site_url()));
+			Stripe\Stripe::setAppInfo('WordPress Ultimate Multisite', wu_get_version(), esc_url(site_url()));
 		}
 	}
 
@@ -230,7 +230,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			if ( ! empty($s_subscription_id)) {
 				$actions['change_payment_method'] = [
-					'label'        => __('Change Payment Method', 'multisite-ultimate'),
+					'label'        => __('Change Payment Method', 'ultimate-multisite'),
 					'icon_classes' => 'dashicons-wu-edit wu-align-middle',
 					'href'         => add_query_arg(
 						[
@@ -266,7 +266,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$customer = wu_get_current_customer();
 
 		if ( ! is_super_admin() && (! $customer || $customer->get_id() !== $membership->get_customer_id())) {
-			wp_die(esc_html__('You are not allowed to modify this membership.', 'multisite-ultimate'));
+			wp_die(esc_html__('You are not allowed to modify this membership.', 'ultimate-multisite'));
 		}
 
 		$gateway_id = $membership->get_gateway();
@@ -287,15 +287,27 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// If customer is not set, get from checkout session
 		if (empty($s_customer_id)) {
-			$subscription_data = [
-				'payment_method_types'       => $allowed_payment_method_types,
-				'mode'                       => 'setup',
-				'success_url'                => $return_url,
-				'cancel_url'                 => wu_get_current_url(),
-				'billing_address_collection' => 'required',
-				'client_reference_id'        => $customer_id,
-				'customer'                   => $s_customer_id,
-			];
+			/**
+			 * Filter Stripe Subscription data. Can override success_url or cancel_url.
+			 *
+			 * @since 2.4.2
+			 *
+			 * @param array $subscription_data An array of parameters to pass to Stripe.
+			 * @param Base_Gateway $gateway The current Stripe Gateway object.
+			 */
+			$subscription_data = apply_filters(
+				'wu_stripe_checkout_subscription_data',
+				[
+					'payment_method_types'       => $allowed_payment_method_types,
+					'mode'                       => 'setup',
+					'success_url'                => $return_url,
+					'cancel_url'                 => wu_get_current_url(),
+					'billing_address_collection' => 'required',
+					'client_reference_id'        => $customer_id,
+					'customer'                   => $s_customer_id,
+				],
+				$gateway
+			);
 
 			$session       = $this->get_stripe_client()->checkout->sessions->create($subscription_data);
 			$s_customer_id = $session->customer;
@@ -331,7 +343,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 						],
 					],
 					'business_profile' => [
-						'headline' => __('Manage your membership payment methods.', 'multisite-ultimate'),
+						'headline' => __('Manage your membership payment methods.', 'ultimate-multisite'),
 					],
 				]
 			);
@@ -364,7 +376,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		$gateway_id = wu_replace_dashes($this->id);
 
-		return wu_get_setting("{$gateway_id}_public_title", __('Credit Card', 'multisite-ultimate'));
+		return wu_get_setting("{$gateway_id}_public_title", __('Credit Card', 'ultimate-multisite'));
 	}
 
 	/**
@@ -381,7 +393,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			'payment-gateways',
 			"{$gateway_id}_enable_portal",
 			[
-				'title'      => __('Use Stripe Billing Portal', 'multisite-ultimate'),
+				'title'      => __('Use Stripe Billing Portal', 'ultimate-multisite'),
 				'desc'       => 'Add a link to the Billing Portal in the site actions widget so your customer can change the payment method used in Stripe (additional charges from Stripe could be applied).',
 				'type'       => 'toggle',
 				'default'    => 0,
@@ -411,8 +423,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 					'limit' => 100,
 				]
 			);
-
-			$set_webhook_endpoint = false;
 
 			foreach ($search_webhook as $webhook_endpoint) {
 				if ($webhook_endpoint->url === $webhook_url) {
@@ -529,8 +539,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				/**
 				 *  The secret key is invalid;
 				 */
-				$t = "{$id}_{$stripe_mode}_sk_key_status";
-				wu_save_setting("{$id}_{$stripe_mode}_sk_key_status", __('Invalid API Key provided', 'multisite-ultimate'));
+				wu_save_setting("{$id}_{$stripe_mode}_sk_key_status", __('Invalid API Key provided', 'ultimate-multisite'));
 			}
 		}
 
@@ -554,7 +563,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				/**
 				 *  The public key is invalid;
 				 */
-				wu_save_setting("{$id}_{$stripe_mode}_pk_key_status", __('Invalid API Key provided', 'multisite-ultimate'));
+				wu_save_setting("{$id}_{$stripe_mode}_pk_key_status", __('Invalid API Key provided', 'ultimate-multisite'));
 			}
 		}
 	}
@@ -562,7 +571,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	/**
 	 * Installs webhook urls onto Stripe.
 	 *
-	 * Multisite Ultimate will call this whenever settings for this api changes.
+	 * Ultimate Multisite will call this whenever settings for this api changes.
 	 * That being said, it might be a good idea to check if the webhook already exists
 	 * before trying to re-create it.
 	 *
@@ -573,7 +582,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 * @param array $settings The final settings array being saved, containing ALL options.
 	 * @param array $settings_to_save Array containing just the options being updated.
 	 * @param array $saved_settings Array containing the original settings.
-	 * @return bool|\WP_Error
+	 * @return void
 	 */
 	public function install_webhook($settings, $settings_to_save, $saved_settings) {
 
@@ -582,7 +591,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$active_gateways = (array) wu_get_isset($settings_to_save, 'active_gateways', []);
 
 		if ( ! in_array($this->get_id(), $active_gateways, true)) {
-			return false;
+			return;
 		}
 
 		/*
@@ -606,7 +615,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		if ($changed_settings == $original_settings) { // phpcs:ignore
 
-			return false;
+			return;
 		}
 
 		$webhook_url = $this->get_webhook_listener_url();
@@ -614,7 +623,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$existing_webhook = $this->has_webhook_installed();
 
 		if (is_wp_error($existing_webhook)) {
-			return $existing_webhook;
+			return;
 		}
 
 		$this->setup_api_keys($id);
@@ -633,7 +642,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 					);
 				}
 
-				return true;
+				return;
 			}
 
 			/*
@@ -643,11 +652,9 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				[
 					'enabled_events' => ['*'],
 					'url'            => $webhook_url,
-					'description'    => 'Added by Multisite Ultimate. Required to correctly handle changes in subscription status.',
+					'description'    => 'Added by Ultimate Multisite. Required to correctly handle changes in subscription status.',
 				]
 			);
-
-			return true;
 		} catch (\Throwable $e) {
 			$error_code = $e->getCode();
 
@@ -660,7 +667,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				}
 			}
 
-			return new \WP_Error($error_code, $e->getMessage());
+			wu_log_add('stripe', sprintf(__('Failed to add stripe webhook: %1$s, %2$s', 'ultimate-multisite'), $error_code, $e->getMessage()));
 		}
 	}
 
@@ -680,7 +687,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$gateway_subscription_id = $membership->get_gateway_subscription_id();
 
 		if (empty($gateway_subscription_id)) {
-			return new \WP_Error('wu_stripe_no_subscription_id', __('Error: No gateway subscription ID found for this membership.', 'multisite-ultimate'));
+			return new \WP_Error('wu_stripe_no_subscription_id', __('Error: No gateway subscription ID found for this membership.', 'ultimate-multisite'));
 		}
 
 		$this->setup_api_keys();
@@ -764,7 +771,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				if (count($credits) > 1) {
 					$credit = [
 						'amount'      => array_sum(wp_list_pluck($credits, 'amount')),
-						'description' => __('Amount adjustment based on custom deal.', 'multisite-ultimate'),
+						'description' => __('Amount adjustment based on custom deal.', 'ultimate-multisite'),
 					];
 				} else {
 					$credit = $credits[0];
@@ -838,7 +845,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param integer $customer_id Multisite Ultimate customer ID.
+	 * @param integer $customer_id Ultimate Multisite customer ID.
 	 * @param integer $user_id The WordPress user ID.
 	 * @param integer $stripe_customer_id The Stripe Customer ID.
 	 * @return \Stripe\Customer|\WP_Error
@@ -851,7 +858,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$customer_exists = false;
 
 		/*
-		 * Use the Multisite Ultimate customer ID to search on the
+		 * Use the Ultimate Multisite customer ID to search on the
 		 * database for an existing Stripe customer id.
 		 */
 		if (empty($stripe_customer_id)) {
@@ -937,7 +944,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 *
 	 * @since 2.0.11
 	 *
-	 * @param \WP_Ultimo\Objects\Billing_Address $billing_address The Multisite Ultimate billing address.
+	 * @param \WP_Ultimo\Objects\Billing_Address $billing_address The Ultimate Multisite billing address.
 	 * @return array
 	 */
 	public function convert_to_stripe_address($billing_address) {
@@ -1048,7 +1055,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$start_date = $datetime->getTimestamp() - HOUR_IN_SECONDS; // Reduce by 60 seconds to account for inaccurate server times.
 
 		if (empty($payment_method)) {
-			throw new \Exception(esc_html__('Invalid payment method', 'multisite-ultimate'));
+			throw new \Exception(esc_html__('Invalid payment method', 'ultimate-multisite'));
 		}
 
 		/*
@@ -1254,7 +1261,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		$coupon_data = [
 			'id'         => sprintf('%s-%s-%s', $s_amount, $currency, 'once'),
-			'name'       => __('Account credit and other discounts', 'multisite-ultimate'),
+			'name'       => __('Account credit and other discounts', 'ultimate-multisite'),
 			'amount_off' => $s_amount,
 			'duration'   => 'once',
 			'currency'   => $currency,
@@ -1378,7 +1385,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	}
 
 	/**
-	 * Converts the Multisite Ultimate cart into Stripe Sub arguments.
+	 * Converts the Ultimate Multisite cart into Stripe Sub arguments.
 	 *
 	 * @since 2.0.0
 	 *
@@ -1475,7 +1482,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	}
 
 	/**
-	 * Converts the Stripe invoice line items into Multisite Ultimate line items.
+	 * Converts the Stripe invoice line items into Ultimate Multisite line items.
 	 *
 	 * @since 2.0.19
 	 *
@@ -1510,8 +1517,8 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			$line_item_data = [
 				'title'         => $title,
 				'description'   => $s_line_item->description,
-				'tax_inclusive' => $s_line_item->amount !== $s_line_item->amount_excluding_tax,
-				'unit_price'    => $s_line_item->unit_amount_excluding_tax / $currency_multiplier,
+				'tax_inclusive' => 'inclusive' === $s_line_item->taxes[0]->tax_behavior, // $s_line_item->amount !== $s_line_item->taxes->amount_excluding_tax,
+				'unit_price'    => (float) $s_line_item->pricing->unit_amount_decimal / $currency_multiplier,
 				'quantity'      => $quantity,
 			];
 
@@ -1521,8 +1528,8 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			$line_item = new Line_Item($line_item_data);
 
-			$subtotal  = $s_line_item->amount_excluding_tax / $currency_multiplier;
-			$tax_total = ($s_line_item->amount - $s_line_item->amount_excluding_tax) / $currency_multiplier;
+			$subtotal  = $s_line_item->amount / $currency_multiplier;
+			$tax_total = ($s_line_item->taxes[0]->amount) / $currency_multiplier;
 			$total     = $s_line_item->amount / $currency_multiplier;
 
 			// Set this values after generate the line item to bypass the recalculate_totals
@@ -1639,7 +1646,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				if ( ! empty($subscription->metadata) ) {
 					$customer_id = (int) $subscription->metadata['customer_id'];
 
-					// Legacy Multisite Ultimate uses user_id
+					// Legacy Ultimate Multisite uses user_id
 					$user_id = (int) $subscription->metadata['user_id'];
 
 					if (0 === $customer_id && 0 === $user_id) {
@@ -1723,7 +1730,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$gateway_payment_id = $payment->get_gateway_payment_id();
 
 		if (empty($gateway_payment_id)) {
-			throw new \Exception(esc_html__('Gateway payment ID not found. Cannot process refund automatically.', 'multisite-ultimate'));
+			throw new \Exception(esc_html__('Gateway payment ID not found. Cannot process refund automatically.', 'ultimate-multisite'));
 		}
 
 		/**
@@ -1742,7 +1749,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			$gateway_payment_id = $invoice->charge;
 		} else {
-			throw new \Exception(esc_html__('Gateway payment ID not valid.', 'multisite-ultimate'));
+			throw new \Exception(esc_html__('Gateway payment ID not valid.', 'ultimate-multisite'));
 		}
 
 		/*
@@ -1875,7 +1882,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			$wp_error->add($error['code'], $this->get_localized_error_message($error['code'], $e->getMessage()));
 		} else {
-			$wp_error->add('unknown_error', __('An unknown error has occurred.', 'multisite-ultimate'));
+			$wp_error->add('unknown_error', __('An unknown error has occurred.', 'ultimate-multisite'));
 		}
 
 		return $wp_error;
@@ -1898,7 +1905,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		// TODO: Fetch a translated message from an error_code => error_message map.
 
 		// translators: 1 is the error code and 2 the message.
-		return sprintf(__('An error has occurred (code: %1$s; message: %2$s).', 'multisite-ultimate'), $error_code, $error_message);
+		return sprintf(__('An error has occurred (code: %1$s; message: %2$s).', 'ultimate-multisite'), $error_code, $error_message);
 	}
 
 	/**
@@ -1925,8 +1932,9 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 * Process webhooks
 	 *
 	 * @since 2.0.0
-	 * @throws Ignorable_Exception|Stripe\Exception\ApiErrorException
-	 * @return bool
+	 * @throws Ignorable_Exception When the webhook should be ignored (duplicate payments, wrong gateway, etc.).
+	 * @throws Stripe\Exception\ApiErrorException When Stripe API calls fail.
+	 * @return void
 	 */
 	public function process_webhooks() {
 
@@ -1939,7 +1947,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// for extra security, retrieve from the Stripe API
 		if ( ! isset($received_event->id)) {
-			throw new \Exception(esc_html__('Event ID not found.', 'multisite-ultimate'));
+			throw new \Exception(esc_html__('Event ID not found.', 'ultimate-multisite'));
 		}
 
 		// Set the right mode for this request
@@ -2042,11 +2050,11 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		if ($this->get_id() !== $membership->get_gateway()) {
 
 			// translators: %s is the customer ID.
-			throw new Ignorable_Exception(esc_html(sprintf(__('Exiting Stripe webhook - This call must be handled by %s webhook', 'multisite-ultimate'), $membership->get_gateway())));
+			throw new Ignorable_Exception(esc_html(sprintf(__('Exiting Stripe webhook - This call must be handled by %s webhook', 'ultimate-multisite'), $membership->get_gateway())));
 		}
 
 		/*
-		 * Set the Multisite Ultimate customer.
+		 * Set the Ultimate Multisite customer.
 		 */
 		$customer = $membership->get_customer();
 
@@ -2084,7 +2092,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			$membership->save();
 
-			return true;
+			return;
 		}
 
 		/*
@@ -2158,14 +2166,18 @@ class Base_Stripe_Gateway extends Base_Gateway {
 					 * account for delays.
 					*/
 					$renewal_date = new \DateTime();
-					$renewal_date->setTimestamp($subscription->current_period_end);
+					foreach ($subscription->items as $item) {
+						$end_timestamp = $item->current_period_end;
+						break;
+					}
+					$renewal_date->setTimestamp($end_timestamp);
 					$renewal_date->setTime(23, 59, 59);
 
 					/*
 					 * Estimated charge date is 2 hours
 					 * after `current_period_end`.
 					 */
-					$stripe_estimated_charge_timestamp = $subscription->current_period_end + (2 * HOUR_IN_SECONDS);
+					$stripe_estimated_charge_timestamp = $end_timestamp + (2 * HOUR_IN_SECONDS);
 
 					if ($stripe_estimated_charge_timestamp > $renewal_date->getTimestamp()) {
 						$renewal_date->setTimestamp($stripe_estimated_charge_timestamp);
@@ -2236,7 +2248,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 						}
 
 						// Now we apply this discount to the line items.
-						foreach ($line_items as &$line_item) {
+						foreach ($line_items as $line_item) {
 							$current_item_subtotal = $line_item->get_subtotal();
 							$percent_of_subtotal   = $current_item_subtotal / $old_subtotal;
 
@@ -2254,7 +2266,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 					/**
 					 *  We do not have a payment to change
 					 */
-					return true;
+					return;
 				}
 
 				$this->payment = $payment;
@@ -2278,10 +2290,15 @@ class Base_Stripe_Gateway extends Base_Gateway {
 							$membership->set_gateway_subscription_id($subscription->id);
 
 							$renewal_date = new \DateTime();
-							$renewal_date->setTimestamp($subscription->current_period_end);
+
+							foreach ($subscription->items as $item) {
+								$end_timestamp = $item->current_period_end;
+								break;
+							}
+							$renewal_date->setTimestamp($end_timestamp);
 							$renewal_date->setTime(23, 59, 59);
 
-							$stripe_estimated_charge_timestamp = $subscription->current_period_end + (2 * HOUR_IN_SECONDS);
+							$stripe_estimated_charge_timestamp = $end_timestamp + (2 * HOUR_IN_SECONDS);
 
 							if ($stripe_estimated_charge_timestamp > $renewal_date->getTimestamp()) {
 								$renewal_date->setTimestamp($stripe_estimated_charge_timestamp);
@@ -2289,7 +2306,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 							$expiration = $renewal_date->format('Y-m-d H:i:s');
 						} else {
-							return true;
+							return;
 						}
 					}
 				}
@@ -2312,7 +2329,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				 */
 				$this->trigger_payment_processed($payment, $membership);
 
-				return true;
+				return;
 			} elseif ( ! empty($gateway_payment_id) && $payment) {
 				/*
 				 * The payment already exists.
@@ -2320,7 +2337,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				 * Throws to inform that
 				 * we have a duplicate payment.
 				 */
-				throw new Ignorable_Exception(esc_html__('Duplicate payment.', 'multisite-ultimate'));
+				throw new Ignorable_Exception(esc_html__('Duplicate payment.', 'ultimate-multisite'));
 			}
 		}
 
@@ -2328,22 +2345,18 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		 * Next, let's deal with charges that went through!
 		 */
 		if ('charge.refunded' === $event->type) {
-			$payment_data = [
-				'gateway' => 'stripe',
-			];
-
 			$payment_id = $payment_event->metadata->payment_id;
 
 			$payment = wu_get_payment($payment_id);
 
 			if (empty($payment)) {
-				throw new Ignorable_Exception(esc_html__('Payment not found on refund webhook call.', 'multisite-ultimate'));
+				throw new Ignorable_Exception(esc_html__('Payment not found on refund webhook call.', 'ultimate-multisite'));
 			}
 
 			$is_refundable = in_array($payment->get_status(), wu_get_refundable_payment_types(), true);
 
 			if ( ! $is_refundable) {
-				throw new Ignorable_Exception(esc_html__('Payment is not refundable.', 'multisite-ultimate'));
+				throw new Ignorable_Exception(esc_html__('Payment is not refundable.', 'ultimate-multisite'));
 			}
 
 			/*
@@ -2355,16 +2368,16 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			 * Actually process the refund
 			 * using the helper method.
 			 */
-			$status = $payment->refund($amount);
+			$payment->refund($amount);
 
-			return $status;
+			return;
 		}
 
 		/*
 		 * Failed payments.
 		 */
 		if ('invoice.payment_failed' === $event->type) {
-			$this->webhook_event_id = $event->id;
+			wu_log_add('stripe', 'Processing Stripe invoice.payment_failed webhook.');
 
 			// Make sure this invoice is tied to a subscription and is the user's current subscription.
 			if ( ! empty($event->data->object->subscription) && $membership->get_gateway_subscription_id() === $event->data->object->subscription) {
@@ -2373,7 +2386,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			do_action('wu_stripe_charge_failed', $payment_event, $event, $membership);
 
-			return true;
+			return;
 		}
 
 		/*
@@ -2394,12 +2407,10 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				if ($membership->is_active()) {
 					$membership->cancel();
 
-					$membership->add_note(['text' => __('Membership cancelled via Stripe webhook.', 'multisite-ultimate')]);
+					$membership->add_note(['text' => __('Membership cancelled via Stripe webhook.', 'ultimate-multisite')]);
 				} else {
 					wu_log_add('stripe', sprintf('Membership #%d is not active - not cancelling account.', $membership->get_id()));
 				}
-
-				return true;
 			} else {
 				wu_log_add('stripe', sprintf('Payment event ID (%s) doesn\'t match membership\'s merchant subscription ID (%s).', $payment_event->id, $membership->get_gateway_subscription_id()), true);
 			}
@@ -2407,7 +2418,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	}
 
 	/**
-	 * Get saved card options for this customers.
+	 * Get saved card options for this customer.
 	 *
 	 * @since 2.0.0
 	 * @return array
@@ -2420,14 +2431,12 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		$options = [];
 
-		$user_id = isset($this->customer) && $this->customer ? $this->customer->get_user_id() : false;
-
 		$saved_payment_methods = $this->get_user_saved_payment_methods();
 
 		foreach ($saved_payment_methods as $saved_payment_method) {
 			$options[ $saved_payment_method->id ] = sprintf(
 				// translators: 1 is the card brand (e.g. VISA), and 2 is the last 4 digits.
-				__('%1$s ending in %2$s', 'multisite-ultimate'),
+				__('%1$s ending in %2$s', 'ultimate-multisite'),
 				strtoupper((string) $saved_payment_method->card->brand),
 				$saved_payment_method->card->last4
 			);
@@ -2457,7 +2466,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 			<fieldset id="wu-card-name-wrapper" class="wu_card_fieldset">
 				<p id="wu_card_name_wrap">
-					<label for="wu-update-card-name"><?php esc_html_e('Name on Card', 'multisite-ultimate'); ?></label>
+					<label for="wu-update-card-name"><?php esc_html_e('Name on Card', 'ultimate-multisite'); ?></label>
 					<input type="text" size="20" id="wu-update-card-name" name="wu_card_name" class="wu_card_name card-name" />
 				</p>
 			</fieldset>
@@ -2603,7 +2612,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// Name and price are required.
 		if (empty($args['name']) || empty($args['price'])) {
-			return new \WP_Error('missing_name_price', __('Missing plan name or price.', 'multisite-ultimate'));
+			return new \WP_Error('missing_name_price', __('Missing plan name or price.', 'ultimate-multisite'));
 		}
 
 		/*
@@ -2624,7 +2633,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		}
 
 		if (empty($plan_id)) {
-			return new \WP_Error('empty_plan_id', __('Empty plan ID.', 'multisite-ultimate'));
+			return new \WP_Error('empty_plan_id', __('Empty plan ID.', 'ultimate-multisite'));
 		}
 
 		// Convert price to Stripe format.
@@ -2705,7 +2714,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		// Name are required.
 		if (empty($name)) {
-			return new \WP_Error('missing_name', __('Missing product name.', 'multisite-ultimate'));
+			return new \WP_Error('missing_name', __('Missing product name.', 'ultimate-multisite'));
 		}
 
 		if (empty($id)) {
@@ -2717,7 +2726,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		}
 
 		if (empty($product_id)) {
-			return new \WP_Error('empty_product_id', __('Empty product ID.', 'multisite-ultimate'));
+			return new \WP_Error('empty_product_id', __('Empty product ID.', 'ultimate-multisite'));
 		}
 
 		// First check to see if a product exists with this ID. If so, return that.
@@ -2727,7 +2736,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			 * use this product.
 			 *
 			 * @param string $product_id ID of the Stripe product to check for.
-			 * @param object $name       Product name.
+			 * @param string $name       Product name.
 			 */
 			$existing_product_id = apply_filters('wu_stripe_existing_product_id', $product_id, $name);
 

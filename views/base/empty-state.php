@@ -4,6 +4,8 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
 <div
 		class="wu-flex wu-justify-center wu-items-center wu-text-center wu-bg-contain wu-bg-no-repeat wu--mb-12 wu-pb-12"

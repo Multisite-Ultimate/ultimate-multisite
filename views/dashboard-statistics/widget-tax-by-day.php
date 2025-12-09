@@ -4,6 +4,8 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
 <div class="wu-styling">
 
@@ -14,11 +16,11 @@
 	$data    = [];
 	$slug    = 'taxes_by_day';
 	$headers = [
-		__('Day', 'multisite-ultimate'),
-		__('Orders', 'multisite-ultimate'),
-		__('Total Sales', 'multisite-ultimate'),
-		__('Tax Total', 'multisite-ultimate'),
-		__('Net Profit', 'multisite-ultimate'),
+		__('Day', 'ultimate-multisite'),
+		__('Orders', 'ultimate-multisite'),
+		__('Total Sales', 'ultimate-multisite'),
+		__('Tax Total', 'ultimate-multisite'),
+		__('Net Profit', 'ultimate-multisite'),
 	];
 
 	foreach ($taxes_by_day as $day => $tax_line) {
@@ -47,11 +49,11 @@
 
 		<thead>
 			<tr>
-			<th class="wu-w-1/3"><?php esc_html_e('Day', 'multisite-ultimate'); ?></th>
-			<th><?php esc_html_e('Orders', 'multisite-ultimate'); ?></th>
-			<th><?php esc_html_e('Total Sales', 'multisite-ultimate'); ?></th>
-			<th><?php esc_html_e('Tax Total', 'multisite-ultimate'); ?></th>
-			<th><?php esc_html_e('Net Profit', 'multisite-ultimate'); ?></th>
+			<th class="wu-w-1/3"><?php esc_html_e('Day', 'ultimate-multisite'); ?></th>
+			<th><?php esc_html_e('Orders', 'ultimate-multisite'); ?></th>
+			<th><?php esc_html_e('Total Sales', 'ultimate-multisite'); ?></th>
+			<th><?php esc_html_e('Tax Total', 'ultimate-multisite'); ?></th>
+			<th><?php esc_html_e('Net Profit', 'ultimate-multisite'); ?></th>
 			</tr>
 		</thead>
 
@@ -75,7 +77,7 @@
 
 				<tr>
 				<td colspan="4">
-					<?php esc_html_e('No Taxes found.', 'multisite-ultimate'); ?>
+					<?php esc_html_e('No Taxes found.', 'ultimate-multisite'); ?>
 				</td>
 				</tr>
 

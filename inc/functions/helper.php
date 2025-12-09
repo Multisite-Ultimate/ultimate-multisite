@@ -13,7 +13,7 @@ use WP_Ultimo\Exception\Runtime_Exception;
 use Psr\Log\LogLevel;
 
 /**
- * Returns the Multisite Ultimate version.
+ * Returns the Ultimate Multisite version.
  *
  * @since 2.0.0
  * @return string
@@ -35,7 +35,7 @@ function wu_is_debug() {
 }
 
 /**
- * Checks if Multisite Ultimate is being loaded as a must-use plugin.
+ * Checks if Ultimate Multisite is being loaded as a must-use plugin.
  *
  * @since 2.0.0
  * @return bool
@@ -82,9 +82,7 @@ function wu_get_main_site_id() {
 
 	_wu_require_hook('ms_loaded');
 
-	global $current_site;
-
-	return $current_site->blog_id;
+	return get_main_site_id();
 }
 
 /**
@@ -133,7 +131,7 @@ function wu_url($dir) {
  */
 function wu_request($key, $default_value = false) {
 
-	$value = isset($_REQUEST[ $key ]) ? wu_clean(stripslashes_deep($_REQUEST[ $key ])) : $default_value; // phpcs:ignore WordPress.Security.NonceVerification
+	$value = isset($_REQUEST[ $key ]) ? wu_clean(stripslashes_deep($_REQUEST[ $key ])) : $default_value; // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 	return apply_filters('wu_request', $value, $key, $default_value);
 }
@@ -250,7 +248,7 @@ function wu_maybe_log_error($e) {
  */
 function wu_get_function_caller($depth = 1) {
 
-	$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $depth + 1);
+	$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $depth + 1); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
 
 	$caller = $backtrace[ $depth ]['function'] ?? null;
 
@@ -292,7 +290,7 @@ function wu_cli_is_plugin_skipped($plugin = null): bool {
  *
  * @return void
  */
-function wu_ignore_errors($func, $log = false) {
+function wu_ignore_errors($func, $log = false) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 	try {
 		call_user_func($func);
@@ -325,7 +323,7 @@ function wu_clean($variable) {
  * @since 2.4.0
  * @return array Allowed HTML tags and attributes.
  */
-function wu_kses_allowed_html() {
+function wu_kses_allowed_html(): array {
 	$svg_attributes = [
 		'class'             => true,
 		'id'                => true,
@@ -353,7 +351,125 @@ function wu_kses_allowed_html() {
 		'focusable'         => true,
 	];
 
-	return wp_kses_allowed_html('post') + [
+	$vue_and_data_attributes = [
+		// Vue.js directives
+		'v-html'                    => true,
+		'v-show'                    => true,
+		'v-if'                      => true,
+		'v-else'                    => true,
+		'v-else-if'                 => true,
+		'v-for'                     => true,
+		'v-model'                   => true,
+		'v-bind'                    => true,
+		'v-bind:class'              => true,
+		'v-on'                      => true,
+		'v-cloak'                   => true,
+		'v-pre'                     => true,
+		'v-once'                    => true,
+		'v-text'                    => true,
+		// Vue.js shorthand attributes
+		':class'                    => true,
+		':style'                    => true,
+		'v-on:click'                => true,
+		'v-on:input'                => true,
+		'v-on:change'               => true,
+		'@click'                    => true,
+		'@click.prevent'            => true,
+		'v-on:click.prevent'        => true,
+		'@submit'                   => true,
+		'@change'                   => true,
+		// Common data attributes
+		'data-image'                => true,
+		'data-src'                  => true,
+		'data-id'                   => true,
+		'data-value'                => true,
+		'data-target'               => true,
+		'data-toggle'               => true,
+		'data-dismiss'              => true,
+		'data-placement'            => true,
+		'data-content'              => true,
+		'data-title'                => true,
+		'data-delay'                => true,
+		'data-animation'            => true,
+		'data-container'            => true,
+		'data-trigger'              => true,
+		'data-model'                => true,
+		'data-value-field'          => true,
+		'data-label-field'          => true,
+		'data-search-field'         => true,
+		'data-max-items'            => true,
+		'data-frame'                => true,
+		'data-selectize'            => true,
+		'data-selectize-categories' => true,
+		'data-selected'             => true,
+		'data-init'                 => true,
+		'data-wu-customizer-panel'  => true,
+		'data-editor'               => true,
+		'data-code-editor'          => true,
+		'data-frequency-selector'   => true,
+		'data-wu-app'               => true,
+		'data-loading'              => true,
+		'data-state'                => true,
+		'tabindex'                  => true,
+		'data-base-link'            => true,
+		'data-exclude'              => true,
+		'data-field-value'          => true,
+		'data-on-load'              => true,
+		'data-format'               => true,
+		'data-allow-time'           => true,
+		'data-no-calendar'          => true,
+		'data-clipboard-text'       => true,
+		'data-page'                 => true,
+		'data-testid'               => true,
+		'data-confirm-email'        => true,
+		'data-include'              => true,
+		'data-clipboard-action'     => true,
+		'data-action'               => true,
+		// others
+		'style'                     => true,
+		'class'                     => true,
+		'id'                        => true,
+		'data-price'                => true,
+	];
+
+	$allowed_html             = wp_kses_allowed_html('post');
+	$allowed_html['input']    = [
+		'value'       => true,
+		'min'         => true,
+		'max'         => true,
+		'type'        => true,
+		'placeholder' => true,
+		'name'        => true,
+		'disabled'    => true,
+		'checked'     => true,
+	];
+	$allowed_html['textarea'] = [
+		'name'     => true,
+		'disabled' => true,
+	];
+	$allowed_html['select']   = [
+		'multiple'    => true,
+		'disabled'    => true,
+		'name'        => true,
+		'placeholder' => true,
+	];
+	$allowed_html['option']   = [
+		'selected' => true,
+		'disabled' => true,
+		'name'     => true,
+		'value'    => true,
+	];
+	$allowed_html['button']   = [
+		'disabled' => true,
+		'name'     => true,
+		'value'    => true,
+	];
+	$allowed_html['dynamic']  = [
+		':template' => true,
+		'template'  => true,
+	];
+
+	return [
 		'svg'            => $svg_attributes + [
 			'width'               => true,
 			'height'              => true,
@@ -469,5 +585,5 @@ function wu_kses_allowed_html() {
 			'width'            => true,
 			'height'           => true,
 		],
-	] + array_fill_keys(['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'em', 'b', 'i', 'ul', 'ol', 'li', 'a', 'img'], ['style' => true]);
+	] + array_merge_recursive($allowed_html, array_fill_keys(array_keys($allowed_html) + ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'em', 'b', 'i', 'ul', 'ol', 'li', 'a', 'img', 'input', 'textarea'], $vue_and_data_attributes));
 }

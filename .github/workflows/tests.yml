@@ -1,0 +1,81 @@
+name: Unit & Integration Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  php-tests:
+    name: PHP ${{ matrix.php-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports: [3306]
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    container:
+      image: cimg/php:${{ matrix.php-version }}
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Composer global bin path
+        run: |
+          mkdir -p "$HOME/.config/composer/vendor/bin"
+          echo "PATH=$HOME/.config/composer/vendor/bin:$PATH" >> $GITHUB_ENV
+
+      - name: Install System Dependencies
+        run: |
+          apt-get update && apt-get install -y subversion mariadb-client
+
+      - name: Install PHP Extensions
+        run: |
+          install-php-extensions mysqli gd bcmath || echo "Extensions may already be installed."
+
+      - name: Self-update Composer
+        run: |
+          composer self-update || echo "Composer update skipped due to permission issue."
+
+      - name: Install PHP Dependencies
+        run: |
+          composer install --no-interaction --prefer-dist
+
+      - name: Wait for MySQL to be ready
+        run: |
+          for i in {1..30}; do
+            if mysqladmin ping -h mysql --silent; then
+              echo "MySQL is up"
+              break
+            fi
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
+
+      - name: Prepare WordPress Tests
+        run: |
+          rm -rf /tmp/wordpress-tests-lib /tmp/wordpress/
+          bash bin/install-wp-tests.sh wordpress_test root root mysql latest
+
+      - name: Run PHPUnit Tests with Coverage
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

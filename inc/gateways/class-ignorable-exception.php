@@ -9,6 +9,8 @@
 
 namespace WP_Ultimo\Gateways;
 
+defined('ABSPATH') || exit;
+
 /**
  * This exception will be caught but will not trigger a 500.
  *

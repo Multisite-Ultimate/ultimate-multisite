@@ -1,0 +1,6 @@
+body.has-wu-container .wu-no-container {
+	display: none;
+}
+body:not(.has-wu-container) .wu-use-container {
+	display: none;
+}

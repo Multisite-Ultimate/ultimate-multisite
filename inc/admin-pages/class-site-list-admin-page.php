@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Sites Admin Page.
+ * Ultimate Multisite Sites Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Sites Admin Page.
+ * Ultimate Multisite Sites Admin Page.
  */
 class Site_List_Admin_Page extends List_Admin_Page {
 
@@ -130,16 +130,16 @@ class Site_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'confirm'       => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Publication', 'multisite-ultimate'),
-				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
+				'title'     => __('Confirm Publication', 'ultimate-multisite'),
+				'desc'      => __('This action can not be undone.', 'ultimate-multisite'),
 				'html_attr' => [
 					'v-model' => 'confirmed',
 				],
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Publish', 'multisite-ultimate'),
-				'placeholder'     => __('Publish', 'multisite-ultimate'),
+				'title'           => __('Publish', 'ultimate-multisite'),
+				'placeholder'     => __('Publish', 'ultimate-multisite'),
 				'value'           => 'publish',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end',
@@ -149,7 +149,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'wu-when'       => [
 				'type'  => 'hidden',
-				'value' => base64_encode('init'),
+				'value' => base64_encode('init'), // phpcs:ignore
 			],
 			'membership_id' => [
 				'type'  => 'hidden',
@@ -189,13 +189,13 @@ class Site_List_Admin_Page extends List_Admin_Page {
 		$membership = wu_get_membership(wu_request('membership_id'));
 
 		if ( ! $membership) {
-			wp_send_json_error(new \WP_Error('not-found', __('Pending site not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('Pending site not found.', 'ultimate-multisite')));
 		}
 
 		$pending_site = $membership->get_pending_site();
 
 		if ( ! is_a($pending_site, '\\WP_Ultimo\\Models\\Site')) {
-			wp_send_json_error(new \WP_Error('not-found', __('Pending site not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-found', __('Pending site not found.', 'ultimate-multisite')));
 		}
 
 		$pending_site->set_type('customer_owned');
@@ -231,11 +231,9 @@ class Site_List_Admin_Page extends List_Admin_Page {
 	 * Handles the add/edit of line items.
 	 *
 	 * @since 2.0.0
-	 * @return mixed
+	 * @return void
 	 */
 	public function handle_add_new_site_modal() {
-
-		global $current_site;
 
 		$domain_type = wu_request('tab', is_subdomain_install() ? 'sub-domain' : 'sub-directory');
 
@@ -263,13 +261,13 @@ class Site_List_Admin_Page extends List_Admin_Page {
 		$site = wu_create_site($atts);
 
 		if (is_wp_error($site)) {
-			return wp_send_json_error($site);
+			wp_send_json_error($site);
 		}
 
-		if ($site->get_blog_id() === false) {
-			$error = new \WP_Error('error', __('Something wrong happened.', 'multisite-ultimate'));
+		if (! $site->get_blog_id()) {
+			$error = new \WP_Error('error', __('Something wrong happened.', 'ultimate-multisite'));
 
-			return wp_send_json_error($error);
+			wp_send_json_error($error);
 		}
 
 		$redirect = current_user_can('wu_edit_sites') ? 'wp-ultimo-edit-site' : 'wp-ultimo-sites';
@@ -314,19 +312,19 @@ class Site_List_Admin_Page extends List_Admin_Page {
 		if ($duplicate_id && $site) {
 
 			// translators: the %s is the thing copied.
-			$title         = sprintf(__('Copy of %s', 'multisite-ultimate'), $site->get_title());
+			$title         = sprintf(__('Copy of %s', 'ultimate-multisite'), $site->get_title());
 			$path          = sprintf('%s%s', trim($site->get_path(), '/'), 'copy');
 			$type          = $site->get_type();
 			$template_id   = $duplicate_id;
 			$membership_id = $site->get_membership_id();
 		}
 
-		$save_label = $duplicate_id ? __('Duplicate Site', 'multisite-ultimate') : __('Add new Site', 'multisite-ultimate');
+		$save_label = $duplicate_id ? __('Duplicate Site', 'ultimate-multisite') : __('Add new Site', 'ultimate-multisite');
 
 		$options = [
-			'sub-domain'    => __('Subdomain', 'multisite-ultimate'),
-			'sub-directory' => __('Subdirectory', 'multisite-ultimate'),
-			'domain'        => __('Domain', 'multisite-ultimate'),
+			'sub-domain'    => __('Subdomain', 'ultimate-multisite'),
+			'sub-directory' => __('Subdirectory', 'ultimate-multisite'),
+			'domain'        => __('Domain', 'ultimate-multisite'),
 		];
 
 		/*
@@ -351,19 +349,19 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'title'         => [
 				'type'        => 'text',
-				'title'       => __('Site Title', 'multisite-ultimate'),
-				'placeholder' => __('New Network Site', 'multisite-ultimate'),
+				'title'       => __('Site Title', 'ultimate-multisite'),
+				'placeholder' => __('New Network Site', 'ultimate-multisite'),
 				'value'       => $title,
 			],
 			'domain_group'  => [
 				'type'   => 'group',
 				// translators: the %s is the site preview url.
-				'desc'   => sprintf(__('The site URL will be: %s', 'multisite-ultimate'), '<span class="wu-font-mono">{{ tab === "domain" ? domain : ( tab === "sub-directory" ? scheme + base_url + domain : scheme + domain + "." + base_url ) }}</span>'),
+				'desc'   => sprintf(__('The site URL will be: %s', 'ultimate-multisite'), '<span class="wu-font-mono">{{ tab === "domain" ? domain : ( tab === "sub-directory" ? scheme + base_url + domain : scheme + domain + "." + base_url ) }}</span>'),
 				'fields' => [
 					'domain' => [
 						'type'            => 'text',
-						'title'           => __('Site Domain/Path', 'multisite-ultimate'),
-						'tooltip'         => __('Enter the complete domain for the site', 'multisite-ultimate'),
+						'title'           => __('Site Domain/Path', 'ultimate-multisite'),
+						'tooltip'         => __('Enter the complete domain for the site', 'ultimate-multisite'),
 						'wrapper_classes' => 'wu-w-full',
 						'html_attr'       => [
 							'v-bind:placeholder' => 'tab === "domain" ? "mysite.com" : "mysite"',
@@ -375,13 +373,13 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'type'          => [
 				'type'        => 'select',
-				'title'       => __('Site Type', 'multisite-ultimate'),
+				'title'       => __('Site Type', 'ultimate-multisite'),
 				'value'       => $type,
 				'placeholder' => '',
 				'options'     => [
-					'default'        => __('Regular WP Site', 'multisite-ultimate'),
-					'site_template'  => __('Site Template', 'multisite-ultimate'),
-					'customer_owned' => __('Customer-Owned', 'multisite-ultimate'),
+					'default'        => __('Regular WP Site', 'ultimate-multisite'),
+					'site_template'  => __('Site Template', 'ultimate-multisite'),
+					'customer_owned' => __('Customer-Owned', 'ultimate-multisite'),
 				],
 				'html_attr'   => [
 					'v-model' => 'type',
@@ -389,8 +387,8 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'membership_id' => [
 				'type'              => 'model',
-				'title'             => __('Associated Membership', 'multisite-ultimate'),
-				'placeholder'       => __('Search Membership...', 'multisite-ultimate'),
+				'title'             => __('Associated Membership', 'ultimate-multisite'),
+				'placeholder'       => __('Search Membership...', 'ultimate-multisite'),
 				'value'             => '',
 				'tooltip'           => '',
 				'wrapper_html_attr' => [
@@ -406,17 +404,17 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'copy'          => [
 				'type'      => 'toggle',
-				'title'     => __('Copy Site', 'multisite-ultimate'),
-				'desc'      => __('Select an existing site to use as a starting point.', 'multisite-ultimate'),
+				'title'     => __('Copy Site', 'ultimate-multisite'),
+				'desc'      => __('Select an existing site to use as a starting point.', 'ultimate-multisite'),
 				'html_attr' => [
 					'v-model' => 'copy',
 				],
 			],
 			'template_site' => [
 				'type'              => 'model',
-				'title'             => __('Template Site', 'multisite-ultimate'),
-				'placeholder'       => __('Search Sites...', 'multisite-ultimate'),
-				'desc'              => __('The site selected will be copied and used as a starting point.', 'multisite-ultimate'),
+				'title'             => __('Template Site', 'ultimate-multisite'),
+				'placeholder'       => __('Search Sites...', 'ultimate-multisite'),
+				'desc'              => __('The site selected will be copied and used as a starting point.', 'ultimate-multisite'),
 				'value'             => $template_id,
 				'html_attr'         => [
 					'data-model'        => 'site',
@@ -432,8 +430,8 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'copy_media'    => [
 				'type'              => 'toggle',
-				'title'             => __('Copy Media on Duplication', 'multisite-ultimate'),
-				'desc'              => __('Copy media files from the template site on duplication. Disabling this can lead to broken images on the new site.', 'multisite-ultimate'),
+				'title'             => __('Copy Media on Duplication', 'ultimate-multisite'),
+				'desc'              => __('Copy media files from the template site on duplication. Disabling this can lead to broken images on the new site.', 'ultimate-multisite'),
 				'value'             => true,
 				'wrapper_html_attr' => [
 					'v-show' => 'copy',
@@ -441,7 +439,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 			],
 			'wu-when'       => [
 				'type'  => 'hidden',
-				'value' => base64_encode('init'),
+				'value' => base64_encode('init'), // phpcs:ignore
 			],
 			'submit_button' => [
 				'type'            => 'submit',
@@ -503,8 +501,8 @@ class Site_List_Admin_Page extends List_Admin_Page {
 	public function get_labels() {
 
 		return [
-			'deleted_message' => __('Site removed successfully.', 'multisite-ultimate'),
-			'search_label'    => __('Search Site', 'multisite-ultimate'),
+			'deleted_message' => __('Site removed successfully.', 'ultimate-multisite'),
+			'search_label'    => __('Search Site', 'ultimate-multisite'),
 		];
 	}
 
@@ -516,7 +514,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('Sites', 'multisite-ultimate');
+		return __('Sites', 'ultimate-multisite');
 	}
 
 	/**
@@ -527,7 +525,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('Sites', 'multisite-ultimate');
+		return __('Sites', 'ultimate-multisite');
 	}
 
 	/**
@@ -538,7 +536,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('Sites', 'multisite-ultimate');
+		return __('Sites', 'ultimate-multisite');
 	}
 
 	/**
@@ -551,7 +549,7 @@ class Site_List_Admin_Page extends List_Admin_Page {
 
 		return [
 			[
-				'label'   => __('Add Site', 'multisite-ultimate'),
+				'label'   => __('Add Site', 'ultimate-multisite'),
 				'icon'    => 'wu-circle-with-plus',
 				'classes' => 'wubox',
 				'url'     => wu_get_form_url('add_new_site'),

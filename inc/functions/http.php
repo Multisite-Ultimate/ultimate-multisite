@@ -19,7 +19,13 @@ defined('ABSPATH') || exit;
  */
 function wu_get_input($raw = false) {
 
-	$body = @file_get_contents('php://input'); // phpcs:ignore
+	// Init filesystem if not yet initiated.
+	require_once ABSPATH . 'wp-admin/includes/file.php';
+	WP_Filesystem();
+
+	// Get POST body HTML data.
+	global $wp_filesystem;
+	$body = $wp_filesystem->get_contents('php://input');
 
 	return $raw ? $body : json_decode($body);
 }
@@ -48,7 +54,7 @@ function wu_no_cache() {
 }
 
 /**
- * Maybe sends a Multisite Ultimate X Header.
+ * Maybe sends a Ultimate Multisite X Header.
  *
  * Useful for debugging purposes.
  * These headers can easily be omitted by

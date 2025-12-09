@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate Broadcast Admin Page.
+ * Ultimate Multisite Broadcast Admin Page.
  *
  * @package WP_Ultimo
  * @subpackage Admin_Pages
@@ -13,7 +13,7 @@ namespace WP_Ultimo\Admin_Pages;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate Broadcast Admin Page.
+ * Ultimate Multisite Broadcast Admin Page.
  */
 class Email_List_Admin_Page extends List_Admin_Page {
 
@@ -102,7 +102,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_title() {
 
-		return __('System Emails', 'multisite-ultimate');
+		return __('System Emails', 'ultimate-multisite');
 	}
 
 	/**
@@ -113,7 +113,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_menu_title() {
 
-		return __('System Emails', 'multisite-ultimate');
+		return __('System Emails', 'ultimate-multisite');
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 	 */
 	public function get_submenu_title() {
 
-		return __('System Emails', 'multisite-ultimate');
+		return __('System Emails', 'ultimate-multisite');
 	}
 
 	/**
@@ -182,9 +182,9 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'send_to'       => [
 				'type'        => 'email',
-				'title'       => __('Send To', 'multisite-ultimate'),
-				'placeholder' => __('E.g. network@email.com', 'multisite-ultimate'),
-				'desc'        => __('The test email will be sent to the above email address.', 'multisite-ultimate'),
+				'title'       => __('Send To', 'ultimate-multisite'),
+				'placeholder' => __('E.g. network@email.com', 'ultimate-multisite'),
+				'desc'        => __('The test email will be sent to the above email address.', 'ultimate-multisite'),
 				'value'       => get_network_option(null, 'admin_email'),
 				'html_attr'   => [
 					'required' => 'required',
@@ -200,7 +200,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Send Test Email', 'multisite-ultimate'),
+				'title'           => __('Send Test Email', 'ultimate-multisite'),
 				'value'           => 'save',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end wu-text-right',
@@ -236,7 +236,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$send_to = wu_request('send_to');
 
 		if ( ! $email_id || ! $send_to) {
-			$error = new \WP_Error('error', __('Something wrong happened.', 'multisite-ultimate'));
+			$error = new \WP_Error('error', __('Something wrong happened.', 'ultimate-multisite'));
 
 			wp_send_json_error($error);
 		}
@@ -275,7 +275,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$send_mail = wu_send_mail($from, $to, $args);
 
 		if ( ! $send_mail) {
-			$error = new \WP_Error('error', __('Something wrong happened with your test.', 'multisite-ultimate'));
+			$error = new \WP_Error('error', __('Something wrong happened with your test.', 'ultimate-multisite'));
 
 			wp_send_json_error($error);
 		}
@@ -289,7 +289,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 						'wp-ultimo-edit-email',
 						[
 							'id'          => $email_id,
-							'test_notice' => __('Test sent successfully', 'multisite-ultimate'),
+							'test_notice' => __('Test sent successfully', 'ultimate-multisite'),
 						]
 					),
 				]
@@ -303,7 +303,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 				'redirect_url' => wu_network_admin_url(
 					'wp-ultimo-emails',
 					[
-						'notice' => __('Test sent successfully', 'multisite-ultimate'),
+						'notice' => __('Test sent successfully', 'ultimate-multisite'),
 					]
 				),
 			]
@@ -326,8 +326,8 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'reset_emails' => [
 				'type'      => 'toggle',
-				'title'     => __('Reset System Emails ', 'multisite-ultimate'),
-				'desc'      => __('Restore the system emails to their original content.', 'multisite-ultimate'),
+				'title'     => __('Reset System Emails ', 'ultimate-multisite'),
+				'desc'      => __('Restore the system emails to their original content.', 'ultimate-multisite'),
 				'tooltip'   => '',
 				'value'     => 0,
 				'html_attr' => [
@@ -339,7 +339,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields['reset_note'] = [
 			'type'              => 'note',
 			'title'             => '',
-			'desc'              => __('No emails to reset.', 'multisite-ultimate'),
+			'desc'              => __('No emails to reset.', 'ultimate-multisite'),
 			'tooltip'           => '',
 			'value'             => 0,
 			'wrapper_html_attr' => [
@@ -379,8 +379,8 @@ class Email_List_Admin_Page extends List_Admin_Page {
 
 		$fields['import_emails'] = [
 			'type'      => 'toggle',
-			'title'     => __('Import System Emails', 'multisite-ultimate'),
-			'desc'      => __('Add new system emails based on Multisite Ultimate presets.', 'multisite-ultimate'),
+			'title'     => __('Import System Emails', 'ultimate-multisite'),
+			'desc'      => __('Add new system emails based on Ultimate Multisite presets.', 'ultimate-multisite'),
 			'tooltip'   => '',
 			'value'     => 0,
 			'html_attr' => [
@@ -391,7 +391,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields['import_note'] = [
 			'type'              => 'note',
 			'title'             => '',
-			'desc'              => __('All emails are already present.', 'multisite-ultimate'),
+			'desc'              => __('All emails are already present.', 'ultimate-multisite'),
 			'tooltip'           => '',
 			'value'             => 0,
 			'wrapper_html_attr' => [
@@ -429,7 +429,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 
 		$fields['submit_button'] = [
 			'type'            => 'submit',
-			'title'           => __('Reset and/or Import', 'multisite-ultimate'),
+			'title'           => __('Reset and/or Import', 'ultimate-multisite'),
 			'value'           => 'save',
 			'classes'         => 'button button-primary wu-w-full',
 			'wrapper_classes' => 'wu-items-end wu-text-right',
@@ -543,8 +543,8 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$fields = [
 			'single_reset'  => [
 				'type'      => 'toggle',
-				'title'     => __('Confirm Reset', 'multisite-ultimate'),
-				'desc'      => __('This action can not be undone.', 'multisite-ultimate'),
+				'title'     => __('Confirm Reset', 'ultimate-multisite'),
+				'desc'      => __('This action can not be undone.', 'ultimate-multisite'),
 				'default'   => 0,
 				'html_attr' => [
 					'required' => 'required',
@@ -556,7 +556,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 			],
 			'submit_button' => [
 				'type'            => 'submit',
-				'title'           => __('Reset Email', 'multisite-ultimate'),
+				'title'           => __('Reset Email', 'ultimate-multisite'),
 				'value'           => 'reset',
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end wu-text-right',
@@ -593,7 +593,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		$email_id = wu_request('email_id');
 
 		if ( ! $single_reset || ! $email_id) {
-			$error = new \WP_Error('error', __('Something wrong happened.', 'multisite-ultimate'));
+			$error = new \WP_Error('error', __('Something wrong happened.', 'ultimate-multisite'));
 
 			wp_send_json_error($error);
 		}
@@ -612,7 +612,7 @@ class Email_List_Admin_Page extends List_Admin_Page {
 			$new_email = wu_get_email_by('slug', $slug);
 
 			if ( ! $new_email) {
-				$error = new \WP_Error('error', __('Something wrong happened.', 'multisite-ultimate'));
+				$error = new \WP_Error('error', __('Something wrong happened.', 'ultimate-multisite'));
 
 				wp_send_json_error($error);
 			}
@@ -643,18 +643,18 @@ class Email_List_Admin_Page extends List_Admin_Page {
 		return [
 			[
 				'url'   => wu_network_admin_url('wp-ultimo-edit-email'),
-				'label' => __('Add System Email', 'multisite-ultimate'),
+				'label' => __('Add System Email', 'ultimate-multisite'),
 				'icon'  => 'wu-circle-with-plus',
 			],
 			[
 				'url'   => wu_network_admin_url('wp-ultimo-customize-email-template&id=' . $email_template_default),
-				'label' => __('Email Template', 'multisite-ultimate'),
+				'label' => __('Email Template', 'ultimate-multisite'),
 				'icon'  => 'wu-mail',
 			],
 			[
 				'url'     => wu_get_form_url('reset_import'),
 				'classes' => 'wubox',
-				'label'   => __('Reset or Import', 'multisite-ultimate'),
+				'label'   => __('Reset or Import', 'ultimate-multisite'),
 				'icon'    => 'wu-cycle',
 			],
 		];

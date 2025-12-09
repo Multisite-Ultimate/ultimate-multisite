@@ -4,6 +4,8 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
 <div class="wu-styling <?php echo esc_attr($className); ?>">
 
@@ -74,7 +76,7 @@
 
 					<?php echo esc_html($post_count); ?>
 					/
-					<?php echo empty($post_type_limits->{$post_type_slug}->number) ? esc_html__('Unlimited', 'multisite-ultimate') : esc_html($post_type_limits->{$post_type_slug}->number); ?>
+					<?php echo empty($post_type_limits->{$post_type_slug}->number) ? esc_html__('Unlimited', 'ultimate-multisite') : esc_html($post_type_limits->{$post_type_slug}->number); ?>
 
 				</div>
 
@@ -113,9 +115,9 @@ endforeach;
 
 			<div class="">
 
-			<?php esc_html_e('Unique Visits', 'multisite-ultimate'); ?>
+			<?php esc_html_e('Unique Visits', 'ultimate-multisite'); ?>
 			<?php // translators: %s is the next reset date ?>
-			<?php echo wu_tooltip(sprintf(esc_html__('Next Reset: %s', 'multisite-ultimate'), date_i18n(get_option('date_format', 'd/m/Y'), strtotime('last day of this month')))); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			<?php wu_tooltip(sprintf(esc_html__('Next Reset: %s', 'ultimate-multisite'), date_i18n(get_option('date_format', 'd/m/Y'), strtotime('last day of this month')))); ?>
 
 			</div>
 
@@ -129,7 +131,7 @@ endforeach;
 
 			<?php echo number_format($visits_count); ?>
 			/
-			<?php echo $visit_limitations->get_limit() == 0 ? esc_html__('Unlimited', 'multisite-ultimate') : esc_html(number_format((int) $visit_limitations->get_limit())); ?>
+			<?php echo $visit_limitations->get_limit() == 0 ? esc_html__('Unlimited', 'ultimate-multisite') : esc_html(number_format((int) $visit_limitations->get_limit())); ?>
 
 			</div>
 
@@ -137,6 +139,16 @@ endforeach;
 
 		<?php endif; ?>
 
+		<?php
+		/**
+		 * Allow addons to add their own limit widgets.
+		 *
+		 * @since 2.4.4
+		 * @param \WP_Ultimo\Models\Site $site Current site object.
+		 * @param array|false            $items_to_display Items to display or false to show all.
+		 */
+		do_action('wu_dashboard_widget_limits_content', $site, $items_to_display);
+		?>
 	</ul>
 
 	</div>

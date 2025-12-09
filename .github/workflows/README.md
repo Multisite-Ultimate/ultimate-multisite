@@ -21,6 +21,7 @@ To create a new release:
 
 1. Update the version number in:
    - `wp-multisite-waas.php` (the `Version:` header)
+   - `inc/class-wp-ultimo.php` (the `VERSION` class constant)
    - `readme.txt` (the `Stable tag:` field)
    - `package.json` (the `version` field)
 

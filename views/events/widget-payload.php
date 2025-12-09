@@ -4,6 +4,7 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
 ?>
 <ul id="wu_payload" class="wu-widget-list wu-striped wu-m-0 wu--my-2 wu--mx-3">
 
@@ -31,7 +32,7 @@
 
 	<span>
 	<button type="button" data-clipboard-action="copy" data-clipboard-target="#hidden_textarea" class="btn-clipboard button">
-		<?php esc_html_e('Copy to the Clipboard', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Copy to the Clipboard', 'ultimate-multisite'); ?>
 	</button>
 	</span>
 

@@ -44,7 +44,7 @@ class Template_Previewer {
 	 */
 	public function init(): void {
 
-		add_action('wp_ultimo_load', [$this, 'hooks']);
+		add_action('plugins_loaded', [$this, 'hooks']);
 	}
 
 	/**
@@ -55,6 +55,8 @@ class Template_Previewer {
 	 */
 	public function hooks(): void {
 
+		add_action('template_redirect', [$this, 'send_cross_origin_headers'], 1000);
+
 		if ($this->is_preview()) {
 			/*
 			 * Remove admin bar from logged users.
@@ -64,10 +66,6 @@ class Template_Previewer {
 			add_filter('wu_is_jumper_enabled', '__return_false');
 
 			add_filter('wu_is_toolbox_enabled', '__return_false');
-
-			add_filter('home_url', [$this, 'append_preview_parameter'], 9999, 4);
-
-			add_action('send_headers', [$this, 'send_cross_origin_headers'], 1000);
 
 			return;
 		}
@@ -97,13 +95,62 @@ class Template_Previewer {
 	 */
 	public function send_cross_origin_headers(): void {
 
+		$site = wu_get_current_site();
+		if (Site_Type::SITE_TEMPLATE !== $site->get_type()) {
+			return;
+		}
+
 		global $current_site;
 
 		$_SERVER['HTTP_ORIGIN'] = set_url_scheme("http://{$current_site->domain}");
 
 		send_origin_headers();
 
-		header_remove('X-Frame-Options');
+		// Get the main site domain for frame-ancestors (where the template previewer iframe is embedded)
+		$main_site_url    = get_site_url(get_main_site_id());
+		$main_site_domain = wp_parse_url($main_site_url, PHP_URL_HOST);
+
+		if (strpos($main_site_domain, 'www.') === 0) {
+			$main_site_domain = str_replace('www.', '', $main_site_domain);
+		}
+
+		$current_site_info = wp_parse_url(get_site_url());
+		$current_site_host = $current_site_info['host'];
+		$allowed_domains   = set_url_scheme("*.$main_site_domain $main_site_domain $current_site_host");
+
+		// Check if CSP header already exists
+		$existing_csp = '';
+		foreach (headers_list() as $header) {
+			if (stripos($header, 'Content-Security-Policy:') === 0) {
+				$existing_csp = trim(substr($header, strlen('Content-Security-Policy:')));
+				break;
+			}
+		}
+
+		if ($existing_csp) {
+			// Parse existing CSP and add/modify frame-ancestors
+			$directives            = array_map('trim', explode(';', $existing_csp));
+			$frame_ancestors_found = false;
+
+			foreach ($directives as $key => $directive) {
+				if (stripos($directive, 'frame-ancestors') === 0) {
+					// Modify existing frame-ancestors directive
+					$directives[ $key ]    = "frame-ancestors 'self' {$allowed_domains}";
+					$frame_ancestors_found = true;
+					break;
+				}
+			}
+			if ( ! $frame_ancestors_found) {
+				// Add frame-ancestors directive
+				$directives[] = "frame-ancestors 'self' {$allowed_domains}";
+			}
+			$new_csp = implode('; ', array_filter($directives));
+		} else {
+			// Create new CSP with frame-ancestors only
+			$new_csp = "frame-ancestors 'self' $allowed_domains";
+		}
+
+		header("Content-Security-Policy: {$new_csp}");
 	}
 
 	/**
@@ -171,37 +218,6 @@ class Template_Previewer {
 	}
 
 	/**
-	 * Append preview parameter.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string      $url The URL.
-	 * @param string      $path        Path relative to the home URL. Blank string if no path is specified.
-	 * @param string|null $orig_scheme Scheme to give the home URL context. Accepts 'http', 'https',
-	 *                                 'relative', 'rest', or null.
-	 * @param int|null    $blog_id     Site ID, or null for the current site.
-	 * @return string
-	 */
-	public function append_preview_parameter($url, $path, $orig_scheme, $blog_id) {
-
-		$allowed_schemes = [
-			null,
-			'http',
-			'https',
-		];
-
-		if (in_array($orig_scheme, $allowed_schemes, true) === false) {
-			return $url;
-		}
-
-		if (apply_filters('wu_append_preview_parameter', true, $this) === false) {
-			return $url;
-		}
-
-		return add_query_arg('wu-preview', 1, $url);
-	}
-
-	/**
 	 * Returns the preview URL for the template previewer.
 	 *
 	 * @since 2.0.0
@@ -240,7 +256,7 @@ class Template_Previewer {
 		 * Check if this is a site template
 		 */
 		if ( ! $selected_template || ($selected_template->get_type() !== Site_Type::SITE_TEMPLATE && ! wu_request('customizer'))) {
-			wp_die(esc_html__('This template is not available', 'multisite-ultimate'));
+			wp_die(esc_html__('This template is not available', 'ultimate-multisite'));
 		}
 
 		$categories = [];
@@ -340,7 +356,7 @@ class Template_Previewer {
 	 */
 	public function is_preview() {
 
-		return ! empty(wu_request('wu-preview'));
+		return isset($_SERVER['HTTP_SEC_FETCH_DEST']) && 'iframe' === $_SERVER['HTTP_SEC_FETCH_DEST'];
 	}
 
 	/**
@@ -360,7 +376,7 @@ class Template_Previewer {
 			'bg_color'                    => '#f9f9f9',
 			'button_bg_color'             => '#00a1ff',
 			'logo_url'                    => wu_get_network_logo(),
-			'button_text'                 => __('Use this Template', 'multisite-ultimate'),
+			'button_text'                 => __('Use this Template', 'ultimate-multisite'),
 			'preview_url_parameter'       => 'template-preview',
 			'display_responsive_controls' => true,
 			'use_custom_logo'             => false,

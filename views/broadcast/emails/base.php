@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/wp-ultimo/emails/base.php.
  *
- * HOWEVER, on occasion Multisite Ultimate will need to update template files and you
+ * HOWEVER, on occasion Ultimate Multisite will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to
  * maintain compatibility. We try to do this as little as possible, but it does
  * happen. When this occurs the version of the template file will be bumped and
@@ -14,6 +14,7 @@
  * @package     WP_Ultimo/Views
  * @version     1.4.0
  */
+defined('ABSPATH') || exit;
 
 if ( ! defined('ABSPATH')) {
 	exit; // Exit if accessed directly
@@ -57,7 +58,7 @@ if ( ! defined('ABSPATH')) {
 							</tr>
 							<tr style="">
 								<td style="">
-									<span style="font-family: <?php echo esc_attr($template_settings['content_font']); ?>; font-size: 14px; line-height: 1.6em; color: <?php echo esc_attr($template_settings['content_color']); ?>; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: <?php echo esc_attr($template_settings['content_align']); ?>;"><?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+									<span style="font-family: <?php echo esc_attr($template_settings['content_font']); ?>; font-size: 14px; line-height: 1.6em; color: <?php echo esc_attr($template_settings['content_color']); ?>; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: <?php echo esc_attr($template_settings['content_align']); ?>;"><?php echo wp_kses($content, wu_kses_allowed_html()); ?></span>
 									<br>
 								</td>
 							</tr>

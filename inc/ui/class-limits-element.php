@@ -9,8 +9,6 @@
 
 namespace WP_Ultimo\UI;
 
-use WP_Ultimo\UI\Base_Element;
-
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
@@ -75,14 +73,14 @@ class Limits_Element extends Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_title() {
 
-		return __('Limits & Quotas', 'multisite-ultimate');
+		return __('Limits & Quotas', 'ultimate-multisite');
 	}
 
 	/**
@@ -91,14 +89,14 @@ class Limits_Element extends Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'multisite-ultimate');
+		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
 	}
 
 	/**
@@ -123,23 +121,23 @@ class Limits_Element extends Base_Element {
 		$fields = [];
 
 		$fields['header'] = [
-			'title' => __('General', 'multisite-ultimate'),
-			'desc'  => __('General', 'multisite-ultimate'),
+			'title' => __('General', 'ultimate-multisite'),
+			'desc'  => __('General', 'ultimate-multisite'),
 			'type'  => 'header',
 		];
 
 		$fields['title'] = [
 			'type'    => 'text',
-			'title'   => __('Title', 'multisite-ultimate'),
-			'value'   => __('Site Limits', 'multisite-ultimate'),
-			'desc'    => __('Leave blank to hide the title completely.', 'multisite-ultimate'),
+			'title'   => __('Title', 'ultimate-multisite'),
+			'value'   => __('Site Limits', 'ultimate-multisite'),
+			'desc'    => __('Leave blank to hide the title completely.', 'ultimate-multisite'),
 			'tooltip' => '',
 		];
 
 		$fields['columns'] = [
 			'type'    => 'number',
-			'title'   => __('Columns', 'multisite-ultimate'),
-			'desc'    => __('How many columns to use.', 'multisite-ultimate'),
+			'title'   => __('Columns', 'ultimate-multisite'),
+			'desc'    => __('How many columns to use.', 'ultimate-multisite'),
 			'tooltip' => '',
 			'value'   => 1,
 			'min'     => 1,
@@ -157,7 +155,7 @@ class Limits_Element extends Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Checkout',
 	 *  'Form',
 	 *  'Cart',
@@ -170,7 +168,7 @@ class Limits_Element extends Base_Element {
 
 		return [
 			'WP Ultimo',
-			'Multisite Ultimate',
+			'Ultimate Multisite',
 			'Account',
 			'Limits',
 			'Quotas',
@@ -195,7 +193,7 @@ class Limits_Element extends Base_Element {
 
 		return [
 			'columns' => 1,
-			'title'   => __('Site Limits', 'multisite-ultimate'),
+			'title'   => __('Site Limits', 'ultimate-multisite'),
 		];
 	}
 
@@ -236,9 +234,16 @@ class Limits_Element extends Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	public function output($atts, $content = null) {
+	public function output($atts, $content = null): void {
+
+		$this->ensure_setup();
+
+		// Return empty if no site available (e.g., during SEO processing)
+		if ( ! $this->site) {
+			return;
+		}
 
 		$post_types = get_post_types(
 			[
@@ -268,6 +273,6 @@ class Limits_Element extends Base_Element {
 		$atts['items_to_display'] = $items_to_display ? array_keys($items_to_display) : false;
 		$atts['post_type_limits'] = $this->site->get_limitations()->post_types;
 
-		return wu_get_template_contents('dashboard-widgets/limits-and-quotas', $atts);
+		wu_get_template('dashboard-widgets/limits-and-quotas', $atts);
 	}
 }

@@ -4,8 +4,10 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
-<?php echo $before; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+<?php $before(); ?>
 
 <?php if ($page->edit) : ?>
 
@@ -29,10 +31,10 @@
 	<span class="dashicons dashicons-warning wu-h-8 wu-w-8 wu-mx-auto wu-text-center wu-text-4xl wu-block"></span>
 	<span class="wu-block wu-text-sm wu-mt-2">
 		<?php // translators: %s: The title of the widget. ?>
-		<?php printf(esc_html__('%s will show up here once this item is saved.', 'multisite-ultimate'), esc_html($title)); ?>
+		<?php printf(esc_html__('%s will show up here once this item is saved.', 'ultimate-multisite'), esc_html($title)); ?>
 	</span>
 	</div>
 
 <?php endif; ?>
 
-<?php echo $after; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+<?php $after(); ?>

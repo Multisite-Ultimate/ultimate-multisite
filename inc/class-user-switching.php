@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate User_Switching
+ * Ultimate Multisite User_Switching
  *
  * Log string messages to a file with a timestamp. Useful for debugging.
  *
@@ -15,7 +15,7 @@ namespace WP_Ultimo;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate User_Switching
+ * Ultimate Multisite User_Switching
  *
  * @since 2.0.0
  */
@@ -24,9 +24,12 @@ class User_Switching {
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
-	 * Constructor for the User_Switching.
+	 * Initialize the singleton.
+	 *
+	 * @since 2.0.0
+	 * @return void
 	 */
-	public function __construct() {
+	public function init(): void {
 
 		add_action('plugins_loaded', [$this, 'register_forms']);
 	}
@@ -71,12 +74,12 @@ class User_Switching {
 			'title' => [
 				'type'          => 'text-display',
 				'title'         => '',
-				'display_value' => __('This feature requires the plugin <strong>User Switching</strong> to be installed and active.', 'multisite-ultimate'),
+				'display_value' => __('This feature requires the plugin <strong>User Switching</strong> to be installed and active.', 'ultimate-multisite'),
 				'tooltip'       => '',
 			],
 			'link'  => [
 				'type'            => 'link',
-				'display_value'   => __('Install User Switching', 'multisite-ultimate'),
+				'display_value'   => __('Install User Switching', 'ultimate-multisite'),
 				'classes'         => 'button button-primary wu-w-full',
 				'wrapper_classes' => 'wu-items-end wu-text-center wu-bg-gray-100',
 				'html_attr'       => [

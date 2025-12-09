@@ -87,7 +87,7 @@ final class Discount_Codes_Table extends Table {
 	 *
 	 * @since 2.1.2
 	 */
-	protected function __20230601(): bool {
+	protected function __20230601(): bool { // phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore
 
 		$null_columns = [
 			'date_created',

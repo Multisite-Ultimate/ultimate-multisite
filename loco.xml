@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bundle name="Multisite Ultimate">
-  <domain name="wp-multisite-waas">
-    <project name="Multisite Ultimate" slug="wp-multisite-waas">
+<bundle name="Ultimate Multisite">
+  <domain name="ultimate-multisite">
+    <project name="Ultimate Multisite" slug="ultimate-multisite">
       <source>
         <directory>.</directory>
       </source>
@@ -9,7 +9,7 @@
         <directory>lang</directory>
       </target>
       <template>
-        <file>lang/wp-multisite-waas.pot</file>
+        <file>lang/ultimate-multisite.pot</file>
       </template>
     </project>
   </domain>

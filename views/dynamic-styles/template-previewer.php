@@ -4,6 +4,7 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
 ?>
 body #switcher {
 	background-color: #<?php echo esc_attr($bg_color->getHex()); ?>;

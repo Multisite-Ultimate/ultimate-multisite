@@ -1,0 +1,39 @@
+{
+  "core": "https://wordpress.org/wordpress-6.8.2.zip",
+  "env": {
+    "development": {
+      "multisite": true,
+      "plugins": [
+        "."
+      ],
+      "mappings": {
+        "wp-content/mu-plugins/email-smtp-dev.php": "./mu-plugins/email-smtp-dev/email-smtp-dev.php"
+      },
+      "config": {
+        "WP_DEBUG": true,
+        "WP_DEBUG_DISPLAY": true,
+        "WP_DEBUG_LOG": true,
+        "SCRIPT_DEBUG": true,
+        "WP_MEMORY_LIMIT": "256M",
+        "WP_MAX_MEMORY_LIMIT": "512M"
+      }
+    },
+    "tests": {
+      "multisite": true,
+      "plugins": [
+        "."
+      ],
+      "mappings": {
+        "wp-content/mu-plugins/email-smtp-test.php": "./mu-plugins/email-smtp-test/email-smtp-test.php"
+      },
+      "config": {
+        "WP_DEBUG": true,
+        "WP_DEBUG_DISPLAY": false,
+        "WP_DEBUG_LOG": true,
+        "SCRIPT_DEBUG": true,
+        "WP_MEMORY_LIMIT": "256M",
+        "WP_MAX_MEMORY_LIMIT": "512M"
+      }
+    }
+  }
+}

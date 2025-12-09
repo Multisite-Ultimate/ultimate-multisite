@@ -36,14 +36,6 @@ class Limit_Site_Templates extends Limit {
 	protected $mode = 'default';
 
 	/**
-	 * Allows sub-type limits to set their own default value for enabled.
-	 *
-	 * @since 2.0.0
-	 * @var bool
-	 */
-	private bool $enabled_default_value = true;
-
-	/**
 	 * Sets up the module based on the module data.
 	 *
 	 * @since 2.0.0
@@ -123,7 +115,7 @@ class Limit_Site_Templates extends Limit {
 	public function get_default_permissions($type) {
 
 		return [
-			'behavior' => 'available',
+			'behavior' => 'not_available',
 		];
 	}
 
@@ -221,7 +213,7 @@ class Limit_Site_Templates extends Limit {
 	 */
 	public function handle_limit() {
 
-		$module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification
+		$module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		return wu_get_isset($module, 'limit', $this->get_limit());
 	}
@@ -236,7 +228,8 @@ class Limit_Site_Templates extends Limit {
 	 */
 	public function handle_others($module) {
 
-		$_module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification
+		// Nonce check happened in Edit_Admin_Page::process_save().
+		$_module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		$module['mode'] = wu_get_isset($_module, 'mode', 'default');
 

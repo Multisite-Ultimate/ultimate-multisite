@@ -36,8 +36,8 @@ class Webhook_List_Table extends Base_List_Table {
 
 		parent::__construct(
 			[
-				'singular' => __('Webhook', 'multisite-ultimate'),  // singular name of the listed records
-				'plural'   => __('Webhooks', 'multisite-ultimate'), // plural name of the listed records
+				'singular' => __('Webhook', 'ultimate-multisite'),  // singular name of the listed records
+				'plural'   => __('Webhooks', 'ultimate-multisite'), // plural name of the listed records
 				'ajax'     => true,                        // does this table support ajax?
 				'add_new'  => [
 					'url'     => wu_get_form_url('add_new_webhook_modal'),
@@ -67,20 +67,20 @@ class Webhook_List_Table extends Base_List_Table {
 			wu_network_admin_url('wp-ultimo-edit-webhook', $url_atts),
 			$item->get_name(),
 			$item->get_id(),
-			__('Sending Test..', 'multisite-ultimate')
+			__('Sending Test..', 'ultimate-multisite')
 		);
 
 		$actions = [
-			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-webhook', $url_atts), __('Edit', 'multisite-ultimate')),
-			'test'   => sprintf('<a id="action_button" data-title="' . $item->get_name() . '" data-page="list" data-action="wu_send_test_event" data-event="' . $item->get_event() . '" data-object="' . $item->get_id() . '" data-url="%s" href="">%s</a>', $item->get_webhook_url(), __('Send Test', 'multisite-ultimate')),
+			'edit'   => sprintf('<a href="%s">%s</a>', wu_network_admin_url('wp-ultimo-edit-webhook', $url_atts), __('Edit', 'ultimate-multisite')),
+			'test'   => sprintf('<a id="action_button" data-title="' . $item->get_name() . '" data-page="list" data-action="wu_send_test_event" data-event="' . $item->get_event() . '" data-object="' . $item->get_id() . '" data-url="%s" href="">%s</a>', $item->get_webhook_url(), __('Send Test', 'ultimate-multisite')),
 			'delete' => sprintf(
 				'<a title="%s" class="wubox" href="%s">%s</a>',
-				__('Delete', 'multisite-ultimate'),
+				__('Delete', 'ultimate-multisite'),
 				wu_get_form_url(
 					'delete_modal',
 					$url_atts
 				),
-				__('Delete', 'multisite-ultimate')
+				__('Delete', 'ultimate-multisite')
 			),
 		];
 
@@ -129,7 +129,7 @@ class Webhook_List_Table extends Base_List_Table {
 		$count = $item->get_count();
 
 		$actions = [
-			'edit' => sprintf('<a href="%s">%s</a>', '', __('See Events', 'multisite-ultimate')),
+			'edit' => sprintf('<a href="%s">%s</a>', '', __('See Events', 'ultimate-multisite')),
 		];
 
 		return $count . $this->row_actions($actions);
@@ -157,7 +157,7 @@ class Webhook_List_Table extends Base_List_Table {
 	 */
 	public function column_active($item) {
 
-		return $item->is_active() ? __('Yes', 'multisite-ultimate') : __('No', 'multisite-ultimate');
+		return $item->is_active() ? __('Yes', 'ultimate-multisite') : __('No', 'ultimate-multisite');
 	}
 
 	/**
@@ -170,28 +170,15 @@ class Webhook_List_Table extends Base_List_Table {
 
 		$columns = [
 			'cb'          => '<input type="checkbox" />',
-			'name'        => __('Name', 'multisite-ultimate'),
-			'webhook_url' => __('Target URL', 'multisite-ultimate'),
-			'event'       => __('Trigger Event', 'multisite-ultimate'),
-			'event_count' => __('Count', 'multisite-ultimate'),
-			'integration' => __('Integration', 'multisite-ultimate'),
-			'active'      => __('Active', 'multisite-ultimate'),
-			'id'          => __('ID', 'multisite-ultimate'),
+			'name'        => __('Name', 'ultimate-multisite'),
+			'webhook_url' => __('Target URL', 'ultimate-multisite'),
+			'event'       => __('Trigger Event', 'ultimate-multisite'),
+			'event_count' => __('Count', 'ultimate-multisite'),
+			'integration' => __('Integration', 'ultimate-multisite'),
+			'active'      => __('Active', 'ultimate-multisite'),
+			'id'          => __('ID', 'ultimate-multisite'),
 		];
 
 		return $columns;
-	}
-
-	/**
-	 * Returns the filters for this page.
-	 *
-	 * @since 2.0.0
-	 */
-	public function get_filters(): array {
-
-		return [
-			'filters'      => [],
-			'date_filters' => [],
-		];
 	}
 }

@@ -120,7 +120,7 @@ abstract class Base_Element {
 	 *
 	 * This is used on the Blocks list of Gutenberg.
 	 * You should return a string with the localized title.
-	 * e.g. return __('My Element', 'multisite-ultimate').
+	 * e.g. return __('My Element', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
@@ -133,7 +133,7 @@ abstract class Base_Element {
 	 * This is also used on the Gutenberg block list
 	 * to explain what this block is about.
 	 * You should return a string with the localized title.
-	 * e.g. return __('Adds a checkout form to the page', 'multisite-ultimate').
+	 * e.g. return __('Adds a checkout form to the page', 'ultimate-multisite').
 	 *
 	 * @since 2.0.0
 	 * @return string
@@ -167,7 +167,7 @@ abstract class Base_Element {
 	 *
 	 * e.g.:
 	 * return array(
-	 *  'Multisite Ultimate',
+	 *  'Ultimate Multisite',
 	 *  'Checkout',
 	 *  'Form',
 	 *  'Cart',
@@ -205,9 +205,9 @@ abstract class Base_Element {
 	 *
 	 * @param array       $atts Parameters of the block/shortcode.
 	 * @param string|null $content The content inside the shortcode.
-	 * @return string
+	 * @return void
 	 */
-	abstract public function output($atts, $content = null);
+	abstract public function output($atts, $content = null): void;
 
 	// Boilerplate -----------------------------------
 
@@ -341,7 +341,7 @@ abstract class Base_Element {
 		 * Bail if things don't look normal or in the right context.
 		 */
 		if ( ! function_exists('get_current_screen')) {
-			return;
+			return false;
 		}
 
 		$screen = get_current_screen();
@@ -443,6 +443,19 @@ abstract class Base_Element {
 	public function setup_preview() {}
 
 	/**
+	 * Ensures setup is called before output to prevent errors.
+	 *
+	 * @since 2.4.3
+	 * @return void
+	 */
+	protected function ensure_setup() {
+		if (! $this->loaded) {
+			$this->is_preview() ? $this->setup_preview() : $this->setup();
+			$this->loaded = true;
+		}
+	}
+
+	/**
 	 * Checks content to see if the current element is present.
 	 *
 	 * This check uses different methods, covering classic shortcodes,
@@ -515,7 +528,8 @@ abstract class Base_Element {
 		 * @since 2.0.0
 		 * @param bool $contains_elements If the element is contained on the content.
 		 * @param string $content The content being examined.
-		 * @param self The current element.
+		 * @param self $element The current element.
+		 * @param null|\WP_Post $post post to check.
 		 */
 		return apply_filters('wu_contains_element', $contains_element, $content, $this, $post);
 	}
@@ -636,7 +650,7 @@ abstract class Base_Element {
 			return;
 		}
 
-		add_shortcode($this->get_shortcode_id(), [$this, 'display']);
+		add_shortcode($this->get_shortcode_id(), [$this, 'get_content']);
 	}
 
 	/**
@@ -744,12 +758,12 @@ abstract class Base_Element {
 		$fields['shortcode_result'] = [
 			'type'            => 'note',
 			'wrapper_classes' => 'sm:wu-block',
-			'desc'            => '<div class="wu-w-full"><span class="wu-my-1 wu-text-2xs wu-uppercase wu-font-bold wu-block">' . __('Result', 'multisite-ultimate') . '</span><pre v-html="shortcode" id="wu-shortcode" style="overflow-x: scroll !important;" class="wu-text-center wu-p-4 wu-m-0 wu-mt-2 wu-rounded wu-content-center wu-bg-gray-800 wu-text-white wu-font-mono wu-border wu-border-solid wu-border-gray-300 wu-max-h-screen wu-overflow-x-scroll"></pre></div>',
+			'desc'            => '<div class="wu-w-full"><span class="wu-my-1 wu-text-2xs wu-uppercase wu-font-bold wu-block">' . __('Result', 'ultimate-multisite') . '</span><pre v-html="shortcode" id="wu-shortcode" style="overflow-x: scroll !important;" class="wu-text-center wu-p-4 wu-m-0 wu-mt-2 wu-rounded wu-content-center wu-bg-gray-800 wu-text-white wu-font-mono wu-border wu-border-solid wu-border-gray-300 wu-max-h-screen wu-overflow-x-scroll"></pre></div>',
 		];
 
 		$fields['submit_copy'] = [
 			'type'            => 'submit',
-			'title'           => __('Copy Shortcode', 'multisite-ultimate'),
+			'title'           => __('Copy Shortcode', 'ultimate-multisite'),
 			'value'           => 'edit',
 			'classes'         => 'button button-primary wu-w-full wu-copy',
 			'wrapper_classes' => 'wu-items-end',
@@ -798,8 +812,8 @@ abstract class Base_Element {
 
 		$fields['hide'] = [
 			'type'            => 'toggle',
-			'title'           => __('Hide Element', 'multisite-ultimate'),
-			'desc'            => __('Be careful. Hiding an element from the account page might remove important functionality from your customers\' reach.', 'multisite-ultimate'),
+			'title'           => __('Hide Element', 'ultimate-multisite'),
+			'desc'            => __('Be careful. Hiding an element from the account page might remove important functionality from your customers\' reach.', 'ultimate-multisite'),
 			'value'           => $this->hidden_by_default,
 			'classes'         => 'button button-primary wu-w-full',
 			'wrapper_classes' => 'wu-items-end',
@@ -834,14 +848,14 @@ abstract class Base_Element {
 			'fields'          => [
 				'restore' => [
 					'type'            => 'submit',
-					'title'           => __('Reset Settings', 'multisite-ultimate'),
+					'title'           => __('Reset Settings', 'ultimate-multisite'),
 					'value'           => 'edit',
 					'classes'         => 'button',
 					'wrapper_classes' => 'wu-mb-0',
 				],
 				'submit'  => [
 					'type'            => 'submit',
-					'title'           => __('Save Changes', 'multisite-ultimate'),
+					'title'           => __('Save Changes', 'ultimate-multisite'),
 					'value'           => 'edit',
 					'classes'         => 'button button-primary',
 					'wrapper_classes' => 'wu-mb-0',
@@ -966,7 +980,7 @@ abstract class Base_Element {
 	 * @since 2.0.0
 	 *
 	 * @param array $atts The element attributes.
-	 * @return string
+	 * @return void
 	 */
 	public function display($atts) {
 
@@ -988,7 +1002,20 @@ abstract class Base_Element {
 		 */
 		$atts['element'] = $this;
 
-		return call_user_func([$this, 'output'], $atts);
+		call_user_func([$this, 'output'], $atts);
+	}
+
+	/**
+	 * Get's the content of the element as a string.
+	 *
+	 * @param array $atts The element attributes.
+	 *
+	 * @return string
+	 */
+	public function get_content($atts): string {
+		ob_start();
+		$this->display($atts);
+		return ob_get_clean();
 	}
 
 	/**
@@ -1003,7 +1030,7 @@ abstract class Base_Element {
 	 */
 	public function display_template($atts) {
 
-		$content = $this->display($atts);
+		$content = $this->get_content($atts);
 
 		$content = str_replace(
 			[
@@ -1052,7 +1079,7 @@ abstract class Base_Element {
 	public function as_inline_content($screen_id, $hook = 'admin_notices', $atts = []): void {
 
 		if ( ! function_exists('get_current_screen')) {
-			_doing_it_wrong(__METHOD__, esc_html__('An element can not be loaded as inline content unless the get_current_screen() function is already available.', 'multisite-ultimate'), '2.0.0');
+			_doing_it_wrong(__METHOD__, esc_html__('An element can not be loaded as inline content unless the get_current_screen() function is already available.', 'ultimate-multisite'), '2.0.0');
 
 			return;
 		}
@@ -1095,7 +1122,7 @@ abstract class Base_Element {
 
 				echo '<div class="wu-inline-widget-body ' . esc_attr($control_classes) . '">';
 
-				echo $this->display($atts); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				$this->display($atts);
 
 				echo '</div>';
 
@@ -1176,7 +1203,7 @@ abstract class Base_Element {
 
 				echo '<div class="wu-metabox-widget ' . esc_attr($control_classes) . '">';
 
-					echo $this->display($atts); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					$this->display($atts);
 
 				echo '</div>';
 
@@ -1209,14 +1236,14 @@ abstract class Base_Element {
 						<div class="wu-widget-inset">
 							<div class="wu-no-underline wu-p-4 wu-bg-gray-200 wu-block wu-mt-4 wu-text-center wu-text-sm wu-text-gray-600 wu-m-auto wu-border-solid wu-border-0 wu-border-t wu-border-gray-400">
 								<a class="wubox wu-no-underline" title="Customize" href="<?php echo esc_attr(wu_get_form_url("shortcode_{$this->id}")); ?>">
-									<?php esc_html_e('Customize this element', 'multisite-ultimate'); ?>
+									<?php esc_html_e('Customize this element', 'ultimate-multisite'); ?>
 								</a>
-								<?php esc_html_e(', or'); ?>
+								<?php esc_html_e(', or', 'ultimate-multisite'); ?>
 								<a class="wubox wu-no-underline" title="Shortcode" href="<?php echo esc_attr(wu_get_form_url("customize_{$this->id}")); ?>">
-									<?php esc_html_e('generate a shortcode', 'multisite-ultimate'); ?>
+									<?php esc_html_e('generate a shortcode', 'ultimate-multisite'); ?>
 								</a>
-								<?php esc_html_e('to use it on the front-end!', 'multisite-ultimate'); ?>
-								<?php echo wu_tooltip(__('You are seeing this because you are a super admin', 'multisite-ultimate')); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<?php esc_html_e('to use it on the front-end!', 'ultimate-multisite'); ?>
+								<?php wu_tooltip(__('You are seeing this because you are a super admin', 'ultimate-multisite')); ?>
 							</div>
 					</div>
 				</div>

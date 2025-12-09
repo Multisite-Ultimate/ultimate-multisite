@@ -321,7 +321,7 @@ class Toolkit {
 	 * @param \QueryMonitor $qm The Query Monitor instance.
 	 * @return array
 	 */
-	public function register_collector_overview(array $collectors, \QueryMonitor $qm) {
+	public function register_collector_overview(array $collectors, \QueryMonitor $qm) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		$collectors['wp-ultimo'] = new Query_Monitor\Collectors\Collector_Overview();
 
@@ -346,7 +346,7 @@ class Toolkit {
 	}
 
 	/**
-	 * Manually enqueues query monitor and Multisite Ultimate styles.
+	 * Manually enqueues query monitor and Ultimate Multisite styles.
 	 *
 	 * @since 2.0.11
 	 *
@@ -355,7 +355,7 @@ class Toolkit {
 	 */
 	protected function enqueue_scripts($dispatcher) {
 
-		printf('<link rel="stylesheet" id="toolkit" href="%s" type="text/css" media="all">', esc_attr(wu_url('inc/development/assets/development.css')));
+		printf('<link rel="stylesheet" id="toolkit" href="%s" type="text/css" media="all">', esc_attr(wu_url('inc/development/assets/development.css'))); // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
 
 		wp_print_styles(
 			[
@@ -415,7 +415,7 @@ class Toolkit {
 
 					die();
 				} else {
-					return $this->dump_and_die($this->should_die);
+					$this->dump_and_die($this->should_die);
 				}
 			},
 			110
@@ -466,28 +466,23 @@ class Toolkit {
 			return;
 		}
 
-		// phpcs:disable
 		echo '
 			<div class="wu-styling">
 				<strong class="wu-block wu-mb-2 wu-mt-10">Listeners</strong>
 					<ul id="listeners">';
 
-						foreach (array_keys($this->listeners) as $listener) {
-
-			echo sprintf(
-'<li><a href="%s">→ Listener "%s"</a></li>',
-add_query_arg(self::LISTENER_PARAM, $listener),
-$listener
-);
-
-						}
+		foreach (array_keys($this->listeners) as $listener) {
+			printf(
+				'<li><a href="%s">→ Listener "%s"</a></li>',
+				esc_attr(add_query_arg(self::LISTENER_PARAM, $listener)),
+				esc_html($listener)
+			);
+		}
 
 				echo '
 			</ul>
-		</div>'; // phpcs: enable
+		</div>';
 
 		$this->displayed_footer = true;
-
 	}
-
 }

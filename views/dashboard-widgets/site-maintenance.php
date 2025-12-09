@@ -4,6 +4,7 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
 ?>
 <div class="wu-styling <?php echo esc_attr($className); ?>">
 
@@ -15,9 +16,3 @@
 
 </div>
 
-<style>
-.wu-styling h3 {
-	font-weight: 600 !important;
-	font-size: 90% !important;
-}
-</style>

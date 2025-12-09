@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate custom Autoloader.
+ * Ultimate Multisite custom Autoloader.
  *
  * @package WP_Ultimo
  * @subpackage Autoloader
@@ -8,8 +8,6 @@
  */
 
 namespace WP_Ultimo;
-
-use Pablo_Pacheco\WP_Namespace_Autoloader\WP_Namespace_Autoloader;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;

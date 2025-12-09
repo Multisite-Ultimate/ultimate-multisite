@@ -27,6 +27,7 @@ class Customer_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\MCP_Abilities;
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
@@ -57,12 +58,14 @@ class Customer_Manager extends Base_Manager {
 
 		$this->enable_wp_cli();
 
+		$this->enable_mcp_abilities();
+
 		add_action(
 			'init',
 			function () {
 				Event_Manager::register_model_events(
 					'customer',
-					__('Customer', 'multisite-ultimate'),
+					__('Customer', 'ultimate-multisite'),
 					['created', 'updated']
 				);
 			}
@@ -72,6 +75,8 @@ class Customer_Manager extends Base_Manager {
 		add_filter('heartbeat_send', [$this, 'on_heartbeat_send']);
 
 		add_action('wu_transition_customer_email_verification', [$this, 'transition_customer_email_verification'], 10, 3);
+
+		add_action('wu_event_customer_created', [$this, 'customer_created_email_verification']);
 
 		add_action('init', [$this, 'maybe_verify_email_address']);
 
@@ -89,7 +94,7 @@ class Customer_Manager extends Base_Manager {
 	public function handle_resend_verification_email(): void {
 
 		if ( ! check_ajax_referer('wu_resend_verification_email_nonce', false, false)) {
-			wp_send_json_error(new \WP_Error('not-allowed', __('Error: you are not allowed to perform this action.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('not-allowed', __('Error: you are not allowed to perform this action.', 'ultimate-multisite')));
 
 			exit;
 		}
@@ -97,7 +102,7 @@ class Customer_Manager extends Base_Manager {
 		$customer = wu_get_current_customer();
 
 		if ( ! $customer) {
-			wp_send_json_error(new \WP_Error('customer-not-found', __('Error: customer not found.', 'multisite-ultimate')));
+			wp_send_json_error(new \WP_Error('customer-not-found', __('Error: customer not found.', 'ultimate-multisite')));
 
 			exit;
 		}
@@ -118,8 +123,8 @@ class Customer_Manager extends Base_Manager {
 	 * @return array $response The Heartbeat response
 	 */
 	public function on_heartbeat_send($response) {
-
-		$this->log_ip_and_last_login(wp_get_current_user());
+		$user = wp_get_current_user();
+		$this->log_ip_and_last_login($user->user_login, $user);
 
 		return $response;
 	}
@@ -127,15 +132,14 @@ class Customer_Manager extends Base_Manager {
 	/**
 	 * Saves the IP address and last_login date onto the user.
 	 *
-	 * @since 2.0.0
-	 *
+	 * @param string   $user_login The username of the user that logged in.
 	 * @param \WP_User $user The WP User object of the user that logged in.
 	 * @return void
 	 */
-	public function log_ip_and_last_login($user): void {
+	public function log_ip_and_last_login($user_login, $user): void {
 
 		if ( ! is_a($user, '\WP_User')) {
-			$user = get_user_by('login', $user);
+			$user = get_user_by('login', $user_login);
 		}
 
 		if ( ! $user) {
@@ -174,6 +178,28 @@ class Customer_Manager extends Base_Manager {
 		}
 	}
 
+
+	/**
+	 * Send customer email verification when new customer is created with pending.
+	 *
+	 * @since 2.4.8
+	 *
+	 * @param array $payload Event Payload.
+	 * @return void
+	 */
+	public function customer_created_email_verification($payload): void {
+
+		if ('pending' !== $payload['customer_email_verification']) {
+			return;
+		}
+
+		$customer = wu_get_customer($payload['customer_id']);
+
+		if ($customer) {
+			$customer->send_verification_email();
+		}
+	}
+
 	/**
 	 * Verifies a customer by checking the email key.
 	 *
@@ -200,7 +226,7 @@ class Customer_Manager extends Base_Manager {
 			wp_die(
 				sprintf(
 					/* translators: the placeholder is the login URL */
-					wp_kses_post(__('You must be authenticated in order to verify your email address. <a href=%s>Click here</a> to access your account.', 'multisite-ultimate')),
+					wp_kses_post(__('You must be authenticated in order to verify your email address. <a href=%s>Click here</a> to access your account.', 'ultimate-multisite')),
 					esc_attr(
 						wp_login_url(
 							add_query_arg(
@@ -216,31 +242,31 @@ class Customer_Manager extends Base_Manager {
 		}
 
 		if ( ! $customer_to_verify) {
-			wp_die(wp_kses_post(__('<strong>ERROR:</strong> Invalid verification key.', 'multisite-ultimate')));
+			wp_die(wp_kses_post(__('<strong>ERROR:</strong> Invalid verification key.', 'ultimate-multisite')));
 		}
 
 		$current_customer = wu_get_current_customer();
 
 		if ( ! $current_customer) {
-			wp_die(wp_kses_post(__('<strong>Error:</strong> Invalid verification key.', 'multisite-ultimate')));
+			wp_die(wp_kses_post(__('<strong>Error:</strong> Invalid verification key.', 'ultimate-multisite')));
 		}
 
 		if ($current_customer->get_id() !== $customer_to_verify->get_id()) {
-			wp_die(esc_html__('Invalid verification key.', 'multisite-ultimate'));
+			wp_die(esc_html__('Invalid verification key.', 'ultimate-multisite'));
 		}
 
 		if ($customer_to_verify->get_email_verification() !== 'pending') {
-			wp_die(esc_html__('Invalid verification key.', 'multisite-ultimate'));
+			wp_die(esc_html__('Invalid verification key.', 'ultimate-multisite'));
 		}
 
 		$key = $customer_to_verify->get_verification_key();
 
 		if ( ! $key) {
-			wp_die(wp_kses_post(__('<strong>Error:</strong> Invalid verification key.', 'multisite-ultimate')));
+			wp_die(wp_kses_post(__('<strong>Error:</strong> Invalid verification key.', 'ultimate-multisite')));
 		}
 
 		if ($key !== $email_verify_key) {
-			wp_die(esc_html__('Invalid verification key.', 'multisite-ultimate'));
+			wp_die(esc_html__('Invalid verification key.', 'ultimate-multisite'));
 		}
 
 		/*

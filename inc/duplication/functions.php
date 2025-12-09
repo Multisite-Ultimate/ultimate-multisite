@@ -1,14 +1,21 @@
 <?php
+defined('ABSPATH') || exit;
 
 if ( ! class_exists('MUCD_Functions') ) {
 
+	/**
+	 * Multisite Ultimate Clone Duplicator Functions class.
+	 *
+	 * Provides utility functions for site duplication operations,
+	 * including path validation and file system helpers.
+	 */
 	class MUCD_Functions {
 
 		/**
 		 * Check if a path is valid MS-windows path
 		 *
 		 * @since 0.2.0
-		 * @param  string $path the path
+		 * @param  string $path the path.
 		 * @return boolean true | false
 		 */
 		public static function valid_windows_dir_path($path) {
@@ -25,8 +32,8 @@ if ( ! class_exists('MUCD_Functions') ) {
 		 * Check if a path is valid UNIX path
 		 *
 		 * @since 0.2.0
-		 * @param  string $path the path
-		 * @return boolean true | false
+		 * @param  string $path The path to validate.
+		 * @return bool   True if valid, false otherwise.
 		 */
 		public static function valid_unix_dir_path($path) {
 			$reg  = '/^(\/([a-zA-Z0-9+$_.-])+)*\/?$/';
@@ -38,8 +45,8 @@ if ( ! class_exists('MUCD_Functions') ) {
 		 * Check if a path is valid MS-windows or UNIX path
 		 *
 		 * @since 0.2.0
-		 * @param  string $path the path
-		 * @return boolean true | false
+		 * @param  string $path The path to validate.
+		 * @return bool   True if valid, false otherwise.
 		 */
 		public static function valid_path($path) {
 			return (self::valid_unix_dir_path($path) || self::valid_windows_dir_path($path));
@@ -49,7 +56,7 @@ if ( ! class_exists('MUCD_Functions') ) {
 		 * Removes completely a blog from the network
 		 *
 		 * @since 0.2.0
-		 * @param  int $blog_id the blog id
+		 * @param  int $blog_id the blog id.
 		 */
 		public static function remove_blog($blog_id): void {
 			switch_to_blog($blog_id);
@@ -67,15 +74,15 @@ if ( ! class_exists('MUCD_Functions') ) {
 		 * Check if site is duplicable
 		 *
 		 * @since 0.2.0
-		 * @param  int $blog_id the blog id
+		 * @param  int $blog_id the blog id.
 		 * @return boolean true | false
 		 */
 		public static function is_duplicable($blog_id): bool {
-			if ( get_site_option('mucd_duplicables', 'all', 'selected') == 'all') {
+			if ( get_site_option('mucd_duplicables', 'all') === 'all') {
 				return true;
 			}
 
-			return get_blog_option($blog_id, 'mucd_duplicable', 'no') == 'yes';
+			return get_blog_option($blog_id, 'mucd_duplicable', 'no') === 'yes';
 		}
 
 		/**
@@ -100,9 +107,9 @@ if ( ! class_exists('MUCD_Functions') ) {
 		 * Check if a value is in an array for a specific key
 		 *
 		 * @since 0.2.0
-		 * @param  mixte  $value the value
-		 * @param  array  $array the array
-		 * @param  string $key  the key
+		 * @param  mixed  $value the value.
+		 * @param  array  $array the array.
+		 * @param  string $key  the key.
 		 * @return boolean true | false
 		 */
 		public static function value_in_array($value, $array, $key): bool {
@@ -134,8 +141,8 @@ if ( ! class_exists('MUCD_Functions') ) {
 		 * Check if site exists
 		 *
 		 * @since 1.3.0
-		 * @param  int $blog_id the blog id
-		 * @return boolean true | false
+		 * @param  int $blog_id The blog ID to check.
+		 * @return bool True if site exists, false otherwise.
 		 */
 		public static function site_exists($blog_id) {
 			return (get_blog_details($blog_id) !== false);
@@ -150,8 +157,16 @@ if ( ! class_exists('MUCD_Functions') ) {
 
 			// Bugfix Pierre Dargham : relocating this declaration outside of the call to add_filter
 			// PHP < 5.3 does not accept anonymous functions
+			/**
+			 * Set locale to en_US.
+			 *
+			 * @since 1.3.1
+			 * @param string $locale Current locale.
+			 * @return string en_US locale.
+			 */
 			function mucd_locale_en_us($locale): string {
-				return 'en_US'; }
+				return 'en_US';
+			}
 
 			add_filter('locale', 'mucd_locale_en_us');
 		}
@@ -162,14 +177,14 @@ if ( ! class_exists('MUCD_Functions') ) {
 		 * @author wp-cli
 		 * @see https://github.com/wp-cli/wp-cli/blob/master/php/commands/site.php
 		 *
-		 * @param int $network_id
-		 * @return bool|array False if no network found with given id, array otherwise
+		 * @param int $network_id The network ID to retrieve data for.
+		 * @return bool|array False if no network found with given id, array otherwise.
 		 */
 		public static function get_network($network_id) {
 			global $wpdb;
 
 			// Load network data
-			$networks = $wpdb->get_results(
+			$networks = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prepare(
 					"SELECT * FROM $wpdb->site WHERE id = %d",
 					$network_id
@@ -184,6 +199,13 @@ if ( ! class_exists('MUCD_Functions') ) {
 			return false;
 		}
 
+		/**
+		 * Get sites using WordPress core functions with fallback for older versions.
+		 *
+		 * @since 1.0.0
+		 * @param array $args Arguments for retrieving sites.
+		 * @return array List of sites.
+		 */
 		public static function get_sites($args = []) {
 			if (version_compare(get_bloginfo('version'), '4.6', '>=')) {
 				$defaults = ['number' => MUCD_MAX_NUMBER_OF_SITE];
@@ -199,7 +221,7 @@ if ( ! class_exists('MUCD_Functions') ) {
 				$defaults = ['limit' => MUCD_MAX_NUMBER_OF_SITE];
 				$args     = apply_filters('mucd_get_sites_args', $args);
 				$args     = wp_parse_args($args, $defaults);
-				return wp_get_sites($args);
+				return get_sites($args);
 			}
 		}
 

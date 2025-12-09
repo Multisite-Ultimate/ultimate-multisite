@@ -96,6 +96,20 @@ class Post_Base_Model extends Base_Model {
 	 */
 	protected $query_class = \WP_Ultimo\Database\Posts\Post_Query::class;
 
+
+	/**
+	 * @return $this
+	 */
+	public function load_attributes_from_post() {
+		parent::load_attributes_from_post();
+
+		if (isset($_POST['content'])) { // phpcs:ignore WordPress.Security.NonceVerification
+			$this->set_content(sanitize_post_field('post_content', wp_unslash($_POST['content']), $this->get_id(), 'db')); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification
+		}
+
+		return $this;
+	}
+
 	/**
 	 * Get author ID.
 	 *

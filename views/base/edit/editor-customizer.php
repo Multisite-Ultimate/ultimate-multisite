@@ -4,6 +4,8 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
 <div id="preview-stage">
 
@@ -13,7 +15,7 @@
 
 		<span class="wu-self-center wu-blinking-animation wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">
 
-		<?php esc_html_e('Loading Preview...', 'multisite-ultimate'); ?>
+		<?php esc_html_e('Loading Preview...', 'ultimate-multisite'); ?>
 
 		</span>
 
@@ -31,7 +33,7 @@
 
 			<span class="wu-text-gray-600 wu-my-1 wu-text-2xs wu-uppercase wu-font-semibold">
 
-			<?php echo esc_html__('Template Preview', 'multisite-ultimate'); ?>
+			<?php echo esc_html__('Template Preview', 'ultimate-multisite'); ?>
 
 			</span>
 

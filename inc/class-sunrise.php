@@ -1,6 +1,6 @@
 <?php
 /**
- * Multisite Ultimate activation and deactivation hooks
+ * Ultimate Multisite activation and deactivation hooks
  *
  * @package WP_Ultimo
  * @subpackage Sunrise
@@ -15,7 +15,7 @@ use Psr\Log\LogLevel;
 defined('ABSPATH') || exit;
 
 /**
- * Multisite Ultimate activation and deactivation hooks
+ * Ultimate Multisite activation and deactivation hooks
  *
  * @since 2.0.0
  */
@@ -27,7 +27,7 @@ class Sunrise {
 	 * @var string
 	 */
 
-	public static $version = '2.0.0.8';
+	public static $version = '2.0.0.10';
 
 	/**
 	 * Keeps the sunrise meta cached after the first read.
@@ -114,8 +114,11 @@ class Sunrise {
 		require_once __DIR__ . '/functions/number-helpers.php';
 		require_once __DIR__ . '/functions/array-helpers.php';
 		require_once __DIR__ . '/traits/trait-singleton.php';
+		require_once __DIR__ . '/interfaces/interface-singleton.php';
 		require_once __DIR__ . '/objects/class-limitations.php';
-		require_once __DIR__ . '/models/interface-limitable.php';
+		require_once __DIR__ . '/models/interfaces/interface-limitable.php';
+		require_once __DIR__ . '/models/interfaces/interface-notable.php';
+		require_once __DIR__ . '/models/interfaces/interface-billable.php';
 		require_once __DIR__ . '/models/traits/trait-limitable.php';
 		require_once __DIR__ . '/models/traits/trait-notable.php';
 		require_once __DIR__ . '/models/traits/trait-billable.php';
@@ -129,13 +132,13 @@ class Sunrise {
 		require_once __DIR__ . '/../vendor/berlindb/core/src/Database/Schema.php';
 		require_once __DIR__ . '/../vendor/berlindb/core/src/Database/Table.php';
 		require_once __DIR__ . '/../vendor/berlindb/core/src/Database/Column.php';
+		require_once __DIR__ . '/database/engine/traits/trait-network-prefix.php';
 		require_once __DIR__ . '/database/engine/class-query.php';
 		require_once __DIR__ . '/database/sites/class-site-query.php';
 		require_once __DIR__ . '/models/class-base-model.php';
 		require_once __DIR__ . '/models/class-domain.php';
 		require_once __DIR__ . '/models/class-site.php';
 		require_once __DIR__ . '/domain-mapping/class-primary-domain.php';
-		require_once __DIR__ . '/compat/class-domain-mapping-compat.php';
 		require_once __DIR__ . '/class-domain-mapping.php';
 		require_once __DIR__ . '/traits/trait-wp-ultimo-settings-deprecated.php';
 		require_once __DIR__ . '/class-settings.php';
@@ -145,6 +148,19 @@ class Sunrise {
 		require_once __DIR__ . '/database/engine/class-schema.php';
 		require_once __DIR__ . '/database/sites/class-sites-schema.php';
 		require_once __DIR__ . '/database/sites/class-site-query.php';
+		require_once __DIR__ . '/limitations/class-limit.php';
+		require_once __DIR__ . '/limitations/class-limit-subtype.php';
+		require_once __DIR__ . '/limitations/class-limit-post-types.php';
+		require_once __DIR__ . '/limitations/class-limit-plugins.php';
+		require_once __DIR__ . '/limitations/class-limit-sites.php';
+		require_once __DIR__ . '/limitations/class-limit-themes.php';
+		require_once __DIR__ . '/limitations/class-limit-visits.php';
+		require_once __DIR__ . '/limitations/class-limit-disk-space.php';
+		require_once __DIR__ . '/limitations/class-limit-users.php';
+		require_once __DIR__ . '/limitations/class-limit-site-templates.php';
+		require_once __DIR__ . '/limitations/class-limit-domain-mapping.php';
+		require_once __DIR__ . '/limitations/class-limit-customer-user-role.php';
+		require_once __DIR__ . '/limitations/class-limit-hide-footer-credits.php';
 	}
 
 	/**
@@ -186,11 +202,6 @@ class Sunrise {
 			self::load_dependencies();
 
 			/*
-			 * Adds backwards compatibility code for the domain mapping.
-			 */
-			\WP_Ultimo\Compat\Domain_Mapping_Compat::get_instance();
-
-			/*
 			 * Plugin Limits
 			 */
 			\WP_Ultimo\Limits\Plugin_Limits::get_instance();
@@ -201,7 +212,7 @@ class Sunrise {
 			\WP_Ultimo\Limits\Theme_Limits::get_instance();
 
 			/**
-			 * Define the Multisite Ultimate main debug constant.
+			 * Define the Ultimate Multisite main debug constant.
 			 */
 			! defined('WP_ULTIMO_DEBUG') && define('WP_ULTIMO_DEBUG', false);
 
@@ -215,7 +226,7 @@ class Sunrise {
 					wu_save_setting_early('security_mode', false);
 				} else {
 					/**
-					 *  Disable all plugins except Multisite Ultimate
+					 *  Disable all plugins except Ultimate Multisite
 					 */
 					add_filter('option_active_plugins', fn() => []);
 
@@ -271,17 +282,17 @@ class Sunrise {
 		$copy_results = copy(
 			dirname(WP_ULTIMO_PLUGIN_FILE) . '/sunrise.php',
 			WP_CONTENT_DIR . '/sunrise.php'
-		); // phpcs:ignore
+		);
 
 		if ( ! $copy_results) {
 			$error = error_get_last();
 			wu_log_add('sunrise', $error['message'], LogLevel::ERROR);
 
 			/* translators: the placeholder is an error message */
-			return new \WP_Error('error', sprintf(__('Sunrise copy failed: %s', 'multisite-ultimate'), $error['message']));
+			return new \WP_Error('error', sprintf(__('Sunrise copy failed: %s', 'ultimate-multisite'), $error['message']));
 		}
 
-		wu_log_add('sunrise', __('Sunrise upgrade attempt succeeded.', 'multisite-ultimate'));
+		wu_log_add('sunrise', __('Sunrise upgrade attempt succeeded.', 'ultimate-multisite'));
 		return true;
 	}
 
@@ -300,24 +311,26 @@ class Sunrise {
 			return self::$sunrise_meta;
 		}
 
-		$sunrise_meta = get_network_option(null, 'wu_sunrise_meta', null);
+		self::$sunrise_meta = get_network_option(
+			null,
+			'wu_sunrise_meta',
+			[
+				'active'           => false,
+				'created'          => 'unknown',
+				'last_activated'   => 'unknown',
+				'last_deactivated' => 'unknown',
+				'last_modified'    => 'unknown',
+			]
+		);
 
-		$existing = [];
-
-		if ($sunrise_meta) {
-			$existing = $sunrise_meta;
-
-			self::$sunrise_meta = $existing;
-		}
-
-		return $existing;
+		return self::$sunrise_meta;
 	}
 
 	/**
 	 * Method for imputing Sunrise data at wp-ultimo-system-info table.
 	 *
 	 * @since 2.0.11
-	 * @param array $sys_info Array containing Multisite Ultimate installation info.
+	 * @param array $sys_info Array containing Ultimate Multisite installation info.
 	 * @return array Returns the array, modified with the sunrise data.
 	 */
 	public static function system_info($sys_info) {
@@ -341,22 +354,22 @@ class Sunrise {
 					'sunrise-created'          => [
 						'tooltip' => '',
 						'title'   => 'Created',
-						'value'   => gmdate('Y-m-d @ H:i:s', $data['created']),
+						'value'   => is_int($data['created']) ? gmdate('Y-m-d @ H:i:s', $data['created']) : $data['created'],
 					],
 					'sunrise-last-activated'   => [
 						'tooltip' => '',
 						'title'   => 'Last Activated',
-						'value'   => gmdate('Y-m-d @ H:i:s', $data['last_activated']),
+						'value'   => is_int($data['last_activated']) ? gmdate('Y-m-d @ H:i:s', $data['last_activated']) : $data['last_activated'],
 					],
 					'sunrise-last-deactivated' => [
 						'tooltip' => '',
 						'title'   => 'Last Deactivated',
-						'value'   => gmdate('Y-m-d @ H:i:s', $data['last_deactivated']),
+						'value'   => is_int($data['last_deactivated']) ? gmdate('Y-m-d @ H:i:s', $data['last_deactivated']) : $data['last_deactivated'],
 					],
 					'sunrise-last-modified'    => [
 						'tooltip' => '',
 						'title'   => 'Last Modified',
-						'value'   => gmdate('Y-m-d @ H:i:s', $data['last_modified']),
+						'value'   => is_int($data['last_modified']) ? gmdate('Y-m-d @ H:i:s', $data['last_modified']) : $data['last_modified'],
 					],
 				],
 			]
@@ -436,6 +449,10 @@ class Sunrise {
 				'last_deactivated' => 'unknown',
 			]
 		);
+
+		if ('unknown' === $to_save['created']) {
+			$to_save['created'] = $now;
+		}
 
 		if ('activating' === $mode) {
 			$to_save['active']         = true;

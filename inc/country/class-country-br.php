@@ -90,7 +90,7 @@ class Country_BR extends Country {
 	 */
 	public function get_name() {
 
-		return __('Brazil', 'multisite-ultimate');
+		return __('Brazil', 'ultimate-multisite');
 	}
 
 	/**
@@ -102,33 +102,33 @@ class Country_BR extends Country {
 	protected function states() {
 
 		return [
-			'AC' => __('Acre', 'multisite-ultimate'),
-			'AL' => __('Alagoas', 'multisite-ultimate'),
-			'AP' => __('Amapá', 'multisite-ultimate'),
-			'AM' => __('Amazonas', 'multisite-ultimate'),
-			'BA' => __('Bahia', 'multisite-ultimate'),
-			'CE' => __('Ceará', 'multisite-ultimate'),
-			'DF' => __('Distrito Federal', 'multisite-ultimate'),
-			'ES' => __('Espírito Santo', 'multisite-ultimate'),
-			'GO' => __('Goiás', 'multisite-ultimate'),
-			'MA' => __('Maranhão', 'multisite-ultimate'),
-			'MT' => __('Mato Grosso', 'multisite-ultimate'),
-			'MS' => __('Mato Grosso do Sul', 'multisite-ultimate'),
-			'MG' => __('Minas Gerais', 'multisite-ultimate'),
-			'PR' => __('Paraná', 'multisite-ultimate'),
-			'PB' => __('Paraíba', 'multisite-ultimate'),
-			'PA' => __('Pará', 'multisite-ultimate'),
-			'PE' => __('Pernambuco', 'multisite-ultimate'),
-			'PI' => __('Piauí', 'multisite-ultimate'),
-			'RN' => __('Rio Grande do Norte', 'multisite-ultimate'),
-			'RS' => __('Rio Grande do Sul', 'multisite-ultimate'),
-			'RJ' => __('Rio de Janeiro', 'multisite-ultimate'),
-			'RO' => __('Rondônia', 'multisite-ultimate'),
-			'RR' => __('Roraima', 'multisite-ultimate'),
-			'SC' => __('Santa Catarina', 'multisite-ultimate'),
-			'SE' => __('Sergipe', 'multisite-ultimate'),
-			'SP' => __('São Paulo', 'multisite-ultimate'),
-			'TO' => __('Tocantins', 'multisite-ultimate'),
+			'AC' => __('Acre', 'ultimate-multisite'),
+			'AL' => __('Alagoas', 'ultimate-multisite'),
+			'AP' => __('Amapá', 'ultimate-multisite'),
+			'AM' => __('Amazonas', 'ultimate-multisite'),
+			'BA' => __('Bahia', 'ultimate-multisite'),
+			'CE' => __('Ceará', 'ultimate-multisite'),
+			'DF' => __('Distrito Federal', 'ultimate-multisite'),
+			'ES' => __('Espírito Santo', 'ultimate-multisite'),
+			'GO' => __('Goiás', 'ultimate-multisite'),
+			'MA' => __('Maranhão', 'ultimate-multisite'),
+			'MT' => __('Mato Grosso', 'ultimate-multisite'),
+			'MS' => __('Mato Grosso do Sul', 'ultimate-multisite'),
+			'MG' => __('Minas Gerais', 'ultimate-multisite'),
+			'PR' => __('Paraná', 'ultimate-multisite'),
+			'PB' => __('Paraíba', 'ultimate-multisite'),
+			'PA' => __('Pará', 'ultimate-multisite'),
+			'PE' => __('Pernambuco', 'ultimate-multisite'),
+			'PI' => __('Piauí', 'ultimate-multisite'),
+			'RN' => __('Rio Grande do Norte', 'ultimate-multisite'),
+			'RS' => __('Rio Grande do Sul', 'ultimate-multisite'),
+			'RJ' => __('Rio de Janeiro', 'ultimate-multisite'),
+			'RO' => __('Rondônia', 'ultimate-multisite'),
+			'RR' => __('Roraima', 'ultimate-multisite'),
+			'SC' => __('Santa Catarina', 'ultimate-multisite'),
+			'SE' => __('Sergipe', 'ultimate-multisite'),
+			'SP' => __('São Paulo', 'ultimate-multisite'),
+			'TO' => __('Tocantins', 'ultimate-multisite'),
 		];
 	}
 }

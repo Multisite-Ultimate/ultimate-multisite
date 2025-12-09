@@ -1,5 +1,6 @@
 <?php
 /** global $themes */
+defined('ABSPATH') || exit;
 ?>
 
 <ul data-columns="1" class='items wu--mx-1 wu-overflow-hidden wu-multiselect-content wu-static wu-my-2'>
@@ -43,11 +44,13 @@
 			<div class="wu-block wu-mt-4">
 
 				<span class="wu-text-xs wu-text-gray-700 wu-my-1 wu-mr-4 wu-block">
-				<?php printf(esc_html__('Version %s', 'multisite-ultimate'), esc_html($theme_data['Version'])); ?>
+				<?php // translators: %s current version. ?>
+				<?php printf(esc_html__('Version %s', 'ultimate-multisite'), esc_html($theme_data['Version'])); ?>
 				</span>
 
 				<span class="wu-text-xs wu-text-gray-700 wu-my-1 wu-mr-4 wu-block">
-				<?php printf(esc_html__('by %s', 'multisite-ultimate'), $theme_data['Author']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php // translators: %s name of the author ?>
+				<?php printf(esc_html__('by %s', 'ultimate-multisite'), wp_kses($theme_data['Author'], wu_kses_allowed_html())); ?>
 				</span>
 
 			</div>
@@ -59,24 +62,24 @@
 			<img class="wu-rounded wu-w-full wu-image-preview" src="<?php echo esc_url($theme_data->get_screenshot()); ?>" data-image="<?php echo esc_url($theme_data->get_screenshot()); ?>">
 
 			<h3 class="wu-mb-1 wu-text-2xs wu-uppercase wu-text-gray-600">
-				<?php esc_html_e('Visibility', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Visibility', 'ultimate-multisite'); ?>
 			</h3>
 
 			<select name="modules[themes][limit][<?php echo esc_attr($theme_path); ?>][visibility]" class="wu-w-full">
-				<option <?php selected('visible' === $theme_settings->visibility); ?> value="visible"><?php esc_html_e('Visible', 'multisite-ultimate'); ?></option>
-				<option <?php selected('hidden' === $theme_settings->visibility); ?> value="hidden"><?php esc_html_e('Hidden', 'multisite-ultimate'); ?></option>
+				<option <?php selected('visible' === $theme_settings->visibility); ?> value="visible"><?php esc_html_e('Visible', 'ultimate-multisite'); ?></option>
+				<option <?php selected('hidden' === $theme_settings->visibility); ?> value="hidden"><?php esc_html_e('Hidden', 'ultimate-multisite'); ?></option>
 			</select>
 
 			<h3 class="wu-my-1 wu-mt-4 wu-text-2xs wu-uppercase wu-text-gray-600">
 
-				<?php esc_html_e('Behavior', 'multisite-ultimate'); ?>
+				<?php esc_html_e('Behavior', 'ultimate-multisite'); ?>
 
 			</h3>
 
 			<select v-on:change="force_active_theme = ($event.target.value === 'force_active' ? '<?php echo esc_attr($theme_path); ?>' : '')" name="modules[themes][limit][<?php echo esc_attr($theme_path); ?>][behavior]" class="wu-w-full">
-				<option <?php selected('available' === $theme_settings->behavior); ?> value="available"><?php esc_html_e('Available', 'multisite-ultimate'); ?></option>
-				<option <?php selected('not_available' === $theme_settings->behavior); ?> value="not_available"><?php esc_html_e('Not Available', 'multisite-ultimate'); ?></option>
-				<option :disabled="force_active_theme !== '' && force_active_theme != '<?php echo esc_attr($theme_path); ?>'" <?php selected('force_active' === $theme_settings->behavior); ?> value="force_active"><?php esc_html_e('Force Activate', 'multisite-ultimate'); ?></option>
+				<option <?php selected('available' === $theme_settings->behavior); ?> value="available"><?php esc_html_e('Available', 'ultimate-multisite'); ?></option>
+				<option <?php selected('not_available' === $theme_settings->behavior); ?> value="not_available"><?php esc_html_e('Not Available', 'ultimate-multisite'); ?></option>
+				<option :disabled="force_active_theme !== '' && force_active_theme != '<?php echo esc_attr($theme_path); ?>'" <?php selected('force_active' === $theme_settings->behavior); ?> value="force_active"><?php esc_html_e('Force Activate', 'ultimate-multisite'); ?></option>
 			</select>
 
 			</div>
@@ -86,7 +89,7 @@
 		<?php if ('product' !== $object->model && $object->get_limitations(false)->themes->exists($theme_path)) : ?>
 
 			<p class="wu-m-0 wu-mt-4 wu-p-2 wu-bg-blue-100 wu-text-blue-600 wu-rounded">
-				<?php esc_html_e('This value is being applied only to this entity. Changes made to the membership or product permissions will not affect this particular value.', 'multisite-ultimate'); ?>
+				<?php esc_html_e('This value is being applied only to this entity. Changes made to the membership or product permissions will not affect this particular value.', 'ultimate-multisite'); ?>
 			</p>
 
 		<?php endif; ?>

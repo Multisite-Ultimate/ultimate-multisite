@@ -4,8 +4,10 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
-<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php echo $field->get_wrapper_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<li class="<?php echo esc_attr(trim($field->wrapper_classes)); ?>" <?php $field->print_wrapper_html_attributes(); ?>>
 
 	<div class="wu-block wu-w-full">
 
@@ -25,7 +27,7 @@
 
 	?>
 
-	<a class="form-control <?php echo esc_attr($field->classes); ?>" type="<?php echo esc_attr($field->type); ?>" <?php echo $field->get_html_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<a class="form-control <?php echo esc_attr($field->classes); ?>" type="<?php echo esc_attr($field->type); ?>" <?php $field->print_html_attributes(); ?>>
 
 		<?php echo esc_html($field->display_value); ?>
 

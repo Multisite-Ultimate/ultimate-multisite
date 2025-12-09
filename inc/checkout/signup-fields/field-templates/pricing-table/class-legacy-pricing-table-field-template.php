@@ -64,7 +64,7 @@ class Legacy_Pricing_Table_Field_Template extends Base_Field_Template {
 	 */
 	public function get_title() {
 
-		return __('Legacy', 'multisite-ultimate');
+		return __('Legacy', 'ultimate-multisite');
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Legacy_Pricing_Table_Field_Template extends Base_Field_Template {
 	 */
 	public function get_description() {
 
-		return __('Implementation of the layout that shipped with WP Ultimo < 1.10.X.', 'multisite-ultimate');
+		return __('Implementation of the layout that shipped with WP Ultimo < 1.10.X.', 'ultimate-multisite');
 	}
 
 	/**

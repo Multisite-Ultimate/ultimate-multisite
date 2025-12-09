@@ -1,0 +1,44 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "Ultimate Multisite Demo",
+    "description": "A demo of Ultimate Multisite running in your browser - transform your WordPress Multisite into a Website as a Service platform.",
+    "author": "Ultimate Multisite Community",
+    "categories": ["Multisite", "Site Management", "WaaS"]
+  },
+  "landingPage": "/wp-admin/network/admin.php?page=wp-ultimo-setup",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "latest"
+  },
+  "phpExtensionBundles": [
+    "kitchen-sink"
+  ],
+  "features": {
+    "networking": true
+  },
+  "plugins": [
+    {
+      "resource": "url",
+      "url": "https://mygratis.site/app/uploads/sites/29/2025/12/ultimate-multisite.zip"
+    }
+  ],
+  "steps": [
+    {
+      "step": "enableMultisite"
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp site create --slug=site01"
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp plugin activate ultimate-multisite --network"
+    },
+    {
+      "step": "login",
+      "username": "admin",
+      "password": "password"
+    }
+  ]
+}

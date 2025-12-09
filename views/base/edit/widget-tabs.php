@@ -4,6 +4,8 @@
  *
  * @since 2.0.0
  */
+defined('ABSPATH') || exit;
+
 ?>
 <div
 	class="wu-m-0"
@@ -33,7 +35,7 @@
 
 							<span class="wu-text-base wu-w-4 wu-h-4 wu-pt-2px wu-mr-1 dashicons dashicons-wu-chevron-with-circle-down">&nbsp;</span>
 
-							<?php esc_html_e('All Options', 'multisite-ultimate'); ?>
+							<?php esc_html_e('All Options', 'ultimate-multisite'); ?>
 
 						</a>
 						<!-- End Menu Link -->
@@ -79,13 +81,13 @@
 
 					<span v-show="!display_all">
 
-						<?php esc_html_e('Display all fields', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Display all fields', 'ultimate-multisite'); ?>
 
 					</span>
 
 					<span v-cloak v-show="display_all">
 
-						<?php esc_html_e('Hide other fields', 'multisite-ultimate'); ?>
+						<?php esc_html_e('Hide other fields', 'ultimate-multisite'); ?>
 
 					</span>
 
@@ -101,7 +103,7 @@
 
 				<span class="wu-blinking-animation">
 
-					<?php esc_html_e('Loading...', 'multisite-ultimate'); ?>
+					<?php esc_html_e('Loading...', 'ultimate-multisite'); ?>
 
 				</span>
 
@@ -132,6 +134,6 @@
 
 	</div>
 
-	<?php echo $after; // phpcs:ignore WordPress.Security.NonceVerification ?>
+	<?php echo wp_kses($after, wu_kses_allowed_html()); ?>
 
 </div>

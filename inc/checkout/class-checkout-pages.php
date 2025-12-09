@@ -84,9 +84,7 @@ class Checkout_Pages {
 			return $redirect_to;
 		}
 
-		$redirect_to = add_query_arg('checkemail', 'confirm', wp_login_url());
-
-		return $redirect_to;
+		return add_query_arg('checkemail', 'confirm', wp_login_url());
 	}
 
 	/**
@@ -103,22 +101,19 @@ class Checkout_Pages {
 
 		wp_nonce_field('_wu_force_compat_' . $post_id, '_wu_force_compat');
 
-		// phpcs:disable
 		?>
 
-    <div class="misc-pub-section misc-pub-section-last" style="margin-top: 12px; margin-bottom: 6px; display: flex; align-items: center;">
-				<label for="wu-compat-mode">
-						<span style="display: block; font-weight: 600; margin-bottom: 3px;"><?php esc_html_e('Multisite Ultimate Compatibility Mode', 'multisite-ultimate'); ?></span>
-						<small style="display: block; line-height: 1.8em;"><?php esc_html_e('Toggle this option on if Multisite Ultimate elements are not loading correctly or at all.', 'multisite-ultimate'); ?></small>
-				</label>
-				<div style="margin-left: 6px;">
-					<input id="wu-compat-mode" type="checkbox" value="1" <?php checked($value, true, true); ?> name="_wu_force_elements_loading" />
-				</div>
-    </div>
+	<div class="misc-pub-section misc-pub-section-last" style="margin-top: 12px; margin-bottom: 6px; display: flex; align-items: center;">
+		<label for="wu-compat-mode">
+				<span style="display: block; font-weight: 600; margin-bottom: 3px;"><?php esc_html_e('Ultimate Multisite Compatibility Mode', 'ultimate-multisite'); ?></span>
+				<small style="display: block; line-height: 1.8em;"><?php esc_html_e('Toggle this option on if Ultimate Multisite elements are not loading correctly or at all.', 'ultimate-multisite'); ?></small>
+		</label>
+		<div style="margin-left: 6px;">
+			<input id="wu-compat-mode" type="checkbox" value="1" <?php checked($value, true, true); ?> name="_wu_force_elements_loading" />
+		</div>
+	</div>
 
 		<?php
-
-		// phpcs:enable
 	}
 
 	/**
@@ -190,22 +185,25 @@ class Checkout_Pages {
 	public function get_error_message($error_code, $username = '') {
 
 		$messages = [
-			'incorrect_password'         => sprintf(__('<strong>Error:</strong> The password you entered is incorrect.', 'multisite-ultimate')),
+			'incorrect_password'         => sprintf(__('<strong>Error:</strong> The password you entered is incorrect.', 'ultimate-multisite')),
 			// From here we are using the same messages as WordPress core.
-			'expired'                    => __('Your session has expired. Please log in to continue where you left off.'),
-			'confirm'                    => sprintf(__('Check your email for the confirmation link, then visit the <a href="%s">login page</a>.'), wp_login_url()),
-			'registered'                 => sprintf(__('Registration complete. Please check your email, then visit the <a href="%s">login page</a>.'), wp_login_url()),
-			'loggedout'                  => __('You are now logged out.'),
-			'registerdisabled'           => __('<strong>Error:</strong> User registration is currently not allowed.'),
-			'empty_username'             => __('<strong>Error:</strong> The username field is empty.'),
-			'empty_password'             => __('<strong>Error:</strong> The password field is empty.'),
-			'invalid_email'              => __('Unknown email address. Check again or try your username.'),
-			'invalid_username'           => sprintf(__('<strong>Error:</strong> The username <strong>%s</strong> is not registered on this site. If you are unsure of your username, try your email address instead.'), $username),
-			'invalidcombo'               => __('<strong>Error:</strong> There is no account with that username or email address.'),
-			'password_reset_empty_space' => __('The password cannot be a space or all spaces.'),
-			'password_reset_mismatch'    => __('<strong>Error:</strong> The passwords do not match.'),
-			'invalidkey'                 => __('<strong>Error:</strong> Your password reset link appears to be invalid. Please request a new link below.'),
-			'expiredkey'                 => __('<strong>Error:</strong> Your password reset link has expired. Please request a new link below.'),
+			'expired'                    => __('Your session has expired. Please log in to continue where you left off.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			/* translators: %s: Link to the login page. */
+			'confirm'                    => sprintf(__('Check your email for the confirmation link, then visit the <a href="%s">login page</a>.'), wp_login_url()), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			/* translators: %s: Link to the login page. */
+			'registered'                 => sprintf(__('Registration complete. Please check your email, then visit the <a href="%s">login page</a>.'), wp_login_url()), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'loggedout'                  => __('You are now logged out.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'registerdisabled'           => __('<strong>Error:</strong> User registration is currently not allowed.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'empty_username'             => __('<strong>Error:</strong> The username field is empty.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'empty_password'             => __('<strong>Error:</strong> The password field is empty.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'invalid_email'              => __('Unknown email address. Check again or try your username.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			/* translators: %s: User name. */
+			'invalid_username'           => sprintf(__('<strong>Error:</strong> The username <strong>%s</strong> is not registered on this site. If you are unsure of your username, try your email address instead.'), $username), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'invalidcombo'               => __('<strong>Error:</strong> There is no account with that username or email address.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'password_reset_empty_space' => __('The password cannot be a space or all spaces.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'password_reset_mismatch'    => __('<strong>Error:</strong> The passwords do not match.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'invalidkey'                 => __('<strong>Error:</strong> Your password reset link appears to be invalid. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'expiredkey'                 => __('<strong>Error:</strong> Your password reset link has expired. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 		];
 
 		/**
@@ -217,7 +215,7 @@ class Checkout_Pages {
 		 */
 		$messages = apply_filters('wu_checkout_pages_error_messages', $messages);
 
-		return wu_get_isset($messages, $error_code, __('Something went wrong', 'multisite-ultimate'));
+		return wu_get_isset($messages, $error_code, __('Something went wrong', 'ultimate-multisite'));
 	}
 
 	/**
@@ -421,11 +419,11 @@ class Checkout_Pages {
                 </div>',
 				sprintf(
 					// translators: %1$s and %2$s are <strong></strong> HTML tags
-					esc_html__('Your email address is not yet verified. Your site %1$s will only be activated %2$s after your email address is verified. Check your inbox and verify your email address.', 'multisite-ultimate'),
+					esc_html__('Your email address is not yet verified. Your site %1$s will only be activated %2$s after your email address is verified. Check your inbox and verify your email address.', 'ultimate-multisite'),
 					'<strong>',
 					'</strong>'
 				),
-				esc_html__('Resend verification email →', 'multisite-ultimate')
+				esc_html__('Resend verification email →', 'ultimate-multisite')
 			);
 		}
 	}
@@ -475,7 +473,12 @@ class Checkout_Pages {
 
 			$wp_query->set_404();
 
-			include get_404_template();
+			$four_oh_four = get_404_template();
+
+			// Apparently not all themes have a 404 template.
+			if ($four_oh_four) {
+				include $four_oh_four;
+			}
 
 			die;
 		} else {
@@ -555,7 +558,7 @@ class Checkout_Pages {
 	}
 
 	/**
-	 * Returns the ID of the pages being used for each Multisite Ultimate purpose.
+	 * Returns the ID of the pages being used for each Ultimate Multisite purpose.
 	 *
 	 * @since 2.0.0
 	 * @return array
@@ -610,7 +613,7 @@ class Checkout_Pages {
 	}
 
 	/**
-	 * Tags the Multisite Ultimate pages on the main site.
+	 * Tags the Ultimate Multisite pages on the main site.
 	 *
 	 * @since 2.0.0
 	 *
@@ -625,11 +628,11 @@ class Checkout_Pages {
 		}
 
 		$labels = [
-			'register'       => __('Multisite Ultimate - Register Page', 'multisite-ultimate'),
-			'login'          => __('Multisite Ultimate - Login Page', 'multisite-ultimate'),
-			'block_frontend' => __('Multisite Ultimate - Site Blocked Page', 'multisite-ultimate'),
-			'update'         => __('Multisite Ultimate - Membership Update Page', 'multisite-ultimate'),
-			'new_site'       => __('Multisite Ultimate - New Site Page', 'multisite-ultimate'),
+			'register'       => __('Ultimate Multisite - Register Page', 'ultimate-multisite'),
+			'login'          => __('Ultimate Multisite - Login Page', 'ultimate-multisite'),
+			'block_frontend' => __('Ultimate Multisite - Site Blocked Page', 'ultimate-multisite'),
+			'update'         => __('Ultimate Multisite - Membership Update Page', 'ultimate-multisite'),
+			'new_site'       => __('Ultimate Multisite - New Site Page', 'ultimate-multisite'),
 		];
 
 		$pages = array_map('absint', $this->get_signup_pages());
@@ -652,7 +655,7 @@ class Checkout_Pages {
 	 * @param null|string $content The post content.
 	 * @return string
 	 */
-	public function render_confirmation_page($atts, $content = null) {
+	public function render_confirmation_page($atts, $content = null) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 		return wu_get_template_contents(
 			'checkout/confirmation',

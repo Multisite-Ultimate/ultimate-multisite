@@ -12,6 +12,7 @@
 namespace WP_Ultimo\Managers;
 
 use Psr\Log\LogLevel;
+use WP_Error;
 use WP_Ultimo\Managers\Base_Manager;
 use WP_Ultimo\Models\Email;
 use WP_Ultimo\Helpers\Sender;
@@ -40,7 +41,7 @@ class Email_Manager extends Base_Manager {
 	protected $slug = 'email';
 
 	/**
-	 * The model class associated to this manager.
+	 * The model class associated with this manager.
 	 *
 	 * @since 2.0.0
 	 * @var string
@@ -66,13 +67,6 @@ class Email_Manager extends Base_Manager {
 		$this->enable_rest_api();
 
 		$this->enable_wp_cli();
-
-		add_action(
-			'init',
-			function () {
-				$this->register_all_default_system_emails();
-			}
-		);
 
 		/*
 		 * Adds the Email fields
@@ -113,6 +107,25 @@ class Email_Manager extends Base_Manager {
 			'name'  => wu_get_setting('from_name'),
 			'email' => wu_get_setting('from_email'),
 		];
+
+		if (empty($all_emails)) {
+			$every_email = wu_get_emails();
+			if (empty($every_email)) {
+				// No system emails registered, probably they weren't created during setup.
+				// Let's create them now
+				$this->create_all_system_emails();
+				$all_emails = wu_get_emails(
+					[
+						'event' => $slug,
+					]
+				);
+			}
+		}
+
+		if (empty($all_emails)) {
+			// translators: %s: event slug.
+			wu_log_add('mailer', sprintf(__('No emails found for event %s.', 'ultimate-multisite'), $slug));
+		}
 
 		/*
 		 * Loop through all the emails registered.
@@ -326,12 +339,13 @@ class Email_Manager extends Base_Manager {
 	 * @since 2.0.0
 	 *
 	 * @param array $args with the system email details to register.
-	 * @return bool
+	 * @return Email|false|WP_Error
 	 */
 	public function create_system_email($args) {
 
-		if ($this->is_created($args['slug'])) {
-			return;
+		$existing_email = $this->is_created($args['slug']);
+		if ($existing_email) {
+			return $existing_email;
 		}
 
 		$email_args = wp_parse_args(
@@ -367,14 +381,6 @@ class Email_Manager extends Base_Manager {
 	 * @return void
 	 */
 	public function create_all_system_emails(): void {
-		/*
-		 * Ensure system emails are registered before trying to create them.
-		 * This is necessary during setup wizard when init hook may not have run yet.
-		 */
-		if (empty($this->registered_default_system_emails)) {
-			$this->register_all_default_system_emails();
-		}
-
 		$system_emails = wu_get_default_system_emails();
 
 		foreach ($system_emails as $email_key => $email_value) {
@@ -390,9 +396,6 @@ class Email_Manager extends Base_Manager {
 	 * @return void
 	 */
 	public function register_all_default_system_emails(): void {
-
-		// TODO: Don't render every email until they are used.
-
 		/*
 		 * Payment Successful - Admin
 		 */
@@ -496,6 +499,9 @@ class Email_Manager extends Base_Manager {
 	 * @return array All default system emails.
 	 */
 	public function get_default_system_emails($slug = '') {
+		if (empty($this->registered_default_system_emails)) {
+			$this->register_all_default_system_emails();
+		}
 
 		if ($slug && isset($this->registered_default_system_emails[ $slug ])) {
 			return $this->registered_default_system_emails[ $slug ];
@@ -508,11 +514,11 @@ class Email_Manager extends Base_Manager {
 	 * Check if the system email already exists.
 	 *
 	 * @param mixed $slug Email slug to use as reference.
-	 * @return bool Return email object or false.
+	 * @return Email|false Return email object or false.
 	 */
 	public function is_created($slug): bool {
 
-		return (bool) wu_get_email_by('slug', $slug);
+		return wu_get_email_by('slug', $slug);
 	}
 
 	/**
@@ -561,7 +567,7 @@ class Email_Manager extends Base_Manager {
 	 * @param array  $to Email targets.
 	 * @param string $subject Email subject.
 	 * @param string $template Email content.
-	 * @return mixed
+	 * @return array
 	 */
 	public function send_schedule_system_email($to, $subject, $template) {
 

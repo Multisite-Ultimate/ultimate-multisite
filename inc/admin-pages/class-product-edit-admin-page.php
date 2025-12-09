@@ -919,13 +919,13 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 	 * @since 2.0.0
 	 *
 	 * @param \WP_Ultimo\Models\Product $product The product being edited.
-	 * @return string
+	 * @return void
 	 */
 	public function get_site_template_selection_list($product) {
 
 		$all_templates = wu_get_site_templates();
 
-		return wu_get_template_contents(
+		wu_get_template(
 			'limitations/site-template-selector',
 			[
 				'templates' => $all_templates,

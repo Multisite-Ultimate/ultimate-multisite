@@ -374,7 +374,7 @@ abstract class Base_Model implements \JsonSerializable {
 	 *
 	 * @param string $column The name of the column to query for.
 	 * @param string $value Value to search for.
-	 * @return Base_Model|false
+	 * @return static|false
 	 */
 	public static function get_by($column, $value) {
 

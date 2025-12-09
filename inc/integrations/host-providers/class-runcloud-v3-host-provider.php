@@ -35,7 +35,7 @@ class Runcloud_V3_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $title = 'RunCloud new V3 ';
+	protected $title = 'RunCloud V3';
 
 	/**
 	 * Link to the tutorial teaching how to make this integration work.
@@ -320,7 +320,7 @@ class Runcloud_V3_Host_Provider extends Base_Host_Provider {
 	 * Renders instructions.
 	 */
 	public function get_instructions() {
-		wu_get_template('wizards/host-integrations/runcloud-instructions');
+		wu_get_template('wizards/host-integrations/runcloud-instructions-v3');
 	}
 
 	/**

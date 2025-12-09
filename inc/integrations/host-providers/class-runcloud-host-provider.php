@@ -35,7 +35,7 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $title = 'RunCloud';
+	protected $title = 'RunCloud V2';
 
 	/**
 	 * Link to the tutorial teaching how to make this integration work.

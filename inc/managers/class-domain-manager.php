@@ -953,7 +953,10 @@ class Domain_Manager extends Base_Manager {
 		/*
 		* Loads our RunCloud integration.
 		*/
-		\WP_Ultimo\Integrations\Host_Providers\Runcloud_Host_Provider::get_instance();
+		if ( defined('WU_RUNCLOUD_API_SECRET')) {
+			\WP_Ultimo\Integrations\Host_Providers\Runcloud_Host_Provider::get_instance();
+		}
+		\WP_Ultimo\Integrations\Host_Providers\Runcloud_V3_Host_Provider::get_instance();
 
 		/*
 		* Loads our Closte integration.

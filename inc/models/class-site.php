@@ -1730,7 +1730,7 @@ class Site extends Base_Model implements Limitable, Notable {
 				'2.0.0',
 				'wu_site_post_save'
 			);
-			if ($this->get_signup_options() !== $meta) {
+			if ($signup_options !== $meta) {
 				foreach ($meta as $key => $value) {
 					if (! isset($signup_options[ $key ]) || $value !== $signup_options[ $key ]) {
 						update_blog_option($this->blog_id, $key, $value);

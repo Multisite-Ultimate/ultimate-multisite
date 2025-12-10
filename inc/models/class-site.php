@@ -1440,7 +1440,7 @@ class Site extends Base_Model implements Limitable, Notable {
 		 *
 		 * @since 2.0.0
 		 *
-		 * @param \WP_Ultimo\Models\Base_Model $this The object instance.
+		 * @param Base_Model $this The object instance.
 		 */
 		do_action("wu_{$this->model}_pre_delete", $this); // @phpstan-ignore-line
 
@@ -1602,11 +1602,12 @@ class Site extends Base_Model implements Limitable, Notable {
 
 				/**
 				 * Fires after a site is created for the first time.
+				 * Does not fire if duplicated from a template.
 				 *
 				 * @since 2.0.0
 				 *
-				 * @param array      $data The object data that will be stored.
-				 * @param \WP_Ultimo\Models\Base_Model $site The object instance.
+				 * @param array $data The object data that will be stored.
+				 * @param Site  $site The object instance.
 				 */
 				do_action('wu_site_created', $data, $this);
 			}
@@ -1696,8 +1697,8 @@ class Site extends Base_Model implements Limitable, Notable {
 		 * @param array      $model The model slug.
 		 * @param array      $data The object data that will be stored, serialized.
 		 * @param array      $data_unserialized The object data that will be stored.
-		 * @param \WP_Ultimo\Models\Base_Model $this The object instance.
-		 * @param array      $new If this object is a new one.
+		 * @param Base_Model $model_object The object instance.
+		 * @param bool       $is_new If this object is a new one.
 		 */
 		do_action('wu_model_post_save', $this->model, $data, $data_unserialized, $this, $new); // @phpstan-ignore-line
 
@@ -1707,10 +1708,36 @@ class Site extends Base_Model implements Limitable, Notable {
 		 * @since 2.0.0
 		 *
 		 * @param array      $data The object data that will be stored.
-		 * @param \WP_Ultimo\Models\Base_Model $this The object instance.
-		 * @param array      $new If this object is a new one.
+		 * @param Base_Model $model_obeject The object instance.
+		 * @param bool      $is_new If this object is a new one.
 		 */
-		do_action("wu_{$this->model}_post_save", $data, $this, $new); // @phpstan-ignore-line
+		do_action("wu_{$this->model}_post_save", $data, $this, $new);
+
+		// Only compute extra hook parameters if the deprecated hook is actually in use.
+		if ($new && has_filter('wu_create_site_meta')) {
+			$signup_options = $this->get_signup_options();
+			/**
+			 * Fires immediately after a new site is created.
+			 *
+			 * @deprecated 2.0.0 Use {@see 'wu_site_post_save'} instead.
+			 *
+			 * @param array  $meta       Meta data. Used to set initial site options.
+			 * @param array  $transient  Form data. Used to set initial site options.
+			 */
+			$meta = apply_filters_deprecated(
+				'wu_create_site_meta',
+				[$signup_options, $this->get_transient()],
+				'2.0.0',
+				'wu_site_post_save'
+			);
+			if ($this->get_signup_options() !== $meta) {
+				foreach ($meta as $key => $value) {
+					if (! isset($signup_options[ $key ]) || $value !== $signup_options[ $key ]) {
+						update_blog_option($this->blog_id, $key, $value);
+					}
+				}
+			}
+		}
 
 		if (isset($session)) {
 			$session->destroy();

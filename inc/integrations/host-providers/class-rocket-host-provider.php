@@ -166,7 +166,7 @@ class Rocket_Host_Provider extends Base_Host_Provider {
 			$response_code = wp_remote_retrieve_response_code($response);
 			$response_body = wp_remote_retrieve_body($response);
 
-			if ($response_code === 200 || $response_code === 204) {
+			if (200 === $response_code || 204 === $response_code) {
 				wu_log_add('integration-rocket', sprintf('[Remove Domain] %s: Success - %s', $domain, $response_body));
 			} else {
 				wu_log_add('integration-rocket', sprintf('[Remove Domain] %s: Failed (HTTP %d) - %s', $domain, $response_code, $response_body), LogLevel::ERROR);
@@ -215,26 +215,33 @@ class Rocket_Host_Provider extends Base_Host_Provider {
 		$response = $this->send_rocket_request('domains', [], 'GET');
 
 		if (is_wp_error($response)) {
-			wp_send_json_error([
-				'message' => $response->get_error_message(),
-			]);
+			wp_send_json_error(
+				[
+					'message' => $response->get_error_message(),
+				]
+			);
 		}
 
 		$response_code = wp_remote_retrieve_response_code($response);
 
-		if ($response_code === 200) {
-			wp_send_json_success([
-				'message' => __('Successfully connected to Rocket.net API!', 'ultimate-multisite'),
-				'data'    => json_decode(wp_remote_retrieve_body($response)),
-			]);
+		if (200 === $response_code) {
+			wp_send_json_success(
+				[
+					'message' => __('Successfully connected to Rocket.net API!', 'ultimate-multisite'),
+					'data'    => json_decode(wp_remote_retrieve_body($response)),
+				]
+			);
 		} else {
-			wp_send_json_error([
-				'message' => sprintf(
-					__('Connection failed with HTTP code %d: %s', 'ultimate-multisite'),
-					$response_code,
-					wp_remote_retrieve_body($response)
-				),
-			]);
+			wp_send_json_error(
+				[
+					'message' => sprintf(
+						// translators: %1$d: HTTP response code.
+						__('Connection failed with HTTP code %1$d: %2$s', 'ultimate-multisite'),
+						$response_code,
+						wp_remote_retrieve_body($response)
+					),
+				]
+			);
 		}
 	}
 
@@ -279,10 +286,12 @@ class Rocket_Host_Provider extends Base_Host_Provider {
 						'Content-Type' => 'application/json',
 						'Accept'       => 'application/json',
 					],
-					'body'     => wp_json_encode([
-						'email'    => defined('WU_ROCKET_EMAIL') ? WU_ROCKET_EMAIL : '',
-						'password' => defined('WU_ROCKET_PASSWORD') ? WU_ROCKET_PASSWORD : '',
-					]),
+					'body'     => wp_json_encode(
+						[
+							'email'    => defined('WU_ROCKET_EMAIL') ? WU_ROCKET_EMAIL : '',
+							'password' => defined('WU_ROCKET_PASSWORD') ? WU_ROCKET_PASSWORD : '',
+						]
+					),
 				]
 			);
 

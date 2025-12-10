@@ -132,17 +132,6 @@ class Signup_Field_Color extends Base_Signup_Field {
 	}
 
 	/**
-	 * If you want to force a particular attribute to a value, declare it here.
-	 *
-	 * @since 2.0.0
-	 * @return array
-	 */
-	public function force_attributes() {
-
-		return [];
-	}
-
-	/**
 	 * Returns the list of additional fields specific to this type.
 	 *
 	 * @since 2.0.0

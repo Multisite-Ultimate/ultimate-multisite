@@ -12,6 +12,7 @@ namespace WP_Ultimo\Admin_Pages;
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
+use WP_Ultimo\Checkout\Signup_Fields\Base_Signup_Field;
 use WP_Ultimo\Managers\Signup_Fields_Manager;
 
 /**
@@ -337,6 +338,7 @@ class Checkout_Form_Edit_Admin_Page extends Edit_Admin_Page {
 		$fields = array_map(
 			function ($class_name) {
 
+				/** @var Base_Signup_Field $field */
 				$field = new $class_name();
 
 				/*

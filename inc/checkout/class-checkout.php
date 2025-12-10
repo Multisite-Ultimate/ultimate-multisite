@@ -1420,9 +1420,7 @@ class Checkout {
 			'type'           => Site_Type::CUSTOMER_OWNED,
 		];
 
-		$pending_site = $this->membership->create_pending_site($site_data);
-
-		return $pending_site;
+		return $this->membership->create_pending_site($site_data);
 	}
 
 	/**

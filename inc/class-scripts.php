@@ -246,6 +246,28 @@ class Scripts {
 		 */
 		$this->register_script('wubox', wu_get_asset('wubox.js', 'js'), ['wu-vue-apps']);
 
+		/*
+		 * Add inline script to handle early clicks on wubox elements
+		 * before the main wubox.js is fully loaded.
+		 */
+		wp_add_inline_script(
+			'wubox',
+			"(function(){
+				window.__wuboxEarlyClicks=[];
+				window.__wuboxEarlyClickHandler=function(e){
+					if(window.__wuboxReady)return;
+					var t=e.target.closest('.wubox');
+					if(!t)return;
+					e.preventDefault();
+					e.stopPropagation();
+					t.style.cursor='wait';
+					window.__wuboxEarlyClicks.push(t);
+				};
+				document.addEventListener('click',window.__wuboxEarlyClickHandler,true);
+			})();",
+			'before'
+		);
+
 		wp_localize_script(
 			'wubox',
 			'wuboxL10n',

@@ -1,0 +1,169 @@
+name: PR Build and Playground Test
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '**'
+      - '.github/workflows/pr-build-test.yml'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build:
+    name: Build Plugin for Testing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mysqli, mbstring, xml, zip
+          tools: composer
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          composer install
+
+      - name: Build plugin
+        env:
+          MU_CLIENT_ID: ${{ secrets.MU_CLIENT_ID }}
+          MU_CLIENT_SECRET: ${{ secrets.MU_CLIENT_SECRET }}
+        run: npm run build
+
+      - name: Prepare artifact for upload
+        id: artifact
+        run: |
+          # Find the built zip file
+          ARCHIVE_PATH=$(ls -t ultimate-multisite*.zip | head -1)
+          ARCHIVE_NAME=$(basename "$ARCHIVE_PATH" .zip)
+
+          # Extract the zip so GitHub Actions will zip it once (not double-zip)
+          mkdir -p artifact-temp
+          unzip -q "$ARCHIVE_PATH" -d artifact-temp
+
+          # The extracted folder should contain the plugin
+          PLUGIN_DIR=$(ls -d artifact-temp/ultimate-multisite* | head -1)
+
+          echo "path=$PLUGIN_DIR" >> $GITHUB_OUTPUT
+          echo "name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
+          echo "Prepared artifact: $PLUGIN_DIR as $ARCHIVE_NAME"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.artifact.outputs.name }}
+          path: ${{ steps.artifact.outputs.path }}
+          retention-days: 30
+
+      - name: Generate nightly.link URL
+        id: nightlylink
+        run: |
+          # Create public download URL using nightly.link
+          # nightly.link will automatically add .zip extension
+          NIGHTLY_URL="https://nightly.link/${{ github.repository }}/actions/runs/${{ github.run_id }}/${{ steps.artifact.outputs.name }}.zip"
+          echo "url=$NIGHTLY_URL" >> $GITHUB_OUTPUT
+          echo "Public artifact URL: $NIGHTLY_URL"
+
+      - name: Create Playground Blueprint
+        id: blueprint
+        run: |
+          # Create a blueprint JSON for WordPress Playground
+          cat > pr-blueprint.json <<'EOF'
+          {
+            "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+            "meta": {
+              "author": "Ultimate Multisite",
+              "title": "Ultimate Multisite PR #${{ github.event.pull_request.number }} Test",
+              "description": "Test build from PR #${{ github.event.pull_request.number }}"
+            },
+            "landingPage": "/wp-admin/network/admin.php?page=wp-ultimo-setup",
+            "preferredVersions": {
+              "php": "8.3",
+              "wp": "latest"
+            },
+            "phpExtensionBundles": ["kitchen-sink"],
+            "features": {
+              "networking": true
+            },
+            "plugins": [
+              {
+                "resource": "url",
+                "url": "PLUGIN_URL_PLACEHOLDER"
+              }
+            ],
+            "steps": [
+              {
+                "step": "enableMultisite"
+              },
+              {
+                "step": "wp-cli",
+                "command": "wp site create --slug=site01"
+              },
+              {
+                "step": "wp-cli",
+                "command": "wp plugin activate ultimate-multisite --network"
+              },
+              {
+                "step": "login",
+                "username": "admin",
+                "password": "password"
+              }
+            ]
+          }
+          EOF
+
+          # Replace placeholder with actual nightly.link URL
+          sed -i "s|PLUGIN_URL_PLACEHOLDER|${{ steps.nightlylink.outputs.url }}|g" pr-blueprint.json
+
+          # URL encode the blueprint for Playground
+          BLUEPRINT_JSON=$(cat pr-blueprint.json | jq -c .)
+          BLUEPRINT_ENCODED=$(echo "$BLUEPRINT_JSON" | jq -sRr @base64)
+          PLAYGROUND_URL="https://playground.wordpress.net/#${BLUEPRINT_ENCODED}"
+
+          echo "url=$PLAYGROUND_URL" >> $GITHUB_OUTPUT
+          echo "Playground URL generated"
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## 🔨 Build Complete - Ready for Testing!
+
+            ### 📦 Download Build Artifact (Recommended)
+            Download the zip build, upload to WordPress and test:
+
+            - **Build:** \`${{ steps.artifact.outputs.name }}\`
+            - **[⬇️ Download from GitHub Actions](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})**
+            - **[⬇️ Download without Github Account (nightly.link)](${{ steps.nightlylink.outputs.url }})**
+
+            ### 🌐 Test in WordPress Playground (Very Experimental)
+            Click the link below to instantly test this PR in your browser - no installation needed!
+            Playground support for multisite is very limitied, hopefully it will get better in the future.
+
+            **[🚀 Launch in Playground](${{ steps.blueprint.outputs.url }})**
+
+            Login credentials: \`admin\` / \`password\`
+
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

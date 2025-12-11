@@ -100,7 +100,7 @@ function wu_get_default_system_emails($slug = '') {
  * @since 2.0.0
  *
  * @param string $slug Default system email slug to be create.
- * @return array
+ * @return bool|Email
  */
 function wu_create_default_system_email($slug) {
 

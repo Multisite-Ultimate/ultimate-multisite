@@ -298,7 +298,7 @@ class Post_Base_Model extends Base_Model {
 	 * setting creation and modification dates first.
 	 *
 	 * @since 2.0.0
-	 * @return bool
+	 * @return bool|\WP_Error
 	 */
 	public function save() {
 

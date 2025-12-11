@@ -96,7 +96,7 @@ if ( ! class_exists('MUCD_Data') ) {
 			$schema = DB_NAME;
 
 			// Get sources Tables
-			if (MUCD_PRIMARY_SITE_ID == $from_site_id) {
+			if ((int) MUCD_PRIMARY_SITE_ID === (int) $from_site_id) {
 				$from_site_table = self::get_primary_tables($from_site_prefix);
 			} else {
 				$sql_query       = $wpdb->prepare('SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME LIKE %s', $schema, $from_site_prefix_like . '%');
@@ -119,6 +119,8 @@ if ( ! class_exists('MUCD_Data') ) {
 
 				$table_name = $to_site_prefix . $table_base_name;
 
+				$wpdb->get_results('SET foreign_key_checks = 0'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+
 				// Drop table if exists
 				self::do_sql_query('DROP TABLE IF EXISTS `' . $table_name . '`');
 
@@ -128,8 +130,6 @@ if ( ! class_exists('MUCD_Data') ) {
 				$create_statement = self::do_sql_query('SHOW CREATE TABLE `' . $table . '`', 'row_array');
 
 				$create_statement_sql = str_replace($from_site_prefix, $to_site_prefix, (string) $create_statement[1]);
-
-				$wpdb->get_results('SET foreign_key_checks = 0'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 				self::do_sql_query($create_statement_sql);
 
@@ -181,17 +181,19 @@ if ( ! class_exists('MUCD_Data') ) {
 			// Looking for uploads dirs
 			switch_to_blog($from_site_id);
 
-			$dir             = wp_upload_dir();
-			$from_upload_url = $dir['baseurl'];
-			$from_blog_url   = get_blog_option($from_site_id, 'siteurl');
+			$dir                       = wp_upload_dir();
+			$from_upload_url_w_network = $dir['baseurl'];
+			$from_upload_url           = str_replace(network_site_url(), get_bloginfo('url') . '/', $dir['baseurl']);
+			$from_blog_url             = get_blog_option($from_site_id, 'siteurl');
 
 			restore_current_blog();
 
 			switch_to_blog($to_site_id);
 
-			$dir           = wp_upload_dir();
-			$to_upload_url = $dir['baseurl'];
-			$to_blog_url   = get_blog_option($to_site_id, 'siteurl');
+			$dir                     = wp_upload_dir();
+			$to_upload_url_w_network = $dir['baseurl'];
+			$to_upload_url           = str_replace(network_site_url(), get_bloginfo('url') . '/', $dir['baseurl']);
+			$to_blog_url             = get_blog_option($to_site_id, 'siteurl');
 
 			restore_current_blog();
 
@@ -229,6 +231,7 @@ if ( ! class_exists('MUCD_Data') ) {
 
 			$string_to_replace = [
 				wu_replace_scheme($from_upload_url) => wu_replace_scheme($to_upload_url),
+				wu_replace_scheme($from_upload_url_w_network) => wu_replace_scheme($to_upload_url_w_network),
 				wu_replace_scheme($from_blog_url)   => wu_replace_scheme($to_blog_url),
 				$from_site_prefix                   => $to_site_prefix,
 			];
@@ -258,7 +261,7 @@ if ( ! class_exists('MUCD_Data') ) {
 			foreach ( $saved_options as $option_name => $option_value ) {
 				try {
 						update_option($option_name, $option_value);
-				} catch (\Throwable $exception) {
+				} catch (\Throwable $exception) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 					// ...nothing
 				}
 			}

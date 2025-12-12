@@ -22,7 +22,16 @@ defined('ABSPATH') || exit;
 function wu_get_asset($asset, $assets_dir = 'img', $base_dir = 'assets') {
 
 	if ( ! defined('SCRIPT_DEBUG') || ! SCRIPT_DEBUG) {
-		$asset = preg_replace('/(?<!\.min)(\.js|\.css)/', '.min$1', $asset);
+		// Create the minified filename
+		$minified_asset = preg_replace('/(?<!\.min)(\.js|\.css)/', '.min$1', $asset);
+		
+		// Check if the minified file exists
+		$minified_path = WP_ULTIMO_PLUGIN_DIR . "$base_dir/$assets_dir/$minified_asset";
+		
+		// Only use the minified version if it exists
+		if (file_exists($minified_path)) {
+			$asset = $minified_asset;
+		}
 	}
 
 	return wu_url("$base_dir/$assets_dir/$asset");

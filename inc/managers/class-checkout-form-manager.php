@@ -25,6 +25,7 @@ class Checkout_Form_Manager extends Base_Manager {
 
 	use \WP_Ultimo\Apis\Rest_Api;
 	use \WP_Ultimo\Apis\WP_CLI;
+	use \WP_Ultimo\Apis\Command_Palette;
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
@@ -54,5 +55,7 @@ class Checkout_Form_Manager extends Base_Manager {
 		$this->enable_rest_api();
 
 		$this->enable_wp_cli();
+
+		$this->enable_command_palette();
 	}
 }

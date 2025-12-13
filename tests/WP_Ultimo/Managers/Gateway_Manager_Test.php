@@ -49,7 +49,12 @@ class Gateway_Manager_Test extends WP_UnitTestCase {
 		// Clear any existing gateways for clean test
 		$reflection = new \ReflectionClass($this->manager);
 		$property   = $reflection->getProperty('registered_gateways');
-		$property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$property->setAccessible(true);
+		}
+
 		$property->setValue($this->manager, []);
 
 		// Register default gateways

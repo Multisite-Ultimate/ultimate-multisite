@@ -119,7 +119,11 @@ class Sunrise_Test extends TestCase {
 	public function test_read_sunrise_meta_no_fatal_errors() {
 		$reflection = new \ReflectionClass(Sunrise::class);
 		$method     = $reflection->getMethod('read_sunrise_meta');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		$result = $method->invoke(null);
 		$this->assertIsArray($result);
@@ -131,7 +135,11 @@ class Sunrise_Test extends TestCase {
 	public function test_tap_no_fatal_errors() {
 		$reflection = new \ReflectionClass(Sunrise::class);
 		$method     = $reflection->getMethod('tap');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		// Test activating mode
 		$result = $method->invoke(null, 'activating', []);
@@ -140,6 +148,7 @@ class Sunrise_Test extends TestCase {
 		// Test deactivating mode
 		$result = $method->invoke(null, 'deactivating', []);
 		$this->assertIsBool($result);
+		$this->assertTrue($result);
 
 		// Test invalid mode
 		$result = $method->invoke(null, 'invalid', []);

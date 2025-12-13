@@ -1,6 +1,8 @@
 <?php
 /** Global $themes */
 defined('ABSPATH') || exit;
+
+use WP_Ultimo\Limitations\Limit_Site_Templates;
 ?>
 
 <ul data-columns="1" class='items wu--mx-1 wu-overflow-hidden wu-multiselect-content wu-static wu-my-2'>
@@ -23,7 +25,7 @@ defined('ABSPATH') || exit;
 
 			<div class="wu-w-1/6 wu-mr-4">
 
-			<img class="wu-rounded wu-w-full wu-image-preview" src="<?php echo esc_url($site_template->get_featured_image('thumb')); ?>" data-image="<?php echo esc_url($site_template->get_featured_image()); ?>">
+			<img class="wu-rounded wu-w-full wu-image-preview" src="<?php echo esc_url($site_template->get_featured_image('thumb')); ?>" data-image="<?php echo esc_url($site_template->get_featured_image()); ?>" alt="<?php esc_attr_e('Template Site Thumbnail', 'ultimate-multisite'); ?>">
 
 			</div>
 
@@ -49,7 +51,7 @@ defined('ABSPATH') || exit;
 
 			</div>
 
-			<div class="sm:wu-ml-4 sm:wu-w-1/3 wu-mt-4 sm:wu--mt-1" v-if="site_template_selection_mode === 'choose_available_templates'">
+			<div class="sm:wu-ml-4 sm:wu-w-1/3 wu-mt-4 sm:wu--mt-1" v-if="site_template_selection_mode === '<?php echo esc_attr(Limit_Site_Templates::MODE_CHOOSE_AVAILABLE_TEMPLATES); ?>'">
 
 			<h3 class="wu-my-1 wu-text-2xs wu-uppercase wu-text-gray-600">
 
@@ -69,7 +71,7 @@ defined('ABSPATH') || exit;
 
 			</div>
 
-			<div class="sm:wu-ml-4 wu-flex-shrink wu-mt-4 sm:wu-mt-0" v-if="site_template_selection_mode === 'assign_template'">
+			<div class="sm:wu-ml-4 wu-flex-shrink wu-mt-4 sm:wu-mt-0" v-if="site_template_selection_mode === '<?php echo esc_attr(Limit_Site_Templates::MODE_ASSIGN_TEMPLATE); ?>'">
 
 			<div class="wu-toggle wu-mt-1">
 

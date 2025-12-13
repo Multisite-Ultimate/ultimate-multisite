@@ -353,15 +353,14 @@ class Membership_Manager extends Base_Manager {
 				wu_log_add(self::LOG_FILE_NAME, $saved->get_error_message(), LogLevel::ERROR);
 				return;
 			}
+			$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		} catch (\Throwable $e) {
 			$wpdb->query('ROLLBACK'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 			wu_log_add(self::LOG_FILE_NAME, $e->getMessage(), LogLevel::ERROR);
+		} finally {
+			$membership->unlock();
 		}
-
-		$wpdb->query('COMMIT'); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-
-		$membership->unlock();
 	}
 
 	/**

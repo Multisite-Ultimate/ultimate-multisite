@@ -20,6 +20,54 @@ defined('ABSPATH') || exit;
 class Limit_Site_Templates extends Limit {
 
 	/**
+	 * Mode: Default - all templates are available.
+	 *
+	 * @since 2.0.0
+	 * @var string
+	 */
+	const MODE_DEFAULT = 'default';
+
+	/**
+	 * Mode: Assign a specific template to be used.
+	 *
+	 * @since 2.0.0
+	 * @var string
+	 */
+	const MODE_ASSIGN_TEMPLATE = 'assign_template';
+
+	/**
+	 * Mode: Customer can choose from available templates.
+	 *
+	 * @since 2.0.0
+	 * @var string
+	 */
+	const MODE_CHOOSE_AVAILABLE_TEMPLATES = 'choose_available_templates';
+
+	/**
+	 * Behavior: Template is available for selection.
+	 *
+	 * @since 2.0.0
+	 * @var string
+	 */
+	const BEHAVIOR_AVAILABLE = 'available';
+
+	/**
+	 * Behavior: Template is not available for selection.
+	 *
+	 * @since 2.0.0
+	 * @var string
+	 */
+	const BEHAVIOR_NOT_AVAILABLE = 'not_available';
+
+	/**
+	 * Behavior: Template is pre-selected and will be used automatically.
+	 *
+	 * @since 2.0.0
+	 * @var string
+	 */
+	const BEHAVIOR_PRE_SELECTED = 'pre_selected';
+
+	/**
 	 * The module id.
 	 *
 	 * @since 2.0.0
@@ -33,7 +81,7 @@ class Limit_Site_Templates extends Limit {
 	 * @since 2.0.0
 	 * @var string
 	 */
-	protected $mode = 'default';
+	protected $mode = self::MODE_DEFAULT;
 
 	/**
 	 * Sets up the module based on the module data.
@@ -47,7 +95,7 @@ class Limit_Site_Templates extends Limit {
 
 		parent::setup($data);
 
-		$this->mode = wu_get_isset($data, 'mode', 'default');
+		$this->mode = wu_get_isset($data, 'mode', self::MODE_DEFAULT);
 	}
 
 	/**
@@ -79,9 +127,9 @@ class Limit_Site_Templates extends Limit {
 		$template = (object) $this->{$value_to_check};
 
 		$types = [
-			'available'     => 'available' === $template->behavior,
-			'not_available' => 'not_available' === $template->behavior,
-			'pre_selected'  => 'pre_selected' === $template->behavior,
+			self::BEHAVIOR_AVAILABLE     => self::BEHAVIOR_AVAILABLE === $template->behavior,
+			self::BEHAVIOR_NOT_AVAILABLE => self::BEHAVIOR_NOT_AVAILABLE === $template->behavior,
+			self::BEHAVIOR_PRE_SELECTED  => self::BEHAVIOR_PRE_SELECTED === $template->behavior,
 		];
 
 		return wu_get_isset($types, $type, true);
@@ -115,7 +163,7 @@ class Limit_Site_Templates extends Limit {
 	public function get_default_permissions($type) {
 
 		return [
-			'behavior' => 'not_available',
+			'behavior' => self::BEHAVIOR_NOT_AVAILABLE,
 		];
 	}
 
@@ -160,7 +208,7 @@ class Limit_Site_Templates extends Limit {
 		$limits = $this->get_limit();
 
 		if ( ! $limits) {
-			return false;
+			return [];
 		}
 
 		$limits = (array) $limits;
@@ -170,7 +218,9 @@ class Limit_Site_Templates extends Limit {
 		foreach ($limits as $site_id => $site_settings) {
 			$site_settings = (object) $site_settings;
 
-			if ('available' === $site_settings->behavior || 'pre_selected' === $site_settings->behavior || 'default' === $this->mode) {
+			if (self::BEHAVIOR_AVAILABLE === $site_settings->behavior ||
+				self::BEHAVIOR_PRE_SELECTED === $site_settings->behavior ||
+				self::MODE_DEFAULT === $this->mode) {
 				$available[] = $site_id;
 			}
 		}
@@ -197,7 +247,7 @@ class Limit_Site_Templates extends Limit {
 		foreach ($limits as $site_id => $site_settings) {
 			$site_settings = (object) $site_settings;
 
-			if ('pre_selected' === $site_settings->behavior) {
+			if (self::BEHAVIOR_PRE_SELECTED === $site_settings->behavior) {
 				$pre_selected_site_template = $site_id;
 			}
 		}
@@ -231,7 +281,7 @@ class Limit_Site_Templates extends Limit {
 		// Nonce check happened in Edit_Admin_Page::process_save().
 		$_module = wu_get_isset(wu_clean(wp_unslash($_POST['modules'] ?? [])), $this->id, []); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-		$module['mode'] = wu_get_isset($_module, 'mode', 'default');
+		$module['mode'] = wu_get_isset($_module, 'mode', self::MODE_DEFAULT);
 
 		return $module;
 	}
@@ -247,7 +297,7 @@ class Limit_Site_Templates extends Limit {
 		return [
 			'enabled' => true,
 			'limit'   => null,
-			'mode'    => 'default',
+			'mode'    => self::MODE_DEFAULT,
 		];
 	}
 }

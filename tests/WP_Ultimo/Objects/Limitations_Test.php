@@ -15,7 +15,12 @@ class Limitations_Test extends WP_UnitTestCase {
 		// Clear the static cache using reflection
 		$reflection     = new \ReflectionClass(Limitations::class);
 		$cache_property = $reflection->getProperty('limitations_cache');
-		$cache_property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$cache_property->setAccessible(true);
+		}
+
 		$cache_property->setValue(null, []);
 	}
 
@@ -79,7 +84,12 @@ class Limitations_Test extends WP_UnitTestCase {
 		// Use reflection to access protected modules property
 		$reflection       = new \ReflectionClass($limitations);
 		$modules_property = $reflection->getProperty('raw_module_data');
-		$modules_property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$modules_property->setAccessible(true);
+		}
+
 		$modules = $modules_property->getValue($limitations);
 
 		$this->assertCount($expected_modules_count, $modules);
@@ -200,7 +210,12 @@ class Limitations_Test extends WP_UnitTestCase {
 		// Use reflection to access protected modules property
 		$reflection       = new \ReflectionClass($limitations);
 		$modules_property = $reflection->getProperty('raw_module_data');
-		$modules_property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$modules_property->setAccessible(true);
+		}
+
 		$modules = $modules_property->getValue($limitations);
 
 		$this->assertEquals($modules_data, $modules);
@@ -643,7 +658,11 @@ class Limitations_Test extends WP_UnitTestCase {
 		// Use reflection to access protected method
 		$reflection = new \ReflectionClass($limitations);
 		$method     = $reflection->getMethod('merge_recursive');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		$array1 = [
 			'enabled' => true,
@@ -676,11 +695,20 @@ class Limitations_Test extends WP_UnitTestCase {
 		// Set current_merge_id to test force enabled logic
 		$reflection = new \ReflectionClass($limitations);
 		$property   = $reflection->getProperty('current_merge_id');
-		$property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$property->setAccessible(true);
+		}
+
 		$property->setValue($limitations, 'plugins');
 
 		$method = $reflection->getMethod('merge_recursive');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		$array1 = ['enabled' => false];
 		$array2 = ['enabled' => false];
@@ -698,7 +726,11 @@ class Limitations_Test extends WP_UnitTestCase {
 
 		$reflection = new \ReflectionClass($limitations);
 		$method     = $reflection->getMethod('merge_recursive');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		$array1 = [
 			'enabled'    => true,
@@ -723,11 +755,20 @@ class Limitations_Test extends WP_UnitTestCase {
 		// Set current_merge_id to plugins for behavior testing
 		$reflection = new \ReflectionClass($limitations);
 		$property   = $reflection->getProperty('current_merge_id');
-		$property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$property->setAccessible(true);
+		}
+
 		$property->setValue($limitations, 'plugins');
 
 		$method = $reflection->getMethod('merge_recursive');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		$array1 = [
 			'enabled'  => true,

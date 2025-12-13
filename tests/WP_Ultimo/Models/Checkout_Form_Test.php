@@ -462,7 +462,12 @@ class Checkout_Form_Test extends WP_UnitTestCase {
 		// Use reflection to access protected property
 		$reflection           = new \ReflectionClass($checkout_form);
 		$query_class_property = $reflection->getProperty('query_class');
-		$query_class_property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$query_class_property->setAccessible(true);
+		}
+
 		$query_class = $query_class_property->getValue($checkout_form);
 
 		$this->assertEquals(\WP_Ultimo\Database\Checkout_Forms\Checkout_Form_Query::class, $query_class);

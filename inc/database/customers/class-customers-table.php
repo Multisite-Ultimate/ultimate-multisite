@@ -51,9 +51,9 @@ final class Customers_Table extends Table {
 	 * @var array
 	 */
 	protected $upgrades = [
-		'2.0.1-revision.20210508' => 20_210_508,
-		'2.0.1-revision.20210607' => 20_210_607,
-		'2.0.1-revision.20230601' => 20_230_601,
+		'2.0.1-revision.20210508' => 20210508,
+		'2.0.1-revision.20210607' => 20210607,
+		'2.0.1-revision.20230601' => 20230601,
 	];
 
 	/**

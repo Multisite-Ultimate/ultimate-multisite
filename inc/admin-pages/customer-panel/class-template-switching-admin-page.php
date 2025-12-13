@@ -144,12 +144,13 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 		 * Renders the base edit page layout, with the columns and everything else =)
 		 */
 		wu_get_template(
-			'base/centered',
+			'base/dash',
 			[
-				'screen'  => get_current_screen(),
-				'page'    => $this,
-				'content' => '',
-				'labels'  => [
+				'screen'            => get_current_screen(),
+				'page'              => $this,
+				'has_full_position' => false,
+				'content'           => '',
+				'labels'            => [
 					'updated_message' => __('Template switched successfully!', 'ultimate-multisite'),
 				],
 			]
@@ -163,7 +164,7 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 	 * @return void
 	 */
 	public function register_widgets(): void {
-
-		\WP_Ultimo\UI\Template_Switching_Element::get_instance()->as_metabox(get_current_screen()->id);
+		\WP_Ultimo\UI\Simple_Text_Element::get_instance()->as_inline_content(get_current_screen()->id, 'wu_dash_before_metaboxes');
+		\WP_Ultimo\UI\Template_Switching_Element::get_instance()->as_inline_content(get_current_screen()->id, 'wu_dash_before_metaboxes');
 	}
 }

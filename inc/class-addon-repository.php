@@ -161,7 +161,7 @@ class Addon_Repository {
 
 			if (empty($access_token)) {
 				// translators: %s the url for login.
-				return new \WP_Error('noauth', sprintf(__('You must <a href="%s" target="_parent">Login</a> first.', 'ultimate-multisite'), $this->get_oauth_url()));
+				return new \WP_Error('noauth', sprintf(__('You must <a href="%s" target="_parent">Connect to UltimateMultisite.com</a> first.', 'ultimate-multisite'), $this->get_oauth_url()));
 			}
 			$this->authorization_header = 'Bearer ' . $access_token;
 
@@ -177,6 +177,10 @@ class Addon_Repository {
 			$code = wp_remote_retrieve_response_code($response);
 			if (is_wp_error($response)) {
 				return $response;
+			}
+
+			if (403 === absint($code)) {
+				return new \WP_Error('http_request_failed', esc_html__('403 Access Denied returned from server. Ensure you have an active subscription for this addon.', 'ultimate-multisite'));
 			}
 
 			if (! in_array(absint($code), [200, 302, 301], true)) {
@@ -232,6 +236,7 @@ class Addon_Repository {
 					'dismissible' => true,
 				]
 			);
+			delete_site_transient('wu-addons-list');
 		} else {
 			wp_admin_notice(
 				__('Failed to authenticate with UltimateMultisite.com.', 'ultimate-multisite'),
@@ -262,5 +267,6 @@ class Addon_Repository {
 	public function delete_tokens(): void {
 		wu_delete_option('wu-refresh-token');
 		delete_transient('wu-access-token');
+		delete_site_transient('wu-addons-list');
 	}
 }

@@ -107,11 +107,11 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 		// Handle delete meta field action
 		if (isset($_GET['delete_meta_key']) && isset($_GET['_wpnonce'])) {
 			$meta_key = sanitize_key($_GET['delete_meta_key']);
-			$nonce    = sanitize_text_field($_GET['_wpnonce']);
+			$nonce    = sanitize_text_field(wp_unslash($_GET['_wpnonce']));
 
 			// Verify nonce for security
 			if ( ! wp_verify_nonce($nonce, 'delete_customer_meta_' . $meta_key)) {
-				wp_die(__('Security check failed. Please try again.', 'ultimate-multisite'));
+				wp_die(esc_html__('Security check failed. Please try again.', 'ultimate-multisite'));
 			}
 
 			$customer = $this->get_object();
@@ -587,7 +587,7 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 					'new_meta_remove'         => [
 						'type'            => 'note',
 						'desc'            => sprintf(
-							'<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600" href="#" @click.prevent="() => new_meta_fields.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>',
+							'<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600" href="#" v-on:click.prevent="() => new_meta_fields.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>',
 							__('Remove', 'ultimate-multisite')
 						),
 						'wrapper_classes' => 'wu-absolute wu-top-0 wu-right-0',

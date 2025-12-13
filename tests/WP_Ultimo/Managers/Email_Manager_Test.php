@@ -43,7 +43,13 @@ class Email_Manager_Test extends \WP_UnitTestCase {
 		// Reset the property to null to simulate the initial state
 		$property->setValue($this->manager, null);
 
-		// Get count of existing emails before
+		// Delete any existing system emails to ensure a clean test state
+		$existing_emails = wu_get_all_system_emails();
+		foreach ($existing_emails as $email) {
+			$email->delete();
+		}
+
+		// Get count of existing emails before (should be 0 now)
 		$emails_before = wu_get_all_system_emails();
 		$count_before  = count($emails_before);
 

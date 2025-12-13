@@ -54,7 +54,7 @@ class Email_Manager extends Base_Manager {
 	 * @since 2.0.0
 	 * @var array
 	 */
-	protected $registered_default_system_emails;
+	protected $registered_default_system_emails = [];
 
 	/**
 	 * Instantiate the necessary hooks.
@@ -338,14 +338,19 @@ class Email_Manager extends Base_Manager {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array $args with the system email details to register.
-	 * @return Email|false|WP_Error
+	 * @param array|null $args with the system email details to register.
+	 * @return Email|null|WP_Error Returns Email object if created, null if already exists or invalid args, or WP_Error on failure.
 	 */
 	public function create_system_email($args) {
 
-		$existing_email = $this->is_created($args['slug']);
-		if ($existing_email) {
-			return $existing_email;
+		// Validate that args is an array and has required fields
+		if (! is_array($args) || empty($args['slug'])) {
+			return null;
+		}
+
+		// Check if email already exists
+		if ($this->is_created($args['slug'])) {
+			return null; // Email already exists, no need to create
 		}
 
 		$email_args = wp_parse_args(
@@ -514,11 +519,11 @@ class Email_Manager extends Base_Manager {
 	 * Check if the system email already exists.
 	 *
 	 * @param mixed $slug Email slug to use as reference.
-	 * @return Email|false Return email object or false.
+	 * @return bool True if email exists, false otherwise.
 	 */
 	public function is_created($slug): bool {
 
-		return wu_get_email_by('slug', $slug);
+		return wu_get_email_by('slug', $slug) !== false;
 	}
 
 	/**
@@ -527,9 +532,9 @@ class Email_Manager extends Base_Manager {
 	 * @since 2.0.0
 	 *
 	 * @param string $slug With the event slug.
-	 * @return array With the email template.
+	 * @return void
 	 */
-	public function get_event_placeholders($slug = '') {
+	public function get_event_placeholders($slug = ''): void {
 
 		$placeholders = [];
 
@@ -554,8 +559,6 @@ class Email_Manager extends Base_Manager {
 
 		if (wu_request('email_event')) {
 			wp_send_json($placeholders);
-		} else {
-			return $placeholders;
 		}
 	}
 
@@ -567,11 +570,11 @@ class Email_Manager extends Base_Manager {
 	 * @param array  $to Email targets.
 	 * @param string $subject Email subject.
 	 * @param string $template Email content.
-	 * @return array
+	 * @return void
 	 */
-	public function send_schedule_system_email($to, $subject, $template) {
+	public function send_schedule_system_email($to, $subject, $template): void {
 
-		return Sender::send_mail($to, $subject, $template);
+		Sender::send_mail($to, $subject, $template);
 	}
 
 	/**

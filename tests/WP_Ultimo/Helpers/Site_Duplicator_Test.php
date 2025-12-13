@@ -48,13 +48,13 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 		$this->customer = wu_create_customer(
 			[
 				'username'      => 'testuser',
-				'email_address' => 'test@example.com',
+				'email' => 'test@example.com',
 				'password'      => 'password123',
 			]
 		);
 
 		if (is_wp_error($this->customer)) {
-			$this->markTestSkipped('Could not create test customer: ' . $this->customer->get_error_message());
+			$this->fail('Could not create test customer: ' . $this->customer->get_error_message());
 		}
 
 		// Create template site
@@ -171,9 +171,8 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 			]
 		);
 
-		if (is_wp_error($target_wu_site)) {
-			$this->markTestSkipped('Could not create wu_site record: ' . $target_wu_site->get_error_message());
-		}
+		$this->assertTrue(is_wp_error($target_wu_site));
+		$this->assertEquals('Sorry, that site already exists!', $target_wu_site->get_error_message());
 
 		$args = [];
 
@@ -254,7 +253,7 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 			// Look for our template content
 			$found_template_post = false;
 			foreach ($posts as $post) {
-				if ($post->post_title === 'Template Post') {
+				if ('Template Post' === $post->post_title) {
 					$found_template_post = true;
 					break;
 				}
@@ -267,7 +266,7 @@ class Site_Duplicator_Test extends WP_UnitTestCase {
 			// Clean up
 			wpmu_delete_blog($result, true);
 		} else {
-			$this->markTestSkipped('Site duplication failed: ' . $result->get_error_message());
+			$this->fail('Site duplication failed: ' . $result->get_error_message());
 		}
 	}
 

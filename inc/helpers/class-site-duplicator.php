@@ -95,16 +95,24 @@ class Site_Duplicator {
 
 		$to_site = wu_get_site($to_site_id);
 
+		if (! $to_site) {
+			wu_log_add('site-duplication', sprintf('Target site %d not found', $to_site_id), LogLevel::ERROR);
+			return false;
+		}
+
 		$to_site_membership_id = $to_site->get_membership_id();
 
 		$to_site_membership = $to_site->get_membership();
 
-		$to_site_customer = $to_site_membership->get_customer();
+		$to_site_customer = $to_site_membership ? $to_site_membership->get_customer() : false;
+
+		// Determine email - use customer email if available, otherwise use site admin email
+		$email = $to_site_customer ? $to_site_customer->get_email_address() : get_blog_option($to_site_id, 'admin_email');
 
 		$args = wp_parse_args(
 			$args,
 			[
-				'email'        => $to_site_customer->get_email_address(),
+				'email'        => $email,
 				'title'        => $to_site->get_title(),
 				'path'         => $to_site->get_path(),
 				'from_site_id' => $from_site_id,

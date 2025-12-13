@@ -244,7 +244,11 @@ class Base_Signup_Field_Test extends WP_UnitTestCase {
 		$this->assertTrue($reflection->hasProperty('attributes'));
 
 		$property = $reflection->getProperty('attributes');
-		$property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$property->setAccessible(true);
+		}
 
 		// Initially should be null or empty
 		$attributes = $property->getValue($this->field);

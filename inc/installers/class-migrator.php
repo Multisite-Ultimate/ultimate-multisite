@@ -15,6 +15,7 @@ use Ifsnop\Mysqldump\Mysqldump;
 use WP_Error;
 use WP_Ultimo\Async_Calls;
 use WP_Ultimo\Contracts\Session;
+use WP_Ultimo\Limitations\Limit_Site_Templates;
 use WP_Ultimo\Traits\Singleton;
 use WP_Ultimo\UI\Template_Previewer;
 use WP_Ultimo\Models\Checkout_Form;
@@ -393,7 +394,7 @@ class Migrator extends Base_Installer {
 		 *
 		 * @since 2.0.0
 		 * @param array $steps The list of steps.
-		 * @param \WP_Ultimo\Installers\Migrator $this This class.
+		 * @param \WP_Ultimo\Installers\Migrator $migrator The Migrator class.
 		 */
 		$steps = apply_filters('wu_get_migration_steps', $steps, $this);
 
@@ -1158,12 +1159,12 @@ class Migrator extends Base_Installer {
 				$force_template = get_post_meta($plan->ID, 'wpu_site_template', true);
 
 				if ($force_template && wu_get_site($force_template)) {
-					$site_template_mode = 'assign_template';
+					$site_template_mode = Limit_Site_Templates::MODE_ASSIGN_TEMPLATE;
 				}
 
 				$has_custom_template_list = false;
 			} elseif ($has_custom_template_list) {
-				$site_template_mode = 'choose_available_templates';
+				$site_template_mode = Limit_Site_Templates::MODE_CHOOSE_AVAILABLE_TEMPLATES;
 
 				if (empty($templates)) {
 					$site_template_enabled = false;

@@ -129,7 +129,7 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 		$server_id = defined('WU_ENHANCE_SERVER_ID') ? WU_ENHANCE_SERVER_ID : '';
 
 		if (empty($server_id)) {
-			wu_log_add('integration-enhance', 'Server ID not configured');
+			wu_log_add('integration-enhance', 'ERROR: Server ID not configured. Please define WU_ENHANCE_SERVER_ID in wp-config.php');
 			return;
 		}
 
@@ -144,11 +144,33 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 
 		// Check if domain was added successfully
 		if (wu_get_isset($domain_response, 'id')) {
-			wu_log_add('integration-enhance', sprintf('Domain %s added successfully. SSL will be automatically provisioned via LetsEncrypt when DNS resolves.', $domain));
+			wu_log_add('integration-enhance', sprintf('SUCCESS: Domain %s added successfully with ID: %s. SSL will be automatically provisioned via LetsEncrypt when DNS resolves.', $domain, $domain_response['id']));
 		} elseif (isset($domain_response['error'])) {
-			wu_log_add('integration-enhance', sprintf('Failed to add domain %s. Error: %s', $domain, wp_json_encode($domain_response)));
+			$error_context = '';
+			if (isset($domain_response['response_code'])) {
+				$error_context = sprintf(' (HTTP %d)', $domain_response['response_code']);
+			}
+			wu_log_add('integration-enhance', sprintf('ERROR: Failed to add domain %s%s. Details: %s', $domain, $error_context, wp_json_encode($domain_response)));
+
+			// Add specific error guidance
+			if (isset($domain_response['response_code'])) {
+				switch ($domain_response['response_code']) {
+					case 401:
+						wu_log_add('integration-enhance', 'TROUBLESHOOTING: API authentication failed. Check your WU_ENHANCE_API_TOKEN is valid.');
+						break;
+					case 403:
+						wu_log_add('integration-enhance', 'TROUBLESHOOTING: Access forbidden. Ensure your API token has System Administrator role.');
+						break;
+					case 404:
+						wu_log_add('integration-enhance', 'TROUBLESHOOTING: Server not found. Verify WU_ENHANCE_SERVER_ID is correct.');
+						break;
+					case 409:
+						wu_log_add('integration-enhance', sprintf('TROUBLESHOOTING: Domain %s may already exist in Enhance. Check your Enhance panel.', $domain));
+						break;
+				}
+			}
 		} else {
-			wu_log_add('integration-enhance', sprintf('Domain %s may have been added, but response was unclear: %s', $domain, wp_json_encode($domain_response)));
+			wu_log_add('integration-enhance', sprintf('WARNING: Domain %s may have been added, but response was unclear: %s', $domain, wp_json_encode($domain_response)));
 		}
 	}
 
@@ -167,7 +189,7 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 		$server_id = defined('WU_ENHANCE_SERVER_ID') ? WU_ENHANCE_SERVER_ID : '';
 
 		if (empty($server_id)) {
-			wu_log_add('integration-enhance', 'Server ID not configured');
+			wu_log_add('integration-enhance', 'ERROR: Server ID not configured. Please define WU_ENHANCE_SERVER_ID in wp-config.php');
 			return;
 		}
 
@@ -176,6 +198,11 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 			'/servers/' . $server_id . '/domains',
 			'GET'
 		);
+
+		if (isset($domains_list['error'])) {
+			wu_log_add('integration-enhance', sprintf('ERROR: Failed to list domains for removal. Details: %s', wp_json_encode($domains_list)));
+			return;
+		}
 
 		$domain_id = null;
 
@@ -189,9 +216,11 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 		}
 
 		if (empty($domain_id)) {
-			wu_log_add('integration-enhance', sprintf('Could not find domain ID for %s, it may have already been removed', $domain));
+			wu_log_add('integration-enhance', sprintf('WARNING: Could not find domain ID for %s, it may have already been removed from Enhance', $domain));
 			return;
 		}
+
+		wu_log_add('integration-enhance', sprintf('Found domain %s with ID: %s, proceeding with deletion', $domain, $domain_id));
 
 		// Delete the domain
 		$delete_response = $this->send_enhance_api_request(
@@ -199,7 +228,13 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 			'DELETE'
 		);
 
-		wu_log_add('integration-enhance', sprintf('Domain %s removal request sent', $domain));
+		if (isset($delete_response['success']) && $delete_response['success']) {
+			wu_log_add('integration-enhance', sprintf('SUCCESS: Domain %s (ID: %s) removed successfully', $domain, $domain_id));
+		} elseif (isset($delete_response['error'])) {
+			wu_log_add('integration-enhance', sprintf('ERROR: Failed to remove domain %s. Details: %s', $domain, wp_json_encode($delete_response)));
+		} else {
+			wu_log_add('integration-enhance', sprintf('Domain %s removal request sent (HTTP 204 or similar)', $domain));
+		}
 	}
 
 	/**
@@ -245,8 +280,9 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 		if (empty($server_id)) {
 			$error = new \WP_Error('no-server-id', __('Server ID is not configured', 'ultimate-multisite'));
 			wp_send_json_error($error);
-			return;
 		}
+
+		wu_log_add('integration-enhance', sprintf('Testing connection with server ID: %s', $server_id));
 
 		// Test by attempting to list domains
 		$response = $this->send_enhance_api_request(
@@ -254,16 +290,69 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 			'GET'
 		);
 
+		// Check for successful response
 		if (isset($response['items']) || isset($response['id'])) {
+			wu_log_add('integration-enhance', 'Connection test successful');
 			wp_send_json_success(
 				[
 					'message' => __('Connection successful', 'ultimate-multisite'),
 				]
 			);
-		} else {
-			$error = new \WP_Error('connection-failed', __('Failed to connect to Enhance API', 'ultimate-multisite'));
-			wp_send_json_error($error);
 		}
+
+		// Handle error responses with detailed messages
+		wu_log_add('integration-enhance', sprintf('Connection test failed. Response: %s', wp_json_encode($response)));
+
+		// Build detailed error message
+		$error_message = __('Failed to connect to Enhance API', 'ultimate-multisite');
+		$error_details = [];
+
+		if (isset($response['error'])) {
+			$error_details[] = $response['error'];
+		}
+
+		if (isset($response['response_code'])) {
+			// translators: %d is the HTTP status code number
+			$error_details[] = sprintf(__('HTTP Status: %d', 'ultimate-multisite'), $response['response_code']);
+
+			// Provide specific guidance based on status code
+			switch ($response['response_code']) {
+				case 401:
+					$error_details[] = __('Authentication failed. Please verify your API token is correct and has not expired.', 'ultimate-multisite');
+					break;
+				case 403:
+					$error_details[] = __('Access forbidden. Please ensure your API token has the System Administrator role.', 'ultimate-multisite');
+					break;
+				case 404:
+					$error_details[] = __('Server not found. Please verify your Server ID is correct.', 'ultimate-multisite');
+					break;
+				case 500:
+				case 502:
+				case 503:
+					$error_details[] = __('Enhance server error. Please check your Enhance Control Panel status.', 'ultimate-multisite');
+					break;
+			}
+		}
+
+		if (isset($response['response_body'])) {
+			$error_body = json_decode($response['response_body'], true);
+			if (json_last_error() === JSON_ERROR_NONE && isset($error_body['message'])) {
+				// translators: %s is the error message from the Enhance API
+				$error_details[] = sprintf(__('API Message: %s', 'ultimate-multisite'), $error_body['message']);
+			}
+		}
+
+		// Add troubleshooting tips
+		$error_details[] = __('Please check:', 'ultimate-multisite');
+		$error_details[] = __('1. API URL includes /api/ at the end (e.g., https://panel.example.com/api/)', 'ultimate-multisite');
+		$error_details[] = __('2. API token is valid and has System Administrator role', 'ultimate-multisite');
+		$error_details[] = __('3. Server ID matches a server in your Enhance panel', 'ultimate-multisite');
+		$error_details[] = __('4. Your WordPress server can reach the Enhance panel', 'ultimate-multisite');
+
+		$error_message .= ': ' . implode(' ', $error_details);
+
+		$error = new \WP_Error('connection-failed', $error_message);
+		wp_send_json_error($error);
 	}
 
 	/**

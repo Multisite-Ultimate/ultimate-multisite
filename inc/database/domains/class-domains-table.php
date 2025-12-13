@@ -54,22 +54,11 @@ final class Domains_Table extends Table {
 		'2.0.1-revision.20230601' => 20_230_601,
 	];
 
-	/**
-	 * Domains constructor.
-	 *
-	 * @access public
-	 * @since  2.0.0
-	 * @return void
-	 */
-	public function __construct() {
-
-		parent::__construct();
-	}
 
 	/**
-	 * Setup the database schema
+	 * Set up the database schema
 	 *
-	 * @access protected
+	 * @acces s protected
 	 * @since  2.0.0
 	 * @return void
 	 */

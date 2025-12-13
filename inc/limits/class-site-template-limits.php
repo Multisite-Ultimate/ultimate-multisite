@@ -11,6 +11,7 @@
 namespace WP_Ultimo\Limits;
 
 use WP_Ultimo\Checkout\Checkout;
+use WP_Ultimo\Limitations\Limit_Site_Templates;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -77,11 +78,11 @@ class Site_Template_Limits {
 				$limits = $limits->merge($product->get_limitations());
 			}
 
-			if ($limits->site_templates->get_mode() === 'default') {
+			if ($limits->site_templates->get_mode() === Limit_Site_Templates::MODE_DEFAULT) {
 				$attributes['sites'] = wu_get_isset($attributes, 'sites', explode(',', ($attributes['template_selection_sites'] ?? '')));
 
 				return $attributes;
-			} elseif ($limits->site_templates->get_mode() === 'assign_template') {
+			} elseif ($limits->site_templates->get_mode() === Limit_Site_Templates::MODE_ASSIGN_TEMPLATE) {
 				$attributes['should_display'] = false;
 			} else {
 				$site_list = wu_get_isset($attributes, 'sites', explode(',', ($attributes['template_selection_sites'] ?? '')));
@@ -105,30 +106,8 @@ class Site_Template_Limits {
 	 */
 	public function maybe_force_template_selection($template_id, $membership) {
 
-		if ( ! $membership) {
-			return $template_id;
-		}
-
-		$limitations = $membership->get_limitations()->site_templates;
-		$mode        = $limitations->get_mode();
-
-		// Mode: assign_template - always use the pre-selected template
-		if ('assign_template' === $mode) {
-			return $limitations->get_pre_selected_site_template();
-		}
-
-		// Mode: choose_available_templates or default - use fallback if no template selected
-		if (empty($template_id)) {
-			$pre_selected = $limitations->get_pre_selected_site_template();
-
-			if ($pre_selected) {
-				// Verify the pre-selected template is available
-				$available_templates = $limitations->get_available_site_templates();
-
-				if ($available_templates && in_array($pre_selected, $available_templates, true)) {
-					return $pre_selected;
-				}
-			}
+		if ($membership && Limit_Site_Templates::MODE_ASSIGN_TEMPLATE === $membership->get_limitations()->site_templates->get_mode()) {
+			$template_id = $membership->get_limitations()->site_templates->get_pre_selected_site_template();
 		}
 
 		return $template_id;
@@ -159,9 +138,9 @@ class Site_Template_Limits {
 			$limits = $limits->merge($product->get_limitations());
 		}
 
-		if ($limits->site_templates->get_mode() === 'assign_template') {
+		if ($limits->site_templates->get_mode() === Limit_Site_Templates::MODE_ASSIGN_TEMPLATE) {
 			$extra['template_id'] = $limits->site_templates->get_pre_selected_site_template();
-		} elseif ($limits->site_templates->get_mode() === 'choose_available_templates') {
+		} elseif ($limits->site_templates->get_mode() === Limit_Site_Templates::MODE_CHOOSE_AVAILABLE_TEMPLATES) {
 			$template_id = Checkout::get_instance()->request_or_session('template_id');
 
 			$extra['template_id'] = $this->is_template_available($products, $template_id) ? $template_id : false;
@@ -192,7 +171,7 @@ class Site_Template_Limits {
 				$limits = $limits->merge($product->get_limitations());
 			}
 
-			if ($limits->site_templates->get_mode() === 'assign_template') {
+			if ($limits->site_templates->get_mode() === Limit_Site_Templates::MODE_ASSIGN_TEMPLATE) {
 				return $limits->site_templates->get_pre_selected_site_template() === $template_id;
 			} else {
 				$available_templates = $limits->site_templates->get_available_site_templates();

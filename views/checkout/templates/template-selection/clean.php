@@ -74,7 +74,7 @@ $customer_sites = isset($customer_sites) ? array_map('intval', $customer_sites) 
 							data-category="<?php echo esc_attr($category); ?>"
 							:class="$parent.template_category === '<?php echo esc_attr($category); ?>' ? 'current wu-font-semibold' : ''"
 							v-on:click.prevent="$parent.template_category = '<?php echo esc_attr($category); ?>'"
->
+					>
 					<?php echo esc_html($category); ?></a>
 				</li>
 

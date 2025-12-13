@@ -125,7 +125,12 @@ class Broadcast_Test extends WP_UnitTestCase {
 		// Check that the meta value is set correctly
 		$reflection    = new \ReflectionClass($broadcast);
 		$meta_property = $reflection->getProperty('meta');
-		$meta_property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$meta_property->setAccessible(true);
+		}
+
 		$meta = $meta_property->getValue($broadcast);
 
 		$this->assertEquals($targets, $meta['message_targets']);
@@ -246,7 +251,12 @@ class Broadcast_Test extends WP_UnitTestCase {
 		// Use reflection to access protected property
 		$reflection             = new \ReflectionClass($broadcast);
 		$allowed_types_property = $reflection->getProperty('allowed_types');
-		$allowed_types_property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$allowed_types_property->setAccessible(true);
+		}
+
 		$allowed_types = $allowed_types_property->getValue($broadcast);
 
 		$this->assertEquals(['broadcast_email', 'broadcast_notice'], $allowed_types);
@@ -261,7 +271,12 @@ class Broadcast_Test extends WP_UnitTestCase {
 		// Use reflection to access protected property
 		$reflection              = new \ReflectionClass($broadcast);
 		$allowed_status_property = $reflection->getProperty('allowed_status');
-		$allowed_status_property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$allowed_status_property->setAccessible(true);
+		}
+
 		$allowed_status = $allowed_status_property->getValue($broadcast);
 
 		$this->assertEquals(['publish', 'draft'], $allowed_status);
@@ -276,7 +291,12 @@ class Broadcast_Test extends WP_UnitTestCase {
 		// Use reflection to access protected property
 		$reflection           = new \ReflectionClass($broadcast);
 		$query_class_property = $reflection->getProperty('query_class');
-		$query_class_property->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$query_class_property->setAccessible(true);
+		}
+
 		$query_class = $query_class_property->getValue($broadcast);
 
 		$this->assertEquals(\WP_Ultimo\Database\Broadcasts\Broadcast_Query::class, $query_class);

@@ -78,14 +78,6 @@ class Product_Test extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * Test product pricing.
-	 */
-	public function test_product_pricing(): void {
-		// Skip this test due to currency default setting issues in test environment
-		$this->markTestSkipped('Skipping product pricing test due to currency default setting issues');
-	}
-
-	/**
 	 * Test recurring billing setup.
 	 */
 	public function test_recurring_billing(): void {
@@ -177,14 +169,6 @@ class Product_Test extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * Test customer role assignment.
-	 */
-	public function test_customer_role(): void {
-		// Skip this test due to default role setting issues in test environment
-		$this->markTestSkipped('Skipping customer role test due to default role setting issues');
-	}
-
-	/**
 	 * Test product add-ons and variations.
 	 */
 	public function test_addons_and_variations(): void {
@@ -195,8 +179,14 @@ class Product_Test extends \WP_UnitTestCase {
 
 		// Test price variations
 		$variations = [
-			['amount' => 9.99, 'description' => 'Basic'],
-			['amount' => 19.99, 'description' => 'Pro'],
+			[
+				'amount'      => 9.99,
+				'description' => 'Basic',
+			],
+			[
+				'amount'      => 19.99,
+				'description' => 'Pro',
+			],
 		];
 		$this->product->set_price_variations($variations);
 		$this->assertEquals($variations, $this->product->get_price_variations(), 'Price variations should be set and retrieved correctly.');
@@ -207,11 +197,11 @@ class Product_Test extends \WP_UnitTestCase {
 	 */
 	public function test_contact_us_functionality(): void {
 		$label = 'Contact Sales';
-		$link = 'https://example.com/contact';
-		
+		$link  = 'https://example.com/contact';
+
 		$this->product->set_contact_us_label($label);
 		$this->product->set_contact_us_link($link);
-		
+
 		$this->assertEquals($label, $this->product->get_contact_us_label(), 'Contact us label should be set and retrieved correctly.');
 		$this->assertEquals($link, $this->product->get_contact_us_link(), 'Contact us link should be set and retrieved correctly.');
 	}
@@ -250,7 +240,7 @@ class Product_Test extends \WP_UnitTestCase {
 	 */
 	public function test_product_save_with_validation_error(): void {
 		$product = new Product();
-		
+
 		// Try to save without required fields
 		$product->set_skip_validation(false);
 		$result = $product->save();
@@ -263,7 +253,7 @@ class Product_Test extends \WP_UnitTestCase {
 	 */
 	public function test_product_save_with_validation_bypassed(): void {
 		$product = new Product();
-		
+
 		// Set required fields
 		$product->set_name('Test Product');
 		$product->set_description('Test Description');
@@ -306,22 +296,18 @@ class Product_Test extends \WP_UnitTestCase {
 	 */
 	public function test_hash_generation(): void {
 		$hash = $this->product->get_hash('id');
-		
+
 		$this->assertIsString($hash, 'Hash should be a string.');
 		$this->assertNotEmpty($hash, 'Hash should not be empty.');
-
-		// Test invalid field - skip this part as it triggers expected notices
-		// that cause test failures in current test environment
-		$this->markTestSkipped('Skipping invalid hash field test due to notice handling in test environment');
 	}
 
 	/**
 	 * Test meta data handling.
 	 */
 	public function test_meta_data_handling(): void {
-		$this->markTestSkipped('Meta data handling - TODO: Meta functions may not work fully in test environment without saved product');
-		
-		$meta_key = 'test_meta_key';
+		$this->product->save();
+
+		$meta_key   = 'test_meta_key';
 		$meta_value = 'test_meta_value';
 
 		// Test meta update
@@ -347,7 +333,7 @@ class Product_Test extends \WP_UnitTestCase {
 	public function test_formatted_amount(): void {
 		$this->product->set_amount(19.99);
 		$formatted_amount = $this->product->get_formatted_amount();
-		
+
 		$this->assertIsString($formatted_amount, 'Formatted amount should be a string.');
 		$this->assertNotEmpty($formatted_amount, 'Formatted amount should not be empty.');
 	}
@@ -358,21 +344,12 @@ class Product_Test extends \WP_UnitTestCase {
 	public function test_formatted_date(): void {
 		// Set a date first
 		$this->product->set_date_created('2023-01-01 12:00:00');
-		
+
 		$formatted_date = $this->product->get_formatted_date('date_created');
-		
+
 		$this->assertIsString($formatted_date, 'Formatted date should be a string.');
 		$this->assertNotEmpty($formatted_date, 'Formatted date should not be empty.');
 	}
-
-	/**
-	 * Test search results.
-	 */
-	public function test_to_search_results(): void {
-		// Skip this test as set_id() is private and we can't set ID in test environment
-		$this->markTestSkipped('Skipping search results test due to private set_id() method');
-	}
-
 	/**
 	 * Tear down test environment.
 	 */
@@ -386,8 +363,7 @@ class Product_Test extends \WP_UnitTestCase {
 				}
 			}
 		}
-		
+
 		parent::tearDown();
 	}
-
 }

@@ -97,7 +97,7 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 			$this->markTestSkipped('Template switching tests require multisite');
 		}
 
-		// Create test customer
+		// Create test customer.
 		$this->customer = wu_create_customer(
 			[
 				'username' => 'imagetestuser',
@@ -125,7 +125,7 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 		);
 
 		if (is_wp_error($this->product)) {
-			$this->markTestSkipped('Could not create test product: ' . $this->product->get_error_message());
+			$this->fail('Could not create test product: ' . $this->product->get_error_message());
 		}
 
 		// Create test membership
@@ -142,7 +142,7 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 		);
 
 		if (is_wp_error($this->membership)) {
-			$this->markTestSkipped('Could not create test membership: ' . $this->membership->get_error_message());
+			$this->fail('Could not create test membership: ' . $this->membership->get_error_message());
 		}
 
 		// Create Template A with images
@@ -677,7 +677,7 @@ class Site_Template_Switching_Image_Test extends WP_UnitTestCase {
 	public function test_gallery_shortcodes_work_after_switch() {
 		switch_to_blog($this->customer_site_id);
 
-		// Find gallery post
+		// Find gallery post.
 		$gallery_post = get_posts(
 			[
 				'title'       => 'Template A Post with Gallery',

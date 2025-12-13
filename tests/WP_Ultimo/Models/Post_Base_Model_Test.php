@@ -84,19 +84,11 @@ class Post_Base_Model_Test extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * Test post base model save with validation error.
-	 */
-	public function test_post_base_model_save_with_validation_error(): void {
-		// Skip this test as Post_Base_Model has empty validation rules
-		$this->markTestSkipped('Skipping validation error test as Post_Base_Model has empty validation rules');
-	}
-
-	/**
 	 * Test post base model save with validation bypassed.
 	 */
 	public function test_post_base_model_save_with_validation_bypassed(): void {
 		$post_base_model = new Post_Base_Model();
-		
+
 		// Set required fields
 		$post_base_model->set_title('Test Post');
 		$post_base_model->set_content('Test content');
@@ -153,31 +145,10 @@ class Post_Base_Model_Test extends \WP_UnitTestCase {
 	 */
 	public function test_hash_generation(): void {
 		$hash = $this->post_base_model->get_hash('id');
-		
+
 		$this->assertIsString($hash, 'Hash should be a string.');
 		$this->assertNotEmpty($hash, 'Hash should not be empty.');
-
-		// Test invalid field - skip this part as it triggers expected notices
-		// that cause test failures in the current test environment
-		$this->markTestSkipped('Skipping invalid hash field test due to notice handling in test environment');
 	}
-
-	/**
-	 * Test post base model meta data handling.
-	 */
-	public function test_meta_data_handling(): void {
-		// Skip this test as Post_Base_Model needs to exist in database for meta operations
-		$this->markTestSkipped('Skipping meta data test as Post_Base_Model needs to exist in database for meta operations');
-	}
-
-	/**
-	 * Test post base model search results.
-	 */
-	public function test_to_search_results(): void {
-		// Skip this test as set_id() is private and we can't set the ID in test environment
-		$this->markTestSkipped('Skipping search results test due to private set_id() method');
-	}
-
 	/**
 	 * Tear down test environment.
 	 */
@@ -186,7 +157,7 @@ class Post_Base_Model_Test extends \WP_UnitTestCase {
 		if ($this->post_base_model && $this->post_base_model->get_id()) {
 			wp_delete_post($this->post_base_model->get_id(), true);
 		}
-		
+
 		parent::tearDown();
 	}
 

@@ -49,12 +49,14 @@ class Site_Test extends \WP_UnitTestCase {
 
 		// Create test data using WordPress factory
 		$user_id = $this->factory()->user->create(['role' => 'subscriber']);
-		
+
 		// Create a customer manually
-		$this->customer = wu_create_customer([
-			'user_id' => $user_id,
-			'email_address' => 'test@example.com',
-		]);
+		$this->customer = wu_create_customer(
+			[
+				'user_id'       => $user_id,
+				'email_address' => 'test@example.com',
+			]
+		);
 
 		// Handle case where customer creation fails
 		if (is_wp_error($this->customer)) {
@@ -63,11 +65,13 @@ class Site_Test extends \WP_UnitTestCase {
 		}
 
 		// Create a test site using WordPress factory
-		$blog_id = $this->factory()->blog->create([
-			'user_id' => $user_id,
-			'title' => 'Test Site',
-			'domain' => 'test-site.org',
-		]);
+		$blog_id = $this->factory()->blog->create(
+			[
+				'user_id' => $user_id,
+				'title'   => 'Test Site',
+				'domain'  => 'test-site.org',
+			]
+		);
 
 		// Create site object
 		$this->site = new Site(
@@ -76,7 +80,7 @@ class Site_Test extends \WP_UnitTestCase {
 				'title'         => 'Test Site',
 				'domain'        => 'test-site.org',
 				'path'          => '/',
-				'customer_id'  => $this->customer->get_id(),
+				'customer_id'   => $this->customer->get_id(),
 				'type'          => 'customer_owned',
 				'membership_id' => 0, // Set a default membership_id
 			]
@@ -107,7 +111,7 @@ class Site_Test extends \WP_UnitTestCase {
 		$this->assertArrayHasKey('membership_id', $validation_rules, 'Validation rules should include membership_id field.');
 		$this->assertArrayHasKey('type', $validation_rules, 'Validation rules should include type field.');
 
-	// Test field constraints
+		// Test field constraints
 		$this->assertStringContainsString('required', $validation_rules['title'], 'Title should be required.');
 		$this->assertStringContainsString('required', $validation_rules['customer_id'], 'Customer ID should be required.');
 		$this->assertStringContainsString('integer', $validation_rules['customer_id'], 'Customer ID should be integer.');
@@ -119,7 +123,7 @@ class Site_Test extends \WP_UnitTestCase {
 	 */
 	public function test_domain_path_handling(): void {
 		$test_domain = 'test-example.com';
-		$test_path = '/test-path';
+		$test_path   = '/test-path';
 
 		$this->site->set_domain($test_domain);
 		$this->site->set_path($test_path);
@@ -284,13 +288,13 @@ class Site_Test extends \WP_UnitTestCase {
 	 */
 	public function test_url_generation(): void {
 		$domain = 'test-site.com';
-		$path = '/my-site';
+		$path   = '/my-site';
 
 		$this->site->set_domain($domain);
 		$this->site->set_path($path);
 
 		// Test site URL
-		$site_url = $this->site->get_site_url();
+		$site_url     = $this->site->get_site_url();
 		$expected_url = set_url_scheme(esc_url(sprintf($domain . '/' . trim($path, '/'))));
 		$this->assertEquals($expected_url, $site_url, 'Site URL should be generated correctly.');
 
@@ -322,7 +326,7 @@ class Site_Test extends \WP_UnitTestCase {
 	 * Test title and description.
 	 */
 	public function test_title_and_description(): void {
-		$title = 'Test Site Title';
+		$title       = 'Test Site Title';
 		$description = 'This is a test site description.';
 
 		// Test title setter/getter
@@ -365,7 +369,7 @@ class Site_Test extends \WP_UnitTestCase {
 		$args = [
 			'keep_users' => false,
 			'copy_files' => true,
-			'public' => false,
+			'public'     => false,
 		];
 
 		// Test duplication arguments setter/getter
@@ -375,44 +379,21 @@ class Site_Test extends \WP_UnitTestCase {
 		$this->assertEquals($args, $retrieved_args, 'Duplication arguments should be set and retrieved correctly.');
 
 		// Test default arguments
-		$new_site = new Site();
+		$new_site     = new Site();
 		$default_args = $new_site->get_duplication_arguments();
 		$this->assertArrayHasKey('keep_users', $default_args, 'Default arguments should include keep_users.');
 		$this->assertArrayHasKey('copy_files', $default_args, 'Default arguments should include copy_files.');
 		$this->assertArrayHasKey('public', $default_args, 'Default arguments should include public.');
 	}
 
-	/**
-	 * Test site save with validation error.
-	 */
-	public function test_site_save_with_validation_error(): void {
-		$this->markTestSkipped('Site save validation testing - TODO: Fix WordPress test environment constraints for site creation');
-		
-		$site = new Site();
-		
-		// Set required fields to avoid path null error
-		$site->set_title('Test Site');
-		$site->set_domain('test-site.com');
-		$site->set_path('/test');
-		$site->set_customer_id(1);
-		$site->set_membership_id(1);
-		$site->set_type('customer_owned');
-		
-		// Try to save with invalid data to trigger validation
-		$site->set_skip_validation(false);
-		$result = $site->save();
-
-		$this->assertInstanceOf(\WP_Error::class, $result, 'Save should return WP_Error when validation fails.');
-	}
 
 	/**
 	 * Test site save with validation bypassed.
 	 */
 	public function test_site_save_with_validation_bypassed(): void {
-		$this->markTestSkipped('Site save bypass testing - TODO: Fix WordPress test environment constraints for site creation');
-		
+
 		$site = new Site();
-		
+
 		// Set required fields
 		$site->set_title('Test Site');
 		$site->set_description('Test Description');
@@ -428,7 +409,7 @@ class Site_Test extends \WP_UnitTestCase {
 
 		// In test environment, this might fail due to WordPress constraints
 		// We're mainly testing that the method runs without errors
-		$this->assertIsBool($result, 'Save should return boolean result.');
+		$this->assertIsInt($result, 'Save should return boolean result.');
 	}
 
 	/**
@@ -454,22 +435,18 @@ class Site_Test extends \WP_UnitTestCase {
 	 */
 	public function test_hash_generation(): void {
 		$hash = $this->site->get_hash('id');
-		
+
 		$this->assertIsString($hash, 'Hash should be a string.');
 		$this->assertNotEmpty($hash, 'Hash should not be empty.');
-
-		// Test invalid field - skip this part as it triggers expected notices
-		// that cause test failures in current test environment
-		$this->markTestSkipped('Skipping invalid hash field test due to notice handling in test environment');
 	}
 
 	/**
 	 * Test meta data handling.
 	 */
 	public function test_meta_data_handling(): void {
-		$this->markTestSkipped('Meta data handling - TODO: Meta functions return numeric IDs instead of boolean in test environment');
-		
-		$meta_key = 'test_meta_key';
+
+		$this->site->save();
+		$meta_key   = 'test_meta_key';
 		$meta_value = 'test_meta_value';
 
 		// Test meta update
@@ -493,7 +470,7 @@ class Site_Test extends \WP_UnitTestCase {
 	 * Test date handling.
 	 */
 	public function test_date_handling(): void {
-		$registered_date = '2023-01-01 12:00:00';
+		$registered_date   = '2023-01-01 12:00:00';
 		$last_updated_date = '2023-01-02 12:00:00';
 
 		// Test date setters
@@ -512,17 +489,16 @@ class Site_Test extends \WP_UnitTestCase {
 	 * Test site locking.
 	 */
 	public function test_site_locking(): void {
-		$this->markTestSkipped('Site locking - TODO: Meta functions return numeric IDs instead of boolean in test environment');
-		
+
 		// Test lock
 		$lock_result = $this->site->lock();
 		$this->assertTrue($lock_result || is_numeric($lock_result), 'Lock should return true or numeric ID on success.');
-		$this->assertTrue($this->site->is_locked(), 'Site should be locked.');
+		$this->assertTrue((bool)$this->site->is_locked(), 'Site should be locked.');
 
 		// Test unlock
 		$unlock_result = $this->site->unlock();
 		$this->assertTrue($unlock_result || is_numeric($unlock_result), 'Unlock should return true or numeric ID on success.');
-		$this->assertFalse($this->site->is_locked(), 'Site should be unlocked.');
+		$this->assertFalse((bool)$this->site->is_locked(), 'Site should be unlocked.');
 	}
 
 	/**
@@ -560,12 +536,11 @@ class Site_Test extends \WP_UnitTestCase {
 		if ($this->site && $this->site->get_id()) {
 			wp_delete_site($this->site->get_id());
 		}
-		
+
 		if ($this->customer && $this->customer->get_id()) {
 			$this->customer->delete();
 		}
-		
+
 		parent::tearDown();
 	}
-
 }

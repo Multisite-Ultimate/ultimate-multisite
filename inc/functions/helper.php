@@ -388,7 +388,7 @@ function wu_kses_allowed_html(): array {
 		':alt'                      => true,
 		':href'                     => true,
 		':data-title'               => true,
-		':arial-label'              => true,
+		':aria-label'               => true,
 		':colspan'                  => true,
 		':list'                     => true,
 		':tag'                      => true,

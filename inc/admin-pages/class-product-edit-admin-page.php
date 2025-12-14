@@ -754,7 +754,14 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					'fields'            => [
 						'price_variations_remove'        => [
 							'type'            => 'note',
-							'desc'            => sprintf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" v-on:click.prevent="() => price_variations.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', esc_html__('Remove', 'ultimate-multisite')),
+							'desc'            => function () {
+								printf(
+									'<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" v-on:click.prevent="() => price_variations.splice(index, 1)">
+										<span class="dashicons-wu-squared-cross"></span>
+									</a>',
+									esc_html__('Remove', 'ultimate-multisite')
+								);
+							},
 							'wrapper_classes' => 'wu-absolute wu-top-0 wu-right-0',
 						],
 						'price_variations_duration'      => [

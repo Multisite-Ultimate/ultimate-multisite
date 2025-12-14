@@ -229,7 +229,7 @@ class API implements \WP_Ultimo\Interfaces\Singleton {
 			'api',
 			'api_note',
 			[
-				'desc'            => __('This is your API Key. You cannot change it directly. To reset the API key and secret, use the button "Refresh API credentials" below.', 'ultimate-multisite'),
+				'desc'            => fn() => esc_html__('This is your API Key. You cannot change it directly. To reset the API key and secret, use the button "Refresh API credentials" below.', 'ultimate-multisite'),
 				'type'            => 'note',
 				'classes'         => 'wu-text-gray-700 wu-text-xs',
 				'wrapper_classes' => 'wu-bg-white sm:wu-border-t-0 sm:wu-mt-0 sm:wu-pt-0',

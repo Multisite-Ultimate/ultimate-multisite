@@ -41,9 +41,13 @@ defined('ABSPATH') || exit;
 	?>
 
 	<div class="wu-block wu-w-full wu-mt-4 <?php echo esc_attr($field->classes); ?>">
-
-		<?php echo wp_kses($field->content ?? '', wu_kses_allowed_html()); ?>
-
+		<?php
+		// Hopefully content is a callable and escapes and outputs itself.
+		$content = $field->content;
+		if ($content) {
+			echo wp_kses($content, wu_kses_allowed_html());
+		}
+		?>
 	</div>
 
 	</div>

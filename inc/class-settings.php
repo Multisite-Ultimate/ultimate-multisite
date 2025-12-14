@@ -1107,7 +1107,9 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 				'fields'            => [
 					'emulated_post_types_remove' => [
 						'type'            => 'note',
-						'desc'            => sprintf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => emulated_post_types.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', __('Remove', 'ultimate-multisite')),
+						'desc'            => function () {
+							printf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => emulated_post_types.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', esc_html__('Remove', 'ultimate-multisite'));
+						},
 						'wrapper_classes' => 'wu-absolute wu-top-0 wu-right-0',
 					],
 					'emulated_post_types_slug'   => [

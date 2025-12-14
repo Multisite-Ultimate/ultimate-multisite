@@ -112,34 +112,36 @@ class Orphaned_Tables_Manager {
 			return;
 		}
 
-		$table_list = '<div class="wu-max-h-32 wu-overflow-y-auto wu-bg-white wu-p-2 wu-border wu-rounded wu-mb-4">';
-		foreach ($orphaned_tables as $table) {
-			$table_list .= '<div class="wu-text-xs wu-font-mono wu-py-1">' . esc_html($table) . '</div>';
-		}
-		$table_list .= '</div>';
-
 		$fields = [
 			'confirmation' => [
 				'type'            => 'note',
-				'desc'            => sprintf(
-					'<div class="wu-p-4 wu-bg-red-100 wu-border wu-border-red-400 wu-text-red-700 wu-rounded">
+				'desc'            => function () use ($orphaned_tables, $table_count) {
+					printf(
+						'<div class="wu-p-4 wu-bg-red-100 wu-border wu-border-red-400 wu-text-red-700 wu-rounded">
 						<h3 class="wu-mt-0 wu-mb-2">%s</h3>
-						<p class="wu-mb-2">%s</p>
-						%s
-						<p class="wu-text-sm wu-mb-4">
-							<strong>%s</strong> %s
-						</p>
-					</div>',
-					sprintf(
+						<p class="wu-mb-2">%s</p>',
+						sprintf(
 						/* translators: %d: number of orphaned tables */
-						esc_html(_n('Confirm Deletion of %d Orphaned Table', 'Confirm Deletion of %d Orphaned Tables', $table_count, 'ultimate-multisite')),
-						$table_count
-					),
-					esc_html__('You are about to permanently delete the following database tables:', 'ultimate-multisite'),
-					$table_list,
-					esc_html__('Warning:', 'ultimate-multisite'),
-					esc_html__('This action cannot be undone. Please ensure you have a database backup before proceeding.', 'ultimate-multisite')
-				),
+							esc_html(_n('Confirm Deletion of %d Orphaned Table', 'Confirm Deletion of %d Orphaned Tables', $table_count, 'ultimate-multisite')),
+							esc_html($table_count)
+						),
+						esc_html__('You are about to permanently delete the following database tables:', 'ultimate-multisite'),
+					);
+
+					echo '<div class="wu-max-h-32 wu-overflow-y-auto wu-bg-white wu-p-2 wu-border wu-rounded wu-mb-4">';
+					foreach ($orphaned_tables as $table) {
+						echo '<div class="wu-text-xs wu-font-mono wu-py-1">' . esc_html($table) . '</div>';
+					}
+					echo '</div>';
+					printf(
+						'<p class="wu-text-sm wu-mb-4">
+							<strong>%s</strong> %s
+						</p>',
+						esc_html__('Warning:', 'ultimate-multisite'),
+						esc_html__('This action cannot be undone. Please ensure you have a database backup before proceeding.', 'ultimate-multisite')
+					);
+					echo '</div>';
+				},
 				'wrapper_classes' => 'wu-w-full',
 			],
 			'submit'       => [
@@ -185,9 +187,7 @@ class Orphaned_Tables_Manager {
 			wp_die(esc_html__('You do not have the required permissions.', 'ultimate-multisite'));
 		}
 
-		if (empty($orphaned_tables) || ! is_array($orphaned_tables)) {
-			$orphaned_tables = $this->find_orphaned_tables();
-		}
+		$orphaned_tables = $this->find_orphaned_tables();
 
 		$deleted_count = $this->delete_orphaned_tables($orphaned_tables);
 

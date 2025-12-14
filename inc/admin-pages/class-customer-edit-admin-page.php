@@ -586,10 +586,12 @@ class Customer_Edit_Admin_Page extends Edit_Admin_Page {
 				'fields'            => [
 					'new_meta_remove'         => [
 						'type'            => 'note',
-						'desc'            => sprintf(
-							'<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600" href="#" v-on:click.prevent="() => new_meta_fields.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>',
-							__('Remove', 'ultimate-multisite')
-						),
+						'desc'            => function () {
+							printf(
+								'<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600" href="#" v-on:click.prevent="() => new_meta_fields.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>',
+								esc_html__('Remove', 'ultimate-multisite')
+							);
+						},
 						'wrapper_classes' => 'wu-absolute wu-top-0 wu-right-0',
 					],
 					'new_meta_slug'           => [

@@ -290,7 +290,9 @@ class Domain_Mapping_Element extends Base_Element {
 		$fields = [
 			'instructions_note' => [
 				'type'              => 'note',
-				'desc'              => sprintf('<a href="#" class="wu-no-underline" v-on:click.prevent="ready = false">%s</a>', __('&larr; Back to the Instructions', 'ultimate-multisite')),
+				'desc'              => function () {
+					printf('<a href="#" class="wu-no-underline" v-on:click.prevent="ready = false">%s</a>', esc_html__('&larr; Back to the Instructions', 'ultimate-multisite'));
+				},
 				'wrapper_html_attr' => [
 					'v-if'    => 'ready',
 					'v-cloak' => '1',

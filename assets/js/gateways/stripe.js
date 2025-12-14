@@ -2,119 +2,180 @@
 /* global wu_stripe, Stripe */
 let _stripe;
 let stripeElement;
-let card;
+let cardElement;
+let paymentElement;
+let usePaymentElement = false;
 
 const stripeElements = function(publicKey) {
 
   _stripe = Stripe(publicKey);
 
-  const elements = _stripe.elements();
+  // Check if we should use the new Payment Element or legacy Card Element
+  const paymentElementContainer = document.getElementById('payment-element');
+  const cardElementContainer = document.getElementById('card-element');
 
-  card = elements.create('card', {
-    hidePostalCode: true,
+  // Dynamically set the amount and currency from form data if available
+  let amount = wu_stripe.payment_amount || 1099; // default to $10.99 if not provided
+  let currency = wu_stripe.currency || 'usd';
+
+  // Try to get amount from checkout form if available
+  if (typeof wu_checkout_form !== 'undefined' && wu_checkout_form.order) {
+    amount = Math.round(wu_checkout_form.order.totals.total * 100); // Convert to cents
+    currency = wu_checkout_form.order.currency || currency;
+  }
+
+  const elements = _stripe.elements({
+    mode: 'payment',
+    amount: amount,
+    currency: currency,
   });
 
-  wp.hooks.addFilter('wu_before_form_submitted', 'nextpress/wp-ultimo', function(promises, checkout, gateway) {
+  // Initialize elements based on what's available in the DOM
+  if (paymentElementContainer) {
+    // Use Payment Element (new approach)
+    usePaymentElement = true;
+    paymentElement = elements.create('payment', {
+      layout: {
+        type: 'tabs',
+        defaultCollapsed: false,
+        radios: true,
+        spacedAccordionItems: true,
+      },
+    });
+  } else if (cardElementContainer) {
+    // Use Card Element (legacy approach) for backward compatibility
+    usePaymentElement = false;
+    cardElement = elements.create('card', {
+      hidePostalCode: true,
+    });
+  }
 
+  wp.hooks.addFilter('wu_before_form_submitted', 'nextpress/wp-ultimo', function(promises, checkout, gateway) {
+    const paymentEl = document.getElementById('payment-element');
     const cardEl = document.getElementById('card-element');
 
-    if (gateway === 'stripe' && checkout.order.totals.total > 0 && cardEl && cardEl.offsetParent) {
+    if (gateway === 'stripe' && checkout.order.totals.total > 0) {
+      if (usePaymentElement && paymentEl && paymentEl.offsetParent) {
+        // Handle Payment Element
+        promises.push(new Promise(async (resolve, reject) => {
+          try {
+            const { error } = await _stripe.confirmPayment({
+              elements,
+              confirmParams: {
+                return_url: window.location.href,
+              },
+            });
 
-      promises.push(new Promise( async (resolve, reject) => {
+            if (error) {
+              reject(error);
+            }
+          } catch(err) {
+            console.error('Payment Element error:', err);
+          }
 
-        try {
+          resolve();
+        }));
+      } else if (!usePaymentElement && cardEl && cardEl.offsetParent) {
+        // Handle Card Element for backward compatibility
+        promises.push(new Promise(async (resolve, reject) => {
+          try {
+            const { paymentMethod, error } = await _stripe.createPaymentMethod({
+              type: 'card',
+              card: cardElement,
+              billing_details: {
+                name: checkout.customer.display_name || '',
+                email: checkout.customer.user_email || '',
+              },
+            });
 
-          const paymentMethod = await _stripe.createPaymentMethod({type: 'card', card});
+            if (error) {
+              reject(error);
+            }
+          } catch(err) {
+            console.error('Card Element error:', err);
+          }
 
-          if (paymentMethod.error) {
-            
-            reject(paymentMethod.error);
-    
-          } // end if;
-
-        } catch(err) {
-
-        } // end try;
-
-        resolve();
-
-      }));
-
-    } // end if;
+          resolve();
+        }));
+      }
+    }
 
     return promises;
-      
   });
 
   wp.hooks.addAction('wu_on_form_success', 'nextpress/wp-ultimo', function(checkout, results) {
-
     if (checkout.gateway === 'stripe' && (checkout.order.totals.total > 0 || checkout.order.totals.recurring.total > 0)) {
-
       checkout.set_prevent_submission(false);
-      
-      handlePayment(checkout, results, card);
 
-    } // end if;
-
+      if (usePaymentElement) {
+        handlePayment(checkout, results, elements);
+      } else {
+        handlePayment(checkout, results, cardElement);
+      }
+    }
   });
-  
+
   wp.hooks.addAction('wu_on_form_updated', 'nextpress/wp-ultimo', function(form) {
-
     if (form.gateway === 'stripe') {
-
       try {
-
-        card.mount('#card-element');
-
-        wu_stripe_update_styles(card, '#field-payment_template');
+        if (usePaymentElement) {
+          // Mount Payment Element
+          paymentElement.mount('#payment-element');
+          wu_stripe_update_styles(paymentElement, '#field-payment_template');
+        } else {
+          // Mount Card Element for backward compatibility
+          cardElement.mount('#card-element');
+          wu_stripe_update_styles(cardElement, '#field-payment_template');
+        }
 
         /*
-         * Prevents the from from submitting while Stripe is 
+         * Prevents the from from submitting while Stripe is
          * creating a payment source.
          */
         form.set_prevent_submission(form.order && form.order.should_collect_payment && form.payment_method === 'add-new');
 
       } catch (error) {
-
-        // Silence
-
-      } // end try;
-
+        console.error('Stripe element mounting error:', error);
+      }
     } else {
-
       form.set_prevent_submission(false);
 
       try {
-
-        card.unmount('#card-element');
-
+        if (usePaymentElement) {
+          paymentElement.unmount('#payment-element');
+        } else {
+          cardElement.unmount('#card-element');
+        }
       } catch (error) {
-
         // Silence is golden
-
-      } // end try;
-
-    } // end if;
-
+      }
+    }
   });
 
-  // Element focus ring
-  card.on('focus', function() {
+  // Element focus ring - Card Element
+  if (cardElement) {
+    cardElement.on('focus', function() {
+      const el = document.getElementById('card-element');
+      el.classList.add('focused');
+    });
 
-    const el = document.getElementById('card-element');
+    cardElement.on('blur', function() {
+      const el = document.getElementById('card-element');
+      el.classList.remove('focused');
+    });
+  }
 
-    el.classList.add('focused');
-
-  });
-
-  card.on('blur', function() {
-
-    const el = document.getElementById('card-element');
-
-    el.classList.remove('focused');
-
-  });
-
+  // Element focus handling - Payment Element
+  if (paymentElement) {
+    paymentElement.on('change', function(event) {
+      const paymentElementContainer = document.getElementById('payment-element');
+      if (event.complete) {
+        paymentElementContainer.classList.add('focused');
+      } else {
+        paymentElementContainer.classList.remove('focused');
+      }
+    });
+  }
 };
 
 wp.hooks.addFilter('wu_before_form_init', 'nextpress/wp-ultimo', function(data) {
@@ -253,38 +314,57 @@ function wu_stripe_handle_intent(handler, client_secret, args) {
  *
  * @param form
  * @param response
- * @param card
+ * @param element
  */
-function handlePayment(form, response, card) {
+function handlePayment(form, response, element) {
 
   // Trigger error if we don't have a client secret.
   if (! response.gateway.data.stripe_client_secret) {
-
     return;
+  }
 
-  } // end if;
+  if (usePaymentElement) {
+    // Handle Payment Element
+    const confirmParams = {
+      return_url: window.location.href,
+    };
 
-  const handler = 'payment_intent' === response.gateway.data.stripe_intent_type ? 'confirmCardPayment' : 'confirmCardSetup';
+    // For Payment Element, we use confirmPayment instead of individual payment method confirmation
+    _stripe.confirmPayment({
+      elements: element,
+      confirmParams: confirmParams,
+    }).then(function(result) {
+      if (result.error) {
+        wu_checkout_form.unblock();
+        wu_checkout_form.errors.push(result.error);
+      } else {
+        // Payment succeeded, redirect to success page
+        window.location.href = result.paymentIntent ? result.paymentIntent.last_payment_error.return_url : window.location.href;
+      }
+    });
+  } else {
+    // Handle Card Element (legacy) for backward compatibility
+    const handler = 'payment_intent' === response.gateway.data.stripe_intent_type ? 'confirmCardPayment' : 'confirmCardSetup';
 
-  const args = {
-    payment_method: form.payment_method !== 'add-new' ? form.payment_method : {
-      card,
-      billing_details: {
-        name: response.customer.display_name,
-        email: response.customer.user_email,
-        address: {
-          country: response.customer.billing_address_data.billing_country,
-          postal_code: response.customer.billing_address_data.billing_zip_code,
+    const args = {
+      payment_method: form.payment_method !== 'add-new' ? form.payment_method : {
+        card: element,
+        billing_details: {
+          name: response.customer.display_name,
+          email: response.customer.user_email,
+          address: {
+            country: response.customer.billing_address_data.billing_country,
+            postal_code: response.customer.billing_address_data.billing_zip_code,
+          },
         },
       },
-    },
-  };
+    };
 
-  /**
-   * Handle payment intent / setup intent.
-   */
-  wu_stripe_handle_intent(
-    handler, response.gateway.data.stripe_client_secret, args
-  );
-
+    /**
+     * Handle payment intent / setup intent.
+     */
+    wu_stripe_handle_intent(
+      handler, response.gateway.data.stripe_client_secret, args
+    );
+  }
 }

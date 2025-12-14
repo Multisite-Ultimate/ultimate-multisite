@@ -467,8 +467,10 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		 * the Stripe payment on the next step: process_checkout
 		 */
 		return [
-			'stripe_client_secret' => sanitize_text_field($intent->client_secret),
-			'stripe_intent_type'   => sanitize_text_field($intent->object),
+			'stripe_client_secret'  => sanitize_text_field($intent->client_secret),
+			'stripe_intent_type'    => sanitize_text_field($intent->object),
+			'stripe_payment_amount' => $this->order->get_total() * wu_stripe_get_currency_multiplier(),
+			'stripe_currency'       => strtolower((string) wu_get_setting('currency_symbol', 'USD')),
 		];
 	}
 
@@ -652,7 +654,7 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		$card_options = $this->get_saved_card_options();
 
 		if ($card_options) {
-			$card_options['add-new'] = __('Add new card', 'ultimate-multisite');
+			$card_options['add-new'] = __('Add new payment method', 'ultimate-multisite');
 
 			$fields = [
 				'payment_method' => [
@@ -686,8 +688,13 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		?>
 
 		<div v-if="payment_method == 'add-new'">
+			<!-- Payment Element for multiple payment methods support -->
+			<div id="payment-element" class="wu-mb-4">
+				<!-- A Stripe Payment Element will be inserted here. -->
+			</div>
 
-			<div id="card-element" class="wu-mb-4">
+			<!-- Fallback to Card Element for backward compatibility -->
+			<div id="card-element" class="wu-mb-4" style="display: none;">
 				<!-- A Stripe Element will be inserted here. -->
 			</div>
 
@@ -697,7 +704,6 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 
 			<!-- Used to display Element errors. -->
 			<div id="card-errors" role="alert"></div>
-
 		</div>
 
 		<?php

@@ -18,6 +18,7 @@ use WP_Ultimo\Gateways\Ignorable_Exception;
 use WP_Ultimo\Gateways\Free_Gateway;
 use WP_Ultimo\Gateways\Stripe_Gateway;
 use WP_Ultimo\Gateways\Stripe_Checkout_Gateway;
+use WP_Ultimo\Gateways\Stripe_Connect_Gateway;
 use WP_Ultimo\Gateways\PayPal_Gateway;
 use WP_Ultimo\Gateways\Manual_Gateway;
 
@@ -410,6 +411,12 @@ class Gateway_Manager extends Base_Manager {
 		 */
 		$stripe_checkout_desc = __('Stripe Checkout is the hosted solution for checkouts using Stripe.', 'ultimate-multisite');
 		wu_register_gateway('stripe-checkout', __('Stripe Checkout', 'ultimate-multisite'), $stripe_checkout_desc, Stripe_Checkout_Gateway::class);
+
+		/*
+		 * Stripe Connect Payments
+		 */
+		$stripe_connect_desc = __('Stripe Connect allows you to accept payments on behalf of others and take a percentage of the transaction volume.', 'ultimate-multisite');
+		wu_register_gateway('stripe-connect', __('Stripe Connect', 'ultimate-multisite'), $stripe_connect_desc, Stripe_Connect_Gateway::class);
 
 		/*
 		 * PayPal Payments

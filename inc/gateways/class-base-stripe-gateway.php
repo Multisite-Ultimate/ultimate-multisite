@@ -2506,6 +2506,15 @@ class Base_Stripe_Gateway extends Base_Gateway {
 
 		$obj_name = 'wu_' . str_replace('-', '_', (string) $this->get_id());
 
+		// Determine amount and currency from the current order, if available
+		$amount   = 0;
+		$currency = strtolower((string) wu_get_setting('currency_symbol', 'USD'));
+
+		if (isset($this->order) && $this->order) {
+			$amount   = $this->order->get_total();
+			$currency = strtolower($this->order->get_currency());
+		}
+
 		wp_localize_script(
 			"wu-{$this->get_id()}",
 			$obj_name,
@@ -2514,6 +2523,8 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				'request_billing_address' => $this->request_billing_address,
 				'add_new_card'            => empty($saved_cards),
 				'payment_method'          => empty($saved_cards) ? 'add-new' : current(array_keys($saved_cards)),
+				'payment_amount'          => $amount ? $amount * 100 : 1099, // Convert to cents, default to $10.99
+				'currency'                => $currency,
 			]
 		);
 

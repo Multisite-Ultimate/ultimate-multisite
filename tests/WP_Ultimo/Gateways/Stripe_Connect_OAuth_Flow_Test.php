@@ -93,7 +93,7 @@ class Stripe_Connect_OAuth_Flow_Test extends \WP_UnitTestCase {
 		$this->assertTrue($redirect_captured);
 		
 		// Verify tokens were saved
-		$this->assertEquals('access_token_123', get_option('wu_settings')['stripe_connect_test_access_token'] ?? get_option('wu_settings')['stripe_connect_live_access_token'] ?? null);
+		$this->assertEquals('access_token_123', get_option('v2-settings')['stripe_connect_test_access_token'] ?? get_option('v2-settings')['stripe_connect_live_access_token'] ?? null);
 	}
 
 	/**
@@ -178,12 +178,12 @@ class Stripe_Connect_OAuth_Flow_Test extends \WP_UnitTestCase {
 	 */
 	public function test_oauth_disconnect_with_valid_nonce() {
 		// Set up some mock tokens to be deleted
-		$settings = get_option('wu_settings', []);
+		$settings = get_option('v2-settings', []);
 		$settings['stripe_connect_test_access_token'] = 'access_token_123';
 		$settings['stripe_connect_test_refresh_token'] = 'refresh_token_123';
 		$settings['stripe_connect_test_account_id'] = 'acct_123';
 		$settings['stripe_connect_test_publishable_key'] = 'pk_123';
-		update_option('wu_settings', $settings);
+		update_option('v2-settings', $settings);
 		
 		// Create a valid nonce
 		$_GET['stripe_connect_disconnect'] = '1';
@@ -203,7 +203,7 @@ class Stripe_Connect_OAuth_Flow_Test extends \WP_UnitTestCase {
 		$this->gateway->handle_oauth_callbacks();
 		
 		// Verify tokens were deleted
-		$settings = get_option('wu_settings', []);
+		$settings = get_option("v2-settings", []);
 		$this->assertArrayNotHasKey('stripe_connect_test_access_token', $settings);
 		$this->assertArrayNotHasKey('stripe_connect_test_refresh_token', $settings);
 		$this->assertArrayNotHasKey('stripe_connect_test_account_id', $settings);
@@ -219,9 +219,9 @@ class Stripe_Connect_OAuth_Flow_Test extends \WP_UnitTestCase {
 	 */
 	public function test_get_connect_authorization_url_includes_state() {
 		// Set up client ID
-		$settings = get_option('wu_settings', []);
+		$settings = get_option("v2-settings", []);
 		$settings['stripe_connect_client_id'] = 'ca_123456789';
-		update_option('wu_settings', $settings);
+		update_option("v2-settings", $settings);
 		
 		$state = 'test_state_123';
 		
@@ -293,10 +293,10 @@ class Stripe_Connect_OAuth_Flow_Test extends \WP_UnitTestCase {
 	 */
 	public function test_oauth_token_exchange_uses_platform_secret() {
 		// Set up platform secret key
-		$settings = get_option('wu_settings', []);
+		$settings = get_option("v2-settings", []);
 		$settings['stripe_connect_sandbox_mode'] = '1';
 		$settings['stripe_connect_platform_test_sk_key'] = 'platform_sk_test_123';
-		update_option('wu_settings', $settings);
+		update_option("v2-settings", $settings);
 		
 		// Generate a state and store it
 		$state = wp_generate_password(32, false);

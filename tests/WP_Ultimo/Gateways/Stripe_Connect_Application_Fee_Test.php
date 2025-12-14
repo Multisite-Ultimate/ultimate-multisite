@@ -58,9 +58,9 @@ class Stripe_Connect_Application_Fee_Test extends \WP_UnitTestCase {
 	 */
 	public function test_application_fee_percentage_loaded_from_settings() {
 		// Set application fee percentage in settings
-		$settings = get_option('wu_settings', []);
+		$settings = get_option("v2-settings", []);
 		$settings['stripe_connect_application_fee_percentage'] = '2.5';
-		update_option('wu_settings', $settings);
+		update_option("v2-settings", $settings);
 		
 		// Initialize the gateway
 		$this->gateway->init();
@@ -82,9 +82,9 @@ class Stripe_Connect_Application_Fee_Test extends \WP_UnitTestCase {
 	 */
 	public function test_application_fee_percentage_defaults_to_zero() {
 		// Ensure no application fee is set in settings
-		$settings = get_option('wu_settings', []);
+		$settings = get_option("v2-settings", []);
 		unset($settings['stripe_connect_application_fee_percentage']);
-		update_option('wu_settings', $settings);
+		update_option("v2-settings", $settings);
 		
 		// Initialize the gateway
 		$this->gateway->init();
@@ -106,9 +106,9 @@ class Stripe_Connect_Application_Fee_Test extends \WP_UnitTestCase {
 	 */
 	public function test_create_recurring_payment_includes_application_fee() {
 		// Set up application fee and connected account
-		$settings = get_option('wu_settings', []);
+		$settings = get_option("v2-settings", []);
 		$settings['stripe_connect_application_fee_percentage'] = '3.5';
-		update_option('wu_settings', $settings);
+		update_option("v2-settings", $settings);
 		
 		// Initialize the gateway
 		$this->gateway->init();
@@ -164,9 +164,9 @@ class Stripe_Connect_Application_Fee_Test extends \WP_UnitTestCase {
 			->willReturn($stripeClient);
 		
 		// Set the same properties on the mock
-		$settings = get_option('wu_settings', []);
+		$settings = get_option("v2-settings", []);
 		$settings['stripe_connect_application_fee_percentage'] = '3.5';
-		update_option('wu_settings', $settings);
+		update_option("v2-settings", $settings);
 		$mockGateway->init();
 		
 		$accountIdProperty = new \ReflectionProperty($mockGateway, 'stripe_connect_account_id');
@@ -188,9 +188,9 @@ class Stripe_Connect_Application_Fee_Test extends \WP_UnitTestCase {
 	 */
 	public function test_maybe_update_application_fee() {
 		// Set up application fee
-		$settings = get_option('wu_settings', []);
+		$settings = get_option("v2-settings", []);
 		$settings['stripe_connect_application_fee_percentage'] = '2.9';
-		update_option('wu_settings', $settings);
+		update_option("v2-settings", $settings);
 		
 		// Set up the gateway with connect properties
 		$reflection = new \ReflectionClass($this->gateway);
@@ -254,9 +254,9 @@ class Stripe_Connect_Application_Fee_Test extends \WP_UnitTestCase {
 	 */
 	public function test_maybe_update_application_fee_skips_when_fee_zero() {
 		// Set up with 0 application fee
-		$settings = get_option('wu_settings', []);
+		$settings = get_option("v2-settings", []);
 		$settings['stripe_connect_application_fee_percentage'] = '0';
-		update_option('wu_settings', $settings);
+		update_option("v2-settings", $settings);
 		
 		// Set up the gateway
 		$reflection = new \ReflectionClass($this->gateway);
@@ -315,9 +315,9 @@ class Stripe_Connect_Application_Fee_Test extends \WP_UnitTestCase {
 	 */
 	public function test_maybe_update_application_fee_skips_when_not_connect() {
 		// Set up with application fee but not in connect mode
-		$settings = get_option('wu_settings', []);
+		$settings = get_option("v2-settings", []);
 		$settings['stripe_connect_application_fee_percentage'] = '3.0';
-		update_option('wu_settings', $settings);
+		update_option("v2-settings", $settings);
 		
 		// Set up the gateway
 		$reflection = new \ReflectionClass($this->gateway);

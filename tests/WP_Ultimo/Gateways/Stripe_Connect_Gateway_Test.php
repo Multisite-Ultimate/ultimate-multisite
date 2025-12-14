@@ -80,15 +80,28 @@ class Stripe_Connect_Gateway_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_setup_connect_api_keys_test_mode() {
-		// Set test mode to true and API keys via the settings system
-		wu_save_option('v2-settings', [
-			'stripe_connect_sandbox_mode' => '1',
-			'stripe_connect_test_pk_key' => 'pk_test_123',
-			'stripe_connect_test_sk_key' => 'sk_test_123',
-			'stripe_connect_test_account_id' => 'acct_123',
-		]);
+		// Reset the gateway instance to ensure clean state
+		$this->gateway = new \WP_Ultimo\Gateways\Stripe_Connect_Gateway();
 
+		// Set the settings first
+		$settings = get_option('v2-settings', []);
+		$settings['stripe_connect_sandbox_mode'] = '1';
+		$settings['stripe_connect_test_pk_key'] = 'pk_test_123';
+		$settings['stripe_connect_test_sk_key'] = 'sk_test_123';
+		$settings['stripe_connect_test_account_id'] = 'acct_123';
+		update_option('v2-settings', $settings);
+
+		// Initialize the gateway with the new settings
 		$this->gateway->init();
+
+		// Get the ID of the gateway to pass to the method
+		$id = wu_replace_dashes($this->gateway->get_id());
+
+		// Manually call setup_connect_api_keys to load the settings with the new values
+		$reflection = new \ReflectionClass($this->gateway);
+		$method = $reflection->getMethod('setup_connect_api_keys');
+		$method->setAccessible(true);
+		$method->invoke($this->gateway, $id);
 
 		// Access the protected properties using reflection
 		$reflection = new \ReflectionClass($this->gateway);
@@ -122,15 +135,25 @@ class Stripe_Connect_Gateway_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_setup_connect_api_keys_live_mode() {
-		// Set live mode and API keys via the settings system
-		wu_save_option('v2-settings', [
-			'stripe_connect_sandbox_mode' => '0',
-			'stripe_connect_live_pk_key' => 'pk_live_123',
-			'stripe_connect_live_sk_key' => 'sk_live_123',
-			'stripe_connect_live_account_id' => 'acct_456',
-		]);
+		// Set the settings first
+		$settings = get_option('v2-settings', []);
+		$settings['stripe_connect_sandbox_mode'] = '0';
+		$settings['stripe_connect_live_pk_key'] = 'pk_live_123';
+		$settings['stripe_connect_live_sk_key'] = 'sk_live_123';
+		$settings['stripe_connect_live_account_id'] = 'acct_456';
+		update_option('v2-settings', $settings);
 
+		// First initialize the gateway to set up the test_mode property
 		$this->gateway->init();
+
+		// Get the ID of the gateway to pass to the method
+		$id = wu_replace_dashes($this->gateway->get_id());
+
+		// Manually call setup_connect_api_keys again to reload with the new settings
+		$reflection = new \ReflectionClass($this->gateway);
+		$method = $reflection->getMethod('setup_connect_api_keys');
+		$method->setAccessible(true);
+		$method->invoke($this->gateway, $id);
 
 		// Access the protected properties using reflection
 		$reflection = new \ReflectionClass($this->gateway);
@@ -164,15 +187,25 @@ class Stripe_Connect_Gateway_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_setup_connect_api_keys_oauth_test_mode() {
-		// Set test mode to true and OAuth tokens via the settings system
-		wu_save_option('v2-settings', [
-			'stripe_connect_sandbox_mode' => '1',
-			'stripe_connect_test_access_token' => 'access_token_test_123',
-			'stripe_connect_test_publishable_key' => 'pk_test_oauth_123',
-			'stripe_connect_test_account_id' => 'acct_oauth_123',
-		]);
+		// Set the settings first
+		$settings = get_option('v2-settings', []);
+		$settings['stripe_connect_sandbox_mode'] = '1';
+		$settings['stripe_connect_test_access_token'] = 'access_token_test_123';
+		$settings['stripe_connect_test_publishable_key'] = 'pk_test_oauth_123';
+		$settings['stripe_connect_test_account_id'] = 'acct_oauth_123';
+		update_option('v2-settings', $settings);
 
+		// First initialize the gateway to set up the test_mode property
 		$this->gateway->init();
+
+		// Get the ID of the gateway to pass to the method
+		$id = wu_replace_dashes($this->gateway->get_id());
+
+		// Manually call setup_connect_api_keys again to reload with the new settings
+		$reflection = new \ReflectionClass($this->gateway);
+		$method = $reflection->getMethod('setup_connect_api_keys');
+		$method->setAccessible(true);
+		$method->invoke($this->gateway, $id);
 
 		// Access the protected properties using reflection
 		$reflection = new \ReflectionClass($this->gateway);
@@ -207,29 +240,39 @@ class Stripe_Connect_Gateway_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_get_platform_secret_key() {
-		// Test with test mode
-		wu_save_option('v2-settings', [
-			'stripe_connect_sandbox_mode' => '1',
-			'stripe_connect_platform_test_sk_key' => 'platform_sk_test_123',
-		]);
+		// Test with test mode - set settings first
+		$settings = get_option('v2-settings', []);
+		$settings['stripe_connect_sandbox_mode'] = '1';
+		$settings['stripe_connect_platform_test_sk_key'] = 'platform_sk_test_123';
+		update_option('v2-settings', $settings);
 
-		$method = new \ReflectionMethod($this->gateway, 'get_platform_secret_key');
+		// Get the ID of the gateway to pass to the method
+		$id = wu_replace_dashes($this->gateway->get_id());
+
+		// Manually call setup_connect_api_keys to load the settings
+		$reflection = new \ReflectionClass($this->gateway);
+		$setup_method = $reflection->getMethod('setup_connect_api_keys');
+		$setup_method->setAccessible(true);
+		$setup_method->invoke($this->gateway, $id);
+
+		$get_platform_method = new \ReflectionMethod($this->gateway, 'get_platform_secret_key');
 		if (version_compare(PHP_VERSION, '8.1.0', '<')) {
-			$method->setAccessible(true);
+			$get_platform_method->setAccessible(true);
 		}
 
-		$result = $method->invoke($this->gateway);
+		$result = $get_platform_method->invoke($this->gateway);
 		$this->assertEquals('platform_sk_test_123', $result);
 
-		// Test with live mode
-		wu_save_option('v2-settings', [
-			'stripe_connect_sandbox_mode' => '0',
-			'stripe_connect_platform_live_sk_key' => 'platform_sk_live_123',
-		]);
+		// Test with live mode - set settings first
+		$settings = get_option('v2-settings', []);
+		$settings['stripe_connect_sandbox_mode'] = '0';
+		$settings['stripe_connect_platform_live_sk_key'] = 'platform_sk_live_123';
+		update_option('v2-settings', $settings);
 
-		$this->gateway->setup_connect_api_keys();
+		// Manually call setup_connect_api_keys again to load the live settings
+		$setup_method->invoke($this->gateway, $id);
 
-		$result = $method->invoke($this->gateway);
+		$result = $get_platform_method->invoke($this->gateway);
 		$this->assertEquals('platform_sk_live_123', $result);
 	}
 
@@ -252,12 +295,22 @@ class Stripe_Connect_Gateway_Test extends \WP_UnitTestCase {
 	 * @return void
 	 */
 	public function test_application_fee_percentage_setting() {
-		// Set application fee
-		wu_save_option('v2-settings', [
-			'stripe_connect_application_fee_percentage' => '2.5',
-		]);
+		// Set application fee first
+		$settings = get_option('v2-settings', []);
+		$settings['stripe_connect_application_fee_percentage'] = '2.5';
+		update_option('v2-settings', $settings);
 
+		// First initialize the gateway to set up initial properties
 		$this->gateway->init();
+
+		// Get the ID of the gateway to pass to the method
+		$id = wu_replace_dashes($this->gateway->get_id());
+
+		// Manually call setup_connect_api_keys again to reload with the new settings
+		$reflection = new \ReflectionClass($this->gateway);
+		$method = $reflection->getMethod('setup_connect_api_keys');
+		$method->setAccessible(true);
+		$method->invoke($this->gateway, $id);
 
 		// Access the property using reflection since it's protected
 		$property = new \ReflectionProperty($this->gateway, 'application_fee_percentage');

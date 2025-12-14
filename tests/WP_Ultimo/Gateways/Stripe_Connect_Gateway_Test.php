@@ -261,7 +261,7 @@ class Stripe_Connect_Gateway_Test extends \WP_UnitTestCase {
 
 		// Access the property using reflection since it's protected
 		$property = new \ReflectionProperty($this->gateway, 'application_fee_percentage');
-		$property->\\WP_Ultimo\\Tests\\Gateways\\wu_set_accessible_compatible($this);
+		wu_set_accessible_compatible($property);
 
 		$this->assertEquals(2.5, $property->getValue($this->gateway));
 	}

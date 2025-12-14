@@ -20,7 +20,7 @@ use Stripe\StripeClient;
  */
 function wu_set_accessible_compatible($reflection) {
     if (version_compare(PHP_VERSION, '8.1.0', '<')) {
-        $reflection->\\WP_Ultimo\\Tests\\Gateways\\wu_set_accessible_compatible($this);
+        $reflection->setAccessible(true);
     }
 }
 

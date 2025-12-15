@@ -86,21 +86,16 @@ class Stripe_OAuth_E2E_Test extends \WP_UnitTestCase {
 		// Step 1: Start with no configuration
 		$this->clear_all_stripe_settings();
 
-		// Step 2: Platform credentials configured via filter (simulating wp-config.php constants)
-		add_filter('wu_stripe_platform_client_id', function() {
-			return 'ca_platform_test_123';
-		});
-
 		wu_save_setting('stripe_sandbox_mode', 1);
 
-		// Step 3: User clicks "Connect with Stripe" and OAuth completes
+		// Step 2: User clicks "Connect with Stripe" and OAuth completes
 		// (Simulating what happens after successful OAuth callback)
 		wu_save_setting('stripe_test_access_token', 'sk_test_connected_abc');
 		wu_save_setting('stripe_test_account_id', 'acct_connected_xyz');
 		wu_save_setting('stripe_test_publishable_key', 'pk_test_connected_abc');
 		wu_save_setting('stripe_test_refresh_token', 'rt_test_refresh_abc');
 
-		// Step 4: Gateway initializes and detects OAuth
+		// Step 3: Gateway initializes and detects OAuth
 		$gateway = new Stripe_Gateway();
 		$gateway->init();
 
@@ -114,7 +109,7 @@ class Stripe_OAuth_E2E_Test extends \WP_UnitTestCase {
 		$account_property->setAccessible(true);
 		$this->assertEquals('acct_connected_xyz', $account_property->getValue($gateway));
 
-		// Step 5: Verify direct keys would still work if OAuth disconnected
+		// Step 4: Verify direct keys would still work if OAuth disconnected
 		wu_save_setting('stripe_test_access_token', ''); // Clear OAuth
 		wu_save_setting('stripe_test_pk_key', 'pk_test_direct_fallback');
 		wu_save_setting('stripe_test_sk_key', 'sk_test_direct_fallback');

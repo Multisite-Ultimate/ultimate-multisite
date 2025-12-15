@@ -106,14 +106,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	protected $oauth_account_id = '';
 
 	/**
-	 * Platform client ID for OAuth.
-	 *
-	 * @since 2.x.x
-	 * @var string
-	 */
-	protected $platform_client_id = '';
-
-	/**
 	 * Authentication mode: 'direct' or 'oauth'.
 	 *
 	 * @since 2.x.x
@@ -372,10 +364,10 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	protected function get_oauth_init_url(): string {
 		return add_query_arg(
 			[
-				'page'            => 'wu-settings',
-				'tab'             => 'payment-gateways',
+				'page'              => 'wu-settings',
+				'tab'               => 'payment-gateways',
 				'stripe_oauth_init' => '1',
-				'_wpnonce'        => wp_create_nonce('stripe_oauth_init'),
+				'_wpnonce'          => wp_create_nonce('stripe_oauth_init'),
 			],
 			admin_url('admin.php')
 		);

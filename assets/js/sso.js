@@ -119,26 +119,6 @@
 
     } else {
 
-      /**
-       * If we are in a incognito window,
-       * we give it another try with a full redirect,
-       * as chrome settings might be blocking
-       * cookies from being sent anyways.
-       */
-      if (window.is_incognito) {
-
-        if (o.use_overlay) {
-
-          document.body.classList.add('sso-loading');
-
-        }
-
-        window.location.replace(`${o.server_url}?return_url=${ encodedLocation }`);
-
-        return;
-
-      }
-
       window.wu.sso_denied();
 
       document.body.classList.remove('sso-loading');

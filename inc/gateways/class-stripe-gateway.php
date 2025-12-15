@@ -45,6 +45,9 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 
 		parent::hooks();
 
+		// Handle OAuth callbacks and disconnects
+		add_action('admin_init', [$this, 'handle_oauth_callbacks']);
+
 		add_filter(
 			'wu_customer_payment_methods',
 			function ($fields, $customer): array {
@@ -98,6 +101,54 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 			]
 		);
 
+		// OAuth Connect Section
+		wu_register_settings_field(
+			'payment-gateways',
+			'stripe_auth_header',
+			[
+				'title'           => __('Stripe Authentication', 'ultimate-multisite'),
+				'desc'            => __('Choose how to authenticate with Stripe. OAuth is recommended for easier setup and platform fees.', 'ultimate-multisite'),
+				'type'            => 'header',
+				'show_as_submenu' => false,
+				'require'         => [
+					'active_gateways' => 'stripe',
+				],
+			]
+		);
+
+		// OAuth Connection Status/Button
+		wu_register_settings_field(
+			'payment-gateways',
+			'stripe_oauth_connection',
+			[
+				'title'   => __('Stripe Connect (Recommended)', 'ultimate-multisite'),
+				'desc'    => __('Connect your Stripe account securely with one click. This provides easier setup and automatic configuration.', 'ultimate-multisite'),
+				'type'    => 'html',
+				'content' => $this->get_oauth_connection_html(),
+				'require' => [
+					'active_gateways' => 'stripe',
+				],
+			]
+		);
+
+		// Advanced: Show Direct API Keys Toggle
+		wu_register_settings_field(
+			'payment-gateways',
+			'stripe_show_direct_keys',
+			[
+				'title'     => __('Use Direct API Keys (Advanced)', 'ultimate-multisite'),
+				'desc'      => __('Toggle to manually enter API keys instead of using OAuth. Use this for backwards compatibility or advanced configurations.', 'ultimate-multisite'),
+				'type'      => 'toggle',
+				'default'   => 0,
+				'html_attr' => [
+					'v-model' => 'stripe_show_direct_keys',
+				],
+				'require'   => [
+					'active_gateways' => 'stripe',
+				],
+			]
+		);
+
 		wu_register_settings_field(
 			'payment-gateways',
 			'stripe_sandbox_mode',
@@ -129,8 +180,9 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
 				'require'     => [
-					'active_gateways'     => 'stripe',
-					'stripe_sandbox_mode' => 1,
+					'active_gateways'         => 'stripe',
+					'stripe_sandbox_mode'     => 1,
+					'stripe_show_direct_keys' => 1,
 				],
 			]
 		);
@@ -149,8 +201,9 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
 				'require'     => [
-					'active_gateways'     => 'stripe',
-					'stripe_sandbox_mode' => 1,
+					'active_gateways'         => 'stripe',
+					'stripe_sandbox_mode'     => 1,
+					'stripe_show_direct_keys' => 1,
 				],
 			]
 		);
@@ -169,8 +222,9 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
 				'require'     => [
-					'active_gateways'     => 'stripe',
-					'stripe_sandbox_mode' => 0,
+					'active_gateways'         => 'stripe',
+					'stripe_sandbox_mode'     => 0,
+					'stripe_show_direct_keys' => 1,
 				],
 			]
 		);
@@ -189,8 +243,9 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 				'default'     => '',
 				'capability'  => 'manage_api_keys',
 				'require'     => [
-					'active_gateways'     => 'stripe',
-					'stripe_sandbox_mode' => 0,
+					'active_gateways'         => 'stripe',
+					'stripe_sandbox_mode'     => 0,
+					'stripe_show_direct_keys' => 1,
 				],
 			]
 		);
@@ -687,6 +742,12 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 
 		<div v-if="payment_method == 'add-new'">
 
+			<!-- Payment Element container (modern, recommended) -->
+			<div id="payment-element" class="wu-mb-4">
+				<!-- Stripe Payment Element will be inserted here -->
+			</div>
+
+			<!-- Card Element container (legacy fallback) -->
 			<div id="card-element" class="wu-mb-4">
 				<!-- A Stripe Element will be inserted here. -->
 			</div>
@@ -795,5 +856,57 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		} catch (\Throwable $exception) {
 			return [];
 		}
+	}
+
+	/**
+	 * Get OAuth connection status HTML.
+	 *
+	 * Displays either the connected status with account ID and disconnect button,
+	 * or a "Connect with Stripe" button for new connections.
+	 *
+	 * @since 2.x.x
+	 * @return string HTML content for the OAuth connection status
+	 */
+	protected function get_oauth_connection_html(): string {
+		$is_oauth   = $this->is_using_oauth();
+		$account_id = $this->oauth_account_id;
+
+		if ($is_oauth && ! empty($account_id)) {
+			// Connected state
+			return sprintf(
+				'<div class="wu-oauth-status wu-connected wu-p-4 wu-bg-green-50 wu-border wu-border-green-200 wu-rounded">
+					<div class="wu-flex wu-items-center wu-mb-2">
+						<span class="dashicons dashicons-yes-alt wu-text-green-600 wu-mr-2"></span>
+						<strong class="wu-text-green-800">%s</strong>
+					</div>
+					<p class="wu-text-sm wu-text-gray-600 wu-mb-2">%s <code class="wu-bg-white wu-px-2 wu-py-1 wu-rounded">%s</code></p>
+					<a href="%s" class="button wu-mt-2">%s</a>
+				</div>',
+				esc_html__('Connected via Stripe Connect', 'ultimate-multisite'),
+				esc_html__('Account ID:', 'ultimate-multisite'),
+				esc_html($account_id),
+				esc_url($this->get_disconnect_url()),
+				esc_html__('Disconnect', 'ultimate-multisite')
+			);
+		}
+
+		// Disconnected state - show connect button
+		$state = wp_generate_password(32, false);
+		update_option('wu_stripe_oauth_state', $state, false);
+
+		return sprintf(
+			'<div class="wu-oauth-status wu-disconnected wu-p-4 wu-bg-blue-50 wu-border wu-border-blue-200 wu-rounded">
+				<p class="wu-text-sm wu-text-gray-700 wu-mb-3">%s</p>
+				<a href="%s" class="button button-primary">
+					<span class="dashicons dashicons-admin-links wu-mr-1"></span>
+					%s
+				</a>
+				<p class="wu-text-xs wu-text-gray-500 wu-mt-2">%s</p>
+			</div>',
+			esc_html__('Connect your Stripe account with one click.', 'ultimate-multisite'),
+			esc_url($this->get_connect_authorization_url($state)),
+			esc_html__('Connect with Stripe', 'ultimate-multisite'),
+			esc_html__('You will be redirected to Stripe to securely authorize the connection.', 'ultimate-multisite')
+		);
 	}
 }

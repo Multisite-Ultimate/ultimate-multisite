@@ -56,59 +56,6 @@ class Stripe_OAuth_E2E_Test extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * Test that application fee percentage is loaded when using OAuth.
-	 */
-	public function test_application_fee_loaded_with_oauth() {
-		// Mock application fee via filter
-		add_filter('wu_stripe_application_fee_percentage', function() {
-			return 3.5;
-		});
-
-		// Setup OAuth mode
-		wu_save_setting('stripe_test_access_token', 'sk_test_oauth_token_123');
-		wu_save_setting('stripe_test_account_id', 'acct_test123');
-		wu_save_setting('stripe_test_publishable_key', 'pk_test_oauth_123');
-		wu_save_setting('stripe_sandbox_mode', 1);
-
-		$gateway = new Stripe_Gateway();
-		$gateway->init();
-
-		// Verify OAuth mode
-		$this->assertTrue($gateway->is_using_oauth());
-
-		// Verify application fee is loaded
-		$reflection = new \ReflectionClass($gateway);
-		$property = $reflection->getProperty('application_fee_percentage');
-		$property->setAccessible(true);
-
-		$this->assertEquals(3.5, $property->getValue($gateway));
-	}
-
-	/**
-	 * Test that application fee is zero when using direct API keys.
-	 */
-	public function test_application_fee_zero_with_direct_keys() {
-		// Setup direct mode (no OAuth tokens)
-		wu_save_setting('stripe_test_pk_key', 'pk_test_direct_123');
-		wu_save_setting('stripe_test_sk_key', 'sk_test_direct_123');
-		wu_save_setting('stripe_application_fee_percentage', 3.5); // Should be ignored
-		wu_save_setting('stripe_sandbox_mode', 1);
-
-		$gateway = new Stripe_Gateway();
-		$gateway->init();
-
-		// Verify NOT using OAuth
-		$this->assertFalse($gateway->is_using_oauth());
-
-		// Verify application fee is zero (not loaded in direct mode)
-		$reflection = new \ReflectionClass($gateway);
-		$property = $reflection->getProperty('application_fee_percentage');
-		$property->setAccessible(true);
-
-		$this->assertEquals(0, $property->getValue($gateway));
-	}
-
-	/**
 	 * Test that Stripe client is configured with account header in OAuth mode.
 	 */
 	public function test_stripe_client_has_account_header_in_oauth_mode() {
@@ -143,9 +90,6 @@ class Stripe_OAuth_E2E_Test extends \WP_UnitTestCase {
 		add_filter('wu_stripe_platform_client_id', function() {
 			return 'ca_platform_test_123';
 		});
-		add_filter('wu_stripe_application_fee_percentage', function() {
-			return 2.5;
-		});
 
 		wu_save_setting('stripe_sandbox_mode', 1);
 
@@ -164,13 +108,8 @@ class Stripe_OAuth_E2E_Test extends \WP_UnitTestCase {
 		$this->assertTrue($gateway->is_using_oauth());
 		$this->assertEquals('oauth', $gateway->get_authentication_mode());
 
-		// Verify application fee is loaded
-		$reflection = new \ReflectionClass($gateway);
-		$fee_property = $reflection->getProperty('application_fee_percentage');
-		$fee_property->setAccessible(true);
-		$this->assertEquals(2.5, $fee_property->getValue($gateway));
-
 		// Verify account ID is loaded
+		$reflection = new \ReflectionClass($gateway);
 		$account_property = $reflection->getProperty('oauth_account_id');
 		$account_property->setAccessible(true);
 		$this->assertEquals('acct_connected_xyz', $account_property->getValue($gateway));

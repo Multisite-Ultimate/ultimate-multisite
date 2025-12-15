@@ -35,7 +35,6 @@ class Stripe_OAuth_Test extends WP_UnitTestCase {
 		wu_save_setting('stripe_test_publishable_key', '');
 		wu_save_setting('stripe_test_pk_key', '');
 		wu_save_setting('stripe_test_sk_key', '');
-		wu_save_setting('stripe_application_fee_percentage', 0);
 		wu_save_setting('stripe_sandbox_mode', 1);
 
 		$this->gateway = new Stripe_Gateway();
@@ -92,55 +91,6 @@ class Stripe_OAuth_Test extends WP_UnitTestCase {
 		// OAuth should take precedence
 		$this->assertEquals('oauth', $gateway->get_authentication_mode());
 		$this->assertTrue($gateway->is_using_oauth());
-	}
-
-	/**
-	 * Test application fee percentage is loaded for OAuth.
-	 */
-	public function test_application_fee_loaded_for_oauth() {
-		// Mock application fee via filter (simulating wp-config.php constant)
-		add_filter('wu_stripe_application_fee_percentage', function() {
-			return 2.5;
-		});
-
-		wu_save_setting('stripe_test_access_token', 'sk_test_oauth_token_123');
-		wu_save_setting('stripe_test_account_id', 'acct_123');
-		wu_save_setting('stripe_test_publishable_key', 'pk_test_oauth_123');
-		wu_save_setting('stripe_sandbox_mode', 1);
-
-		$gateway = new Stripe_Gateway();
-		$gateway->init();
-
-		$this->assertTrue($gateway->is_using_oauth());
-
-		// Use reflection to check protected property
-		$reflection = new \ReflectionClass($gateway);
-		$property = $reflection->getProperty('application_fee_percentage');
-		$property->setAccessible(true);
-
-		$this->assertEquals(2.5, $property->getValue($gateway));
-	}
-
-	/**
-	 * Test application fee not loaded for direct mode.
-	 */
-	public function test_application_fee_not_loaded_for_direct() {
-		wu_save_setting('stripe_test_pk_key', 'pk_test_direct_123');
-		wu_save_setting('stripe_test_sk_key', 'sk_test_direct_123');
-		wu_save_setting('stripe_application_fee_percentage', 2.5);
-		wu_save_setting('stripe_sandbox_mode', 1);
-
-		$gateway = new Stripe_Gateway();
-		$gateway->init();
-
-		$this->assertFalse($gateway->is_using_oauth());
-
-		// Use reflection to check protected property
-		$reflection = new \ReflectionClass($gateway);
-		$property = $reflection->getProperty('application_fee_percentage');
-		$property->setAccessible(true);
-
-		$this->assertEquals(0, $property->getValue($gateway));
 	}
 
 	/**

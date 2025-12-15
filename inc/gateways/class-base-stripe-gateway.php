@@ -114,14 +114,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	protected $platform_client_id = '';
 
 	/**
-	 * Application fee percentage for Stripe Connect.
-	 *
-	 * @since 2.x.x
-	 * @var float
-	 */
-	protected $application_fee_percentage = 0.0;
-
-	/**
 	 * Authentication mode: 'direct' or 'oauth'.
 	 *
 	 * @since 2.x.x
@@ -261,11 +253,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			}
 		}
 
-		// Load application fee if using OAuth
-		if ($this->is_using_oauth()) {
-			$this->application_fee_percentage = $this->get_application_fee_percentage();
-		}
-
 		if ($this->secret_key && Stripe\Stripe::getApiKey() !== $this->secret_key) {
 			Stripe\Stripe::setApiKey($this->secret_key);
 
@@ -291,24 +278,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 */
 	public function is_using_oauth(): bool {
 		return 'oauth' === $this->authentication_mode && $this->is_connect_enabled;
-	}
-
-	/**
-	 * Get application fee percentage.
-	 *
-	 * This is the percentage Ultimate Multisite receives from transactions.
-	 * Can be defined as constant WU_STRIPE_APPLICATION_FEE or filtered.
-	 *
-	 * @since 2.x.x
-	 * @return float
-	 */
-	protected function get_application_fee_percentage(): float {
-		/**
-		 * Filter the application fee percentage for Stripe Connect.
-		 *
-		 * @param float $percentage Application fee percentage (0-100).
-		 */
-		return (float) apply_filters('wu_stripe_application_fee_percentage', defined('WU_STRIPE_APPLICATION_FEE') ? WU_STRIPE_APPLICATION_FEE : 0);
 	}
 
 	/**
@@ -392,6 +361,27 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	}
 
 	/**
+	 * Get OAuth init URL (triggers OAuth flow when clicked).
+	 *
+	 * This returns a local URL that will initiate the OAuth flow only when clicked,
+	 * avoiding unnecessary HTTP requests to the proxy on every page load.
+	 *
+	 * @since 2.x.x
+	 * @return string
+	 */
+	protected function get_oauth_init_url(): string {
+		return add_query_arg(
+			[
+				'page'            => 'wu-settings',
+				'tab'             => 'payment-gateways',
+				'stripe_oauth_init' => '1',
+				'_wpnonce'        => wp_create_nonce('stripe_oauth_init'),
+			],
+			admin_url('admin.php')
+		);
+	}
+
+	/**
 	 * Get disconnect URL.
 	 *
 	 * @since 2.x.x
@@ -416,6 +406,19 @@ class Base_Stripe_Gateway extends Base_Gateway {
 	 * @return void
 	 */
 	public function handle_oauth_callbacks(): void {
+		// Handle OAuth init (user clicked Connect button)
+		if (isset($_GET['stripe_oauth_init'], $_GET['_wpnonce']) && isset($_GET['page']) && 'wu-settings' === $_GET['page']) {
+			if (wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'stripe_oauth_init')) {
+				// Now make the proxy call and redirect to OAuth URL
+				$oauth_url = $this->get_connect_authorization_url();
+
+				if (! empty($oauth_url)) {
+					wp_safe_redirect($oauth_url);
+					exit;
+				}
+			}
+		}
+
 		// Handle OAuth callback from proxy (encrypted code)
 		if (isset($_GET['wcs_stripe_code'], $_GET['wcs_stripe_state']) && isset($_GET['page']) && 'wu-settings' === $_GET['page']) {
 			$encrypted_code = sanitize_text_field(wp_unslash($_GET['wcs_stripe_code']));
@@ -1488,13 +1491,6 @@ class Base_Stripe_Gateway extends Base_Gateway {
 			if ($s_coupon) {
 				$sub_args['discounts'] = [['coupon' => $s_coupon]];
 			}
-		}
-
-		/*
-		 * Add application fee if using OAuth Connect mode.
-		 */
-		if ($this->is_using_oauth() && $this->application_fee_percentage > 0) {
-			$sub_args['application_fee_percent'] = $this->application_fee_percentage;
 		}
 
 		/*

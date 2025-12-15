@@ -891,9 +891,6 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 		}
 
 		// Disconnected state - show connect button
-		$state = wp_generate_password(32, false);
-		update_option('wu_stripe_oauth_state', $state, false);
-
 		return sprintf(
 			'<div class="wu-oauth-status wu-disconnected wu-p-4 wu-bg-blue-50 wu-border wu-border-blue-200 wu-rounded">
 				<p class="wu-text-sm wu-text-gray-700 wu-mb-3">%s</p>
@@ -904,7 +901,7 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 				<p class="wu-text-xs wu-text-gray-500 wu-mt-2">%s</p>
 			</div>',
 			esc_html__('Connect your Stripe account with one click.', 'ultimate-multisite'),
-			esc_url($this->get_connect_authorization_url($state)),
+			esc_url($this->get_oauth_init_url()),
 			esc_html__('Connect with Stripe', 'ultimate-multisite'),
 			esc_html__('You will be redirected to Stripe to securely authorize the connection.', 'ultimate-multisite')
 		);

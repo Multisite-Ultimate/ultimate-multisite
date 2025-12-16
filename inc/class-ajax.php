@@ -31,6 +31,7 @@ class Ajax implements \WP_Ultimo\Interfaces\Singleton {
 		 * Load search endpoints.
 		 */
 		add_action('wu_ajax_wu_search', [$this, 'search_models']);
+		add_action('wu_ajax_nopriv_wu_search', [$this, 'search_models']);
 
 		/*
 		 * Adds the Selectize templates to the admin_footer.
@@ -85,6 +86,15 @@ class Ajax implements \WP_Ultimo\Interfaces\Singleton {
 	 * @return void
 	 */
 	public function search_models(): void {
+
+		/**
+		 * Check if user has permission to search models.
+		 * Network admins can always search. Others need to be logged in.
+		 */
+		if ( ! current_user_can('manage_network') && ! is_user_logged_in()) {
+			wp_send_json_error(['message' => __('Unauthorized', 'ultimate-multisite')], 403);
+			exit;
+		}
 
 		/**
 		 * Fires before the processing of the search request.

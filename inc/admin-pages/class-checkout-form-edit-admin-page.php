@@ -408,7 +408,9 @@ class Checkout_Form_Edit_Admin_Page extends Edit_Admin_Page {
 			'type_note'               => [
 				'type'              => 'note',
 				'order'             => 0,
-				'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-on:click.prevent="type = \'\'">%s</a>', __('&larr; Back to Field Type Selection', 'ultimate-multisite')),
+				'desc'              => function () {
+					printf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-on:click.prevent="type = \'\'">%s</a>', esc_html__('&larr; Back to Field Type Selection', 'ultimate-multisite'));
+				},
 				'wrapper_html_attr' => [
 					'v-show'  => 'type && (!saved && !name)',
 					'v-cloak' => '1',

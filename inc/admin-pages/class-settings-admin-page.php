@@ -611,4 +611,189 @@ class Settings_Admin_Page extends Wizard_Admin_Page {
 
 		$form->render();
 	}
+
+	/**
+	 * Overrides parent page_loaded to handle export/import functionality.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
+	public function page_loaded() {
+
+		$this->handle_export();
+		$this->handle_import_redirect();
+		$this->register_forms();
+
+		parent::page_loaded();
+	}
+
+	/**
+	 * Handle settings export request.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
+	protected function handle_export() {
+
+		if ( ! isset($_GET['wu_export_settings'])) {
+			return;
+		}
+		check_admin_referer('wu_export_settings');
+
+		// Check permissions
+		if ( ! current_user_can('wu_edit_settings')) {
+			wp_die(esc_html__('You do not have permission to export settings.', 'ultimate-multisite'));
+		}
+
+		$result = \WP_Ultimo\Helpers\Settings_Porter::export_settings();
+
+		if ( ! $result['success']) {
+			wp_die(esc_html($result['message']));
+		}
+
+		\WP_Ultimo\Helpers\Settings_Porter::send_download(
+			$result['data'],
+			$result['filename']
+		);
+	}
+
+	/**
+	 * Register import form.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
+	public function register_forms() {
+
+		wu_register_form(
+			'import_settings',
+			[
+				'render'     => [$this, 'render_import_settings_modal'],
+				'handler'    => [$this, 'handle_import_settings_modal'],
+				'capability' => 'wu_edit_settings',
+			]
+		);
+	}
+
+	/**
+	 * Render the import settings modal.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
+	public function render_import_settings_modal() {
+
+		$fields = [
+			'import_file_header' => [
+				'type'  => 'header',
+				'title' => __('Upload Settings File', 'ultimate-multisite'),
+				'desc'  => __('Select a JSON file previously exported from Ultimate Multisite.', 'ultimate-multisite'),
+			],
+			'import_file'        => [
+				'type'    => 'html',
+				'content' => '<input type="file" name="import_file" id="import_file" accept=".json" required class="wu-w-full" />',
+			],
+			'confirm'            => [
+				'type'      => 'toggle',
+				'title'     => __('I understand this will replace all current settings', 'ultimate-multisite'),
+				'desc'      => __('This action cannot be undone. Make sure you have a backup of your current settings.', 'ultimate-multisite'),
+				'value'     => false,
+				'html_attr' => [
+					'v-model' => 'confirm',
+				],
+			],
+			'submit_button'      => [
+				'type'            => 'submit',
+				'title'           => __('Import Settings', 'ultimate-multisite'),
+				'value'           => 'save',
+				'classes'         => 'button button-primary wu-w-full',
+				'wrapper_classes' => 'wu-items-end',
+				'html_attr'       => [
+					'v-bind:disabled' => '!confirm',
+				],
+			],
+		];
+
+		$form = new Form(
+			'import_settings',
+			$fields,
+			[
+				'views'                 => 'admin-pages/fields',
+				'classes'               => 'wu-modal-form wu-widget-list wu-striped wu-m-0',
+				'field_wrapper_classes' => 'wu-w-full wu-box-border wu-items-center wu-flex wu-justify-between wu-p-4 wu-m-0 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300 wu-border-solid',
+				'html_attr'             => [
+					'data-wu-app' => 'import_settings_modal',
+					'data-state'  => wp_json_encode(['confirm' => false]),
+					'enctype'     => 'multipart/form-data',
+				],
+			]
+		);
+
+		$form->render();
+	}
+
+	/**
+	 * Handle import settings form submission.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
+	public function handle_import_settings_modal() {
+
+		// Validate file upload
+		if ( ! isset($_FILES['import_file']) || empty($_FILES['import_file']['tmp_name'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$error = new \WP_Error(
+				'no_file',
+				__('Please select a file to import.', 'ultimate-multisite')
+			);
+			wp_send_json_error($error);
+		}
+
+		// Validate and parse the file
+		$validated_data = \WP_Ultimo\Helpers\Settings_Porter::validate_import_file($_FILES['import_file']); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+		if (is_wp_error($validated_data)) {
+			wp_send_json_error($validated_data);
+		}
+
+		// Import settings
+		\WP_Ultimo\Helpers\Settings_Porter::import_settings($validated_data);
+
+		// Success
+		wp_send_json_success(
+			[
+				'redirect_url' => add_query_arg(
+					[
+						'tab'     => 'import-export',
+						'updated' => 1,
+					],
+					wu_network_admin_url('wp-ultimo-settings')
+				),
+			]
+		);
+	}
+
+	/**
+	 * Display a success message after import redirect.
+	 *
+	 * @since 2.0.0
+	 * @return void
+	 */
+	protected function handle_import_redirect() {
+
+		if ( ! isset($_GET['updated']) || 'import-export' !== wu_request('tab')) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return;
+		}
+
+		add_action(
+			'wu_page_wizard_after_title',
+			function () {
+				?>
+			<div id="message" class="updated notice wu-admin-notice notice-success is-dismissible">
+				<p><?php esc_html_e('Settings successfully imported!', 'ultimate-multisite'); ?></p>
+			</div>
+				<?php
+			}
+		);
+	}
 }

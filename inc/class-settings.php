@@ -1515,6 +1515,116 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 		do_action('wu_settings_integrations');
 
 		/*
+		 * Import/Export
+		 * This section holds the Import/Export settings of the Ultimate Multisite Plugin.
+		 */
+
+		$this->add_section(
+			'import-export',
+			[
+				'title' => __('Import/Export', 'ultimate-multisite'),
+				'desc'  => __('Export your settings to a JSON file or import settings from a previously exported file.', 'ultimate-multisite'),
+				'icon'  => 'dashicons-wu-download',
+				'order' => 995,
+			]
+		);
+
+		// Export Settings Header
+		$this->add_field(
+			'import-export',
+			'export_header',
+			[
+				'title' => __('Export Settings', 'ultimate-multisite'),
+				'desc'  => __('Download all your Ultimate Multisite settings as a JSON file for backup or migration purposes.', 'ultimate-multisite'),
+				'type'  => 'header',
+			],
+			10
+		);
+
+		// Export Description
+		$this->add_field(
+			'import-export',
+			'export_description',
+			[
+				'type'    => 'note',
+				'desc'    => __('The exported file will contain all ultimate multisite settings defined on this page. This includes general settings, payment gateway configurations, email settings, domain mapping settings, and all other plugin configurations. It does not include products, sites, domains, customers and other entities.', 'ultimate-multisite'),
+				'classes' => 'wu-text-gray-600 wu-text-sm',
+			],
+			20
+		);
+
+		// Export Button
+		$this->add_field(
+			'import-export',
+			'export_settings_button',
+			[
+				'type'            => 'submit',
+				'title'           => __('Export Settings', 'ultimate-multisite'),
+				'classes'         => 'button button-primary',
+				'wrapper_classes' => 'wu-items-start',
+				'html_attr'       => [
+					'onclick' => 'window.location.href="' . wp_nonce_url(
+						add_query_arg(['wu_export_settings' => '1'], wu_get_current_url()),
+						'wu_export_settings'
+					) . '"; return false;',
+				],
+			],
+			30
+		);
+
+		// Import Settings Header
+		$this->add_field(
+			'import-export',
+			'import_header',
+			[
+				'title' => __('Import Settings', 'ultimate-multisite'),
+				'desc'  => __('Upload a previously exported JSON file to restore settings.', 'ultimate-multisite'),
+				'type'  => 'header',
+			],
+			40
+		);
+
+		// Import Button
+		$this->add_field(
+			'import-export',
+			'import_settings_button',
+			[
+				'type'            => 'link',
+				'display_value'   => __('Import Settings', 'ultimate-multisite'),
+				'title'           => __('Import and Replace All Settings', 'ultimate-multisite'),
+				'classes'         => 'button button-secondary wu-ml-0 wubox',
+				'wrapper_classes' => 'wu-items-start',
+				'html_attr'       => [
+					'href' => wu_get_form_url(
+						'import_settings',
+						[
+							'width' => 600,
+						]
+					),
+				],
+			],
+			55
+		);
+
+		// Import Warning
+		$this->add_field(
+			'import-export',
+			'import_warning',
+			[
+				'type'    => 'note',
+				'desc'    => sprintf(
+					'<strong class="wu-text-red-600">%s</strong> %s',
+					__('Warning:', 'ultimate-multisite'),
+					__('Importing settings will replace ALL current settings with the values from the uploaded file. This action cannot be undone. We recommend exporting your current settings as a backup before importing.', 'ultimate-multisite')
+				),
+				'classes' => 'wu-bg-red-50 wu-border-l-4 wu-border-red-500 wu-p-4',
+			],
+			60
+		);
+
+		do_action('wu_settings_import_export');
+
+		/*
 		 * Other Options
 		 * This section holds the Other Options settings of the Ultimate Multisite Plugin.
 		 */

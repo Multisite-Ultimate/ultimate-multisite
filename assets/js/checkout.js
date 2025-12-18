@@ -154,6 +154,7 @@
       toggle_discount_code: 0,
       payment_method: '',
       username: '',
+      email_address: '',
       payment_id: wu_checkout.payment_id,
       membership_id: wu_checkout.membership_id,
       cart_type: 'new',
@@ -166,6 +167,12 @@
       state_list: [],
       city_list: [],
       labels: {},
+      show_login_prompt: false,
+      login_prompt_field: '',
+      checking_user_exists: false,
+      logging_in: false,
+      login_error: '',
+      inline_login_password: '',
     };
 
     hooks.applyFilters('wu_before_form_init', initial_data);
@@ -733,7 +740,7 @@
         },
         request(action, data, success_handler, error_handler) {
 
-          const actual_ajax_url = (action === 'wu_validate_form' || action === 'wu_create_order' || action === 'wu_render_field_template') ? wu_checkout.late_ajaxurl : wu_checkout.ajaxurl;
+          const actual_ajax_url = (action === 'wu_validate_form' || action === 'wu_create_order' || action === 'wu_render_field_template' || action === 'wu_check_user_exists' || action === 'wu_inline_login') ? wu_checkout.late_ajaxurl : wu_checkout.ajaxurl;
 
           jQuery.ajax({
             method: 'POST',
@@ -812,6 +819,258 @@
           } // end switch;
 
         },
+        check_user_exists_debounced: _.debounce(function(field_type, value) {
+
+          this.check_user_exists(field_type, value);
+
+        }, 500),
+        check_user_exists(field_type, value) {
+
+          // Don't check if value is too short
+          if (!value || value.length < 3) {
+
+            this.show_login_prompt = false;
+
+            return;
+
+          }
+
+          this.checking_user_exists = true;
+          this.login_error = '';
+
+          const that = this;
+
+          this.request('wu_check_user_exists', {
+            field_type: field_type,
+            value: value,
+            _wpnonce: jQuery('[name="_wpnonce"]').val()
+          }, function(results) {
+
+            that.checking_user_exists = false;
+
+            if (results.success && results.data.exists) {
+
+              that.show_login_prompt = true;
+              that.login_prompt_field = field_type;
+
+            } else {
+
+              that.show_login_prompt = false;
+
+            }
+
+          }, function(error) {
+
+            that.checking_user_exists = false;
+            that.show_login_prompt = false;
+
+            // Silently fail - don't interrupt UX
+            console.warn('User existence check failed:', error);
+
+          });
+
+        },
+        handle_inline_login(event) {
+
+          console.log('handle_inline_login called', event);
+
+          // Prevent any default behavior or form submission
+          if (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+
+          }
+
+          if (!this.inline_login_password) {
+
+            this.login_error = wu_checkout.i18n.password_required || 'Password is required';
+
+            return false;
+
+          }
+
+          console.log('Attempting login for:', this.login_prompt_field);
+
+          this.logging_in = true;
+          this.login_error = '';
+
+          const that = this;
+          const username_or_email = this.login_prompt_field === 'email'
+            ? this.email_address || ''
+            : this.username || '';
+
+          console.log('Username/email:', username_or_email);
+
+          this.request('wu_inline_login', {
+            username_or_email: username_or_email,
+            password: this.inline_login_password,
+            _wpnonce: jQuery('[name="_wpnonce"]').val()
+          }, function(results) {
+
+            that.logging_in = false;
+
+            if (results.success) {
+
+              // Login successful - reload page to show logged-in state
+              window.location.reload();
+
+            }
+
+          }, function(error) {
+
+            that.logging_in = false;
+
+            if (error.responseJSON && error.responseJSON.data && error.responseJSON.data.message) {
+
+              that.login_error = error.responseJSON.data.message;
+
+            } else {
+
+              that.login_error = wu_checkout.i18n.login_failed || 'Login failed. Please try again.';
+
+            }
+
+          });
+
+          return false;
+
+        },
+        dismiss_login_prompt() {
+
+          this.show_login_prompt = false;
+          this.inline_login_password = '';
+          this.login_error = '';
+
+        },
+        setup_inline_login_handlers() {
+
+          const that = this;
+          const passwordField = document.getElementById('wu-inline-login-password');
+          const submitButton = document.getElementById('wu-inline-login-submit');
+          const dismissButton = document.getElementById('wu-dismiss-login-prompt');
+          const errorDiv = document.getElementById('wu-login-error');
+          const loginPromptContainer = document.getElementById('wu-inline-login-prompt');
+
+          if (!passwordField || !submitButton) return;
+
+          function handleLogin(e) {
+
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+
+            console.log('Login button clicked or Enter pressed');
+
+            const password = passwordField.value;
+
+            if (!password) {
+
+              errorDiv.textContent = wu_checkout.i18n.password_required || 'Password is required';
+              errorDiv.style.display = 'block';
+
+              return false;
+
+            }
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<span class="spinner is-active wu-inline-block" style="float: none; width: 16px; height: 16px; margin: 0 4px 0 0;"></span>' + (wu_checkout.i18n.logging_in || 'Logging in...');
+            errorDiv.style.display = 'none';
+
+            const username_or_email = that.login_prompt_field === 'email' ? that.email_address : that.username;
+
+            console.log('Attempting login for:', username_or_email);
+
+            jQuery.ajax({
+              method: 'POST',
+              url: wu_checkout.late_ajaxurl + '&action=wu_inline_login',
+              data: {
+                username_or_email: username_or_email,
+                password: password,
+                _wpnonce: jQuery('[name="_wpnonce"]').val()
+              },
+              success: function(results) {
+
+                console.log('Login success:', results);
+
+                if (results.success) {
+
+                  window.location.reload();
+
+                }
+
+              },
+              error: function(error) {
+
+                console.log('Login error:', error);
+                submitButton.disabled = false;
+                submitButton.textContent = wu_checkout.i18n.sign_in || 'Sign in';
+
+                if (error.responseJSON && error.responseJSON.data && error.responseJSON.data.message) {
+
+                  errorDiv.textContent = error.responseJSON.data.message;
+
+                } else {
+
+                  errorDiv.textContent = wu_checkout.i18n.login_failed || 'Login failed. Please try again.';
+
+                }
+
+                errorDiv.style.display = 'block';
+
+              }
+            });
+
+            return false;
+
+          }
+
+          // Stop all events from bubbling out of the login prompt
+          loginPromptContainer.addEventListener('click', function(e) {
+
+            e.stopPropagation();
+
+          });
+
+          loginPromptContainer.addEventListener('keydown', function(e) {
+
+            e.stopPropagation();
+
+          });
+
+          loginPromptContainer.addEventListener('keyup', function(e) {
+
+            e.stopPropagation();
+
+          });
+
+          submitButton.addEventListener('click', handleLogin);
+
+          passwordField.addEventListener('keydown', function(e) {
+
+            if (e.key === 'Enter') {
+
+              handleLogin(e);
+
+            }
+
+          });
+
+          if (dismissButton) {
+
+            dismissButton.addEventListener('click', function(e) {
+
+              e.preventDefault();
+              e.stopPropagation();
+              that.show_login_prompt = false;
+              that.inline_login_password = '';
+
+            });
+
+          }
+
+        },
       },
       updated() {
 
@@ -820,6 +1079,9 @@
           hooks.doAction('wu_on_form_updated', this);
 
           wu_initialize_tooltip();
+
+          // Setup inline login handlers if prompt is visible
+          this.setup_inline_login_handlers();
 
         });
 

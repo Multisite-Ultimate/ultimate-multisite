@@ -63,6 +63,8 @@ class Light_Ajax {
 				'wu_render_field_template',
 				'wu_create_order',
 				'wu_validate_form',
+				'wu_check_user_exists',
+				'wu_inline_login',
 
 			]
 		);

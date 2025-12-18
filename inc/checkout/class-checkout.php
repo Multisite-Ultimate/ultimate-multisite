@@ -208,6 +208,20 @@ class Checkout {
 		add_action('wu_ajax_nopriv_wu_validate_form', [$this, 'maybe_handle_order_submission']);
 
 		/*
+		 * Check if user exists (for inline login prompt)
+		 */
+		add_action('wu_ajax_wu_check_user_exists', [$this, 'check_user_exists']);
+
+		add_action('wu_ajax_nopriv_wu_check_user_exists', [$this, 'check_user_exists']);
+
+		/*
+		 * Handle inline login during checkout
+		 */
+		add_action('wu_ajax_wu_inline_login', [$this, 'handle_inline_login']);
+
+		add_action('wu_ajax_nopriv_wu_inline_login', [$this, 'handle_inline_login']);
+
+		/*
 		 * Adds the necessary scripts
 		 */
 		add_action('wu_checkout_scripts', [$this, 'register_scripts']);
@@ -1641,6 +1655,144 @@ class Checkout {
 	}
 
 	/**
+	 * Checks if a user exists with given email or username.
+	 *
+	 * Used for inline login prompt on checkout form.
+	 * Implements rate limiting to prevent user enumeration attacks.
+	 *
+	 * @since 2.0.20
+	 * @return void
+	 */
+	public function check_user_exists(): void {
+
+		check_ajax_referer('wu_checkout');
+
+		$field_type = wu_request('field_type'); // 'email' or 'username'
+		$value      = sanitize_text_field(wu_request('value'));
+
+		if (empty($value) || empty($field_type)) {
+			wp_send_json_error(['message' => __('Invalid request', 'wp-ultimo')]);
+		}
+
+		// Rate limiting: 10 checks per minute per IP
+		$ip            = wu_get_ip();
+		$transient_key = 'wu_check_user_' . md5($ip);
+		$check_count   = get_transient($transient_key);
+
+		if ($check_count && $check_count > 10) {
+			wp_send_json_error(['message' => __('Too many requests. Please try again later.', 'wp-ultimo')]);
+		}
+
+		set_transient($transient_key, ($check_count ? $check_count + 1 : 1), MINUTE_IN_SECONDS);
+
+		$user_exists = false;
+
+		if ('email' === $field_type) {
+			$user        = get_user_by('email', $value);
+			$user_exists = false !== $user;
+		} elseif ('username' === $field_type) {
+			$user        = get_user_by('login', $value);
+			$user_exists = false !== $user;
+		}
+
+		// Deliberate delay to prevent timing attacks
+		usleep(100000); // 100ms
+
+		wp_send_json_success(
+			[
+				'exists' => $user_exists,
+			]
+		);
+	}
+
+	/**
+	 * Handles inline login during checkout.
+	 *
+	 * Authenticates user and sets auth cookie on success.
+	 * Implements rate limiting to prevent brute force attacks.
+	 *
+	 * @since 2.0.20
+	 * @return void
+	 */
+	public function handle_inline_login(): void {
+
+		check_ajax_referer('wu_checkout');
+
+		$username_or_email = sanitize_text_field(wu_request('username_or_email'));
+		$password          = wu_request('password'); // Don't sanitize passwords
+
+		if (empty($username_or_email) || empty($password)) {
+			wp_send_json_error(
+				[
+					'message' => __('Please provide both username/email and password.', 'wp-ultimo'),
+				]
+			);
+		}
+
+		// Rate limiting: 5 failed attempts per IP with 5-minute lockout
+		$ip            = wu_get_ip();
+		$transient_key = 'wu_login_attempt_' . md5($ip);
+		$attempt_count = get_transient($transient_key);
+
+		if ($attempt_count && $attempt_count > 5) {
+			wp_send_json_error(
+				[
+					'message' => __('Too many login attempts. Please try again in a few minutes.', 'wp-ultimo'),
+				]
+			);
+		}
+
+		// Determine if input is email or username
+		if (is_email($username_or_email)) {
+			$user = get_user_by('email', $username_or_email);
+
+			if ($user) {
+				$username = $user->user_login;
+			} else {
+				$username = $username_or_email; // Will fail authentication
+
+			}
+		} else {
+			$username = $username_or_email;
+		}
+
+		// Attempt authentication using WordPress core
+		$user = wp_authenticate($username, $password);
+
+		if (is_wp_error($user)) {
+
+			// Increment failed attempt counter
+			set_transient($transient_key, ($attempt_count ? $attempt_count + 1 : 1), 5 * MINUTE_IN_SECONDS);
+
+			wp_send_json_error(
+				[
+					'message' => __('Invalid username or password.', 'wp-ultimo'),
+				]
+			);
+		}
+
+		// Clear rate limiting on successful login
+		delete_transient($transient_key);
+
+		// Log the user in
+		wp_clear_auth_cookie();
+		wp_set_auth_cookie($user->ID, false);
+		do_action('wp_login', $user->user_login, $user);
+
+		// Get customer data if exists
+		$customer = wu_get_customer_by_user_id($user->ID);
+
+		wp_send_json_success(
+			[
+				'message'      => __('Login successful!', 'wp-ultimo'),
+				'user_id'      => $user->ID,
+				'display_name' => $user->display_name,
+				'customer'     => $customer ? $customer->to_search_results() : null,
+			]
+		);
+	}
+
+	/**
 	 * Returns the checkout variables.
 	 *
 	 * @since 2.0.0
@@ -1654,9 +1806,16 @@ class Checkout {
 		 * Localized strings.
 		 */
 		$i18n = [
-			'loading'        => __('Loading...', 'ultimate-multisite'),
-			'added_to_order' => __('The item was added!', 'ultimate-multisite'),
-			'weak_password'  => __('The Password entered is too weak.', 'ultimate-multisite'),
+			'loading'              => __('Loading...', 'ultimate-multisite'),
+			'added_to_order'       => __('The item was added!', 'ultimate-multisite'),
+			'weak_password'        => __('The Password entered is too weak.', 'ultimate-multisite'),
+			'password_required'    => __('Password is required', 'ultimate-multisite'),
+			'login_failed'         => __('Login failed. Please try again.', 'ultimate-multisite'),
+			'logging_in'           => __('Logging in...', 'ultimate-multisite'),
+			'already_have_account' => __('Already have an account?', 'ultimate-multisite'),
+			'sign_in'              => __('Sign in', 'ultimate-multisite'),
+			'forgot_password'      => __('Forgot password?', 'ultimate-multisite'),
+			'cancel'               => __('Cancel', 'ultimate-multisite'),
 		];
 
 		/*

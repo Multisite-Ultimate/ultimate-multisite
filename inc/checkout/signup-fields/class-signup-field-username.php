@@ -124,7 +124,7 @@ class Signup_Field_Username extends Base_Signup_Field {
 
 		return [
 			'auto_generate_username' => false,
-			'enable_inline_login'    => true,
+			'enable_inline_login'    => false,
 		];
 	}
 
@@ -239,7 +239,7 @@ class Signup_Field_Username extends Base_Signup_Field {
 			],
 		];
 
-		if (wu_get_isset($attributes, 'enable_inline_login', true)) {
+		if (wu_get_isset($attributes, 'enable_inline_login', false)) {
 			$fields['username_inline_login_prompt'] = [
 				'type'              => 'html',
 				'id'                => 'username_inline_login_prompt',
@@ -261,14 +261,7 @@ class Signup_Field_Username extends Base_Signup_Field {
 	 * @since 2.0.20
 	 * @return string
 	 */
-	public function render_inline_login_prompt() {
-
-		$field_type = 'username';
-
-		ob_start();
-
-		wu_get_template('checkout/partials/inline-login-prompt', compact('field_type'));
-
-		return ob_get_clean();
+	public function render_inline_login_prompt(): string {
+		return wu_get_template_contents('checkout/partials/inline-login-prompt', ['field_type' => 'username']);
 	}
 }

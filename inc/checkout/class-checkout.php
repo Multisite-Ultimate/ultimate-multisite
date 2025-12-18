@@ -1667,11 +1667,11 @@ class Checkout {
 
 		check_ajax_referer('wu_checkout');
 
-		$field_type = wu_request('field_type'); // 'email' or 'username'
+		$field_type = wu_request('field_type');
 		$value      = sanitize_text_field(wu_request('value'));
 
 		if (empty($value) || empty($field_type)) {
-			wp_send_json_error(['message' => __('Invalid request', 'wp-ultimo')]);
+			wp_send_json_error(['message' => __('Invalid request', 'ultimate-multisite')]);
 		}
 
 		// Rate limiting: 10 checks per minute per IP
@@ -1679,8 +1679,12 @@ class Checkout {
 		$transient_key = 'wu_check_user_' . md5($ip);
 		$check_count   = get_transient($transient_key);
 
-		if ($check_count && $check_count > 10) {
-			wp_send_json_error(['message' => __('Too many requests. Please try again later.', 'wp-ultimo')]);
+		if ($check_count) {
+			// Deliberate delay to prevent timing attacks
+			usleep(100000); // 100ms
+			if ($check_count > 10) {
+				wp_send_json_error(['message' => __('Too many requests. Please try again later.', 'ultimate-multisite')]);
+			}
 		}
 
 		set_transient($transient_key, ($check_count ? $check_count + 1 : 1), MINUTE_IN_SECONDS);
@@ -1694,9 +1698,6 @@ class Checkout {
 			$user        = get_user_by('login', $value);
 			$user_exists = false !== $user;
 		}
-
-		// Deliberate delay to prevent timing attacks
-		usleep(100000); // 100ms
 
 		wp_send_json_success(
 			[
@@ -1724,7 +1725,7 @@ class Checkout {
 		if (empty($username_or_email) || empty($password)) {
 			wp_send_json_error(
 				[
-					'message' => __('Please provide both username/email and password.', 'wp-ultimo'),
+					'message' => __('Please provide both username/email and password.', 'ultimate-multisite'),
 				]
 			);
 		}
@@ -1734,10 +1735,10 @@ class Checkout {
 		$transient_key = 'wu_login_attempt_' . md5($ip);
 		$attempt_count = get_transient($transient_key);
 
-		if ($attempt_count && $attempt_count > 5) {
+		if ($attempt_count && $attempt_count >= 5) {
 			wp_send_json_error(
 				[
-					'message' => __('Too many login attempts. Please try again in a few minutes.', 'wp-ultimo'),
+					'message' => __('Too many login attempts. Please try again in a few minutes.', 'ultimate-multisite'),
 				]
 			);
 		}
@@ -1766,7 +1767,7 @@ class Checkout {
 
 			wp_send_json_error(
 				[
-					'message' => __('Invalid username or password.', 'wp-ultimo'),
+					'message' => __('Invalid username or password.', 'ultimate-multisite'),
 				]
 			);
 		}
@@ -1784,7 +1785,7 @@ class Checkout {
 
 		wp_send_json_success(
 			[
-				'message'      => __('Login successful!', 'wp-ultimo'),
+				'message'      => __('Login successful!', 'ultimate-multisite'),
 				'user_id'      => $user->ID,
 				'display_name' => $user->display_name,
 				'customer'     => $customer ? $customer->to_search_results() : null,

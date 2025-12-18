@@ -335,14 +335,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 	 * @since 2.0.20
 	 * @return string
 	 */
-	public function render_inline_login_prompt() {
-
-		$field_type = 'email';
-
-		ob_start();
-
-		wu_get_template('checkout/partials/inline-login-prompt', compact('field_type'));
-
-		return ob_get_clean();
+	public function render_inline_login_prompt(): string {
+		return wu_get_template_contents('checkout/partials/inline-login-prompt', ['field_type' => 'email']);
 	}
 }

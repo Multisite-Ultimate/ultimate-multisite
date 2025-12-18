@@ -947,128 +947,146 @@
         setup_inline_login_handlers() {
 
           const that = this;
-          const passwordField = document.getElementById('wu-inline-login-password');
-          const submitButton = document.getElementById('wu-inline-login-submit');
-          const dismissButton = document.getElementById('wu-dismiss-login-prompt');
-          const errorDiv = document.getElementById('wu-login-error');
-          const loginPromptContainer = document.getElementById('wu-inline-login-prompt');
 
-          if (!passwordField || !submitButton) return;
+          // Setup handlers for both email and username field types
+          ['email', 'username'].forEach(function(fieldType) {
 
-          function handleLogin(e) {
+            const passwordField = document.getElementById('wu-inline-login-password-' + fieldType);
+            const submitButton = document.getElementById('wu-inline-login-submit-' + fieldType);
+            const dismissButton = document.getElementById('wu-dismiss-login-prompt-' + fieldType);
+            const errorDiv = document.getElementById('wu-login-error-' + fieldType);
+            const loginPromptContainer = document.getElementById('wu-inline-login-prompt-' + fieldType);
 
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
+            if (!passwordField || !submitButton) return;
 
-            console.log('Login button clicked or Enter pressed');
+            // Remove any existing listeners to avoid duplicates
+            const newSubmitButton = submitButton.cloneNode(true);
+            submitButton.parentNode.replaceChild(newSubmitButton, submitButton);
 
-            const password = passwordField.value;
+            const newPasswordField = passwordField.cloneNode(true);
+            passwordField.parentNode.replaceChild(newPasswordField, passwordField);
 
-            if (!password) {
+            function handleLogin(e) {
 
-              errorDiv.textContent = wu_checkout.i18n.password_required || 'Password is required';
-              errorDiv.style.display = 'block';
+              e.preventDefault();
+              e.stopPropagation();
+              e.stopImmediatePropagation();
+
+              console.log('Login button clicked or Enter pressed for field type:', fieldType);
+
+              const password = newPasswordField.value;
+
+              if (!password) {
+
+                errorDiv.textContent = wu_checkout.i18n.password_required || 'Password is required';
+                errorDiv.style.display = 'block';
+
+                return false;
+
+              }
+
+              newSubmitButton.disabled = true;
+              newSubmitButton.innerHTML = '<span class="spinner is-active wu-inline-block" style="float: none; width: 16px; height: 16px; margin: 0 4px 0 0;"></span>' + (wu_checkout.i18n.logging_in || 'Logging in...');
+              errorDiv.style.display = 'none';
+
+              const username_or_email = fieldType === 'email' ? that.email_address : that.username;
+
+              console.log('Attempting login for:', username_or_email);
+
+              jQuery.ajax({
+                method: 'POST',
+                url: wu_checkout.late_ajaxurl + '&action=wu_inline_login',
+                data: {
+                  username_or_email: username_or_email,
+                  password: password,
+                  _wpnonce: jQuery('[name="_wpnonce"]').val()
+                },
+                success: function(results) {
+
+                  console.log('Login success:', results);
+
+                  if (results.success) {
+
+                    window.location.reload();
+
+                  }
+
+                },
+                error: function(error) {
+
+                  console.log('Login error:', error);
+                  newSubmitButton.disabled = false;
+                  newSubmitButton.textContent = wu_checkout.i18n.sign_in || 'Sign in';
+
+                  if (error.responseJSON && error.responseJSON.data && error.responseJSON.data.message) {
+
+                    errorDiv.textContent = error.responseJSON.data.message;
+
+                  } else {
+
+                    errorDiv.textContent = wu_checkout.i18n.login_failed || 'Login failed. Please try again.';
+
+                  }
+
+                  errorDiv.style.display = 'block';
+
+                }
+              });
 
               return false;
 
             }
 
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<span class="spinner is-active wu-inline-block" style="float: none; width: 16px; height: 16px; margin: 0 4px 0 0;"></span>' + (wu_checkout.i18n.logging_in || 'Logging in...');
-            errorDiv.style.display = 'none';
+            // Stop all events from bubbling out of the login prompt
+            if (loginPromptContainer) {
 
-            const username_or_email = that.login_prompt_field === 'email' ? that.email_address : that.username;
+              loginPromptContainer.addEventListener('click', function(e) {
 
-            console.log('Attempting login for:', username_or_email);
+                e.stopPropagation();
 
-            jQuery.ajax({
-              method: 'POST',
-              url: wu_checkout.late_ajaxurl + '&action=wu_inline_login',
-              data: {
-                username_or_email: username_or_email,
-                password: password,
-                _wpnonce: jQuery('[name="_wpnonce"]').val()
-              },
-              success: function(results) {
+              });
 
-                console.log('Login success:', results);
+              loginPromptContainer.addEventListener('keydown', function(e) {
 
-                if (results.success) {
+                e.stopPropagation();
 
-                  window.location.reload();
+              });
 
-                }
+              loginPromptContainer.addEventListener('keyup', function(e) {
 
-              },
-              error: function(error) {
+                e.stopPropagation();
 
-                console.log('Login error:', error);
-                submitButton.disabled = false;
-                submitButton.textContent = wu_checkout.i18n.sign_in || 'Sign in';
+              });
 
-                if (error.responseJSON && error.responseJSON.data && error.responseJSON.data.message) {
+            }
 
-                  errorDiv.textContent = error.responseJSON.data.message;
+            newSubmitButton.addEventListener('click', handleLogin);
 
-                } else {
+            newPasswordField.addEventListener('keydown', function(e) {
 
-                  errorDiv.textContent = wu_checkout.i18n.login_failed || 'Login failed. Please try again.';
+              if (e.key === 'Enter') {
 
-                }
-
-                errorDiv.style.display = 'block';
+                handleLogin(e);
 
               }
+
             });
 
-            return false;
+            if (dismissButton) {
 
-          }
+              dismissButton.addEventListener('click', function(e) {
 
-          // Stop all events from bubbling out of the login prompt
-          loginPromptContainer.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                that.show_login_prompt = false;
+                that.inline_login_password = '';
+                newPasswordField.value = '';
 
-            e.stopPropagation();
-
-          });
-
-          loginPromptContainer.addEventListener('keydown', function(e) {
-
-            e.stopPropagation();
-
-          });
-
-          loginPromptContainer.addEventListener('keyup', function(e) {
-
-            e.stopPropagation();
-
-          });
-
-          submitButton.addEventListener('click', handleLogin);
-
-          passwordField.addEventListener('keydown', function(e) {
-
-            if (e.key === 'Enter') {
-
-              handleLogin(e);
+              });
 
             }
 
           });
-
-          if (dismissButton) {
-
-            dismissButton.addEventListener('click', function(e) {
-
-              e.preventDefault();
-              e.stopPropagation();
-              that.show_login_prompt = false;
-              that.inline_login_password = '';
-
-            });
-
-          }
 
         },
       },

@@ -367,9 +367,6 @@
         },
         go_back() {
 
-          // eslint-disable-next-line no-console
-          console.log('Going back...');
-
           this.block();
 
           window.history.back();
@@ -864,9 +861,6 @@
             that.checking_user_exists = false;
             that.show_login_prompt = false;
 
-            // Silently fail - don't interrupt UX
-            console.warn('User existence check failed:', error);
-
           });
 
         },
@@ -891,8 +885,6 @@
 
           }
 
-          console.log('Attempting login for:', this.login_prompt_field);
-
           this.logging_in = true;
           this.login_error = '';
 
@@ -900,8 +892,6 @@
           const username_or_email = this.login_prompt_field === 'email'
             ? this.email_address || ''
             : this.username || '';
-
-          console.log('Username/email:', username_or_email);
 
           this.request('wu_inline_login', {
             username_or_email: username_or_email,
@@ -972,8 +962,6 @@
               e.stopPropagation();
               e.stopImmediatePropagation();
 
-              console.log('Login button clicked or Enter pressed for field type:', fieldType);
-
               const password = newPasswordField.value;
 
               if (!password) {
@@ -991,8 +979,6 @@
 
               const username_or_email = fieldType === 'email' ? that.email_address : that.username;
 
-              console.log('Attempting login for:', username_or_email);
-
               jQuery.ajax({
                 method: 'POST',
                 url: wu_checkout.late_ajaxurl + '&action=wu_inline_login',
@@ -1003,8 +989,6 @@
                 },
                 success: function(results) {
 
-                  console.log('Login success:', results);
-
                   if (results.success) {
 
                     window.location.reload();
@@ -1014,7 +998,6 @@
                 },
                 error: function(error) {
 
-                  console.log('Login error:', error);
                   newSubmitButton.disabled = false;
                   newSubmitButton.textContent = wu_checkout.i18n.sign_in || 'Sign in';
 

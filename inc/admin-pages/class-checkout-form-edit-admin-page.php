@@ -1521,7 +1521,8 @@ class Checkout_Form_Edit_Admin_Page extends Edit_Admin_Page {
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verification happens in parent::handle_save()
 		if (isset($_POST['_settings'])) {
 			// We're using json_decode which handles sanitization
-			$_POST['settings'] = json_decode(wp_unslash((string) $_POST['_settings']), true); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$this->get_object()->set_settings(json_decode(wp_unslash((string) $_POST['_settings']), true)); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			unset($_POST['_settings']);
 		}
 
 		/**
@@ -1545,7 +1546,8 @@ class Checkout_Form_Edit_Admin_Page extends Edit_Admin_Page {
 			$session->update($key, $session_data);
 		}
 
-		return wp_ob_end_flush_all();
+		wp_ob_end_flush_all();
+		return true;
 	}
 
 	/**

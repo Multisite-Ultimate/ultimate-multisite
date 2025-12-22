@@ -125,6 +125,9 @@ class Multiple_Accounts_Compat {
 
 			$site_id = get_current_blog_id();
 
+			// This fixes the ability to reset customer passwords and check for existing customers when they register.
+			// It's not 100% ideal since users that have an account on a subsite could be confused if they try to open an account
+			// on the main site later.
 			if (is_main_site($site_id)) {
 				return $query;
 			}

@@ -124,7 +124,7 @@ class Signup_Field_Username extends Base_Signup_Field {
 
 		return [
 			'auto_generate_username' => false,
-			'enable_inline_login'    => false,
+			'enable_inline_login_username'    => false,
 		];
 	}
 
@@ -176,7 +176,7 @@ class Signup_Field_Username extends Base_Signup_Field {
 					'v-model' => 'auto_generate_username',
 				],
 			],
-			'enable_inline_login'    => [
+			'enable_inline_login_username' => [
 				'type'  => 'toggle',
 				'title' => __('Enable Inline Login', 'ultimate-multisite'),
 				'desc'  => __('When enabled, users entering an existing username will see an inline login prompt to authenticate with their password without leaving the page.', 'ultimate-multisite'),
@@ -239,7 +239,7 @@ class Signup_Field_Username extends Base_Signup_Field {
 			],
 		];
 
-		if (wu_get_isset($attributes, 'enable_inline_login', false)) {
+		if (wu_get_isset($attributes, 'enable_inline_login_username', false)) {
 			$fields['username_inline_login_prompt'] = [
 				'type'              => 'html',
 				'id'                => 'username_inline_login_prompt',

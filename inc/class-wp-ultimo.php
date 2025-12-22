@@ -180,6 +180,12 @@ final class WP_Ultimo {
 		$this->notices = WP_Ultimo\Admin_Notices::get_instance();
 
 		/*
+		 * Show notice if Site Exporter addon was auto-deactivated.
+		 */
+		add_action('network_admin_notices', [$this, 'show_site_exporter_deactivation_notice']);
+		add_action('admin_notices', [$this, 'show_site_exporter_deactivation_notice']);
+
+		/*
 		 * Loads the Ultimate Multisite scripts handler
 		 */
 		$this->scripts = WP_Ultimo\Scripts::get_instance();
@@ -382,6 +388,23 @@ final class WP_Ultimo {
 		require_once wu_path('inc/functions/tax.php');
 
 		/**
+		 * Site Exporter and Importer APIs.
+		 *
+		 * Functions for exporting and importing sites.
+		 *
+		 * Since 2.5.0, Site Exporter is part of core. We need to
+		 * deactivate the legacy addon if it's still active to
+		 * prevent function redeclaration conflicts.
+		 *
+		 * @see wu_exporter_export()
+		 * @see wu_exporter_import()
+		 */
+		$this->maybe_deactivate_site_exporter_addon();
+
+		require_once wu_path('inc/functions/exporter.php');
+		require_once wu_path('inc/functions/importer.php');
+
+		/**
 		 * Access Control.
 		 *
 		 * Functions related to limitation checking,
@@ -516,6 +539,11 @@ final class WP_Ultimo {
 		 * Loads the Tax functionality
 		 */
 		\WP_Ultimo\Tax\Tax::get_instance();
+
+		/*
+		 * Loads the Site Exporter
+		 */
+		\WP_Ultimo\Site_Exporter\Site_Exporter::get_instance();
 
 		/*
 		 * Loads the template placeholders
@@ -812,6 +840,8 @@ final class WP_Ultimo {
 
 		new WP_Ultimo\Admin_Pages\Addons_Admin_Page();
 
+		new WP_Ultimo\Admin_Pages\Template_Library_Admin_Page();
+
 		do_action('wp_ultimo_admin_pages');
 	}
 
@@ -983,5 +1013,83 @@ final class WP_Ultimo {
 		}
 
 		return $allcaps;
+	}
+
+	/**
+	 * Deactivates the legacy Site Exporter addon if active.
+	 *
+	 * Since 2.5.0, Site Exporter functionality is part of core.
+	 * We need to deactivate the addon automatically to prevent
+	 * function redeclaration conflicts.
+	 *
+	 * @since 2.5.0
+	 * @return void
+	 */
+	private function maybe_deactivate_site_exporter_addon(): void {
+
+		$addon_file = 'ultimate-multisite-site-exporter/ultimate-multisite-site-exporter.php';
+
+		// Check if the addon is network activated
+		if (is_multisite()) {
+			$network_plugins = get_site_option('active_sitewide_plugins', []);
+
+			if (isset($network_plugins[ $addon_file ])) {
+				unset($network_plugins[ $addon_file ]);
+				update_site_option('active_sitewide_plugins', $network_plugins);
+
+				// Set a transient to show a notice after redirect
+				set_site_transient('wu_site_exporter_addon_deactivated', true, 60);
+			}
+		}
+
+		// Check if the addon is activated on the current site
+		$active_plugins = get_option('active_plugins', []);
+		$key            = array_search($addon_file, $active_plugins, true);
+
+		if (false !== $key) {
+			unset($active_plugins[ $key ]);
+			update_option('active_plugins', array_values($active_plugins));
+
+			// Set a transient to show a notice after redirect
+			set_transient('wu_site_exporter_addon_deactivated', true, 60);
+		}
+	}
+
+	/**
+	 * Shows a notice when the Site Exporter addon was auto-deactivated.
+	 *
+	 * @since 2.5.0
+	 * @return void
+	 */
+	public function show_site_exporter_deactivation_notice(): void {
+
+		$show_notice = false;
+
+		// Check network transient first
+		if (is_multisite() && get_site_transient('wu_site_exporter_addon_deactivated')) {
+			delete_site_transient('wu_site_exporter_addon_deactivated');
+			$show_notice = true;
+		}
+
+		// Check regular transient
+		if (get_transient('wu_site_exporter_addon_deactivated')) {
+			delete_transient('wu_site_exporter_addon_deactivated');
+			$show_notice = true;
+		}
+
+		if (! $show_notice) {
+			return;
+		}
+
+		?>
+		<div class="notice notice-info is-dismissible">
+			<p>
+				<strong><?php esc_html_e('Site Exporter addon automatically deactivated', 'ultimate-multisite'); ?></strong>
+			</p>
+			<p>
+				<?php esc_html_e('The Site Exporter functionality is now included in Ultimate Multisite core. The addon has been automatically deactivated to prevent conflicts. You can safely delete the addon.', 'ultimate-multisite'); ?>
+			</p>
+		</div>
+		<?php
 	}
 }

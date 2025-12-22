@@ -10,6 +10,8 @@ parameters:
     - ./views
     - ./inc
     - ./ultimate-multisite.php
+  excludePaths:
+    - ./inc/site-exporter/mu-migration/
   ignoreErrors:
       -
           message: '#Variable \$.* might not be defined.#'

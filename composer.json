@@ -56,6 +56,7 @@
         "jasny/sso": "^0.4.2",
         "nyholm/psr7": "^1.8.0",
         "symfony/cache": "^5.4.29",
+        "symfony/finder": "^5.4",
         "scssphp/scssphp": "^1.11.1",
         "cweagans/composer-patches": "^1.7",
         "woocommerce/action-scheduler": "^3.9.1",

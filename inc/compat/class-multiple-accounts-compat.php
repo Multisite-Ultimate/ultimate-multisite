@@ -125,6 +125,10 @@ class Multiple_Accounts_Compat {
 
 			$site_id = get_current_blog_id();
 
+			if (is_main_site($site_id)) {
+				return $query;
+			}
+
 			/**
 			 * We can't use the $wpdb->prepare() method here because it will
 			 * escape the %s placeholder, which will break the query.

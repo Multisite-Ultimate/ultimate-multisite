@@ -172,7 +172,7 @@ class Network_Usage_Columns {
 		if ( $theme_data->parent() ) {
 			echo '<br>' . sprintf(
 				// Translators: The placeholder will be replaced by the name of the parent theme.
-				esc_attr__('This is a child theme of %s.', 'multisite-enhancements'),
+				esc_attr__('This is a child theme of %s.', 'ultimate-multisite'),
 				'<strong>' . esc_attr($theme_data->parent()->Name) . '</strong>'
 			);
 		}
@@ -182,7 +182,7 @@ class Network_Usage_Columns {
 		if ( count($used_as_parent) ) {
 			echo '<br>' . esc_attr__(
 				'This is used as a parent theme by:',
-				'multisite-enhancements'
+				'ultimate-multisite'
 			) . ' ';
 			echo esc_html(implode(', ', $used_as_parent));
 		}

@@ -1945,7 +1945,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 
 		if (is_wp_error($result)) {
 			// translators: %s full error message.
-			wu_log_add("membership-{$this->get_id()}", sprintf(__('Failed to trigger async site creation. The site will not be created until the next cron run which is much slower: %s'), $result->get_error_message()));
+			wu_log_add("membership-{$this->get_id()}", sprintf(__('Failed to trigger async site creation. The site will not be created until the next cron run which is much slower: %s', 'ultimate-multisite'), $result->get_error_message()));
 		}
 
 		wu_enqueue_async_action('wu_async_publish_pending_site', ['membership_id' => $this->get_id()], 'membership');

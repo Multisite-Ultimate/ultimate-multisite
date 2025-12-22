@@ -118,7 +118,7 @@ class Hash_Test extends WP_UnitTestCase {
 		$id = 555;
 
 		$hash1 = Hash::encode($id);
-		$hash2 = Hash::encode($id, 'wp-ultimo');
+		$hash2 = Hash::encode($id, 'ultimate-multisite');
 
 		$this->assertEquals($hash1, $hash2);
 	}

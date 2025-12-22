@@ -338,7 +338,7 @@ class Toolkit {
 	 */
 	public function add_overview_panel($output) {
 
-		$collector = \QM_Collectors::get('wp-ultimo');
+		$collector = \QM_Collectors::get('ultimate-multisite');
 
 		$output['wp-ultimo'] = new Query_Monitor\Panel\Overview($collector);
 

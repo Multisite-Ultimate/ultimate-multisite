@@ -955,6 +955,25 @@
 
             const newPasswordField = passwordField.cloneNode(true);
             passwordField.parentNode.replaceChild(newPasswordField, passwordField);
+			function handleError(error) {
+
+				newSubmitButton.disabled = false;
+				newSubmitButton.textContent = wu_checkout.i18n.sign_in || 'Sign in';
+
+				if (error.data && error.data.message) {
+
+					errorDiv.textContent = error.data.message;
+
+				} else {
+
+					errorDiv.textContent = wu_checkout.i18n.login_failed || 'Login failed. Please try again.';
+
+				}
+
+				errorDiv.style.display = 'block';
+
+
+			}
 
             function handleLogin(e) {
 
@@ -993,27 +1012,12 @@
 
                     window.location.reload();
 
-                  }
+                  } else {
+					  handleError(results);
+				  }
 
                 },
-                error: function(error) {
-
-                  newSubmitButton.disabled = false;
-                  newSubmitButton.textContent = wu_checkout.i18n.sign_in || 'Sign in';
-
-                  if (error.responseJSON && error.responseJSON.data && error.responseJSON.data.message) {
-
-                    errorDiv.textContent = error.responseJSON.data.message;
-
-                  } else {
-
-                    errorDiv.textContent = wu_checkout.i18n.login_failed || 'Login failed. Please try again.';
-
-                  }
-
-                  errorDiv.style.display = 'block';
-
-                }
+                error: handleError
               });
 
               return false;

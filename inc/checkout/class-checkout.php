@@ -1694,32 +1694,6 @@ class Checkout {
 		if ('email' === $field_type) {
 			$user        = get_user_by('email', $value);
 			$user_exists = false !== $user;
-
-			/*
-			 * When multiple accounts are enabled, get_user_by('email') is scoped
-			 * to the current site. We need to also check if a customer exists
-			 * with this email anywhere on the network.
-			 *
-			 * @since 2.3.0
-			 */
-			if ( ! $user_exists && \WP_Ultimo\Compat\Multiple_Accounts_Compat::get_instance()->should_load()) {
-				global $wpdb;
-
-				// Query for users with this exact email address across the entire network
-				$user_ids = $wpdb->get_col(
-					$wpdb->prepare(
-						"SELECT ID FROM {$wpdb->users} WHERE user_email = %s",
-						$value
-					)
-				);
-
-				foreach ($user_ids as $user_id) {
-					if (wu_get_customer_by_user_id($user_id)) {
-						$user_exists = true;
-						break;
-					}
-				}
-			}
 		} elseif ('username' === $field_type) {
 			$user        = get_user_by('login', $value);
 			$user_exists = false !== $user;
@@ -2015,18 +1989,6 @@ class Checkout {
 			'billing_state'              => 'state',
 			'billing_city'               => 'city',
 		];
-
-		/*
-		 * When multiple accounts are enabled, the standard unique:WP_User,email
-		 * rule is bypassed to allow the same email on different sites.
-		 * We need to add a customer-specific check to prevent duplicate
-		 * customer accounts with the same email.
-		 *
-		 * @since 2.3.0
-		 */
-		if (\WP_Ultimo\Compat\Multiple_Accounts_Compat::get_instance()->should_load()) {
-			$rules['email_address'] .= '|unique_customer_email';
-		}
 
 		/*
 		 * Add rules for site when creating a new account.

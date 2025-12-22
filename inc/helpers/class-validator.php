@@ -12,7 +12,6 @@ namespace WP_Ultimo\Helpers;
 use Rakit\Validation\Validator as Validator_Helper;
 use WP_Ultimo\Helpers\Validation_Rules\Unique;
 use WP_Ultimo\Helpers\Validation_Rules\Unique_Site;
-use WP_Ultimo\Helpers\Validation_Rules\Unique_Customer_Email;
 use WP_Ultimo\Helpers\Validation_Rules\Exists;
 use WP_Ultimo\Helpers\Validation_Rules\Checkout_Steps;
 use WP_Ultimo\Helpers\Validation_Rules\Price_Variations;
@@ -102,7 +101,6 @@ class Validator {
 
 		$this->validator->addValidator('unique', new Unique());
 		$this->validator->addValidator('unique_site', new Unique_Site());
-		$this->validator->addValidator('unique_customer_email', new Unique_Customer_Email());
 		$this->validator->addValidator('exists', new Exists());
 		$this->validator->addValidator('checkout_steps', new Checkout_Steps());
 		$this->validator->addValidator('price_variations', new Price_Variations());

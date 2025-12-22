@@ -63,7 +63,7 @@ class Multiple_Accounts_Compat {
 			add_action('plugins_loaded', [$this, 'maybe_unset_current_user'], -10);
 
 			// prevents woocommerce from adding customers to sites without our knowledge
-			add_action('woocommerce_process_login_errors', [$this, 'prevent_woo_from_adding_to_blog'], -10);
+			add_filter('woocommerce_process_login_errors', [$this, 'prevent_woo_from_adding_to_blog'], -10);
 
 			// Add the filter to prevent email blocking
 			add_filter('email_exists', [$this, 'allow_duplicate_emails'], 10, 2);
@@ -124,6 +124,10 @@ class Multiple_Accounts_Compat {
 			$last = substr($query, strlen($prefix));
 
 			$site_id = get_current_blog_id();
+
+			if (is_main_site($site_id)) {
+				return $query;
+			}
 
 			/**
 			 * We can't use the $wpdb->prepare() method here because it will
@@ -298,12 +302,12 @@ class Multiple_Accounts_Compat {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param null   $null No idea.
+	 * @param string $output Content from other plugins.
 	 * @param string $column The name of the column.
 	 * @param int    $user_id The ID of the user.
-	 * @return void
+	 * @return string
 	 */
-	public function add_column_content($null, $column, $user_id): void {
+	public function add_column_content($output, $column, $user_id): string {
 
 		if ('multiple_accounts' === $column) {
 
@@ -320,9 +324,10 @@ class Multiple_Accounts_Compat {
 			);
 
 			// translators: the %d is the account count for that email address.
-			printf(esc_html__('%s accounts using this email.', 'ultimate-multisite'), '<strong>' . esc_html($users->total_users) . '</strong>');
-			printf("<br><a href='%s' class=''>" . esc_html__('See all', 'ultimate-multisite') . ' &raquo;</a>', esc_attr(network_admin_url('users.php?s=' . $user->user_email)));
+			$output .= sprintf(esc_html__('%s accounts using this email.', 'ultimate-multisite'), '<strong>' . esc_html($users->total_users) . '</strong>');
+			$output .= sprintf("<br><a href='%s' class=''>" . esc_html__('See all', 'ultimate-multisite') . ' &raquo;</a>', esc_attr(network_admin_url('users.php?s=' . $user->user_email)));
 		}
+		return $output;
 	}
 
 	/**

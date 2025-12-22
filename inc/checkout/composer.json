@@ -1,0 +1,14 @@
+{
+  "name": "vendor_name/checkout",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "dave",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+  }
+}

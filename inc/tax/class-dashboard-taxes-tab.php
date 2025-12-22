@@ -103,7 +103,7 @@ class Dashboard_Taxes_Tab {
 
 		$back_link = [
 			[
-				'url'   => wu_network_admin_url('wp-ultimo'),
+				'url'   => wu_network_admin_url('ultimate-multisite'),
 				'label' => __('Go Back', 'ultimate-multisite'),
 				'icon'  => 'wu-reply',
 			],

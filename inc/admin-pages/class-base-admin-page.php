@@ -176,7 +176,7 @@ abstract class Base_Admin_Page {
 				__FUNCTION__,
 				sprintf(
 					/* translators: 1: The current class. 2: 'init'. */
-					esc_html__('Admin page %1$s loaded too early. Admin page should be loaded at the %2$s action or later.'),
+					esc_html__('Admin page %1$s loaded too early. Admin page should be loaded at the %2$s action or later.', 'ultimate-multisite'),
 					'<code>' . static::class . '</code>',
 					'<code>init</code>'
 				),

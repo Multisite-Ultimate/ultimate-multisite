@@ -299,6 +299,15 @@ class Site_Edit_Admin_Page extends Edit_Admin_Page {
 
 		parent::register_widgets();
 
+		/**
+		 * Allows other components to register widgets on the Site edit page.
+		 *
+		 * @since 2.5.0
+		 *
+		 * @param Site_Edit_Admin_Page $page The current admin page instance.
+		 */
+		do_action('wu_edit_site_page_register_widgets', $this);
+
 		$label = $this->get_object()->get_type_label();
 
 		$class = $this->get_object()->get_type_class();

@@ -108,7 +108,7 @@ class Admin_Bar_Magic_Links {
 			wp_die(
 				sprintf(
 					/* translators: 1: Site title. */
-					__('You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.'), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					__('You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.', 'ultimate-multisite'), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					$blog_name // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				),
 				403
@@ -122,12 +122,12 @@ class Admin_Bar_Magic_Links {
 
 		$output = '<p>' . sprintf(
 			/* translators: 1: Site title. */
-			__('You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.'),
+			__('You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.', 'ultimate-multisite'),
 			$blog_name
 		) . '</p>';
-		$output .= '<p>' . __('If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.') . '</p>';
+		$output .= '<p>' . __('If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.', 'ultimate-multisite') . '</p>';
 
-		$output .= '<h3>' . __('Your Sites') . '</h3>';
+		$output .= '<h3>' . __('Your Sites', 'ultimate-multisite') . '</h3>';
 		$output .= '<table>';
 
 		foreach ( $blogs as $blog ) {
@@ -141,8 +141,8 @@ class Admin_Bar_Magic_Links {
 
 			$output .= '<tr>';
 			$output .= '<td>' . esc_html($blog->blogname) . '</td>';
-			$output .= '<td><a href="' . esc_url($dashboard_url) . '">' . __('Visit Dashboard') . '</a> | ' .
-				'<a href="' . esc_url($home_url) . '">' . __('View Site') . '</a></td>';
+			$output .= '<td><a href="' . esc_url($dashboard_url) . '">' . __('Visit Dashboard', 'ultimate-multisite') . '</a> | ' .
+				'<a href="' . esc_url($home_url) . '">' . __('View Site', 'ultimate-multisite') . '</a></td>';
 			$output .= '</tr>';
 		}
 

@@ -23,7 +23,12 @@ class Customer_User_Role_Limits_Test extends \WP_UnitTestCase {
 		// Reset Limitations early cache between tests
 		$ref  = new \ReflectionClass(Limitations::class);
 		$prop = $ref->getProperty('limitations_cache');
-		$prop->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$prop->setAccessible(true);
+		}
+
 		$prop->setValue(null, []);
 
 		// Create a test site
@@ -134,7 +139,12 @@ class Customer_User_Role_Limits_Test extends \WP_UnitTestCase {
 		add_metadata('blog', $blog_id, 'wu_limitations', $limitations, true);
 		$ref  = new \ReflectionClass(Limitations::class);
 		$prop = $ref->getProperty('limitations_cache');
-		$prop->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$prop->setAccessible(true);
+		}
+
 		$prop->setValue(null, []);
 
 		$roles = [

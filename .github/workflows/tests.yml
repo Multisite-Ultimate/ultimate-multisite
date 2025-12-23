@@ -12,15 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
+         php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4", "8.5"]
     services:
       mysql:
-        image: mysql:5.7
+        image: mariadb:11.4
         env:
           MYSQL_ROOT_PASSWORD: root
         ports: [3306]
         options: >-
-          --health-cmd="mysqladmin ping --silent"
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5

@@ -263,12 +263,10 @@ class Checkout_Form extends Base_Model {
 	 */
 	public function set_settings($settings): void {
 
-		if (is_string($settings)) { // @phpstan-ignore-line
-
+		if (is_string($settings)) {
 			try {
 				$settings = maybe_unserialize(stripslashes($settings));
-			} catch (\Throwable $exception) {
-
+			} catch (\Throwable $exception) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 				// Silence is golden.
 			}
 		}
@@ -380,7 +378,7 @@ class Checkout_Form extends Base_Model {
 	 *
 	 * @param string $step_name Name of the step. E.g. 'account'.
 	 * @param string $field_name Name of the field. E.g. 'username'.
-	 * @return mixed[]|false
+	 * @return array|false
 	 */
 	public function get_field($step_name, $field_name) {
 
@@ -430,7 +428,7 @@ class Checkout_Form extends Base_Model {
 
 		$types = (array) $type;
 
-		return Array_Search::find(
+		return (array) Array_Search::find(
 			$all_fields,
 			[
 				'where' => [

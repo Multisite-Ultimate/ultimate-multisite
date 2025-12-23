@@ -575,15 +575,52 @@ class Email extends Post_Base_Model {
 				return [];
 			}
 
-			$customer = wu_get_customer($payload['customer_id']);
+			/*
+			 * Try to get customer data from payload first.
+			 * This prevents issues where wu_get_customer() might fail
+			 * due to caching when the customer was just created.
+			 */
+			$customer_email = wu_get_isset($payload, 'customer_user_email');
+			$customer_name  = wu_get_isset($payload, 'customer_name');
 
-			if ( ! $customer) {
+			/*
+			 * Ensure customer_name is a string, not an array or object.
+			 */
+			if (is_array($customer_name) || is_object($customer_name)) {
+				$customer_name = '';
+			}
+
+			/*
+			 * If email is not in payload, fallback to database query.
+			 */
+			if ( ! $customer_email) {
+				$customer = wu_get_customer($payload['customer_id']);
+
+				if ( ! $customer) {
+					return [];
+				}
+
+				$customer_email = $customer->get_email_address();
+				$customer_name  = $customer->get_display_name();
+			}
+
+			/*
+			 * Validate email before adding to target list.
+			 */
+			if ( ! is_email($customer_email)) {
 				return [];
 			}
 
+			/*
+			 * Use email as name fallback if name is empty.
+			 */
+			if (empty($customer_name)) {
+				$customer_name = $customer_email;
+			}
+
 			$target_list[] = [
-				'name'  => $customer->get_display_name(),
-				'email' => $customer->get_email_address(),
+				'name'  => $customer_name,
+				'email' => $customer_email,
 			];
 
 			/*

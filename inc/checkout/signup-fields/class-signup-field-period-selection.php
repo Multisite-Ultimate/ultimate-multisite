@@ -212,7 +212,9 @@ class Signup_Field_Period_Selection extends Base_Signup_Field {
 			'fields'            => [
 				'period_options_remove'        => [
 					'type'            => 'note',
-					'desc'            => sprintf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => period_options.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', __('Remove', 'ultimate-multisite')),
+					'desc'            => function () {
+						printf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => period_options.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', esc_html__('Remove', 'ultimate-multisite'));
+					},
 					'wrapper_classes' => 'wu-absolute wu-top-0 wu-right-0',
 				],
 				'period_options_duration'      => [

@@ -85,8 +85,8 @@ class Add_New_Site_Admin_Page extends Base_Customer_Facing_Admin_Page {
 	 * @var array
 	 */
 	protected $supported_panels = [
-		'admin_menu'      => 'exist',
-		'user_admin_menu' => 'exist',
+		'admin_menu'      => 'wu_manage_membership',
+		'user_admin_menu' => 'wu_manage_membership',
 	];
 
 	/**

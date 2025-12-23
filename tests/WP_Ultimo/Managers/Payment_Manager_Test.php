@@ -58,7 +58,11 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 
 		$reflection = new \ReflectionClass($this->payment_manager);
 		$method     = $reflection->getMethod('invoice_viewer');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		// The method should pass nonce validation but fail on payment lookup
 		// This confirms that our nonce validation logic is working correctly
@@ -85,7 +89,11 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 
 		$reflection = new \ReflectionClass($this->payment_manager);
 		$method     = $reflection->getMethod('invoice_viewer');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		// Expect wp_die to be called with permission error
 		$this->expectException(\WPDieException::class);
@@ -111,7 +119,11 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 
 		$reflection = new \ReflectionClass($this->payment_manager);
 		$method     = $reflection->getMethod('invoice_viewer');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		// Expect wp_die to be called with invoice not found error
 		$this->expectException(\WPDieException::class);
@@ -133,7 +145,11 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 
 		$reflection = new \ReflectionClass($this->payment_manager);
 		$method     = $reflection->getMethod('invoice_viewer');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		// Method should return early without doing anything
 		ob_start();
@@ -156,7 +172,11 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 
 		$reflection = new \ReflectionClass($this->payment_manager);
 		$method     = $reflection->getMethod('invoice_viewer');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		// Method should return early without doing anything
 		ob_start();
@@ -179,7 +199,11 @@ class Payment_Manager_Test extends WP_UnitTestCase {
 
 		$reflection = new \ReflectionClass($this->payment_manager);
 		$method     = $reflection->getMethod('invoice_viewer');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
 
 		// Method should return early without doing anything
 		ob_start();

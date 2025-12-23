@@ -271,7 +271,11 @@ class Template_Switching_Element extends Base_Element {
 			$this->site = wu_get_current_site();
 		}
 
-		$template_id = wu_request('template_id', '');
+		$template_id = (int) wu_request('template_id', '');
+
+		if (! in_array($template_id, $this->site->get_limitations()->site_templates->get_available_site_templates(), true)) {
+			wp_send_json_error(new \WP_Error('not_authorized', __('You are not allow to use this template.', 'ultimate-multisite')));
+		}
 
 		if ( ! $template_id) {
 			wp_send_json_error(new \WP_Error('template_id_required', __('You need to provide a valid template to duplicate.', 'ultimate-multisite')));
@@ -358,17 +362,6 @@ class Template_Switching_Element extends Base_Element {
 				}
 			};
 
-			$checkout_fields['back_to_template_selection'] = [
-				'type'              => 'note',
-				'order'             => 0,
-				'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-on:click.prevent="template_id = original_template_id; confirm_switch = false">%s</a>', __('&larr; Back to Template Selection', 'ultimate-multisite')),
-				'wrapper_html_attr' => [
-					'v-init:original_template_id' => $this->site->get_template_id(),
-					'v-show'                      => 'template_id != original_template_id',
-					'v-cloak'                     => '1',
-				],
-			];
-
 			$checkout_fields['template_element'] = [
 				'type'              => 'note',
 				'wrapper_classes'   => 'wu-w-full',
@@ -380,31 +373,49 @@ class Template_Switching_Element extends Base_Element {
 				],
 			];
 
-			$checkout_fields['confirm_switch'] = [
-				'type'              => 'toggle',
-				'title'             => __('Confirm template switch?', 'ultimate-multisite'),
-				'desc'              => __('Switching your current template completely overwrites the content of your site with the contents of the newly chosen template. All customizations will be lost. This action cannot be undone.', 'ultimate-multisite'),
-				'tooltip'           => '',
-				'wrapper_classes'   => '',
-				'value'             => 0,
-				'html_attr'         => [
-					'v-model' => 'confirm_switch',
-				],
-				'wrapper_html_attr' => [
-					'v-show'  => 'template_id != 0 && template_id != original_template_id',
-					'v-cloak' => 1,
-				],
-			];
-
-			$checkout_fields['submit_switch'] = [
-				'type'              => 'link',
-				'display_value'     => __('Process Switch', 'ultimate-multisite'),
-				'wrapper_classes'   => 'wu-text-right wu-bg-gray-100',
-				'classes'           => 'button button-primary',
-				'wrapper_html_attr' => [
-					'v-cloak'            => 1,
-					'v-show'             => 'confirm_switch',
-					'v-on:click.prevent' => 'ready = true',
+			$checkout_fields['confirm_group'] = [
+				'type'            => 'group',
+				'classes'         => 'wu-justify-center wu-w-1/2 wu-grid',
+				'wrapper_classes' => 'wu-bg-gray-100 wu-mt-4 wu-max-w-screen-md wu-mx-auto',
+				'fields'          => [
+					'back_to_template_selection' => [
+						'type'              => 'note',
+						'order'             => 0,
+						'desc'              => function () {
+							printf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-on:click.prevent="template_id = original_template_id; confirm_switch = false">%s</a>', esc_html__('&larr; Back to Template Selection', 'ultimate-multisite'));
+						},
+						'wrapper_html_attr' => [
+							'v-init:original_template_id' => $this->site->get_template_id(),
+							'v-show'                      => 'template_id != original_template_id',
+							'v-cloak'                     => '1',
+						],
+					],
+					'confirm_switch'             => [
+						'type'              => 'toggle',
+						'title'             => __('Confirm template switch?', 'ultimate-multisite'),
+						'desc'              => __('Switching your current template completely overwrites the content of your site with the contents of the newly chosen template. All customizations will be lost. This action cannot be undone.', 'ultimate-multisite'),
+						'tooltip'           => '',
+						'wrapper_classes'   => 'wu-w-full wu-box-border wu-items-center wu-flex wu-justify-between wu-p-4 wu-py-5 wu-m-0 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300 wu-border-solid',
+						'value'             => 0,
+						'html_attr'         => [
+							'v-model' => 'confirm_switch',
+						],
+						'wrapper_html_attr' => [
+							'v-show'  => 'template_id != 0 && template_id != original_template_id',
+							'v-cloak' => 1,
+						],
+					],
+					'submit_switch'              => [
+						'type'              => 'link',
+						'display_value'     => __('Process Switch', 'ultimate-multisite'),
+						'wrapper_classes'   => 'wu-text-right wu-bg-gray-100 wu-w-full wu-box-border wu-items-center wu-flex wu-justify-between wu-p-4 wu-py-5 wu-m-0 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300 wu-border-solid',
+						'classes'           => 'button button-primary',
+						'wrapper_html_attr' => [
+							'v-cloak'            => 1,
+							'v-show'             => 'confirm_switch',
+							'v-on:click.prevent' => 'ready = true',
+						],
+					],
 				],
 			];
 
@@ -424,7 +435,7 @@ class Template_Switching_Element extends Base_Element {
 				[
 					'views'                 => 'admin-pages/fields',
 					'classes'               => 'wu-striped wu-widget-inset',
-					'field_wrapper_classes' => 'wu-w-full wu-box-border wu-items-center wu-flex wu-justify-between wu-p-4 wu-py-5 wu-m-0 wu-border-t wu-border-l-0 wu-border-r-0 wu-border-b-0 wu-border-gray-300 wu-border-solid',
+					'field_wrapper_classes' => 'wu-p-4 wu-py-5',
 				]
 			);
 

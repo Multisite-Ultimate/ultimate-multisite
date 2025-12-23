@@ -538,7 +538,7 @@ class Settings_Admin_Page extends Wizard_Admin_Page {
 			if (isset($_POST[ $field ])) { // phpcs:ignore WordPress.Security.NonceVerification
 				$value = wp_unslash($_POST[ $field ]); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				if (is_array($value)) {
-					$filtered_data[ $field ] = array_map('sanitize_text_field', $value);
+					$filtered_data[ $field ] = wu_clean($value);
 				} elseif ( ! empty($field_data['allow_html'])) {
 					$filtered_data[ $field ] = sanitize_post_field('post_content', $value, $this->get_id(), 'db');
 				} else {

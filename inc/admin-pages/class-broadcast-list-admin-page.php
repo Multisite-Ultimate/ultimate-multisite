@@ -294,7 +294,9 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 			],
 			'step_note'        => [
 				'type'              => 'note',
-				'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-show="step === 2" v-on:click.prevent="step = 1">%s</a>', __('&larr; Back to Type Selection', 'ultimate-multisite')),
+				'desc'              => function () {
+					printf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-show="step === 2" v-on:click.prevent="step = 1">%s</a>', esc_html__('&larr; Back to Type Selection', 'ultimate-multisite'));
+				},
 				'wrapper_html_attr' => [
 					'v-show' => 'step === 2',
 				],
@@ -352,7 +354,9 @@ class Broadcast_List_Admin_Page extends List_Admin_Page {
 			],
 			'step_note_2'      => [
 				'type'              => 'note',
-				'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-show="step === 3" v-on:click.prevent="step = 2">%s</a>', __('&larr; Back to Target Selection', 'ultimate-multisite')),
+				'desc'              => function () {
+					printf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-show="step === 3" v-on:click.prevent="step = 2">%s</a>', esc_html__('&larr; Back to Target Selection', 'ultimate-multisite'));
+				},
 				'wrapper_html_attr' => [
 					'v-show' => 'step === 3',
 				],

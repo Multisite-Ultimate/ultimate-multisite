@@ -33,7 +33,12 @@ class Checkout_Test extends WP_UnitTestCase {
 
 		$reflection = new \ReflectionClass($checkout);
 		$method = $reflection->getMethod('create_draft_payment');
-		$method->setAccessible(true);
+
+		// Only call setAccessible() on PHP < 8.1 where it's needed
+		if (PHP_VERSION_ID < 80100) {
+			$method->setAccessible(true);
+		}
+
 		$method->invoke($checkout, $products);
 
 		// Check if draft payment was created

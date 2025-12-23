@@ -12,6 +12,8 @@ namespace WP_Ultimo\Admin_Pages;
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
+use WP_Ultimo\Limitations\Limit_Site_Templates;
+use WP_Ultimo\Limits\Site_Template_Limits;
 use WP_Ultimo\Models\Product;
 use WP_Ultimo\Database\Products\Product_Type;
 
@@ -752,7 +754,14 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					'fields'            => [
 						'price_variations_remove'        => [
 							'type'            => 'note',
-							'desc'            => sprintf('<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" @click.prevent="() => price_variations.splice(index, 1)"><span class="dashicons-wu-squared-cross"></span></a>', esc_html__('Remove', 'ultimate-multisite')),
+							'desc'            => function () {
+								printf(
+									'<a title="%s" class="wu-no-underline wu-inline-block wu-text-gray-600 wu-mt-2 wu-mr-2" href="#" v-on:click.prevent="() => price_variations.splice(index, 1)">
+										<span class="dashicons-wu-squared-cross"></span>
+									</a>',
+									esc_html__('Remove', 'ultimate-multisite')
+								);
+							},
 							'wrapper_classes' => 'wu-absolute wu-top-0 wu-right-0',
 						],
 						'price_variations_duration'      => [
@@ -883,11 +892,11 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 					'placeholder'       => __('Site Template Selection Mode', 'ultimate-multisite'),
 					'desc'              => __('Select the type of limitation you want to apply.', 'ultimate-multisite'),
 					'tooltip'           => __('"Default" will follow the settings of the checkout form: if you have a template selection field in there, all the templates selected will show up. If no field is present, then a default WordPress site will be created. <br><br>"Assign Site Template" forces new accounts with this plan to use a particular template site (this option removes the template selection field from the signup, if one exists). <br><br>Finally, "Choose Available Site Templates", overrides the templates selected on the checkout form with the templates selected here, while also giving you the chance of pre-select a template to be used as default.', 'ultimate-multisite'),
-					'value'             => 'default',
+					'value'             => Limit_Site_Templates::MODE_DEFAULT,
 					'options'           => [
-						'default'                    => __('Default - Allow All Site Templates', 'ultimate-multisite'),
-						'assign_template'            => __('Assign Site Template', 'ultimate-multisite'),
-						'choose_available_templates' => __('Choose Available Site Templates', 'ultimate-multisite'),
+						Limit_Site_Templates::MODE_DEFAULT => __('Default - Allow All Site Templates', 'ultimate-multisite'),
+						Limit_Site_Templates::MODE_ASSIGN_TEMPLATE => __('Assign Site Template', 'ultimate-multisite'),
+						Limit_Site_Templates::MODE_CHOOSE_AVAILABLE_TEMPLATES => __('Choose Available Site Templates', 'ultimate-multisite'),
 					],
 					'html_attr'         => [
 						'v-model' => 'site_template_selection_mode',
@@ -900,7 +909,7 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 				'templates'                        => [
 					'type'              => 'html',
 					'title'             => __('Site Templates', 'ultimate-multisite'),
-					'desc'              => esc_attr(sprintf('{{ site_template_selection_mode === "assign_template" ? "%s" : "%s" }}', __('Select the Site Template to assign.', 'ultimate-multisite'), __('Customize the access level of each Site Template below.', 'ultimate-multisite'))),
+					'desc'              => esc_attr(sprintf('{{ site_template_selection_mode === "' . Limit_Site_Templates::MODE_ASSIGN_TEMPLATE . '" ? "%s" : "%s" }}', __('Select the Site Template to assign.', 'ultimate-multisite'), __('Customize the access level of each Site Template below.', 'ultimate-multisite'))),
 					'wrapper_html_attr' => [
 						'v-cloak' => '1',
 						'v-show'  => "allow_site_templates && site_template_selection_mode !== 'default'",
@@ -919,13 +928,13 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 	 * @since 2.0.0
 	 *
 	 * @param \WP_Ultimo\Models\Product $product The product being edited.
-	 * @return string
+	 * @return void
 	 */
 	public function get_site_template_selection_list($product) {
 
 		$all_templates = wu_get_site_templates();
 
-		return wu_get_template_contents(
+		wu_get_template(
 			'limitations/site-template-selector',
 			[
 				'templates' => $all_templates,

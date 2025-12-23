@@ -33,14 +33,6 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 	protected $type = 'submenu';
 
 	/**
-	 * Is this a top-level menu or a submenu?
-	 *
-	 * @since 1.8.2
-	 * @var string
-	 */
-	protected $parent = 'none';
-
-	/**
 	 * This page has no parent, so we need to highlight another sub-menu.
 	 *
 	 * @since 2.0.0
@@ -67,8 +59,8 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 	 * @var array
 	 */
 	protected $supported_panels = [
-		'user_admin_menu' => 'read',
-		'admin_menu'      => 'read',
+		'user_admin_menu' => 'wu_manage_membership',
+		'admin_menu'      => 'wu_manage_membership',
 	];
 
 	/**
@@ -152,12 +144,13 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 		 * Renders the base edit page layout, with the columns and everything else =)
 		 */
 		wu_get_template(
-			'base/centered',
+			'base/dash',
 			[
-				'screen'  => get_current_screen(),
-				'page'    => $this,
-				'content' => '',
-				'labels'  => [
+				'screen'            => get_current_screen(),
+				'page'              => $this,
+				'has_full_position' => false,
+				'content'           => '',
+				'labels'            => [
 					'updated_message' => __('Template switched successfully!', 'ultimate-multisite'),
 				],
 			]
@@ -171,7 +164,7 @@ class Template_Switching_Admin_Page extends \WP_Ultimo\Admin_Pages\Base_Customer
 	 * @return void
 	 */
 	public function register_widgets(): void {
-
-		\WP_Ultimo\UI\Template_Switching_Element::get_instance()->as_metabox(get_current_screen()->id);
+		\WP_Ultimo\UI\Simple_Text_Element::get_instance()->as_inline_content(get_current_screen()->id, 'wu_dash_before_metaboxes');
+		\WP_Ultimo\UI\Template_Switching_Element::get_instance()->as_inline_content(get_current_screen()->id, 'wu_dash_before_metaboxes');
 	}
 }

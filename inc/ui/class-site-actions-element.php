@@ -10,6 +10,7 @@
 namespace WP_Ultimo\UI;
 
 use WP_Ultimo\Database\Memberships\Membership_Status;
+use WP_Ultimo\Limitations\Limit_Site_Templates;
 use WP_Ultimo\Models\Site;
 use WP_Ultimo\Models\Membership;
 
@@ -369,6 +370,12 @@ class Site_Actions_Element extends Base_Element {
 
 		$is_template_switching_enabled = wu_get_setting('allow_template_switching', true);
 
+		if ($is_template_switching_enabled &&
+			$this->site->has_limitations() &&
+			Limit_Site_Templates::MODE_ASSIGN_TEMPLATE === $this->site->get_limitations()->site_templates->get_mode()) {
+			$is_template_switching_enabled = false;
+		}
+
 		if ($is_template_switching_enabled && $this->site) {
 			$actions['template_switching'] = [
 				'label'        => __('Change Site Template', 'ultimate-multisite'),
@@ -377,7 +384,7 @@ class Site_Actions_Element extends Base_Element {
 					[
 						'page' => 'wu-template-switching',
 					],
-					get_admin_url($this->site->get_id())
+					get_admin_url($this->site->get_id(), 'admin.php')
 				),
 			];
 		}

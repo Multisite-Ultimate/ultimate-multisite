@@ -9,6 +9,7 @@
 
 namespace WP_Ultimo\Models;
 
+use stdClass;
 use WP_Ultimo\Domain_Mapping\Helper;
 use WP_Ultimo\Database\Domains\Domain_Stage;
 
@@ -53,14 +54,6 @@ class Domain extends Base_Model {
 	 * @var boolean
 	 */
 	protected $primary_domain = false;
-
-	/**
-	 * Original primary_domain value before changes (for tracking edits).
-	 *
-	 * @since 2.0.0
-	 * @var boolean|null
-	 */
-	protected $original_primary;
 
 	/**
 	 * Should this domain be forced to be used only on HTTPS?
@@ -303,11 +296,6 @@ class Domain extends Base_Model {
 	 * @return void
 	 */
 	public function set_primary_domain($primary_domain): void {
-
-		if ($this->id > 0 && !isset($this->original_primary)) {
-			$this->original_primary = $this->primary_domain;
-		}
-
 		$this->primary_domain = $primary_domain;
 	}
 
@@ -531,7 +519,7 @@ class Domain extends Base_Model {
 					 */
 					do_action_deprecated('mercator.mapping.updated', $deprecated_args, '2.0.0', 'wu_domain_post_save');
 			}
-			
+
 			/*
 			 * Resets cache.
 			 *
@@ -543,7 +531,7 @@ class Domain extends Base_Model {
 			/*
 			 * If this domain was just set as primary, unset other primaries for this site.
 			 */
-			if ($this->primary_domain && ($was_new || (isset($this->original_primary) && ! $this->original_primary))) {
+			if ($this->primary_domain && ($was_new || (isset($this->_original['primary_domain']) && ! $this->_original['primary_domain']))) {
 				$old_primary_domains = wu_get_domains(
 					[
 						'primary_domain' => true,

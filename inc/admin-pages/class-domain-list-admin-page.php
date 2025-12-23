@@ -241,22 +241,6 @@ class Domain_List_Admin_Page extends List_Admin_Page {
 				wp_send_json_error($domain);
 			}
 
-			if (wu_request('primary_domain')) {
-				$old_primary_domains = wu_get_domains(
-					[
-						'primary_domain' => true,
-						'blog_id'        => wu_request('blog_id'),
-						'id__not_in'     => [$domain->get_id()],
-						'fields'         => 'ids',
-					]
-				);
-
-				/*
-				 * Trigger async action to update the old primary domains.
-				 */
-				do_action('wu_async_remove_old_primary_domains', [$old_primary_domains]);
-			}
-
 			wu_enqueue_async_action('wu_async_process_domain_stage', ['domain_id' => $domain->get_id()], 'domain');
 
 			wp_send_json_success(

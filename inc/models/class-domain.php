@@ -9,6 +9,7 @@
 
 namespace WP_Ultimo\Models;
 
+use stdClass;
 use WP_Ultimo\Domain_Mapping\Helper;
 use WP_Ultimo\Database\Domains\Domain_Stage;
 
@@ -295,7 +296,6 @@ class Domain extends Base_Model {
 	 * @return void
 	 */
 	public function set_primary_domain($primary_domain): void {
-
 		$this->primary_domain = $primary_domain;
 	}
 
@@ -483,6 +483,8 @@ class Domain extends Base_Model {
 
 		$before_changes = clone $this;
 
+		$was_new = ! $this->exists();
+
 		$results = parent::save();
 
 		if (is_wp_error($results) === false) {
@@ -525,6 +527,22 @@ class Domain extends Base_Model {
 			 * after a change is made.
 			 */
 			wp_cache_flush();
+
+			/*
+			 * If this domain was just set as primary, unset other primaries for this site.
+			 */
+			if ($this->primary_domain && ($was_new || (isset($this->_original['primary_domain']) && ! $this->_original['primary_domain']))) {
+				$old_primary_domains = wu_get_domains(
+					[
+						'primary_domain' => true,
+						'blog_id'        => $this->blog_id,
+						'id__not_in'     => [$this->id],
+						'fields'         => 'ids',
+					]
+				);
+
+				do_action('wu_async_remove_old_primary_domains', $old_primary_domains);
+			}
 		}
 
 		return $results;

@@ -28,7 +28,7 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $id = 'runcloudv3';
+	protected $id = 'runcloud';
 
 	/**
 	 * Keeps the title of the integration.
@@ -36,7 +36,7 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 * @var string
 	 * @since 2.0.0
 	 */
-	protected $title = 'RunCloud V3';
+	protected $title = 'RunCloud';
 
 	/**
 	 * Link to the tutorial teaching how to make this integration work.
@@ -69,6 +69,34 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	);
 
 	/**
+	 * Add notice if we need to upgrade to V3.
+	 *
+	 * @return void
+	 */
+	public function init(): void {
+		parent::init();
+		if (! defined('WU_RUNCLOUD_API_SECRET') || defined('WU_RUNCLOUD_API_TOKEN')) {
+			return;
+		}
+
+		$message = __('It looks like you are using V2 of the Runcloud API which has been discontinued. You must setup a API token to use V3 of the API for the Runcloud integration to work.', 'ultimate-multisite');
+
+		$actions = [
+			'activate' => [
+				'title' => __('Configure Runcloud API Token', 'ultimate-multisite'),
+				'url'   => wu_network_admin_url(
+					'wp-ultimo-hosting-integration-wizard',
+					[
+						'integration' => $this->get_id(),
+					]
+				),
+			],
+		];
+
+		WP_Ultimo()->notices->add($message, 'info', 'network-admin', 'should-enable-runcloudv3-integration', $actions);
+	}
+
+	/**
 	 * Picks up on tips that a given host provider is being used.
 	 *
 	 * We use this to suggest that the user should activate an integration module.
@@ -88,7 +116,7 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	public function get_fields() {
 		return array(
 			'WU_RUNCLOUD_API_TOKEN' => array(
-				'title'       => __('RunCloud API v3 Token', 'multisite-ultimate'),
+				'title'       => __('RunCloud API Token', 'multisite-ultimate'),
 				'desc'        => __('The API Token generated in RunCloud.', 'multisite-ultimate'),
 				'placeholder' => __('e.g. your-api-token-here', 'multisite-ultimate'),
 			),
@@ -277,7 +305,7 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 		$body = json_decode(wp_remote_retrieve_body($response));
 
 		if (json_last_error() !== JSON_ERROR_NONE) {
-			return 'Invalid JSON response: ' . json_last_error_msg();
+			return new WP_Error('api_error', 'Invalid JSON response: ' . json_last_error_msg());
 		}
 
 		return $body;
@@ -310,9 +338,10 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 * Retrieves SSL certificate ID.
 	 */
 	public function get_runcloud_ssl_id() {
-		$response = $this->send_runcloud_request($this->get_runcloud_base_url('settings/ssl'), array(), 'GET');
+		$response = $this->send_runcloud_request($this->get_runcloud_base_url('ssl/advanced'), array(), 'GET');
 		$data     = $this->maybe_return_runcloud_body($response);
 
+		// v3 API returns advanced SSL certificate data
 		if (is_object($data) && isset($data->sslCertificate) && isset($data->sslCertificate->id)) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			return $data->sslCertificate->id; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
@@ -329,9 +358,9 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 */
 	public function redeploy_runcloud_ssl($ssl_id) {
 		$response = $this->send_runcloud_request(
-			$this->get_runcloud_base_url("settings/ssl/$ssl_id/redeploy"),
+			$this->get_runcloud_base_url("ssl/advanced/$ssl_id/redeploy"),
 			array(),
-			'POST'
+			'PATCH'
 		);
 
 		if (is_wp_error($response)) {
@@ -345,7 +374,7 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 * Renders instructions.
 	 */
 	public function get_instructions() {
-		wu_get_template('wizards/host-integrations/runcloud-instructions-v3');
+		wu_get_template('wizards/host-integrations/runcloud-instructions');
 	}
 
 	/**

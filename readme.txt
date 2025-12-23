@@ -4,8 +4,8 @@ Donate link: https://github.com/sponsors/superdav42/
 Tags: multisite, waas, membership, domain-mapping, subscription
 Requires at least: 5.3
 Requires PHP: 7.4.30
-Tested up to: 6.8
-Stable tag: 2.4.8
+Tested up to: 6.9
+Stable tag: 2.4.9
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 The Complete Network Solution for transforming your WordPress Multisite into a Website as a Service (WaaS) platform.
@@ -227,6 +227,17 @@ For support, please open an issue on the [GitHub repository](https://github.com/
 We recommend running this in a staging environment before updating your production environment.
 
 == Changelog ==
+
+Version [2.4.9] - Released on 2025-12-23
+- New: Inline login prompt at checkout for existing users - returning customers can sign in directly without leaving the checkout flow.
+- New: GitHub Actions workflow for PR builds with WordPress Playground testing - enables one-click browser-based testing of pull requests.
+- Fixed: Template switching now preserves images - URLs in post content are correctly updated when switching templates.
+- Fixed: Email manager initialization during setup wizard - system emails are now correctly created.
+- Fixed: Template switching permission and capability checks improved with better error messaging.
+- Fixed: Multiple primary domains being set.
+- Improved: Template selection logic with better null safety and smart fallbacks for pre-selected templates.
+- Improved: Compatibility for legacy filter `wu_create_site_meta` from WP Ultimo v1.
+- Improved: Added support for Runcloud V3 API
 
 Version [2.4.8] - Released on 2025-11-21
 - New: Added MCP (Model Context Protocol) Server integration.

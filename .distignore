@@ -71,6 +71,7 @@
 /vendor/*/package-lock.json
 /vendor/*/*.h
 /vendor/*/API_VERSION
+/vendor/pondermatic/composer-archive-project/*.php
 
 # Specific problematic vendor files mentioned in review
 /vendor/amphp/sync/docs/Gemfile

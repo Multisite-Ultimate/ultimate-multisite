@@ -393,8 +393,6 @@ class My_Sites_Element extends Base_Element {
 	 * Returns the manage URL for sites, depending on the environment.
 	 *
 	 * @since 2.0.0
-	 * @modified Custom modification: Use direct admin URL with SSO support
-	 * @modified_date 2025-01-XX
 	 *
 	 * @param int    $site_id     A Site ID.
 	 * @param string $type        De redirection type (can be: default, wp_admin or custom_page).
@@ -403,44 +401,37 @@ class My_Sites_Element extends Base_Element {
 	 */
 	public function get_manage_url($site_id, $type = 'default', $custom_page_id = 0) {
 
-		// ============================================
-		// CUSTOM MODIFICATION START
-		// ============================================
-		// Purpose: Use direct admin URL (e.g., http://site.com/wp-admin) with SSO support
-		// This ensures the "Manage" button goes directly to admin with SSO working
-		// ============================================
-
 		if ('wp_admin' === $type) {
 			// Use wu_get_admin_url() to get admin URL with magic link support if needed
 			// This function automatically adds magic links for custom domains
 			$admin_url = wu_get_admin_url($site_id);
-			
+
 			// Check if magic link is already used (contains wu_magic_token)
 			// If magic link exists, add admin path directly to the URL
 			$has_magic_link = (strpos($admin_url, 'wu_magic_token') !== false);
-			
+
 			if ($has_magic_link) {
 				// Magic link is generated on home URL, we need to add admin path
 				// Parse the URL to get the base URL and query string
 				$parsed_url = wp_parse_url($admin_url);
-				$base_url = $parsed_url['scheme'] . '://' . $parsed_url['host'];
+				$base_url   = $parsed_url['scheme'] . '://' . $parsed_url['host'];
 				if (isset($parsed_url['port'])) {
 					$base_url .= ':' . $parsed_url['port'];
 				}
-				
+
 				// Get admin path (respects WP Hide and other plugins)
 				switch_to_blog($site_id);
-				$admin_path = parse_url(get_admin_url(), PHP_URL_PATH);
+				$admin_path = wp_parse_url(get_admin_url(), PHP_URL_PATH);
 				restore_current_blog();
-				
+
 				// Ensure admin path exists, default to /wp-admin if not found
 				if (empty($admin_path)) {
 					$admin_path = '/wp-admin';
 				}
-				
+
 				// Build new URL with admin path
 				$query_string = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
-				$admin_url = $base_url . $admin_path . $query_string;
+				$admin_url    = $base_url . $admin_path . $query_string;
 			} elseif (class_exists('\WP_Ultimo\SSO\SSO')) {
 				// Add SSO support if enabled and magic link is not used
 				// SSO needs to go through login page first, then redirect to admin
@@ -448,22 +439,22 @@ class My_Sites_Element extends Base_Element {
 				if ($sso && $sso->is_enabled()) {
 					// Switch to target site to get correct login URL
 					switch_to_blog($site_id);
-					$sso_path = $sso->get_url_path();
+					$sso_path         = $sso->get_url_path();
 					$actual_admin_url = get_admin_url($site_id);
-					$login_url = wp_login_url($actual_admin_url);
+					$login_url        = wp_login_url($actual_admin_url);
 					restore_current_blog();
-					
+
 					// Add SSO parameter to login URL
 					$admin_url = add_query_arg($sso_path, 'login', $login_url);
 				}
 			}
-			
+
 			// Apply wp_ultimo_manage_url filter for backward compatibility
 			$site = wu_get_site($site_id);
 			if ($site) {
 				$admin_url = apply_filters('wp_ultimo_manage_url', $admin_url, $site);
 			}
-			
+
 			return $admin_url;
 		}
 
@@ -488,33 +479,33 @@ class My_Sites_Element extends Base_Element {
 			// Use wu_get_admin_url() to get admin URL with magic link support if needed
 			// This function automatically adds magic links for custom domains
 			$admin_url = wu_get_admin_url($site_id);
-			
+
 			// Check if magic link is already used (contains wu_magic_token)
 			// If magic link exists, add admin path directly to the URL
 			$has_magic_link = (strpos($admin_url, 'wu_magic_token') !== false);
-			
+
 			if ($has_magic_link) {
 				// Magic link is generated on home URL, we need to add admin path
 				// Parse the URL to get the base URL and query string
 				$parsed_url = wp_parse_url($admin_url);
-				$base_url = $parsed_url['scheme'] . '://' . $parsed_url['host'];
+				$base_url   = $parsed_url['scheme'] . '://' . $parsed_url['host'];
 				if (isset($parsed_url['port'])) {
 					$base_url .= ':' . $parsed_url['port'];
 				}
-				
+
 				// Get admin path (respects WP Hide and other plugins)
 				switch_to_blog($site_id);
-				$admin_path = parse_url(get_admin_url(), PHP_URL_PATH);
+				$admin_path = wp_parse_url(get_admin_url(), PHP_URL_PATH);
 				restore_current_blog();
-				
+
 				// Ensure admin path exists, default to /wp-admin if not found
 				if (empty($admin_path)) {
 					$admin_path = '/wp-admin';
 				}
-				
+
 				// Build new URL with admin path
 				$query_string = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
-				$admin_url = $base_url . $admin_path . $query_string;
+				$admin_url    = $base_url . $admin_path . $query_string;
 			} elseif (class_exists('\WP_Ultimo\SSO\SSO')) {
 				// Add SSO support if enabled and magic link is not used
 				// SSO needs to go through login page first, then redirect to admin
@@ -522,30 +513,26 @@ class My_Sites_Element extends Base_Element {
 				if ($sso && $sso->is_enabled()) {
 					// Switch to target site to get correct login URL
 					switch_to_blog($site_id);
-					$sso_path = $sso->get_url_path();
+					$sso_path         = $sso->get_url_path();
 					$actual_admin_url = get_admin_url($site_id);
-					$login_url = wp_login_url($actual_admin_url);
+					$login_url        = wp_login_url($actual_admin_url);
 					restore_current_blog();
-					
+
 					// Add SSO parameter to login URL
 					$admin_url = add_query_arg($sso_path, 'login', $login_url);
 				}
 			}
-			
+
 			// Apply wp_ultimo_manage_url filter for backward compatibility
 			$site = wu_get_site($site_id);
 			if ($site) {
 				$admin_url = apply_filters('wp_ultimo_manage_url', $admin_url, $site);
 			}
-			
+
 			return $admin_url;
 		}
 
 		return \WP_Ultimo\Current::get_manage_url($site_id, 'site');
-		
-		// ============================================
-		// CUSTOM MODIFICATION END
-		// ============================================
 	}
 
 	/**

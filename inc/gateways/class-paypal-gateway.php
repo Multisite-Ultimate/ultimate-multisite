@@ -830,8 +830,39 @@ class PayPal_Gateway extends Base_Gateway {
 			*/
 			$details = $this->get_checkout_details(wu_request('token'));
 
-			if (empty($details)) {
-				wp_die(esc_html__('PayPal token no longer valid.', 'ultimate-multisite'));
+			/*
+			 * Check if we got a WP_Error back from PayPal (e.g., invalid credentials, expired token).
+			 */
+			if (is_wp_error($details)) {
+				wu_log_add('paypal', 'PayPal confirmation failed: ' . $details->get_error_message(), LogLevel::ERROR);
+
+				wp_die(
+					esc_html(
+						sprintf(
+						// translators: %s is the PayPal error message.
+							__('PayPal Error: %s', 'ultimate-multisite'),
+							$details->get_error_message()
+						)
+					),
+					esc_html__('PayPal Error', 'ultimate-multisite'),
+					[
+						'back_link' => true,
+						'response'  => '200',
+					]
+				);
+			}
+
+			if (empty($details) || ! is_array($details)) {
+				wu_log_add('paypal', 'PayPal confirmation failed: token no longer valid or empty response', LogLevel::ERROR);
+
+				wp_die(
+					esc_html__('PayPal token no longer valid. Please try again.', 'ultimate-multisite'),
+					esc_html__('PayPal Error', 'ultimate-multisite'),
+					[
+						'back_link' => true,
+						'response'  => '200',
+					]
+				);
 			}
 
 			/*
@@ -845,7 +876,16 @@ class PayPal_Gateway extends Base_Gateway {
 			* Bail.
 			*/
 			if (empty($payment)) {
-				wp_die(esc_html__('Pending payment does not exist.', 'ultimate-multisite'));
+				wu_log_add('paypal', 'PayPal confirmation failed: pending payment not found', LogLevel::ERROR);
+
+				wp_die(
+					esc_html__('Pending payment does not exist. Please try again or contact support.', 'ultimate-multisite'),
+					esc_html__('Payment Error', 'ultimate-multisite'),
+					[
+						'back_link' => true,
+						'response'  => '200',
+					]
+				);
 			}
 
 			/*
@@ -857,7 +897,16 @@ class PayPal_Gateway extends Base_Gateway {
 			$original_cart = $payment->get_meta('wu_original_cart');
 
 			if (empty($original_cart)) {
-				wp_die(esc_html__('Original cart does not exist.', 'ultimate-multisite'));
+				wu_log_add('paypal', 'PayPal confirmation failed: original cart not found for payment ' . $payment->get_id(), LogLevel::ERROR);
+
+				wp_die(
+					esc_html__('Original cart does not exist. Please try again or contact support.', 'ultimate-multisite'),
+					esc_html__('Cart Error', 'ultimate-multisite'),
+					[
+						'back_link' => true,
+						'response'  => '200',
+					]
+				);
 			}
 
 			/*
@@ -869,9 +918,16 @@ class PayPal_Gateway extends Base_Gateway {
 			$is_recurring      = $original_cart->has_recurring();
 
 			if (empty($membership) || empty($customer)) {
-				$error = new \WP_Error('no-membership', esc_html__('Missing membership or customer data.', 'ultimate-multisite'));
+				wu_log_add('paypal', 'PayPal confirmation failed: missing membership or customer for payment ' . $payment->get_id(), LogLevel::ERROR);
 
-				wp_die($error); // phpcs:ignore WordPress.Security.EscapeOutput
+				wp_die(
+					esc_html__('Missing membership or customer data. Please try again or contact support.', 'ultimate-multisite'),
+					esc_html__('Data Error', 'ultimate-multisite'),
+					[
+						'back_link' => true,
+						'response'  => '200',
+					]
+				);
 			}
 
 			if ($should_auto_renew && $is_recurring) {
@@ -1274,6 +1330,8 @@ class PayPal_Gateway extends Base_Gateway {
 			$args['TOTALBILLINGCYCLES'] = $membership->get_billing_cycles() - $membership->get_times_billed();
 		}
 
+		wu_log_add('paypal', sprintf('Creating recurring payment profile for payment #%d', $payment->get_id()));
+
 		$request = wp_remote_post(
 			$this->api_endpoint,
 			[
@@ -1284,7 +1342,16 @@ class PayPal_Gateway extends Base_Gateway {
 		);
 
 		if (is_wp_error($request)) {
-			wp_die(esc_html($request->get_error_message()));
+			wu_log_add('paypal', 'CreateRecurringPaymentsProfile request failed: ' . $request->get_error_message(), LogLevel::ERROR);
+
+			wp_die(
+				esc_html($request->get_error_message()),
+				esc_html__('PayPal Error', 'ultimate-multisite'),
+				[
+					'back_link' => true,
+					'response'  => '200',
+				]
+			);
 		}
 
 		$body    = wp_remote_retrieve_body($request);
@@ -1300,8 +1367,21 @@ class PayPal_Gateway extends Base_Gateway {
 				wp_parse_str($body, $body);
 			}
 
-			if ('failure' === strtolower((string) $body['ACK'])) {
-				wp_die(esc_html($body['L_LONGMESSAGE0']), esc_html($body['L_ERRORCODE0']));
+			if ('failure' === strtolower((string) $body['ACK']) || 'failurewithwarning' === strtolower((string) $body['ACK'])) {
+				$error_code    = $body['L_ERRORCODE0'] ?? 'unknown';
+				$error_message = $body['L_LONGMESSAGE0'] ?? __('Unknown PayPal error', 'ultimate-multisite');
+
+				wu_log_add('paypal', sprintf('CreateRecurringPaymentsProfile failed with error %s: %s', $error_code, $error_message), LogLevel::ERROR);
+
+				wp_die(
+					// translators: %1$s is the PayPal error code, %2$s is the error message.
+					esc_html(sprintf(__('PayPal Error (%1$s): %2$s', 'ultimate-multisite'), $error_code, $error_message)),
+					esc_html__('PayPal Error', 'ultimate-multisite'),
+					[
+						'back_link' => true,
+						'response'  => '200',
+					]
+				);
 			} else {
 				/*
 				 * We were successful, let's update
@@ -1312,6 +1392,8 @@ class PayPal_Gateway extends Base_Gateway {
 				 */
 				$transaction_id = $body['TRANSACTIONID'] ?? '';
 				$profile_status = $body['PROFILESTATUS'] ?? '';
+
+				wu_log_add('paypal', sprintf('CreateRecurringPaymentsProfile successful. Profile ID: %s, Transaction ID: %s, Status: %s', $body['PROFILEID'] ?? 'N/A', $transaction_id ?: 'N/A', $profile_status ?: 'N/A'));
 
 				// If TRANSACTIONID is not passed we need to wait for webhook
 				$payment_status = Payment_Status::PENDING;
@@ -1385,12 +1467,14 @@ class PayPal_Gateway extends Base_Gateway {
 				exit;
 			}
 		} else {
+			wu_log_add('paypal', sprintf('CreateRecurringPaymentsProfile received unexpected response: HTTP %d %s', $code, $message), LogLevel::ERROR);
+
 			wp_die(
 				esc_html__('Something has gone wrong, please try again', 'ultimate-multisite'),
 				esc_html__('Error', 'ultimate-multisite'),
 				[
 					'back_link' => true,
-					'response'  => '401',
+					'response'  => '200',
 				]
 			);
 		}
@@ -1445,6 +1529,8 @@ class PayPal_Gateway extends Base_Gateway {
 			'BUTTONSOURCE'                   => 'WP_Ultimo',
 		];
 
+		wu_log_add('paypal', sprintf('Processing single payment for payment #%d', $payment->get_id()));
+
 		$request = wp_remote_post(
 			$this->api_endpoint,
 			[
@@ -1463,7 +1549,16 @@ class PayPal_Gateway extends Base_Gateway {
 		$message = wp_remote_retrieve_response_message($request);
 
 		if (is_wp_error($request)) {
-			wp_die(esc_html($request->get_error_message()));
+			wu_log_add('paypal', 'DoExpressCheckoutPayment request failed: ' . $request->get_error_message(), LogLevel::ERROR);
+
+			wp_die(
+				esc_html($request->get_error_message()),
+				esc_html__('PayPal Error', 'ultimate-multisite'),
+				[
+					'back_link' => true,
+					'response'  => '200',
+				]
+			);
 		}
 
 		if (200 === absint($code) && 'OK' === $message) {
@@ -1471,8 +1566,21 @@ class PayPal_Gateway extends Base_Gateway {
 				wp_parse_str($body, $body);
 			}
 
-			if ('failure' === strtolower((string) $body['ACK'])) {
-				wp_die(esc_html($body['L_LONGMESSAGE0']), esc_html($body['L_ERRORCODE0']));
+			if ('failure' === strtolower((string) $body['ACK']) || 'failurewithwarning' === strtolower((string) $body['ACK'])) {
+				$error_code    = $body['L_ERRORCODE0'] ?? 'unknown';
+				$error_message = $body['L_LONGMESSAGE0'] ?? __('Unknown PayPal error', 'ultimate-multisite');
+
+				wu_log_add('paypal', sprintf('DoExpressCheckoutPayment failed with error %s: %s', $error_code, $error_message), LogLevel::ERROR);
+
+				wp_die(
+					// translators: %1$s is the PayPal error code, %2$s is the error message.
+					esc_html(sprintf(__('PayPal Error (%1$s): %2$s', 'ultimate-multisite'), $error_code, $error_message)),
+					esc_html__('PayPal Error', 'ultimate-multisite'),
+					[
+						'back_link' => true,
+						'response'  => '200',
+					]
+				);
 			} else {
 				/*
 					* We were successful, let's update
@@ -1530,6 +1638,8 @@ class PayPal_Gateway extends Base_Gateway {
 					$membership->save();
 				}
 
+				wu_log_add('paypal', sprintf('DoExpressCheckoutPayment successful. Transaction ID: %s', $transaction_id));
+
 				$this->payment = $payment;
 				$redirect_url  = $this->get_return_url();
 
@@ -1538,12 +1648,14 @@ class PayPal_Gateway extends Base_Gateway {
 				exit;
 			}
 		} else {
+			wu_log_add('paypal', sprintf('DoExpressCheckoutPayment received unexpected response: HTTP %d %s', $code, $message), LogLevel::ERROR);
+
 			wp_die(
 				esc_html__('Something has gone wrong, please try again', 'ultimate-multisite'),
 				esc_html__('Error', 'ultimate-multisite'),
 				[
 					'back_link' => true,
-					'response'  => '401',
+					'response'  => '200',
 				]
 			);
 		}
@@ -1553,9 +1665,9 @@ class PayPal_Gateway extends Base_Gateway {
 	 * Display the confirmation form.
 	 *
 	 * @since 2.1
-	 * @return string
+	 * @return void
 	 */
-	public function confirmation_form() {
+	public function confirmation_form(): void {
 
 		$token = sanitize_text_field(wu_request('token'));
 
@@ -1565,21 +1677,62 @@ class PayPal_Gateway extends Base_Gateway {
 			$error = is_wp_error($checkout_details) ? $checkout_details->get_error_message() : __('Invalid response code from PayPal', 'ultimate-multisite');
 
 			// translators: %s is the paypal error message.
-			return '<p>' . sprintf(__('An unexpected PayPal error occurred. Error message: %s.', 'ultimate-multisite'), $error) . '</p>';
+			$error_message = sprintf(__('An unexpected PayPal error occurred. Error message: %s.', 'ultimate-multisite'), esc_html($error));
+
+			wp_die(
+				esc_html($error_message),
+				esc_html__('PayPal Error', 'ultimate-multisite'),
+				[
+					'back_link' => true,
+					'response'  => '200',
+				]
+			);
+		}
+
+		/*
+		 * Validate that the pending payment exists.
+		 */
+		$pending_payment = $checkout_details['pending_payment'] ?? null;
+
+		if (empty($pending_payment)) {
+			wu_log_add('paypal', 'PayPal confirmation failed: pending payment not found', LogLevel::ERROR);
+
+			wp_die(
+				esc_html__('Unable to locate the pending payment. Please try again or contact support.', 'ultimate-multisite'),
+				esc_html__('Payment Not Found', 'ultimate-multisite'),
+				[
+					'back_link' => true,
+					'response'  => '200',
+				]
+			);
 		}
 
 		/*
 		 * Compiles the necessary elements.
 		 */
-		$customer = $checkout_details['pending_payment']->get_customer(); // current customer
+		$customer   = $pending_payment->get_customer();
+		$membership = $pending_payment->get_membership();
+
+		if (empty($customer) || empty($membership)) {
+			wu_log_add('paypal', 'PayPal confirmation failed: customer or membership not found', LogLevel::ERROR);
+
+			wp_die(
+				esc_html__('Unable to locate customer or membership data. Please try again or contact support.', 'ultimate-multisite'),
+				esc_html__('Data Error', 'ultimate-multisite'),
+				[
+					'back_link' => true,
+					'response'  => '200',
+				]
+			);
+		}
 
 		wu_get_template(
 			'checkout/paypal/confirm',
 			[
 				'checkout_details' => $checkout_details,
 				'customer'         => $customer,
-				'payment'          => $checkout_details['pending_payment'],
-				'membership'       => $checkout_details['pending_payment']->get_membership(),
+				'payment'          => $pending_payment,
+				'membership'       => $membership,
 			]
 		);
 	}
@@ -1615,10 +1768,25 @@ class PayPal_Gateway extends Base_Gateway {
 		$message = wp_remote_retrieve_response_message($request);
 
 		if (is_wp_error($request)) {
+			wu_log_add('paypal', 'GetExpressCheckoutDetails request failed: ' . $request->get_error_message(), LogLevel::ERROR);
+
 			return $request;
 		} elseif (200 === absint($code) && 'OK' === $message) {
 			if (is_string($body)) {
 				wp_parse_str($body, $body);
+			}
+
+			/*
+			 * Check for PayPal API errors.
+			 * ACK=Failure means the API call failed (e.g., invalid credentials, expired token).
+			 */
+			if (isset($body['ACK']) && ('failure' === strtolower((string) $body['ACK']) || 'failurewithwarning' === strtolower((string) $body['ACK']))) {
+				$error_code    = $body['L_ERRORCODE0'] ?? 'unknown';
+				$error_message = $body['L_LONGMESSAGE0'] ?? __('Unknown PayPal error', 'ultimate-multisite');
+
+				wu_log_add('paypal', sprintf('GetExpressCheckoutDetails failed with error %s: %s', $error_code, $error_message), LogLevel::ERROR);
+
+				return new \WP_Error($error_code, $error_message);
 			}
 
 			$payment_id = absint(wu_request('payment-id'));
@@ -1631,10 +1799,12 @@ class PayPal_Gateway extends Base_Gateway {
 
 			$body['pending_payment'] = $pending_payment;
 
-			$custom = explode('|', (string) $body['PAYMENTREQUEST_0_CUSTOM']);
+			$custom = explode('|', (string) wu_get_isset($body, 'PAYMENTREQUEST_0_CUSTOM', ''));
 
 			return $body;
 		}
+
+		wu_log_add('paypal', sprintf('GetExpressCheckoutDetails received unexpected response: HTTP %d %s', $code, $message), LogLevel::ERROR);
 
 		return false;
 	}

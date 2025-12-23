@@ -101,9 +101,9 @@ class Simple_Order_Bump_Field_Template extends Base_Field_Template {
 	 */
 	public function output($attributes): void {
 
-	/**
-	 * Loads the actual order-bump template
-	 */
+		/**
+		 * Loads the actual order-bump template
+		 */
 		wu_get_template('checkout/templates/order-bump/simple', $attributes);
 	}
 }

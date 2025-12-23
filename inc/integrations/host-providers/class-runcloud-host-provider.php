@@ -10,6 +10,7 @@
 namespace WP_Ultimo\Integrations\Host_Providers;
 
 use Psr\Log\LogLevel;
+use WP_Error;
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
@@ -51,9 +52,9 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 * @var array
 	 * @since 2.0.0
 	 */
-	protected $supports = [
+	protected $supports = array(
 		'autossl',
-	];
+	);
 
 	/**
 	 * Constants that need to be present on wp-config.php for this integration to work.
@@ -61,12 +62,39 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 * @since 2.0.0
 	 * @var array
 	 */
-	protected $constants = [
-		'WU_RUNCLOUD_API_KEY',
-		'WU_RUNCLOUD_API_SECRET',
+	protected $constants = array(
+		'WU_RUNCLOUD_API_TOKEN',
 		'WU_RUNCLOUD_SERVER_ID',
 		'WU_RUNCLOUD_APP_ID',
-	];
+	);
+
+	/**
+	 * Add notice if we need to upgrade to V3.
+	 *
+	 * @return void
+	 */
+	public function init(): void {
+		parent::init();
+		if (! defined('WU_RUNCLOUD_API_SECRET') || defined('WU_RUNCLOUD_API_TOKEN')) {
+			return;
+		}
+
+		$message = __('It looks like you are using V2 of the Runcloud API which has been discontinued. You must setup a API token to use V3 of the API for the Runcloud integration to work.', 'ultimate-multisite');
+
+		$actions = [
+			'activate' => [
+				'title' => __('Configure Runcloud API Token', 'ultimate-multisite'),
+				'url'   => wu_network_admin_url(
+					'wp-ultimo-hosting-integration-wizard',
+					[
+						'integration' => $this->get_id(),
+					]
+				),
+			],
+		];
+
+		WP_Ultimo()->notices->add($message, 'info', 'network-admin', 'should-enable-runcloudv3-integration', $actions);
+	}
 
 	/**
 	 * Picks up on tips that a given host provider is being used.
@@ -76,80 +104,66 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 * @since 2.0.0
 	 */
 	public function detect(): bool {
-
-		return str_contains(ABSPATH, 'runcloud');
+		return strpos(ABSPATH, 'runcloud') !== false;
 	}
 
 	/**
 	 * Returns the list of installation fields.
 	 *
-	 * @since 2.0.0
 	 * @return array
+	 * @since 2.0.0
 	 */
 	public function get_fields() {
-
-		return [
-			'WU_RUNCLOUD_API_KEY'    => [
-				'title'       => __('RunCloud API Key', 'ultimate-multisite'),
-				'desc'        => __('The API Key retrieved in the previous step.', 'ultimate-multisite'),
-				'placeholder' => __('e.g. Sx9tHAn5XMrkeyZKS1a7uj8dGTLgKnlEOaJEFRt1m95L', 'ultimate-multisite'),
-			],
-			'WU_RUNCLOUD_API_SECRET' => [
-				'title'       => __('RunCloud API Secret', 'ultimate-multisite'),
-				'desc'        => __('The API secret retrieved in the previous step.', 'ultimate-multisite'),
-				'placeholder' => __('e.g. ZlAebXp2sa6J5xsrPoiPcMXZRIVsHJ2rEkNCNGknZnF0UK5cSNSePS8GBW9FXIQd', 'ultimate-multisite'),
-			],
-			'WU_RUNCLOUD_SERVER_ID'  => [
-				'title'       => __('RunCloud Server ID', 'ultimate-multisite'),
-				'desc'        => __('The Server ID retrieved in the previous step.', 'ultimate-multisite'),
-				'placeholder' => __('e.g. 11667', 'ultimate-multisite'),
-			],
-			'WU_RUNCLOUD_APP_ID'     => [
-				'title'       => __('RunCloud App ID', 'ultimate-multisite'),
-				'desc'        => __('The App ID retrieved in the previous step.', 'ultimate-multisite'),
-				'placeholder' => __('e.g. 940288', 'ultimate-multisite'),
-			],
-		];
+		return array(
+			'WU_RUNCLOUD_API_TOKEN' => array(
+				'title'       => __('RunCloud API Token', 'multisite-ultimate'),
+				'desc'        => __('The API Token generated in RunCloud.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. your-api-token-here', 'multisite-ultimate'),
+			),
+			'WU_RUNCLOUD_SERVER_ID' => array(
+				'title'       => __('RunCloud Server ID', 'multisite-ultimate'),
+				'desc'        => __('The Server ID retrieved in the previous step.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. 11667', 'multisite-ultimate'),
+			),
+			'WU_RUNCLOUD_APP_ID'    => array(
+				'title'       => __('RunCloud App ID', 'multisite-ultimate'),
+				'desc'        => __('The App ID retrieved in the previous step.', 'multisite-ultimate'),
+				'placeholder' => __('e.g. 940288', 'multisite-ultimate'),
+			),
+		);
 	}
 
 	/**
-	 * This method gets called when a new domain is mapped.
+	 * Handles domain mapping when a new domain is added.
 	 *
-	 * @since 2.0.0
 	 * @param string $domain The domain name being mapped.
 	 * @param int    $site_id ID of the site that is receiving that mapping.
-	 * @return void
+	 *
+	 * @since 2.0.0
 	 */
-	public function on_add_domain($domain, $site_id): void {
-
+	public function on_add_domain($domain, $site_id) {
 		$success = false;
-
-		$create_www = \WP_Ultimo\Managers\Domain_Manager::get_instance()->should_create_www_subdomain($domain);
 
 		$response = $this->send_runcloud_request(
 			$this->get_runcloud_base_url('domains'),
-			[
+			array(
 				'name'        => $domain,
-				'www'         => $create_www,
-				'redirection' => $create_www ? 'non-www' : 'none',
-			],
+				'www'         => true,
+				'redirection' => 'non-www',
+				'type'        => 'alias',
+			),
 			'POST'
 		);
 
 		if (is_wp_error($response)) {
-			wu_log_add('integration-runcloud', $response->get_error_message(), LogLevel::ERROR);
+			wu_log_add('integration-runcloud', 'Add Domain Error: ' . $response->get_error_message(), LogLevel::ERROR);
 		} else {
-			$success = true; // At least one of the calls was successful;
-
-			wu_log_add('integration-runcloud', wp_remote_retrieve_body($response));
+			$success = true;
+			wu_log_add('integration-runcloud', 'Domain Added: ' . wp_remote_retrieve_body($response));
 		}
 
-		/**
-		 * Only redeploy SSL if at least one of the domains were successfully added
-		 */
 		if ($success) {
 			$ssl_id = $this->get_runcloud_ssl_id();
-
 			if ($ssl_id) {
 				$this->redeploy_runcloud_ssl($ssl_id);
 			}
@@ -157,27 +171,32 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	}
 
 	/**
-	 * This method gets called when a mapped domain is removed.
+	 * Handles domain removal.
 	 *
-	 * @since 2.0.0
 	 * @param string $domain The domain name being removed.
 	 * @param int    $site_id ID of the site that is receiving that mapping.
-	 * @return void
+	 *
+	 * @since 2.0.0
 	 */
-	public function on_remove_domain($domain, $site_id): void {
-
+	public function on_remove_domain($domain, $site_id) {
 		$domain_id = $this->get_runcloud_domain_id($domain);
 
 		if ( ! $domain_id) {
-			wu_log_add('integration-runcloud', __('Domain name not found on runcloud', 'ultimate-multisite'));
+			wu_log_add('integration-runcloud', __('Domain not found: ', 'multisite-ultimate') . $domain);
+
+			return;
 		}
 
-		$response = $this->send_runcloud_request($this->get_runcloud_base_url("domains/$domain_id"), [], 'DELETE');
+		$response = $this->send_runcloud_request(
+			$this->get_runcloud_base_url("domains/$domain_id"),
+			array(),
+			'DELETE'
+		);
 
 		if (is_wp_error($response)) {
-			wu_log_add('integration-runcloud', $response->get_error_message(), LogLevel::ERROR);
+			wu_log_add('integration-runcloud', 'Remove Domain Error: ' . $response->get_error_message(), LogLevel::ERROR);
 		} else {
-			wu_log_add('integration-runcloud', wp_remote_retrieve_body($response));
+			wu_log_add('integration-runcloud', 'Domain Removed: ' . wp_remote_retrieve_body($response));
 		}
 	}
 
@@ -206,14 +225,10 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	public function on_remove_subdomain($subdomain, $site_id) {}
 
 	/**
-	 * Tests the connection with the RunCloud API.
-	 *
-	 * @since 2.0.0
-	 * @return void
+	 * Tests API connection.
 	 */
 	public function test_connection(): void {
-
-		$response = $this->send_runcloud_request($this->get_runcloud_base_url('domains'), [], 'GET');
+		$response = $this->send_runcloud_request($this->get_runcloud_base_url('domains'), array(), 'GET');
 
 		if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
 			wp_send_json_error($response);
@@ -223,167 +238,156 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	}
 
 	/**
-	 * Returns the base domain API url to our calls.
+	 * Constructs the base API URL.
 	 *
-	 * @since 1.7.0
-	 * @param string $path Path relative to the main endpoint.
-	 * @return string
+	 * @param string $path path of endpoint.
 	 */
 	public function get_runcloud_base_url($path = '') {
-
 		$serverid = defined('WU_RUNCLOUD_SERVER_ID') ? WU_RUNCLOUD_SERVER_ID : '';
+		$appid    = defined('WU_RUNCLOUD_APP_ID') ? WU_RUNCLOUD_APP_ID : '';
 
-		$appid = defined('WU_RUNCLOUD_APP_ID') ? WU_RUNCLOUD_APP_ID : '';
-
-		return "https://manage.runcloud.io/api/v2/servers/{$serverid}/webapps/{$appid}/{$path}";
+		return "https://manage.runcloud.io/api/v3/servers/{$serverid}/webapps/{$appid}/{$path}";
 	}
 
 	/**
-	 * Sends the request to a given runcloud URL with a given body.
+	 * Sends authenticated requests to RunCloud API.
 	 *
-	 * @since 1.7.0
-	 * @param string $url Endpoinbt to send the request to.
-	 * @param array  $data Data to be sent.
-	 * @param string $method HTTP Method to send. Defaults to POST.
-	 * @return array
+	 * @param string $url The URL to send the request to.
+	 * @param array  $data The data to send with the request.
+	 * @param string $method The HTTP method to use. Defaults to POST.
 	 */
-	public function send_runcloud_request($url, $data = [], $method = 'POST') {
+	public function send_runcloud_request($url, $data = array(), $method = 'POST') {
+		$token = defined('WU_RUNCLOUD_API_TOKEN') ? WU_RUNCLOUD_API_TOKEN : '';
 
-		$username = defined('WU_RUNCLOUD_API_KEY') ? WU_RUNCLOUD_API_KEY : '';
-
-		$password = defined('WU_RUNCLOUD_API_SECRET') ? WU_RUNCLOUD_API_SECRET : '';
-
-		$response = wp_remote_request(
-			$url,
-			[
-				'timeout'     => 100,
-				'redirection' => 5,
-				'body'        => $data,
-				'method'      => $method,
-				'headers'     => [
-					'Authorization' => 'Basic ' . base64_encode($username . ':' . $password), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-				],
-			]
+		$args = array(
+			'timeout'     => 100,
+			'redirection' => 5,
+			'method'      => $method,
+			'headers'     => array(
+				'Authorization' => 'Bearer ' . $token,
+				'Accept'        => 'application/json',
+				'Content-Type'  => 'application/json',
+			),
 		);
+
+		if ('GET' === $method) {
+			$url = add_query_arg($data, $url);
+		} else {
+			$args['body'] = wp_json_encode($data);
+		}
+
+		$response = wp_remote_request($url, $args);
+
+		// Enhanced logging
+		$log_message = sprintf(
+			"Request: %s %s\nStatus: %s\nResponse: %s",
+			$method,
+			$url,
+			wp_remote_retrieve_response_code($response),
+			wp_remote_retrieve_body($response)
+		);
+		wu_log_add('integration-runcloud', $log_message);
 
 		return $response;
 	}
 
 	/**
-	 * Treats the response, maybe returning the json decoded version
+	 * Processes API responses.
 	 *
-	 * @since 1.7.0
-	 * @param array $response The response.
-	 * @return mixed
+	 * @param  WP_Error|array $response The Response.
+	 * @return array|WP_Error
 	 */
 	public function maybe_return_runcloud_body($response) {
-
 		if (is_wp_error($response)) {
 			return $response->get_error_message();
-		} else {
-			return json_decode(wp_remote_retrieve_body($response));
 		}
+
+		$body = json_decode(wp_remote_retrieve_body($response));
+
+		if (json_last_error() !== JSON_ERROR_NONE) {
+			return new WP_Error('api_error', 'Invalid JSON response: ' . json_last_error_msg());
+		}
+
+		return $body;
 	}
 
 	/**
-	 * Returns the RunCloud.io domain id to remove.
+	 * Finds domain ID in RunCloud.
 	 *
-	 * @since 1.7.0
-	 * @param string $domain The domain name being removed.
-	 * @return string
+	 * @param string $domain Domain name.
+	 * @return int|false Domain ID or false if not found.
 	 */
 	public function get_runcloud_domain_id($domain) {
+		$response = $this->send_runcloud_request($this->get_runcloud_base_url('domains'), array(), 'GET');
+		$data     = $this->maybe_return_runcloud_body($response);
 
-		$domains_list = $this->send_runcloud_request($this->get_runcloud_base_url('domains'), [], 'GET');
-
-		$list = $this->maybe_return_runcloud_body($domains_list);
-
-		if (is_object($list) && ! empty($list->data)) {
-			foreach ($list->data as $remote_domain) {
-				if ($remote_domain->name === $domain) {
-					return $remote_domain->id;
+		if (is_object($data) && isset($data->data) && is_array($data->data)) {
+			foreach ($data->data as $item) {
+				if (isset($item->name) && $item->name === $domain) {
+					return $item->id;
 				}
 			}
 		}
+
+		wu_log_add('integration-runcloud', "Domain $domain not found in response");
 
 		return false;
 	}
 
 	/**
-	 * Checks if RunCloud has a SSL cert installed or not, and returns the ID.
-	 *
-	 * @since 1.10.4
-	 * @return bool|int
+	 * Retrieves SSL certificate ID.
 	 */
 	public function get_runcloud_ssl_id() {
+		$response = $this->send_runcloud_request($this->get_runcloud_base_url('ssl/advanced'), array(), 'GET');
+		$data     = $this->maybe_return_runcloud_body($response);
 
-		$ssl_id = false;
-
-		$response = $this->send_runcloud_request($this->get_runcloud_base_url('ssl'), [], 'GET');
-
-		if (is_wp_error($response)) {
-			wu_log_add('integration-runcloud', $response->get_error_message(), LogLevel::ERROR);
-		} else {
-			$data = $this->maybe_return_runcloud_body($response);
-
-			wu_log_add('integration-runcloud', wp_json_encode($data));
-
-			if (property_exists($data, 'id')) {
-				$ssl_id = $data->id;
-			}
+		// v3 API returns advanced SSL certificate data
+		if (is_object($data) && isset($data->sslCertificate) && isset($data->sslCertificate->id)) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			return $data->sslCertificate->id; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
 
-		return $ssl_id;
+		wu_log_add('integration-runcloud', 'SSL Certificate not found');
+
+		return false;
 	}
 
 	/**
-	 * Redeploys the SSL cert when a new domain is added.
+	 * Redeploys SSL certificate.
 	 *
-	 * @since 1.10.4
-	 * @param int $ssl_id The SSL id on RunCloud.
-	 * @return void
+	 * @param int $ssl_id SSL certificate ID.
 	 */
-	public function redeploy_runcloud_ssl($ssl_id): void {
-
-		$response = $this->send_runcloud_request($this->get_runcloud_base_url("ssl/$ssl_id"), [], 'PUT');
+	public function redeploy_runcloud_ssl($ssl_id) {
+		$response = $this->send_runcloud_request(
+			$this->get_runcloud_base_url("ssl/advanced/$ssl_id/redeploy"),
+			array(),
+			'PATCH'
+		);
 
 		if (is_wp_error($response)) {
-			wu_log_add('integration-runcloud', $response->get_error_message(), LogLevel::ERROR);
+			wu_log_add('integration-runcloud', 'SSL Redeploy Error: ' . $response->get_error_message(), LogLevel::ERROR);
 		} else {
-			wu_log_add('integration-runcloud', wp_remote_retrieve_body($response));
+			wu_log_add('integration-runcloud', 'SSL Redeploy Successful: ' . wp_remote_retrieve_body($response));
 		}
 	}
 
 	/**
-	 * Renders the instructions content.
-	 *
-	 * @since 2.0.0
-	 * @return void
+	 * Renders instructions.
 	 */
-	public function get_instructions(): void {
-
+	public function get_instructions() {
 		wu_get_template('wizards/host-integrations/runcloud-instructions');
 	}
 
 	/**
-	 * Returns the description of this integration.
-	 *
-	 * @since 2.0.0
-	 * @return string
+	 * Returns description.
 	 */
 	public function get_description() {
-
-		return __('With RunCloud, you don’t need to be a Linux expert to build a website powered by DigitalOcean, AWS, or Google Cloud. Use our graphical interface and build a business on the cloud affordably.', 'ultimate-multisite');
+		return __('With RunCloud, you don’t need to be a Linux expert to build a website powered by DigitalOcean, AWS, or Google Cloud. Use our graphical interface and build a business on the cloud affordably.', 'multisite-ultimate');
 	}
 
 	/**
-	 * Returns the logo for the integration.
-	 *
-	 * @since 2.0.0
-	 * @return string
+	 * Returns logo URL.
 	 */
 	public function get_logo() {
-
 		return wu_get_asset('runcloud.svg', 'img/hosts');
 	}
 }

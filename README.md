@@ -199,6 +199,17 @@ We recommend running this in a staging environment before updating your producti
 
 ## 📝 Recent Changes
 
+### Version [2.4.9] - Released on 2025-12-23
+- New: Inline login prompt at checkout for existing users - returning customers can sign in directly without leaving the checkout flow.
+- New: GitHub Actions workflow for PR builds with WordPress Playground testing - enables one-click browser-based testing of pull requests.
+- Fixed: Template switching now preserves images - URLs in post content are correctly updated when switching templates.
+- Fixed: Email manager initialization during setup wizard - system emails are now correctly created.
+- Fixed: Template switching permission and capability checks improved with better error messaging.
+- Fixed: Multiple primary domains being set.
+- Improved: Template selection logic with better null safety and smart fallbacks for pre-selected templates.
+- Improved: Compatibility for legacy filter `wu_create_site_meta` from WP Ultimo v1.
+- Improved: Added support for Runcloud V3 API
+
 ### Version [2.4.8] - Released on 2025-11-21
 - New: Added MCP (Model Context Protocol) Server integration.
 - New: Added support for multi-network installations with network-specific customers, memberships, and products.

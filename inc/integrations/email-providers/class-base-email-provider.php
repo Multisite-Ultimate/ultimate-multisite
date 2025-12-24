@@ -346,25 +346,83 @@ abstract class Base_Email_Provider {
 
 		$slug = $this->get_id();
 
-		$status = $this->is_enabled()
-			? sprintf('<span class="wu-text-green-600">%s</span>', __('Enabled', 'ultimate-multisite'))
-			: sprintf('<span class="wu-text-gray-500">%s</span>', __('Disabled', 'ultimate-multisite'));
+		// Build status indicator
+		$html = '';
 
-		$setup_status = '';
-		if ($this->is_enabled() && ! $this->is_setup()) {
-			$setup_status = sprintf(' - <span class="wu-text-yellow-600">%s</span>', __('Not Configured', 'ultimate-multisite'));
+		if ($this->is_enabled()) {
+			if ($this->is_setup()) {
+				$html .= sprintf(
+					'<div class="wu-self-center wu-text-green-800 wu-mr-4"><span class="dashicons-wu-check"></span> %s</div>',
+					__('Activated', 'ultimate-multisite')
+				);
+			} else {
+				$html .= sprintf(
+					'<div class="wu-self-center wu-text-yellow-600 wu-mr-4"><span class="dashicons-wu-warning"></span> %s</div>',
+					__('Not Configured', 'ultimate-multisite')
+				);
+			}
 		}
+
+		// Add Configuration button
+		$url = wu_network_admin_url(
+			'wp-ultimo-email-integration-wizard',
+			[
+				'integration' => $slug,
+			]
+		);
+
+		$html .= sprintf(
+			'<a href="%s" class="button-primary">%s</a>',
+			esc_url($url),
+			__('Configuration', 'ultimate-multisite')
+		);
 
 		wu_register_settings_field(
 			'email-accounts',
 			"email_provider_{$slug}",
 			[
-				'type'  => 'toggle',
-				'title' => sprintf('%s %s%s', $this->get_title(), $status, $setup_status),
-				'desc'  => $this->get_description(),
-				'value' => $this->is_enabled(),
+				'type'  => 'note',
+				// translators: %s is the provider name (e.g. "cPanel", "Purelymail")
+				'title' => sprintf(__('%s Integration', 'ultimate-multisite'), $this->get_title()),
+				'desc'  => $html,
 			]
 		);
+	}
+
+	/**
+	 * Returns explainer lines for the activation wizard.
+	 *
+	 * @since 2.3.0
+	 * @return array
+	 */
+	public function get_explainer_lines() {
+
+		return [
+			'will'     => [
+				__('Allow customers to create email accounts with this provider', 'ultimate-multisite'),
+				__('Automatically provision email accounts via API', 'ultimate-multisite'),
+				__('Allow customers to manage their email account passwords', 'ultimate-multisite'),
+			],
+			'will_not' => [
+				__('Automatically configure DNS records (customers must do this manually)', 'ultimate-multisite'),
+				__('Provide email hosting (you need an account with the provider)', 'ultimate-multisite'),
+			],
+		];
+	}
+
+	/**
+	 * Checks if the integration supports a given feature.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $feature The feature to check.
+	 * @return bool
+	 */
+	public function supports($feature) {
+
+		$supports = property_exists($this, 'supports') ? $this->supports : [];
+
+		return in_array($feature, $supports, true);
 	}
 
 	/**

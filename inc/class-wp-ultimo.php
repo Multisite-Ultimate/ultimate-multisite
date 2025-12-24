@@ -765,6 +765,11 @@ final class WP_Ultimo {
 		new WP_Ultimo\Admin_Pages\Hosting_Integration_Wizard_Admin_Page();
 
 		/*
+		 * Loads the Email Integration Wizard
+		 */
+		new WP_Ultimo\Admin_Pages\Email_Integration_Wizard_Admin_Page();
+
+		/*
 		 * Loads the Events Pages
 		 */
 		new WP_Ultimo\Admin_Pages\Event_List_Admin_Page();

@@ -83,6 +83,9 @@ class Email_Account_Manager extends Base_Manager {
 
 		// Clean up when customer is deleted
 		add_action('wu_customer_post_delete', [$this, 'handle_customer_deleted'], 10, 2);
+
+		// AJAX handler for testing email integration
+		add_action('wp_ajax_wu_test_email_integration', [$this, 'ajax_test_email_integration']);
 	}
 
 	/**
@@ -160,6 +163,19 @@ class Email_Account_Manager extends Base_Manager {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Alias for get_provider for consistency with hosting integration wizard.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $id The provider ID.
+	 * @return \WP_Ultimo\Integrations\Email_Providers\Base_Email_Provider|null
+	 */
+	public function get_provider_instance($id) {
+
+		return $this->get_provider($id);
 	}
 
 	/**
@@ -514,6 +530,73 @@ class Email_Account_Manager extends Base_Manager {
 			// Delete from database
 			$email_account->delete();
 		}
+	}
+
+	/**
+	 * AJAX handler for testing email provider integration.
+	 *
+	 * @since 2.3.0
+	 * @return void
+	 */
+	public function ajax_test_email_integration(): void {
+
+		check_ajax_referer('wu_test_email_integration');
+
+		if ( ! current_user_can('manage_network')) {
+			wp_send_json_error(
+				[
+					'message' => __('You do not have permission to perform this action.', 'ultimate-multisite'),
+				]
+			);
+		}
+
+		$integration_id = isset($_POST['integration_id']) ? sanitize_text_field(wp_unslash($_POST['integration_id'])) : '';
+
+		if (empty($integration_id)) {
+			wp_send_json_error(
+				[
+					'message' => __('No integration ID provided.', 'ultimate-multisite'),
+				]
+			);
+		}
+
+		$provider = $this->get_provider($integration_id);
+
+		if ( ! $provider) {
+			wp_send_json_error(
+				[
+					'message' => __('Invalid integration ID.', 'ultimate-multisite'),
+				]
+			);
+		}
+
+		if ( ! $provider->is_setup()) {
+			wp_send_json_error(
+				[
+					'message' => sprintf(
+						/* translators: %s is the list of missing constants */
+						__('Missing required configuration: %s', 'ultimate-multisite'),
+						implode(', ', $provider->get_missing_constants())
+					),
+				]
+			);
+		}
+
+		$result = $provider->test_connection();
+
+		if (is_wp_error($result)) {
+			wp_send_json_error(
+				[
+					'message' => $result->get_error_message(),
+				]
+			);
+		}
+
+		wp_send_json_success(
+			[
+				'message' => __('Connection test passed successfully.', 'ultimate-multisite'),
+			]
+		);
 	}
 
 	/**

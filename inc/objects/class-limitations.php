@@ -32,6 +32,7 @@ defined('ABSPATH') || exit;
  * @property-read \WP_Ultimo\Limitations\Limit_Domain_Mapping $domain_mapping
  * @property-read \WP_Ultimo\Limitations\Limit_Customer_User_Role $customer_user_role
  * @property-read \WP_Ultimo\Limitations\Limit_Hide_Footer_Credits $hide_credits
+ * @property-read \WP_Ultimo\Limitations\Limit_Email_Accounts $email_accounts
  */
 class Limitations {
 
@@ -494,6 +495,7 @@ class Limitations {
 			'domain_mapping'     => \WP_Ultimo\Limitations\Limit_Domain_Mapping::class,
 			'customer_user_role' => \WP_Ultimo\Limitations\Limit_Customer_User_Role::class,
 			'hide_credits'       => \WP_Ultimo\Limitations\Limit_Hide_Footer_Credits::class,
+			'email_accounts'     => \WP_Ultimo\Limitations\Limit_Email_Accounts::class,
 		];
 
 		return apply_filters('wu_limit_classes', $classes);

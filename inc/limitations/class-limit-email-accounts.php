@@ -135,13 +135,14 @@ class Limit_Email_Accounts extends Limit {
 
 		$limit = $this->get_limit();
 
-		// 0 or true means unlimited
-		if (true === $limit || 0 === (int) $limit) {
-			return 'unlimited';
-		}
-
+		// Boolean false means none allowed
 		if (false === $limit) {
 			return 0;
+		}
+
+		// Boolean true or numeric 0 means unlimited
+		if (true === $limit || 0 === (int) $limit) {
+			return 'unlimited';
 		}
 
 		$current_count = $this->get_current_account_count($customer_id, $membership_id);

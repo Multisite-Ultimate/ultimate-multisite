@@ -8,8 +8,6 @@
 namespace WP_Ultimo\Limitations;
 
 use WP_UnitTestCase;
-use WP_Ultimo\Models\Customer;
-use WP_Ultimo\Models\Membership;
 
 /**
  * Test class for Limit_Email_Accounts functionality.
@@ -17,52 +15,6 @@ use WP_Ultimo\Models\Membership;
  * Tests email account limit initialization, checking, and slot calculations.
  */
 class Limit_Email_Accounts_Test extends WP_UnitTestCase {
-
-	/**
-	 * Test customer for email account tests.
-	 *
-	 * @var Customer
-	 */
-	private static $test_customer;
-
-	/**
-	 * Test membership for email account tests.
-	 *
-	 * @var Membership
-	 */
-	private static $test_membership;
-
-	/**
-	 * Set up test environment.
-	 */
-	public static function set_up_before_class() {
-		parent::set_up_before_class();
-
-		// Create a test user
-		$user_id = self::factory()->user->create(
-			[
-				'user_login' => 'emaillimittestuser',
-				'user_email' => 'emaillimittest@example.com',
-			]
-		);
-
-		// Create a test customer
-		self::$test_customer = wu_create_customer(
-			[
-				'user_id'            => $user_id,
-				'type'               => 'customer',
-				'email_verification' => 'none',
-			]
-		);
-
-		// Create a test membership
-		self::$test_membership = wu_create_membership(
-			[
-				'customer_id' => self::$test_customer->get_id(),
-				'status'      => 'active',
-			]
-		);
-	}
 
 	/**
 	 * Test limit initialization with enabled and numeric limit.
@@ -255,7 +207,8 @@ class Limit_Email_Accounts_Test extends WP_UnitTestCase {
 			]
 		);
 
-		$result = $limit->can_create_more(self::$test_customer->get_id(), self::$test_membership->get_id());
+		// With unlimited, should always return true
+		$result = $limit->can_create_more(1, 1);
 		$this->assertTrue($result);
 	}
 
@@ -270,7 +223,7 @@ class Limit_Email_Accounts_Test extends WP_UnitTestCase {
 			]
 		);
 
-		$result = $limit->can_create_more(self::$test_customer->get_id(), self::$test_membership->get_id());
+		$result = $limit->can_create_more(1, 1);
 		$this->assertTrue($result);
 	}
 
@@ -285,7 +238,7 @@ class Limit_Email_Accounts_Test extends WP_UnitTestCase {
 			]
 		);
 
-		$result = $limit->can_create_more(self::$test_customer->get_id(), self::$test_membership->get_id());
+		$result = $limit->can_create_more(1, 1);
 		$this->assertFalse($result);
 	}
 
@@ -300,7 +253,7 @@ class Limit_Email_Accounts_Test extends WP_UnitTestCase {
 			]
 		);
 
-		$result = $limit->can_create_more(self::$test_customer->get_id(), self::$test_membership->get_id());
+		$result = $limit->can_create_more(1, 1);
 		$this->assertFalse($result);
 	}
 
@@ -315,7 +268,7 @@ class Limit_Email_Accounts_Test extends WP_UnitTestCase {
 			]
 		);
 
-		$result = $limit->get_remaining_slots(self::$test_customer->get_id(), self::$test_membership->get_id());
+		$result = $limit->get_remaining_slots(1, 1);
 		$this->assertEquals('unlimited', $result);
 	}
 
@@ -330,7 +283,7 @@ class Limit_Email_Accounts_Test extends WP_UnitTestCase {
 			]
 		);
 
-		$result = $limit->get_remaining_slots(self::$test_customer->get_id(), self::$test_membership->get_id());
+		$result = $limit->get_remaining_slots(1, 1);
 		$this->assertEquals('unlimited', $result);
 	}
 
@@ -345,7 +298,7 @@ class Limit_Email_Accounts_Test extends WP_UnitTestCase {
 			]
 		);
 
-		$result = $limit->get_remaining_slots(self::$test_customer->get_id(), self::$test_membership->get_id());
+		$result = $limit->get_remaining_slots(1, 1);
 		$this->assertEquals(0, $result);
 	}
 
@@ -360,22 +313,14 @@ class Limit_Email_Accounts_Test extends WP_UnitTestCase {
 			]
 		);
 
-		$result = $limit->get_remaining_slots(self::$test_customer->get_id(), self::$test_membership->get_id());
+		$result = $limit->get_remaining_slots(1, 1);
 		$this->assertEquals(0, $result);
 	}
 
 	/**
-	 * Test get_remaining_slots with numeric limit.
+	 * Test get_remaining_slots with numeric limit using mock.
 	 */
 	public function test_get_remaining_slots_numeric(): void {
-		$limit = new Limit_Email_Accounts(
-			[
-				'enabled' => true,
-				'limit'   => 5,
-			]
-		);
-
-		// Mock the get_current_account_count to return 2
 		$limit_mock = $this->getMockBuilder(Limit_Email_Accounts::class)
 			->setConstructorArgs(
 				[
@@ -392,7 +337,7 @@ class Limit_Email_Accounts_Test extends WP_UnitTestCase {
 			->method('get_current_account_count')
 			->willReturn(2);
 
-		$result = $limit_mock->get_remaining_slots(self::$test_customer->get_id(), self::$test_membership->get_id());
+		$result = $limit_mock->get_remaining_slots(1, 1);
 		$this->assertEquals(3, $result); // 5 - 2 = 3
 	}
 
@@ -416,7 +361,7 @@ class Limit_Email_Accounts_Test extends WP_UnitTestCase {
 			->method('get_current_account_count')
 			->willReturn(5);
 
-		$result = $limit_mock->get_remaining_slots(self::$test_customer->get_id(), self::$test_membership->get_id());
+		$result = $limit_mock->get_remaining_slots(1, 1);
 		$this->assertEquals(0, $result); // max(0, 2 - 5) = 0
 	}
 

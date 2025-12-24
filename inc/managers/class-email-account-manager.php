@@ -79,10 +79,10 @@ class Email_Account_Manager extends Base_Manager {
 		add_action('wu_transition_email_account_status', [$this, 'handle_status_transition'], 10, 3);
 
 		// Clean up when membership is deleted
-		add_action('wu_membership_post_delete', [$this, 'handle_membership_deleted']);
+		add_action('wu_membership_post_delete', [$this, 'handle_membership_deleted'], 10, 2);
 
 		// Clean up when customer is deleted
-		add_action('wu_customer_post_delete', [$this, 'handle_customer_deleted']);
+		add_action('wu_customer_post_delete', [$this, 'handle_customer_deleted'], 10, 2);
 	}
 
 	/**
@@ -447,10 +447,15 @@ class Email_Account_Manager extends Base_Manager {
 	 *
 	 * @since 2.3.0
 	 *
+	 * @param bool                         $result     Whether the delete was successful.
 	 * @param \WP_Ultimo\Models\Membership $membership The deleted membership.
 	 * @return void
 	 */
-	public function handle_membership_deleted($membership): void {
+	public function handle_membership_deleted($result, $membership): void {
+
+		if ( ! $result || ! $membership instanceof \WP_Ultimo\Models\Membership) {
+			return;
+		}
 
 		$email_accounts = wu_get_email_accounts(
 			[
@@ -479,10 +484,15 @@ class Email_Account_Manager extends Base_Manager {
 	 *
 	 * @since 2.3.0
 	 *
+	 * @param bool                       $result   Whether the delete was successful.
 	 * @param \WP_Ultimo\Models\Customer $customer The deleted customer.
 	 * @return void
 	 */
-	public function handle_customer_deleted($customer): void {
+	public function handle_customer_deleted($result, $customer): void {
+
+		if ( ! $result || ! $customer instanceof \WP_Ultimo\Models\Customer) {
+			return;
+		}
 
 		$email_accounts = wu_get_email_accounts(
 			[

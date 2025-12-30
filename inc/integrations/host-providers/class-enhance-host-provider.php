@@ -100,6 +100,7 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 		return [
 			'WU_ENHANCE_API_TOKEN' => [
 				'type'        => 'password',
+				'html_attr'   => ['autocomplete' => 'new-password'],
 				'title'       => __('Enhance API Token', 'ultimate-multisite'),
 				'placeholder' => __('Your bearer token', 'ultimate-multisite'),
 			],
@@ -137,13 +138,11 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 		$domain_response = $this->send_enhance_api_request(
 			'/servers/' . $server_id . '/domains',
 			'POST',
-			[
-				'domain' => $domain,
-			]
+			$domain
 		);
 
 		// Check if domain was added successfully
-		if (wu_get_isset($domain_response, 'id')) {
+		if (wu_get_isset($domain_response, 'domainid')) {
 			wu_log_add('integration-enhance', sprintf('Domain %s added successfully. SSL will be automatically provisioned via LetsEncrypt when DNS resolves.', $domain));
 		} elseif (isset($domain_response['error'])) {
 			wu_log_add('integration-enhance', sprintf('Failed to add domain %s. Error: %s', $domain, wp_json_encode($domain_response)));
@@ -179,10 +178,10 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 
 		$domain_id = null;
 
-		if (isset($domains_list['items']) && is_array($domains_list['items'])) {
-			foreach ($domains_list['items'] as $item) {
-				if (isset($item['domain']) && $item['domain'] === $domain) {
-					$domain_id = $item['id'];
+		if (isset($domains_list['domains']) && is_array($domains_list['domains'])) {
+			foreach ($domains_list['domains'] as $item) {
+				if (isset($item['domainName']) && $item['domainName'] === $domain) {
+					$domain_id = $item['domainId'];
 					break;
 				}
 			}
@@ -250,8 +249,7 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 
 		// Test by attempting to list domains
 		$response = $this->send_enhance_api_request(
-			'/servers/' . $server_id . '/domains',
-			'GET'
+			'/servers/' . $server_id
 		);
 
 		if (isset($response['items']) || isset($response['id'])) {
@@ -261,7 +259,8 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 				]
 			);
 		} else {
-			$error = new \WP_Error('connection-failed', __('Failed to connect to Enhance API', 'ultimate-multisite'));
+			// Translators: %s the full error message.
+			$error = new \WP_Error('connection-failed', sprintf(__('Failed to connect to Enhance API: %s', 'ultimate-multisite'), $response['error'] ?? 'Unknown error'));
 			wp_send_json_error($error);
 		}
 	}
@@ -270,9 +269,9 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 	 * Sends a request to the Enhance API with the configured bearer token.
 	 *
 	 * @since 2.0.0
-	 * @param string $endpoint API endpoint (relative to base URL).
-	 * @param string $method HTTP method (GET, POST, DELETE, etc.).
-	 * @param array  $data Request body data (for POST/PUT/PATCH).
+	 * @param string       $endpoint API endpoint (relative to base URL).
+	 * @param string       $method HTTP method (GET, POST, DELETE, etc.).
+	 * @param array|string $data Request body data (for POST/PUT/PATCH).
 	 * @return array|object
 	 */
 	public function send_enhance_api_request($endpoint, $method = 'GET', $data = []) {

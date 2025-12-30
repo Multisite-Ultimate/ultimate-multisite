@@ -62,6 +62,9 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 	 */
 	protected $constants = [
 		'WU_GRIDPANE',
+		'WU_GRIDPANE_API_KEY',
+		'WU_GRIDPANE_APP_ID',
+		'WU_GRIDPANE_SERVER_ID',
 	];
 
 	/**

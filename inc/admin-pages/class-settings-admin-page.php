@@ -9,6 +9,8 @@
 
 namespace WP_Ultimo\Admin_Pages;
 
+use SebastianBergmann\Template\RuntimeException;
+use WP_Ultimo\Exception\Runtime_Exception;
 use WP_Ultimo\Settings;
 use WP_Ultimo\UI\Form;
 use WP_Ultimo\UI\Field;
@@ -645,16 +647,31 @@ class Settings_Admin_Page extends Wizard_Admin_Page {
 			wp_die(esc_html__('You do not have permission to export settings.', 'ultimate-multisite'));
 		}
 
-		$result = \WP_Ultimo\Helpers\Settings_Porter::export_settings();
+		$this->export_settings();
+		$settings = wu_get_all_settings();
 
-		if ( ! $result['success']) {
-			wp_die(esc_html($result['message']));
-		}
+		$export_data = [
+			'version'    => \WP_Ultimo::VERSION,
+			'plugin'     => 'ultimate-multisite',
+			'timestamp'  => time(),
+			'site_url'   => get_site_url(),
+			'wp_version' => get_bloginfo('version'),
+			'settings'   => $settings,
+		];
 
-		\WP_Ultimo\Helpers\Settings_Porter::send_download(
-			$result['data'],
-			$result['filename']
+		$filename = sprintf(
+			'ultimate-multisite-settings-export-%s-%s.json',
+			gmdate('Y-m-d'),
+			get_current_site()->cookie_domain,
 		);
+		nocache_headers();
+
+		header('Content-Disposition: attachment; filename=' . $filename);
+		header('Pragma: no-cache');
+		header('Expires: 0');
+		wp_send_json($export_data, null, JSON_PRETTY_PRINT);
+
+		exit;
 	}
 
 	/**
@@ -737,27 +754,59 @@ class Settings_Admin_Page extends Wizard_Admin_Page {
 	 *
 	 * @since 2.0.0
 	 * @return void
+	 * @throws Runtime_Exception When an error is found in the file.
 	 */
 	public function handle_import_settings_modal() {
 
-		// Validate file upload
-		if ( ! isset($_FILES['import_file']) || empty($_FILES['import_file']['tmp_name'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$error = new \WP_Error(
-				'no_file',
-				__('Please select a file to import.', 'ultimate-multisite')
-			);
-			wp_send_json_error($error);
+		try {
+			// Validate file upload
+			if ( ! isset($_FILES['import_file']) || empty($_FILES['import_file']['tmp_name'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+				throw new Runtime_Exception('no_file');
+			}
+
+			// Validate and parse the file
+			$file = $_FILES['import_file']; // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+			// Check for upload errors
+			if (UPLOAD_ERR_OK !== $file['error']) {
+				throw new Runtime_Exception('upload_error');
+			}
+
+			// Check file extension
+			$file_ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+			if ('json' !== $file_ext) {
+				throw new Runtime_Exception('invalid_file_type');
+			}
+
+			// Read and decode JSON
+			$json_content = file_get_contents($file['tmp_name']); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+			if (false === $json_content) {
+				throw new Runtime_Exception('read_error');
+			}
+
+			$data = json_decode($json_content, true);
+
+			if (null === $data) {
+				throw new Runtime_Exception('invalid_json');
+			}
+
+			// Validate structure
+			if ( ! isset($data['plugin']) || 'ultimate-multisite' !== $data['plugin']) {
+				throw new Runtime_Exception('invalid_format');
+			}
+
+			if ( ! isset($data['settings']) || ! is_array($data['settings'])) {
+				throw new Runtime_Exception('invalid_structure');
+			}
+		} catch ( Runtime_Exception $e ) {
+			wp_send_json_error(new \WP_Error($e->getMessage(), __('Something is wrong with the uploaded file.', 'ultimate-multisite')));
 		}
 
-		// Validate and parse the file
-		$validated_data = \WP_Ultimo\Helpers\Settings_Porter::validate_import_file($_FILES['import_file']); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		WP_Ultimo()->settings->save_settings($data['settings']);
 
-		if (is_wp_error($validated_data)) {
-			wp_send_json_error($validated_data);
-		}
-
-		// Import settings
-		\WP_Ultimo\Helpers\Settings_Porter::import_settings($validated_data);
+		do_action('wu_settings_imported', $data['settings'], $data);
 
 		// Success
 		wp_send_json_success(
@@ -795,5 +844,38 @@ class Settings_Admin_Page extends Wizard_Admin_Page {
 				<?php
 			}
 		);
+	}
+
+	/**
+	 * Export settings to JSON format.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return array Array containing 'success' bool, 'data' string (JSON), and 'filename' string.
+	 */
+	private function export_settings() {
+
+		$settings = wu_get_all_settings();
+
+		$export_data = [
+			'version'    => \WP_Ultimo::VERSION,
+			'plugin'     => 'ultimate-multisite',
+			'timestamp'  => time(),
+			'site_url'   => get_site_url(),
+			'wp_version' => get_bloginfo('version'),
+			'settings'   => $settings,
+		];
+
+		$filename = sprintf(
+			'ultimate-multisite-settings-export-%s-%s.json',
+			gmdate('Y-m-d-His'),
+			get_current_site()->cookie_domain,
+		);
+
+		return [
+			'success'  => true,
+			'data'     => $export_data,
+			'filename' => $filename,
+		];
 	}
 }

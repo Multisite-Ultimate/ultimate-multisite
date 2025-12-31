@@ -301,6 +301,33 @@ class Login_Form_Element extends Base_Element {
 	public function register_scripts(): void {
 
 		wp_enqueue_style('wu-admin');
+
+		// Enqueue password strength meter for reset password page.
+		if ($this->is_reset_password_page()) {
+			wp_enqueue_script('password-strength-meter');
+
+			wp_enqueue_script(
+				'wu-password-reset',
+				wu_get_asset('wu-password-reset.js', 'js'),
+				['jquery', 'password-strength-meter'],
+				wu_get_version(),
+				true
+			);
+
+			wp_localize_script(
+				'wu-password-reset',
+				'wu_password_reset',
+				[
+					'enter_password' => __('Enter a password', 'ultimate-multisite'),
+					'short'          => __('Very weak', 'ultimate-multisite'),
+					'weak'           => __('Weak', 'ultimate-multisite'),
+					'medium'         => __('Medium', 'ultimate-multisite'),
+					'strong'         => __('Strong', 'ultimate-multisite'),
+					'mismatch'       => __('Passwords do not match', 'ultimate-multisite'),
+					'min_strength'   => 3, // Minimum strength level required (3 = medium).
+				]
+			);
+		}
 	}
 
 	/**
@@ -644,17 +671,19 @@ class Login_Form_Element extends Base_Element {
 			$redirect_to = add_query_arg('password-reset', 'success', remove_query_arg(['action', 'error']));
 
 			$fields = [
-				'pass1'                      => [
+				'pass1'       => [
 					'type'        => 'password',
 					'title'       => __('New password'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 					'placeholder' => '',
 					'value'       => '',
+					'meter'       => true,
 					'html_attr'   => [
 						'size'           => 24,
 						'autocapitalize' => 'off',
+						'autocomplete'   => 'new-password',
 					],
 				],
-				'pass2'                      => [
+				'pass2'       => [
 					'type'        => 'password',
 					'title'       => __('Confirm new password'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 					'placeholder' => '',
@@ -662,30 +691,26 @@ class Login_Form_Element extends Base_Element {
 					'html_attr'   => [
 						'size'           => 24,
 						'autocapitalize' => 'off',
+						'autocomplete'   => 'new-password',
 					],
 				],
-				'lost-password-instructions' => [
-					'type'    => 'note',
-					'desc'    => wp_get_password_hint(),
-					'tooltip' => '',
-				],
-				'action'                     => [
+				'action'      => [
 					'type'  => 'hidden',
 					'value' => 'resetpass',
 				],
-				'rp_key'                     => [
+				'rp_key'      => [
 					'type'  => 'hidden',
 					'value' => $rp_key,
 				],
-				'user_login'                 => [
+				'user_login'  => [
 					'type'  => 'hidden',
 					'value' => $rp_login,
 				],
-				'redirect_to'                => [
+				'redirect_to' => [
 					'type'  => 'hidden',
 					'value' => $redirect_to,
 				],
-				'wp-submit'                  => [
+				'wp-submit'   => [
 					'type'            => 'submit',
 					'title'           => __('Save Password'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 					'value'           => __('Save Password'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain

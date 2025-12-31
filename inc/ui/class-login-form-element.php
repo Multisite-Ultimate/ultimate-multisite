@@ -605,7 +605,36 @@ class Login_Form_Element extends Base_Element {
 
 				$user = check_password_reset_key($rp_key, $rp_login);
 
-				if (isset($_POST['pass1']) && isset($_POST['rp_key']) && ! hash_equals(wp_unslash($_POST['rp_key']), wp_unslash($_POST['rp_key']))) { // phpcs:ignore WordPress.Security.NonceVerification
+				// If the reset key is invalid or expired, redirect with appropriate error.
+				if (is_wp_error($user)) {
+					$error_code  = $user->get_error_code();
+					$redirect_to = add_query_arg(
+						[
+							'action' => 'lostpassword',
+							'error'  => $error_code,
+						],
+						remove_query_arg(['action', 'key', 'login'])
+					);
+
+					// Clear the invalid cookie.
+					setcookie(
+						$rp_cookie,
+						' ',
+						[
+							'expires'  => time() - YEAR_IN_SECONDS,
+							'path'     => '/',
+							'domain'   => (string) COOKIE_DOMAIN,
+							'secure'   => is_ssl(),
+							'httponly' => true,
+						]
+					);
+
+					wp_safe_redirect($redirect_to);
+
+					exit;
+				}
+
+				if (isset($_POST['pass1']) && isset($_POST['rp_key']) && ! hash_equals($rp_key, wp_unslash($_POST['rp_key']))) { // phpcs:ignore WordPress.Security.NonceVerification
 					$user = false;
 				}
 			} else {

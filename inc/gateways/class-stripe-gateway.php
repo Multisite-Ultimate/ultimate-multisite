@@ -742,22 +742,13 @@ class Stripe_Gateway extends Base_Stripe_Gateway {
 
 		<div v-if="payment_method == 'add-new'">
 
-			<!-- Payment Element container (modern, recommended) -->
+			<!-- Payment Element container -->
 			<div id="payment-element" class="wu-mb-4">
 				<!-- Stripe Payment Element will be inserted here -->
 			</div>
 
-			<!-- Card Element container (legacy fallback) -->
-			<div id="card-element" class="wu-mb-4">
-				<!-- A Stripe Element will be inserted here. -->
-			</div>
-
-			<div class="" id="ideal-bank-element">
-				<!-- A Stripe iDEAL Element will be inserted here. -->
-			</div>
-
 			<!-- Used to display Element errors. -->
-			<div id="card-errors" role="alert"></div>
+			<div id="payment-errors" role="alert"></div>
 
 		</div>
 

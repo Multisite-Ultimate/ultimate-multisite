@@ -2892,6 +2892,7 @@ class Base_Stripe_Gateway extends Base_Gateway {
 				'request_billing_address' => $this->request_billing_address,
 				'add_new_card'            => empty($saved_cards),
 				'payment_method'          => empty($saved_cards) ? 'add-new' : current(array_keys($saved_cards)),
+				'currency'                => strtolower((string) wu_get_setting('currency_symbol', 'USD')),
 			]
 		);
 
@@ -3359,5 +3360,145 @@ class Base_Stripe_Gateway extends Base_Gateway {
 		$route = $this->test_mode ? '/test' : '/';
 
 		return sprintf('https://dashboard.stripe.com%s/customers/%s', $route, $gateway_customer_id);
+	}
+
+	/**
+	 * Verify and complete a pending payment by checking Stripe directly.
+	 *
+	 * This is a fallback mechanism when webhooks are not working correctly.
+	 * It checks the payment intent status on Stripe and completes the payment locally if successful.
+	 *
+	 * @since 2.x.x
+	 *
+	 * @param int $payment_id The local payment ID to verify.
+	 * @return array{success: bool, message: string, status?: string}
+	 */
+	public function verify_and_complete_payment(int $payment_id): array {
+
+		$payment = wu_get_payment($payment_id);
+
+		if (! $payment) {
+			return [
+				'success' => false,
+				'message' => __('Payment not found.', 'ultimate-multisite'),
+			];
+		}
+
+		// Already completed - nothing to do
+		if ($payment->get_status() === Payment_Status::COMPLETED) {
+			return [
+				'success' => true,
+				'message' => __('Payment already completed.', 'ultimate-multisite'),
+				'status'  => 'completed',
+			];
+		}
+
+		// Only process pending payments
+		if ($payment->get_status() !== Payment_Status::PENDING) {
+			return [
+				'success' => false,
+				'message' => __('Payment is not in pending status.', 'ultimate-multisite'),
+				'status'  => $payment->get_status(),
+			];
+		}
+
+		// Get the payment intent ID from payment meta
+		$payment_intent_id = $payment->get_meta('stripe_payment_intent_id');
+
+		if (empty($payment_intent_id)) {
+			return [
+				'success' => false,
+				'message' => __('No Stripe payment intent found for this payment.', 'ultimate-multisite'),
+			];
+		}
+
+		try {
+			$this->setup_api_keys();
+
+			// Determine intent type and retrieve it
+			if (str_starts_with((string) $payment_intent_id, 'seti_')) {
+				$intent          = $this->get_stripe_client()->setupIntents->retrieve($payment_intent_id);
+				$is_setup_intent = true;
+				$is_succeeded    = 'succeeded' === $intent->status;
+			} else {
+				$intent          = $this->get_stripe_client()->paymentIntents->retrieve($payment_intent_id);
+				$is_setup_intent = false;
+				$is_succeeded    = 'succeeded' === $intent->status;
+			}
+
+			if (! $is_succeeded) {
+				return [
+					'success' => false,
+					'message' => sprintf(
+						// translators: %s is the intent status from Stripe.
+						__('Payment intent status is: %s', 'ultimate-multisite'),
+						$intent->status
+					),
+					'status'  => 'pending',
+				];
+			}
+
+			// Payment succeeded on Stripe - complete it locally
+			$gateway_payment_id = $is_setup_intent
+				? $intent->id
+				: ($intent->latest_charge ?? $intent->id);
+
+			$payment->set_status(Payment_Status::COMPLETED);
+			$payment->set_gateway($this->get_id());
+			$payment->set_gateway_payment_id($gateway_payment_id);
+			$payment->save();
+
+			// Trigger payment processed
+			$membership = $payment->get_membership();
+
+			if ($membership) {
+				$this->trigger_payment_processed($payment, $membership);
+			}
+
+			wu_log_add('stripe', sprintf('Payment %d completed via fallback verification (intent: %s)', $payment_id, $payment_intent_id));
+
+			return [
+				'success' => true,
+				'message' => __('Payment verified and completed successfully.', 'ultimate-multisite'),
+				'status'  => 'completed',
+			];
+		} catch (\Throwable $e) {
+			wu_log_add('stripe', sprintf('Payment verification failed for payment %d: %s', $payment_id, $e->getMessage()), LogLevel::ERROR);
+
+			return [
+				'success' => false,
+				'message' => $e->getMessage(),
+			];
+		}
+	}
+
+	/**
+	 * Schedule a fallback payment verification job.
+	 *
+	 * This schedules an Action Scheduler job to verify the payment status
+	 * if webhooks don't complete the payment in time.
+	 *
+	 * @since 2.x.x
+	 *
+	 * @param int $payment_id The payment ID to verify.
+	 * @param int $delay_seconds How many seconds to wait before checking (default: 30).
+	 * @return int|false The scheduled action ID or false on failure.
+	 */
+	public function schedule_payment_verification(int $payment_id, int $delay_seconds = 30) {
+
+		$hook = 'wu_verify_stripe_payment';
+		$args = [
+			'payment_id' => $payment_id,
+			'gateway_id' => $this->get_id(),
+		];
+
+		// Check if already scheduled
+		if (wu_next_scheduled_action($hook, $args)) {
+			return false;
+		}
+
+		$timestamp = time() + $delay_seconds;
+
+		return wu_schedule_single_action($timestamp, $hook, $args, 'wu-stripe-verification');
 	}
 }

@@ -205,11 +205,20 @@ abstract class Wizard_Admin_Page extends Base_Admin_Page {
 				'labels'               => $this->get_labels(),
 				'sections'             => $this->get_sections(),
 				'current_section'      => $this->get_current_section(),
-				'classes'              => 'wu-w-full wu-mx-auto sm:wu-w-11/12 xl:wu-w-8/12 wu-mt-8 sm:wu-max-w-screen-lg',
+				'classes'              => $this->get_classes(),
 				'clickable_navigation' => $this->clickable_navigation,
 				'form_id'              => $this->form_id,
 			]
 		);
+	}
+
+	/**
+	 * Return the classes used in the main wrapper.
+	 *
+	 * @return string
+	 */
+	protected function get_classes() {
+		return 'wu-w-full wu-mx-auto sm:wu-w-11/12 xl:wu-w-8/12 wu-mt-8 sm:wu-max-w-screen-lg';
 	}
 
 	/**

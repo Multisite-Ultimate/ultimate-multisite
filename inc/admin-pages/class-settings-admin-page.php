@@ -9,7 +9,6 @@
 
 namespace WP_Ultimo\Admin_Pages;
 
-use SebastianBergmann\Template\RuntimeException;
 use WP_Ultimo\Exception\Runtime_Exception;
 use WP_Ultimo\Settings;
 use WP_Ultimo\UI\Form;
@@ -647,23 +646,11 @@ class Settings_Admin_Page extends Wizard_Admin_Page {
 			wp_die(esc_html__('You do not have permission to export settings.', 'ultimate-multisite'));
 		}
 
-		$this->export_settings();
-		$settings = wu_get_all_settings();
+		$result = $this->export_settings();
 
-		$export_data = [
-			'version'    => \WP_Ultimo::VERSION,
-			'plugin'     => 'ultimate-multisite',
-			'timestamp'  => time(),
-			'site_url'   => get_site_url(),
-			'wp_version' => get_bloginfo('version'),
-			'settings'   => $settings,
-		];
+		$export_data = $result['data'];
+		$filename    = $result['filename'];
 
-		$filename = sprintf(
-			'ultimate-multisite-settings-export-%s-%s.json',
-			gmdate('Y-m-d'),
-			get_current_site()->cookie_domain,
-		);
 		nocache_headers();
 
 		header('Content-Disposition: attachment; filename=' . $filename);
@@ -868,7 +855,7 @@ class Settings_Admin_Page extends Wizard_Admin_Page {
 
 		$filename = sprintf(
 			'ultimate-multisite-settings-export-%s-%s.json',
-			gmdate('Y-m-d-His'),
+			gmdate('Y-m-d'),
 			get_current_site()->cookie_domain,
 		);
 

@@ -62,6 +62,8 @@ class Checkout_Pages {
 
 			add_action('lost_password', [$this, 'maybe_handle_password_reset_errors']);
 
+			add_action('validate_password_reset', [$this, 'validate_password_strength'], 5, 2);
+
 			add_action('validate_password_reset', [$this, 'maybe_handle_password_reset_errors']);
 
 			/**
@@ -204,6 +206,9 @@ class Checkout_Pages {
 			'password_reset_mismatch'    => __('<strong>Error:</strong> The passwords do not match.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 			'invalidkey'                 => __('<strong>Error:</strong> Your password reset link appears to be invalid. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 			'expiredkey'                 => __('<strong>Error:</strong> Your password reset link has expired. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'invalid_key'                => __('<strong>Error:</strong> Your password reset link appears to be invalid. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'expired_key'                => __('<strong>Error:</strong> Your password reset link has expired. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'password_too_weak'          => __('<strong>Error:</strong> Please choose a stronger password. The password must be at least medium strength.', 'ultimate-multisite'),
 		];
 
 		/**
@@ -245,6 +250,95 @@ class Checkout_Pages {
 
 			exit;
 		}
+	}
+
+	/**
+	 * Validate password strength during password reset.
+	 *
+	 * Enforces a minimum password strength of "medium" (strength level 3).
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param \WP_Error $errors The error object.
+	 * @param \WP_User  $user   The user object.
+	 * @return void
+	 */
+	public function validate_password_strength($errors, $user): void {
+
+		$password = wu_request('pass1', '');
+
+		if (empty($password)) {
+			return;
+		}
+
+		// Use WordPress password strength meter.
+		// Strength levels: 0-1 = very weak, 2 = weak, 3 = medium, 4 = strong.
+		// We require at least medium (3).
+		$strength = $this->calculate_password_strength($password);
+
+		if ($strength < 3) {
+			$errors->add('password_too_weak', __('<strong>Error:</strong> Please choose a stronger password. The password must be at least medium strength.', 'ultimate-multisite'));
+		}
+	}
+
+	/**
+	 * Calculate password strength using similar logic to WordPress.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $password The password to check.
+	 * @return int Strength level: 0-1 = very weak, 2 = weak, 3 = medium, 4 = strong.
+	 */
+	protected function calculate_password_strength(string $password): int {
+
+		$strength = 0;
+		$length   = strlen($password);
+
+		// Minimum length check
+		if ($length < 6) {
+			return 0;
+		}
+
+		// Length scoring
+		if ($length >= 8) {
+			++$strength;
+		}
+
+		if ($length >= 12) {
+			++$strength;
+		}
+
+		// Character variety scoring
+		if (preg_match('/[a-z]/', $password)) {
+			++$strength;
+		}
+
+		if (preg_match('/[A-Z]/', $password)) {
+			++$strength;
+		}
+
+		if (preg_match('/[0-9]/', $password)) {
+			++$strength;
+		}
+
+		if (preg_match('/[^a-zA-Z0-9]/', $password)) {
+			++$strength;
+		}
+
+		// Map to WordPress strength levels (0-4)
+		if ($strength <= 1) {
+			return 1; // Very weak
+		}
+
+		if ($strength <= 2) {
+			return 2; // Weak
+		}
+
+		if ($strength <= 4) {
+			return 3; // Medium
+		}
+
+		return 4; // Strong
 	}
 
 	/**

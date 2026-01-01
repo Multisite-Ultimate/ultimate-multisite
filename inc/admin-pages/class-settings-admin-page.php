@@ -779,19 +779,32 @@ class Settings_Admin_Page extends Wizard_Admin_Page {
 				throw new Runtime_Exception('invalid_json');
 			}
 
-			// Validate structure
-			if ( ! isset($data['plugin']) || 'ultimate-multisite' !== $data['plugin']) {
-				throw new Runtime_Exception('invalid_format');
-			}
-
-			if ( ! isset($data['settings']) || ! is_array($data['settings'])) {
-				throw new Runtime_Exception('invalid_structure');
-			}
-		} catch ( Runtime_Exception $e ) {
-			wp_send_json_error(new \WP_Error($e->getMessage(), __('Something is wrong with the uploaded file.', 'ultimate-multisite')));
+		// Validate structure
+		if ( ! isset($data['plugin']) || 'ultimate-multisite' !== $data['plugin']) {
+			throw new Runtime_Exception('invalid_format');
 		}
 
-		WP_Ultimo()->settings->save_settings($data['settings']);
+		if ( ! isset($data['settings']) || ! is_array($data['settings'])) {
+			throw new Runtime_Exception('invalid_structure');
+		}
+	} catch ( Runtime_Exception $e ) {
+		wp_send_json_error(new \WP_Error($e->getMessage(), __('Something is wrong with the uploaded file.', 'ultimate-multisite')));
+	}
+
+	// Validate imported settings against allowed fields (same as default_handler)
+	$sections       = WP_Ultimo()->settings->get_sections();
+	$allowed_fields = [];
+	foreach ($sections as $section) {
+		if (isset($section['fields'])) {
+			$allowed_fields = array_merge($allowed_fields, array_keys($section['fields']));
+		}
+	}
+
+	$filtered_settings = array_intersect_key($data['settings'], array_flip($allowed_fields));
+
+	WP_Ultimo()->settings->save_settings($filtered_settings);
+
+	do_action('wu_settings_imported', $data['settings'], $data);
 
 		do_action('wu_settings_imported', $data['settings'], $data);
 

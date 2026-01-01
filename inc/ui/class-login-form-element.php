@@ -306,26 +306,22 @@ class Login_Form_Element extends Base_Element {
 		if ($this->is_reset_password_page()) {
 			wp_enqueue_script('password-strength-meter');
 
+			// Enqueue shared password strength utility.
 			wp_enqueue_script(
-				'wu-password-reset',
-				wu_get_asset('wu-password-reset.js', 'js'),
+				'wu-password-strength',
+				wu_get_asset('wu-password-strength.js', 'js'),
 				['jquery', 'password-strength-meter'],
 				wu_get_version(),
 				true
 			);
 
-			wp_localize_script(
+			// Enqueue password reset script.
+			wp_enqueue_script(
 				'wu-password-reset',
-				'wu_password_reset',
-				[
-					'enter_password' => __('Enter a password', 'ultimate-multisite'),
-					'short'          => __('Very weak', 'ultimate-multisite'),
-					'weak'           => __('Weak', 'ultimate-multisite'),
-					'medium'         => __('Medium', 'ultimate-multisite'),
-					'strong'         => __('Strong', 'ultimate-multisite'),
-					'mismatch'       => __('Passwords do not match', 'ultimate-multisite'),
-					'min_strength'   => 3, // Minimum strength level required (3 = medium).
-				]
+				wu_get_asset('wu-password-reset.js', 'js'),
+				['jquery', 'password-strength-meter', 'wu-password-strength'],
+				wu_get_version(),
+				true
 			);
 		}
 	}

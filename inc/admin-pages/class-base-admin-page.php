@@ -623,6 +623,8 @@ abstract class Base_Admin_Page {
 
 			add_action("load-$this->page_hook", [$this, 'register_widgets'], 20);
 
+			add_action("load-$this->page_hook", [$this, 'fire_register_widgets_hook'], 21);
+
 			add_action("load-$this->page_hook", [$this, 'add_admin_body_classes'], 20);
 
 			/*
@@ -728,6 +730,30 @@ abstract class Base_Admin_Page {
 	 * @return void
 	 */
 	public function register_widgets() {}
+
+	/**
+	 * Fire the register widgets hook for this page.
+	 *
+	 * This allows addons to add their own widgets to admin pages.
+	 *
+	 * @since 2.4.10
+	 * @return void
+	 */
+	public function fire_register_widgets_hook(): void {
+
+		/**
+		 * Fires after widgets are registered for this page.
+		 *
+		 * The dynamic portion of the hook name, `$this->id`, refers to the page id.
+		 *
+		 * @since 2.4.10
+		 *
+		 * @param string $id        The page id.
+		 * @param string $page_hook The page hook.
+		 * @param object $page      The page object.
+		 */
+		do_action("wu_page_{$this->id}_register_widgets", $this->id, $this->page_hook, $this);
+	}
 
 	/**
 	 * Allow child classes to register forms, if they need them.

@@ -61,8 +61,14 @@ function wu_get_site_by_hash($hash) {
  * @return \WP_Ultimo\Models\Site[]
  */
 function wu_get_sites($query = []) {
-	if ( empty($query['number']) ) {
+	if (empty($query['number'])) {
 		$query['number'] = 100;
+	}
+
+	// If we're just counting, skip the domain search merge logic
+	// and do a simple count query.
+	if ( ! empty($query['count'])) {
+		return \WP_Ultimo\Models\Site::query($query);
 	}
 
 	if ( ! empty($query['search'])) {

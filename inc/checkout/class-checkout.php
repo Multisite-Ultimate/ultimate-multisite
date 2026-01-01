@@ -2564,7 +2564,12 @@ class Checkout {
 
 		wp_enqueue_style('wu-admin');
 
-		wp_register_script('wu-checkout', wu_get_asset('checkout.js', 'js'), ['jquery-core', 'wu-vue', 'moment', 'wu-block-ui', 'wu-functions', 'password-strength-meter', 'underscore', 'wp-polyfill', 'wp-hooks', 'wu-cookie-helpers'], wu_get_version(), true);
+		// Enqueue dashicons for password toggle.
+		wp_enqueue_style('dashicons');
+
+		wp_register_script('wu-checkout', wu_get_asset('checkout.js', 'js'), ['jquery-core', 'wu-vue', 'moment', 'wu-block-ui', 'wu-functions', 'password-strength-meter', 'underscore', 'wp-polyfill', 'wp-hooks', 'wu-cookie-helpers', 'wu-password-toggle'], wu_get_version(), true);
+
+		wp_set_script_translations('wu-password-toggle', 'ultimate-multisite');
 
 		wp_localize_script('wu-checkout', 'wu_checkout', $this->get_checkout_variables());
 

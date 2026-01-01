@@ -302,6 +302,20 @@ class Login_Form_Element extends Base_Element {
 
 		wp_enqueue_style('wu-admin');
 
+		// Enqueue dashicons for password toggle.
+		wp_enqueue_style('dashicons');
+
+		// Enqueue password toggle script.
+		wp_enqueue_script(
+			'wu-password-toggle',
+			wu_get_asset('wu-password-toggle.js', 'js'),
+			['wp-i18n'],
+			wu_get_version(),
+			true
+		);
+
+		wp_set_script_translations('wu-password-toggle', 'ultimate-multisite');
+
 		// Enqueue password strength meter for reset password page.
 		if ($this->is_reset_password_page()) {
 			wp_enqueue_script('password-strength-meter');

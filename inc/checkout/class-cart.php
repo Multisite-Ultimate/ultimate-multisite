@@ -644,7 +644,7 @@ class Cart implements \JsonSerializable {
 
 				$this->products[] = $product;
 
-				if ($line_item->get_type() === 'product' && $product->get_type() === 'plan') {
+				if ($line_item->get_type() === 'product' && wu_is_plan_type($product->get_type())) {
 					/*
 					 * If we already have a plan, we can't add
 					 * another one.
@@ -1607,7 +1607,7 @@ class Cart implements \JsonSerializable {
 			}
 		}
 
-		if ($product->get_type() === 'plan') {
+		if (wu_is_plan_type($product->get_type())) {
 			/*
 			 * If we already have a plan, we can't add another one
 			 * unless it's the same plan (which can happen when

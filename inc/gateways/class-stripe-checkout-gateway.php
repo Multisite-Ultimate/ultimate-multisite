@@ -222,6 +222,12 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 		$s_customer = $this->get_or_create_customer($this->customer->get_id());
 
 		/*
+		 * Update the Stripe customer with the current billing address.
+		 * This ensures the address is pre-filled in Stripe Checkout.
+		 */
+		$this->sync_billing_address_to_stripe($s_customer->id);
+
+		/*
 		 * Stripe Checkout allows for tons of different payment methods.
 		 * These include:
 		 *
@@ -491,6 +497,63 @@ class Stripe_Checkout_Gateway extends Base_Stripe_Gateway {
 			return $existing_payment_methods[ $customer_id ];
 		} catch (\Throwable $exception) {
 			return [];
+		}
+	}
+
+	/**
+	 * Syncs the customer's billing address to the Stripe customer object.
+	 *
+	 * This ensures that Stripe Checkout has the latest billing address
+	 * pre-filled when the checkout modal opens.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $stripe_customer_id The Stripe customer ID.
+	 * @return void
+	 */
+	protected function sync_billing_address_to_stripe(string $stripe_customer_id): void {
+
+		$billing_address = $this->customer->get_billing_address();
+
+		/*
+		 * Only update if we have billing address data.
+		 */
+		if (empty($billing_address->billing_country) && empty($billing_address->billing_zip_code)) {
+			return;
+		}
+
+		try {
+			$stripe_address = $this->convert_to_stripe_address($billing_address);
+
+			$update_data = [
+				'address' => $stripe_address,
+			];
+
+			/*
+			 * Also update name and email if available.
+			 */
+			if ($this->customer->get_display_name()) {
+				$update_data['name'] = $this->customer->get_display_name();
+			}
+
+			if ($this->customer->get_email_address()) {
+				$update_data['email'] = $this->customer->get_email_address();
+			}
+
+			$this->get_stripe_client()->customers->update($stripe_customer_id, $update_data);
+		} catch (\Throwable $exception) {
+			/*
+			 * Log the error but don't fail the checkout.
+			 * Stripe Checkout will still collect the address.
+			 */
+			wu_log_add(
+				'stripe-checkout',
+				sprintf(
+					'Failed to sync billing address to Stripe customer %s: %s',
+					$stripe_customer_id,
+					$exception->getMessage()
+				)
+			);
 		}
 	}
 }

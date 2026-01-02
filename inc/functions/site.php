@@ -67,20 +67,9 @@ function wu_get_sites($query = []) {
 
 	// If we're just counting, skip the domain search merge logic
 	// and do a simple count query.
+
 	if ( ! empty($query['count'])) {
-		if ( ! empty($query['search'])) {
-			$domain_count = wu_get_domains(
-				[
-					'number'      => $query['number'],
-					'search'      => '*' . $query['search'] . '*',
-					'count'       => true,
-					'blog_id__in' => $query['blog_id__in'] ?? false,
-				]
-			);
-		} else {
-			$domain_count = 0;
-		}
-		return \WP_Ultimo\Models\Site::query($query) + $domain_count;
+		return \WP_Ultimo\Models\Site::query($query);
 	}
 
 	if ( ! empty($query['search'])) {

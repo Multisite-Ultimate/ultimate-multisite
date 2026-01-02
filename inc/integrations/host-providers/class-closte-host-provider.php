@@ -105,7 +105,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 		if (wu_get_isset($domain_response, 'success', false)) {
 			wu_log_add('integration-closte', sprintf('Domain %s added successfully, requesting SSL certificate', $domain));
 			$this->request_ssl_certificate($domain);
-		} elseif (isset($domain_response['error']) && $domain_response['error'] === 'Invalid or empty domain: ' . $domain) {
+		} elseif (isset($domain_response['error']) && 'Invalid or empty domain: ' . $domain === $domain_response['error']) {
 			wu_log_add('integration-closte', sprintf('Domain %s rejected by Closte API as invalid. This may be expected for Closte subdomains or internal domains.', $domain));
 		} else {
 			wu_log_add('integration-closte', sprintf('Failed to add domain %s. Response: %s', $domain, wp_json_encode($domain_response)));
@@ -180,8 +180,6 @@ class Closte_Host_Provider extends Base_Host_Provider {
 			'/certificate/install',
 		];
 
-		$ssl_response = null;
-
 		foreach ($ssl_endpoints as $endpoint) {
 			wu_log_add('integration-closte', sprintf('Trying SSL endpoint: %s', $endpoint));
 
@@ -217,7 +215,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	 *
 	 * @since 2.0.0
 	 * @param string $domain The domain to check SSL status for.
-	 * @return array|object
+	 * @return array
 	 */
 	public function check_ssl_status($domain) {
 
@@ -264,13 +262,13 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	 * @since  1.7.3
 	 * @param  string $endpoint Endpoint to send the call to.
 	 * @param  array  $data     Array containing the params to the call.
-	 * @return object
+	 * @return array
 	 */
 	public function send_closte_api_request($endpoint, $data) {
 
 		if (defined('CLOSTE_CLIENT_API_KEY') === false) {
 			wu_log_add('integration-closte', 'CLOSTE_CLIENT_API_KEY constant not defined');
-			return (object) [
+			return [
 				'success' => false,
 				'error'   => 'Closte API Key not found.',
 			];
@@ -278,7 +276,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 
 		if (empty(CLOSTE_CLIENT_API_KEY)) {
 			wu_log_add('integration-closte', 'CLOSTE_CLIENT_API_KEY is empty');
-			return (object) [
+			return [
 				'success' => false,
 				'error'   => 'Closte API Key is empty.',
 			];
@@ -324,7 +322,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 		// Check for HTTP errors
 		if ($response_code >= 400) {
 			wu_log_add('integration-closte', sprintf('HTTP error %d for endpoint %s', $response_code, $endpoint));
-			return (object) [
+			return [
 				'success'       => false,
 				'error'         => sprintf('HTTP %d error', $response_code),
 				'response_body' => $response_body,
@@ -346,7 +344,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 			}
 
 			wu_log_add('integration-closte', sprintf('JSON decode error: %s', json_last_error_msg()));
-			return (object) [
+			return [
 				'success'    => false,
 				'error'      => 'Invalid JSON response',
 				'json_error' => json_last_error_msg(),
@@ -354,7 +352,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 		}
 
 		wu_log_add('integration-closte', 'Empty response body');
-		return (object) [
+		return [
 			'success' => false,
 			'error'   => 'Empty response',
 		];

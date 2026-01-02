@@ -105,7 +105,9 @@ class WPEngine_Host_Provider extends Base_Host_Provider {
 	 * @return void
 	 */
 	public function on_add_domain($domain, $site_id): void {
-
+		if (! class_exists('WPE_API')) {
+			return;
+		}
 		$api = new \WPE_API();
 
 		$api->set_arg('method', 'domain');
@@ -124,6 +126,9 @@ class WPEngine_Host_Provider extends Base_Host_Provider {
 	 * @return void
 	 */
 	public function on_remove_domain($domain, $site_id): void {
+		if (! class_exists('WPE_API')) {
+			return;
+		}
 
 		$api = new \WPE_API();
 
@@ -197,6 +202,9 @@ class WPEngine_Host_Provider extends Base_Host_Provider {
 	 * @return void
 	 */
 	public function test_connection(): void {
+		if (! class_exists('WPE_API')) {
+			wp_send_json_error(__('Class WPE_API is not installed.', 'ultimate-multisite'));
+		}
 
 		$api = new \WPE_API();
 

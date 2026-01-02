@@ -1005,6 +1005,11 @@ class Domain_Manager extends Base_Manager {
 		*/
 		\WP_Ultimo\Integrations\Host_Providers\Enhance_Host_Provider::get_instance();
 
+		/*
+		* Loads our Rocket.net integration.
+		*/
+		\WP_Ultimo\Integrations\Host_Providers\Rocket_Host_Provider::get_instance();
+
 		/**
 		 * Allow developers to add their own host provider integrations via wp plugins.
 		 *

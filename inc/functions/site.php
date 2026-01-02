@@ -67,7 +67,9 @@ function wu_get_sites($query = []) {
 
 	// If we're just counting, skip the domain search merge logic
 	// and do a simple count query.
-		return \WP_Ultimo\Models\Site::query($query) ;
+
+	if ( ! empty($query['count'])) {
+		return \WP_Ultimo\Models\Site::query($query);
 	}
 
 	if ( ! empty($query['search'])) {

@@ -27,16 +27,18 @@ defined('ABSPATH') || exit;
 
 	?>
 
-	<div class="wu-relative wu-flex wu-items-center">
-		<input class="form-control wu-w-full wu-my-1 wu-pr-10 <?php echo esc_attr(trim($field->classes)); ?>"
+	<div class="wu-relative">
+		<input class="form-control wu-w-full wu-my-1 <?php echo esc_attr(trim($field->classes)); ?>"
 			id="field-<?php echo esc_attr($field->id); ?>"
 			name="<?php echo esc_attr($field->id); ?>"
 			type="password"
 			placeholder="<?php echo esc_attr($field->placeholder); ?>"
 			value="<?php echo esc_attr($field->value); ?>"
+			style="padding-right: 40px;"
 			<?php $field->print_html_attributes(); ?>>
 		<button type="button"
-				class="wu-pwd-toggle hide-if-no-js wu-absolute wu-right-2 wu-bg-transparent wu-border-0 wu-cursor-pointer wu-p-1 wu-text-gray-500 hover:wu-text-gray-700"
+				class="wu-pwd-toggle hide-if-no-js wu-absolute wu-bg-transparent wu-border-0 wu-cursor-pointer"
+				style="right: 8px; top: 50%; transform: translateY(-50%); padding: 4px;"
 				data-toggle="0"
 				aria-label="<?php esc_attr_e('Show password', 'ultimate-multisite'); ?>">
 			<span class="dashicons dashicons-visibility" aria-hidden="true"></span>

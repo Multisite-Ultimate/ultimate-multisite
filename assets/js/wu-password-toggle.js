@@ -14,26 +14,19 @@
 	var __ = wp.i18n.__;
 
 	/**
-	 * Initialize password toggle functionality.
-	 */
-	function init() {
-		var toggleElements = document.querySelectorAll('.wu-pwd-toggle');
-
-		toggleElements.forEach(function(toggle) {
-			toggle.classList.remove('hide-if-no-js');
-			toggle.addEventListener('click', togglePassword);
-		});
-	}
-
-	/**
 	 * Toggle password visibility.
 	 *
 	 * @param {Event} event Click event.
 	 */
 	function togglePassword(event) {
+		var toggle = event.target.closest('.wu-pwd-toggle');
+
+		if (!toggle) {
+			return;
+		}
+
 		event.preventDefault();
 
-		var toggle = this;
 		var status = toggle.getAttribute('data-toggle');
 		var input = toggle.parentElement.querySelector('input[type="password"], input[type="text"]');
 		var icon = toggle.querySelector('.dashicons');
@@ -59,10 +52,6 @@
 		}
 	}
 
-	// Initialize when DOM is ready
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', init);
-	} else {
-		init();
-	}
+	// Use event delegation to handle dynamically added elements (Vue, etc.)
+	document.addEventListener('click', togglePassword);
 })();

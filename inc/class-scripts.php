@@ -151,6 +151,11 @@ class Scripts {
 		$this->register_script('wu-cookie-helpers', wu_get_asset('cookie-helpers.js', 'js'), ['jquery-core']);
 
 		/*
+		 * Adds Password Toggle
+		 */
+		$this->register_script('wu-password-toggle', wu_get_asset('wu-password-toggle.js', 'js'), ['wp-i18n']);
+
+		/*
 		 * Adds Input Masking
 		 */
 		$this->register_script('wu-money-mask', wu_get_asset('lib/v-money.js', 'js'), ['wu-vue']);

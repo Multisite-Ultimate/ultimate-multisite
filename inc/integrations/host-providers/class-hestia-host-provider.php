@@ -53,6 +53,7 @@ class Hestia_Host_Provider extends Base_Host_Provider {
 	 */
 	protected $supports = [
 		'no-instructions',
+		'dns-management',
 	];
 
 	/**
@@ -333,5 +334,307 @@ class Hestia_Host_Provider extends Base_Host_Provider {
 		// Try to decode JSON if present, otherwise return raw string
 		$json = json_decode($raw);
 		return null !== $json ? $json : $raw;
+	}
+
+	/**
+	 * Get DNS records for a domain.
+	 *
+	 * Uses Hestia v-list-dns-records command to retrieve DNS records.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $domain The domain to query.
+	 * @return array|\WP_Error Array of DNS_Record objects or WP_Error.
+	 */
+	public function get_dns_records(string $domain) {
+
+		$account = defined('WU_HESTIA_ACCOUNT') ? WU_HESTIA_ACCOUNT : '';
+
+		if (empty($account)) {
+			return new \WP_Error('dns-error', __('Missing WU_HESTIA_ACCOUNT constant.', 'ultimate-multisite'));
+		}
+
+		// Extract root domain for DNS zone
+		$zone = $this->extract_zone_name($domain);
+
+		$result = $this->send_hestia_request('v-list-dns-records', [$account, $zone, 'json']);
+
+		if (is_wp_error($result)) {
+			wu_log_add('integration-hestia', 'DNS fetch failed: ' . $result->get_error_message(), LogLevel::ERROR);
+			return $result;
+		}
+
+		// Hestia returns 0 for success with no records, or a JSON object/array of records
+		if ('0' === $result || empty($result)) {
+			return [];
+		}
+
+		$records         = [];
+		$supported_types = $this->get_supported_record_types();
+
+		// Hestia returns records as an object with ID as keys
+		foreach ($result as $record_id => $record) {
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Hestia API property
+			$type = strtoupper($record->TYPE ?? '');
+
+			if (! in_array($type, $supported_types, true)) {
+				continue;
+			}
+
+			$records[] = DNS_Record::from_provider(
+				[
+					'id'       => $record_id,
+					'type'     => $type,
+					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Hestia API property
+					'name'     => $record->RECORD ?? '@',
+					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Hestia API property
+					'content'  => $record->VALUE ?? '',
+					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Hestia API property
+					'ttl'      => (int) ($record->TTL ?? 3600),
+					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Hestia API property
+					'priority' => isset($record->PRIORITY) ? (int) $record->PRIORITY : null,
+				],
+				'hestia'
+			);
+		}
+
+		return $records;
+	}
+
+	/**
+	 * Create a DNS record for a domain.
+	 *
+	 * Uses Hestia v-add-dns-record command.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $domain The domain.
+	 * @param array  $record Record data (type, name, content, ttl, priority).
+	 * @return array|\WP_Error Created record data or WP_Error.
+	 */
+	public function create_dns_record(string $domain, array $record) {
+
+		$account = defined('WU_HESTIA_ACCOUNT') ? WU_HESTIA_ACCOUNT : '';
+
+		if (empty($account)) {
+			return new \WP_Error('dns-error', __('Missing WU_HESTIA_ACCOUNT constant.', 'ultimate-multisite'));
+		}
+
+		$zone     = $this->extract_zone_name($domain);
+		$type     = strtoupper($record['type'] ?? 'A');
+		$name     = $record['name'] ?? '@';
+		$value    = $record['content'] ?? '';
+		$priority = $record['priority'] ?? '';
+		$ttl      = (int) ($record['ttl'] ?? 3600);
+
+		// Hestia v-add-dns-record USER DOMAIN RECORD TYPE VALUE [PRIORITY] [ID] [RESTART] [TTL]
+		$args = [$account, $zone, $name, $type, $value];
+
+		// Add priority for MX records
+		if ('MX' === $type && '' !== $priority) {
+			$args[] = (string) $priority;
+		} else {
+			$args[] = ''; // Empty priority
+		}
+
+		$args[] = ''; // Auto-generate ID
+		$args[] = 'yes'; // Restart service
+		$args[] = (string) $ttl;
+
+		$result = $this->send_hestia_request('v-add-dns-record', $args);
+
+		if (is_wp_error($result)) {
+			wu_log_add('integration-hestia', 'DNS create failed: ' . $result->get_error_message(), LogLevel::ERROR);
+			return $result;
+		}
+
+		// Hestia returns 0 on success
+		if ('0' !== $result && ! str_starts_with((string) $result, '0')) {
+			return new \WP_Error(
+				'dns-create-error',
+				sprintf(
+				/* translators: %s: Hestia error code/message */
+					__('Failed to create DNS record: %s', 'ultimate-multisite'),
+					is_scalar($result) ? $result : wp_json_encode($result)
+				)
+			);
+		}
+
+		wu_log_add(
+			'integration-hestia',
+			sprintf(
+				'Created DNS record: %s %s -> %s',
+				$type,
+				$name,
+				$value
+			)
+		);
+
+		return [
+			'id'       => time(), // Hestia doesn't return the new ID
+			'type'     => $type,
+			'name'     => $name,
+			'content'  => $value,
+			'ttl'      => $ttl,
+			'priority' => '' !== $priority ? (int) $priority : null,
+		];
+	}
+
+	/**
+	 * Update a DNS record for a domain.
+	 *
+	 * Uses Hestia v-change-dns-record command.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $domain    The domain.
+	 * @param string $record_id The record identifier.
+	 * @param array  $record    Updated record data.
+	 * @return array|\WP_Error Updated record data or WP_Error.
+	 */
+	public function update_dns_record(string $domain, string $record_id, array $record) {
+
+		$account = defined('WU_HESTIA_ACCOUNT') ? WU_HESTIA_ACCOUNT : '';
+
+		if (empty($account)) {
+			return new \WP_Error('dns-error', __('Missing WU_HESTIA_ACCOUNT constant.', 'ultimate-multisite'));
+		}
+
+		$zone     = $this->extract_zone_name($domain);
+		$type     = strtoupper($record['type'] ?? 'A');
+		$name     = $record['name'] ?? '@';
+		$value    = $record['content'] ?? '';
+		$priority = $record['priority'] ?? '';
+		$ttl      = (int) ($record['ttl'] ?? 3600);
+
+		// Hestia v-change-dns-record USER DOMAIN ID VALUE [PRIORITY] [RESTART] [TTL]
+		$args = [$account, $zone, $record_id, $value];
+
+		if ('MX' === $type && '' !== $priority) {
+			$args[] = (string) $priority;
+		} else {
+			$args[] = '';
+		}
+
+		$args[] = 'yes'; // Restart
+		$args[] = (string) $ttl;
+
+		$result = $this->send_hestia_request('v-change-dns-record', $args);
+
+		if (is_wp_error($result)) {
+			wu_log_add('integration-hestia', 'DNS update failed: ' . $result->get_error_message(), LogLevel::ERROR);
+			return $result;
+		}
+
+		if ('0' !== $result && ! str_starts_with((string) $result, '0')) {
+			return new \WP_Error(
+				'dns-update-error',
+				sprintf(
+				/* translators: %s: Hestia error code/message */
+					__('Failed to update DNS record: %s', 'ultimate-multisite'),
+					is_scalar($result) ? $result : wp_json_encode($result)
+				)
+			);
+		}
+
+		wu_log_add(
+			'integration-hestia',
+			sprintf(
+				'Updated DNS record ID %s: %s -> %s',
+				$record_id,
+				$name,
+				$value
+			)
+		);
+
+		return [
+			'id'       => $record_id,
+			'type'     => $type,
+			'name'     => $name,
+			'content'  => $value,
+			'ttl'      => $ttl,
+			'priority' => '' !== $priority ? (int) $priority : null,
+		];
+	}
+
+	/**
+	 * Delete a DNS record for a domain.
+	 *
+	 * Uses Hestia v-delete-dns-record command.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $domain    The domain.
+	 * @param string $record_id The record identifier.
+	 * @return bool|\WP_Error True on success or WP_Error.
+	 */
+	public function delete_dns_record(string $domain, string $record_id) {
+
+		$account = defined('WU_HESTIA_ACCOUNT') ? WU_HESTIA_ACCOUNT : '';
+
+		if (empty($account)) {
+			return new \WP_Error('dns-error', __('Missing WU_HESTIA_ACCOUNT constant.', 'ultimate-multisite'));
+		}
+
+		$zone = $this->extract_zone_name($domain);
+
+		// Hestia v-delete-dns-record USER DOMAIN ID [RESTART]
+		$result = $this->send_hestia_request('v-delete-dns-record', [$account, $zone, $record_id, 'yes']);
+
+		if (is_wp_error($result)) {
+			wu_log_add('integration-hestia', 'DNS delete failed: ' . $result->get_error_message(), LogLevel::ERROR);
+			return $result;
+		}
+
+		if ('0' !== $result && ! str_starts_with((string) $result, '0')) {
+			return new \WP_Error(
+				'dns-delete-error',
+				sprintf(
+				/* translators: %s: Hestia error code/message */
+					__('Failed to delete DNS record: %s', 'ultimate-multisite'),
+					is_scalar($result) ? $result : wp_json_encode($result)
+				)
+			);
+		}
+
+		wu_log_add(
+			'integration-hestia',
+			sprintf(
+				'Deleted DNS record ID %s from zone %s',
+				$record_id,
+				$zone
+			)
+		);
+
+		return true;
+	}
+
+	/**
+	 * Extract the zone name (root domain) from a domain.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $domain The domain name.
+	 * @return string The zone name.
+	 */
+	protected function extract_zone_name(string $domain): string {
+
+		$parts = explode('.', $domain);
+
+		// Known multi-part TLDs
+		$multi_tlds = ['.co.uk', '.com.au', '.co.nz', '.com.br', '.co.in', '.org.uk', '.net.au'];
+
+		foreach ($multi_tlds as $tld) {
+			if (str_ends_with($domain, $tld)) {
+				return implode('.', array_slice($parts, -3));
+			}
+		}
+
+		// Return last 2 parts for standard TLD
+		if (count($parts) >= 2) {
+			return implode('.', array_slice($parts, -2));
+		}
+
+		return $domain;
 	}
 }

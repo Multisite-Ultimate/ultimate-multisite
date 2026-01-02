@@ -35,6 +35,11 @@ class Checkout_Pages {
 
 		add_shortcode('wu_confirmation', [$this, 'render_confirmation_page']);
 
+		/*
+		 * Enqueue payment status polling script on thank you page.
+		 */
+		add_action('wp_enqueue_scripts', [$this, 'maybe_enqueue_payment_status_poll']);
+
 		add_filter('lostpassword_redirect', [$this, 'filter_lost_password_redirect']);
 
 		if (is_main_site()) {
@@ -204,6 +209,8 @@ class Checkout_Pages {
 			'password_reset_mismatch'    => __('<strong>Error:</strong> The passwords do not match.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 			'invalidkey'                 => __('<strong>Error:</strong> Your password reset link appears to be invalid. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 			'expiredkey'                 => __('<strong>Error:</strong> Your password reset link has expired. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'invalid_key'                => __('<strong>Error:</strong> Your password reset link appears to be invalid. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'expired_key'                => __('<strong>Error:</strong> Your password reset link has expired. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 		];
 
 		/**
@@ -663,6 +670,109 @@ class Checkout_Pages {
 				'errors'     => Checkout::get_instance()->errors,
 				'membership' => wu_get_membership_by_hash(wu_request('membership')),
 			]
+		);
+	}
+
+	/**
+	 * Maybe enqueue payment status polling script on thank you page.
+	 *
+	 * This script polls the server to check if a pending payment has been completed,
+	 * providing a fallback mechanism when webhooks are delayed or not working.
+	 *
+	 * @since 2.x.x
+	 * @return void
+	 */
+	public function maybe_enqueue_payment_status_poll(): void {
+
+		// Only on thank you page (payment hash and status=done in URL)
+		$payment_hash = wu_request('payment');
+		$status       = wu_request('status');
+
+		if (empty($payment_hash) || 'done' !== $status || 'none' === $payment_hash) {
+			return;
+		}
+
+		$payment = wu_get_payment_by_hash($payment_hash);
+
+		if (! $payment) {
+			return;
+		}
+
+		// Only poll for pending Stripe payments
+		$gateway_id = $payment->get_gateway();
+
+		if (empty($gateway_id)) {
+			$membership = $payment->get_membership();
+			$gateway_id = $membership ? $membership->get_gateway() : '';
+		}
+
+		// Only poll for Stripe payments that are still pending
+		$is_stripe_payment = in_array($gateway_id, ['stripe', 'stripe-checkout'], true);
+		$is_pending        = $payment->get_status() === \WP_Ultimo\Database\Payments\Payment_Status::PENDING;
+
+		if (! $is_stripe_payment) {
+			return;
+		}
+
+		wp_register_script(
+			'wu-payment-status-poll',
+			wu_get_asset('payment-status-poll.js', 'js'),
+			['jquery'],
+			wu_get_version(),
+			true
+		);
+
+		wp_localize_script(
+			'wu-payment-status-poll',
+			'wu_payment_poll',
+			[
+				'payment_hash'     => $payment_hash,
+				'ajax_url'         => admin_url('admin-ajax.php'),
+				'poll_interval'    => 3000, // 3 seconds
+				'max_attempts'     => 20, // 60 seconds total
+				'should_poll'      => $is_pending,
+				'status_selector'  => '.wu-payment-status',
+				'success_redirect' => '',
+				'messages'         => [
+					'completed' => __('Payment confirmed! Refreshing page...', 'ultimate-multisite'),
+					'pending'   => __('Verifying your payment with Stripe...', 'ultimate-multisite'),
+					'timeout'   => __('Payment verification is taking longer than expected. Your payment may still be processing. Please refresh the page or contact support if you believe payment was made.', 'ultimate-multisite'),
+					'error'     => __('Error checking payment status. Retrying...', 'ultimate-multisite'),
+					'checking'  => __('Checking payment status...', 'ultimate-multisite'),
+				],
+			]
+		);
+
+		wp_enqueue_script('wu-payment-status-poll');
+
+		// Add inline CSS for the status messages
+		wp_add_inline_style(
+			'wu-checkout',
+			'
+			.wu-payment-status {
+				padding: 12px 16px;
+				border-radius: 6px;
+				margin-bottom: 16px;
+				font-weight: 500;
+			}
+			.wu-payment-status-pending,
+			.wu-payment-status-checking {
+				background-color: #fef3cd;
+				color: #856404;
+				border: 1px solid #ffc107;
+			}
+			.wu-payment-status-completed {
+				background-color: #d4edda;
+				color: #155724;
+				border: 1px solid #28a745;
+			}
+			.wu-payment-status-timeout,
+			.wu-payment-status-error {
+				background-color: #f8d7da;
+				color: #721c24;
+				border: 1px solid #f5c6cb;
+			}
+		'
 		);
 	}
 }

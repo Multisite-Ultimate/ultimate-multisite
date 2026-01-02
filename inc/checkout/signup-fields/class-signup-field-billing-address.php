@@ -268,6 +268,25 @@ class Signup_Field_Billing_Address extends Base_Signup_Field {
 
 		foreach ($fields as &$field) {
 			$field['wrapper_classes'] = trim(wu_get_isset($field, 'wrapper_classes', '') . ' ' . $attributes['element_classes']);
+
+			/*
+			 * When zip_and_country is enabled (showing only ZIP + country),
+			 * hide the billing address fields when any Stripe gateway is selected.
+			 * Both Stripe Payment Element and Stripe Checkout collect Country and ZIP,
+			 * making these fields redundant.
+			 *
+			 * Using :style binding instead of v-show for better Vue compatibility
+			 * with server-rendered in-DOM templates.
+			 */
+			if ($zip_only) {
+				// Ensure wrapper_html_attr array exists
+				if ( ! isset($field['wrapper_html_attr'])) {
+					$field['wrapper_html_attr'] = [];
+				}
+
+				// Use :style binding to hide element when any Stripe gateway is selected
+				$field['wrapper_html_attr'][':style'] = "{ display: gateway && gateway.startsWith('stripe') ? 'none' : '' }";
+			}
 		}
 
 		uasort($fields, 'wu_sort_by_order');

@@ -106,7 +106,7 @@ class Site_Template_Limits {
 	 */
 	public function maybe_force_template_selection($template_id, $membership) {
 
-		if ($membership && $membership->get_limitations()->site_templates->get_mode() === Limit_Site_Templates::MODE_ASSIGN_TEMPLATE) {
+		if ($membership && Limit_Site_Templates::MODE_ASSIGN_TEMPLATE === $membership->get_limitations()->site_templates->get_mode()) {
 			$template_id = $membership->get_limitations()->site_templates->get_pre_selected_site_template();
 		}
 

@@ -16,8 +16,5 @@ defined('ABSPATH') || exit;
  * @return string
  */
 function wu_get_ip() {
-
-	$geolocation = \WP_Ultimo\Geolocation::geolocate_ip('', true);
-
-	return apply_filters('wu_get_ip', $geolocation['ip']);
+	return apply_filters('wu_get_ip', \WP_Ultimo\Geolocation::get_ip_address());
 }

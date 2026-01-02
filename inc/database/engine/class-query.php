@@ -96,4 +96,24 @@ class Query extends \BerlinDB\Database\Query {
 
 		return $this->item_name_plural;
 	}
+
+	/**
+	 * Get columns from an array of arguments.
+	 * Copy of the parent method of public access.
+	 *
+	 * @param array  $args     Arguments to filter columns by.
+	 * @param string $operator Optional. The logical operation to perform.
+	 * @param string $field    Optional. A field from the object to place
+	 *                         instead of the entire object. Default false.
+	 * @return array Array of column.
+	 */
+	public function get_columns($args = array(), $operator = 'and', $field = false) {
+		// Filter columns.
+		$filter = wp_filter_object_list($this->columns, $args, $operator, $field);
+
+		// Return column or false.
+		return ! empty($filter)
+			? array_values($filter)
+			: array();
+	}
 }

@@ -381,7 +381,9 @@ class Template_Switching_Element extends Base_Element {
 					'back_to_template_selection' => [
 						'type'              => 'note',
 						'order'             => 0,
-						'desc'              => sprintf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-on:click.prevent="template_id = original_template_id; confirm_switch = false">%s</a>', __('&larr; Back to Template Selection', 'ultimate-multisite')),
+						'desc'              => function () {
+							printf('<a href="#" class="wu-no-underline wu-mt-1 wu-uppercase wu-text-2xs wu-font-semibold wu-text-gray-600" v-on:click.prevent="template_id = original_template_id; confirm_switch = false">%s</a>', esc_html__('&larr; Back to Template Selection', 'ultimate-multisite'));
+						},
 						'wrapper_html_attr' => [
 							'v-init:original_template_id' => $this->site->get_template_id(),
 							'v-show'                      => 'template_id != original_template_id',

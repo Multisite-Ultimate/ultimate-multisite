@@ -1,22 +1,31 @@
 {
-  "version": "2.4.8",
+  "version": "2.4.9",
   "name": "ultimate-multisite",
   "title": "Ultimate Multisite",
   "homepage": "https://ultimatemultisite.com/",
-  "authors": [{
-    "name": "David Stone",
-    "email": "david@ultimatemultisite.com"
-  }],
+  "authors": [
+    {
+      "name": "David Stone",
+      "email": "david@ultimatemultisite.com"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/superdav/wp-multisite-waas.git"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@wordpress/env": "^10.27.0",
+    "@wordpress/eslint-plugin": "^23.0.0",
+    "@wordpress/stylelint-config": "^23.29.0",
     "clean-css-cli": "^5.6.3",
     "cypress": "^14.5.4",
     "cypress-mailpit": "^1.4.0",
+    "eslint": "^8.57.1",
+    "globals": "^16.5.0",
     "npm-run-all": "^4.1.5",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard": "^39.0.1",
     "uglify-js": "^3.19.3"
   },
   "config": {
@@ -32,7 +41,6 @@
     "build:translate": "npm run copylibs && npm run uglify && npm run cleancss && npm run makepot && npm run translate",
     "prearchive": "php encrypt-sectrets.php",
     "archive": "node scripts/archive.js",
-    "postarchive": "node scripts/post-archive.js",
     "preuglify": "node scripts/clean-js.js",
     "uglify": "node scripts/uglify.js",
     "precleancss": "node scripts/clean-css.js",
@@ -41,8 +49,14 @@
     "test": "vendor/bin/phpunit",
     "test:coverage": "vendor/bin/phpunit --coverage-html=coverage-html --coverage-clover=coverage.xml",
     "test:watch": "vendor/bin/phpunit --watch",
-    "lint": "vendor/bin/phpcs",
-    "lint:fix": "vendor/bin/phpcbf",
+    "lint": "run-p lint:php lint:js lint:css",
+    "lint:php": "vendor/bin/phpcs",
+    "lint:php:fix": "vendor/bin/phpcbf",
+    "lint:js": "eslint assets/js --ext .js --ignore-pattern '*.min.js'",
+    "lint:js:fix": "eslint assets/js --ext .js --ignore-pattern '*.min.js' --fix",
+    "lint:css": "stylelint 'assets/css/**/*.css' --ignore-pattern '*.min.css'",
+    "lint:css:fix": "stylelint 'assets/css/**/*.css' --ignore-pattern '*.min.css' --fix",
+    "lint:fix": "run-p lint:php:fix lint:js:fix lint:css:fix",
     "stan": "vendor/bin/phpstan analyse",
     "quality": "run-s lint stan",
     "quality:fix": "run-s lint:fix stan",

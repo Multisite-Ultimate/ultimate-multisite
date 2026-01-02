@@ -290,7 +290,9 @@ class Domain_Mapping_Element extends Base_Element {
 		$fields = [
 			'instructions_note' => [
 				'type'              => 'note',
-				'desc'              => sprintf('<a href="#" class="wu-no-underline" v-on:click.prevent="ready = false">%s</a>', __('&larr; Back to the Instructions', 'ultimate-multisite')),
+				'desc'              => function () {
+					printf('<a href="#" class="wu-no-underline" v-on:click.prevent="ready = false">%s</a>', esc_html__('&larr; Back to the Instructions', 'ultimate-multisite'));
+				},
 				'wrapper_html_attr' => [
 					'v-if'    => 'ready',
 					'v-cloak' => '1',
@@ -424,22 +426,6 @@ class Domain_Mapping_Element extends Base_Element {
 
 		if (is_wp_error($domain)) {
 			wp_send_json_error($domain);
-		}
-
-		if (wu_request('primary_domain')) {
-			$old_primary_domains = wu_get_domains(
-				[
-					'primary_domain' => true,
-					'blog_id'        => $current_site_id,
-					'id__not_in'     => [$domain->get_id()],
-					'fields'         => 'ids',
-				]
-			);
-
-			/*
-			 * Trigger async action to update the old primary domains.
-			 */
-			do_action_ref_array('wu_async_remove_old_primary_domains', [$old_primary_domains]);
 		}
 
 		wu_enqueue_async_action('wu_async_process_domain_stage', ['domain_id' => $domain->get_id()], 'domain');
@@ -629,10 +615,7 @@ class Domain_Mapping_Element extends Base_Element {
 				]
 			);
 
-			/*
-			 * Trigger async action to update the old primary domains.
-			 */
-			do_action_ref_array('wu_async_remove_old_primary_domains', [$old_primary_domains]);
+			// Updating the old primaries now happens in the save method.
 
 			wp_send_json_success(
 				[

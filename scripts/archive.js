@@ -2,7 +2,8 @@ const { execSync } = require('child_process');
 const pkg = require('../package.json');
 
 try {
-  execSync(`composer archive --format=zip --file=${pkg.name}`, {
+  // Uses composer-archive-project plugin which creates archive with root folder
+  execSync(`composer archive-project --format=zip --file=${pkg.name}`, {
     stdio: 'inherit',
   });
   console.log(`✅ Created archive: ${pkg.name}`);

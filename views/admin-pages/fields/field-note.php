@@ -27,9 +27,12 @@ defined('ABSPATH') || exit;
 	?>
 
 	<div class="<?php echo esc_attr('wu-my-0 ' . $field->classes); ?>">
-
-		<?php echo wp_kses($field->desc ?? '', wu_kses_allowed_html()); ?>
-
+		<?php
+		$desc = $field->desc;
+		if ($desc) {
+			echo wp_kses($desc, wu_kses_allowed_html());
+		}
+		?>
 	</div>
 
 </li>

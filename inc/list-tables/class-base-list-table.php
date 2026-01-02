@@ -9,6 +9,7 @@
 
 namespace WP_Ultimo\List_Tables;
 
+use Closure;
 use WP_Ultimo\Helpers\Hash;
 
 // Exit if accessed directly
@@ -1262,10 +1263,6 @@ class Base_List_Table extends \WP_List_Table {
 	/**
 	 * Returns the columns from the BerlinDB Schema.
 	 *
-	 * Schema columns are protected on BerlinDB, which makes it hard to reference them out context.
-	 * This is the reason for the reflection funkiness going on in here.
-	 * Maybe there's a better way to do it, but it works for now.
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param array   $args Key => Value pair to search the return columns. e.g. array('searchable' => true).
@@ -1274,16 +1271,7 @@ class Base_List_Table extends \WP_List_Table {
 	 * @return array.
 	 */
 	protected function get_schema_columns($args = [], $operator = 'and', $field = false) {
-
-		$query_class = new $this->query_class();
-
-		$reflector = new \ReflectionObject($query_class);
-
-		$method = $reflector->getMethod('get_columns');
-
-		$method->setAccessible(true);
-
-		return $method->invoke($query_class, $args, $operator, $field);
+		return (new $this->query_class())->get_columns($args, $operator, $field);
 	}
 
 	/**

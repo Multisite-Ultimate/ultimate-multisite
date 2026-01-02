@@ -119,6 +119,7 @@ class Signup_Field_Email extends Base_Signup_Field {
 			'display_notices'     => true,
 			'email_confirm_field' => false,
 			'email_confirm_label' => __('Confirm Email', 'ultimate-multisite'),
+			'enable_inline_login' => true,
 		];
 	}
 
@@ -176,6 +177,12 @@ class Signup_Field_Email extends Base_Signup_Field {
 				'desc'  => __('Adds a "Confirm Email" field below email field to reduce the chance of making a mistake.', 'ultimate-multisite'),
 				'value' => 1,
 			],
+			'enable_inline_login' => [
+				'type'  => 'toggle',
+				'title' => __('Enable Inline Login', 'ultimate-multisite'),
+				'desc'  => __('When enabled, users entering an existing email address will see an inline login prompt to authenticate with their password without leaving the page.', 'ultimate-multisite'),
+				'value' => 1,
+			],
 		];
 	}
 
@@ -226,6 +233,10 @@ class Signup_Field_Email extends Base_Signup_Field {
 				'required'          => true,
 				'wrapper_classes'   => wu_get_isset($attributes, 'wrapper_element_classes', ''),
 				'classes'           => wu_get_isset($attributes, 'element_classes', ''),
+				'html_attr'         => [
+					'@blur'   => "check_user_exists_debounced('email', email_address)",
+					'v-model' => 'email_address',
+				],
 				'wrapper_html_attr' => [
 					'style' => $this->calculate_style_attr(),
 				],
@@ -243,6 +254,19 @@ class Signup_Field_Email extends Base_Signup_Field {
 					'classes'           => wu_get_isset($attributes, 'element_classes', ''),
 					'wrapper_html_attr' => [
 						'style' => $this->calculate_style_attr(),
+					],
+				];
+			}
+
+			if (wu_get_isset($attributes, 'enable_inline_login', true)) {
+				$checkout_fields['email_inline_login_prompt'] = [
+					'type'              => 'html',
+					'id'                => 'email_inline_login_prompt',
+					'content'           => [$this, 'render_inline_login_prompt'],
+					'wrapper_classes'   => '',
+					'wrapper_html_attr' => [
+						'v-if'    => "show_login_prompt && login_prompt_field === 'email'",
+						'v-cloak' => true,
 					],
 				];
 			}
@@ -303,5 +327,15 @@ class Signup_Field_Email extends Base_Signup_Field {
 		<?php
 
 		return ob_get_clean();
+	}
+
+	/**
+	 * Renders the inline login prompt HTML.
+	 *
+	 * @since 2.0.20
+	 * @return string
+	 */
+	public function render_inline_login_prompt(): string {
+		return wu_get_template_contents('checkout/partials/inline-login-prompt', ['field_type' => 'email']);
 	}
 }

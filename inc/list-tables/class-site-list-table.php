@@ -377,7 +377,15 @@ class Site_List_Table extends Base_List_Table {
 
 		$actions[ wu_request('type', 'all') === 'pending' ? 'delete-pending' : 'delete' ] = __('Delete', 'ultimate-multisite');
 
-		return $actions;
+		/**
+		 * Filter the bulk actions available for sites.
+		 *
+		 * @since 2.4.10
+		 *
+		 * @param array $actions The bulk actions.
+		 * @return array
+		 */
+		return apply_filters('wu_site_list_get_bulk_actions', $actions);
 	}
 
 	/**

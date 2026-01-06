@@ -39,7 +39,7 @@
     "postbuild": "npm run archive",
     "build:dev": "npm run copylibs && npm run uglify && npm run cleancss && npm run makepot",
     "build:translate": "npm run copylibs && npm run uglify && npm run cleancss && npm run makepot && npm run translate",
-    "prearchive": "php encrypt-sectrets.php",
+    "prearchive": "php encrypt-secrets.php",
     "archive": "node scripts/archive.js",
     "preuglify": "node scripts/clean-js.js",
     "uglify": "node scripts/uglify.js",

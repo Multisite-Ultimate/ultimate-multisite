@@ -204,6 +204,8 @@ class Checkout_Pages {
 			'password_reset_mismatch'    => __('<strong>Error:</strong> The passwords do not match.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 			'invalidkey'                 => __('<strong>Error:</strong> Your password reset link appears to be invalid. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 			'expiredkey'                 => __('<strong>Error:</strong> Your password reset link has expired. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'invalid_key'                => __('<strong>Error:</strong> Your password reset link appears to be invalid. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+			'expired_key'                => __('<strong>Error:</strong> Your password reset link has expired. Please request a new link below.'), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 		];
 
 		/**

@@ -23,12 +23,23 @@ defined('ABSPATH') || exit;
 	);
 	?>
 
-	<input class="form-control wu-w-full wu-my-1 <?php echo esc_attr(trim($field->classes)); ?>"
-			id="field-<?php echo esc_attr($field->id); ?>"
-			name="<?php echo esc_attr($field->id); ?>"
-			type="<?php echo esc_attr($field->type); ?>"
-			placeholder="<?php echo esc_attr($field->placeholder); ?>"
-			value="<?php echo esc_attr($field->value); ?>" <?php $field->print_html_attributes(); ?>>
+	<div class="wu-relative">
+		<input class="form-control wu-w-full wu-my-1 <?php echo esc_attr(trim($field->classes)); ?>"
+				id="field-<?php echo esc_attr($field->id); ?>"
+				name="<?php echo esc_attr($field->id); ?>"
+				type="<?php echo esc_attr($field->type); ?>"
+				placeholder="<?php echo esc_attr($field->placeholder); ?>"
+				value="<?php echo esc_attr($field->value); ?>"
+				style="padding-right: 40px;"
+				<?php $field->print_html_attributes(); ?>>
+		<button type="button"
+				class="wu-pwd-toggle hide-if-no-js wu-absolute wu-bg-transparent wu-border-0 wu-cursor-pointer"
+				style="right: 8px; top: 50%; transform: translateY(-50%); padding: 4px;"
+				data-toggle="0"
+				aria-label="<?php esc_attr_e('Show password', 'ultimate-multisite'); ?>">
+			<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+		</button>
+	</div>
 
 	<?php if ($field->meter) : ?>
 		<span class="wu-block">

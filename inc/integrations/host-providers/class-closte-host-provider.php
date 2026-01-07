@@ -68,6 +68,44 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	];
 
 	/**
+	 * Runs on singleton instantiation.
+	 *
+	 * @since 2.1.1
+	 * @return void
+	 */
+	public function init(): void {
+
+		parent::init();
+
+		/**
+		 * Add filter to increase the number of tries to get the SSL certificate.
+		 * This is needed because, from our tests, Closte hosting takes a while to get the SSL certificate.
+		 */
+		add_filter('wu_async_process_domain_stage_max_tries', [$this, 'ssl_tries'], 10, 2);
+	}
+
+	/**
+	 * Increases the number of tries to get the SSL certificate.
+	 *
+	 * @since 2.4.10
+	 * @param int                      $max_tries The number of tries to get the SSL certificate.
+	 * @param \WP_Ultimo\Models\Domain $domain The domain object.
+	 * @return int
+	 */
+	public function ssl_tries($max_tries, $domain) {
+
+		if ( ! $this->is_enabled()) {
+			return $max_tries;
+		}
+
+		if ('checking-ssl-cert' === $domain->get_stage()) {
+			$max_tries = 20;
+		}
+
+		return $max_tries;
+	}
+
+	/**
 	 * Picks up on tips that a given host provider is being used.
 	 *
 	 * We use this to suggest that the user should activate an integration module.
@@ -105,7 +143,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 		if (wu_get_isset($domain_response, 'success', false)) {
 			wu_log_add('integration-closte', sprintf('Domain %s added successfully, requesting SSL certificate', $domain));
 			$this->request_ssl_certificate($domain);
-		} elseif (isset($domain_response['error']) && $domain_response['error'] === 'Invalid or empty domain: ' . $domain) {
+		} elseif (isset($domain_response['error']) && 'Invalid or empty domain: ' . $domain === $domain_response['error'] ) {
 			wu_log_add('integration-closte', sprintf('Domain %s rejected by Closte API as invalid. This may be expected for Closte subdomains or internal domains.', $domain));
 		} else {
 			wu_log_add('integration-closte', sprintf('Failed to add domain %s. Response: %s', $domain, wp_json_encode($domain_response)));

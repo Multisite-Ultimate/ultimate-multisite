@@ -156,6 +156,11 @@ class Scripts {
 		$this->register_script('wu-password-toggle', wu_get_asset('wu-password-toggle.js', 'js'), ['wp-i18n']);
 
 		/*
+		 * Adds Password Strength Checker
+		 */
+		$this->register_script('wu-password-strength', wu_get_asset('wu-password-strength.js', 'js'), ['jquery', 'password-strength-meter']);
+
+		/*
 		 * Adds Input Masking
 		 */
 		$this->register_script('wu-money-mask', wu_get_asset('lib/v-money.js', 'js'), ['wu-vue']);

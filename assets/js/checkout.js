@@ -1,4 +1,4 @@
-/* global Vue, moment, _, wu_checkout, pwsL10n, wu_checkout_form, wu_create_cookie, wu_listen_to_cookie_change */
+/* global Vue, moment, _, wu_checkout, wu_checkout_form, wu_create_cookie, wu_listen_to_cookie_change */
 (function ($, hooks, _) {
 
   /*
@@ -748,72 +748,32 @@
           });
 
         },
-        check_pass_strength() {
+        init_password_strength() {
 
-          const pass1_el = '#field-password';
+          const that = this;
+          const pass1_el = jQuery('#field-password');
 
-          if (!jQuery('#pass-strength-result').length) {
-
-            return;
-
-          } // end if;
-
-          jQuery('#pass-strength-result')
-            .attr('class', 'wu-py-2 wu-px-4 wu-bg-gray-100 wu-block wu-text-sm wu-border-solid wu-border wu-border-gray-200');
-
-          const pass1 = jQuery(pass1_el).val();
-
-          if (!pass1) {
-
-            jQuery('#pass-strength-result').addClass('empty').html('Enter Password');
+          if (!pass1_el.length) {
 
             return;
 
           } // end if;
 
-          this.valid_password = false;
+          // Use the shared WU_PasswordStrength utility
+          if (typeof window.WU_PasswordStrength !== 'undefined') {
 
-          const disallowed_list = typeof wp.passwordStrength.userInputDisallowedList === 'undefined'
-            ? wp.passwordStrength.userInputBlacklist()
-            : wp.passwordStrength.userInputDisallowedList();
+            this.password_strength_checker = new window.WU_PasswordStrength({
+              pass1: pass1_el,
+              result: jQuery('#pass-strength-result'),
+              minStrength: 3,
+              onValidityChange: function(isValid) {
 
-          const strength = wp.passwordStrength.meter(pass1, disallowed_list, pass1);
+                that.valid_password = isValid;
 
-          switch (strength) {
+              }
+            });
 
-            case -1:
-              jQuery('#pass-strength-result').addClass('wu-bg-red-200 wu-border-red-300').html(pwsL10n.unknown);
-
-              break;
-
-            case 2:
-              jQuery('#pass-strength-result').addClass('wu-bg-red-200 wu-border-red-300').html(pwsL10n.bad);
-
-              break;
-
-            case 3:
-              jQuery('#pass-strength-result').addClass('wu-bg-green-200 wu-border-green-300').html(pwsL10n.good);
-
-              this.valid_password = true;
-
-              break;
-
-            case 4:
-              jQuery('#pass-strength-result').addClass('wu-bg-green-200 wu-border-green-300').html(pwsL10n.strong);
-
-              this.valid_password = true;
-
-              break;
-
-            case 5:
-              jQuery('#pass-strength-result').addClass('wu-bg-yellow-200 wu-border-yellow-300').html(pwsL10n.mismatch);
-
-              break;
-
-            default:
-              jQuery('#pass-strength-result').addClass('wu-bg-yellow-200 wu-border-yellow-300').html(pwsL10n.short);
-
-          } // end switch;
+          } // end if;
 
         },
         check_user_exists_debounced: _.debounce(function(field_type, value) {
@@ -1162,11 +1122,8 @@
 
         hooks.doAction('wu_on_change_gateway', this.gateway, this.gateway);
 
-        jQuery('#field-password').on('input pwupdate', function () {
-
-          that.check_pass_strength();
-
-        });
+        // Initialize password strength checker using the shared utility
+        this.init_password_strength();
 
         wu_initialize_tooltip();
 

@@ -316,24 +316,16 @@ class Login_Form_Element extends Base_Element {
 
 		wp_set_script_translations('wu-password-toggle', 'ultimate-multisite');
 
-		// Enqueue password strength meter for reset password page.
+		// Enqueue password strength scripts for reset password page.
 		if ($this->is_reset_password_page()) {
-			wp_enqueue_script('password-strength-meter');
-
-			// Enqueue shared password strength utility.
-			wp_enqueue_script(
-				'wu-password-strength',
-				wu_get_asset('wu-password-strength.js', 'js'),
-				['jquery', 'password-strength-meter'],
-				wu_get_version(),
-				true
-			);
+			// wu-password-strength is globally registered with password-strength-meter as dependency.
+			wp_enqueue_script('wu-password-strength');
 
 			// Enqueue password reset script.
 			wp_enqueue_script(
 				'wu-password-reset',
 				wu_get_asset('wu-password-reset.js', 'js'),
-				['jquery', 'password-strength-meter', 'wu-password-strength'],
+				['wu-password-strength'],
 				wu_get_version(),
 				true
 			);

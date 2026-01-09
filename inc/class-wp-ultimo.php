@@ -353,6 +353,7 @@ final class WP_Ultimo {
 		require_once wu_path('inc/functions/site.php');
 		require_once wu_path('inc/functions/user.php');
 		require_once wu_path('inc/functions/webhook.php');
+		require_once wu_path('inc/functions/email-account.php');
 
 		/**
 		 * URL and Asset Helpers
@@ -504,6 +505,7 @@ final class WP_Ultimo {
 		\WP_Ultimo\UI\Account_Summary_Element::get_instance();
 		\WP_Ultimo\UI\Limits_Element::get_instance();
 		\WP_Ultimo\UI\Domain_Mapping_Element::get_instance();
+		\WP_Ultimo\UI\Email_Accounts_Element::get_instance();
 		\WP_Ultimo\UI\Site_Maintenance_Element::get_instance();
 		\WP_Ultimo\UI\Template_Switching_Element::get_instance();
 
@@ -763,6 +765,11 @@ final class WP_Ultimo {
 		new WP_Ultimo\Admin_Pages\Hosting_Integration_Wizard_Admin_Page();
 
 		/*
+		 * Loads the Email Integration Wizard
+		 */
+		new WP_Ultimo\Admin_Pages\Email_Integration_Wizard_Admin_Page();
+
+		/*
 		 * Loads the Events Pages
 		 */
 		new WP_Ultimo\Admin_Pages\Event_List_Admin_Page();
@@ -926,6 +933,12 @@ final class WP_Ultimo {
 		 * Loads the Cache manager.
 		 */
 		WP_Ultimo\Managers\Cache_Manager::get_instance();
+
+		/*
+		 * Loads the Email Account manager.
+		 */
+		WP_Ultimo\Managers\Email_Account_Manager::get_instance();
+
 		WP_Ultimo\Orphaned_Tables_Manager::get_instance();
 		WP_Ultimo\Orphaned_Users_Manager::get_instance();
 

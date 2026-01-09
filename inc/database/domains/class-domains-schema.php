@@ -90,7 +90,7 @@ class Domains_Schema extends Schema {
 
 		[
 			'name'       => 'stage',
-			'type'       => 'enum(\'checking-dns\', \'checking-ssl-cert\', \'done-without-ssl\', \'done\', \'failed\')',
+			'type'       => 'enum(\'' . Domain_Stage::CHECKING_DNS . '\', \'' . Domain_Stage::CHECKING_SSL . '\', \'' . Domain_Stage::DONE_WITHOUT_SSL . '\', \'' . Domain_Stage::DONE . '\', \'' . Domain_Stage::FAILED . '\', \'' . Domain_Stage::SSL_FAILED . '\')',
 			'default'    => 'checking-dns',
 			'transition' => true,
 			'sortable'   => true,

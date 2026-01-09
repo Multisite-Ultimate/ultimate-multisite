@@ -11,6 +11,7 @@ namespace WP_Ultimo;
 
 use Exception;
 use Faker as Lib_Faker;
+use WP_Ultimo\Database\Domains\Domain_Stage;
 use WP_Ultimo\Models\Membership;
 use WP_Ultimo\Models\Product;
 
@@ -184,6 +185,7 @@ class Faker {
 				return false;
 			}
 		}
+		return false;
 	}
 
 	/**
@@ -481,9 +483,9 @@ class Faker {
 
 		$faker         = $this->get_faker();
 		$stage_options = [
-			'checking-dns',
-			'checking-ssl-cert',
-			'done',
+			Domain_Stage::CHECKING_DNS,
+			Domain_Stage::CHECKING_SSL,
+			Domain_Stage::DONE,
 		];
 
 		$stage_checking_dns = $stage_options[0];

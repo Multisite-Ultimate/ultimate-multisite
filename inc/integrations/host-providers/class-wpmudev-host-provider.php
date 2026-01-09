@@ -10,6 +10,7 @@
 namespace WP_Ultimo\Integrations\Host_Providers;
 
 use Psr\Log\LogLevel;
+use WP_Ultimo\Database\Domains\Domain_Stage;
 use WP_Ultimo\Integrations\Host_Providers\Base_Host_Provider;
 
 // Exit if accessed directly
@@ -99,7 +100,7 @@ class WPMUDEV_Host_Provider extends Base_Host_Provider {
 			return $max_tries;
 		}
 
-		if ('checking-ssl-cert' === $domain->get_stage()) {
+		if (Domain_Stage::CHECKING_SSL === $domain->get_stage()) {
 			$max_tries = 10;
 		}
 

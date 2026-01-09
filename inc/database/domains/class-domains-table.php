@@ -43,17 +43,18 @@ final class Domains_Table extends Table {
 	 * @since 2.0.0
 	 * @var string
 	 */
-	protected $version = '2.0.1-revision.20230601';
+	protected $version = '2.0.1-revision.20260109';
 
 	/**
-	 * List of table upgrades.
-	 *
-	 * @var array
+	 * Use real callbacks.
 	 */
-	protected $upgrades = [
-		'2.0.1-revision.20230601' => 20_230_601,
-	];
-
+	public function __construct() {
+		$this->upgrades = [
+			'2.0.1-revision.20230601' => [$this, 'allow_nulls'],
+			'2.0.1-revision.20260109' => [$this, 'update_enum'],
+		];
+		parent::__construct();
+	}
 
 	/**
 	 * Set up the database schema
@@ -70,7 +71,7 @@ final class Domains_Table extends Table {
 			active tinyint(4) default 1,
 			primary_domain tinyint(4) default 0,
 			secure tinyint(4) default 0,
-			stage enum('checking-dns', 'checking-ssl-cert', 'done', 'failed', 'done-without-ssl') DEFAULT 'checking-dns',
+			stage enum('" . Domain_Stage::CHECKING_DNS . "', '" . Domain_Stage::CHECKING_SSL . "', '" . Domain_Stage::DONE_WITHOUT_SSL . "', '" . Domain_Stage::DONE . "', '" . Domain_Stage::FAILED . "', '" . Domain_Stage::SSL_FAILED . "')) DEFAULT '" . Domain_Stage::CHECKING_DNS . "',
 			date_created datetime NULL,
 			date_modified datetime NULL,
 			PRIMARY KEY (id),
@@ -83,7 +84,7 @@ final class Domains_Table extends Table {
 	 *
 	 * @since 2.1.2
 	 */
-	protected function __20230601(): bool { // phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore
+	protected function allow_nulls(): bool {
 
 		$null_columns = [
 			'date_created',
@@ -98,6 +99,24 @@ final class Domains_Table extends Table {
 			if ( ! $this->is_success($result)) {
 				return false;
 			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Adds the ssl-failed stage
+	 *
+	 * @since 2.4.10
+	 */
+	protected function update_enum(): bool { // phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore
+
+		$query = "ALTER TABLE {$this->table_name} MODIFY COLUMN `stage` enum('" . Domain_Stage::CHECKING_DNS . "', '" . Domain_Stage::CHECKING_SSL . "', '" . Domain_Stage::DONE_WITHOUT_SSL . "', '" . Domain_Stage::DONE . "', '" . Domain_Stage::FAILED . "', '" . Domain_Stage::SSL_FAILED . "') DEFAULT '" . Domain_Stage::CHECKING_DNS . "';";
+
+		$result = $this->get_db()->query($query);
+
+		if ( ! $this->is_success($result)) {
+			return false;
 		}
 
 		return true;

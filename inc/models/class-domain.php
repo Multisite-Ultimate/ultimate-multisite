@@ -73,7 +73,7 @@ class Domain extends Base_Model {
 	 * @since 2.0.0
 	 * @var string
 	 */
-	protected $stage = 'checking-dns';
+	protected $stage = Domain_Stage::CHECKING_DNS;
 
 	/**
 	 * Date when this was created.
@@ -90,9 +90,10 @@ class Domain extends Base_Model {
 	 * @var array
 	 */
 	const INACTIVE_STAGES = [
-		'checking-dns',
-		'checking-ssl-cert',
-		'failed',
+		Domain_Stage::CHECKING_DNS,
+		Domain_Stage::CHECKING_SSL,
+		Domain_Stage::FAILED,
+		Domain_Stage::SSL_FAILED,
 	];
 
 	/**
@@ -127,7 +128,7 @@ class Domain extends Base_Model {
 		return [
 			'blog_id'        => 'required|integer',
 			'domain'         => "required|domain|unique:\WP_Ultimo\Models\Domain,domain,{$id}",
-			'stage'          => 'required|in:checking-dns,checking-ssl-cert,done-without-ssl,done,failed|default:checking-dns',
+			'stage'          => 'required|in:checking-dns,checking-ssl-cert,done-without-ssl,done,failed,ssl-failed|default:checking-dns',
 			'active'         => 'default:1',
 			'secure'         => 'default:0',
 			'primary_domain' => 'default:0',

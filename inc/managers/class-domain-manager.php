@@ -13,6 +13,7 @@
 namespace WP_Ultimo\Managers;
 
 use Psr\Log\LogLevel;
+use WP_Ultimo\Database\Domains\Domain_Stage;
 use WP_Ultimo\Domain_Mapping\Helper;
 use WP_Ultimo\Models\Domain;
 
@@ -664,9 +665,9 @@ class Domain_Manager extends Base_Manager {
 		// translators: %s is the domain name
 		wu_log_add("domain-{$domain_url}", sprintf(__('Starting Check for %s', 'ultimate-multisite'), $domain_url));
 
-		if ('checking-dns' === $stage) {
+		if (Domain_Stage::CHECKING_DNS === $stage) {
 			if ($domain->has_correct_dns()) {
-				$domain->set_stage('checking-ssl-cert');
+				$domain->set_stage(Domain_Stage::CHECKING_SSL);
 
 				$domain->save();
 
@@ -692,7 +693,7 @@ class Domain_Manager extends Base_Manager {
 				 * Max attempts
 				 */
 				if ($tries > $max_tries) {
-					$domain->set_stage('failed');
+					$domain->set_stage(Domain_Stage::FAILED);
 
 					$domain->save();
 
@@ -723,9 +724,9 @@ class Domain_Manager extends Base_Manager {
 
 				return;
 			}
-		} elseif ('checking-ssl-cert' === $stage) {
+		} elseif (Domain_Stage::CHECKING_SSL === $stage) {
 			if ($domain->has_valid_ssl_certificate()) {
-				$domain->set_stage('done');
+				$domain->set_stage(Domain_Stage::DONE);
 
 				$domain->set_secure(true);
 
@@ -742,10 +743,11 @@ class Domain_Manager extends Base_Manager {
 				 * Max attempts
 				 */
 				if ($tries > $max_tries) {
-					$domain->set_stage('done-without-ssl');
+					// We use SSL FAILED instead of done-without-ssl since ssl is pretty much required
+					// and we don't want to redirect to a domain with certificate errors.
+					$domain->set_stage(Domain_Stage::SSL_FAILED);
 
 					$domain->save();
-
 					wu_log_add(
 						"domain-{$domain_url}",
 						// translators: %d is the number of minutes to try again.

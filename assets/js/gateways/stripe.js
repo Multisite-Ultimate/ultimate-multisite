@@ -1,290 +1,331 @@
+/**
+ * Stripe Gateway - Payment Element Only.
+ *
+ * Uses Stripe Payment Element with deferred intent mode for immediate rendering
+ * without requiring a client_secret upfront.
+ */
 /* eslint-disable */
 /* global wu_stripe, Stripe */
 let _stripe;
-let stripeElement;
-let card;
+let paymentElement;
+let elements;
+let currentElementsMode = null;
+let currentElementsAmount = null;
 
-const stripeElements = function(publicKey) {
+/**
+ * Initialize Stripe and set up Payment Element.
+ *
+ * @param {string} publicKey Stripe publishable key.
+ */
+const stripeElements = function (publicKey) {
 
-  _stripe = Stripe(publicKey);
+	_stripe = Stripe(publicKey);
 
-  const elements = _stripe.elements();
+	/**
+	 * Filter to validate payment before form submission.
+	 */
+	wp.hooks.addFilter(
+		'wu_before_form_submitted',
+		'nextpress/wp-ultimo',
+		function (promises, checkout, gateway) {
 
-  card = elements.create('card', {
-    hidePostalCode: true,
-  });
+			if (gateway === 'stripe' && checkout.order.totals.total > 0) {
 
-  wp.hooks.addFilter('wu_before_form_submitted', 'nextpress/wp-ultimo', function(promises, checkout, gateway) {
+				const paymentEl = document.getElementById('payment-element');
 
-    const cardEl = document.getElementById('card-element');
+				if (paymentEl && elements) {
+					promises.push(
+						new Promise(async (resolve, reject) => {
+							try {
+								// Validate the Payment Element before submission
+								const { error } = await elements.submit();
 
-    if (gateway === 'stripe' && checkout.order.totals.total > 0 && cardEl && cardEl.offsetParent) {
+								if (error) {
+									reject(error);
+								} else {
+									resolve();
+								}
+							} catch (err) {
+								reject(err);
+							}
+						})
+					);
+				}
+			}
 
-      promises.push(new Promise( async (resolve, reject) => {
+			return promises;
+		}
+	);
 
-        try {
+	/**
+	 * Handle successful form submission - confirm payment with client_secret.
+	 */
+	wp.hooks.addAction(
+		'wu_on_form_success',
+		'nextpress/wp-ultimo',
+		function (checkout, results) {
 
-          const paymentMethod = await _stripe.createPaymentMethod({type: 'card', card});
+			if (checkout.gateway !== 'stripe') {
+				return;
+			}
 
-          if (paymentMethod.error) {
-            
-            reject(paymentMethod.error);
-    
-          } // end if;
+			if (checkout.order.totals.total <= 0 && checkout.order.totals.recurring.total <= 0) {
+				return;
+			}
 
-        } catch(err) {
+			// Check if we received a client_secret from the server
+			if (!results.gateway.data.stripe_client_secret) {
+				checkout.set_prevent_submission(false);
+				return;
+			}
 
-        } // end try;
+			const clientSecret = results.gateway.data.stripe_client_secret;
+			const intentType = results.gateway.data.stripe_intent_type;
 
-        resolve();
+			checkout.set_prevent_submission(false);
 
-      }));
+			// Determine the confirmation method based on intent type
+			const confirmMethod = intentType === 'payment_intent'
+				? 'confirmPayment'
+				: 'confirmSetup';
 
-    } // end if;
+			const confirmParams = {
+				elements: elements,
+				confirmParams: {
+					return_url: window.location.href,
+					payment_method_data: {
+						billing_details: {
+							name: results.customer.display_name,
+							email: results.customer.user_email,
+							address: {
+								country: results.customer.billing_address_data.billing_country,
+								postal_code: results.customer.billing_address_data.billing_zip_code,
+							},
+						},
+					},
+				},
+				redirect: 'if_required',
+			};
 
-    return promises;
-      
-  });
+			// Add clientSecret for confirmation
+			confirmParams.clientSecret = clientSecret;
 
-  wp.hooks.addAction('wu_on_form_success', 'nextpress/wp-ultimo', function(checkout, results) {
+			_stripe[confirmMethod](confirmParams).then(function (result) {
 
-    if (checkout.gateway === 'stripe' && (checkout.order.totals.total > 0 || checkout.order.totals.recurring.total > 0)) {
+				if (result.error) {
+					wu_checkout_form.unblock();
+					wu_checkout_form.errors.push(result.error);
+				} else {
+					// Payment succeeded - resubmit form to complete checkout
+					wu_checkout_form.resubmit();
+				}
 
-      checkout.set_prevent_submission(false);
-      
-      handlePayment(checkout, results, card);
+			});
+		}
+	);
 
-    } // end if;
+	/**
+	 * Initialize Payment Element on form update.
+	 */
+	wp.hooks.addAction('wu_on_form_updated', 'nextpress/wp-ultimo', function (form) {
 
-  });
-  
-  wp.hooks.addAction('wu_on_form_updated', 'nextpress/wp-ultimo', function(form) {
+		if (form.gateway !== 'stripe') {
+			form.set_prevent_submission(false);
 
-    if (form.gateway === 'stripe') {
+			// Destroy elements if switching away from Stripe
+			if (paymentElement) {
+				try {
+					paymentElement.unmount();
+				} catch (error) {
+					// Silence
+				}
+				paymentElement = null;
+				elements = null;
+				currentElementsMode = null;
+				currentElementsAmount = null;
+			}
 
-      try {
+			return;
+		}
 
-        card.mount('#card-element');
+		const paymentEl = document.getElementById('payment-element');
 
-        wu_stripe_update_styles(card, '#field-payment_template');
+		if (!paymentEl) {
+			form.set_prevent_submission(false);
+			return;
+		}
 
-        /*
-         * Prevents the from from submitting while Stripe is 
-         * creating a payment source.
-         */
-        form.set_prevent_submission(form.order && form.order.should_collect_payment && form.payment_method === 'add-new');
+		// Determine the correct mode based on order total
+		// Use 'payment' mode when there's an immediate charge, 'setup' for trials/$0
+		const orderTotal = form.order ? form.order.totals.total : 0;
+		const hasImmediateCharge = orderTotal > 0;
+		const requiredMode = hasImmediateCharge ? 'payment' : 'setup';
 
-      } catch (error) {
+		// Convert amount to cents for Stripe (integer)
+		const amountInCents = hasImmediateCharge ? Math.round(orderTotal * 100) : null;
 
-        // Silence
+		// Check if we need to reinitialize (mode or amount changed)
+		const needsReinit = !elements ||
+			!paymentElement ||
+			currentElementsMode !== requiredMode ||
+			(hasImmediateCharge && currentElementsAmount !== amountInCents);
 
-      } // end try;
+		if (!needsReinit) {
+			// Already initialized with correct mode, just update prevent submission state
+			form.set_prevent_submission(
+				form.order &&
+				form.order.should_collect_payment &&
+				form.payment_method === 'add-new'
+			);
+			return;
+		}
 
-    } else {
+		// Cleanup existing elements if reinitializing
+		if (paymentElement) {
+			try {
+				paymentElement.unmount();
+			} catch (error) {
+				// Silence
+			}
+			paymentElement = null;
+			elements = null;
+		}
 
-      form.set_prevent_submission(false);
+		try {
+			// Build elements options based on mode
+			const elementsOptions = {
+				currency: wu_stripe.currency || 'usd',
+				appearance: {
+					theme: 'stripe',
+				},
+			};
 
-      try {
+			if (hasImmediateCharge) {
+				// Payment mode - for immediate charges
+				elementsOptions.mode = 'payment';
+				elementsOptions.amount = amountInCents;
+				// Match server-side PaymentIntent setup_future_usage for saving cards
+				elementsOptions.setupFutureUsage = 'off_session';
+			} else {
+				// Setup mode - for trials or $0 orders
+				elementsOptions.mode = 'setup';
+			}
 
-        card.unmount('#card-element');
+			elements = _stripe.elements(elementsOptions);
 
-      } catch (error) {
+			// Store current mode and amount for comparison
+			currentElementsMode = requiredMode;
+			currentElementsAmount = amountInCents;
 
-        // Silence is golden
+			// Create and mount Payment Element
+			paymentElement = elements.create('payment', {
+				layout: 'tabs',
+			});
 
-      } // end try;
+			paymentElement.mount('#payment-element');
 
-    } // end if;
+			// Apply custom styles to match the checkout form
+			wu_stripe_update_payment_element_styles('#field-payment_template');
 
-  });
+			// Handle Payment Element errors
+			paymentElement.on('change', function (event) {
+				const errorEl = document.getElementById('payment-errors');
 
-  // Element focus ring
-  card.on('focus', function() {
+				if (errorEl) {
+					if (event.error) {
+						errorEl.textContent = event.error.message;
+						errorEl.classList.add('wu-text-red-600', 'wu-text-sm', 'wu-mt-2');
+					} else {
+						errorEl.textContent = '';
+					}
+				}
+			});
 
-    const el = document.getElementById('card-element');
+			// Set prevent submission until payment element is ready
+			form.set_prevent_submission(
+				form.order &&
+				form.order.should_collect_payment &&
+				form.payment_method === 'add-new'
+			);
 
-    el.classList.add('focused');
-
-  });
-
-  card.on('blur', function() {
-
-    const el = document.getElementById('card-element');
-
-    el.classList.remove('focused');
-
-  });
-
+		} catch (error) {
+			// Log error but don't break the form
+			console.error('Stripe Payment Element initialization error:', error);
+			form.set_prevent_submission(false);
+		}
+	});
 };
 
-wp.hooks.addFilter('wu_before_form_init', 'nextpress/wp-ultimo', function(data) {
+/**
+ * Initialize form data before checkout loads.
+ */
+wp.hooks.addFilter('wu_before_form_init', 'nextpress/wp-ultimo', function (data) {
 
-  data.add_new_card = wu_stripe.add_new_card;
+	data.add_new_card = wu_stripe.add_new_card;
+	data.payment_method = wu_stripe.payment_method;
 
-  data.payment_method = wu_stripe.payment_method;
-
-  return data;
-
+	return data;
 });
 
-wp.hooks.addAction('wu_checkout_loaded', 'nextpress/wp-ultimo', function() {
+/**
+ * Initialize Stripe when checkout loads.
+ */
+wp.hooks.addAction('wu_checkout_loaded', 'nextpress/wp-ultimo', function () {
 
-  stripeElement = stripeElements(wu_stripe.pk_key);
+	stripeElements(wu_stripe.pk_key);
 
 });
 
 /**
- * Copy styles from an existing element to the Stripe Card Element.
+ * Update styles for Payment Element to match the checkout form.
  *
- * @param {Object} cardElement Stripe card element.
  * @param {string} selector Selector to copy styles from.
- *
- * @since 3.3
  */
-function wu_stripe_update_styles(cardElement, selector) {
+function wu_stripe_update_payment_element_styles(selector) {
 
-  if (undefined === typeof selector) {
+	if ('undefined' === typeof selector) {
+		selector = '#field-payment_template';
+	}
 
-    selector = '#field-payment_template';
+	const inputField = document.querySelector(selector);
 
-  }
+	if (null === inputField) {
+		return;
+	}
 
-  const inputField = document.querySelector(selector);
+	const inputStyles = window.getComputedStyle(inputField);
 
-  if (null === inputField) {
+	// Add custom CSS for Payment Element container
+	if (!document.getElementById('wu-stripe-payment-element-styles')) {
+		const styleTag = document.createElement('style');
+		styleTag.id = 'wu-stripe-payment-element-styles';
+		styleTag.innerHTML = `
+			#payment-element {
+				background-color: ${inputStyles.getPropertyValue('background-color')};
+				border-radius: ${inputStyles.getPropertyValue('border-radius')};
+				padding: ${inputStyles.getPropertyValue('padding')};
+			}
+		`;
+		document.body.appendChild(styleTag);
+	}
 
-    return;
-
-  }
-
-  if (document.getElementById('wu-stripe-styles')) {
-
-    return;
-
-  }
-
-  const inputStyles = window.getComputedStyle(inputField);
-
-  const styleTag = document.createElement('style');
-
-  styleTag.innerHTML = '.StripeElement {' +
-    'background-color:' + inputStyles.getPropertyValue('background-color') + ';' +
-    'border-top-color:' + inputStyles.getPropertyValue('border-top-color') + ';' +
-    'border-right-color:' + inputStyles.getPropertyValue('border-right-color') + ';' +
-    'border-bottom-color:' + inputStyles.getPropertyValue('border-bottom-color') + ';' +
-    'border-left-color:' + inputStyles.getPropertyValue('border-left-color') + ';' +
-    'border-top-width:' + inputStyles.getPropertyValue('border-top-width') + ';' +
-    'border-right-width:' + inputStyles.getPropertyValue('border-right-width') + ';' +
-    'border-bottom-width:' + inputStyles.getPropertyValue('border-bottom-width') + ';' +
-    'border-left-width:' + inputStyles.getPropertyValue('border-left-width') + ';' +
-    'border-top-style:' + inputStyles.getPropertyValue('border-top-style') + ';' +
-    'border-right-style:' + inputStyles.getPropertyValue('border-right-style') + ';' +
-    'border-bottom-style:' + inputStyles.getPropertyValue('border-bottom-style') + ';' +
-    'border-left-style:' + inputStyles.getPropertyValue('border-left-style') + ';' +
-    'border-top-left-radius:' + inputStyles.getPropertyValue('border-top-left-radius') + ';' +
-    'border-top-right-radius:' + inputStyles.getPropertyValue('border-top-right-radius') + ';' +
-    'border-bottom-left-radius:' + inputStyles.getPropertyValue('border-bottom-left-radius') + ';' +
-    'border-bottom-right-radius:' + inputStyles.getPropertyValue('border-bottom-right-radius') + ';' +
-    'padding-top:' + inputStyles.getPropertyValue('padding-top') + ';' +
-    'padding-right:' + inputStyles.getPropertyValue('padding-right') + ';' +
-    'padding-bottom:' + inputStyles.getPropertyValue('padding-bottom') + ';' +
-    'padding-left:' + inputStyles.getPropertyValue('padding-left') + ';' +
-    'line-height:' + inputStyles.getPropertyValue('height') + ';' +
-    'height:' + inputStyles.getPropertyValue('height') + ';' +
-    `display: flex;
-    flex-direction: column;
-    justify-content: center;` +
-    '}';
-
-  styleTag.id = 'wu-stripe-styles';
-
-  document.body.appendChild(styleTag);
-
-  cardElement.update({
-    style: {
-      base: {
-        color: inputStyles.getPropertyValue('color'),
-        fontFamily: inputStyles.getPropertyValue('font-family'),
-        fontSize: inputStyles.getPropertyValue('font-size'),
-        fontWeight: inputStyles.getPropertyValue('font-weight'),
-        fontSmoothing: inputStyles.getPropertyValue('-webkit-font-smoothing'),
-      },
-    },
-  });
-
-}
-
-function wu_stripe_handle_intent(handler, client_secret, args) {
-
-  const _handle_error = function (e) {
-
-    wu_checkout_form.unblock();
-
-    if (e.error) {
-
-      wu_checkout_form.errors.push(e.error);
-      
-    } // end if;
-
-  } // end _handle_error;
-
-  try {
-
-    _stripe[handler](client_secret, args).then(function(results) {
-      
-      if (results.error) {
-
-        _handle_error(results);
-
-        return;
-
-      } // end if;
-
-      wu_checkout_form.resubmit();
-
-    }, _handle_error);
-
-  } catch(e) {} // end if;
-
-} // end if;
-
-/**
- * After registration has been processed, handle card payments.
- *
- * @param form
- * @param response
- * @param card
- */
-function handlePayment(form, response, card) {
-
-  // Trigger error if we don't have a client secret.
-  if (! response.gateway.data.stripe_client_secret) {
-
-    return;
-
-  } // end if;
-
-  const handler = 'payment_intent' === response.gateway.data.stripe_intent_type ? 'confirmCardPayment' : 'confirmCardSetup';
-
-  const args = {
-    payment_method: form.payment_method !== 'add-new' ? form.payment_method : {
-      card,
-      billing_details: {
-        name: response.customer.display_name,
-        email: response.customer.user_email,
-        address: {
-          country: response.customer.billing_address_data.billing_country,
-          postal_code: response.customer.billing_address_data.billing_zip_code,
-        },
-      },
-    },
-  };
-
-  /**
-   * Handle payment intent / setup intent.
-   */
-  wu_stripe_handle_intent(
-    handler, response.gateway.data.stripe_client_secret, args
-  );
-
+	// Update elements appearance if possible
+	if (elements) {
+		try {
+			elements.update({
+				appearance: {
+					theme: 'stripe',
+					variables: {
+						colorPrimary: inputStyles.getPropertyValue('border-color') || '#0570de',
+						colorBackground: inputStyles.getPropertyValue('background-color') || '#ffffff',
+						colorText: inputStyles.getPropertyValue('color') || '#30313d',
+						fontFamily: inputStyles.getPropertyValue('font-family') || 'system-ui, sans-serif',
+						borderRadius: inputStyles.getPropertyValue('border-radius') || '4px',
+					},
+				},
+			});
+		} catch (error) {
+			// Appearance update not supported, that's fine
+		}
+	}
 }

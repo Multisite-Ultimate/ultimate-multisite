@@ -71,7 +71,7 @@ final class Domains_Table extends Table {
 			active tinyint(4) default 1,
 			primary_domain tinyint(4) default 0,
 			secure tinyint(4) default 0,
-			stage enum('" . Domain_Stage::CHECKING_DNS . "', '" . Domain_Stage::CHECKING_SSL . "', '" . Domain_Stage::DONE_WITHOUT_SSL . "', '" . Domain_Stage::DONE . "', '" . Domain_Stage::FAILED . "', '" . Domain_Stage::SSL_FAILED . "')) DEFAULT '" . Domain_Stage::CHECKING_DNS . "',
+			stage enum('" . Domain_Stage::CHECKING_DNS . "', '" . Domain_Stage::CHECKING_SSL . "', '" . Domain_Stage::DONE_WITHOUT_SSL . "', '" . Domain_Stage::DONE . "', '" . Domain_Stage::FAILED . "', '" . Domain_Stage::SSL_FAILED . "') DEFAULT '" . Domain_Stage::CHECKING_DNS . "',
 			date_created datetime NULL,
 			date_modified datetime NULL,
 			PRIMARY KEY (id),

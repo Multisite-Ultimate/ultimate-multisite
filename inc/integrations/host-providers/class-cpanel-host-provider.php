@@ -55,6 +55,7 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 	protected $supports = [
 		'autossl',
 		'no-instructions',
+		'dns-management',
 	];
 
 	/**
@@ -305,6 +306,350 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 		}
 
 		wu_log_add('integration-cpanel', $results->cpanelresult->data[0]->reason);
+	}
+
+	/**
+	 * Get DNS records for a domain.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $domain The domain to query.
+	 * @return array|\WP_Error Array of DNS_Record objects or WP_Error.
+	 */
+	public function get_dns_records(string $domain) {
+
+		// Extract the zone name (root domain)
+		$zone = $this->extract_zone_name($domain);
+
+		$result = $this->load_api()->uapi(
+			'DNS',
+			'parse_zone',
+			['zone' => $zone]
+		);
+
+		if (! $result || isset($result->errors) || ! isset($result->result->data)) {
+			$error_message = isset($result->errors) && is_array($result->errors)
+				? implode(', ', $result->errors)
+				: __('Failed to fetch DNS records from cPanel.', 'ultimate-multisite');
+
+			wu_log_add('integration-cpanel', 'DNS fetch failed: ' . $error_message, LogLevel::ERROR);
+
+			return new \WP_Error('dns-error', $error_message);
+		}
+
+		$records         = [];
+		$supported_types = $this->get_supported_record_types();
+
+		foreach ($result->result->data as $record) {
+			// Only include supported record types
+			if (! isset($record->type) || ! in_array($record->type, $supported_types, true)) {
+				continue;
+			}
+
+			// Get content based on record type
+			$content = '';
+			switch ($record->type) {
+				case 'A':
+				case 'AAAA':
+					$content = $record->address ?? '';
+					break;
+				case 'CNAME':
+					$content = $record->cname ?? '';
+					break;
+				case 'MX':
+					$content = $record->exchange ?? '';
+					break;
+				case 'TXT':
+					$content = $record->txtdata ?? '';
+					// Remove surrounding quotes if present
+					$content = trim($content, '"');
+					break;
+			}
+
+			$records[] = DNS_Record::from_provider(
+				[
+					// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- cPanel API property
+					'line_index' => $record->line_index ?? $record->Line ?? '',
+					'type'       => $record->type,
+					'name'       => rtrim($record->name ?? '', '.'),
+					'address'    => $record->address ?? null,
+					'cname'      => $record->cname ?? null,
+					'exchange'   => $record->exchange ?? null,
+					'txtdata'    => $record->txtdata ?? null,
+					'ttl'        => $record->ttl ?? 14400,
+					'preference' => $record->preference ?? null,
+				],
+				'cpanel'
+			);
+		}
+
+		return $records;
+	}
+
+	/**
+	 * Create a DNS record for a domain.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $domain The domain.
+	 * @param array  $record Record data (type, name, content, ttl, priority).
+	 * @return array|\WP_Error Created record data or WP_Error.
+	 */
+	public function create_dns_record(string $domain, array $record) {
+
+		$zone = $this->extract_zone_name($domain);
+
+		$params = [
+			'zone' => $zone,
+			'name' => $this->format_record_name($record['name'], $zone),
+			'type' => strtoupper($record['type']),
+			'ttl'  => (int) ($record['ttl'] ?? 14400),
+		];
+
+		// Add type-specific parameters
+		switch (strtoupper($record['type'])) {
+			case 'A':
+			case 'AAAA':
+				$params['address'] = $record['content'];
+				break;
+			case 'CNAME':
+				$params['cname'] = $this->ensure_trailing_dot($record['content']);
+				break;
+			case 'MX':
+				$params['exchange']   = $this->ensure_trailing_dot($record['content']);
+				$params['preference'] = (int) ($record['priority'] ?? 10);
+				break;
+			case 'TXT':
+				$params['txtdata'] = $record['content'];
+				break;
+			default:
+				return new \WP_Error(
+					'unsupported-type',
+					/* translators: %s: record type */
+					sprintf(__('Unsupported record type: %s', 'ultimate-multisite'), $record['type'])
+				);
+		}
+
+		$result = $this->load_api()->uapi('DNS', 'add_zone_record', $params);
+
+		if (! $result || isset($result->errors)) {
+			$error_message = isset($result->errors) && is_array($result->errors)
+				? implode(', ', $result->errors)
+				: __('Failed to create DNS record.', 'ultimate-multisite');
+
+			wu_log_add('integration-cpanel', 'DNS create failed: ' . $error_message, LogLevel::ERROR);
+
+			return new \WP_Error('dns-create-error', $error_message);
+		}
+
+		wu_log_add(
+			'integration-cpanel',
+			sprintf(
+				'Created DNS record: %s %s -> %s',
+				$record['type'],
+				$record['name'],
+				$record['content']
+			)
+		);
+
+		// Return the record data with generated ID
+		return [
+			'id'       => $result->result->data->newserial ?? time(),
+			'type'     => $record['type'],
+			'name'     => $record['name'],
+			'content'  => $record['content'],
+			'ttl'      => $params['ttl'],
+			'priority' => $record['priority'] ?? null,
+		];
+	}
+
+	/**
+	 * Update a DNS record for a domain.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $domain    The domain.
+	 * @param string $record_id The record identifier (line index).
+	 * @param array  $record    Updated record data.
+	 * @return array|\WP_Error Updated record data or WP_Error.
+	 */
+	public function update_dns_record(string $domain, string $record_id, array $record) {
+
+		$zone = $this->extract_zone_name($domain);
+
+		$params = [
+			'zone' => $zone,
+			'line' => (int) $record_id,
+			'name' => $this->format_record_name($record['name'], $zone),
+			'type' => strtoupper($record['type']),
+			'ttl'  => (int) ($record['ttl'] ?? 14400),
+		];
+
+		// Add type-specific parameters
+		switch (strtoupper($record['type'])) {
+			case 'A':
+			case 'AAAA':
+				$params['address'] = $record['content'];
+				break;
+			case 'CNAME':
+				$params['cname'] = $this->ensure_trailing_dot($record['content']);
+				break;
+			case 'MX':
+				$params['exchange']   = $this->ensure_trailing_dot($record['content']);
+				$params['preference'] = (int) ($record['priority'] ?? 10);
+				break;
+			case 'TXT':
+				$params['txtdata'] = $record['content'];
+				break;
+		}
+
+		$result = $this->load_api()->uapi('DNS', 'edit_zone_record', $params);
+
+		if (! $result || isset($result->errors)) {
+			$error_message = isset($result->errors) && is_array($result->errors)
+				? implode(', ', $result->errors)
+				: __('Failed to update DNS record.', 'ultimate-multisite');
+
+			wu_log_add('integration-cpanel', 'DNS update failed: ' . $error_message, LogLevel::ERROR);
+
+			return new \WP_Error('dns-update-error', $error_message);
+		}
+
+		wu_log_add(
+			'integration-cpanel',
+			sprintf(
+				'Updated DNS record: Line %s - %s %s -> %s',
+				$record_id,
+				$record['type'],
+				$record['name'],
+				$record['content']
+			)
+		);
+
+		return [
+			'id'       => $record_id,
+			'type'     => $record['type'],
+			'name'     => $record['name'],
+			'content'  => $record['content'],
+			'ttl'      => $params['ttl'],
+			'priority' => $record['priority'] ?? null,
+		];
+	}
+
+	/**
+	 * Delete a DNS record for a domain.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $domain    The domain.
+	 * @param string $record_id The record identifier (line index).
+	 * @return bool|\WP_Error True on success or WP_Error.
+	 */
+	public function delete_dns_record(string $domain, string $record_id) {
+
+		$zone = $this->extract_zone_name($domain);
+
+		$result = $this->load_api()->uapi(
+			'DNS',
+			'remove_zone_record',
+			[
+				'zone' => $zone,
+				'line' => (int) $record_id,
+			]
+		);
+
+		if (! $result || isset($result->errors)) {
+			$error_message = isset($result->errors) && is_array($result->errors)
+				? implode(', ', $result->errors)
+				: __('Failed to delete DNS record.', 'ultimate-multisite');
+
+			wu_log_add('integration-cpanel', 'DNS delete failed: ' . $error_message, LogLevel::ERROR);
+
+			return new \WP_Error('dns-delete-error', $error_message);
+		}
+
+		wu_log_add(
+			'integration-cpanel',
+			sprintf(
+				'Deleted DNS record: Line %s from zone %s',
+				$record_id,
+				$zone
+			)
+		);
+
+		return true;
+	}
+
+	/**
+	 * Extract the zone name (root domain) from a domain.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $domain The domain name.
+	 * @return string The zone name.
+	 */
+	protected function extract_zone_name(string $domain): string {
+
+		$parts = explode('.', $domain);
+
+		// Known multi-part TLDs
+		$multi_tlds = ['.co.uk', '.com.au', '.co.nz', '.com.br', '.co.in', '.org.uk', '.net.au'];
+
+		foreach ($multi_tlds as $tld) {
+			if (str_ends_with($domain, $tld)) {
+				return implode('.', array_slice($parts, -3));
+			}
+		}
+
+		// Return last 2 parts for standard TLD
+		if (count($parts) >= 2) {
+			return implode('.', array_slice($parts, -2));
+		}
+
+		return $domain;
+	}
+
+	/**
+	 * Format the record name for cPanel API.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $name The record name.
+	 * @param string $zone The zone name.
+	 * @return string Formatted name with trailing dot.
+	 */
+	protected function format_record_name(string $name, string $zone): string {
+
+		// Handle @ as root domain
+		if ('@' === $name || '' === $name) {
+			return $zone . '.';
+		}
+
+		// If name already ends with zone, just add trailing dot
+		if (str_ends_with($name, $zone)) {
+			return $name . '.';
+		}
+
+		// If name ends with dot, it's already FQDN
+		if (str_ends_with($name, '.')) {
+			return $name;
+		}
+
+		// Append zone
+		return $name . '.' . $zone . '.';
+	}
+
+	/**
+	 * Ensure a hostname has a trailing dot.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $hostname The hostname.
+	 * @return string Hostname with trailing dot.
+	 */
+	protected function ensure_trailing_dot(string $hostname): string {
+
+		return str_ends_with($hostname, '.') ? $hostname : $hostname . '.';
 	}
 
 	/**

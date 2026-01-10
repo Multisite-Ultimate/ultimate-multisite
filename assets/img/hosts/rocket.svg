@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <!-- Background -->
+  <rect width="200" height="60" fill="#0066FF" rx="4"/>
+
+  <!-- Rocket Icon -->
+  <g transform="translate(15, 15)">
+    <!-- Rocket body -->
+    <path d="M15 5 L15 25 L10 30 L10 25 L5 25 L5 20 L10 20 L10 5 Z" fill="#FFFFFF"/>
+    <!-- Window -->
+    <circle cx="12.5" cy="12" r="3" fill="#0066FF"/>
+    <!-- Flame -->
+    <path d="M10 30 L12.5 35 L15 30" fill="#FF6B35"/>
+    <path d="M5 25 L7.5 30 L10 25" fill="#FF6B35"/>
+  </g>
+
+  <!-- Rocket.net Text -->
+  <text x="45" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">Rocket</text>
+  <text x="45" y="42" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" opacity="0.9">.net</text>
+</svg>

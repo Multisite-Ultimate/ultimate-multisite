@@ -142,7 +142,7 @@
             "vendor/delight-im/cookie/.travis-ci-apache",
             "vendor/doctrine",
             ".distignore",
-            "encrypt-sectrets.php",
+            "encrypt-secrets.php",
             "scripts",
             "mu-plugins",
             "DEPLOY.md",

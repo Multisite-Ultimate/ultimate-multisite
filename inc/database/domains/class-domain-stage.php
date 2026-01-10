@@ -28,6 +28,8 @@ class Domain_Stage extends Enum {
 
 	const FAILED = 'failed';
 
+	const SSL_FAILED = 'ssl-failed';
+
 	const CHECKING_DNS = 'checking-dns';
 
 	const CHECKING_SSL = 'checking-ssl-cert';
@@ -46,6 +48,7 @@ class Domain_Stage extends Enum {
 
 		return [
 			static::FAILED           => 'wu-bg-red-200 wu-text-red-700',
+			static::SSL_FAILED       => 'wu-bg-red-200 wu-text-red-700',
 			static::CHECKING_DNS     => 'wu-bg-blue-200 wu-text-blue-700',
 			static::CHECKING_SSL     => 'wu-bg-yellow-200 wu-text-yellow-700',
 			static::DONE             => 'wu-bg-green-200 wu-text-green-700',
@@ -63,6 +66,7 @@ class Domain_Stage extends Enum {
 
 		return [
 			static::FAILED           => __('DNS Failed', 'ultimate-multisite'),
+			static::SSL_FAILED       => __('SSL Failed', 'ultimate-multisite'),
 			static::CHECKING_DNS     => __('Checking DNS', 'ultimate-multisite'),
 			static::CHECKING_SSL     => __('Checking SSL', 'ultimate-multisite'),
 			static::DONE             => __('Ready', 'ultimate-multisite'),

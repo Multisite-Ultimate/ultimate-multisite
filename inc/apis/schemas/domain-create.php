@@ -9,6 +9,8 @@
 // Exit if accessed directly
 defined('ABSPATH') || exit;
 
+use WP_Ultimo\Database\Domains\Domain_Stage;
+
 /**
  * Schema for domain@create.
  *
@@ -49,11 +51,12 @@ return [
 		'type'        => 'string',
 		'required'    => true,
 		'enum'        => [
-			'checking-dns',
-			'checking-ssl-cert',
-			'done-without-ssl',
-			'done',
-			'failed',
+			Domain_Stage::CHECKING_DNS,
+			Domain_Stage::CHECKING_SSL,
+			Domain_Stage::DONE_WITHOUT_SSL,
+			Domain_Stage::DONE,
+			Domain_Stage::FAILED,
+			Domain_Stage::SSL_FAILED,
 		],
 	],
 	'date_created'     => [

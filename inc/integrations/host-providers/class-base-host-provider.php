@@ -100,17 +100,17 @@ abstract class Base_Host_Provider {
 					// avoid text domain loaded at the wrong time.
 					add_action('init', [$this, 'alert_provider_not_setup']);
 				}
+			} else {
+				/*
+				 * Load the dependencies.
+				 */
+				$this->load_dependencies();
+
+				/*
+				 * Initialize the hooks.
+				 */
+				$this->register_hooks();
 			}
-
-			/*
-			 * Load the dependencies.
-			 */
-			$this->load_dependencies();
-
-			/*
-			 * Initialize the hooks.
-			 */
-			$this->register_hooks();
 		}
 
 		add_filter('wu_domain_manager_get_integrations', [$this, 'self_register']);

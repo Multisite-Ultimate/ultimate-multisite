@@ -65,7 +65,8 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 	protected $constants = [
 		'WU_ENHANCE_API_TOKEN',
 		'WU_ENHANCE_API_URL',
-		'WU_ENHANCE_SERVER_ID',
+		'WU_ENHANCE_ORG_ID',
+		'WU_ENHANCE_WEBSITE_ID',
 	];
 
 	/**
@@ -98,18 +99,37 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 	public function get_fields() {
 
 		return [
-			'WU_ENHANCE_API_TOKEN' => [
+			'WU_ENHANCE_API_TOKEN'  => [
 				'type'        => 'password',
+				'html_attr'   => ['autocomplete' => 'new-password'],
 				'title'       => __('Enhance API Token', 'ultimate-multisite'),
+				'desc'        => sprintf(
+					/* translators: %s is the link to the API token documentation */
+					__('Generate an API token in your Enhance Control Panel under Settings &rarr; API Tokens. <a href="%s" target="_blank">Learn more</a>', 'ultimate-multisite'),
+					'https://apidocs.enhance.com/#section/Authentication'
+				),
 				'placeholder' => __('Your bearer token', 'ultimate-multisite'),
 			],
-			'WU_ENHANCE_API_URL'   => [
+			'WU_ENHANCE_API_URL'    => [
 				'title'       => __('Enhance API URL', 'ultimate-multisite'),
-				'placeholder' => __('e.g. https://your-enhance-server.com', 'ultimate-multisite'),
+				'desc'        => __('The API URL of your Enhance Control Panel (e.g., https://your-enhance-server.com/api).', 'ultimate-multisite'),
+				'placeholder' => __('e.g. https://your-enhance-server.com/api', 'ultimate-multisite'),
+				'html_attr'   => [
+					'id' => 'wu_enhance_api_url',
+				],
 			],
-			'WU_ENHANCE_SERVER_ID' => [
-				'title'       => __('Server ID', 'ultimate-multisite'),
-				'placeholder' => __('UUID of your server', 'ultimate-multisite'),
+			'WU_ENHANCE_ORG_ID'     => [
+				'title'       => __('Organization ID', 'ultimate-multisite'),
+				'desc'        => __('The UUID of your organization. You can find this in your Enhance Control Panel URL when viewing the organization (e.g., /org/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).', 'ultimate-multisite'),
+				'placeholder' => __('e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'ultimate-multisite'),
+				'html_attr'   => [
+					'id' => 'wu_enhance_org_id',
+				],
+			],
+			'WU_ENHANCE_WEBSITE_ID' => [
+				'title'       => __('Website ID', 'ultimate-multisite'),
+				'placeholder' => __('e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'ultimate-multisite'),
+				'desc'        => __('The UUID of the website where domains should be added. You can find this in your Enhance Control Panel URL when viewing a website (e.g., /websites/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).', 'ultimate-multisite'),
 			],
 		];
 	}
@@ -126,24 +146,33 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 
 		wu_log_add('integration-enhance', sprintf('Adding domain: %s for site ID: %d', $domain, $site_id));
 
-		$server_id = defined('WU_ENHANCE_SERVER_ID') ? WU_ENHANCE_SERVER_ID : '';
+		$org_id     = defined('WU_ENHANCE_ORG_ID') ? WU_ENHANCE_ORG_ID : '';
+		$website_id = defined('WU_ENHANCE_WEBSITE_ID') ? WU_ENHANCE_WEBSITE_ID : '';
 
-		if (empty($server_id)) {
-			wu_log_add('integration-enhance', 'Server ID not configured');
+		if (empty($org_id)) {
+			wu_log_add('integration-enhance', 'Organization ID not configured');
 			return;
 		}
 
-		// Add the domain to the server
+		if (empty($website_id)) {
+			wu_log_add('integration-enhance', 'Website ID not configured');
+			return;
+		}
+
+		// Add the domain to the website
+		// POST /orgs/{org_id}/websites/{website_id}/domains
+		$domain_data = [
+			'domain' => $domain,
+		];
+
 		$domain_response = $this->send_enhance_api_request(
-			'/servers/' . $server_id . '/domains',
+			'/orgs/' . $org_id . '/websites/' . $website_id . '/domains',
 			'POST',
-			[
-				'domain' => $domain,
-			]
+			$domain_data
 		);
 
 		// Check if domain was added successfully
-		if (wu_get_isset($domain_response, 'id')) {
+		if (wu_get_isset($domain_response, 'id') || (isset($domain_response['success']) && $domain_response['success'])) {
 			wu_log_add('integration-enhance', sprintf('Domain %s added successfully. SSL will be automatically provisioned via LetsEncrypt when DNS resolves.', $domain));
 		} elseif (isset($domain_response['error'])) {
 			wu_log_add('integration-enhance', sprintf('Failed to add domain %s. Error: %s', $domain, wp_json_encode($domain_response)));
@@ -164,17 +193,23 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 
 		wu_log_add('integration-enhance', sprintf('Removing domain: %s for site ID: %d', $domain, $site_id));
 
-		$server_id = defined('WU_ENHANCE_SERVER_ID') ? WU_ENHANCE_SERVER_ID : '';
+		$org_id     = defined('WU_ENHANCE_ORG_ID') ? WU_ENHANCE_ORG_ID : '';
+		$website_id = defined('WU_ENHANCE_WEBSITE_ID') ? WU_ENHANCE_WEBSITE_ID : '';
 
-		if (empty($server_id)) {
-			wu_log_add('integration-enhance', 'Server ID not configured');
+		if (empty($org_id)) {
+			wu_log_add('integration-enhance', 'Organization ID not configured');
+			return;
+		}
+
+		if (empty($website_id)) {
+			wu_log_add('integration-enhance', 'Website ID not configured');
 			return;
 		}
 
 		// First, get the domain ID by listing domains and finding a match
+		// GET /orgs/{org_id}/websites/{website_id}/domains
 		$domains_list = $this->send_enhance_api_request(
-			'/servers/' . $server_id . '/domains',
-			'GET'
+			'/orgs/' . $org_id . '/websites/' . $website_id . '/domains'
 		);
 
 		$domain_id = null;
@@ -194,8 +229,9 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 		}
 
 		// Delete the domain
-		$delete_response = $this->send_enhance_api_request(
-			'/servers/' . $server_id . '/domains/' . $domain_id,
+		// DELETE /orgs/{org_id}/websites/{website_id}/domains/{domain_id}
+		$this->send_enhance_api_request(
+			'/orgs/' . $org_id . '/websites/' . $website_id . '/domains/' . $domain_id,
 			'DELETE'
 		);
 
@@ -240,28 +276,36 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 	 */
 	public function test_connection(): void {
 
-		$server_id = defined('WU_ENHANCE_SERVER_ID') ? WU_ENHANCE_SERVER_ID : '';
+		$org_id     = defined('WU_ENHANCE_ORG_ID') ? WU_ENHANCE_ORG_ID : '';
+		$website_id = defined('WU_ENHANCE_WEBSITE_ID') ? WU_ENHANCE_WEBSITE_ID : '';
 
-		if (empty($server_id)) {
-			$error = new \WP_Error('no-server-id', __('Server ID is not configured', 'ultimate-multisite'));
+		if (empty($org_id)) {
+			$error = new \WP_Error('no-org-id', __('Organization ID is not configured', 'ultimate-multisite'));
 			wp_send_json_error($error);
 			return;
 		}
 
-		// Test by attempting to list domains
+		if (empty($website_id)) {
+			$error = new \WP_Error('no-website-id', __('Website ID is not configured', 'ultimate-multisite'));
+			wp_send_json_error($error);
+			return;
+		}
+
+		// Test by attempting to get website info.
+		// GET /orgs/{org_id}/websites/{website_id}
 		$response = $this->send_enhance_api_request(
-			'/servers/' . $server_id . '/domains',
-			'GET'
+			'/orgs/' . $org_id . '/websites/' . $website_id
 		);
 
-		if (isset($response['items']) || isset($response['id'])) {
+		if (isset($response['id'])) {
 			wp_send_json_success(
 				[
 					'message' => __('Connection successful', 'ultimate-multisite'),
 				]
 			);
 		} else {
-			$error = new \WP_Error('connection-failed', __('Failed to connect to Enhance API', 'ultimate-multisite'));
+			// Translators: %s the full error message.
+			$error = new \WP_Error('connection-failed', sprintf(__('Failed to connect to Enhance API: %s', 'ultimate-multisite'), $response['error'] ?? 'Unknown error'));
 			wp_send_json_error($error);
 		}
 	}
@@ -270,9 +314,9 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 	 * Sends a request to the Enhance API with the configured bearer token.
 	 *
 	 * @since 2.0.0
-	 * @param string $endpoint API endpoint (relative to base URL).
-	 * @param string $method HTTP method (GET, POST, DELETE, etc.).
-	 * @param array  $data Request body data (for POST/PUT/PATCH).
+	 * @param string       $endpoint API endpoint (relative to base URL).
+	 * @param string       $method HTTP method (GET, POST, DELETE, etc.).
+	 * @param array|string $data Request body data (for POST/PUT/PATCH).
 	 * @return array|object
 	 */
 	public function send_enhance_api_request($endpoint, $method = 'GET', $data = []) {

@@ -103,19 +103,33 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 				'type'        => 'password',
 				'html_attr'   => ['autocomplete' => 'new-password'],
 				'title'       => __('Enhance API Token', 'ultimate-multisite'),
+				'desc'        => sprintf(
+					/* translators: %s is the link to the API token documentation */
+					__('Generate an API token in your Enhance Control Panel under Settings &rarr; API Tokens. <a href="%s" target="_blank">Learn more</a>', 'ultimate-multisite'),
+					'https://apidocs.enhance.com/#section/Authentication'
+				),
 				'placeholder' => __('Your bearer token', 'ultimate-multisite'),
 			],
 			'WU_ENHANCE_API_URL'    => [
 				'title'       => __('Enhance API URL', 'ultimate-multisite'),
-				'placeholder' => __('e.g. https://your-enhance-server.com', 'ultimate-multisite'),
+				'desc'        => __('The API URL of your Enhance Control Panel (e.g., https://your-enhance-server.com/api).', 'ultimate-multisite'),
+				'placeholder' => __('e.g. https://your-enhance-server.com/api', 'ultimate-multisite'),
+				'html_attr'   => [
+					'id' => 'wu_enhance_api_url',
+				],
 			],
 			'WU_ENHANCE_ORG_ID'     => [
 				'title'       => __('Organization ID', 'ultimate-multisite'),
-				'placeholder' => __('UUID of your organization', 'ultimate-multisite'),
+				'desc'        => __('The UUID of your organization. You can find this in your Enhance Control Panel URL when viewing the organization (e.g., /org/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).', 'ultimate-multisite'),
+				'placeholder' => __('e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'ultimate-multisite'),
+				'html_attr'   => [
+					'id' => 'wu_enhance_org_id',
+				],
 			],
 			'WU_ENHANCE_WEBSITE_ID' => [
 				'title'       => __('Website ID', 'ultimate-multisite'),
-				'placeholder' => __('UUID of your website', 'ultimate-multisite'),
+				'placeholder' => __('e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 'ultimate-multisite'),
+				'desc'        => __('The UUID of the website where domains should be added. You can find this in your Enhance Control Panel URL when viewing a website (e.g., /websites/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).', 'ultimate-multisite'),
 			],
 		];
 	}

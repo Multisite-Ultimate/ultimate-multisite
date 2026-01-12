@@ -392,7 +392,27 @@ class Scripts {
 	 */
 	public function enqueue_default_admin_styles(): void {
 
-		wp_enqueue_style('wu-admin');
+		// Get current screen to conditionally load styles
+		$screen = get_current_screen();
+
+		if (!$screen) {
+			return;
+		}
+
+		// Only load styles on WP Ultimo admin pages
+		if ($this->is_wp_ultimo_admin_page($screen)) {
+			wp_enqueue_style('wu-admin');
+
+			// Load flag styles only when needed (e.g., on pages with country selection)
+			if ($this->is_wp_ultimo_flags_page($screen)) {
+				wp_enqueue_style('wu-flags');
+			}
+		}
+
+		// Load checkout styles only on checkout pages
+		if (isset($_GET['page']) && strpos($_GET['page'], 'wu-checkout') === 0) {
+			wp_enqueue_style('wu-checkout');
+		}
 	}
 
 	/**
@@ -403,7 +423,32 @@ class Scripts {
 	 */
 	public function enqueue_default_admin_scripts(): void {
 
-		wp_enqueue_script('wu-admin');
+		// Get current screen to conditionally load scripts
+		$screen = get_current_screen();
+
+		if (!$screen) {
+			return;
+		}
+
+		// Base admin script for all WP Ultimo admin pages
+		if ($this->is_wp_ultimo_admin_page($screen)) {
+			wp_enqueue_script('wu-admin');
+		}
+
+		// Only load these scripts on specific pages where they're needed
+		if ($this->is_wp_ultimo_list_page($screen)) {
+			wp_enqueue_script('wu-ajax-list-table');
+		}
+
+		// Load Vue apps only on pages that need them
+		if ($this->is_wp_ultimo_vue_page($screen)) {
+			wp_enqueue_script('wu-vue-apps');
+		}
+
+		// Load wubox only when needed
+		if ($this->is_wp_ultimo_modal_page($screen)) {
+			wp_enqueue_script('wubox');
+		}
 	}
 
 	/**
@@ -438,5 +483,117 @@ class Scripts {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Checks if the current screen is a WP Ultimo admin page.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param \WP_Screen $screen The current screen object.
+	 * @return bool
+	 */
+	private function is_wp_ultimo_admin_page($screen) {
+		// Check if the screen ID contains 'wp-ultimo' or if it's a WP Ultimo admin page
+		return (
+			strpos($screen->id, 'wp-ultimo') !== false ||
+			strpos($screen->id, 'wu-') !== false ||
+			(isset($_GET['page']) && strpos($_GET['page'], 'wu-') === 0)
+		);
+	}
+
+	/**
+	 * Checks if the current screen is a WP Ultimo list page that needs the list table scripts.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param \WP_Screen $screen The current screen object.
+	 * @return bool
+	 */
+	private function is_wp_ultimo_list_page($screen) {
+		// Pages that use list tables
+		$list_pages = array(
+			'wu-memberships',
+			'wu-products',
+			'wu-customers',
+			'wu-payments',
+			'wu-discount-codes',
+			'wu-domain-mappings',
+			'wu-sites',
+		);
+
+		return $this->is_wp_ultimo_admin_page($screen) &&
+			   isset($_GET['page']) &&
+			   in_array($_GET['page'], $list_pages);
+	}
+
+	/**
+	 * Checks if the current screen is a WP Ultimo page that needs Vue.js.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param \WP_Screen $screen The current screen object.
+	 * @return bool
+	 */
+	private function is_wp_ultimo_vue_page($screen) {
+		// Pages that use Vue.js
+		$vue_pages = array(
+			'wu-settings',
+			'wu-add-membership',
+			'wu-edit-membership',
+			'wu-add-product',
+			'wu-edit-product',
+			'wu-add-customer',
+			'wu-edit-customer',
+			'wu-add-payment',
+			'wu-edit-payment',
+			'wu-add-discount-code',
+			'wu-edit-discount-code',
+			'wu-add-domain-mapping',
+			'wu-edit-domain-mapping',
+			'wu-add-site',
+			'wu-edit-site',
+			'wu-checkout-form',
+		);
+
+		return $this->is_wp_ultimo_admin_page($screen) &&
+			   isset($_GET['page']) &&
+			   (in_array($_GET['page'], $vue_pages) || strpos($_GET['page'], 'wu-checkout') === 0);
+	}
+
+	/**
+	 * Checks if the current screen is a WP Ultimo page that needs modal functionality.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param \WP_Screen $screen The current screen object.
+	 * @return bool
+	 */
+	private function is_wp_ultimo_modal_page($screen) {
+		// Most WP Ultimo admin pages need the modal functionality
+		return $this->is_wp_ultimo_admin_page($screen);
+	}
+
+	/**
+	 * Checks if the current screen is a WP Ultimo page that needs country flags.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param \WP_Screen $screen The current screen object.
+	 * @return bool
+	 */
+	private function is_wp_ultimo_flags_page($screen) {
+		// Pages that use country flags
+		$flags_pages = array(
+			'wu-settings',
+			'wu-add-customer',
+			'wu-edit-customer',
+			'wu-add-payment',
+			'wu-edit-payment',
+		);
+
+		return $this->is_wp_ultimo_admin_page($screen) &&
+			   isset($_GET['page']) &&
+			   in_array($_GET['page'], $flags_pages);
 	}
 }

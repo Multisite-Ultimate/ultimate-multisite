@@ -1,6 +1,13 @@
 <?php
 /**
- * PayPal Gateway.
+ * PayPal Gateway (Legacy NVP API).
+ *
+ * This gateway uses the legacy PayPal NVP (Name-Value Pair) API with
+ * username/password/signature authentication. This is maintained for
+ * backwards compatibility with existing integrations.
+ *
+ * For new integrations, use PayPal_REST_Gateway which uses the modern
+ * REST API with OAuth authentication.
  *
  * @package WP_Ultimo
  * @subpackage Gateways
@@ -10,7 +17,7 @@
 namespace WP_Ultimo\Gateways;
 
 use Psr\Log\LogLevel;
-use WP_Ultimo\Gateways\Base_Gateway;
+use WP_Ultimo\Gateways\Base_PayPal_Gateway;
 use WP_Ultimo\Database\Payments\Payment_Status;
 use WP_Ultimo\Database\Memberships\Membership_Status;
 
@@ -18,11 +25,11 @@ use WP_Ultimo\Database\Memberships\Membership_Status;
 defined('ABSPATH') || exit;
 
 /**
- * PayPal Payments Gateway
+ * PayPal Payments Gateway (Legacy NVP API)
  *
  * @since 2.0.0
  */
-class PayPal_Gateway extends Base_Gateway {
+class PayPal_Gateway extends Base_PayPal_Gateway {
 
 	/**
 	 * @var string
@@ -104,37 +111,37 @@ class PayPal_Gateway extends Base_Gateway {
 	protected $backwards_compatibility_v1_id = 'paypal';
 
 	/**
-	 * Declares support to recurring payments.
-	 *
-	 * Manual payments need to be manually paid,
-	 * so we return false here.
+	 * Checks if PayPal is properly configured with NVP credentials.
 	 *
 	 * @since 2.0.0
-	 * @return false
+	 * @return bool
 	 */
-	public function supports_recurring(): bool {
+	public function is_configured(): bool {
 
-		return true;
+		return ! empty($this->username) && ! empty($this->password) && ! empty($this->signature);
 	}
 
 	/**
-	 * Declares support to subscription amount updates.
-	 *
-	 * @since 2.1.2
-	 * @return true
-	 */
-	public function supports_amount_update(): bool {
-
-		return true;
-	}
-
-	/**
-	 * Adds the necessary hooks for the manual gateway.
+	 * Returns the connection status for display in settings.
 	 *
 	 * @since 2.0.0
-	 * @return void
+	 * @return array{connected: bool, message: string, details: array}
 	 */
-	public function hooks() {}
+	public function get_connection_status(): array {
+
+		$configured = $this->is_configured();
+
+		return [
+			'connected' => $configured,
+			'message'   => $configured
+				? __('PayPal credentials configured', 'ultimate-multisite')
+				: __('PayPal credentials not configured', 'ultimate-multisite'),
+			'details'   => [
+				'mode'     => $this->test_mode ? 'sandbox' : 'live',
+				'username' => ! empty($this->username) ? substr($this->username, 0, 10) . '...' : '',
+			],
+		];
+	}
 
 	/**
 	 * Initialization code.
@@ -419,6 +426,7 @@ class PayPal_Gateway extends Base_Gateway {
 	 * @param \WP_Ultimo\Models\Customer   $customer The customer checking out.
 	 * @param \WP_Ultimo\Checkout\Cart     $cart The cart object.
 	 * @param string                       $type The checkout type. Can be 'new', 'retry', 'upgrade', 'downgrade', 'addon'.
+	 * @throws \Exception When PayPal API call fails or returns an error.
 	 * @return void
 	 */
 	public function process_checkout($payment, $membership, $customer, $cart, $type): void {
@@ -649,7 +657,7 @@ class PayPal_Gateway extends Base_Gateway {
 				 *
 				 * Redirect to the PayPal checkout URL.
 				 */
-				wp_redirect($this->checkout_url . $body['TOKEN']);
+				wp_redirect($this->checkout_url . $body['TOKEN']); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- PayPal external URL
 
 				exit;
 			}
@@ -1481,23 +1489,6 @@ class PayPal_Gateway extends Base_Gateway {
 	}
 
 	/**
-	 * Get the subscription description.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param \WP_Ultimo\Checkout\Cart $cart The cart object.
-	 * @return string
-	 */
-	protected function get_subscription_description($cart) {
-
-		$descriptor = $cart->get_cart_descriptor();
-
-		$desc = html_entity_decode(substr($descriptor, 0, 127), ENT_COMPAT, 'UTF-8');
-
-		return $desc;
-	}
-
-	/**
 	 * Create a single payment on PayPal.
 	 *
 	 * @since 2.0.0
@@ -1812,35 +1803,17 @@ class PayPal_Gateway extends Base_Gateway {
 	/**
 	 * Returns the external link to view the payment on the payment gateway.
 	 *
-	 * Return an empty string to hide the link element.
+	 * For the legacy NVP API, there's no reliable payment link, so we return empty.
+	 * The base class provides a URL that may work for some transactions.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @param string $gateway_payment_id The gateway payment id.
-	 * @return string.
+	 * @return string
 	 */
 	public function get_payment_url_on_gateway($gateway_payment_id): string {
 
 		return '';
-	}
-
-	/**
-	 * Returns the external link to view the membership on the membership gateway.
-	 *
-	 * Return an empty string to hide the link element.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $gateway_subscription_id The gateway subscription id.
-	 * @return string.
-	 */
-	public function get_subscription_url_on_gateway($gateway_subscription_id): string {
-
-		$sandbox_prefix = $this->test_mode ? 'sandbox.' : '';
-
-		$base_url = 'https://www.%spaypal.com/us/cgi-bin/webscr?cmd=_profile-recurring-payments&encrypted_profile_id=%s';
-
-		return sprintf($base_url, $sandbox_prefix, $gateway_subscription_id);
 	}
 
 	/**

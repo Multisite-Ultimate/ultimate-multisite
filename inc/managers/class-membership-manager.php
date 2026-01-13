@@ -105,10 +105,13 @@ class Membership_Manager extends Base_Manager {
 		ignore_user_abort(true);
 
 		// Don't make the request block till we finish, if possible.
-		if ( function_exists('fastcgi_finish_request') && version_compare(phpversion(), '7.0.16', '>=') ) {
-			wp_send_json(['status' => 'creating-site']);
+		if ( function_exists('fastcgi_finish_request')) {
+			// Don't use wp_send_json because it will exit prematurely.
+			header('Content-Type: application/json; charset=' . get_option('blog_charset'));
+			echo wp_json_encode(['status' => 'creating-site']);
 
 			fastcgi_finish_request();
+			// Response is sent, but the php process continues to run and update the site.
 		}
 
 		$membership_id = wu_request('membership_id');

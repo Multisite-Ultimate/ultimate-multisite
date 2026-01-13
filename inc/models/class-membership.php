@@ -1934,7 +1934,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			'headers'   => $headers,
 		];
 
-		if ( ! function_exists('fastcgi_finish_request') || ! version_compare(phpversion(), '7.0.16', '>=')) {
+		if ( ! function_exists('fastcgi_finish_request')) {
 			// We do not have fastcgi but can make the request continue without listening with blocking = false.
 			$request_args['blocking'] = false;
 		}

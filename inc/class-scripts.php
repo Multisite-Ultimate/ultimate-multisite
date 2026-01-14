@@ -158,9 +158,7 @@ class Scripts {
 		/*
 		 * Adds Password Strength Checker
 		 */
-		$this->register_script('wu-password-strength', wu_get_asset('wu-password-strength.js', 'js'), ['jquery', 'password-strength-meter', 'wp-i18n']);
-
-		wp_set_script_translations('wu-password-strength', 'ultimate-multisite');
+		$this->register_script('wu-password-strength', wu_get_asset('wu-password-strength.js', 'js'), ['jquery', 'password-strength-meter']);
 
 		wp_localize_script(
 			'wu-password-strength',
@@ -169,7 +167,15 @@ class Scripts {
 				$this->get_password_requirements(),
 				[
 					'i18n' => [
-						'empty' => __('Strength indicator', 'ultimate-multisite'),
+						'empty'            => __('Strength indicator', 'ultimate-multisite'),
+						'super_strong'     => __('Super Strong', 'ultimate-multisite'),
+						'required'         => __('Required:', 'ultimate-multisite'),
+						/* translators: %d is the minimum number of characters required */
+						'min_length'       => __('at least %d characters', 'ultimate-multisite'),
+						'uppercase_letter' => __('uppercase letter', 'ultimate-multisite'),
+						'lowercase_letter' => __('lowercase letter', 'ultimate-multisite'),
+						'number'           => __('number', 'ultimate-multisite'),
+						'special_char'     => __('special character', 'ultimate-multisite'),
 					],
 				]
 			)

@@ -1,4 +1,4 @@
-/* global jQuery, wp, pwsL10n, wu_password_strength_settings */
+/* global jQuery, wp, pwsL10n, wu_password_strength_settings, WU_PasswordStrength */
 /**
  * Shared password strength utility for WP Ultimo.
  *
@@ -16,6 +16,7 @@
  *   - Special characters
  *
  * @since 2.3.0
+ * @param {jQuery} $ jQuery object
  */
 (function($) {
 	'use strict';
@@ -26,7 +27,7 @@
 	 * @return {Object} Password settings
 	 */
 	function getSettings() {
-		var defaults = {
+		const defaults = {
 			min_strength: 4,
 			enforce_rules: false,
 			min_length: 12,
@@ -57,12 +58,12 @@
 	/**
 	 * Password strength checker utility.
 	 *
-	 * @param {Object} options Configuration options
-	 * @param {jQuery} options.pass1 First password field element
-	 * @param {jQuery} options.pass2 Second password field element (optional)
-	 * @param {jQuery} options.result Strength result display element
-	 * @param {jQuery} options.submit Submit button element (optional)
-	 * @param {number} options.minStrength Minimum required strength level (default from PHP filter, usually 4)
+	 * @param {Object}   options                  Configuration options
+	 * @param {jQuery}   options.pass1            First password field element
+	 * @param {jQuery}   options.pass2            Second password field element (optional)
+	 * @param {jQuery}   options.result           Strength result display element
+	 * @param {jQuery}   options.submit           Submit button element (optional)
+	 * @param {number}   options.minStrength      Minimum required strength level (default from PHP filter, usually 4)
 	 * @param {Function} options.onValidityChange Callback when password validity changes
 	 */
 	window.WU_PasswordStrength = function(options) {
@@ -87,18 +88,18 @@
 		/**
 		 * Initialize the password strength checker.
 		 */
-		init: function() {
-			var self = this;
+		init() {
+			const self = this;
 
-			if (!this.options.pass1 || !this.options.pass1.length) {
+			if (! this.options.pass1 || ! this.options.pass1.length) {
 				return;
 			}
 
 			// Create or find strength meter element
-			if (!this.options.result || !this.options.result.length) {
+			if (! this.options.result || ! this.options.result.length) {
 				this.options.result = $('#pass-strength-result');
 
-				if (!this.options.result.length) {
+				if (! this.options.result.length) {
 					return;
 				}
 			}
@@ -129,23 +130,23 @@
 		/**
 		 * Check password strength and update the UI.
 		 */
-		checkStrength: function() {
-			var pass1 = this.options.pass1.val();
-			var pass2 = this.options.pass2 ? this.options.pass2.val() : '';
+		checkStrength() {
+			const pass1 = this.options.pass1.val();
+			const pass2 = this.options.pass2 ? this.options.pass2.val() : '';
 
 			// Reset classes
 			this.options.result.attr('class', 'wu-py-2 wu-px-4 wu-block wu-text-sm wu-border-solid wu-border wu-mt-2');
 
-			if (!pass1) {
+			if (! pass1) {
 				this.options.result.addClass('wu-bg-gray-100 wu-border-gray-200').html(this.getStrengthLabel('empty'));
 				this.setValid(false);
 				return;
 			}
 
 			// Get disallowed list from WordPress
-			var disallowedList = this.getDisallowedList();
+			const disallowedList = this.getDisallowedList();
 
-			var strength = wp.passwordStrength.meter(pass1, disallowedList, pass2);
+			const strength = wp.passwordStrength.meter(pass1, disallowedList, pass2);
 
 			this.updateUI(strength);
 			this.updateValidity(strength);
@@ -156,7 +157,7 @@
 		 *
 		 * @return {Array} The disallowed list
 		 */
-		getDisallowedList: function() {
+		getDisallowedList() {
 			if (typeof wp === 'undefined' || typeof wp.passwordStrength === 'undefined') {
 				return [];
 			}
@@ -168,41 +169,27 @@
 		},
 
 		/**
-		 * Get translation helper with fallback.
-		 *
-		 * @param {string} text The text to translate
-		 * @param {string} fallback Fallback if wp.i18n is unavailable
-		 * @return {string} Translated text
-		 */
-		__: function(text, fallback) {
-			if (typeof wp !== 'undefined' && wp.i18n && wp.i18n.__) {
-				return wp.i18n.__(text, 'ultimate-multisite');
-			}
-			return fallback || text;
-		},
-
-		/**
 		 * Get the appropriate label for a given strength level.
 		 *
 		 * @param {string|number} strength The strength level
 		 * @return {string} The label text
 		 */
-		getStrengthLabel: function(strength) {
+		getStrengthLabel(strength) {
 			// Use WordPress's built-in localized strings
 			if (typeof pwsL10n === 'undefined') {
 				// Fallback labels if pwsL10n is not available
-				var fallbackLabels = {
-					'empty': 'Enter a password',
+				const fallbackLabels = {
+					empty: 'Enter a password',
 					'-1': 'Unknown',
-					'0': 'Very weak',
-					'1': 'Very weak',
-					'2': 'Weak',
-					'3': 'Medium',
-					'4': 'Strong',
-					'super_strong': 'Super Strong',
-					'5': 'Mismatch'
+					0: 'Very weak',
+					1: 'Very weak',
+					2: 'Weak',
+					3: 'Medium',
+					4: 'Strong',
+					super_strong: 'Super Strong',
+					5: 'Mismatch'
 				};
-				return fallbackLabels[strength] || fallbackLabels['0'];
+				return fallbackLabels[ strength ] || fallbackLabels[ '0' ];
 			}
 
 			switch (strength) {
@@ -223,7 +210,7 @@
 				case 4:
 					return pwsL10n.strong || 'Strong';
 				case 'super_strong':
-					return this.__('Super Strong', 'Super Strong');
+					return this.settings.i18n.super_strong;
 				case 5:
 					return pwsL10n.mismatch || 'Mismatch';
 				default:
@@ -236,9 +223,9 @@
 		 *
 		 * @param {number} strength The password strength level
 		 */
-		updateUI: function(strength) {
-			var label = this.getStrengthLabel(strength);
-			var colorClass = '';
+		updateUI(strength) {
+			let label = this.getStrengthLabel(strength);
+			let colorClass = '';
 
 			switch (strength) {
 				case -1:
@@ -262,10 +249,10 @@
 
 			// Check additional rules and update label if needed
 			if (this.settings.enforce_rules && strength >= this.options.minStrength && strength !== 5) {
-				var password = this.options.pass1.val();
-				var rulesResult = this.checkPasswordRules(password);
+				const password = this.options.pass1.val();
+				const rulesResult = this.checkPasswordRules(password);
 
-				if (!rulesResult.valid) {
+				if (! rulesResult.valid) {
 					colorClass = 'wu-bg-red-200 wu-border-red-300';
 					label = this.getRulesHint(rulesResult.failedRules);
 				} else {
@@ -281,39 +268,36 @@
 		/**
 		 * Get a hint message for failed password rules.
 		 *
-		 * Uses wp.i18n for translatable strings.
+		 * Uses localized strings from PHP.
 		 *
 		 * @param {Array} failedRules Array of failed rule names
 		 * @return {string} Hint message
 		 */
-		getRulesHint: function(failedRules) {
-			var hints = [];
-			var settings = this.settings;
-			var self = this;
+		getRulesHint(failedRules) {
+			const hints = [];
+			const i18n = this.settings.i18n;
 
 			if (failedRules.indexOf('length') !== -1) {
-				/* translators: %d is the minimum number of characters required */
-				hints.push(self.__('at least %d characters', 'at least ' + settings.min_length + ' characters').replace('%d', settings.min_length));
+				hints.push(i18n.min_length.replace('%d', this.settings.min_length));
 			}
 			if (failedRules.indexOf('uppercase') !== -1) {
-				hints.push(self.__('uppercase letter', 'uppercase letter'));
+				hints.push(i18n.uppercase_letter);
 			}
 			if (failedRules.indexOf('lowercase') !== -1) {
-				hints.push(self.__('lowercase letter', 'lowercase letter'));
+				hints.push(i18n.lowercase_letter);
 			}
 			if (failedRules.indexOf('number') !== -1) {
-				hints.push(self.__('number', 'number'));
+				hints.push(i18n.number);
 			}
 			if (failedRules.indexOf('special') !== -1) {
-				hints.push(self.__('special character', 'special character'));
+				hints.push(i18n.special_char);
 			}
 
 			if (hints.length === 0) {
 				return this.getStrengthLabel('super_strong');
 			}
 
-			/* translators: followed by a comma-separated list of password requirements */
-			return self.__('Required:', 'Required:') + ' ' + hints.join(', ');
+			return i18n.required + ' ' + hints.join(', ');
 		},
 
 		/**
@@ -321,9 +305,9 @@
 		 *
 		 * @param {number} strength The password strength level
 		 */
-		updateValidity: function(strength) {
-			var isValid = false;
-			var password = this.options.pass1.val();
+		updateValidity(strength) {
+			let isValid = false;
+			const password = this.options.pass1.val();
 
 			// Check minimum strength
 			if (strength >= this.options.minStrength && strength !== 5) {
@@ -332,7 +316,7 @@
 
 			// Check additional rules if enforcement is enabled
 			if (isValid && this.settings.enforce_rules) {
-				var rulesResult = this.checkPasswordRules(password);
+				const rulesResult = this.checkPasswordRules(password);
 				isValid = rulesResult.valid;
 				this.failedRules = rulesResult.failedRules;
 			} else {
@@ -348,9 +332,9 @@
 		 * @param {string} password The password to check
 		 * @return {Object} Object with valid boolean and failedRules array
 		 */
-		checkPasswordRules: function(password) {
-			var failedRules = [];
-			var settings = this.settings;
+		checkPasswordRules(password) {
+			const failedRules = [];
+			const settings = this.settings;
 
 			// Check minimum length
 			if (settings.min_length && password.length < settings.min_length) {
@@ -358,28 +342,28 @@
 			}
 
 			// Check for uppercase letter
-			if (settings.require_uppercase && !/[A-Z]/.test(password)) {
+			if (settings.require_uppercase && ! /[A-Z]/.test(password)) {
 				failedRules.push('uppercase');
 			}
 
 			// Check for lowercase letter
-			if (settings.require_lowercase && !/[a-z]/.test(password)) {
+			if (settings.require_lowercase && ! /[a-z]/.test(password)) {
 				failedRules.push('lowercase');
 			}
 
 			// Check for number
-			if (settings.require_number && !/[0-9]/.test(password)) {
+			if (settings.require_number && ! /[0-9]/.test(password)) {
 				failedRules.push('number');
 			}
 
 			// Check for special character (matches Defender Pro's pattern)
-			if (settings.require_special && !/[!@#$%^&*()_+\-={};:'",.<>?~\[\]\/|`]/.test(password)) {
+			if (settings.require_special && ! /[!@#$%^&*()_+\-={};:'",.<>?~\[\]\/|`]/.test(password)) {
 				failedRules.push('special');
 			}
 
 			return {
 				valid: failedRules.length === 0,
-				failedRules: failedRules
+				failedRules
 			};
 		},
 
@@ -388,7 +372,7 @@
 		 *
 		 * @return {Array} Array of failed rule names
 		 */
-		getFailedRules: function() {
+		getFailedRules() {
 			return this.failedRules;
 		},
 
@@ -397,12 +381,12 @@
 		 *
 		 * @param {boolean} isValid Whether the password is valid
 		 */
-		setValid: function(isValid) {
-			var wasValid = this.isPasswordValid;
+		setValid(isValid) {
+			const wasValid = this.isPasswordValid;
 			this.isPasswordValid = isValid;
 
 			if (this.options.submit && this.options.submit.length) {
-				this.options.submit.prop('disabled', !isValid);
+				this.options.submit.prop('disabled', ! isValid);
 			}
 
 			// Trigger callback if validity changed
@@ -416,9 +400,9 @@
 		 *
 		 * @return {boolean} Whether the password is valid
 		 */
-		isValid: function() {
+		isValid() {
 			return this.isPasswordValid;
 		}
 	};
 
-})(jQuery);
+}(jQuery));

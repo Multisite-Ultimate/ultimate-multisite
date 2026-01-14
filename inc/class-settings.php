@@ -865,6 +865,32 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 
 		$this->add_field(
 			'login-and-registration',
+			'password_strength_header',
+			[
+				'title' => __('Password Strength', 'ultimate-multisite'),
+				'desc'  => __('Configure password strength requirements for user registration.', 'ultimate-multisite'),
+				'type'  => 'header',
+			]
+		);
+
+		$this->add_field(
+			'login-and-registration',
+			'minimum_password_strength',
+			[
+				'title'   => __('Minimum Password Strength', 'ultimate-multisite'),
+				'desc'    => __('Set the minimum password strength required during registration and password reset. "Super Strong" requires at least 12 characters, including uppercase, lowercase, numbers, and special characters.', 'ultimate-multisite'),
+				'type'    => 'select',
+				'default' => 'strong',
+				'options' => [
+					'medium'       => __('Medium', 'ultimate-multisite'),
+					'strong'       => __('Strong', 'ultimate-multisite'),
+					'super_strong' => __('Super Strong (12+ chars, mixed case, numbers, symbols)', 'ultimate-multisite'),
+				],
+			]
+		);
+
+		$this->add_field(
+			'login-and-registration',
 			'other_header',
 			[
 				'title' => __('Other Options', 'ultimate-multisite'),

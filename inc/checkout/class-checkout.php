@@ -2564,8 +2564,8 @@ class Checkout {
 
 		wp_enqueue_style('wu-admin');
 
-		// Enqueue dashicons for password toggle.
-		wp_enqueue_style('dashicons');
+		// Enqueue password styles (includes dashicons as dependency).
+		wp_enqueue_style('wu-password');
 
 		wp_register_script('wu-checkout', wu_get_asset('checkout.js', 'js'), ['jquery-core', 'wu-vue', 'moment', 'wu-block-ui', 'wu-functions', 'password-strength-meter', 'wu-password-strength', 'underscore', 'wp-polyfill', 'wp-hooks', 'wu-cookie-helpers', 'wu-password-toggle'], wu_get_version(), true);
 

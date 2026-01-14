@@ -158,7 +158,22 @@ class Scripts {
 		/*
 		 * Adds Password Strength Checker
 		 */
-		$this->register_script('wu-password-strength', wu_get_asset('wu-password-strength.js', 'js'), ['jquery', 'password-strength-meter']);
+		$this->register_script('wu-password-strength', wu_get_asset('wu-password-strength.js', 'js'), ['jquery', 'password-strength-meter', 'wp-i18n']);
+
+		wp_set_script_translations('wu-password-strength', 'ultimate-multisite');
+
+		wp_localize_script(
+			'wu-password-strength',
+			'wu_password_strength_settings',
+			array_merge(
+				$this->get_password_requirements(),
+				[
+					'i18n' => [
+						'empty' => __('Strength indicator', 'ultimate-multisite'),
+					],
+				]
+			)
+		);
 
 		/*
 		 * Adds Input Masking
@@ -382,6 +397,8 @@ class Scripts {
 		$this->register_style('wu-checkout', wu_get_asset('checkout.css', 'css'), []);
 
 		$this->register_style('wu-flags', wu_get_asset('flags.css', 'css'), []);
+
+		$this->register_style('wu-password', wu_get_asset('password.css', 'css'), ['dashicons']);
 	}
 
 	/**
@@ -438,5 +455,168 @@ class Scripts {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Get password requirements for client-side validation.
+	 *
+	 * Reads the admin setting for minimum password strength:
+	 * - medium: Requires strength level 3
+	 * - strong: Requires strength level 4
+	 * - super_strong: Requires strength level 4 plus additional rules
+	 *   (12+ chars, uppercase, lowercase, numbers, special characters)
+	 *
+	 * Also integrates with WPMU DEV Defender Pro when active.
+	 *
+	 * All settings are filterable for customization.
+	 *
+	 * @since 2.4.0
+	 * @return array Password requirements settings.
+	 */
+	protected function get_password_requirements(): array {
+
+		$defender_active = $this->is_defender_strong_password_active();
+
+		// Get admin setting for minimum password strength.
+		$strength_setting = wu_get_setting('minimum_password_strength', 'strong');
+
+		// Map setting to zxcvbn score.
+		$strength_map = [
+			'medium'       => 3,
+			'strong'       => 4,
+			'super_strong' => 4,
+		];
+
+		$default_strength = $strength_map[ $strength_setting ] ?? 4;
+
+		// Enable rules enforcement for super_strong or when Defender is active.
+		$is_super_strong = 'super_strong' === $strength_setting;
+		$default_enforce = $is_super_strong || $defender_active;
+
+		/**
+		 * Filter the minimum password strength required (zxcvbn score).
+		 *
+		 * Strength levels:
+		 * - 0, 1: Very weak
+		 * - 2: Weak
+		 * - 3: Medium
+		 * - 4: Strong (default)
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param int    $min_strength     The minimum strength level required.
+		 * @param string $strength_setting The admin setting value (medium, strong, super_strong).
+		 */
+		$min_strength = apply_filters('wu_minimum_password_strength', $default_strength, $strength_setting);
+
+		/**
+		 * Filter whether to enforce additional password rules.
+		 *
+		 * When true, enforces minimum length and character requirements.
+		 * Automatically enabled for "Super Strong" setting or when
+		 * Defender Pro's Strong Password feature is active.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param bool   $enforce_rules    Whether to enforce additional rules.
+		 * @param string $strength_setting The admin setting value.
+		 * @param bool   $defender_active  Whether Defender Pro Strong Password is active.
+		 */
+		$enforce_rules = apply_filters('wu_enforce_password_rules', $default_enforce, $strength_setting, $defender_active);
+
+		/**
+		 * Filter the minimum password length.
+		 *
+		 * Only enforced when wu_enforce_password_rules is true.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param int  $min_length    Minimum password length. Default 12 (matches Defender Pro).
+		 * @param bool $defender_active Whether Defender Pro Strong Password is active.
+		 */
+		$min_length = apply_filters('wu_minimum_password_length', 12, $defender_active);
+
+		/**
+		 * Filter whether to require uppercase letters in passwords.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param bool $require       Whether to require uppercase. Default true when rules enforced.
+		 * @param bool $defender_active Whether Defender Pro Strong Password is active.
+		 */
+		$require_uppercase = apply_filters('wu_password_require_uppercase', $enforce_rules, $defender_active);
+
+		/**
+		 * Filter whether to require lowercase letters in passwords.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param bool $require       Whether to require lowercase. Default true when rules enforced.
+		 * @param bool $defender_active Whether Defender Pro Strong Password is active.
+		 */
+		$require_lowercase = apply_filters('wu_password_require_lowercase', $enforce_rules, $defender_active);
+
+		/**
+		 * Filter whether to require numbers in passwords.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param bool $require       Whether to require numbers. Default true when rules enforced.
+		 * @param bool $defender_active Whether Defender Pro Strong Password is active.
+		 */
+		$require_number = apply_filters('wu_password_require_number', $enforce_rules, $defender_active);
+
+		/**
+		 * Filter whether to require special characters in passwords.
+		 *
+		 * @since 2.4.0
+		 *
+		 * @param bool $require       Whether to require special chars. Default true when rules enforced.
+		 * @param bool $defender_active Whether Defender Pro Strong Password is active.
+		 */
+		$require_special = apply_filters('wu_password_require_special', $enforce_rules, $defender_active);
+
+		return [
+			'strength_setting'  => $strength_setting,
+			'min_strength'      => absint($min_strength),
+			'enforce_rules'     => (bool) $enforce_rules,
+			'min_length'        => absint($min_length),
+			'require_uppercase' => (bool) $require_uppercase,
+			'require_lowercase' => (bool) $require_lowercase,
+			'require_number'    => (bool) $require_number,
+			'require_special'   => (bool) $require_special,
+		];
+	}
+
+	/**
+	 * Check if WPMU DEV Defender Pro's Strong Password feature is active.
+	 *
+	 * @since 2.4.0
+	 * @return bool True if Defender Strong Password is enabled.
+	 */
+	protected function is_defender_strong_password_active(): bool {
+
+		// Check if Defender is active.
+		if ( ! defined('DEFENDER_VERSION')) {
+			return false;
+		}
+
+		// Try to get Defender's Strong Password settings.
+		if ( ! function_exists('wd_di')) {
+			return false;
+		}
+
+		try {
+			$settings = wd_di()->get('WP_Defender\Model\Setting\Strong_Password');
+
+			if ($settings && method_exists($settings, 'is_active')) {
+				return $settings->is_active();
+			}
+		} catch (\Exception $e) {
+			// Defender class not available or error occurred.
+			return false;
+		}
+
+		return false;
 	}
 }

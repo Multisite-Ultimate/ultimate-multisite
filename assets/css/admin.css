@@ -5396,3 +5396,8 @@ td.column-id {
 .multisite .plugins details > summary {
 	cursor: pointer;
 }
+
+.wu-styling .wu-post-type-limit-input input.wu-my-1 {
+	margin-top: 0;
+	margin-bottom: 0;
+}

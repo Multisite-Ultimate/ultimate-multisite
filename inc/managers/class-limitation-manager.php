@@ -394,21 +394,20 @@ class Limitation_Manager {
 						'v-model' => 'limit_post_types',
 					],
 				],
+				'post_quota_node'              => [
+					'type'              => 'note',
+					'desc'              => __('<strong>Note:</strong> Using the fields below you can set a post limit for each of the post types activated. <br>Toggle the switch to <strong>deactivate</strong> the post type altogether. Leave 0 or blank for unlimited posts.', 'ultimate-multisite'),
+					'wrapper_html_attr' => [
+						'v-show'  => 'limit_post_types',
+						'v-cloak' => '1',
+					],
+				],
 			],
 		];
 
 		if ( 'product' !== $object_model->model) {
 			$sections['post_types']['fields']['post_quota_overwrite'] = $this->override_notice($object_model->get_limitations(false)->post_types->has_own_enabled());
 		}
-
-		$sections['post_types']['post_quota_note'] = [
-			'type'              => 'note',
-			'desc'              => __('<strong>Note:</strong> Using the fields below you can set a post limit for each of the post types activated. <br>Toggle the switch to <strong>deactivate</strong> the post type altogether. Leave 0 or blank for unlimited posts.', 'ultimate-multisite'),
-			'wrapper_html_attr' => [
-				'v-show'  => 'limit_post_types',
-				'v-cloak' => '1',
-			],
-		];
 
 		$this->register_post_type_fields($sections, $object_model);
 
@@ -675,15 +674,29 @@ class Limitation_Manager {
 			}
 			$sections['post_types']['state']['types'][ $post_type_slug ] = $object_model->get_limitations()->post_types->{$post_type_slug};
 
+			$singular_name = ! empty($post_type->labels->singular_name) ? strtolower((string) $post_type->labels->singular_name) : strtolower((string) $post_type->label);
+			$plural_name   = strtolower((string) $post_type->label);
+
+			// Build the dynamic description with proper pluralization and bold formatting.
+			$unlimited_text = __('unlimited', 'ultimate-multisite');
+			$no_text        = __('no', 'ultimate-multisite');
+			// translators: %1$s is the bolded number or "unlimited", %2$s is the singular post type name, %3$s is the plural post type name.
+			$desc_template = __('The customer will be able to create <strong>%1$s</strong> %2$s.', 'ultimate-multisite');
+
+			// Vue.js expression for the count display.
+			$count_expr   = "types['{$post_type_slug}'].enabled ? ( parseInt(types['{$post_type_slug}'].number, 10) ? types['{$post_type_slug}'].number : '{$unlimited_text}' ) : '{$no_text}'";
+			$plural_expr  = "parseInt(types['{$post_type_slug}'].number, 10) === 1 ? '{$singular_name}' : '{$plural_name}'";
+			$desc_display = sprintf(
+				$desc_template,
+				"{{ {$count_expr} }}",
+				"{{ {$plural_expr} }}"
+			);
+
 			$sections['post_types']['fields'][ "control_{$post_type_slug}" ] = [
 				'type'              => 'group',
 				// translators: %s is the post type name.
 				'title'             => sprintf(__('Limit %s', 'ultimate-multisite'), $post_type->label),
-				'desc'              => sprintf(
-					// translators: %s is the post type name.
-					__('The customer will be able to create %s post(s) of this post type.', 'ultimate-multisite'),
-					"{{ types['{$post_type_slug}'].enabled ? ( parseInt(types['{$post_type_slug}'].number, 10) ? types['{$post_type_slug}'].number : '" . __('unlimited', 'ultimate-multisite') . "' ) : '" . __('no', 'ultimate-multisite') . "' }}"
-				),
+				'desc'              => $desc_display,
 				'tooltip'           => '',
 				'wrapper_html_attr' => [
 					'v-bind:class' => "!types['{$post_type_slug}'].enabled ? 'wu-opacity-75' : ''",
@@ -691,22 +704,25 @@ class Limitation_Manager {
 					'v-cloak'      => '1',
 				],
 				'fields'            => [
+					"modules[post_types][limit][{$post_type_slug}][enabled]" => [
+						'type'            => 'toggle',
+						'title'           => __('Allow', 'ultimate-multisite'),
+						'wrapper_classes' => 'wu-mr-2 wu-text-center',
+						'html_attr'       => [
+							'v-model' => "types['{$post_type_slug}'].enabled",
+						],
+					],
 					"modules[post_types][limit][{$post_type_slug}][number]" => [
 						'type'            => 'number',
+						'title'           => __('Quota', 'ultimate-multisite'),
 						// translators: %s is the post type name.
 						'placeholder'     => sprintf(__('%s Quota. e.g. 200', 'ultimate-multisite'), $post_type->label),
 						'min'             => 0,
-						'wrapper_classes' => 'wu-w-full',
+						'wrapper_classes' => 'wu-post-type-limit-input wu-w-full',
 						'html_attr'       => [
 							'v-model'         => "types['{$post_type_slug}'].number",
 							'v-bind:readonly' => "!types['{$post_type_slug}'].enabled",
-						],
-					],
-					"modules[post_types][limit][{$post_type_slug}][enabled]" => [
-						'type'            => 'toggle',
-						'wrapper_classes' => 'wu-mt-1',
-						'html_attr'       => [
-							'v-model' => "types['{$post_type_slug}'].enabled",
+							'v-on:blur'       => "types['{$post_type_slug}'].number = parseInt(types['{$post_type_slug}'].number, 10) === 0 ? '' : types['{$post_type_slug}'].number",
 						],
 					],
 				],

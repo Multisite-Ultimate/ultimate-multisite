@@ -371,7 +371,7 @@ class Site_Actions_Element extends Base_Element {
 		$is_template_switching_enabled = wu_get_setting('allow_template_switching', true);
 
 		if ($is_template_switching_enabled &&
-			$this->site->has_limitations() &&
+			$this->site && $this->site->has_limitations() &&
 			Limit_Site_Templates::MODE_ASSIGN_TEMPLATE === $this->site->get_limitations()->site_templates->get_mode()) {
 			$is_template_switching_enabled = false;
 		}

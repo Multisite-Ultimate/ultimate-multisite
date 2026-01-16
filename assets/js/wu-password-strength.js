@@ -210,7 +210,9 @@
 				case 4:
 					return pwsL10n.strong || 'Strong';
 				case 'super_strong':
-					return this.settings.i18n.super_strong;
+					return this.settings.i18n && this.settings.i18n.super_strong
+						? this.settings.i18n.super_strong
+						: 'Super Strong';
 				case 5:
 					return pwsL10n.mismatch || 'Mismatch';
 				default:
@@ -276,6 +278,10 @@
 		getRulesHint(failedRules) {
 			const hints = [];
 			const i18n = this.settings.i18n;
+
+			if (! i18n) {
+				return 'Required: ' + failedRules.join(', ');
+			}
 
 			if (failedRules.indexOf('length') !== -1) {
 				hints.push(i18n.min_length.replace('%d', this.settings.min_length));
@@ -357,7 +363,7 @@
 			}
 
 			// Check for special character (matches Defender Pro's pattern)
-			if (settings.require_special && ! /[!@#$%^&*()_+\-={};:'",.<>?~\[\]\/|`]/.test(password)) {
+			if (settings.require_special && ! /[!@#$%^&*()_+\-={};:'",.<>?~\[\]\/|`\\]/.test(password)) {
 				failedRules.push('special');
 			}
 

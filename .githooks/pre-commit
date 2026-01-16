@@ -11,9 +11,8 @@ echo "Running pre-commit checks..."
 if command -v npx &> /dev/null; then
     echo "Running lint-staged..."
     npx lint-staged
+    echo "Pre-commit checks passed!"
 else
     echo "Warning: npx not found. Skipping lint-staged."
     echo "Run 'npm install' to set up the development environment."
 fi
-
-echo "Pre-commit checks passed!"

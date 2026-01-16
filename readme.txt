@@ -5,7 +5,7 @@ Tags: multisite, waas, membership, domain-mapping, subscription
 Requires at least: 5.3
 Requires PHP: 7.4.30
 Tested up to: 6.9
-Stable tag: 2.4.9
+Stable tag: 2.4.10
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 The Complete Network Solution for transforming your WordPress Multisite into a Website as a Service (WaaS) platform.
@@ -239,6 +239,16 @@ For support, please open an issue on the [GitHub repository](https://github.com/
 We recommend running this in a staging environment before updating your production environment.
 
 == Changelog ==
+
+Version [2.4.10] - Released on 2026-01-XX
+- New: Configurable minimum password strength setting with Medium, Strong, and Super Strong options.
+- New: Super Strong password requirements include 12+ characters, uppercase, lowercase, numbers, and special characters - compatible with WPMU DEV Defender Pro rules.
+- New: Real-time password requirement hints during checkout with translatable strings.
+- New: Themed password field styling with visibility toggle and color fallbacks for page builders (Elementor, Kadence, Beaver Builder).
+- New: Opt-in anonymous usage tracking to help improve the plugin.
+- New: Rating reminder notice after 30 days of installation.
+- New: WooCommerce Subscriptions compatibility layer for site duplication.
+- Improved: JSON response handling for pending site creation in non-FastCGI environments.
 
 Version [2.4.9] - Released on 2025-12-23
 - New: Inline login prompt at checkout for existing users - returning customers can sign in directly without leaving the checkout flow.

@@ -122,7 +122,7 @@ class Rating_Notice_Manager {
 	 */
 	protected function add_rating_notice(): void {
 
-		$review_url = 'https://wordpress.org/support/plugin/developer-developer/reviews/#new-post';
+		$review_url = 'https://wordpress.org/support/plugin/developer/reviews/#new-post';
 
 		$message = sprintf(
 			/* translators: %1$s opening strong tag, %2$s closing strong tag, %3$s review link opening tag, %4$s link closing tag */

@@ -41,6 +41,7 @@ if ( ! defined('ABSPATH')) {
 				<td style="line-height: 1.6em; clear: both !important; display: block !important; max-width: 600px !important; margin: 0 auto; padding: 20px; border: 1px solid #f0f0f0;background-color:#FFFFFF">
 					<div style="line-height: 1.6em; display: block; max-width: 600px; margin: 0 auto; padding: 0;">
 						<table style="line-height: 1.6em; width: 100%; margin: 0; padding: 0;">
+							<?php if (empty($template_settings['hide_logo'])) : ?>
 							<tr>
 								<td style="background: <?php echo esc_attr($template_settings['background_color']); ?>; text-align: center; padding: 20px 40px; /* margin: -20px; */">
 									<a style="" href="<?php echo esc_attr($site_url); ?>">
@@ -56,6 +57,7 @@ if ( ! defined('ABSPATH')) {
 									</a>
 								</td>
 							</tr>
+							<?php endif; ?>
 							<tr style="">
 								<td style="">
 									<span style="font-family: <?php echo esc_attr($template_settings['content_font']); ?>; font-size: 14px; line-height: 1.6em; color: <?php echo esc_attr($template_settings['content_color']); ?>; font-weight: normal; margin: 0 0 10px; padding: 0; text-align: <?php echo esc_attr($template_settings['content_align']); ?>;"><?php echo wp_kses($content, wu_kses_allowed_html()); ?></span>

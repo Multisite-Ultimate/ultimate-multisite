@@ -23,6 +23,7 @@
     "cypress-mailpit": "^1.4.0",
     "eslint": "^8.57.1",
     "globals": "^16.5.0",
+    "lint-staged": "^16.2.7",
     "npm-run-all": "^4.1.5",
     "stylelint": "^16.26.1",
     "stylelint-config-standard": "^39.0.1",
@@ -92,5 +93,13 @@
   "dependencies": {
     "apexcharts": "^5.2.0",
     "shepherd.js": "^14.5.0"
+  },
+  "lint-staged": {
+    "assets/js/**/*.js": [
+      "eslint --fix --ignore-pattern '*.min.js'"
+    ],
+    "assets/css/**/*.css": [
+      "stylelint --fix --ignore-pattern '*.min.css'"
+    ]
   }
 }

@@ -611,6 +611,11 @@ final class WP_Ultimo {
 		\WP_Ultimo\Compat\Honeypot_Compat::get_instance();
 
 		/*
+		 * WooCommerce Subscriptions compatibility
+		 */
+		\WP_Ultimo\Compat\WooCommerce_Subscriptions_Compat::get_instance();
+
+		/*
 		 * Loads Basic White-labeling
 		 */
 		\WP_Ultimo\Whitelabel::get_instance();
@@ -645,6 +650,11 @@ final class WP_Ultimo {
 		 * Cron Schedules
 		 */
 		\WP_Ultimo\Cron::get_instance();
+
+		/*
+		 * Usage Tracker (opt-in telemetry)
+		 */
+		\WP_Ultimo\Tracker::get_instance();
 
 		\WP_Ultimo\MCP_Adapter::get_instance();
 	}
@@ -928,6 +938,11 @@ final class WP_Ultimo {
 		WP_Ultimo\Managers\Cache_Manager::get_instance();
 		WP_Ultimo\Orphaned_Tables_Manager::get_instance();
 		WP_Ultimo\Orphaned_Users_Manager::get_instance();
+
+		/*
+		 * Loads the Rating Notice manager.
+		 */
+		WP_Ultimo\Managers\Rating_Notice_Manager::get_instance();
 
 		/**
 		 * Loads views overrides

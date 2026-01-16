@@ -275,19 +275,17 @@ defined('ABSPATH') || exit;
 
 
 	<tr>
-		<th scope="row"><label for="enable_error_reporting">Send Error Data to Ultimate Multisite Developers</label></th>
+		<th scope="row"><label for="enable_error_reporting"><?php esc_html_e('Help Improve Ultimate Multisite', 'ultimate-multisite'); ?></label></th>
 		<td>
 
 			<label for="enable_error_reporting">
 				<input name="enable_error_reporting" type="checkbox" id="enable_error_reporting" value="1">
-				Send Error Data to Ultimate Multisite Developers </label>
+				<?php esc_html_e('Help Improve Ultimate Multisite', 'ultimate-multisite'); ?>
+			</label>
 
 			<p class="description" id="enable_error_reporting-desc">
-				With this option enabled, every time your installation runs into an error related to Ultimate Multisite,
-				that
-				error data will be sent to us. That way we can review, debug, and fix issues without you having to
-				manually report anything. No sensitive data gets collected, only environmental stuff (e.g. if this is
-				this is a subdomain network, etc).
+				<?php esc_html_e('Allow Ultimate Multisite to collect anonymous usage data and error reports to help us improve the plugin. We collect: PHP version, WordPress version, plugin version, network type, aggregate counts, active gateways, and error logs. We never collect personal data, customer information, or domain names.', 'ultimate-multisite'); ?>
+				<a href="https://developer.ultimatemultisite.com/privacy-policy/" target="_blank"><?php esc_html_e('Learn more', 'ultimate-multisite'); ?></a>.
 			</p>
 
 		</td>

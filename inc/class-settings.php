@@ -1734,10 +1734,14 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 			'other',
 			'enable_error_reporting',
 			[
-				'title'   => __('Send Error Data to Ultimate Multisite Developers', 'ultimate-multisite'),
-				'desc'    => __('With this option enabled, every time your installation runs into an error related to Ultimate Multisite, that error data will be sent to us. No sensitive data gets collected, only environmental stuff (e.g. if this is this is a subdomain network, etc).', 'ultimate-multisite'),
+				'title'   => __('Help Improve Ultimate Multisite', 'ultimate-multisite'),
+				'desc'    => sprintf(
+					/* translators: %s is a link to the privacy policy */
+					__('Allow Ultimate Multisite to collect anonymous usage data and error reports to help us improve the plugin. We collect: PHP version, WordPress version, plugin version, network type (subdomain/subdirectory), aggregate counts (sites, memberships), active gateways, and error logs. We never collect personal data, customer information, or domain names. <a href="%s" target="_blank">Learn more</a>.', 'ultimate-multisite'),
+					'https://developer.ultimatemultisite.com/privacy-policy/'
+				),
 				'type'    => 'toggle',
-				'default' => 1,
+				'default' => 0,
 			]
 		);
 

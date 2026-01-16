@@ -888,6 +888,10 @@ class Site_Actions_Element extends Base_Element {
 					'v-model' => 'confirmed',
 				],
 			],
+			'wu-when'       => [
+				'type'  => 'hidden',
+				'value' => base64_encode('init'), // phpcs:ignore
+			],
 			'submit_button' => [
 				'type'            => 'submit',
 				'title'           => __('Cancel Payment Method', 'ultimate-multisite'),
@@ -1052,6 +1056,10 @@ class Site_Actions_Element extends Base_Element {
 				'wrapper_html_attr' => [
 					'v-show' => 'cancellation_reason === "other"',
 				],
+			],
+			'wu-when'       => [
+				'type'  => 'hidden',
+				'value' => base64_encode('init'), // phpcs:ignore
 			],
 			'confirm'                  => [
 				'type'      => 'text',

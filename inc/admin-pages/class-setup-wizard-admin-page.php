@@ -542,7 +542,6 @@ class Setup_Wizard_Admin_Page extends Wizard_Admin_Page {
 		 */
 		$fields_to_unset = [
 			'error_reporting_header',
-			'enable_error_reporting',
 			'advanced_header',
 			'uninstall_wipe_tables',
 		];

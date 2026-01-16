@@ -272,12 +272,6 @@ class Site_Duplicator {
 			]
 		);
 
-		/*
-		 * Reset WooCommerce Subscriptions staging mode detection
-		 * to prevent the duplicated site from being locked in staging mode.
-		 */
-		self::reset_woocommerce_subscriptions_staging_mode($args->to_site_id);
-
 		return $args->to_site_id;
 	}
 
@@ -310,91 +304,5 @@ class Site_Duplicator {
 		}
 
 		return $user_id;
-	}
-
-	/**
-	 * Resets WooCommerce Subscriptions staging mode detection for a duplicated site.
-	 *
-	 * When a site is duplicated, WooCommerce Subscriptions detects the URL change
-	 * and enters "staging mode", which disables automatic payments and subscription
-	 * emails. This method resets the stored site URL to match the new site's URL,
-	 * preventing the staging mode from being triggered.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param int $site_id The ID of the newly duplicated site.
-	 * @return void
-	 */
-	protected static function reset_woocommerce_subscriptions_staging_mode($site_id) {
-
-		if ( ! $site_id) {
-			return;
-		}
-		// Ensure plugin.php is loaded for is_plugin_active_for_network()
-		if ( ! function_exists('is_plugin_active_for_network')) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-		// Check if WooCommerce Subscriptions is active on the site
-		if ( ! is_plugin_active_for_network('woocommerce-subscriptions/woocommerce-subscriptions.php')) {
-			switch_to_blog($site_id);
-
-			$active_plugins = get_option('active_plugins', []);
-
-			restore_current_blog();
-
-			if ( ! in_array('woocommerce-subscriptions/woocommerce-subscriptions.php', $active_plugins, true)) {
-				return;
-			}
-		}
-
-		// Switch to the duplicated site context
-		switch_to_blog($site_id);
-
-		try {
-			// Get the current site URL
-			$site_url = get_site_url();
-
-			// Validate that we have a non-empty site URL
-			if (empty($site_url) || ! is_string($site_url)) {
-				// Skip updates if site URL is invalid
-				return;
-			}
-
-			// Parse the URL scheme and validate the result
-			$scheme = wp_parse_url($site_url, PHP_URL_SCHEME);
-
-			// Validate wp_parse_url returned a valid scheme
-			if (empty($scheme) || ! is_string($scheme)) {
-				// Skip updates if URL parsing failed
-				return;
-			}
-
-			// Generate the obfuscated key that WooCommerce Subscriptions uses
-			// It inserts '_[wc_subscriptions_siteurl]_' in the middle of the URL
-			$scheme_with_separator   = $scheme . '://';
-			$site_url_without_scheme = str_replace($scheme_with_separator, '', $site_url);
-
-			// Validate the URL without scheme is a non-empty string
-			if (empty($site_url_without_scheme) || ! is_string($site_url_without_scheme)) {
-				// Skip updates if URL manipulation failed
-				return;
-			}
-
-			$obfuscated_url = $scheme_with_separator . substr_replace(
-				$site_url_without_scheme,
-				'_[wc_subscriptions_siteurl]_',
-				intval(strlen($site_url_without_scheme) / 2),
-				0
-			);
-
-			// Update the WooCommerce Subscriptions site URL option
-			update_option('wc_subscriptions_siteurl', $obfuscated_url);
-
-			// Delete the "ignore notice" option to ensure a clean state
-			delete_option('wcs_ignore_duplicate_siteurl_notice');
-		} finally {
-			// Always restore the original blog context, even if errors or exceptions occur
-			restore_current_blog();
-		}
 	}
 }

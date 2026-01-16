@@ -211,6 +211,18 @@ This plugin connects to several external services to provide its functionality. 
 
 All external service connections are clearly disclosed to users during setup, and most services are optional or can be configured based on your chosen hosting provider and payment methods.
 
+= Usage Tracking (Opt-In) =
+
+**Ultimate Multisite Anonymous Telemetry**
+- Service: Anonymous usage data collection to improve the plugin
+- Data sent: PHP version, WordPress version, MySQL version, server type, plugin version, active addon slugs, network type (subdomain/subdirectory), anonymized usage counts (ranges only, e.g., "11-50 sites"), active payment gateways, and sanitized error logs
+- Data NOT sent: Domain names, URLs, customer information, personal data, payment amounts, API keys, IP addresses, or exact counts
+- When: Weekly (if enabled) and when errors occur (if enabled)
+- This feature is DISABLED by default and requires explicit opt-in
+- You can enable or disable this at any time in Settings > Other > Help Improve Ultimate Multisite
+- Service URL: https://ultimatemultisite.com/wp-json/wu-telemetry/v1/track
+- Privacy Policy: https://developer.ultimatemultisite.com/privacy-policy/
+
 == Screenshots ==
 
 1. One of many settings pages.

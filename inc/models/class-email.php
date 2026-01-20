@@ -22,6 +22,76 @@ defined('ABSPATH') || exit;
 class Email extends Post_Base_Model {
 
 	/**
+	 * Meta key for system email event.
+	 */
+	const META_EVENT = 'wu_system_email_event';
+
+	/**
+	 * Meta key for style.
+	 */
+	const META_STYLE = 'wu_style';
+
+	/**
+	 * Meta key for schedule.
+	 */
+	const META_SCHEDULE = 'wu_schedule';
+
+	/**
+	 * Meta key for schedule type.
+	 */
+	const META_SCHEDULE_TYPE = 'system_email_schedule_type';
+
+	/**
+	 * Meta key for send days.
+	 */
+	const META_SEND_DAYS = 'system_email_send_days';
+
+	/**
+	 * Meta key for send hours.
+	 */
+	const META_SEND_HOURS = 'system_email_send_hours';
+
+	/**
+	 * Meta key for custom sender.
+	 */
+	const META_CUSTOM_SENDER = 'system_email_custom_sender';
+
+	/**
+	 * Meta key for custom sender name.
+	 */
+	const META_CUSTOM_SENDER_NAME = 'system_email_custom_sender_name';
+
+	/**
+	 * Meta key for custom sender email.
+	 */
+	const META_CUSTOM_SENDER_EMAIL = 'system_email_custom_sender_email';
+
+	/**
+	 * Meta key for email schedule config.
+	 */
+	const META_EMAIL_SCHEDULE = 'system_email_schedule';
+
+	/**
+	 * Meta key for target.
+	 */
+	const META_TARGET = 'wu_target';
+
+	/**
+	 * Meta key for send copy to admin.
+	 */
+	const META_SEND_COPY_TO_ADMIN = 'wu_send_copy_to_admin';
+
+	/**
+	 * Meta key for active status.
+	 */
+	const META_ACTIVE = 'wu_active';
+
+	/**
+	 * Meta key for legacy status.
+	 */
+	const META_LEGACY = 'wu_legacy';
+
+	/**
 	 * Post model.
 	 *
 	 * @since 2.0.0
@@ -171,7 +241,7 @@ class Email extends Post_Base_Model {
 	public function get_event() {
 
 		if (null === $this->event) {
-			$this->event = $this->get_meta('wu_system_email_event');
+			$this->event = $this->get_meta(self::META_EVENT);
 		}
 
 		return $this->event;
@@ -207,7 +277,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function get_style() {
 
-		$this->style = $this->get_meta('wu_style', 'html');
+		$this->style = $this->get_meta(self::META_STYLE, 'html');
 
 		if ('use_default' === $this->style) {
 			$this->style = wu_get_setting('email_template_type', 'html');
@@ -238,7 +308,7 @@ class Email extends Post_Base_Model {
 
 		$this->style = $style;
 
-		$this->meta['wu_style'] = $this->style;
+		$this->meta[ self::META_STYLE ] = $this->style;
 	}
 
 	/**
@@ -250,7 +320,7 @@ class Email extends Post_Base_Model {
 	public function has_schedule() {
 
 		if (null === $this->schedule) {
-			$this->schedule = $this->get_meta('wu_schedule', false);
+			$this->schedule = $this->get_meta(self::META_SCHEDULE, false);
 		}
 
 		return $this->schedule;
@@ -267,7 +337,7 @@ class Email extends Post_Base_Model {
 
 		$this->schedule = $schedule;
 
-		$this->meta['wu_schedule'] = $schedule;
+		$this->meta[ self::META_SCHEDULE ] = $schedule;
 	}
 
 	/**
@@ -278,7 +348,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function get_schedule_type() {
 
-		return $this->get_meta('system_email_schedule_type', 'days');
+		return $this->get_meta(self::META_SCHEDULE_TYPE, 'days');
 	}
 
 	/**
@@ -289,7 +359,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function get_send_days() {
 
-		return $this->get_meta('system_email_send_days', 0);
+		return $this->get_meta(self::META_SEND_DAYS, 0);
 	}
 
 	/**
@@ -300,7 +370,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function get_send_hours() {
 
-		return $this->get_meta('system_email_send_hours', '12:00');
+		return $this->get_meta(self::META_SEND_HOURS, '12:00');
 	}
 
 	/**
@@ -349,7 +419,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function get_custom_sender() {
 
-		return $this->get_meta('system_email_custom_sender');
+		return $this->get_meta(self::META_CUSTOM_SENDER);
 	}
 
 	/**
@@ -360,7 +430,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function get_custom_sender_name() {
 
-		return $this->get_meta('system_email_custom_sender_name');
+		return $this->get_meta(self::META_CUSTOM_SENDER_NAME);
 	}
 
 	/**
@@ -371,7 +441,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function get_custom_sender_email() {
 
-		return $this->get_meta('system_email_custom_sender_email');
+		return $this->get_meta(self::META_CUSTOM_SENDER_EMAIL);
 	}
 
 	/**
@@ -403,7 +473,7 @@ class Email extends Post_Base_Model {
 
 		$this->event = $event;
 
-		$this->meta['wu_system_email_event'] = $event;
+		$this->meta[ self::META_EVENT ] = $event;
 	}
 
 	/**
@@ -416,7 +486,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function set_email_schedule($email_schedule): void {
 
-		$this->meta['system_email_schedule'] = $email_schedule;
+		$this->meta[ self::META_EMAIL_SCHEDULE ] = $email_schedule;
 	}
 
 	/**
@@ -429,7 +499,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function set_send_hours($send_hours): void {
 
-		$this->meta['system_email_send_hours'] = $send_hours;
+		$this->meta[ self::META_SEND_HOURS ] = $send_hours;
 	}
 
 	/**
@@ -442,7 +512,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function set_send_days($send_days): void {
 
-		$this->meta['system_email_send_days'] = $send_days;
+		$this->meta[ self::META_SEND_DAYS ] = $send_days;
 	}
 
 	/**
@@ -456,7 +526,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function set_schedule_type($schedule_type): void {
 
-		$this->meta['system_email_schedule_type'] = $schedule_type;
+		$this->meta[ self::META_SCHEDULE_TYPE ] = $schedule_type;
 	}
 
 	/**
@@ -495,7 +565,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function set_custom_sender($custom_sender): void {
 
-		$this->meta['system_email_custom_sender'] = $custom_sender;
+		$this->meta[ self::META_CUSTOM_SENDER ] = $custom_sender;
 	}
 
 	/**
@@ -508,7 +578,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function set_custom_sender_name($custom_sender_name): void {
 
-		$this->meta['system_email_custom_sender_name'] = $custom_sender_name;
+		$this->meta[ self::META_CUSTOM_SENDER_NAME ] = $custom_sender_name;
 	}
 
 	/**
@@ -521,7 +591,7 @@ class Email extends Post_Base_Model {
 	 */
 	public function set_custom_sender_email($custom_sender_email): void {
 
-		$this->meta['system_email_custom_sender_email'] = $custom_sender_email;
+		$this->meta[ self::META_CUSTOM_SENDER_EMAIL ] = $custom_sender_email;
 	}
 
 	/**
@@ -533,7 +603,7 @@ class Email extends Post_Base_Model {
 	public function get_target() {
 
 		if (null === $this->target) {
-			$this->target = $this->get_meta('wu_target', 'admin');
+			$this->target = $this->get_meta(self::META_TARGET, 'admin');
 		}
 
 		return $this->target;
@@ -551,7 +621,7 @@ class Email extends Post_Base_Model {
 
 		$this->target = $target;
 
-		$this->meta['wu_target'] = $target;
+		$this->meta[ self::META_TARGET ] = $target;
 	}
 
 	/**
@@ -671,7 +741,7 @@ class Email extends Post_Base_Model {
 	public function get_send_copy_to_admin() {
 
 		if (null === $this->send_copy_to_admin) {
-			$this->send_copy_to_admin = $this->get_meta('wu_send_copy_to_admin', false);
+			$this->send_copy_to_admin = $this->get_meta(self::META_SEND_COPY_TO_ADMIN, false);
 		}
 
 		return $this->send_copy_to_admin;
@@ -688,7 +758,7 @@ class Email extends Post_Base_Model {
 
 		$this->send_copy_to_admin = $send_copy_to_admin;
 
-		$this->meta['wu_send_copy_to_admin'] = $send_copy_to_admin;
+		$this->meta[ self::META_SEND_COPY_TO_ADMIN ] = $send_copy_to_admin;
 	}
 
 	/**
@@ -700,7 +770,7 @@ class Email extends Post_Base_Model {
 	public function is_active() {
 
 		if (null === $this->active) {
-			$this->active = $this->get_meta('wu_active', true);
+			$this->active = $this->get_meta(self::META_ACTIVE, true);
 		}
 
 		return $this->active;
@@ -717,7 +787,7 @@ class Email extends Post_Base_Model {
 
 		$this->active = $active;
 
-		$this->meta['wu_active'] = $active;
+		$this->meta[ self::META_ACTIVE ] = $active;
 	}
 
 	/**
@@ -729,7 +799,7 @@ class Email extends Post_Base_Model {
 	public function is_legacy() {
 
 		if (null === $this->legacy) {
-			$this->legacy = $this->get_meta('wu_legacy', false);
+			$this->legacy = $this->get_meta(self::META_LEGACY, false);
 		}
 
 		return $this->legacy;
@@ -746,6 +816,6 @@ class Email extends Post_Base_Model {
 
 		$this->legacy = $legacy;
 
-		$this->meta['wu_legacy'] = $legacy;
+		$this->meta[ self::META_LEGACY ] = $legacy;
 	}
 }

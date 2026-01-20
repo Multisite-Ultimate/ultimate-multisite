@@ -30,6 +30,26 @@ class Payment extends Base_Model implements Notable {
 	use Traits\Notable;
 
 	/**
+	 * Meta key for line items.
+	 */
+	const META_LINE_ITEMS = 'wu_line_items';
+
+	/**
+	 * Meta key for invoice number.
+	 */
+	const META_INVOICE_NUMBER = 'wu_invoice_number';
+
+	/**
+	 * Meta key for cancel membership on refund.
+	 */
+	const META_CANCEL_MEMBERSHIP_ON_REFUND = 'wu_cancel_membership_on_refund';
+
+	/**
+	 * Meta key for original cart.
+	 */
+	const META_ORIGINAL_CART = 'wu_original_cart';
+
+	/**
 	 * ID of the product of this payment.
 	 *
 	 * @since 2.0.0
@@ -599,7 +619,7 @@ class Payment extends Base_Model implements Notable {
 	public function get_line_items(): array {
 
 		if (null === $this->line_items) {
-			$line_items = (array) $this->get_meta('wu_line_items');
+			$line_items = (array) $this->get_meta(self::META_LINE_ITEMS);
 
 			$this->line_items = array_filter($line_items);
 		}
@@ -621,7 +641,7 @@ class Payment extends Base_Model implements Notable {
 
 		$line_items = array_map(fn($item) => is_array($item) ? new \WP_Ultimo\Checkout\Line_Item($item) : $item, $line_items);
 
-		$this->meta['wu_line_items'] = $line_items;
+		$this->meta[ self::META_LINE_ITEMS ] = $line_items;
 
 		$this->line_items = $line_items;
 	}
@@ -886,7 +906,7 @@ class Payment extends Base_Model implements Notable {
 	public function get_saved_invoice_number() {
 
 		if (null === $this->invoice_number) {
-			$this->invoice_number = $this->get_meta('wu_invoice_number', '');
+			$this->invoice_number = $this->get_meta(self::META_INVOICE_NUMBER, '');
 		}
 
 		return $this->invoice_number;
@@ -907,7 +927,7 @@ class Payment extends Base_Model implements Notable {
 		$provisional = false;
 
 		if (null === $this->invoice_number) {
-			$this->invoice_number = $this->get_meta('wu_invoice_number');
+			$this->invoice_number = $this->get_meta(self::META_INVOICE_NUMBER);
 		}
 
 		if (false === $this->invoice_number) {
@@ -950,7 +970,7 @@ class Payment extends Base_Model implements Notable {
 	 */
 	public function set_invoice_number($invoice_number): void {
 
-		$this->meta['wu_invoice_number'] = $invoice_number;
+		$this->meta[ self::META_INVOICE_NUMBER ] = $invoice_number;
 
 		$this->invoice_number = $invoice_number;
 	}
@@ -990,7 +1010,7 @@ class Payment extends Base_Model implements Notable {
 	public function should_cancel_membership_on_refund() {
 
 		if (null === $this->cancel_membership_on_refund) {
-			$this->cancel_membership_on_refund = $this->get_meta('wu_cancel_membership_on_refund', false);
+			$this->cancel_membership_on_refund = $this->get_meta(self::META_CANCEL_MEMBERSHIP_ON_REFUND, false);
 		}
 
 		return $this->cancel_membership_on_refund;
@@ -1005,7 +1025,7 @@ class Payment extends Base_Model implements Notable {
 	 */
 	public function set_cancel_membership_on_refund($cancel_membership_on_refund): void {
 
-		$this->meta['wu_cancel_membership_on_refund'] = $cancel_membership_on_refund;
+		$this->meta[ self::META_CANCEL_MEMBERSHIP_ON_REFUND ] = $cancel_membership_on_refund;
 
 		$this->cancel_membership_on_refund = $cancel_membership_on_refund;
 	}

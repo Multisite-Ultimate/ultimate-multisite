@@ -26,6 +26,56 @@ class Product extends Base_Model implements Limitable {
 	use \WP_Ultimo\Traits\WP_Ultimo_Plan_Deprecated;
 
 	/**
+	 * Meta key for featured image ID.
+	 */
+	const META_FEATURED_IMAGE_ID = 'wu_featured_image_id';
+
+	/**
+	 * Meta key for taxable status.
+	 */
+	const META_TAXABLE = 'taxable';
+
+	/**
+	 * Meta key for tax category.
+	 */
+	const META_TAX_CATEGORY = 'tax_category';
+
+	/**
+	 * Meta key for contact us label.
+	 */
+	const META_CONTACT_US_LABEL = 'wu_contact_us_label';
+
+	/**
+	 * Meta key for contact us link.
+	 */
+	const META_CONTACT_US_LINK = 'wu_contact_us_link';
+
+	/**
+	 * Meta key for feature list.
+	 */
+	const META_FEATURE_LIST = 'feature_list';
+
+	/**
+	 * Meta key for price variations.
+	 */
+	const META_PRICE_VARIATIONS = 'price_variations';
+
+	/**
+	 * Meta key for limitations.
+	 */
+	const META_LIMITATIONS = 'wu_limitations';
+
+	/**
+	 * Meta key for available addons.
+	 */
+	const META_AVAILABLE_ADDONS = 'wu_available_addons';
+
+	/**
+	 * Meta key for legacy options.
+	 */
+	const META_LEGACY_OPTIONS = 'legacy_options';
+
+	/**
 	 * The product name.
 	 *
 	 * @since 2.0.0
@@ -357,7 +407,7 @@ class Product extends Base_Model implements Limitable {
 	public function get_featured_image_id() {
 
 		if (null === $this->featured_image_id) {
-			$this->featured_image_id = $this->get_meta('wu_featured_image_id');
+			$this->featured_image_id = $this->get_meta(self::META_FEATURED_IMAGE_ID);
 		}
 
 		return $this->featured_image_id;
@@ -390,7 +440,7 @@ class Product extends Base_Model implements Limitable {
 	 */
 	public function set_featured_image_id($image_id): void {
 
-		$this->meta['wu_featured_image_id'] = $image_id;
+		$this->meta[ self::META_FEATURED_IMAGE_ID ] = $image_id;
 
 		$this->featured_image_id = $image_id;
 	}
@@ -1049,7 +1099,7 @@ class Product extends Base_Model implements Limitable {
 	 */
 	public function is_taxable() {
 
-		$is_taxable = (bool) $this->get_meta('taxable', true);
+		$is_taxable = (bool) $this->get_meta(self::META_TAXABLE, true);
 
 		return apply_filters('wu_product_is_taxable', $is_taxable, $this);
 	}
@@ -1064,9 +1114,9 @@ class Product extends Base_Model implements Limitable {
 	 */
 	public function set_taxable($is_taxable): void {
 
-		$this->meta['taxable'] = (bool) $is_taxable;
+		$this->meta[ self::META_TAXABLE ] = (bool) $is_taxable;
 
-		$this->taxable = $this->meta['taxable'];
+		$this->taxable = $this->meta[ self::META_TAXABLE ];
 	}
 
 	/**
@@ -1078,7 +1128,7 @@ class Product extends Base_Model implements Limitable {
 	public function get_tax_category() {
 
 		if (null === $this->tax_category) {
-			$this->tax_category = $this->get_meta('tax_category', 'default');
+			$this->tax_category = $this->get_meta(self::META_TAX_CATEGORY, 'default');
 		}
 
 		return apply_filters('wu_product_tax_category', $this->tax_category, $this);
@@ -1094,9 +1144,9 @@ class Product extends Base_Model implements Limitable {
 	 */
 	public function set_tax_category($tax_category): void {
 
-		$this->meta['tax_category'] = $tax_category;
+		$this->meta[ self::META_TAX_CATEGORY ] = $tax_category;
 
-		$this->tax_category = $this->meta['tax_category'];
+		$this->tax_category = $this->meta[ self::META_TAX_CATEGORY ];
 	}
 
 	/**
@@ -1108,7 +1158,7 @@ class Product extends Base_Model implements Limitable {
 	public function get_contact_us_label() {
 
 		if (null === $this->contact_us_label) {
-			$this->contact_us_label = $this->get_meta('wu_contact_us_label', '');
+			$this->contact_us_label = $this->get_meta(self::META_CONTACT_US_LABEL, '');
 		}
 
 		return $this->contact_us_label;
@@ -1123,9 +1173,9 @@ class Product extends Base_Model implements Limitable {
 	 */
 	public function set_contact_us_label($contact_us_label): void {
 
-		$this->meta['wu_contact_us_label'] = $contact_us_label;
+		$this->meta[ self::META_CONTACT_US_LABEL ] = $contact_us_label;
 
-		$this->contact_us_label = $this->meta['wu_contact_us_label'];
+		$this->contact_us_label = $this->meta[ self::META_CONTACT_US_LABEL ];
 	}
 
 	/**
@@ -1137,7 +1187,7 @@ class Product extends Base_Model implements Limitable {
 	public function get_contact_us_link() {
 
 		if (null === $this->contact_us_link) {
-			$this->contact_us_link = $this->get_meta('wu_contact_us_link', '');
+			$this->contact_us_link = $this->get_meta(self::META_CONTACT_US_LINK, '');
 		}
 
 		return $this->contact_us_link;
@@ -1152,9 +1202,9 @@ class Product extends Base_Model implements Limitable {
 	 */
 	public function set_contact_us_link($contact_us_link): void {
 
-		$this->meta['wu_contact_us_link'] = $contact_us_link;
+		$this->meta[ self::META_CONTACT_US_LINK ] = $contact_us_link;
 
-		$this->contact_us_link = $this->meta['wu_contact_us_link'];
+		$this->contact_us_link = $this->meta[ self::META_CONTACT_US_LINK ];
 	}
 
 	/**
@@ -1166,7 +1216,7 @@ class Product extends Base_Model implements Limitable {
 	public function get_feature_list() {
 
 		if (null === $this->feature_list) {
-			$this->feature_list = $this->get_meta('feature_list');
+			$this->feature_list = $this->get_meta(self::META_FEATURE_LIST);
 		}
 
 		return $this->feature_list;
@@ -1181,9 +1231,9 @@ class Product extends Base_Model implements Limitable {
 	 */
 	public function set_feature_list($feature_list): void {
 
-		$this->meta['feature_list'] = $feature_list;
+		$this->meta[ self::META_FEATURE_LIST ] = $feature_list;
 
-		$this->feature_list = $this->meta['feature_list'];
+		$this->feature_list = $this->meta[ self::META_FEATURE_LIST ];
 	}
 
 	/**
@@ -1271,7 +1321,7 @@ class Product extends Base_Model implements Limitable {
 
 					return $price_variation;
 				},
-				$this->get_meta('price_variations', [])
+				$this->get_meta(self::META_PRICE_VARIATIONS, [])
 			);
 		}
 
@@ -1298,9 +1348,9 @@ class Product extends Base_Model implements Limitable {
 			$price_variations ?? []
 		);
 
-		$this->meta['price_variations'] = $price_variations;
+		$this->meta[ self::META_PRICE_VARIATIONS ] = $price_variations;
 
-		$this->price_variations = $this->meta['price_variations'];
+		$this->price_variations = $this->meta[ self::META_PRICE_VARIATIONS ];
 	}
 
 	/**
@@ -1379,7 +1429,7 @@ class Product extends Base_Model implements Limitable {
 	 */
 	public function duplicate() {
 
-		$this->meta['wu_limitations'] = $this->get_limitations(false);
+		$this->meta[ self::META_LIMITATIONS ] = $this->get_limitations(false);
 
 		$new_product = parent::duplicate();
 
@@ -1395,11 +1445,7 @@ class Product extends Base_Model implements Limitable {
 	public function get_available_addons() {
 
 		if (null === $this->available_addons) {
-			$this->available_addons = $this->get_meta(
-				'wu_
-			available_addons',
-				[]
-			);
+			$this->available_addons = $this->get_meta(self::META_AVAILABLE_ADDONS, []);
 
 			if (is_string($this->available_addons)) {
 				$this->available_addons = explode(',', $this->available_addons);
@@ -1418,9 +1464,9 @@ class Product extends Base_Model implements Limitable {
 	 */
 	public function set_available_addons($available_addons): void {
 
-		$this->meta['wu_available_addons'] = $available_addons;
+		$this->meta[ self::META_AVAILABLE_ADDONS ] = $available_addons;
 
-		$this->available_addons = $this->meta['wu_available_addons'];
+		$this->available_addons = $this->meta[ self::META_AVAILABLE_ADDONS ];
 	}
 
 	/**
@@ -1467,7 +1513,7 @@ class Product extends Base_Model implements Limitable {
 	public function get_legacy_options() {
 
 		if (null === $this->legacy_options) {
-			$this->legacy_options = $this->get_meta('legacy_options', false);
+			$this->legacy_options = $this->get_meta(self::META_LEGACY_OPTIONS, false);
 		}
 
 		return $this->legacy_options;
@@ -1482,9 +1528,9 @@ class Product extends Base_Model implements Limitable {
 	 */
 	public function set_legacy_options($legacy_options): void {
 
-		$this->meta['legacy_options'] = $legacy_options;
+		$this->meta[ self::META_LEGACY_OPTIONS ] = $legacy_options;
 
-		$this->legacy_options = $this->meta['legacy_options'];
+		$this->legacy_options = $this->meta[ self::META_LEGACY_OPTIONS ];
 	}
 
 	/**

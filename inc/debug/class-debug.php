@@ -68,8 +68,8 @@ class Debug {
 	public function add_debug_links(): void {
 		?>
 
-			<a  
-				href="<?php wu_network_admin_url('wp-ultimo-debug-pages'); ?>" 
+			<a
+				href="<?php wu_network_admin_url('wp-ultimo-debug-pages'); ?>"
 				class="wu-ml-2 wu-no-underline wu-text-gray-600"
 				title="<?php esc_html_e('Pages', 'ultimate-multisite'); ?>"
 			>
@@ -77,7 +77,7 @@ class Debug {
 				<?php esc_html_e('Pages', 'ultimate-multisite'); ?>
 			</a>
 
-			<a  
+			<a
 				href="<?php echo esc_attr(wu_get_form_url('add_debug_generator_form')); ?>"
 				class="wubox wu-ml-2 wu-no-underline wu-relative wu-text-gray-600"
 				title="<?php esc_html_e('Generator', 'ultimate-multisite'); ?>"
@@ -86,7 +86,7 @@ class Debug {
 				<?php esc_html_e('Generator', 'ultimate-multisite'); ?>
 			</a>
 
-			<a  
+			<a
 				href="<?php echo esc_attr(wu_get_form_url('add_debug_reset_database_form')); ?>"
 				class="wubox wu-ml-2 wu-no-underline wu-text-gray-600"
 				title="<?php esc_html_e('Reset Database', 'ultimate-multisite'); ?>"
@@ -95,7 +95,7 @@ class Debug {
 				<?php esc_html_e('Reset Database', 'ultimate-multisite'); ?>
 			</a>
 
-			<a  
+			<a
 				href="<?php echo esc_attr(wu_get_form_url('add_debug_drop_database_form')); ?>"
 				class="wubox wu-ml-2 wu-no-underline wu-text-gray-600"
 				title="<?php esc_html_e('Drop Database', 'ultimate-multisite'); ?>"
@@ -960,18 +960,18 @@ class Debug {
 		 * Format: $option_name => $should_use_prefix
 		 */
 		$options = [
-			'v2_settings'                  => true,
-			'debug_faker'                  => true,
-			'finished'                     => true,
-			'invoice_settings'             => true,
-			'template_placeholders'        => true,
-			'tax_rates'                    => true,
-			'top_bar_settings'             => true,
-			'wu_setup_finished'            => false,
-			'wu_activation'                => false,
-			'wu_default_email_template'    => false,
-			'wu_is_migration_done'         => false,
-			'wu_host_integrations_enabled' => false,
+			'v2_settings'                             => true,
+			'debug_faker'                             => true,
+			'finished'                                => true,
+			'invoice_settings'                        => true,
+			'template_placeholders'                   => true,
+			'tax_rates'                               => true,
+			'top_bar_settings'                        => true,
+			\WP_Ultimo::NETWORK_OPTION_SETUP_FINISHED => false,
+			'wu_activation'                           => false,
+			'wu_default_email_template'               => false,
+			'wu_is_migration_done'                    => false,
+			'wu_host_integrations_enabled'            => false,
 		];
 
 		foreach ($options as $option_name => $should_use_prefix) {

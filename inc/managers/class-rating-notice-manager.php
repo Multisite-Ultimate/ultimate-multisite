@@ -25,13 +25,6 @@ class Rating_Notice_Manager {
 	use \WP_Ultimo\Traits\Singleton;
 
 	/**
-	 * The network option key for storing installation timestamp.
-	 *
-	 * @var string
-	 */
-	const INSTALLATION_TIMESTAMP_OPTION = 'wu_installation_timestamp';
-
-	/**
 	 * The dismissible key for the rating notice.
 	 *
 	 * @var string
@@ -53,27 +46,7 @@ class Rating_Notice_Manager {
 	 */
 	public function init(): void {
 
-		add_action('wu_activation', [$this, 'store_installation_timestamp']);
-
 		add_action('admin_init', [$this, 'maybe_add_rating_notice']);
-	}
-
-	/**
-	 * Stores the installation timestamp on plugin activation.
-	 *
-	 * Only stores the timestamp if it hasn't been set before,
-	 * so re-activations don't reset the timer.
-	 *
-	 * @since 2.4.10
-	 * @return void
-	 */
-	public function store_installation_timestamp(): void {
-
-		$existing_timestamp = get_network_option(null, self::INSTALLATION_TIMESTAMP_OPTION);
-
-		if (empty($existing_timestamp)) {
-			update_network_option(null, self::INSTALLATION_TIMESTAMP_OPTION, time());
-		}
 	}
 
 	/**
@@ -103,7 +76,7 @@ class Rating_Notice_Manager {
 	 */
 	protected function should_show_notice(): bool {
 
-		$installation_timestamp = get_network_option(null, self::INSTALLATION_TIMESTAMP_OPTION);
+		$installation_timestamp = get_network_option(null, \WP_Ultimo::NETWORK_OPTION_SETUP_FINISHED);
 
 		if (empty($installation_timestamp)) {
 			return false;
@@ -122,11 +95,11 @@ class Rating_Notice_Manager {
 	 */
 	protected function add_rating_notice(): void {
 
-		$review_url = 'https://wordpress.org/support/plugin/developer/reviews/#new-post';
+		$review_url = 'https://wordpress.org/support/plugin/ultimate-multisite/reviews/#new-post';
 
 		$message = sprintf(
 			/* translators: %1$s opening strong tag, %2$s closing strong tag, %3$s review link opening tag, %4$s link closing tag */
-			__('Hey there! You\'ve been using %1$sUltimate Multisite%2$s for a while now. If it\'s been helpful for your network, we\'d really appreciate a quick review on WordPress.org. Your feedback helps other users discover the plugin and motivates us to keep improving it. %3$sLeave a review%4$s', 'ultimate-multisite'),
+			__('Hello! You\'ve been using %1$sUltimate Multisite%2$s for a while now. If it\'s been helpful for your network, we\'d really appreciate a quick review on WordPress.org. Your feedback helps other users discover the plugin and motivates us to keep improving it. %3$sLeave a review%4$s', 'ultimate-multisite'),
 			'<strong>',
 			'</strong>',
 			'<a href="' . esc_url($review_url) . '" target="_blank" rel="noopener">',

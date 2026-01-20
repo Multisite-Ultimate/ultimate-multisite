@@ -41,6 +41,8 @@ final class WP_Ultimo {
 	 */
 	const LOG_HANDLE = 'ultimate-multisite-core';
 
+	const NETWORK_OPTION_SETUP_FINISHED = 'wu_setup_finished';
+
 	/**
 	 * Version of the Plugin.
 	 *

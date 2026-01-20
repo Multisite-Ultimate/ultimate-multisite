@@ -1738,7 +1738,7 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 				'desc'    => sprintf(
 					/* translators: %s is a link to the privacy policy */
 					__('Allow Ultimate Multisite to collect anonymous usage data and error reports to help us improve the plugin. We collect: PHP version, WordPress version, plugin version, network type (subdomain/subdirectory), aggregate counts (sites, memberships), active gateways, and error logs. We never collect personal data, customer information, or domain names. <a href="%s" target="_blank">Learn more</a>.', 'ultimate-multisite'),
-					'https://developer.ultimatemultisite.com/privacy-policy/'
+					'https://ultimatemultisite.com/privacy-policy/'
 				),
 				'type'    => 'toggle',
 				'default' => 0,

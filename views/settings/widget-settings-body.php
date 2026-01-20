@@ -285,7 +285,7 @@ defined('ABSPATH') || exit;
 
 			<p class="description" id="enable_error_reporting-desc">
 				<?php esc_html_e('Allow Ultimate Multisite to collect anonymous usage data and error reports to help us improve the plugin. We collect: PHP version, WordPress version, plugin version, network type, aggregate counts, active gateways, and error logs. We never collect personal data, customer information, or domain names.', 'ultimate-multisite'); ?>
-				<a href="https://developer.ultimatemultisite.com/privacy-policy/" target="_blank"><?php esc_html_e('Learn more', 'ultimate-multisite'); ?></a>.
+				<a href="https://ultimatemultisite.com/privacy-policy/" target="_blank"><?php esc_html_e('Learn more', 'ultimate-multisite'); ?></a>.
 			</p>
 
 		</td>

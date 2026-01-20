@@ -75,9 +75,6 @@ class Tracker implements \WP_Ultimo\Interfaces\Singleton {
 		// Hook into Logger for error reporting (now receives log level as 3rd param)
 		add_action('wu_log_add', [$this, 'maybe_send_error'], 10, 3);
 
-		// Hook into WordPress fatal error handler
-		add_filter('wp_should_handle_php_error', [$this, 'handle_fatal_error'], 10, 2);
-
 		// Customize fatal error message for network sites
 		add_filter('wp_php_error_message', [$this, 'customize_fatal_error_message'], 10, 2);
 
@@ -436,50 +433,7 @@ class Tracker implements \WP_Ultimo\Interfaces\Singleton {
 		$error_data = $this->prepare_error_data($handle, $message, $log_level);
 
 		// Send asynchronously to avoid blocking
-		$this->send_to_api_async($error_data, 'error');
-	}
-
-	/**
-	 * Handle PHP fatal errors via WordPress fatal error handler.
-	 *
-	 * This filter fires for all PHP fatal errors. We use it to log errors
-	 * to telemetry when tracking is enabled. We always return the original
-	 * value to not interfere with WordPress error handling.
-	 *
-	 * @since 2.5.0
-	 * @param bool  $should_handle Whether WordPress should handle this error.
-	 * @param array $error Error information from error_get_last().
-	 * @return bool The original $should_handle value.
-	 */
-	public function handle_fatal_error(bool $should_handle, array $error): bool {
-
-		if ( ! $this->is_tracking_enabled()) {
-			return $should_handle;
-		}
-
-		// Check if error is related to Ultimate Multisite
-		$error_file = $error['file'] ?? '';
-
-		if (strpos($error_file, 'ultimate-multisite') === false &&
-			strpos($error_file, 'wp-multisite-waas') === false &&
-			strpos($error_file, 'wu-') === false) {
-			return $should_handle;
-		}
-
-		$error_message = sprintf(
-			'[PHP %s] %s in %s on line %d',
-			$this->get_error_type_name($error['type'] ?? 0),
-			$error['message'] ?? 'Unknown error',
-			$error['file'] ?? 'unknown',
-			$error['line'] ?? 0
-		);
-
-		$error_data = $this->prepare_error_data('fatal', $error_message, \Psr\Log\LogLevel::CRITICAL);
-
-		// Send synchronously since we're about to die
-		$this->send_to_api($error_data, 'error');
-
-		return $should_handle;
+		$this->send_to_api($error_data, 'error', true);
 	}
 
 	/**
@@ -528,7 +482,7 @@ class Tracker implements \WP_Ultimo\Interfaces\Singleton {
 		}
 
 		// Get network admin email if available
-		$admin_email = get_site_option('admin_email', '');
+		$admin_email = wu_get_setting('company_email', get_site_option('admin_email', ''));
 
 		if ($admin_email && is_multisite()) {
 			$custom_message .= ' ' . sprintf(
@@ -538,23 +492,363 @@ class Tracker implements \WP_Ultimo\Interfaces\Singleton {
 			);
 		}
 
+		$error_details = $this->build_error_details($error);
+
 		// Link to support for super admins, main site for regular users
 		if (is_super_admin()) {
-			$help_url  = 'https://ultimatemultisite.com/support/';
-			$help_text = __('Get support', 'ultimate-multisite');
+			$support_url = $this->build_support_url($error_details, $admin_email);
+			$message     = $this->build_admin_error_message($custom_message, $error_details, $support_url);
 		} else {
-			$help_url  = network_home_url('/');
-			$help_text = __('Return to the main site', 'ultimate-multisite');
+			$home_url = network_home_url('/');
+			$message  = $this->build_user_error_message($custom_message, $home_url);
 		}
 
-		$message = sprintf(
-			'<p>%s</p><p><a href="%s">%s</a></p>',
-			$custom_message,
-			esc_url($help_url),
-			$help_text
+		if ($this->is_tracking_enabled() && str_contains($error_file, 'ultimate-multisite')) {
+			$error_message = sprintf(
+				'[PHP %s] %s in %s on line %d',
+				$this->get_error_type_name($error['type'] ?? 0),
+				$error['message'] ?? 'Unknown error',
+				$error['file'] ?? 'unknown',
+				$error['line'] ?? 0
+			);
+
+			$error_data = $this->prepare_error_data('fatal', $error_details['full'], \Psr\Log\LogLevel::CRITICAL);
+
+			// Send synchronously since we're about to die
+			$this->send_to_api($error_data, 'error');
+		}
+		return $message;
+	}
+
+	/**
+	 * Get normalized error context from an error array.
+	 *
+	 * @since 2.5.0
+	 * @param array $error Error information from error_get_last().
+	 * @return array Normalized error context with type, message, file, line, and environment.
+	 */
+	protected function get_error_context(array $error): array {
+
+		$file = $error['file'] ?? '';
+
+		return [
+			'type'          => $this->get_error_type_name($error['type'] ?? 0),
+			'message'       => $error['message'] ?? __('Unknown error', 'ultimate-multisite'),
+			'file'          => $file ?: __('Unknown file', 'ultimate-multisite'),
+			'line'          => $error['line'] ?? 0,
+			'trace'         => $error['trace'] ?? [],
+			'source_plugin' => $this->detect_plugin_from_path($file),
+			'php'           => PHP_VERSION,
+			'wp'            => get_bloginfo('version'),
+			'plugin'        => wu_get_version(),
+			'multisite'     => is_multisite() ? 'Yes' : 'No',
+			'subdomain'     => is_subdomain_install() ? 'Yes' : 'No',
+		];
+	}
+
+	/**
+	 * Detect the plugin or theme name from a file path.
+	 *
+	 * @since 2.5.0
+	 * @param string $file_path The file path from the error.
+	 * @return string The detected plugin/theme name or 'Unknown'.
+	 */
+	protected function detect_plugin_from_path(string $file_path): string {
+
+		if (empty($file_path)) {
+			return __('Unknown', 'ultimate-multisite');
+		}
+
+		// Normalize path separators
+		$file_path = str_replace('\\', '/', $file_path);
+
+		// Check for plugins directory
+		if (preg_match('#/plugins/([^/]+)/#', $file_path, $matches)) {
+			return $this->format_plugin_name($matches[1]);
+		}
+
+		// Check for mu-plugins directory
+		if (preg_match('#/mu-plugins/([^/]+)#', $file_path, $matches)) {
+			$name = $matches[1];
+			// Handle single file mu-plugins
+			if (strpos($name, '.php') !== false) {
+				$name = basename($name, '.php');
+			}
+
+			return $this->format_plugin_name($name) . ' (mu-plugin)';
+		}
+
+		// Check for themes directory
+		if (preg_match('#/themes/([^/]+)/#', $file_path, $matches)) {
+			return $this->format_plugin_name($matches[1]) . ' (theme)';
+		}
+
+		// Check for wp-includes or wp-admin (WordPress core)
+		if (preg_match('#/wp-(includes|admin)/#', $file_path)) {
+			return 'WordPress Core';
+		}
+
+		return __('Unknown', 'ultimate-multisite');
+	}
+
+	/**
+	 * Format a plugin slug into a readable name.
+	 *
+	 * @since 2.5.0
+	 * @param string $slug The plugin slug/folder name.
+	 * @return string The formatted name.
+	 */
+	protected function format_plugin_name(string $slug): string {
+
+		// Replace hyphens and underscores with spaces, then title case
+		$name = str_replace(['-', '_'], ' ', $slug);
+
+		return ucwords($name);
+	}
+
+	/**
+	 * Build the technical error details string.
+	 *
+	 * @since 2.5.0
+	 * @param array $error Error information from error_get_last().
+	 * @return array Contains 'summary' and 'full' keys.
+	 */
+	protected function build_error_details(array $error): array {
+
+		$ctx = $this->get_error_context($error);
+
+		$summary = sprintf('%s: %s', $ctx['type'], $ctx['message']);
+
+		$full = sprintf(
+			"%s: %s\n\nSource: %s\nFile: %s\nLine: %d\n\nEnvironment:\n- PHP: %s\n- WordPress: %s\n- Ultimate Multisite: %s\n- Multisite: %s\n- Subdomain Install: %s",
+			$ctx['type'],
+			$ctx['message'],
+			$ctx['source_plugin'],
+			$ctx['file'],
+			$ctx['line'],
+			$ctx['php'],
+			$ctx['wp'],
+			$ctx['plugin'],
+			$ctx['multisite'],
+			$ctx['subdomain']
 		);
 
-		return $message;
+		if ( ! empty($ctx['trace'])) {
+			$full .= "\n\nBacktrace:\n" . $this->format_backtrace($ctx['trace']);
+		}
+
+		return [
+			'summary'       => $summary,
+			'type'          => $ctx['type'],
+			'full'          => $full,
+			'source_plugin' => $ctx['source_plugin'],
+		];
+	}
+
+	/**
+	 * Format a backtrace array into a readable string.
+	 *
+	 * @since 2.5.0
+	 * @param array $trace The backtrace array.
+	 * @return string
+	 */
+	protected function format_backtrace(array $trace): string {
+
+		$lines = [];
+
+		foreach ($trace as $index => $frame) {
+			$file     = $frame['file'] ?? '[internal]';
+			$line     = $frame['line'] ?? 0;
+			$function = $frame['function'] ?? '[unknown]';
+			$class    = $frame['class'] ?? '';
+			$type     = $frame['type'] ?? '';
+
+			$call = $class ? "{$class}{$type}{$function}()" : "{$function}()";
+
+			$lines[] = sprintf('#%d %s:%d %s', $index, $file, $line, $call);
+		}
+
+		return implode("\n", $lines);
+	}
+
+	/**
+	 * Sanitize error text for URL parameters to avoid WAF triggers.
+	 *
+	 * Uses Unicode lookalike characters to preserve readability while
+	 * preventing Cloudflare and other WAFs from flagging the content
+	 * as malicious payloads.
+	 *
+	 * @since 2.5.0
+	 * @param string $text The error text to sanitize.
+	 * @return string
+	 */
+	protected function sanitize_error_for_url(string $text): string {
+
+		// Unicode lookalike replacements
+		$replacements = [
+			// Path separators - use division slash (U+2215) and reverse solidus operator (U+29F5)
+			'/'           => "\u{2215}",  // ∕ DIVISION SLASH
+			'\\'          => "\u{29F5}",  // ⧵ REVERSE SOLIDUS OPERATOR
+
+			// File extension dots - use fullwidth full stop (U+FF0E)
+			'.php'        => "\u{FF0E}php",  // ．php
+			'.js'         => "\u{FF0E}js",
+			'.sql'        => "\u{FF0E}sql",
+			'.sh'         => "\u{FF0E}sh",
+			'.exe'        => "\u{FF0E}exe",
+			'.inc'        => "\u{FF0E}inc",
+
+			// PHP tags - use fullwidth less/greater than (U+FF1C, U+FF1E)
+			'<?php'       => "\u{FF1C}?php",  // ＜?php
+			'<?'          => "\u{FF1C}?",
+			'?>'          => "?\u{FF1E}",
+
+			// Common dangerous function patterns - use fullwidth parentheses (U+FF08)
+			'eval('       => "eval\u{FF08}",   // eval（
+			'exec('       => "exec\u{FF08}",
+			'system('     => "system\u{FF08}",
+			'shell_exec(' => "shell_exec\u{FF08}",
+			'passthru('   => "passthru\u{FF08}",
+			'popen('      => "popen\u{FF08}",
+			'proc_open('  => "proc_open\u{FF08}",
+
+			// SQL injection patterns - use fullwidth semicolon (U+FF1B)
+			'; DROP'      => "\u{FF1B} DROP",
+			'; SELECT'    => "\u{FF1B} SELECT",
+			'; INSERT'    => "\u{FF1B} INSERT",
+			'; UPDATE'    => "\u{FF1B} UPDATE",
+			'; DELETE'    => "\u{FF1B} DELETE",
+			"' OR '"      => "\u{FF07} OR \u{FF07}",  // fullwidth apostrophe
+			'" OR "'      => "\u{FF02} OR \u{FF02}",  // fullwidth quotation mark
+
+			// XSS patterns - use fullwidth less than (U+FF1C)
+			'<script'     => "\u{FF1C}script",
+			'<iframe'     => "\u{FF1C}iframe",
+			'<img'        => "\u{FF1C}img",
+
+			// Path traversal already handled by / replacement, but be explicit
+			'..∕'         => "\u{FF0E}\u{FF0E}\u{2215}",  // ．．∕
+		];
+
+		// Apply replacements (order matters - do multi-char patterns first)
+		$text = str_replace(array_keys($replacements), array_values($replacements), $text);
+
+		return $text;
+	}
+
+	/**
+	 * Build the support URL with pre-filled error information.
+	 *
+	 * @since 2.5.0
+	 * @param array  $error_details Error details array with 'type', 'source_plugin', and 'full' keys.
+	 * @param string $admin_email The admin email address.
+	 * @return string
+	 */
+	protected function build_support_url(array $error_details, string $admin_email): string {
+
+		// translators: %1$s is the type of error message, %2$s is the source plugin
+		$subject = sprintf(__('[%1$s] in %2$s', 'ultimate-multisite'), $error_details['type'], $error_details['source_plugin']);
+
+		// Sanitize error details to avoid WAF triggers using Unicode lookalikes
+		$safe_error = $this->sanitize_error_for_url($error_details['full']);
+
+		return add_query_arg(
+			[
+				'wpf17_3' => rawurlencode($admin_email),
+				'wpf17_6' => rawurlencode($subject),
+				'wpf17_5' => rawurlencode(
+					__('Please describe what you were doing when this error occurred:', 'ultimate-multisite') .
+					"\n\n--- ---\n" .
+					$safe_error
+				),
+			],
+			'https://ultimatemultisite.com/support/'
+		);
+	}
+
+	/**
+	 * Build the error message HTML for super admins with technical details.
+	 *
+	 * @since 2.5.0
+	 * @param string $custom_message The main error message.
+	 * @param array  $error_details Contains 'summary', 'full', and 'source_plugin' error details.
+	 * @param string $support_url The support URL with pre-filled params.
+	 * @return string
+	 */
+	protected function build_admin_error_message(string $custom_message, array $error_details, string $support_url): string {
+
+		$show_details_text = esc_html__('Show Technical Details', 'ultimate-multisite');
+		$copy_text         = esc_html__('Copy to Clipboard', 'ultimate-multisite');
+		$copied_text       = esc_html__('Copied!', 'ultimate-multisite');
+		$get_support_text  = esc_html__('Get Support from Ultimate Multisite', 'ultimate-multisite');
+		$source_label      = esc_html__('Source:', 'ultimate-multisite');
+		$escaped_details   = esc_html($error_details['full']);
+		$escaped_support   = esc_attr($support_url);
+		$source_plugin     = esc_html($error_details['source_plugin'] ?? __('Unknown', 'ultimate-multisite'));
+
+		return <<<HTML
+<style>
+.wu-error-container { max-width: 600px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+.wu-error-source { background: #fcf0f1; border-left: 4px solid #d63638; padding: 12px 16px; margin: 1em 0; }
+.wu-error-source strong { color: #d63638; }
+.wu-error-actions { display: flex; gap: 10px; margin: 1.5em 0; }
+.wu-error-btn { display: inline-block; padding: 10px 16px; border-radius: 4px; text-decoration: none; font-size: 14px; cursor: pointer; }
+.wu-error-btn-primary { background: #2271b1; color: #fff; border: none; }
+.wu-error-btn-primary:hover { background: #135e96; color: #fff; }
+.wu-error-btn-secondary { background: #f0f0f1; color: #2c3338; border: 1px solid #ccc; }
+.wu-error-btn-success { background: #00a32a; color: #fff; border: 1px solid #00a32a; }
+.wu-error-details { margin-top: 1em; }
+.wu-error-details summary { cursor: pointer; font-weight: 500; padding: 8px 0; }
+.wu-error-details pre { background: #f6f7f7; border: 1px solid #dcdcde; border-radius: 4px; padding: 1em; font-size: 13px; white-space: pre-wrap; word-break: break-word; margin: 0.5em 0; }
+</style>
+<div class="wu-error-container">
+	<p>{$custom_message}</p>
+	<div class="wu-error-source">
+		<strong>{$source_label}</strong> {$source_plugin}
+	</div>
+	<div class="wu-error-actions">
+		<a href="{$escaped_support}" class="wu-error-btn wu-error-btn-primary" target="_blank">{$get_support_text}</a>
+	</div>
+	<details class="wu-error-details">
+		<summary>{$show_details_text}</summary>
+		<pre id="wu-error-text">{$escaped_details}</pre>
+		<button type="button" id="wu-copy-btn" class="wu-error-btn wu-error-btn-secondary" data-copy="{$copy_text}" data-copied="{$copied_text}">{$copy_text}</button>
+	</details>
+</div>
+<script>
+document.getElementById('wu-copy-btn').onclick = function() {
+	var btn = this;
+	navigator.clipboard.writeText(document.getElementById('wu-error-text').textContent).then(function() {
+		btn.textContent = btn.dataset.copied;
+		btn.className = 'wu-error-btn wu-error-btn-success';
+		setTimeout(function() {
+			btn.textContent = btn.dataset.copy;
+			btn.className = 'wu-error-btn wu-error-btn-secondary';
+		}, 2000);
+	});
+};
+</script>
+HTML;
+	}
+
+	/**
+	 * Build the error message HTML for regular users (non-admin).
+	 *
+	 * @since 2.5.0
+	 * @param string $custom_message The main error message.
+	 * @param string $home_url The network home URL.
+	 * @return string
+	 */
+	protected function build_user_error_message(string $custom_message, string $home_url): string {
+
+		$return_text = __('Return to the main site', 'ultimate-multisite');
+
+		return sprintf(
+			'<p>%s</p><p><a href="%s">%s</a></p>',
+			$custom_message,
+			esc_url($home_url),
+			$return_text
+		);
 	}
 
 	/**
@@ -607,8 +901,8 @@ class Tracker implements \WP_Ultimo\Interfaces\Singleton {
 	protected function sanitize_error_message(string $message): string {
 
 		// Remove file paths (Unix and Windows)
-		$message = preg_replace('/\/[^\s\'"]+/', '[path]', $message);
-		$message = preg_replace('/[A-Z]:\\\\[^\s\'"]+/', '[path]', $message);
+		$message = str_replace(ABSPATH, 'ABSPATH', $message);
+		$message = str_replace(dirname(ABSPATH), '', $message);
 
 		// Remove potential domain names
 		$message = preg_replace('/https?:\/\/[^\s\'"]+/', '[url]', $message);
@@ -630,60 +924,23 @@ class Tracker implements \WP_Ultimo\Interfaces\Singleton {
 	 * @since 2.5.0
 	 * @param array  $data The data to send.
 	 * @param string $type The type of data (usage|error).
+	 * @param bool   $async Whether to send asynchronously.
 	 * @return array|\WP_Error
 	 */
-	protected function send_to_api(array $data, string $type) {
+	protected function send_to_api(array $data, string $type, bool $async = false) {
 
 		$url = add_query_arg('type', $type, self::API_URL);
 
-		$response = wp_safe_remote_post(
+		return wp_safe_remote_post(
 			$url,
 			[
-				'method'      => 'POST',
-				'timeout'     => 15,
-				'redirection' => 5,
-				'httpversion' => '1.1',
-				'blocking'    => true,
-				'headers'     => [
+				'method'   => 'POST',
+				'blocking' => ! $async,
+				'headers'  => [
 					'Content-Type' => 'application/json',
 					'User-Agent'   => 'UltimateMultisite/' . wu_get_version(),
 				],
-				'body'        => wp_json_encode($data),
-			]
-		);
-
-		if (is_wp_error($response)) {
-			Logger::add('tracker', 'Failed to send tracking data: ' . $response->get_error_message());
-		}
-
-		return $response;
-	}
-
-	/**
-	 * Send data to the API asynchronously.
-	 *
-	 * @since 2.5.0
-	 * @param array  $data The data to send.
-	 * @param string $type The type of data.
-	 * @return void
-	 */
-	protected function send_to_api_async(array $data, string $type): void {
-
-		$url = add_query_arg('type', $type, self::API_URL);
-
-		wp_safe_remote_post(
-			$url,
-			[
-				'method'      => 'POST',
-				'timeout'     => 0.01,  // Non-blocking
-				'redirection' => 0,
-				'httpversion' => '1.1',
-				'blocking'    => false,
-				'headers'     => [
-					'Content-Type' => 'application/json',
-					'User-Agent'   => 'UltimateMultisite/' . wu_get_version(),
-				],
-				'body'        => wp_json_encode($data),
+				'body'     => wp_json_encode($data),
 			]
 		);
 	}

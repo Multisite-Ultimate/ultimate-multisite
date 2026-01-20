@@ -231,7 +231,7 @@ class Sunrise {
 					 */
 					add_filter('option_active_plugins', fn() => []);
 
-					add_filter('site_option_active_sitewide_plugins', fn() => [basename(dirname(__DIR__)) . '/wp-ultimo.php' => 1], 10, 0);
+					add_filter('site_option_active_sitewide_plugins', fn() => [basename(dirname(__DIR__)) . '/ultimate-multisite.php' => 1], 10, 0);
 				}
 			}
 		}

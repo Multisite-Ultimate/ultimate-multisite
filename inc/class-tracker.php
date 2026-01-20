@@ -906,7 +906,7 @@ HTML;
 
 		// Remove potential domain names
 		$message = preg_replace('/https?:\/\/[^\s\'"]+/', '[url]', $message);
-		$message = preg_replace('/[a-zA-Z0-9][a-zA-Z0-9\-]*\.[a-zA-Z]{2,}/', '[domain]', $message);
+		$message = preg_replace('/\b[a-zA-Z0-9][a-zA-Z0-9\-]*\.(?!(?:php|js|jsx|ts|tsx|css|scss|sass|less|html|htm|json|xml|txt|md|yml|yaml|ini|log|sql|sh|py|rb|go|vue|svelte|map|lock|twig|phtml|inc|mo|po|pot)\b)[a-zA-Z]{2,}\b/', '[domain]', $message);
 
 		// Remove potential email addresses
 		$message = preg_replace('/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/', '[email]', $message);

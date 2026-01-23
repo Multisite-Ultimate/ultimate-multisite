@@ -269,7 +269,7 @@ class Site_Manager extends Base_Manager {
 	 */
 	public function lock_site(): void {
 
-		if (is_main_site() || is_admin() || wu_is_login_page() || wp_doing_ajax() || wu_request('wu-ajax') || wp_is_rest_endpoint()) {
+		if (is_main_site() || is_admin() || wu_is_login_page() || wp_doing_ajax() || wu_request('wu-ajax') || (function_exists('wp_is_rest_endpoint') && wp_is_rest_endpoint())) {
 			return;
 		}
 

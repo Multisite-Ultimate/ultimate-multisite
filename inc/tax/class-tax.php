@@ -34,12 +34,10 @@ class Tax {
 
 		// Always register the Tax Rates admin page so users can manage rates even when taxes are disabled.
 		add_action('wp_ultimo_admin_pages', [$this, 'add_admin_page']);
+		add_action('wp_ajax_wu_get_tax_rates', [$this, 'serve_taxes_rates_via_ajax']);
+		add_action('wp_ajax_wu_save_tax_rates', [$this, 'save_taxes_rates']);
 
 		if ($this->is_enabled()) {
-			add_action('wp_ajax_wu_get_tax_rates', [$this, 'serve_taxes_rates_via_ajax']);
-
-			add_action('wp_ajax_wu_save_tax_rates', [$this, 'save_taxes_rates']);
-
 			add_action(
 				'wu_before_search_models',
 				function () {

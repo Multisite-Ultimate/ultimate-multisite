@@ -12,6 +12,8 @@
 namespace WP_Ultimo\Compat;
 
 // Exit if accessed directly
+use Psr\Log\LogLevel;
+
 defined('ABSPATH') || exit;
 
 /**
@@ -89,16 +91,14 @@ class WooCommerce_Subscriptions_Compat {
 		if (! $site_id) {
 			return;
 		}
-
-		$option_exists = get_option('wc_subscriptions_siteurl');
-
-		if (! $option_exists) {
-			return;
-		}
-
 		switch_to_blog($site_id);
 
 		try {
+			$option_exists = get_option('wc_subscriptions_siteurl');
+
+			if (! $option_exists) {
+				return;
+			}
 			$site_url = get_site_url();
 
 			if (empty($site_url) || ! is_string($site_url)) {
@@ -132,6 +132,8 @@ class WooCommerce_Subscriptions_Compat {
 			update_option('wc_subscriptions_siteurl', $obfuscated_url);
 
 			delete_option('wcs_ignore_duplicate_siteurl_notice');
+		} catch (\Error $e) {
+			wu_log_add('site-duplication-errors', $e->getMessage(), LogLevel::ERROR);
 		} finally {
 			restore_current_blog();
 		}

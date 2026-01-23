@@ -5,7 +5,7 @@ Tags: multisite, waas, membership, domain-mapping, subscription
 Requires at least: 5.3
 Requires PHP: 7.4.30
 Tested up to: 6.9
-Stable tag: 2.4.9
+Stable tag: 2.4.10
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 The Complete Network Solution for transforming your WordPress Multisite into a Website as a Service (WaaS) platform.
@@ -240,7 +240,7 @@ We recommend running this in a staging environment before updating your producti
 
 == Changelog ==
 
-Version [2.4.10] - Released on 2026-XX-XX
+Version [2.4.10] - Released on 2026-01-23
 - New: Configurable minimum password strength setting with Medium, Strong, and Super Strong options.
 - New: Super Strong password requirements include 12+ characters, uppercase, lowercase, numbers, and special characters - compatible with WPMU DEV Defender Pro rules.
 - New: Real-time password requirement hints during checkout with translatable strings.

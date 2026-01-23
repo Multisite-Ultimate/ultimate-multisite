@@ -199,6 +199,16 @@ We recommend running this in a staging environment before updating your producti
 
 ## 📝 Recent Changes
 
+### Version [2.4.10] - Released on 2026-01-23
+- New: Configurable minimum password strength setting with Medium, Strong, and Super Strong options.
+- New: Super Strong password requirements include 12+ characters, uppercase, lowercase, numbers, and special characters - compatible with WPMU DEV Defender Pro rules.
+- New: Real-time password requirement hints during checkout with translatable strings.
+- New: Themed password field styling with visibility toggle and color fallbacks for page builders (Elementor, Kadence, Beaver Builder).
+- New: Opt-in anonymous usage tracking to help improve the plugin.
+- New: Rating reminder notice after 30 days of installation.
+- New: WooCommerce Subscriptions compatibility layer for site duplication.
+- Improved: JSON response handling for pending site creation in non-FastCGI environments.
+
 ### Version [2.4.9] - Released on 2025-12-23
 - New: Inline login prompt at checkout for existing users - returning customers can sign in directly without leaving the checkout flow.
 - New: GitHub Actions workflow for PR builds with WordPress Playground testing - enables one-click browser-based testing of pull requests.

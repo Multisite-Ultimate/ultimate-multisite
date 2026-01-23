@@ -135,7 +135,7 @@ class Billing_Info_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
+		return __('Displays the customer\'s billing address and contact information.', 'ultimate-multisite');
 	}
 
 	/**
@@ -313,14 +313,14 @@ class Billing_Info_Element extends Base_Element {
 	 * Renders the update billing address form.
 	 *
 	 * @since 2.0.0
-	 * @return string
+	 * @return void
 	 */
 	public function render_update_billing_address() {
 
 		$membership = wu_get_membership_by_hash(wu_request('membership'));
 
 		if ( ! $membership) {
-			return '';
+			return;
 		}
 
 		$billing_address = $membership->get_billing_address();

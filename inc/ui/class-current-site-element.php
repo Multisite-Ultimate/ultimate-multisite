@@ -124,7 +124,7 @@ class Current_Site_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds a block to display the current site being managed.', 'ultimate-multisite');
+		return __('Displays details about the currently selected site including title, URL, and quick actions.', 'ultimate-multisite');
 	}
 
 	/**
@@ -405,14 +405,14 @@ class Current_Site_Element extends Base_Element {
 	 * Renders the edit site modal.
 	 *
 	 * @since 2.0.0
-	 * @return string
+	 * @return void
 	 */
 	public function render_edit_site() {
 
 		$site = wu_get_site_by_hash(wu_request('site'));
 
 		if ( ! $site) {
-			return '';
+			return;
 		}
 
 		$fields = [

@@ -508,6 +508,7 @@ final class WP_Ultimo {
 		\WP_Ultimo\UI\Domain_Mapping_Element::get_instance();
 		\WP_Ultimo\UI\Site_Maintenance_Element::get_instance();
 		\WP_Ultimo\UI\Template_Switching_Element::get_instance();
+		\WP_Ultimo\UI\Magic_Link_Url_Element::get_instance();
 
 		/*
 		 * Loads our Light Ajax implementation
@@ -687,6 +688,11 @@ final class WP_Ultimo {
 		 * Initialize magic links for admin bar My Sites menu.
 		 */
 		\WP_Ultimo\SSO\Admin_Bar_Magic_Links::get_instance();
+
+		/*
+		 * Initialize subsite links for nav menus.
+		 */
+		\WP_Ultimo\SSO\Nav_Menu_Subsite_Links::get_instance();
 
 		/*
 		 * Loads the Checkout Form admin page.

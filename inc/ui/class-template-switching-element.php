@@ -92,7 +92,7 @@ class Template_Switching_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds the template switching form to this page.', 'ultimate-multisite');
+		return __('Allows customers to switch their site to a different template design.', 'ultimate-multisite');
 	}
 
 	/**

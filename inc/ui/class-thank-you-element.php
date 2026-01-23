@@ -172,7 +172,7 @@ class Thank_You_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
+		return __('Displays a confirmation message after successful checkout or registration.', 'ultimate-multisite');
 	}
 
 	/**

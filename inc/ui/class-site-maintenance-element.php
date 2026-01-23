@@ -104,7 +104,7 @@ class Site_Maintenance_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds the toggle control to turn maintenance mode on.', 'ultimate-multisite');
+		return __('Provides a toggle control for customers to enable or disable site maintenance mode.', 'ultimate-multisite');
 	}
 
 	/**

@@ -40,6 +40,8 @@ class WooCommerce_Subscriptions_Compat {
 		add_action('wu_duplicate_site', [$this, 'reset_staging_mode_on_duplication']);
 
 		add_action('wu_domain_became_primary', [$this, 'reset_staging_mode_on_primary_domain_change'], 10, 3);
+
+		add_filter('woocommerce_new_customer_username', [$this, 'woocommerce_new_customer_username_no_space']);
 	}
 
 	/**
@@ -69,7 +71,7 @@ class WooCommerce_Subscriptions_Compat {
 	 * @param bool                     $was_new Whether this is a newly created domain.
 	 * @return void
 	 */
-	public function reset_staging_mode_on_primary_domain_change($domain, int $blog_id, bool $was_new): void {
+	public function reset_staging_mode_on_primary_domain_change($domain, int $blog_id, bool $was_new): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
 		$this->reset_staging_mode($blog_id);
 	}
@@ -88,7 +90,9 @@ class WooCommerce_Subscriptions_Compat {
 			return;
 		}
 
-		if (! $this->is_woocommerce_subscriptions_active($site_id)) {
+		$option_exists = get_option('wc_subscriptions_siteurl');
+
+		if (! $option_exists) {
 			return;
 		}
 
@@ -134,29 +138,16 @@ class WooCommerce_Subscriptions_Compat {
 	}
 
 	/**
-	 * Checks if WooCommerce Subscriptions is active on a site.
+	 * Replace spaces with dots in WooCommerce customer usernames.
 	 *
-	 * @since 2.0.0
+	 * WooCommerce allows spaces in usernames but they prevent future logins.
 	 *
-	 * @param int $site_id The ID of the site to check.
-	 * @return bool True if WooCommerce Subscriptions is active, false otherwise.
+	 * @since 2.5.0
+	 *
+	 * @param string $username The username being created.
+	 * @return string The username with spaces replaced by dots.
 	 */
-	protected function is_woocommerce_subscriptions_active(int $site_id): bool {
-
-		if (! function_exists('is_plugin_active_for_network')) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		if (is_plugin_active_for_network('woocommerce-subscriptions/woocommerce-subscriptions.php')) {
-			return true;
-		}
-
-		switch_to_blog($site_id);
-
-		$active_plugins = get_option('active_plugins', []);
-
-		restore_current_blog();
-
-		return in_array('woocommerce-subscriptions/woocommerce-subscriptions.php', $active_plugins, true);
+	public function woocommerce_new_customer_username_no_space(string $username): string {
+		return preg_replace('/\\s/', '.', $username);
 	}
 }

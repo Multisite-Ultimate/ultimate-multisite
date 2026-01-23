@@ -23,6 +23,16 @@ defined('ABSPATH') || exit;
 class Checkout_Form extends Base_Model {
 
 	/**
+	 * Meta key for thank you page ID.
+	 */
+	const META_THANK_YOU_PAGE_ID = 'wu_thank_you_page_id';
+
+	/**
+	 * Meta key for conversion snippets.
+	 */
+	const META_CONVERSION_SNIPPETS = 'wu_conversion_snippets';
+
+	/**
 	 * @var array<string, int>|array<string, string>
 	 */
 	public $meta;
@@ -1086,7 +1096,7 @@ class Checkout_Form extends Base_Model {
 	public function get_thank_you_page_id() {
 
 		if (null === $this->thank_you_page_id) {
-			$this->thank_you_page_id = $this->get_meta('wu_thank_you_page_id', '');
+			$this->thank_you_page_id = $this->get_meta(self::META_THANK_YOU_PAGE_ID, '');
 		}
 
 		return $this->thank_you_page_id;
@@ -1101,7 +1111,7 @@ class Checkout_Form extends Base_Model {
 	 */
 	public function set_thank_you_page_id($thank_you_page_id): void {
 
-		$this->meta['wu_thank_you_page_id'] = $thank_you_page_id;
+		$this->meta[ self::META_THANK_YOU_PAGE_ID ] = $thank_you_page_id;
 
 		$this->thank_you_page_id = $thank_you_page_id;
 	}
@@ -1115,7 +1125,7 @@ class Checkout_Form extends Base_Model {
 	public function get_conversion_snippets() {
 
 		if (null === $this->conversion_snippets) {
-			$this->conversion_snippets = $this->get_meta('wu_conversion_snippets', '');
+			$this->conversion_snippets = $this->get_meta(self::META_CONVERSION_SNIPPETS, '');
 		}
 
 		return $this->conversion_snippets;
@@ -1130,7 +1140,7 @@ class Checkout_Form extends Base_Model {
 	 */
 	public function set_conversion_snippets($conversion_snippets): void {
 
-		$this->meta['wu_conversion_snippets'] = $conversion_snippets;
+		$this->meta[ self::META_CONVERSION_SNIPPETS ] = $conversion_snippets;
 
 		$this->conversion_snippets = $conversion_snippets;
 	}

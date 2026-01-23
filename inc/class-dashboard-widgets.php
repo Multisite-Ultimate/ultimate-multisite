@@ -178,7 +178,7 @@ class Dashboard_Widgets implements \WP_Ultimo\Interfaces\Singleton {
 	 */
 	public function output_widget_first_steps(): void {
 
-		$initial_setup_done = get_network_option(null, 'wu_setup_finished', false);
+		$initial_setup_done = get_network_option(null, \WP_Ultimo::NETWORK_OPTION_SETUP_FINISHED, false);
 
 		$steps = [
 			'inital-setup'        => [

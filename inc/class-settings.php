@@ -865,6 +865,32 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 
 		$this->add_field(
 			'login-and-registration',
+			'password_strength_header',
+			[
+				'title' => __('Password Strength', 'ultimate-multisite'),
+				'desc'  => __('Configure password strength requirements for user registration.', 'ultimate-multisite'),
+				'type'  => 'header',
+			]
+		);
+
+		$this->add_field(
+			'login-and-registration',
+			'minimum_password_strength',
+			[
+				'title'   => __('Minimum Password Strength', 'ultimate-multisite'),
+				'desc'    => __('Set the minimum password strength required during registration and password reset. "Super Strong" requires at least 12 characters, including uppercase, lowercase, numbers, and special characters.', 'ultimate-multisite'),
+				'type'    => 'select',
+				'default' => 'strong',
+				'options' => [
+					'medium'       => __('Medium', 'ultimate-multisite'),
+					'strong'       => __('Strong', 'ultimate-multisite'),
+					'super_strong' => __('Super Strong (12+ chars, mixed case, numbers, symbols)', 'ultimate-multisite'),
+				],
+			]
+		);
+
+		$this->add_field(
+			'login-and-registration',
 			'other_header',
 			[
 				'title' => __('Other Options', 'ultimate-multisite'),
@@ -1708,10 +1734,14 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 			'other',
 			'enable_error_reporting',
 			[
-				'title'   => __('Send Error Data to Ultimate Multisite Developers', 'ultimate-multisite'),
-				'desc'    => __('With this option enabled, every time your installation runs into an error related to Ultimate Multisite, that error data will be sent to us. No sensitive data gets collected, only environmental stuff (e.g. if this is this is a subdomain network, etc).', 'ultimate-multisite'),
+				'title'   => __('Help Improve Ultimate Multisite', 'ultimate-multisite'),
+				'desc'    => sprintf(
+					/* translators: %s is a link to the privacy policy */
+					__('Allow Ultimate Multisite to collect anonymous usage data and error reports to help us improve the plugin. We collect: PHP version, WordPress version, plugin version, network type (subdomain/subdirectory), aggregate counts (sites, memberships), active gateways, and error logs. We never collect personal data, customer information, or domain names. <a href="%s" target="_blank">Learn more</a>.', 'ultimate-multisite'),
+					'https://ultimatemultisite.com/privacy-policy/'
+				),
 				'type'    => 'toggle',
-				'default' => 1,
+				'default' => 0,
 			]
 		);
 

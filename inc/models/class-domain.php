@@ -543,6 +543,21 @@ class Domain extends Base_Model {
 				);
 
 				do_action('wu_async_remove_old_primary_domains', $old_primary_domains);
+
+				/**
+				 * Fires when a domain becomes the primary domain for a site.
+				 *
+				 * This action is triggered when a domain's primary_domain flag is set to true,
+				 * either when creating a new primary domain or when updating an existing domain
+				 * to become primary.
+				 *
+				 * @since 2.0.0
+				 *
+				 * @param \WP_Ultimo\Models\Domain $domain  The domain that became primary.
+				 * @param int                      $blog_id The blog ID of the affected site.
+				 * @param bool                     $was_new Whether this is a newly created domain.
+				 */
+				do_action('wu_domain_became_primary', $this, $this->blog_id, $was_new);
 			}
 		}
 

@@ -5,6 +5,8 @@
  * @since 2.0.0
  */
 defined('ABSPATH') || exit;
+
+$taxes_enabled = wu_get_setting('enable_taxes', false);
 ?>
 <div id="wu-tax-rates" class="<?php wu_wrap_use_container(); ?> wrap wp-ultimo">
 
@@ -19,6 +21,26 @@ defined('ABSPATH') || exit;
 	<!-- <p class="description"></p> -->
 
 	<hr class="wp-header-end" />
+
+	<?php if ( ! $taxes_enabled) : ?>
+
+		<div class="notice notice-warning">
+			<p>
+				<?php
+				printf(
+					/* translators: %s is a link to the tax settings page */
+					esc_html__('Taxes are currently disabled. The tax rates below are not being applied to any transactions. To enable taxes, go to the %s.', 'ultimate-multisite'),
+					sprintf(
+						'<a href="%s">%s</a>',
+						esc_url(network_admin_url('admin.php?page=wp-ultimo-settings&tab=taxes')),
+						esc_html__('Tax Settings page', 'ultimate-multisite')
+					)
+				);
+				?>
+			</p>
+		</div>
+
+	<?php endif; ?>
 
 	<div class="wu-advanced-filters">
 

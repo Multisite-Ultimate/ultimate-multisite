@@ -31,6 +31,36 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	use \WP_Ultimo\Traits\WP_Ultimo_Subscription_Deprecated;
 
 	/**
+	 * Meta key for swap order.
+	 */
+	const META_SWAP_ORDER = 'wu_swap_order';
+
+	/**
+	 * Meta key for swap scheduled date.
+	 */
+	const META_SWAP_SCHEDULED_DATE = 'wu_swap_scheduled_date';
+
+	/**
+	 * Meta key for cancellation reason.
+	 */
+	const META_CANCELLATION_REASON = 'cancellation_reason';
+
+	/**
+	 * Meta key for discount code.
+	 */
+	const META_DISCOUNT_CODE = 'discount_code';
+
+	/**
+	 * Meta key for verified payment discount.
+	 */
+	const META_VERIFIED_PAYMENT_DISCOUNT = 'verified_payment_discount';
+
+	/**
+	 * Meta key for pending site.
+	 */
+	const META_PENDING_SITE = 'pending_site';
+
+	/**
 	 * ID of the customer attached to this membership.
 	 *
 	 * @since 2.0.0
@@ -800,12 +830,12 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 */
 	public function get_scheduled_swap() {
 
-		$order          = $this->get_meta('wu_swap_order');
-		$scheduled_date = $this->get_meta('wu_swap_scheduled_date');
+		$order          = $this->get_meta(self::META_SWAP_ORDER);
+		$scheduled_date = $this->get_meta(self::META_SWAP_SCHEDULED_DATE);
 
 		if ( ! $scheduled_date || ! $order) {
-			$this->delete_meta('wu_swap_order');
-			$this->delete_meta('wu_swap_scheduled_date');
+			$this->delete_meta(self::META_SWAP_ORDER);
+			$this->delete_meta(self::META_SWAP_SCHEDULED_DATE);
 
 			return false;
 		}
@@ -824,9 +854,9 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 */
 	public function delete_scheduled_swap(): void {
 
-		$this->delete_meta('wu_swap_order');
+		$this->delete_meta(self::META_SWAP_ORDER);
 
-		$this->delete_meta('wu_swap_scheduled_date');
+		$this->delete_meta(self::META_SWAP_SCHEDULED_DATE);
 
 		do_action('wu_membership_delete_scheduled_swap', $this);
 	}
@@ -1167,7 +1197,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 		}
 
 		if (null === $this->cancellation_reason) {
-			$this->cancellation_reason = $this->get_meta('cancellation_reason');
+			$this->cancellation_reason = $this->get_meta(self::META_CANCELLATION_REASON);
 		}
 
 		return (string) $this->cancellation_reason;
@@ -1182,8 +1212,8 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 */
 	public function set_cancellation_reason($reason): void {
 
-		$this->meta['cancellation_reason'] = $reason;
-		$this->cancellation_reason         = $reason;
+		$this->meta[ self::META_CANCELLATION_REASON ] = $reason;
+		$this->cancellation_reason                    = $reason;
 	}
 
 	/**
@@ -1349,11 +1379,11 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	public function get_discount_code() {
 
 		if (null === $this->discount_code) {
-			$this->discount_code = $this->get_meta('discount_code');
+			$this->discount_code = $this->get_meta(self::META_DISCOUNT_CODE);
 		}
 
 		// Get discount code from original payment for compatibility
-		if (empty($this->discount_code) && ! $this->get_meta('verified_payment_discount')) {
+		if (empty($this->discount_code) && ! $this->get_meta(self::META_VERIFIED_PAYMENT_DISCOUNT)) {
 			$original_payment = wu_get_payments(
 				[
 					'number'        => 1,
@@ -1364,16 +1394,16 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			);
 
 			if (isset($original_payment[0])) {
-				$original_cart = $original_payment[0]->get_meta('wu_original_cart');
+				$original_cart = $original_payment[0]->get_meta(Payment::META_ORIGINAL_CART);
 
 				$this->discount_code = $original_cart ? $original_cart->get_discount_code() : false;
 
 				if ($this->discount_code) {
-					$this->update_meta('discount_code', $this->discount_code);
+					$this->update_meta(self::META_DISCOUNT_CODE, $this->discount_code);
 				}
 			}
 
-			$this->update_meta('verified_payment_discount', true);
+			$this->update_meta(self::META_VERIFIED_PAYMENT_DISCOUNT, true);
 		}
 
 		return $this->discount_code;
@@ -1389,8 +1419,8 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	public function set_discount_code($discount_code): void {
 
 		if (is_a($discount_code, '\WP_Ultimo\Models\Discount_Code')) {
-			$this->meta['discount_code'] = $discount_code;
-			$this->discount_code         = $discount_code;
+			$this->meta[ self::META_DISCOUNT_CODE ] = $discount_code;
+			$this->discount_code                    = $discount_code;
 
 			return;
 		}
@@ -1401,8 +1431,8 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			return;
 		}
 
-		$this->meta['discount_code'] = $discount_code;
-		$this->discount_code         = $discount_code;
+		$this->meta[ self::META_DISCOUNT_CODE ] = $discount_code;
+		$this->discount_code                    = $discount_code;
 	}
 
 	/**
@@ -1879,7 +1909,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 */
 	public function update_pending_site($site) {
 
-		return $this->update_meta('pending_site', $site);
+		return $this->update_meta(self::META_PENDING_SITE, $site);
 	}
 
 	/**
@@ -1890,7 +1920,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 	 */
 	public function get_pending_site() {
 
-		return $this->get_meta('pending_site');
+		return $this->get_meta(self::META_PENDING_SITE);
 	}
 
 	/**
@@ -1934,7 +1964,7 @@ class Membership extends Base_Model implements Limitable, Billable, Notable {
 			'headers'   => $headers,
 		];
 
-		if ( ! function_exists('fastcgi_finish_request') || ! version_compare(phpversion(), '7.0.16', '>=')) {
+		if ( ! function_exists('fastcgi_finish_request')) {
 			// We do not have fastcgi but can make the request continue without listening with blocking = false.
 			$request_args['blocking'] = false;
 		}

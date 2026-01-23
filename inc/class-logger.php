@@ -109,7 +109,7 @@ class Logger extends AbstractLogger {
 
 		$instance->log($log_level, $message);
 
-		do_action('wu_log_add', $handle, $message);
+		do_action('wu_log_add', $handle, $message, $log_level);
 	}
 
 	/**

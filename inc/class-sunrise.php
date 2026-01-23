@@ -161,6 +161,7 @@ class Sunrise {
 		require_once __DIR__ . '/limitations/class-limit-domain-mapping.php';
 		require_once __DIR__ . '/limitations/class-limit-customer-user-role.php';
 		require_once __DIR__ . '/limitations/class-limit-hide-footer-credits.php';
+		require_once __DIR__ . '/database/domains/class-domain-stage.php';
 	}
 
 	/**
@@ -230,7 +231,7 @@ class Sunrise {
 					 */
 					add_filter('option_active_plugins', fn() => []);
 
-					add_filter('site_option_active_sitewide_plugins', fn() => [basename(dirname(__DIR__)) . '/wp-ultimo.php' => 1], 10, 0);
+					add_filter('site_option_active_sitewide_plugins', fn() => [basename(dirname(__DIR__)) . '/ultimate-multisite.php' => 1], 10, 0);
 				}
 			}
 		}

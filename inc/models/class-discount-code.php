@@ -24,6 +24,16 @@ class Discount_Code extends Base_Model {
 	use \WP_Ultimo\Traits\WP_Ultimo_Coupon_Deprecated;
 
 	/**
+	 * Meta key for allowed products.
+	 */
+	const META_ALLOWED_PRODUCTS = 'wu_allowed_products';
+
+	/**
+	 * Meta key for limit products.
+	 */
+	const META_LIMIT_PRODUCTS = 'wu_limit_products';
+
+	/**
 	 * Name of the discount code.
 	 *
 	 * @since 2.0.0
@@ -708,7 +718,7 @@ class Discount_Code extends Base_Model {
 	public function get_allowed_products() {
 
 		if (null === $this->allowed_products) {
-			$this->allowed_products = $this->get_meta('wu_allowed_products', []);
+			$this->allowed_products = $this->get_meta(self::META_ALLOWED_PRODUCTS, []);
 		}
 
 		return (array) $this->allowed_products;
@@ -723,9 +733,9 @@ class Discount_Code extends Base_Model {
 	 */
 	public function set_allowed_products($allowed_products): void {
 
-		$this->meta['wu_allowed_products'] = (array) $allowed_products;
+		$this->meta[ self::META_ALLOWED_PRODUCTS ] = (array) $allowed_products;
 
-		$this->allowed_products = $this->meta['wu_allowed_products'];
+		$this->allowed_products = $this->meta[ self::META_ALLOWED_PRODUCTS ];
 	}
 
 	/**
@@ -737,7 +747,7 @@ class Discount_Code extends Base_Model {
 	public function get_limit_products() {
 
 		if (null === $this->limit_products) {
-			$this->limit_products = $this->get_meta('wu_limit_products', false);
+			$this->limit_products = $this->get_meta(self::META_LIMIT_PRODUCTS, false);
 		}
 
 		return (bool) $this->limit_products;
@@ -752,8 +762,8 @@ class Discount_Code extends Base_Model {
 	 */
 	public function set_limit_products($limit_products): void {
 
-		$this->meta['wu_limit_products'] = (bool) $limit_products;
+		$this->meta[ self::META_LIMIT_PRODUCTS ] = (bool) $limit_products;
 
-		$this->limit_products = $this->meta['wu_limit_products'];
+		$this->limit_products = $this->meta[ self::META_LIMIT_PRODUCTS ];
 	}
 }

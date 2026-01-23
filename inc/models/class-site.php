@@ -29,6 +29,46 @@ class Site extends Base_Model implements Limitable, Notable {
 	use \WP_Ultimo\Traits\WP_Ultimo_Site_Deprecated;
 	use Traits\Notable;
 
+	/**
+	 * Meta key for categories.
+	 */
+	const META_CATEGORIES = 'wu_categories';
+
+	/**
+	 * Meta key for featured image ID.
+	 */
+	const META_FEATURED_IMAGE_ID = 'wu_featured_image_id';
+
+	/**
+	 * Meta key for active status.
+	 */
+	const META_ACTIVE = 'wu_active';
+
+	/**
+	 * Meta key for customer ID.
+	 */
+	const META_CUSTOMER_ID = 'wu_customer_id';
+
+	/**
+	 * Meta key for membership ID.
+	 */
+	const META_MEMBERSHIP_ID = 'wu_membership_id';
+
+	/**
+	 * Meta key for template ID.
+	 */
+	const META_TEMPLATE_ID = 'wu_template_id';
+
+	/**
+	 * Meta key for site type.
+	 */
+	const META_TYPE = 'wu_type';
+
+	/**
+	 * Meta key for transient status.
+	 */
+	const META_TRANSIENT = 'wu_transient';
+
 	/**  DEFAULT WP_SITE COLUMNS */
 
 	/**
@@ -330,7 +370,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 */
 	public function set_categories($categories): void {
 
-		$this->meta['wu_categories'] = $categories;
+		$this->meta[ self::META_CATEGORIES ] = $categories;
 
 		$this->categories = $categories;
 	}
@@ -344,7 +384,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	public function get_categories() {
 
 		if (null === $this->categories) {
-			$this->categories = $this->get_meta('wu_categories', []);
+			$this->categories = $this->get_meta(self::META_CATEGORIES, []);
 		}
 
 		if ( ! is_array($this->categories)) {
@@ -363,7 +403,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	public function get_featured_image_id() {
 
 		if (null === $this->featured_image_id) {
-			return $this->get_meta('wu_featured_image_id');
+			return $this->get_meta(self::META_FEATURED_IMAGE_ID);
 		}
 
 		return $this->featured_image_id;
@@ -406,7 +446,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 */
 	public function set_featured_image_id($image_id): void {
 
-		$this->meta['wu_featured_image_id'] = $image_id;
+		$this->meta[ self::META_FEATURED_IMAGE_ID ] = $image_id;
 
 		$this->featured_image_id = $image_id;
 	}
@@ -714,7 +754,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	public function is_active() {
 
 		if (null === $this->active) {
-			$this->active = $this->get_meta('wu_active', true);
+			$this->active = $this->get_meta(self::META_ACTIVE, true);
 		}
 
 		return $this->active;
@@ -729,7 +769,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 */
 	public function set_active($active): void {
 
-		$this->meta['wu_active'] = $active;
+		$this->meta[ self::META_ACTIVE ] = $active;
 
 		$this->active = $active;
 	}
@@ -881,7 +921,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	public function get_customer_id() {
 
 		if (null === $this->customer_id) {
-			$this->customer_id = $this->get_meta('wu_customer_id');
+			$this->customer_id = $this->get_meta(self::META_CUSTOMER_ID);
 		}
 
 		return (int) $this->customer_id;
@@ -896,7 +936,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 */
 	public function set_customer_id($customer_id): void {
 
-		$this->meta['wu_customer_id'] = $customer_id;
+		$this->meta[ self::META_CUSTOMER_ID ] = $customer_id;
 
 		$this->customer_id = $customer_id;
 	}
@@ -946,7 +986,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	public function get_membership_id() {
 
 		if (null === $this->membership_id) {
-			$this->membership_id = $this->get_meta('wu_membership_id');
+			$this->membership_id = $this->get_meta(self::META_MEMBERSHIP_ID);
 		}
 
 		return $this->membership_id;
@@ -961,7 +1001,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 */
 	public function set_membership_id($membership_id): void {
 
-		$this->meta['wu_membership_id'] = $membership_id;
+		$this->meta[ self::META_MEMBERSHIP_ID ] = $membership_id;
 
 		$this->membership_id = $membership_id;
 	}
@@ -1053,7 +1093,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	public function get_template_id() {
 
 		if (null === $this->template_id) {
-			$this->template_id = $this->get_meta('wu_template_id');
+			$this->template_id = $this->get_meta(self::META_TEMPLATE_ID);
 		}
 
 		return $this->template_id;
@@ -1068,7 +1108,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 */
 	public function set_template_id($template_id): void {
 
-		$this->meta['wu_template_id'] = absint($template_id);
+		$this->meta[ self::META_TEMPLATE_ID ] = absint($template_id);
 
 		$this->template_id = $template_id;
 	}
@@ -1148,7 +1188,7 @@ class Site extends Base_Model implements Limitable, Notable {
 		}
 
 		if (null === $this->type) {
-			$type = $this->get_meta('wu_type');
+			$type = $this->get_meta(self::META_TYPE);
 
 			$this->type = $type ?: 'default';
 		}
@@ -1168,7 +1208,7 @@ class Site extends Base_Model implements Limitable, Notable {
 
 		$this->meta = (array) $this->meta;
 
-		$this->meta['wu_type'] = $type;
+		$this->meta[ self::META_TYPE ] = $type;
 
 		$this->type = $type;
 	}
@@ -1285,7 +1325,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	public function get_transient() {
 
 		if (null === $this->transient) {
-			$this->transient = $this->get_meta('wu_transient');
+			$this->transient = $this->get_meta(self::META_TRANSIENT);
 		}
 
 		return $this->transient;
@@ -1300,7 +1340,7 @@ class Site extends Base_Model implements Limitable, Notable {
 	 */
 	public function set_transient($transient): void {
 
-		$this->meta['wu_transient'] = $transient;
+		$this->meta[ self::META_TRANSIENT ] = $transient;
 
 		$this->transient = $transient;
 	}

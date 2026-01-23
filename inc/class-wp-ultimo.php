@@ -41,6 +41,8 @@ final class WP_Ultimo {
 	 */
 	const LOG_HANDLE = 'ultimate-multisite-core';
 
+	const NETWORK_OPTION_SETUP_FINISHED = 'wu_setup_finished';
+
 	/**
 	 * Version of the Plugin.
 	 *
@@ -506,6 +508,7 @@ final class WP_Ultimo {
 		\WP_Ultimo\UI\Domain_Mapping_Element::get_instance();
 		\WP_Ultimo\UI\Site_Maintenance_Element::get_instance();
 		\WP_Ultimo\UI\Template_Switching_Element::get_instance();
+		\WP_Ultimo\UI\Magic_Link_Url_Element::get_instance();
 
 		/*
 		 * Loads our Light Ajax implementation
@@ -611,6 +614,11 @@ final class WP_Ultimo {
 		\WP_Ultimo\Compat\Honeypot_Compat::get_instance();
 
 		/*
+		 * WooCommerce Subscriptions compatibility
+		 */
+		\WP_Ultimo\Compat\WooCommerce_Subscriptions_Compat::get_instance();
+
+		/*
 		 * Loads Basic White-labeling
 		 */
 		\WP_Ultimo\Whitelabel::get_instance();
@@ -646,6 +654,11 @@ final class WP_Ultimo {
 		 */
 		\WP_Ultimo\Cron::get_instance();
 
+		/*
+		 * Usage Tracker (opt-in telemetry)
+		 */
+		\WP_Ultimo\Tracker::get_instance();
+
 		\WP_Ultimo\MCP_Adapter::get_instance();
 	}
 
@@ -675,6 +688,11 @@ final class WP_Ultimo {
 		 * Initialize magic links for admin bar My Sites menu.
 		 */
 		\WP_Ultimo\SSO\Admin_Bar_Magic_Links::get_instance();
+
+		/*
+		 * Initialize subsite links for nav menus.
+		 */
+		\WP_Ultimo\SSO\Nav_Menu_Subsite_Links::get_instance();
 
 		/*
 		 * Loads the Checkout Form admin page.
@@ -928,6 +946,11 @@ final class WP_Ultimo {
 		WP_Ultimo\Managers\Cache_Manager::get_instance();
 		WP_Ultimo\Orphaned_Tables_Manager::get_instance();
 		WP_Ultimo\Orphaned_Users_Manager::get_instance();
+
+		/*
+		 * Loads the Rating Notice manager.
+		 */
+		WP_Ultimo\Managers\Rating_Notice_Manager::get_instance();
 
 		/**
 		 * Loads views overrides

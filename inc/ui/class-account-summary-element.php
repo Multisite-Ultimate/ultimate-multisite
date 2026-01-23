@@ -121,7 +121,7 @@ class Account_Summary_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds a account summary block to the page.', 'ultimate-multisite');
+		return __('Displays a summary of the customer\'s account including membership and site overview.', 'ultimate-multisite');
 	}
 
 	/**

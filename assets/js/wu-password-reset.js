@@ -25,12 +25,12 @@
 			return;
 		}
 
-		// Initialize the password strength checker using the shared utility
+		// Initialize the password strength checker using the shared utility.
+		// minStrength defaults to value from 'wu_minimum_password_strength' filter (default: 4 = Strong)
 		passwordStrength = new WU_PasswordStrength({
 			pass1: $pass1,
 			pass2: $pass2,
-			submit: $submit,
-			minStrength: 3 // Require at least medium strength
+			submit: $submit
 		});
 
 		// Prevent form submission if password is too weak
@@ -42,4 +42,4 @@
 		});
 	});
 
-})(jQuery);
+}(jQuery));

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Newsletter Subscription Management Class
+ */
 
 namespace WP_Ultimo;
 
@@ -64,7 +67,9 @@ class Newsletter {
 	 */
 	public function maybe_update_newsletter_subscription($settings, $settings_to_save, $saved_settings) {
 
-		if ( isset($settings_to_save[ self::SETTING_FIELD_SLUG ]) && $settings_to_save[ self::SETTING_FIELD_SLUG ] && $settings_to_save[ self::SETTING_FIELD_SLUG ] !== $saved_settings[ self::SETTING_FIELD_SLUG ] ) {
+		$saved_optin = $saved_settings[ self::SETTING_FIELD_SLUG ] ?? '';
+
+		if ( isset($settings_to_save[ self::SETTING_FIELD_SLUG ]) && $settings_to_save[ self::SETTING_FIELD_SLUG ] && $settings_to_save[ self::SETTING_FIELD_SLUG ] !== $saved_optin ) {
 			$response = wp_remote_post(
 				'https://ultimatemultisite.com/wp-json/newsletter/v2/subscribers',
 				[
@@ -84,7 +89,7 @@ class Newsletter {
 					],
 				]
 			);
-		} elseif ( empty($settings_to_save[ self::SETTING_FIELD_SLUG ]) && ! empty($saved_settings[ self::SETTING_FIELD_SLUG ]) ) {
+		} elseif ( empty($settings_to_save[ self::SETTING_FIELD_SLUG ]) && ! empty($saved_optin) ) {
 			$response = wp_remote_post(
 				'https://ultimatemultisite.com/wp-json/newsletter/v2/subscribers',
 				[

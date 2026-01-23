@@ -96,7 +96,7 @@ class Limits_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
+		return __('Displays the site\'s usage limits and quotas such as disk space, posts, and users.', 'ultimate-multisite');
 	}
 
 	/**

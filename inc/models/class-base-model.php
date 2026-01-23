@@ -292,7 +292,6 @@ abstract class Base_Model implements \JsonSerializable {
 	 *
 	 * @since 2.0.0
 	 * @return Schema
-	 * @throws \ReflectionException When reflection operations fail on the query class.
 	 */
 	public static function get_schema() {
 
@@ -300,13 +299,7 @@ abstract class Base_Model implements \JsonSerializable {
 
 		$query_class = new $instance->query_class();
 
-		$reflector = new \ReflectionObject($query_class);
-
-		$method = $reflector->getMethod('get_columns');
-
-		$method->setAccessible(true);
-
-		$columns = $method->invoke($query_class);
+		$columns = $query_class->get_columns();
 
 		return array_map(
 			fn($column) => $column->to_array(),

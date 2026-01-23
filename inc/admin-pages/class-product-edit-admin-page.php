@@ -1116,6 +1116,13 @@ class Product_Edit_Admin_Page extends Edit_Admin_Page {
 		}
 
 		/*
+		 * Set available addons to empty array if not provided.
+		 */
+		if ( ! wu_request('available_addons')) {
+			$_POST['available_addons'] = [];
+		}
+
+		/*
 		 * Set the taxable value to zero if the toggle is disabled.
 		 */
 		if ( ! wu_request('taxable')) {

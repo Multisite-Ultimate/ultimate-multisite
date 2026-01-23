@@ -116,7 +116,7 @@ class Requirements {
 			return true;
 		}
 
-		return get_network_option(null, 'wu_setup_finished', false);
+		return get_network_option(null, \WP_Ultimo::NETWORK_OPTION_SETUP_FINISHED, false);
 	}
 
 	/**

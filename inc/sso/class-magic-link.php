@@ -176,8 +176,14 @@ class Magic_Link {
 			return false;
 		}
 
-		// Check if user is a member of the site.
-		return is_user_member_of_blog($user_id, $site_id);
+		if (is_user_member_of_blog($user_id, $site_id)) {
+			return true;
+		}
+		// Check if the site is the dashboard site in WP Frontend Admin which the user would not be a member of.
+		if (function_exists('WPFA_Global_Dashboard_Obj') && (int) \WPFA_Global_Dashboard_Obj()->get_dashboard_site_id() === (int) $site_id) {
+			return true;
+		}
+		return false;
 	}
 
 	/**

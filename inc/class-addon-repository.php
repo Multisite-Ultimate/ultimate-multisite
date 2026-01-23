@@ -93,13 +93,15 @@ class Addon_Repository {
 				$message = wp_remote_retrieve_response_message($request);
 
 				if (200 === absint($code) && 'OK' === $message) {
-					$response     = json_decode($body, true);
-					$access_token = $response['access_token'];
-					set_transient('wu-access-token', $response['access_token'], $response['expires_in']);
+					$response = json_decode($body, true);
+					if ( ! empty($response['access_token'])) {
+						$access_token = $response['access_token'];
+						set_transient('wu-access-token', $response['access_token'], $response['expires_in']);
+					}
 				}
 			}
 		}
-		return $access_token;
+		return $access_token ?: '';
 	}
 
 	/**

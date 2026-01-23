@@ -109,7 +109,7 @@ class Domain_Mapping_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds the site\'s domains block.', 'ultimate-multisite');
+		return __('Allows customers to manage custom domains mapped to their site.', 'ultimate-multisite');
 	}
 
 	/**

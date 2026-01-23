@@ -8,7 +8,7 @@
 
 if ( ! defined('WP_UNINSTALL_PLUGIN')) {
 	exit;
-} // end if;
+}
 
 global $wpdb;
 
@@ -56,15 +56,15 @@ if ($wu_settings_uninstall_wipe_tables) {
 		$wpdb->query("DROP TABLE IF EXISTS $wu_table_name"); // phpcs:ignore
 
 		delete_network_option(null, $wu_table_version);
-	} // end foreach;
+	}
 
 	/*
 	 * Remove states saved
 	 */
 	delete_network_option(null, "wp-ultimo_{$wu_settings_key}");
 	delete_network_option(null, 'wp-ultimo_debug_faker');
-	delete_network_option(null, 'wu_setup_finished');
+	delete_network_option(null, \WP_Ultimo::NETWORK_OPTION_SETUP_FINISHED);
 	delete_network_option(null, 'wu_default_email_template');
 	delete_network_option(null, 'wu_default_system_emails_created');
 	delete_network_option(null, 'wu_default_invoice_template');
-} // end if;
+}

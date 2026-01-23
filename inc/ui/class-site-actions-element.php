@@ -120,7 +120,7 @@ class Site_Actions_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
+		return __('Displays action buttons for site management such as preview, publish, and delete.', 'ultimate-multisite');
 	}
 
 	/**
@@ -371,7 +371,7 @@ class Site_Actions_Element extends Base_Element {
 		$is_template_switching_enabled = wu_get_setting('allow_template_switching', true);
 
 		if ($is_template_switching_enabled &&
-			$this->site->has_limitations() &&
+			$this->site && $this->site->has_limitations() &&
 			Limit_Site_Templates::MODE_ASSIGN_TEMPLATE === $this->site->get_limitations()->site_templates->get_mode()) {
 			$is_template_switching_enabled = false;
 		}
@@ -888,6 +888,10 @@ class Site_Actions_Element extends Base_Element {
 					'v-model' => 'confirmed',
 				],
 			],
+			'wu-when'       => [
+				'type'  => 'hidden',
+				'value' => base64_encode('init'), // phpcs:ignore
+			],
 			'submit_button' => [
 				'type'            => 'submit',
 				'title'           => __('Cancel Payment Method', 'ultimate-multisite'),
@@ -1052,6 +1056,10 @@ class Site_Actions_Element extends Base_Element {
 				'wrapper_html_attr' => [
 					'v-show' => 'cancellation_reason === "other"',
 				],
+			],
+			'wu-when'                  => [
+				'type'  => 'hidden',
+				'value' => base64_encode('init'), // phpcs:ignore
 			],
 			'confirm'                  => [
 				'type'      => 'text',

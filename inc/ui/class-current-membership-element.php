@@ -143,7 +143,7 @@ class Current_Membership_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds a checkout form block to the page.', 'ultimate-multisite');
+		return __('Displays the current membership details including plan, status, and billing cycle.', 'ultimate-multisite');
 	}
 
 	/**

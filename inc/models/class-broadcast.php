@@ -20,6 +20,22 @@ defined('ABSPATH') || exit;
  * @since 2.0.0
  */
 class Broadcast extends Post_Base_Model {
+
+	/**
+	 * Meta key for migrated from ID.
+	 */
+	const META_MIGRATED_FROM_ID = 'migrated_from_id';
+
+	/**
+	 * Meta key for notice type.
+	 */
+	const META_NOTICE_TYPE = 'notice_type';
+
+	/**
+	 * Meta key for message targets.
+	 */
+	const META_MESSAGE_TARGETS = 'message_targets';
+
 	/**
 	 * Post model.
 	 *
@@ -126,7 +142,7 @@ class Broadcast extends Post_Base_Model {
 	public function get_migrated_from_id() {
 
 		if (null === $this->migrated_from_id) {
-			$this->migrated_from_id = $this->get_meta('migrated_from_id', 0);
+			$this->migrated_from_id = $this->get_meta(self::META_MIGRATED_FROM_ID, 0);
 		}
 
 		return $this->migrated_from_id;
@@ -141,9 +157,9 @@ class Broadcast extends Post_Base_Model {
 	 */
 	public function set_migrated_from_id($migrated_from_id): void {
 
-		$this->meta['migrated_from_id'] = $migrated_from_id;
+		$this->meta[ self::META_MIGRATED_FROM_ID ] = $migrated_from_id;
 
-		$this->migrated_from_id = $this->meta['migrated_from_id'];
+		$this->migrated_from_id = $this->meta[ self::META_MIGRATED_FROM_ID ];
 	}
 
 	/**
@@ -177,7 +193,7 @@ class Broadcast extends Post_Base_Model {
 	public function get_notice_type() {
 
 		if (null === $this->notice_type) {
-			$this->notice_type = $this->get_meta('notice_type', 'success');
+			$this->notice_type = $this->get_meta(self::META_NOTICE_TYPE, 'success');
 		}
 
 		return $this->notice_type;
@@ -191,7 +207,7 @@ class Broadcast extends Post_Base_Model {
 	 */
 	public function get_message_targets() {
 
-		return $this->get_meta('message_targets');
+		return $this->get_meta(self::META_MESSAGE_TARGETS);
 	}
 
 	/**
@@ -204,7 +220,7 @@ class Broadcast extends Post_Base_Model {
 	 */
 	public function set_message_targets($message_targets): void {
 
-		$this->meta['message_targets'] = $message_targets;
+		$this->meta[ self::META_MESSAGE_TARGETS ] = $message_targets;
 	}
 
 	/**
@@ -218,9 +234,9 @@ class Broadcast extends Post_Base_Model {
 	 */
 	public function set_notice_type($notice_type): void {
 
-		$this->meta['notice_type'] = $notice_type;
+		$this->meta[ self::META_NOTICE_TYPE ] = $notice_type;
 
-		$this->notice_type = $this->meta['notice_type'];
+		$this->notice_type = $this->meta[ self::META_NOTICE_TYPE ];
 	}
 
 	/**

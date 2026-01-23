@@ -255,7 +255,7 @@ defined('ABSPATH') || exit;
 					<img
 					class="sm:wu-w-12 sm:wu-h-12 wu-mb-4 sm:wu-mb-0 wu-rounded"
 					src="<?php echo esc_attr($site->get_featured_image('thumbnail')); ?>"
-					/>
+					alt="Thumbnail of Site" />
 
 				</div>
 

@@ -518,6 +518,9 @@ class SSO {
 		$verify_code = $this->input('sso_verify');
 
 		if ($verify_code) {
+			if ('invalid' === $verify_code) {
+				return;
+			}
 			$broker->verify($verify_code);
 
 			$url = $this->input('return_url', $this->get_current_url());

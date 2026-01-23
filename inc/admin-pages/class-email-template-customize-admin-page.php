@@ -159,13 +159,10 @@ class Email_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 				'subject'           => __('Sample Subject', 'ultimate-multisite'),
 				'is_editor'         => true,
 				'template_settings' => [
+					'hide_logo'               => wu_string_to_bool(wu_request('hide_logo', $first_request ? $object->get_setting('hide_logo', false) : false)),
 					'use_custom_logo'         => wu_string_to_bool(wu_request('use_custom_logo', $first_request ? $object->get_setting('use_custom_logo', false) : false)),
 					'custom_logo'             => wu_request('custom_logo', $object->get_setting('custom_logo', false)),
 					'background_color'        => wu_request('background_color', $object->get_setting('background_color', '#f9f9f9')),
-					'title_color'             => wu_request('title_color', $object->get_setting('title_color', '#000000')),
-					'title_size'              => wu_request('title_size', $object->get_setting('title_size', 'h3')),
-					'title_align'             => wu_request('title_align', $object->get_setting('title_align', 'center')),
-					'title_font'              => wu_request('title_font', $object->get_setting('title_font', 'Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif')),
 					'content_color'           => wu_request('content_color', $object->get_setting('content_color', '#000000')),
 					'content_align'           => wu_request('content_align', $object->get_setting('content_align', 'left')),
 					'content_font'            => wu_request('content_font', $object->get_setting('content_font', 'Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif')),
@@ -248,12 +245,24 @@ class Email_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 					'footer'  => __('Footer', 'ultimate-multisite'),
 				],
 			],
+			'hide_logo'               => [
+				'type'              => 'toggle',
+				'title'             => __('Hide Logo', 'ultimate-multisite'),
+				'desc'              => __('Toggle to hide the logo in the email header.', 'ultimate-multisite'),
+				'wrapper_html_attr' => [
+					'v-show'  => 'require("tab", "header")',
+					'v-cloak' => 1,
+				],
+				'html_attr'         => [
+					'v-model' => 'hide_logo',
+				],
+			],
 			'use_custom_logo'         => [
 				'type'              => 'toggle',
 				'title'             => __('Use Custom Logo', 'ultimate-multisite'),
 				'desc'              => __('You can set a different logo to be used on the system emails.', 'ultimate-multisite'),
 				'wrapper_html_attr' => [
-					'v-show'  => 'require("tab", "header")',
+					'v-show'  => 'require("tab", "header") && require("hide_logo", false)',
 					'v-cloak' => 1,
 				],
 				'html_attr'         => [
@@ -286,73 +295,6 @@ class Email_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 				],
 				'html_attr'         => [
 					'v-model' => 'background_color',
-				],
-			],
-			'title_color'             => [
-				'type'              => 'color-picker',
-				'title'             => __('Title Color', 'ultimate-multisite'),
-				'value'             => '#00a1ff',
-				'wrapper_html_attr' => [
-					'v-show'  => 'require("tab", "header")',
-					'v-cloak' => 1,
-				],
-				'html_attr'         => [
-					'v-model' => 'title_color',
-				],
-			],
-			'title_size'              => [
-				'type'              => 'select',
-				'title'             => __('Title Size', 'ultimate-multisite'),
-				'value'             => wu_get_isset($settings, 'title_size'),
-				'options'           => [
-					'h1' => __('h1', 'ultimate-multisite'),
-					'h2' => __('h2', 'ultimate-multisite'),
-					'h3' => __('h3', 'ultimate-multisite'),
-					'h4' => __('h4', 'ultimate-multisite'),
-					'h5' => __('h5', 'ultimate-multisite'),
-				],
-				'wrapper_html_attr' => [
-					'v-show'  => 'require("tab", "header")',
-					'v-cloak' => 1,
-				],
-				'html_attr'         => [
-					'v-model.lazy' => 'title_size',
-				],
-			],
-			'title_align'             => [
-				'type'              => 'select',
-				'title'             => __('Title Align', 'ultimate-multisite'),
-				'tooltip'           => __('Aligment of the font in the title.', 'ultimate-multisite'),
-				'value'             => wu_get_isset($settings, 'title_align', ''),
-				'options'           => [
-					'left'   => __('Left', 'ultimate-multisite'),
-					'center' => __('Center', 'ultimate-multisite'),
-					'right'  => __('Right', 'ultimate-multisite'),
-				],
-				'wrapper_html_attr' => [
-					'v-show'  => 'require("tab", "header")',
-					'v-cloak' => 1,
-				],
-				'html_attr'         => [
-					'v-model.lazy' => 'title_align',
-				],
-			],
-			'title_font'              => [
-				'type'              => 'select',
-				'title'             => __('Title Font-Family', 'ultimate-multisite'),
-				'value'             => wu_get_isset($settings, 'title_font', ''),
-				'options'           => [
-					'Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif' => __('Helvetica', 'ultimate-multisite'),
-					'Arial, Helvetica, sans-serif'       => __('Arial', 'ultimate-multisite'),
-					'Times New Roman, Times, serif'      => __('Times New Roman', 'ultimate-multisite'),
-					'Lucida Console, Courier, monospace' => __('Lucida', 'ultimate-multisite'),
-				],
-				'wrapper_html_attr' => [
-					'v-show'  => 'require("tab", "header")',
-					'v-cloak' => 1,
-				],
-				'html_attr'         => [
-					'v-model.lazy' => 'title_font',
 				],
 			],
 			'content_color'           => [
@@ -568,6 +510,7 @@ class Email_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 		$allowed_settings = [
 			'use_custom_logo',
 			'custom_logo',
+			'hide_logo',
 			'display_company_address',
 			'background_color',
 			'title_color',
@@ -597,6 +540,7 @@ class Email_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 						$settings_to_save[ $setting ] = sanitize_hex_color($value);
 						break;
 					case 'use_custom_logo':
+					case 'hide_logo':
 					case 'display_company_address':
 						$settings_to_save[ $setting ] = wu_string_to_bool($value);
 						break;
@@ -670,6 +614,7 @@ class Email_Template_Customize_Admin_Page extends Customizer_Admin_Page {
 		return [
 			'use_custom_logo'         => false,
 			'custom_logo'             => false,
+			'hide_logo'               => false,
 			'display_company_address' => true,
 			'background_color'        => '#f1f1f1',
 			'title_color'             => '#000000',

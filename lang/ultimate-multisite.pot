@@ -1,15 +1,15 @@
-# Copyright (C) 2025 Ultimate Multisite Community
+# Copyright (C) 2026 Ultimate Multisite Community
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Multisite 2.4.9\n"
+"Project-Id-Version: Ultimate Multisite 2.4.10\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ultimate-multisite\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-23T22:04:15+00:00\n"
+"POT-Creation-Date: 2026-01-23T00:10:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ultimate-multisite\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: inc/admin-pages/class-dashboard-admin-page.php:551
 #: inc/admin-pages/class-migration-alert-admin-page.php:103
 #: inc/admin-pages/class-setup-wizard-admin-page.php:310
-#: inc/admin-pages/class-setup-wizard-admin-page.php:676
+#: inc/admin-pages/class-setup-wizard-admin-page.php:675
 #: inc/admin-pages/class-top-admin-nav-menu.php:55
 #: inc/class-credits.php:156
 #: inc/class-credits.php:200
@@ -143,8 +143,8 @@ msgid "Growth & Scaling"
 msgstr ""
 
 #: inc/admin-pages/class-addons-admin-page.php:470
-#: inc/class-settings.php:1500
-#: inc/class-settings.php:1501
+#: inc/class-settings.php:1526
+#: inc/class-settings.php:1527
 msgid "Integrations"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Marketplace"
 msgstr ""
 
-#: inc/admin-pages/class-base-admin-page.php:656
+#: inc/admin-pages/class-base-admin-page.php:658
 msgid "Documentation"
 msgstr ""
 
@@ -261,8 +261,8 @@ msgstr ""
 #: inc/list-tables/class-broadcast-list-table.php:440
 #: inc/list-tables/class-email-list-table.php:39
 #: inc/list-tables/class-email-list-table.php:298
-#: inc/models/class-checkout-form.php:550
-#: inc/models/class-checkout-form.php:707
+#: inc/models/class-checkout-form.php:560
+#: inc/models/class-checkout-form.php:717
 #: views/dashboard-widgets/thank-you.php:73
 #: views/dashboard-widgets/thank-you.php:181
 msgid "Email"
@@ -407,7 +407,7 @@ msgstr ""
 #: inc/admin-pages/class-domain-edit-admin-page.php:497
 #: inc/admin-pages/class-edit-admin-page.php:277
 #: inc/admin-pages/class-email-edit-admin-page.php:452
-#: inc/admin-pages/class-email-template-customize-admin-page.php:556
+#: inc/admin-pages/class-email-template-customize-admin-page.php:498
 #: inc/admin-pages/class-event-view-admin-page.php:253
 #: inc/admin-pages/class-membership-edit-admin-page.php:997
 #: inc/admin-pages/class-payment-edit-admin-page.php:1225
@@ -494,7 +494,7 @@ msgstr ""
 
 #: inc/admin-pages/class-broadcast-list-admin-page.php:378
 #: inc/admin-pages/class-checkout-form-edit-admin-page.php:858
-#: inc/admin-pages/class-email-template-customize-admin-page.php:247
+#: inc/admin-pages/class-email-template-customize-admin-page.php:244
 #: inc/admin-pages/class-placeholders-admin-page.php:112
 #: inc/checkout/signup-fields/class-base-signup-field.php:510
 #: inc/list-tables/class-broadcast-list-table.php:418
@@ -545,7 +545,7 @@ msgstr ""
 #: inc/admin-pages/class-email-list-admin-page.php:105
 #: inc/admin-pages/class-email-list-admin-page.php:116
 #: inc/admin-pages/class-email-list-admin-page.php:127
-#: inc/admin-pages/class-settings-admin-page.php:173
+#: inc/admin-pages/class-settings-admin-page.php:174
 msgid "System Emails"
 msgstr ""
 
@@ -661,7 +661,7 @@ msgstr ""
 
 #: inc/admin-pages/class-checkout-form-edit-admin-page.php:724
 #: inc/compat/class-legacy-shortcodes.php:352
-#: inc/models/class-checkout-form.php:831
+#: inc/models/class-checkout-form.php:841
 #: views/legacy/signup/pricing-table/frequency-selector.php:31
 msgid "Monthly"
 msgstr ""
@@ -785,7 +785,7 @@ msgstr ""
 #: inc/admin-pages/class-checkout-form-edit-admin-page.php:1245
 #: inc/admin-pages/class-discount-code-edit-admin-page.php:230
 #: inc/admin-pages/class-email-edit-admin-page.php:294
-#: inc/class-settings.php:1612
+#: inc/class-settings.php:1752
 msgid "Advanced Options"
 msgstr ""
 
@@ -939,7 +939,7 @@ msgid "Enter Checkout Form Name"
 msgstr ""
 
 #: inc/admin-pages/class-checkout-form-edit-admin-page.php:1455
-#: inc/admin-pages/class-email-template-customize-admin-page.php:552
+#: inc/admin-pages/class-email-template-customize-admin-page.php:494
 #: inc/admin-pages/class-invoice-template-customize-admin-page.php:365
 #: inc/admin-pages/class-template-previewer-customize-admin-page.php:289
 msgid "This name is used for internal reference only."
@@ -957,9 +957,9 @@ msgstr ""
 #: inc/admin-pages/class-checkout-form-list-admin-page.php:238
 #: inc/admin-pages/class-checkout-form-list-admin-page.php:249
 #: inc/admin-pages/class-checkout-form-list-admin-page.php:260
-#: inc/admin-pages/class-settings-admin-page.php:141
-#: inc/admin-pages/class-settings-admin-page.php:201
-#: inc/admin-pages/class-settings-admin-page.php:205
+#: inc/admin-pages/class-settings-admin-page.php:142
+#: inc/admin-pages/class-settings-admin-page.php:202
+#: inc/admin-pages/class-settings-admin-page.php:206
 #: inc/installers/class-migrator.php:353
 #: inc/list-tables/class-checkout-form-list-table.php:40
 #: views/ui/jumper.php:76
@@ -1120,7 +1120,7 @@ msgstr ""
 #: views/base/checkout-forms/steps.php:144
 #: views/base/checkout-forms/steps.php:154
 #: views/dashboard-widgets/domain-mapping.php:85
-#: views/taxes/list.php:66
+#: views/taxes/list.php:88
 msgid "Delete"
 msgstr ""
 
@@ -1154,7 +1154,7 @@ msgstr ""
 #: inc/admin-pages/class-product-edit-admin-page.php:762
 #: inc/checkout/signup-fields/class-signup-field-period-selection.php:216
 #: inc/checkout/signup-fields/class-signup-field-select.php:179
-#: inc/class-settings.php:1111
+#: inc/class-settings.php:1137
 #: inc/list-tables/class-membership-line-item-list-table.php:139
 #: inc/list-tables/class-payment-line-item-list-table.php:82
 #: views/checkout/templates/order-bump/simple.php:49
@@ -1243,8 +1243,8 @@ msgstr ""
 #: inc/admin-pages/class-membership-list-admin-page.php:279
 #: inc/admin-pages/class-membership-list-admin-page.php:290
 #: inc/admin-pages/class-membership-list-admin-page.php:301
-#: inc/class-settings.php:924
-#: inc/class-settings.php:925
+#: inc/class-settings.php:950
+#: inc/class-settings.php:951
 #: inc/debug/class-debug.php:195
 #: inc/list-tables/class-customer-list-table.php:244
 #: inc/list-tables/class-membership-list-table-widget.php:42
@@ -1286,6 +1286,8 @@ msgstr ""
 #: inc/ui/class-limits-element.php:125
 #: inc/ui/class-login-form-element.php:140
 #: inc/ui/class-login-form-element.php:141
+#: inc/ui/class-magic-link-url-element.php:138
+#: inc/ui/class-magic-link-url-element.php:139
 #: inc/ui/class-my-sites-element.php:135
 #: inc/ui/class-my-sites-element.php:136
 #: inc/ui/class-payment-methods-element.php:109
@@ -1339,8 +1341,8 @@ msgstr ""
 #: inc/admin-pages/class-payment-list-admin-page.php:255
 #: inc/admin-pages/class-payment-list-admin-page.php:266
 #: inc/admin-pages/class-top-admin-nav-menu.php:115
-#: inc/class-settings.php:1331
-#: inc/class-settings.php:1332
+#: inc/class-settings.php:1357
+#: inc/class-settings.php:1358
 #: inc/debug/class-debug.php:263
 #: inc/list-tables/class-payment-list-table-widget.php:42
 #: inc/list-tables/class-payment-list-table.php:42
@@ -1353,8 +1355,8 @@ msgstr ""
 #: inc/admin-pages/class-site-list-admin-page.php:517
 #: inc/admin-pages/class-site-list-admin-page.php:528
 #: inc/admin-pages/class-site-list-admin-page.php:539
-#: inc/class-settings.php:1171
-#: inc/class-settings.php:1172
+#: inc/class-settings.php:1197
+#: inc/class-settings.php:1198
 #: inc/debug/class-debug.php:212
 #: inc/list-tables/class-site-list-table.php:45
 #: inc/managers/class-limitation-manager.php:276
@@ -1395,8 +1397,8 @@ msgstr ""
 #: inc/admin-pages/class-customer-edit-admin-page.php:881
 #: inc/list-tables/class-product-list-table.php:132
 #: inc/list-tables/class-product-list-table.php:178
-#: inc/models/class-payment.php:552
-#: inc/models/class-payment.php:558
+#: inc/models/class-payment.php:572
+#: inc/models/class-payment.php:578
 #: views/admin-pages/fields/field-text-display.php:47
 #: views/admin-pages/fields/field-text-edit.php:50
 #: views/base/customers/grid-item.php:129
@@ -1511,8 +1513,8 @@ msgstr ""
 #: inc/admin-pages/class-customer-list-admin-page.php:209
 #: inc/checkout/class-legacy-checkout.php:487
 #: inc/checkout/signup-fields/class-signup-field-username.php:72
-#: inc/models/class-checkout-form.php:559
-#: inc/models/class-checkout-form.php:716
+#: inc/models/class-checkout-form.php:569
+#: inc/models/class-checkout-form.php:726
 msgid "Username"
 msgstr ""
 
@@ -1542,8 +1544,8 @@ msgstr ""
 #: inc/admin-pages/class-customer-list-admin-page.php:236
 #: inc/checkout/class-legacy-checkout.php:509
 #: inc/checkout/signup-fields/class-signup-field-password.php:72
-#: inc/models/class-checkout-form.php:569
-#: inc/models/class-checkout-form.php:726
+#: inc/models/class-checkout-form.php:579
+#: inc/models/class-checkout-form.php:736
 #: inc/ui/class-login-form-element.php:230
 #: views/checkout/partials/inline-login-prompt.php:31
 msgid "Password"
@@ -1809,8 +1811,8 @@ msgstr ""
 
 #: inc/admin-pages/class-discount-code-edit-admin-page.php:268
 #: inc/checkout/signup-fields/class-signup-field-discount-code.php:58
-#: inc/models/class-checkout-form.php:1009
-#: inc/models/class-checkout-form.php:1010
+#: inc/models/class-checkout-form.php:1019
+#: inc/models/class-checkout-form.php:1020
 msgid "Coupon Code"
 msgstr ""
 
@@ -2545,7 +2547,7 @@ msgid "Add System Email"
 msgstr ""
 
 #: inc/admin-pages/class-email-list-admin-page.php:651
-#: inc/admin-pages/class-settings-admin-page.php:181
+#: inc/admin-pages/class-settings-admin-page.php:182
 msgid "Email Template"
 msgstr ""
 
@@ -2557,215 +2559,176 @@ msgstr ""
 msgid "Sample Subject"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:221
+#: inc/admin-pages/class-email-template-customize-admin-page.php:218
 msgid "System emails and broadcasts will be sent using this template."
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:246
+#: inc/admin-pages/class-email-template-customize-admin-page.php:243
 msgid "Header"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:248
+#: inc/admin-pages/class-email-template-customize-admin-page.php:245
 msgid "Footer"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:253
+#: inc/admin-pages/class-email-template-customize-admin-page.php:250
+msgid "Hide Logo"
+msgstr ""
+
+#: inc/admin-pages/class-email-template-customize-admin-page.php:251
+msgid "Toggle to hide the logo in the email header."
+msgstr ""
+
+#: inc/admin-pages/class-email-template-customize-admin-page.php:262
 #: inc/admin-pages/class-invoice-template-customize-admin-page.php:258
 #: inc/admin-pages/class-template-previewer-customize-admin-page.php:192
 msgid "Use Custom Logo"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:254
+#: inc/admin-pages/class-email-template-customize-admin-page.php:263
 msgid "You can set a different logo to be used on the system emails."
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:266
+#: inc/admin-pages/class-email-template-customize-admin-page.php:275
 #: inc/admin-pages/class-invoice-template-customize-admin-page.php:270
 #: inc/admin-pages/class-template-previewer-customize-admin-page.php:205
 msgid "Custom Logo"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:267
+#: inc/admin-pages/class-email-template-customize-admin-page.php:276
 msgid "The custom logo is used in the email header, if HTML emails are used."
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:280
+#: inc/admin-pages/class-email-template-customize-admin-page.php:289
 #: inc/admin-pages/class-template-previewer-customize-admin-page.php:166
 msgid "Background Color"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:281
+#: inc/admin-pages/class-email-template-customize-admin-page.php:290
 msgid "The cover background color of the email."
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:293
-msgid "Title Color"
+#: inc/admin-pages/class-email-template-customize-admin-page.php:302
+msgid "Content Color"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:305
-msgid "Title Size"
+#: inc/admin-pages/class-email-template-customize-admin-page.php:314
+msgid "Content Alignment"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:308
-msgid "h1"
+#: inc/admin-pages/class-email-template-customize-admin-page.php:315
+msgid "Alignment of the font in the main email content."
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:309
-msgid "h2"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:310
-msgid "h3"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:311
-msgid "h4"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:312
-msgid "h5"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:324
-msgid "Title Align"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:325
-msgid "Aligment of the font in the title."
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:328
-#: inc/admin-pages/class-email-template-customize-admin-page.php:376
-#: inc/admin-pages/class-email-template-customize-admin-page.php:467
+#: inc/admin-pages/class-email-template-customize-admin-page.php:318
+#: inc/admin-pages/class-email-template-customize-admin-page.php:409
 #: inc/ui/class-current-site-element.php:221
 msgid "Left"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:329
-#: inc/admin-pages/class-email-template-customize-admin-page.php:377
-#: inc/admin-pages/class-email-template-customize-admin-page.php:468
+#: inc/admin-pages/class-email-template-customize-admin-page.php:319
+#: inc/admin-pages/class-email-template-customize-admin-page.php:410
 msgid "Center"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:330
-#: inc/admin-pages/class-email-template-customize-admin-page.php:378
-#: inc/admin-pages/class-email-template-customize-admin-page.php:469
+#: inc/admin-pages/class-email-template-customize-admin-page.php:320
+#: inc/admin-pages/class-email-template-customize-admin-page.php:411
 #: inc/ui/class-current-site-element.php:220
 msgid "Right"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:342
-msgid "Title Font-Family"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:345
-#: inc/admin-pages/class-email-template-customize-admin-page.php:393
-#: inc/admin-pages/class-email-template-customize-admin-page.php:436
-msgid "Helvetica"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:346
-#: inc/admin-pages/class-email-template-customize-admin-page.php:394
-#: inc/admin-pages/class-email-template-customize-admin-page.php:437
-msgid "Arial"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:347
-#: inc/admin-pages/class-email-template-customize-admin-page.php:395
-#: inc/admin-pages/class-email-template-customize-admin-page.php:438
-msgid "Times New Roman"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:348
-#: inc/admin-pages/class-email-template-customize-admin-page.php:396
-#: inc/admin-pages/class-email-template-customize-admin-page.php:439
-msgid "Lucida"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:360
-msgid "Content Color"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:372
-msgid "Content Alignment"
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:373
-msgid "Alignment of the font in the main email content."
-msgstr ""
-
-#: inc/admin-pages/class-email-template-customize-admin-page.php:390
+#: inc/admin-pages/class-email-template-customize-admin-page.php:332
 msgid "Content Font-Family"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:408
+#: inc/admin-pages/class-email-template-customize-admin-page.php:335
+#: inc/admin-pages/class-email-template-customize-admin-page.php:378
+msgid "Helvetica"
+msgstr ""
+
+#: inc/admin-pages/class-email-template-customize-admin-page.php:336
+#: inc/admin-pages/class-email-template-customize-admin-page.php:379
+msgid "Arial"
+msgstr ""
+
+#: inc/admin-pages/class-email-template-customize-admin-page.php:337
+#: inc/admin-pages/class-email-template-customize-admin-page.php:380
+msgid "Times New Roman"
+msgstr ""
+
+#: inc/admin-pages/class-email-template-customize-admin-page.php:338
+#: inc/admin-pages/class-email-template-customize-admin-page.php:381
+msgid "Lucida"
+msgstr ""
+
+#: inc/admin-pages/class-email-template-customize-admin-page.php:350
 msgid "Display Company Address"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:409
+#: inc/admin-pages/class-email-template-customize-admin-page.php:351
 msgid "Toggle to show/hide your company address."
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:420
+#: inc/admin-pages/class-email-template-customize-admin-page.php:362
 #: inc/admin-pages/class-invoice-template-customize-admin-page.php:231
 msgid "Footer Content"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:421
+#: inc/admin-pages/class-email-template-customize-admin-page.php:363
 msgid "e.g. Extra info in the email footer."
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:433
+#: inc/admin-pages/class-email-template-customize-admin-page.php:375
 msgid "Footer Font-Family"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:451
+#: inc/admin-pages/class-email-template-customize-admin-page.php:393
 msgid "Footer Color"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:463
+#: inc/admin-pages/class-email-template-customize-admin-page.php:405
 msgid "Footer Alignment"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:464
+#: inc/admin-pages/class-email-template-customize-admin-page.php:406
 msgid "Alignment of the font in the main email footer."
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:492
+#: inc/admin-pages/class-email-template-customize-admin-page.php:434
 #: inc/admin-pages/class-invoice-template-customize-admin-page.php:305
 #: inc/admin-pages/class-template-previewer-customize-admin-page.php:229
 msgid "Customizer"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:513
+#: inc/admin-pages/class-email-template-customize-admin-page.php:455
 msgid "Customize Email Template:"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:524
-#: inc/admin-pages/class-email-template-customize-admin-page.php:547
-#: inc/admin-pages/class-email-template-customize-admin-page.php:548
-#: inc/admin-pages/class-settings-admin-page.php:416
-#: inc/admin-pages/class-settings-admin-page.php:420
+#: inc/admin-pages/class-email-template-customize-admin-page.php:466
+#: inc/admin-pages/class-email-template-customize-admin-page.php:489
+#: inc/admin-pages/class-email-template-customize-admin-page.php:490
+#: inc/admin-pages/class-settings-admin-page.php:417
+#: inc/admin-pages/class-settings-admin-page.php:421
 msgid "Customize Email Template"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:549
+#: inc/admin-pages/class-email-template-customize-admin-page.php:491
 msgid "Edit Email Template"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:550
+#: inc/admin-pages/class-email-template-customize-admin-page.php:492
 msgid "Email Template updated with success!"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:551
+#: inc/admin-pages/class-email-template-customize-admin-page.php:493
 msgid "Enter Email Template Name"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:553
+#: inc/admin-pages/class-email-template-customize-admin-page.php:495
 msgid "Save Template"
 msgstr ""
 
-#: inc/admin-pages/class-email-template-customize-admin-page.php:555
+#: inc/admin-pages/class-email-template-customize-admin-page.php:497
 msgid "Delete Email Template"
 msgstr ""
 
@@ -2829,6 +2792,7 @@ msgstr ""
 #: inc/ui/class-domain-mapping-element.php:304
 #: views/wizards/host-integrations/cloudflare-instructions.php:10
 #: views/wizards/host-integrations/gridpane-instructions.php:9
+#: views/wizards/host-integrations/rocket-instructions.php:9
 #: views/wizards/host-integrations/runcloud-instructions.php:9
 msgid "Instructions"
 msgstr ""
@@ -3483,9 +3447,9 @@ msgstr ""
 
 #: inc/admin-pages/class-payment-edit-admin-page.php:319
 #: inc/admin-pages/class-payment-edit-admin-page.php:320
-#: inc/models/class-checkout-form.php:659
-#: inc/models/class-checkout-form.php:693
-#: inc/models/class-checkout-form.php:737
+#: inc/models/class-checkout-form.php:669
+#: inc/models/class-checkout-form.php:703
+#: inc/models/class-checkout-form.php:747
 msgid "Next Step"
 msgstr ""
 
@@ -3632,7 +3596,7 @@ msgid "Tax description. This is shown on invoices to end customers."
 msgstr ""
 
 #: inc/admin-pages/class-payment-edit-admin-page.php:802
-#: inc/tax/class-tax.php:204
+#: inc/tax/class-tax.php:205
 msgid "Tax Rate"
 msgstr ""
 
@@ -3913,7 +3877,7 @@ msgid "Products can be free, paid, or require further contact for pricing."
 msgstr ""
 
 #: inc/admin-pages/class-product-edit-admin-page.php:300
-#: inc/models/class-product.php:649
+#: inc/models/class-product.php:699
 msgid "Contact Us"
 msgstr ""
 
@@ -4127,8 +4091,8 @@ msgstr ""
 #: inc/list-tables/class-line-item-list-table.php:216
 #: inc/tax/class-dashboard-taxes-tab.php:63
 #: inc/tax/class-dashboard-taxes-tab.php:151
-#: inc/tax/class-tax.php:104
 #: inc/tax/class-tax.php:105
+#: inc/tax/class-tax.php:106
 #: views/checkout/templates/order-summary/simple.php:188
 msgid "Taxes"
 msgstr ""
@@ -4240,88 +4204,88 @@ msgstr ""
 msgid "Search Product"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:149
+#: inc/admin-pages/class-settings-admin-page.php:150
 msgid "Template Previewer"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:157
+#: inc/admin-pages/class-settings-admin-page.php:158
 msgid "Placeholder Editor"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:165
+#: inc/admin-pages/class-settings-admin-page.php:166
 #: inc/ui/class-invoices-element.php:84
 #: inc/ui/class-invoices-element.php:133
 #: inc/ui/class-invoices-element.php:194
 msgid "Invoices"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:209
+#: inc/admin-pages/class-settings-admin-page.php:210
 msgid "You can create multiple Checkout Forms for different occasions (seasonal campaigns, launches, etc)!"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:218
+#: inc/admin-pages/class-settings-admin-page.php:219
 msgid "Manage Checkout Forms &rarr;"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:244
-#: inc/admin-pages/class-settings-admin-page.php:248
+#: inc/admin-pages/class-settings-admin-page.php:245
+#: inc/admin-pages/class-settings-admin-page.php:249
 msgid "Customize the Template Previewer"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:252
+#: inc/admin-pages/class-settings-admin-page.php:253
 msgid "Did you know that you can customize colors, logos, and more options of the Site Template Previewer top-bar?"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:261
-#: inc/admin-pages/class-settings-admin-page.php:347
+#: inc/admin-pages/class-settings-admin-page.php:262
+#: inc/admin-pages/class-settings-admin-page.php:348
 msgid "Go to Customizer &rarr;"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:287
-#: inc/admin-pages/class-settings-admin-page.php:291
+#: inc/admin-pages/class-settings-admin-page.php:288
+#: inc/admin-pages/class-settings-admin-page.php:292
 msgid "Customize the Template Placeholders"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:295
+#: inc/admin-pages/class-settings-admin-page.php:296
 msgid "If you are using placeholder substitutions inside your site templates, use this tool to add, remove, or change the default content of those placeholders."
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:304
+#: inc/admin-pages/class-settings-admin-page.php:305
 msgid "Edit Placeholders &rarr;"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:330
-#: inc/admin-pages/class-settings-admin-page.php:334
+#: inc/admin-pages/class-settings-admin-page.php:331
+#: inc/admin-pages/class-settings-admin-page.php:335
 msgid "Customize the Invoice Template"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:338
+#: inc/admin-pages/class-settings-admin-page.php:339
 msgid "Did you know that you can customize colors, logos, and more options of the Invoice PDF template?"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:373
-#: inc/admin-pages/class-settings-admin-page.php:377
+#: inc/admin-pages/class-settings-admin-page.php:374
+#: inc/admin-pages/class-settings-admin-page.php:378
 msgid "Customize System Emails"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:381
+#: inc/admin-pages/class-settings-admin-page.php:382
 msgid "You can completely customize the contents of the emails sent out by Ultimate Multisite when particular events occur, such as Account Creation, Payment Failures, etc."
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:390
+#: inc/admin-pages/class-settings-admin-page.php:391
 msgid "Customize System Emails &rarr;"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:424
+#: inc/admin-pages/class-settings-admin-page.php:425
 msgid "If your network is using the HTML email option, you can customize the look and feel of the email template."
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:433
+#: inc/admin-pages/class-settings-admin-page.php:434
 msgid "Customize Email Template &rarr;"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:454
-#: inc/admin-pages/class-settings-admin-page.php:465
+#: inc/admin-pages/class-settings-admin-page.php:455
+#: inc/admin-pages/class-settings-admin-page.php:466
 #: inc/admin-pages/class-top-admin-nav-menu.php:151
 #: inc/installers/class-migrator.php:288
 #: views/ui/branding/footer.php:37
@@ -4329,12 +4293,46 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:522
+#: inc/admin-pages/class-settings-admin-page.php:523
 msgid "You do not have the permissions required to change settings."
 msgstr ""
 
-#: inc/admin-pages/class-settings-admin-page.php:584
+#: inc/admin-pages/class-settings-admin-page.php:585
 msgid "Save Settings"
+msgstr ""
+
+#: inc/admin-pages/class-settings-admin-page.php:646
+msgid "You do not have permission to export settings."
+msgstr ""
+
+#: inc/admin-pages/class-settings-admin-page.php:693
+msgid "Upload Settings File"
+msgstr ""
+
+#: inc/admin-pages/class-settings-admin-page.php:694
+msgid "Select a JSON file previously exported from Ultimate Multisite."
+msgstr ""
+
+#: inc/admin-pages/class-settings-admin-page.php:702
+msgid "I understand this will replace all current settings"
+msgstr ""
+
+#: inc/admin-pages/class-settings-admin-page.php:703
+msgid "This action cannot be undone. Make sure you have a backup of your current settings."
+msgstr ""
+
+#: inc/admin-pages/class-settings-admin-page.php:711
+#: inc/class-settings.php:1608
+#: inc/class-settings.php:1621
+msgid "Import Settings"
+msgstr ""
+
+#: inc/admin-pages/class-settings-admin-page.php:791
+msgid "Something is wrong with the uploaded file."
+msgstr ""
+
+#: inc/admin-pages/class-settings-admin-page.php:842
+msgid "Settings successfully imported!"
 msgstr ""
 
 #: inc/admin-pages/class-setup-wizard-admin-page.php:245
@@ -4464,66 +4462,66 @@ msgstr ""
 msgid "Optionally install helpful plugins. We will install them one by one and report progress."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:609
+#: inc/admin-pages/class-setup-wizard-admin-page.php:608
 msgid "A server error happened while processing this item."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:649
+#: inc/admin-pages/class-setup-wizard-admin-page.php:648
 msgid "PHP"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:658
+#: inc/admin-pages/class-setup-wizard-admin-page.php:657
 msgid "WordPress"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:670
+#: inc/admin-pages/class-setup-wizard-admin-page.php:669
 msgid "WordPress Multisite"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:672
+#: inc/admin-pages/class-setup-wizard-admin-page.php:671
 msgid "Installed & Activated"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:678
+#: inc/admin-pages/class-setup-wizard-admin-page.php:677
 msgid "Bypassed via filter"
 msgstr ""
 
 #. Translators: The plugin is network wide active, the string is for each plugin possible.
-#: inc/admin-pages/class-setup-wizard-admin-page.php:678
+#: inc/admin-pages/class-setup-wizard-admin-page.php:677
 #: inc/admin/class-network-usage-columns.php:127
 msgid "Network Activated"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:682
+#: inc/admin-pages/class-setup-wizard-admin-page.php:681
 msgid "WordPress Cron"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:684
+#: inc/admin-pages/class-setup-wizard-admin-page.php:683
 #: inc/integrations/host-providers/class-base-host-provider.php:200
 msgid "Activated"
 msgstr ""
 
 #. translators: %s code snippet.
-#: inc/admin-pages/class-setup-wizard-admin-page.php:773
+#: inc/admin-pages/class-setup-wizard-admin-page.php:772
 #, php-format
 msgid "The SUNRISE constant is missing. Domain mapping and plugin/theme limits will not function until `%s` is added to wp-config.php. Please complete the setup to attempt to do this automatically."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:775
+#: inc/admin-pages/class-setup-wizard-admin-page.php:774
 msgid "Ultimate Multisite installation is incomplete. The sunrise.php file is missing. Please complete the setup to ensure proper functionality."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:780
+#: inc/admin-pages/class-setup-wizard-admin-page.php:779
 msgid "Complete Setup"
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:896
-#: inc/class-scripts.php:196
+#: inc/admin-pages/class-setup-wizard-admin-page.php:895
+#: inc/class-scripts.php:227
 msgid "Select an Image."
 msgstr ""
 
-#: inc/admin-pages/class-setup-wizard-admin-page.php:897
-#: inc/class-scripts.php:197
+#: inc/admin-pages/class-setup-wizard-admin-page.php:896
+#: inc/class-scripts.php:228
 msgid "Use this image"
 msgstr ""
 
@@ -4539,6 +4537,7 @@ msgid "integer"
 msgstr ""
 
 #: inc/admin-pages/class-shortcodes-admin-page.php:160
+#: inc/class-scripts.php:177
 msgid "number"
 msgstr ""
 
@@ -4568,7 +4567,7 @@ msgid "This will start the transfer of assets from one membership to another."
 msgstr ""
 
 #: inc/admin-pages/class-site-edit-admin-page.php:260
-#: inc/list-tables/class-site-list-table.php:399
+#: inc/list-tables/class-site-list-table.php:407
 #: inc/managers/class-site-manager.php:369
 msgid "Site not found."
 msgstr ""
@@ -4581,6 +4580,8 @@ msgid "Site Type"
 msgstr ""
 
 #: inc/admin-pages/class-site-edit-admin-page.php:328
+#: inc/ui/class-magic-link-url-element.php:145
+#: views/wizards/host-integrations/rocket-instructions.php:12
 msgid "Site ID"
 msgstr ""
 
@@ -4594,7 +4595,7 @@ msgid "Tell your customers what this site is about."
 msgstr ""
 
 #: inc/admin-pages/class-site-edit-admin-page.php:358
-#: inc/class-settings.php:1181
+#: inc/class-settings.php:1207
 msgid "Site Options"
 msgstr ""
 
@@ -4726,6 +4727,8 @@ msgstr ""
 #: inc/list-tables/class-customers-site-list-table.php:79
 #: inc/list-tables/class-memberships-site-list-table.php:65
 #: inc/ui/class-current-site-element.php:364
+#: inc/ui/class-magic-link-url-element.php:182
+#: inc/ui/class-magic-link-url-element.php:262
 #: views/dashboard-widgets/my-sites.php:111
 msgid "Visit Site"
 msgstr ""
@@ -4789,9 +4792,9 @@ msgstr ""
 #: inc/admin-pages/class-site-list-admin-page.php:352
 #: inc/checkout/class-legacy-checkout.php:445
 #: inc/checkout/signup-fields/class-signup-field-site-title.php:69
-#: inc/models/class-checkout-form.php:580
-#: inc/models/class-checkout-form.php:672
-#: inc/models/class-checkout-form.php:1520
+#: inc/models/class-checkout-form.php:590
+#: inc/models/class-checkout-form.php:682
+#: inc/models/class-checkout-form.php:1530
 #: inc/ui/class-current-site-element.php:421
 msgid "Site Title"
 msgstr ""
@@ -4888,7 +4891,7 @@ msgstr ""
 #: inc/admin-pages/class-system-info-admin-page.php:479
 #: inc/admin-pages/class-system-info-admin-page.php:484
 #: inc/admin-pages/class-system-info-admin-page.php:489
-#: inc/class-settings.php:1590
+#: inc/class-settings.php:1726
 msgid "Disabled"
 msgstr ""
 
@@ -4938,8 +4941,8 @@ msgstr ""
 #: inc/admin-pages/class-tax-rates-admin-page.php:75
 #: inc/admin-pages/class-tax-rates-admin-page.php:86
 #: inc/admin-pages/class-tax-rates-admin-page.php:97
-#: inc/tax/class-tax.php:148
-#: views/taxes/list.php:12
+#: inc/tax/class-tax.php:149
+#: views/taxes/list.php:14
 msgid "Tax Rates"
 msgstr ""
 
@@ -5081,6 +5084,7 @@ msgstr ""
 #: inc/admin-pages/class-view-logs-admin-page.php:103
 #: inc/admin-pages/class-webhook-edit-admin-page.php:103
 #: inc/admin-pages/class-webhook-list-admin-page.php:77
+#: inc/class-tracker.php:782
 msgid "Copied!"
 msgstr ""
 
@@ -5341,13 +5345,13 @@ msgstr ""
 #: inc/admin-pages/customer-panel/class-checkout-admin-page.php:101
 #: inc/compat/class-legacy-shortcodes.php:397
 #: inc/compat/class-legacy-shortcodes.php:537
-#: inc/models/class-checkout-form.php:536
-#: inc/models/class-checkout-form.php:623
-#: inc/models/class-checkout-form.php:645
-#: inc/models/class-checkout-form.php:772
-#: inc/models/class-checkout-form.php:991
-#: inc/models/class-checkout-form.php:1235
-#: inc/models/class-checkout-form.php:1431
+#: inc/models/class-checkout-form.php:546
+#: inc/models/class-checkout-form.php:633
+#: inc/models/class-checkout-form.php:655
+#: inc/models/class-checkout-form.php:782
+#: inc/models/class-checkout-form.php:1001
+#: inc/models/class-checkout-form.php:1245
+#: inc/models/class-checkout-form.php:1441
 #: inc/ui/class-checkout-element.php:112
 msgid "Checkout"
 msgstr ""
@@ -5577,8 +5581,8 @@ msgstr ""
 #: inc/apis/schemas/customer-update.php:91
 #: inc/apis/schemas/discount-code-create.php:116
 #: inc/apis/schemas/discount-code-update.php:116
-#: inc/apis/schemas/domain-create.php:70
-#: inc/apis/schemas/domain-update.php:70
+#: inc/apis/schemas/domain-create.php:73
+#: inc/apis/schemas/domain-update.php:73
 #: inc/apis/schemas/email-create.php:135
 #: inc/apis/schemas/email-update.php:135
 #: inc/apis/schemas/event-create.php:67
@@ -5671,8 +5675,8 @@ msgstr ""
 #: inc/apis/schemas/customer-update.php:96
 #: inc/apis/schemas/discount-code-create.php:121
 #: inc/apis/schemas/discount-code-update.php:121
-#: inc/apis/schemas/domain-create.php:75
-#: inc/apis/schemas/domain-update.php:75
+#: inc/apis/schemas/domain-create.php:78
+#: inc/apis/schemas/domain-update.php:78
 #: inc/apis/schemas/email-create.php:140
 #: inc/apis/schemas/email-update.php:140
 #: inc/apis/schemas/event-create.php:72
@@ -5752,8 +5756,8 @@ msgstr ""
 #: inc/apis/schemas/customer-update.php:86
 #: inc/apis/schemas/discount-code-create.php:111
 #: inc/apis/schemas/discount-code-update.php:111
-#: inc/apis/schemas/domain-create.php:65
-#: inc/apis/schemas/domain-update.php:65
+#: inc/apis/schemas/domain-create.php:68
+#: inc/apis/schemas/domain-update.php:68
 #: inc/apis/schemas/event-create.php:62
 #: inc/apis/schemas/event-update.php:62
 #: inc/apis/schemas/payment-create.php:111
@@ -5895,38 +5899,38 @@ msgstr ""
 msgid "This discount code will be limited to be used in certain products? If set to true, you must define a list of allowed products."
 msgstr ""
 
-#: inc/apis/schemas/domain-create.php:23
-#: inc/apis/schemas/domain-update.php:23
+#: inc/apis/schemas/domain-create.php:25
+#: inc/apis/schemas/domain-update.php:25
 msgid "Your Domain name. You don't need to put http or https in front of your domain in this field. e.g: example.com."
 msgstr ""
 
-#: inc/apis/schemas/domain-create.php:28
-#: inc/apis/schemas/domain-update.php:28
+#: inc/apis/schemas/domain-create.php:30
+#: inc/apis/schemas/domain-update.php:30
 msgid "The blog ID attached to this domain."
 msgstr ""
 
-#: inc/apis/schemas/domain-create.php:33
-#: inc/apis/schemas/domain-update.php:33
+#: inc/apis/schemas/domain-create.php:35
+#: inc/apis/schemas/domain-update.php:35
 msgid "Set this domain as active (true), which means available to be used, or inactive (false)."
 msgstr ""
 
-#: inc/apis/schemas/domain-create.php:38
-#: inc/apis/schemas/domain-update.php:38
+#: inc/apis/schemas/domain-create.php:40
+#: inc/apis/schemas/domain-update.php:40
 msgid "Define true to set this as primary domain of a site, meaning it's the main url, or set false."
 msgstr ""
 
-#: inc/apis/schemas/domain-create.php:43
-#: inc/apis/schemas/domain-update.php:43
+#: inc/apis/schemas/domain-create.php:45
+#: inc/apis/schemas/domain-update.php:45
 msgid "If this domain has some SSL security or not."
 msgstr ""
 
-#: inc/apis/schemas/domain-create.php:48
-#: inc/apis/schemas/domain-update.php:48
+#: inc/apis/schemas/domain-create.php:50
+#: inc/apis/schemas/domain-update.php:50
 msgid "The state of the domain model object. Can be one of this options: checking-dns, checking-ssl-cert, done-without-ssl, done and failed."
 msgstr ""
 
-#: inc/apis/schemas/domain-create.php:60
-#: inc/apis/schemas/domain-update.php:60
+#: inc/apis/schemas/domain-create.php:63
+#: inc/apis/schemas/domain-update.php:63
 msgid "Date when the domain was created. If no date is set, the current date and time will be used."
 msgstr ""
 
@@ -6711,8 +6715,8 @@ msgstr ""
 #: inc/apis/trait-rest-api.php:174
 #: inc/apis/trait-rest-api.php:247
 #: inc/apis/trait-rest-api.php:305
-#: inc/models/class-base-model.php:646
-#: inc/models/class-site.php:1435
+#: inc/models/class-base-model.php:639
+#: inc/models/class-site.php:1475
 msgid "Item not found."
 msgstr ""
 
@@ -6879,38 +6883,38 @@ msgstr ""
 msgid "<strong>Error:</strong> The password you entered is incorrect."
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:218
-#: inc/integrations/host-providers/class-closte-host-provider.php:256
+#: inc/checkout/class-checkout-pages.php:220
+#: inc/integrations/host-providers/class-closte-host-provider.php:292
 msgid "Something went wrong"
 msgstr ""
 
 #. translators: %1$s and %2$s are <strong></strong> HTML tags
-#: inc/checkout/class-checkout-pages.php:422
+#: inc/checkout/class-checkout-pages.php:424
 #, php-format
 msgid "Your email address is not yet verified. Your site %1$s will only be activated %2$s after your email address is verified. Check your inbox and verify your email address."
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:426
+#: inc/checkout/class-checkout-pages.php:428
 msgid "Resend verification email →"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:631
+#: inc/checkout/class-checkout-pages.php:633
 msgid "Ultimate Multisite - Register Page"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:632
+#: inc/checkout/class-checkout-pages.php:634
 msgid "Ultimate Multisite - Login Page"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:633
+#: inc/checkout/class-checkout-pages.php:635
 msgid "Ultimate Multisite - Site Blocked Page"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:634
+#: inc/checkout/class-checkout-pages.php:636
 msgid "Ultimate Multisite - Membership Update Page"
 msgstr ""
 
-#: inc/checkout/class-checkout-pages.php:635
+#: inc/checkout/class-checkout-pages.php:637
 msgid "Ultimate Multisite - New Site Page"
 msgstr ""
 
@@ -7035,9 +7039,9 @@ msgid "OFF"
 msgstr ""
 
 #: inc/checkout/class-legacy-checkout.php:252
-#: inc/models/class-membership.php:911
-#: inc/models/class-product.php:645
-#: inc/models/class-product.php:726
+#: inc/models/class-membership.php:941
+#: inc/models/class-product.php:695
+#: inc/models/class-product.php:776
 #: views/checkout/templates/pricing-table/legacy.php:163
 #: views/legacy/signup/pricing-table/plan.php:29
 #: views/legacy/signup/pricing-table/plan.php:48
@@ -7064,9 +7068,9 @@ msgstr ""
 
 #: inc/checkout/class-legacy-checkout.php:423
 #: inc/checkout/signup-fields/class-signup-field-template-selection.php:142
-#: inc/models/class-checkout-form.php:892
-#: inc/models/class-checkout-form.php:1467
-#: inc/models/class-checkout-form.php:1484
+#: inc/models/class-checkout-form.php:902
+#: inc/models/class-checkout-form.php:1477
+#: inc/models/class-checkout-form.php:1494
 msgid "Template Selection"
 msgstr ""
 
@@ -7114,15 +7118,15 @@ msgstr ""
 
 #: inc/checkout/class-legacy-checkout.php:520
 #: inc/checkout/signup-fields/class-signup-field-password.php:127
-#: inc/models/class-checkout-form.php:939
+#: inc/models/class-checkout-form.php:949
 msgid "Confirm Password"
 msgstr ""
 
 #: inc/checkout/class-legacy-checkout.php:534
 #: inc/checkout/signup-fields/class-signup-field-site-url.php:66
-#: inc/models/class-checkout-form.php:590
-#: inc/models/class-checkout-form.php:682
-#: inc/models/class-checkout-form.php:1531
+#: inc/models/class-checkout-form.php:600
+#: inc/models/class-checkout-form.php:692
+#: inc/models/class-checkout-form.php:1541
 #: views/emails/admin/domain-created.php:79
 #: views/emails/admin/site-published.php:30
 msgid "Site URL"
@@ -7150,8 +7154,8 @@ msgstr ""
 
 #. translators: %1$s the duration, and %2$s the duration unit (day, week, month, etc)
 #: inc/checkout/class-line-item.php:1103
-#: inc/models/class-checkout-form.php:1311
-#: inc/models/class-checkout-form.php:1342
+#: inc/models/class-checkout-form.php:1321
+#: inc/models/class-checkout-form.php:1352
 #, php-format
 msgid "%2$s"
 msgid_plural "every %1$s %2$s"
@@ -7452,12 +7456,12 @@ msgstr ""
 #: inc/checkout/signup-fields/class-signup-field-pricing-table.php:286
 #: inc/checkout/signup-fields/class-signup-field-steps.php:216
 #: inc/checkout/signup-fields/class-signup-field-template-selection.php:365
-#: inc/ui/class-template-switching-element.php:361
+#: inc/ui/class-template-switching-element.php:363
 msgid "Template does not exist."
 msgstr ""
 
 #: inc/checkout/signup-fields/class-signup-field-order-summary.php:57
-#: inc/models/class-checkout-form.php:994
+#: inc/models/class-checkout-form.php:1004
 msgid "Order Summary"
 msgstr ""
 
@@ -7520,7 +7524,7 @@ msgstr ""
 #: inc/list-tables/class-payment-list-table-widget.php:41
 #: inc/list-tables/class-payment-list-table.php:41
 #: inc/managers/class-payment-manager.php:74
-#: inc/models/class-checkout-form.php:745
+#: inc/models/class-checkout-form.php:755
 #: views/emails/admin/payment-received.php:15
 #: views/emails/customer/payment-received.php:16
 #: views/emails/customer/renewal-payment-created.php:16
@@ -7637,7 +7641,7 @@ msgstr ""
 #: views/checkout/templates/template-selection/clean.php:142
 #: views/checkout/templates/template-selection/legacy.php:237
 #: views/sites/edit-placeholders.php:105
-#: views/taxes/list.php:170
+#: views/taxes/list.php:192
 msgid "Select"
 msgstr ""
 
@@ -7959,24 +7963,24 @@ msgid "Minimal"
 msgstr ""
 
 #. translators: %s the url for login.
-#: inc/class-addon-repository.php:164
+#: inc/class-addon-repository.php:166
 #, php-format
 msgid "You must <a href=\"%s\" target=\"_parent\">Connect to UltimateMultisite.com</a> first."
 msgstr ""
 
-#: inc/class-addon-repository.php:183
+#: inc/class-addon-repository.php:185
 msgid "403 Access Denied returned from server. Ensure you have an active subscription for this addon."
 msgstr ""
 
-#: inc/class-addon-repository.php:187
+#: inc/class-addon-repository.php:189
 msgid "Failed to connect to the update server. Please try again later."
 msgstr ""
 
-#: inc/class-addon-repository.php:233
+#: inc/class-addon-repository.php:235
 msgid "Successfully connected your site to UltimateMultisite.com."
 msgstr ""
 
-#: inc/class-addon-repository.php:242
+#: inc/class-addon-repository.php:244
 msgid "Failed to authenticate with UltimateMultisite.com."
 msgstr ""
 
@@ -8178,10 +8182,10 @@ msgid "Finish the Setup Wizard"
 msgstr ""
 
 #: inc/class-dashboard-widgets.php:192
-#: inc/models/class-checkout-form.php:609
-#: inc/models/class-checkout-form.php:758
-#: inc/models/class-checkout-form.php:1219
-#: inc/models/class-checkout-form.php:1413
+#: inc/models/class-checkout-form.php:619
+#: inc/models/class-checkout-form.php:768
+#: inc/models/class-checkout-form.php:1229
+#: inc/models/class-checkout-form.php:1423
 #: views/dashboard-widgets/billing-info.php:105
 #: views/invoice/template.php:177
 msgid "Payment Method"
@@ -8313,11 +8317,11 @@ msgstr ""
 msgid "This is the WP-CLI command to run the MCP server via STDIO transport."
 msgstr ""
 
-#: inc/class-newsletter.php:45
+#: inc/class-newsletter.php:48
 msgid "Signup for Ultimate Multisite Newsletter"
 msgstr ""
 
-#: inc/class-newsletter.php:46
+#: inc/class-newsletter.php:49
 msgid "Be informed of new releases and all things related to running a WaaS Network."
 msgstr ""
 
@@ -8359,6 +8363,7 @@ msgstr ""
 
 #: inc/class-orphaned-tables-manager.php:140
 #: inc/class-orphaned-users-manager.php:133
+#: inc/class-settings.php:1645
 msgid "Warning:"
 msgstr ""
 
@@ -8460,19 +8465,51 @@ msgstr ""
 msgid "here"
 msgstr ""
 
+#: inc/class-scripts.php:170
+#: inc/functions/legacy.php:273
+#: views/admin-pages/fields/field-password.php:49
+msgid "Strength indicator"
+msgstr ""
+
+#: inc/class-scripts.php:171
+msgid "Super Strong"
+msgstr ""
+
+#: inc/class-scripts.php:172
+msgid "Required:"
+msgstr ""
+
+#. translators: %d is the minimum number of characters required
+#: inc/class-scripts.php:174
+#, php-format
+msgid "at least %d characters"
+msgstr ""
+
+#: inc/class-scripts.php:175
+msgid "uppercase letter"
+msgstr ""
+
+#: inc/class-scripts.php:176
+msgid "lowercase letter"
+msgstr ""
+
+#: inc/class-scripts.php:178
+msgid "special character"
+msgstr ""
+
 #. translators: the day/month/year date format used by Ultimate Multisite. You can changed it to localize this date format to your language. the default value is d/m/Y, which is the format 31/12/2021.
-#: inc/class-scripts.php:317
+#: inc/class-scripts.php:348
 msgid "d/m/Y"
 msgstr ""
 
 #. translators: %s is a relative future date.
-#: inc/class-scripts.php:327
+#: inc/class-scripts.php:358
 #, php-format
 msgid "in %s"
 msgstr ""
 
 #. translators: %s is a relative past date.
-#: inc/class-scripts.php:329
+#: inc/class-scripts.php:360
 #: inc/functions/date.php:156
 #: inc/list-tables/class-base-list-table.php:851
 #: views/admin-pages/fields/field-text-display.php:43
@@ -8481,72 +8518,72 @@ msgstr ""
 msgid "%s ago"
 msgstr ""
 
-#: inc/class-scripts.php:330
+#: inc/class-scripts.php:361
 msgid "a few seconds"
 msgstr ""
 
 #. translators: %s is the number of seconds.
-#: inc/class-scripts.php:332
+#: inc/class-scripts.php:363
 #, php-format
 msgid "%d seconds"
 msgstr ""
 
-#: inc/class-scripts.php:333
+#: inc/class-scripts.php:364
 msgid "a minute"
 msgstr ""
 
 #. translators: %s is the number of minutes.
-#: inc/class-scripts.php:335
+#: inc/class-scripts.php:366
 #, php-format
 msgid "%d minutes"
 msgstr ""
 
-#: inc/class-scripts.php:336
+#: inc/class-scripts.php:367
 msgid "an hour"
 msgstr ""
 
 #. translators: %s is the number of hours.
-#: inc/class-scripts.php:338
+#: inc/class-scripts.php:369
 #, php-format
 msgid "%d hours"
 msgstr ""
 
-#: inc/class-scripts.php:339
+#: inc/class-scripts.php:370
 msgid "a day"
 msgstr ""
 
 #. translators: %s is the number of days.
-#: inc/class-scripts.php:341
+#: inc/class-scripts.php:372
 #, php-format
 msgid "%d days"
 msgstr ""
 
-#: inc/class-scripts.php:342
+#: inc/class-scripts.php:373
 msgid "a week"
 msgstr ""
 
 #. translators: %s is the number of weeks.
-#: inc/class-scripts.php:344
+#: inc/class-scripts.php:375
 #, php-format
 msgid "%d weeks"
 msgstr ""
 
-#: inc/class-scripts.php:345
+#: inc/class-scripts.php:376
 msgid "a month"
 msgstr ""
 
 #. translators: %s is the number of months.
-#: inc/class-scripts.php:347
+#: inc/class-scripts.php:378
 #, php-format
 msgid "%d months"
 msgstr ""
 
-#: inc/class-scripts.php:348
+#: inc/class-scripts.php:379
 msgid "a year"
 msgstr ""
 
 #. translators: %s is the number of years.
-#: inc/class-scripts.php:350
+#: inc/class-scripts.php:381
 #, php-format
 msgid "%d years"
 msgstr ""
@@ -8610,7 +8647,7 @@ msgid "Currency Options"
 msgstr ""
 
 #: inc/class-settings.php:636
-#: inc/class-settings.php:1342
+#: inc/class-settings.php:1368
 msgid "The following options affect how prices are displayed on the frontend, the backend and in reports."
 msgstr ""
 
@@ -8708,14 +8745,14 @@ msgstr ""
 
 #: inc/class-settings.php:778
 #: inc/class-settings.php:810
-#: inc/class-settings.php:936
-#: inc/class-settings.php:1193
+#: inc/class-settings.php:962
+#: inc/class-settings.php:1219
 msgid "Search pages on the main site..."
 msgstr ""
 
 #: inc/class-settings.php:779
-#: inc/class-settings.php:937
-#: inc/class-settings.php:1194
+#: inc/class-settings.php:963
+#: inc/class-settings.php:1220
 msgid "Only published pages on the main site are available for selection, and you need to make sure they contain a [wu_checkout] shortcode."
 msgstr ""
 
@@ -8760,474 +8797,597 @@ msgid "By default, when a new pending site needs to be converted into a real net
 msgstr ""
 
 #: inc/class-settings.php:870
-#: inc/class-settings.php:1527
-#: inc/class-settings.php:1528
-msgid "Other Options"
+msgid "Password Strength"
 msgstr ""
 
 #: inc/class-settings.php:871
-msgid "Other registration-related options."
+msgid "Configure password strength requirements for user registration."
 msgstr ""
 
 #: inc/class-settings.php:880
-msgid "Default Role"
+msgid "Minimum Password Strength"
 msgstr ""
 
 #: inc/class-settings.php:881
+msgid "Set the minimum password strength required during registration and password reset. \"Super Strong\" requires at least 12 characters, including uppercase, lowercase, numbers, and special characters."
+msgstr ""
+
+#: inc/class-settings.php:885
+msgid "Medium"
+msgstr ""
+
+#: inc/class-settings.php:886
+msgid "Strong"
+msgstr ""
+
+#: inc/class-settings.php:887
+msgid "Super Strong (12+ chars, mixed case, numbers, symbols)"
+msgstr ""
+
+#: inc/class-settings.php:896
+#: inc/class-settings.php:1663
+#: inc/class-settings.php:1664
+msgid "Other Options"
+msgstr ""
+
+#: inc/class-settings.php:897
+msgid "Other registration-related options."
+msgstr ""
+
+#: inc/class-settings.php:906
+msgid "Default Role"
+msgstr ""
+
+#: inc/class-settings.php:907
 msgid "Set the role to be applied to the user during the signup process."
 msgstr ""
 
-#: inc/class-settings.php:892
+#: inc/class-settings.php:918
 msgid "Add Users to the Main Site as well?"
 msgstr ""
 
-#: inc/class-settings.php:893
+#: inc/class-settings.php:919
 msgid "Enabling this option will also add the user to the main site of your network."
 msgstr ""
 
-#: inc/class-settings.php:903
+#: inc/class-settings.php:929
 msgid "Add to Main Site with Role..."
 msgstr ""
 
-#: inc/class-settings.php:904
+#: inc/class-settings.php:930
 msgid "Select the role Ultimate Multisite should use when adding the user to the main site of your network. Be careful."
 msgstr ""
 
-#: inc/class-settings.php:935
+#: inc/class-settings.php:961
 msgid "Default Membership Update Page"
 msgstr ""
 
-#: inc/class-settings.php:955
+#: inc/class-settings.php:981
 msgid "Block Frontend Access"
 msgstr ""
 
-#: inc/class-settings.php:956
+#: inc/class-settings.php:982
 msgid "Block the frontend access of network sites after a membership is no longer active."
 msgstr ""
 
-#: inc/class-settings.php:957
+#: inc/class-settings.php:983
 msgid "By default, if a user does not pay and the account goes inactive, only the admin panel will be blocked, but the user's site will still be accessible on the frontend. If enabled, this option will also block frontend access in those cases."
 msgstr ""
 
-#: inc/class-settings.php:967
+#: inc/class-settings.php:993
 msgid "Frontend Block Grace Period"
 msgstr ""
 
-#: inc/class-settings.php:968
+#: inc/class-settings.php:994
 msgid "Select the number of days Ultimate Multisite should wait after the membership goes inactive before blocking the frontend access. Leave 0 to block immediately after the membership becomes inactive."
 msgstr ""
 
-#: inc/class-settings.php:982
+#: inc/class-settings.php:1008
 msgid "Frontend Block Page"
 msgstr ""
 
-#: inc/class-settings.php:983
+#: inc/class-settings.php:1009
 msgid "Select a page on the main site to redirect user if access is blocked"
 msgstr ""
 
-#: inc/class-settings.php:1003
+#: inc/class-settings.php:1029
 msgid "Enable Multiple Memberships per Customer"
 msgstr ""
 
-#: inc/class-settings.php:1004
+#: inc/class-settings.php:1030
 msgid "Enabling this option will allow your users to create more than one membership."
 msgstr ""
 
-#: inc/class-settings.php:1014
+#: inc/class-settings.php:1040
 msgid "Enable Multiple Sites per Membership"
 msgstr ""
 
-#: inc/class-settings.php:1015
+#: inc/class-settings.php:1041
 msgid "Enabling this option will allow your customers to create more than one site. You can limit how many sites your users can create in a per plan basis."
 msgstr ""
 
-#: inc/class-settings.php:1025
+#: inc/class-settings.php:1051
 msgid "Block Sites on Downgrade"
 msgstr ""
 
-#: inc/class-settings.php:1026
+#: inc/class-settings.php:1052
 msgid "Choose how Ultimate Multisite should handle client sites above their plan quota on downgrade."
 msgstr ""
 
-#: inc/class-settings.php:1030
+#: inc/class-settings.php:1056
 msgid "Keep sites as is (do nothing)"
 msgstr ""
 
-#: inc/class-settings.php:1031
+#: inc/class-settings.php:1057
 msgid "Block only frontend access"
 msgstr ""
 
-#: inc/class-settings.php:1032
+#: inc/class-settings.php:1058
 msgid "Block only backend access"
 msgstr ""
 
-#: inc/class-settings.php:1033
+#: inc/class-settings.php:1059
 msgid "Block both frontend and backend access"
 msgstr ""
 
-#: inc/class-settings.php:1045
+#: inc/class-settings.php:1071
 msgid "Move Posts on Downgrade"
 msgstr ""
 
-#: inc/class-settings.php:1046
+#: inc/class-settings.php:1072
 msgid "Select how you want to handle the posts above the quota on downgrade. This will apply to all post types with quotas set."
 msgstr ""
 
-#: inc/class-settings.php:1050
+#: inc/class-settings.php:1076
 msgid "Keep posts as is (do nothing)"
 msgstr ""
 
-#: inc/class-settings.php:1051
+#: inc/class-settings.php:1077
 msgid "Move posts above the new quota to the Trash"
 msgstr ""
 
-#: inc/class-settings.php:1052
+#: inc/class-settings.php:1078
 msgid "Mark posts above the new quota as Drafts"
 msgstr ""
 
-#: inc/class-settings.php:1062
+#: inc/class-settings.php:1088
 msgid "Emulated Post Types"
 msgstr ""
 
-#: inc/class-settings.php:1063
+#: inc/class-settings.php:1089
 msgid "Emulates the registering of a custom post type to be able to create limits for it without having to activate plugins on the main site."
 msgstr ""
 
-#: inc/class-settings.php:1072
+#: inc/class-settings.php:1098
 msgid "By default, Ultimate Multisite only allows super admins to limit post types that are registered on the main site. This makes sense from a technical stand-point but it also forces you to have plugins network-activated in order to be able to set limitations for their custom post types. Using this option, you can emulate the registering of a post type. This will register them on the main site and allow you to create limits for them on your products."
 msgstr ""
 
-#: inc/class-settings.php:1083
+#: inc/class-settings.php:1109
 msgid "Add the first post type using the button below."
 msgstr ""
 
-#: inc/class-settings.php:1117
+#: inc/class-settings.php:1143
 msgid "Post Type Slug"
 msgstr ""
 
-#: inc/class-settings.php:1118
+#: inc/class-settings.php:1144
 msgid "e.g. product"
 msgstr ""
 
-#: inc/class-settings.php:1127
+#: inc/class-settings.php:1153
 msgid "Post Type Label"
 msgstr ""
 
-#: inc/class-settings.php:1128
+#: inc/class-settings.php:1154
 msgid "e.g. Products"
 msgstr ""
 
-#: inc/class-settings.php:1144
+#: inc/class-settings.php:1170
 msgid "+ Add Post Type"
 msgstr ""
 
-#: inc/class-settings.php:1182
+#: inc/class-settings.php:1208
 msgid "Configure certain aspects of how network Sites behave."
 msgstr ""
 
-#: inc/class-settings.php:1192
+#: inc/class-settings.php:1218
 msgid "Default New Site Page"
 msgstr ""
 
-#: inc/class-settings.php:1212
+#: inc/class-settings.php:1238
 msgid "Enable Visits Limitation & Counting"
 msgstr ""
 
-#: inc/class-settings.php:1213
+#: inc/class-settings.php:1239
 msgid "Enabling this option will add visits limitation settings to the plans and add the functionality necessary to count site visits on the front-end."
 msgstr ""
 
-#: inc/class-settings.php:1223
+#: inc/class-settings.php:1249
 msgid "Enable Screenshot Generator"
 msgstr ""
 
-#: inc/class-settings.php:1224
+#: inc/class-settings.php:1250
 msgid "With this option is enabled, Ultimate Multisite will take a screenshot for every newly created site on your network and set the resulting image as that site's featured image. This features requires a valid license key to work and it is not supported for local sites."
 msgstr ""
 
-#: inc/class-settings.php:1234
+#: inc/class-settings.php:1260
 msgid "WordPress Features"
 msgstr ""
 
-#: inc/class-settings.php:1235
+#: inc/class-settings.php:1261
 msgid "Override default WordPress settings for network Sites."
 msgstr ""
 
-#: inc/class-settings.php:1244
+#: inc/class-settings.php:1270
 msgid "Enable Plugins Menu"
 msgstr ""
 
-#: inc/class-settings.php:1245
+#: inc/class-settings.php:1271
 msgid "Do you want to let users on the network to have access to the Plugins page, activating plugins for their sites? If this option is disabled, the customer will not be able to manage the site plugins."
 msgstr ""
 
-#: inc/class-settings.php:1246
+#: inc/class-settings.php:1272
 msgid "You can select which plugins the user will be able to use for each plan."
 msgstr ""
 
-#: inc/class-settings.php:1256
+#: inc/class-settings.php:1282
 msgid "Add New Users"
 msgstr ""
 
-#: inc/class-settings.php:1257
+#: inc/class-settings.php:1283
 msgid "Allow site administrators to add new users to their site via the \"Users → Add New\" page."
 msgstr ""
 
-#: inc/class-settings.php:1258
+#: inc/class-settings.php:1284
 msgid "You can limit the number of users allowed for each plan."
 msgstr ""
 
-#: inc/class-settings.php:1268
+#: inc/class-settings.php:1294
 msgid "Site Template Options"
 msgstr ""
 
-#: inc/class-settings.php:1269
+#: inc/class-settings.php:1295
 msgid "Configure certain aspects of how Site Templates behave."
 msgstr ""
 
-#: inc/class-settings.php:1278
+#: inc/class-settings.php:1304
 msgid "Allow Template Switching"
 msgstr ""
 
-#: inc/class-settings.php:1279
+#: inc/class-settings.php:1305
 msgid "Enabling this option will add an option on your client's dashboard to switch their site template to another one available on the catalog of available templates. The data is lost after a switch as the data from the new template is copied over."
 msgstr ""
 
-#: inc/class-settings.php:1289
+#: inc/class-settings.php:1315
 msgid "Allow Users to use their own Sites as Templates"
 msgstr ""
 
-#: inc/class-settings.php:1290
+#: inc/class-settings.php:1316
 msgid "Enabling this option will add the user own sites to the template screen, allowing them to create a new site based on the content and customizations they made previously."
 msgstr ""
 
-#: inc/class-settings.php:1303
+#: inc/class-settings.php:1329
 msgid "Copy Media on Template Duplication?"
 msgstr ""
 
-#: inc/class-settings.php:1304
+#: inc/class-settings.php:1330
 msgid "Checking this option will copy the media uploaded on the template site to the newly created site. This can be overridden on each of the plans."
 msgstr ""
 
-#: inc/class-settings.php:1314
+#: inc/class-settings.php:1340
 msgid "Prevent Search Engines from indexing Site Templates"
 msgstr ""
 
-#: inc/class-settings.php:1315
+#: inc/class-settings.php:1341
 msgid "Checking this option will discourage search engines from indexing all the Site Templates on your network."
 msgstr ""
 
-#: inc/class-settings.php:1341
+#: inc/class-settings.php:1367
 msgid "Payment Settings"
 msgstr ""
 
-#: inc/class-settings.php:1352
+#: inc/class-settings.php:1378
 msgid "Force Auto-Renew"
 msgstr ""
 
-#: inc/class-settings.php:1353
+#: inc/class-settings.php:1379
 msgid "Enable this option if you want to make sure memberships are created with auto-renew activated whenever the selected gateway supports it. Disabling this option will show an auto-renew option during checkout."
 msgstr ""
 
-#: inc/class-settings.php:1364
+#: inc/class-settings.php:1390
 msgid "Allow Trials without Payment Method"
 msgstr ""
 
-#: inc/class-settings.php:1365
+#: inc/class-settings.php:1391
 msgid "By default, Ultimate Multisite asks customers to add a payment method on sign-up even if a trial period is present. Enable this option to only ask for a payment method when the trial period is over."
 msgstr ""
 
-#: inc/class-settings.php:1376
+#: inc/class-settings.php:1402
 msgid "Send Invoice on Payment Confirmation"
 msgstr ""
 
-#: inc/class-settings.php:1377
+#: inc/class-settings.php:1403
 msgid "Enabling this option will attach a PDF invoice (marked paid) with the payment confirmation email. This option does not apply to the Manual Gateway, which sends invoices regardless of this option."
 msgstr ""
 
-#: inc/class-settings.php:1378
+#: inc/class-settings.php:1404
 msgid "The invoice files will be saved on the wp-content/uploads/wu-invoices folder."
 msgstr ""
 
-#: inc/class-settings.php:1388
+#: inc/class-settings.php:1414
 msgid "Invoice Numbering Scheme"
 msgstr ""
 
-#: inc/class-settings.php:1389
+#: inc/class-settings.php:1415
 msgid "What should Ultimate Multisite use as the invoice number?"
 msgstr ""
 
-#: inc/class-settings.php:1394
+#: inc/class-settings.php:1420
 msgid "Payment Reference Code"
 msgstr ""
 
-#: inc/class-settings.php:1395
+#: inc/class-settings.php:1421
 msgid "Sequential Number"
 msgstr ""
 
-#: inc/class-settings.php:1404
+#: inc/class-settings.php:1430
 msgid "Next Invoice Number"
 msgstr ""
 
-#: inc/class-settings.php:1405
+#: inc/class-settings.php:1431
 msgid "This number will be used as the invoice number for the next invoice generated on the system. It is incremented by one every time a new invoice is created. You can change it and save it to reset the invoice sequential number to a specific value."
 msgstr ""
 
-#: inc/class-settings.php:1419
+#: inc/class-settings.php:1445
 msgid "Invoice Number Prefix"
 msgstr ""
 
-#: inc/class-settings.php:1420
+#: inc/class-settings.php:1446
 msgid "INV00"
 msgstr ""
 
 #. translators: %%YEAR%%, %%MONTH%%, and %%DAY%% are placeholders but are replaced before shown to the user but are used as examples.
-#: inc/class-settings.php:1422
+#: inc/class-settings.php:1448
 #, php-format
 msgid "Use %%YEAR%%, %%MONTH%%, and %%DAY%% to create a dynamic placeholder. E.g. %%YEAR%%-%%MONTH%%-INV will become %s."
 msgstr ""
 
-#: inc/class-settings.php:1436
+#: inc/class-settings.php:1462
 #: inc/ui/class-jumper.php:209
 msgid "Payment Gateways"
 msgstr ""
 
-#: inc/class-settings.php:1437
+#: inc/class-settings.php:1463
 msgid "Activate and configure the installed payment gateways in this section."
 msgstr ""
 
-#: inc/class-settings.php:1452
-#: inc/class-settings.php:1453
+#: inc/class-settings.php:1478
+#: inc/class-settings.php:1479
 #: inc/list-tables/class-broadcast-list-table.php:481
 #: inc/list-tables/class-email-list-table.php:40
 #: inc/ui/class-jumper.php:211
 msgid "Emails"
 msgstr ""
 
-#: inc/class-settings.php:1468
-#: inc/class-settings.php:1469
+#: inc/class-settings.php:1494
+#: inc/class-settings.php:1495
 msgid "Domain Mapping"
 msgstr ""
 
-#: inc/class-settings.php:1484
-#: inc/class-settings.php:1485
+#: inc/class-settings.php:1510
+#: inc/class-settings.php:1511
 msgid "Single Sign-On"
 msgstr ""
 
-#: inc/class-settings.php:1510
+#: inc/class-settings.php:1536
 msgid "Hosting or Panel Providers"
 msgstr ""
 
-#: inc/class-settings.php:1511
+#: inc/class-settings.php:1537
 msgid "Configure and manage the integration with your Hosting or Panel Provider."
 msgstr ""
 
-#: inc/class-settings.php:1538
+#: inc/class-settings.php:1553
+msgid "Import/Export"
+msgstr ""
+
+#: inc/class-settings.php:1554
+msgid "Export your settings to a JSON file or import settings from a previously exported file."
+msgstr ""
+
+#: inc/class-settings.php:1565
+#: inc/class-settings.php:1590
+msgid "Export Settings"
+msgstr ""
+
+#: inc/class-settings.php:1566
+msgid "Download all your Ultimate Multisite settings as a JSON file for backup or migration purposes."
+msgstr ""
+
+#: inc/class-settings.php:1578
+msgid "The exported file will contain all ultimate multisite settings defined on this page. This includes general settings, payment gateway configurations, email settings, domain mapping settings, and all other plugin configurations. It does not include products, sites, domains, customers and other entities."
+msgstr ""
+
+#: inc/class-settings.php:1609
+msgid "Upload a previously exported JSON file to restore settings."
+msgstr ""
+
+#: inc/class-settings.php:1622
+msgid "Import and Replace All Settings"
+msgstr ""
+
+#: inc/class-settings.php:1646
+msgid "Importing settings will replace ALL current settings with the values from the uploaded file. This action cannot be undone. We recommend exporting your current settings as a backup before importing."
+msgstr ""
+
+#: inc/class-settings.php:1674
 msgid "Miscellaneous"
 msgstr ""
 
-#: inc/class-settings.php:1539
+#: inc/class-settings.php:1675
 msgid "Other options that do not fit anywhere else."
 msgstr ""
 
-#: inc/class-settings.php:1550
+#: inc/class-settings.php:1686
 msgid "Hide UI Tours"
 msgstr ""
 
-#: inc/class-settings.php:1551
+#: inc/class-settings.php:1687
 msgid "The UI tours showed by Ultimate Multisite should permanently hide themselves after being seen but if they persist for whatever reason, toggle this option to force them into their viewed state - which will prevent them from showing up again."
 msgstr ""
 
-#: inc/class-settings.php:1563
+#: inc/class-settings.php:1699
 msgid "Disable \"Hover to Zoom\""
 msgstr ""
 
-#: inc/class-settings.php:1564
+#: inc/class-settings.php:1700
 msgid "By default, Ultimate Multisite adds a \"hover to zoom\" feature, allowing network admins to see larger version of site screenshots and other images across the UI in full-size when hovering over them. You can disable that feature here. Preview tags like the above are not affected."
 msgstr ""
 
-#: inc/class-settings.php:1574
+#: inc/class-settings.php:1710
 msgid "Logging"
 msgstr ""
 
-#: inc/class-settings.php:1575
+#: inc/class-settings.php:1711
 msgid "Log Ultimate Multisite data. This is useful for debugging purposes."
 msgstr ""
 
-#: inc/class-settings.php:1584
+#: inc/class-settings.php:1720
 msgid "Logging Level"
 msgstr ""
 
-#: inc/class-settings.php:1585
+#: inc/class-settings.php:1721
 msgid "Select the level of logging you want to use."
 msgstr ""
 
-#: inc/class-settings.php:1589
+#: inc/class-settings.php:1725
 msgid "PHP Default"
 msgstr ""
 
-#: inc/class-settings.php:1591
+#: inc/class-settings.php:1727
 msgid "Errors Only"
 msgstr ""
 
-#: inc/class-settings.php:1592
+#: inc/class-settings.php:1728
 msgid "Everything"
 msgstr ""
 
-#: inc/class-settings.php:1601
-msgid "Send Error Data to Ultimate Multisite Developers"
+#: inc/class-settings.php:1737
+#: views/settings/widget-settings-body.php:278
+#: views/settings/widget-settings-body.php:283
+msgid "Help Improve Ultimate Multisite"
 msgstr ""
 
-#: inc/class-settings.php:1602
-msgid "With this option enabled, every time your installation runs into an error related to Ultimate Multisite, that error data will be sent to us. No sensitive data gets collected, only environmental stuff (e.g. if this is this is a subdomain network, etc)."
+#. translators: %s is a link to the privacy policy
+#: inc/class-settings.php:1740
+#, php-format
+msgid "Allow Ultimate Multisite to collect anonymous usage data and error reports to help us improve the plugin. We collect: PHP version, WordPress version, plugin version, network type (subdomain/subdirectory), aggregate counts (sites, memberships), active gateways, and error logs. We never collect personal data, customer information, or domain names. <a href=\"%s\" target=\"_blank\">Learn more</a>."
 msgstr ""
 
-#: inc/class-settings.php:1613
+#: inc/class-settings.php:1753
 msgid "Change the plugin and wordpress behavior."
 msgstr ""
 
-#: inc/class-settings.php:1628
+#: inc/class-settings.php:1768
 msgid "Run Migration Again"
 msgstr ""
 
-#: inc/class-settings.php:1630
+#: inc/class-settings.php:1770
 msgid "Rerun the Migration Wizard if you experience data-loss after migrate."
 msgstr ""
 
-#: inc/class-settings.php:1633
+#: inc/class-settings.php:1773
 msgid "<b>Important:</b> This process can have unexpected behavior with your current Ultimo models.<br>We recommend that you create a backup before continue."
 msgstr ""
 
-#: inc/class-settings.php:1636
+#: inc/class-settings.php:1776
 msgid "Migrate"
 msgstr ""
 
-#: inc/class-settings.php:1659
+#: inc/class-settings.php:1799
 msgid "Security Mode"
 msgstr ""
 
 #. Translators: Placeholder adds the security mode key and current site url with query string
-#: inc/class-settings.php:1661
+#: inc/class-settings.php:1801
 #, php-format
 msgid "Only Ultimate Multisite and other must-use plugins will run on your WordPress install while this option is enabled.<div class=\"wu-mt-2\"><b>Important:</b> Copy the following URL to disable security mode if something goes wrong and this page becomes unavailable:<code>%2$s</code></div>"
 msgstr ""
 
-#: inc/class-settings.php:1672
+#: inc/class-settings.php:1812
 msgid "Remove Data on Uninstall"
 msgstr ""
 
-#: inc/class-settings.php:1673
+#: inc/class-settings.php:1813
 msgid "Remove all saved data for Ultimate Multisite when the plugin is uninstalled."
 msgstr ""
 
 #. translators: the placeholder is an error message
-#: inc/class-sunrise.php:292
+#: inc/class-sunrise.php:293
 #, php-format
 msgid "Sunrise copy failed: %s"
 msgstr ""
 
-#: inc/class-sunrise.php:295
+#: inc/class-sunrise.php:296
 msgid "Sunrise upgrade attempt succeeded."
+msgstr ""
+
+#: inc/class-tracker.php:478
+msgid "There has been a critical error on this site."
+msgstr ""
+
+#: inc/class-tracker.php:481
+msgid "Please contact your network administrator for assistance."
+msgstr ""
+
+#. translators: %s is the admin email address
+#: inc/class-tracker.php:490
+#, php-format
+msgid "You can reach them at %s."
+msgstr ""
+
+#: inc/class-tracker.php:536
+msgid "Unknown error"
+msgstr ""
+
+#: inc/class-tracker.php:537
+msgid "Unknown file"
+msgstr ""
+
+#: inc/class-tracker.php:559
+#: inc/class-tracker.php:591
+#: inc/class-tracker.php:787
+msgid "Unknown"
+msgstr ""
+
+#. translators: %1$s is the type of error message, %2$s is the source plugin
+#: inc/class-tracker.php:750
+#, php-format
+msgid "[%1$s] in %2$s"
+msgstr ""
+
+#: inc/class-tracker.php:760
+msgid "Please describe what you were doing when this error occurred:"
+msgstr ""
+
+#: inc/class-tracker.php:780
+msgid "Show Technical Details"
+msgstr ""
+
+#: inc/class-tracker.php:781
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: inc/class-tracker.php:783
+msgid "Get Support from Ultimate Multisite"
+msgstr ""
+
+#: inc/class-tracker.php:784
+msgid "Source:"
+msgstr ""
+
+#: inc/class-tracker.php:844
+msgid "Return to the main site"
 msgstr ""
 
 #: inc/class-user-switching.php:77
@@ -9343,21 +9503,21 @@ msgid "You need to pass a valid plan ID."
 msgstr ""
 
 #: inc/compat/class-legacy-shortcodes.php:357
-#: inc/models/class-checkout-form.php:836
+#: inc/models/class-checkout-form.php:846
 #: views/legacy/signup/pricing-table/frequency-selector.php:32
 msgid "Quarterly"
 msgstr ""
 
 #: inc/compat/class-legacy-shortcodes.php:362
-#: inc/models/class-checkout-form.php:841
+#: inc/models/class-checkout-form.php:851
 #: views/legacy/signup/pricing-table/frequency-selector.php:33
 msgid "Yearly"
 msgstr ""
 
 #: inc/compat/class-legacy-shortcodes.php:372
 #: inc/list-tables/class-product-list-table.php:313
-#: inc/models/class-checkout-form.php:541
-#: inc/models/class-checkout-form.php:1370
+#: inc/models/class-checkout-form.php:551
+#: inc/models/class-checkout-form.php:1380
 msgid "Plans"
 msgstr ""
 
@@ -13104,23 +13264,27 @@ msgstr ""
 msgid "state / province"
 msgstr ""
 
-#: inc/database/domains/class-domain-stage.php:65
+#: inc/database/domains/class-domain-stage.php:68
 msgid "DNS Failed"
 msgstr ""
 
-#: inc/database/domains/class-domain-stage.php:66
+#: inc/database/domains/class-domain-stage.php:69
+msgid "SSL Failed"
+msgstr ""
+
+#: inc/database/domains/class-domain-stage.php:70
 msgid "Checking DNS"
 msgstr ""
 
-#: inc/database/domains/class-domain-stage.php:67
+#: inc/database/domains/class-domain-stage.php:71
 msgid "Checking SSL"
 msgstr ""
 
-#: inc/database/domains/class-domain-stage.php:68
+#: inc/database/domains/class-domain-stage.php:72
 msgid "Ready"
 msgstr ""
 
-#: inc/database/domains/class-domain-stage.php:69
+#: inc/database/domains/class-domain-stage.php:73
 msgid "Ready (without SSL)"
 msgstr ""
 
@@ -14795,10 +14959,6 @@ msgstr ""
 msgid "You should not register new payment gateways before the wu_register_gateways hook."
 msgstr ""
 
-#: inc/functions/legacy.php:273
-msgid "Strength indicator"
-msgstr ""
-
 #: inc/functions/limitations.php:68
 #: inc/functions/limitations.php:107
 msgid "Invalid site ID"
@@ -15469,7 +15629,7 @@ msgstr ""
 msgid "An attempt to create a new site failed."
 msgstr ""
 
-#: inc/helpers/class-site-duplicator.php:306
+#: inc/helpers/class-site-duplicator.php:300
 msgid "We were not able to create a new admin user for the site being duplicated."
 msgstr ""
 
@@ -15522,10 +15682,11 @@ msgid "Oops! Your %1$s and %2$s don’t match."
 msgstr ""
 
 #: inc/helpers/class-validator.php:97
-#: inc/models/class-discount-code.php:660
+#: inc/models/class-discount-code.php:670
 #: views/base/filter.php:123
 #: views/base/filter.php:131
 #: views/wizards/host-integrations/cloudflare-instructions.php:14
+#: views/wizards/host-integrations/rocket-instructions.php:12
 #: views/wizards/host-integrations/runcloud-instructions.php:12
 msgid "and"
 msgstr ""
@@ -15724,7 +15885,7 @@ msgstr ""
 #: inc/installers/class-default-content-installer.php:416
 #: inc/installers/class-migrator.php:2379
 #: inc/ui/class-login-form-element.php:156
-#: inc/ui/class-login-form-element.php:354
+#: inc/ui/class-login-form-element.php:377
 msgid "Login"
 msgstr ""
 
@@ -15963,11 +16124,11 @@ msgstr ""
 msgid "No description provided."
 msgstr ""
 
-#: inc/integrations/host-providers/class-closte-host-provider.php:251
+#: inc/integrations/host-providers/class-closte-host-provider.php:287
 msgid "Access Authorized"
 msgstr ""
 
-#: inc/integrations/host-providers/class-closte-host-provider.php:371
+#: inc/integrations/host-providers/class-closte-host-provider.php:407
 msgid "Closte is not just another web hosting who advertise their services as a cloud hosting while still provides fixed plans like in 1995."
 msgstr ""
 
@@ -16141,69 +16302,97 @@ msgstr ""
 msgid "Add a new SubDomain on cPanel whenever a new site gets created on your network"
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:103
+#: inc/integrations/host-providers/class-enhance-host-provider.php:105
 msgid "Enhance API Token"
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:104
-msgid "Your bearer token"
-msgstr ""
-
-#: inc/integrations/host-providers/class-enhance-host-provider.php:107
-msgid "Enhance API URL"
-msgstr ""
-
+#. translators: %s is the link to the API token documentation
 #: inc/integrations/host-providers/class-enhance-host-provider.php:108
-msgid "e.g. https://your-enhance-server.com"
+#, php-format
+msgid "Generate an API token in your Enhance Control Panel under Settings &rarr; API Tokens. <a href=\"%s\" target=\"_blank\">Learn more</a>"
 msgstr ""
 
 #: inc/integrations/host-providers/class-enhance-host-provider.php:111
-#: views/wizards/host-integrations/runcloud-instructions.php:12
-msgid "Server ID"
+msgid "Your bearer token"
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:112
-msgid "UUID of your server"
+#: inc/integrations/host-providers/class-enhance-host-provider.php:114
+msgid "Enhance API URL"
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:246
-msgid "Server ID is not configured"
+#: inc/integrations/host-providers/class-enhance-host-provider.php:115
+msgid "The API URL of your Enhance Control Panel (e.g., https://your-enhance-server.com/api)."
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:260
+#: inc/integrations/host-providers/class-enhance-host-provider.php:116
+msgid "e.g. https://your-enhance-server.com/api"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:122
+msgid "Organization ID"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:123
+msgid "The UUID of your organization. You can find this in your Enhance Control Panel URL when viewing the organization (e.g., /org/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)."
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:124
+#: inc/integrations/host-providers/class-enhance-host-provider.php:131
+msgid "e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:130
+msgid "Website ID"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:132
+msgid "The UUID of the website where domains should be added. You can find this in your Enhance Control Panel URL when viewing a website (e.g., /websites/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)."
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:283
+msgid "Organization ID is not configured"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:289
+msgid "Website ID is not configured"
+msgstr ""
+
+#: inc/integrations/host-providers/class-enhance-host-provider.php:303
 msgid "Connection successful"
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:264
-msgid "Failed to connect to Enhance API"
+#. Translators: %s the full error message.
+#: inc/integrations/host-providers/class-enhance-host-provider.php:308
+#, php-format
+msgid "Failed to connect to Enhance API: %s"
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:388
+#: inc/integrations/host-providers/class-enhance-host-provider.php:432
 msgid "Enhance is a modern control panel that provides powerful hosting automation and management capabilities."
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:412
+#: inc/integrations/host-providers/class-enhance-host-provider.php:456
 msgid "Add domains to Enhance Control Panel whenever a new domain mapping gets created on your network"
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:413
+#: inc/integrations/host-providers/class-enhance-host-provider.php:457
 msgid "SSL certificates will be automatically provisioned via LetsEncrypt when DNS resolves"
 msgstr ""
 
-#: inc/integrations/host-providers/class-enhance-host-provider.php:419
+#: inc/integrations/host-providers/class-enhance-host-provider.php:463
 msgid "Add subdomains to Enhance Control Panel whenever a new site gets created on your network"
 msgstr ""
 
-#: inc/integrations/host-providers/class-gridpane-host-provider.php:209
-#: inc/integrations/host-providers/class-gridpane-host-provider.php:217
+#: inc/integrations/host-providers/class-gridpane-host-provider.php:212
+#: inc/integrations/host-providers/class-gridpane-host-provider.php:220
 msgid "We were not able to successfully establish a connection."
 msgstr ""
 
-#: inc/integrations/host-providers/class-gridpane-host-provider.php:224
+#: inc/integrations/host-providers/class-gridpane-host-provider.php:227
 msgid "Connection successfully established."
 msgstr ""
 
-#: inc/integrations/host-providers/class-gridpane-host-provider.php:248
+#: inc/integrations/host-providers/class-gridpane-host-provider.php:251
 msgid "GridPane is the world's first hosting control panel built exclusively for serious WordPress professionals."
 msgstr ""
 
@@ -16310,6 +16499,61 @@ msgstr ""
 msgid "HTTP %1$d from Hestia API: %2$s"
 msgstr ""
 
+#: inc/integrations/host-providers/class-rocket-host-provider.php:92
+msgid "Rocket.net Account Email"
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:93
+msgid "Your Rocket.net account email address."
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:94
+msgid "e.g. me@example.com"
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:98
+msgid "Rocket.net Password"
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:99
+msgid "Your Rocket.net account password."
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:100
+#: views/checkout/partials/inline-login-prompt.php:38
+msgid "Enter your password"
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:104
+msgid "Rocket.net Site ID"
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:105
+msgid "The Site ID from your Rocket.net control panel."
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:106
+msgid "e.g. 12345"
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:230
+msgid "Successfully connected to Rocket.net API!"
+msgstr ""
+
+#. translators: %1$d: HTTP response code.
+#: inc/integrations/host-providers/class-rocket-host-provider.php:239
+#, php-format
+msgid "Connection failed with HTTP code %1$d: %2$s"
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:337
+msgid "Failed to authenticate with Rocket.net API"
+msgstr ""
+
+#: inc/integrations/host-providers/class-rocket-host-provider.php:416
+msgid "Rocket.net is a fully API-driven managed WordPress hosting platform built for speed, security, and scalability. With edge-first private cloud infrastructure and automatic SSL management, Rocket.net makes it easy to deploy and manage WordPress sites at scale."
+msgstr ""
+
 #: inc/integrations/host-providers/class-runcloud-host-provider.php:82
 msgid "It looks like you are using V2 of the Runcloud API which has been discontinued. You must setup a API token to use V3 of the API for the Runcloud integration to work."
 msgstr ""
@@ -16348,33 +16592,37 @@ msgstr ""
 msgid "ServerPilot is a cloud service for hosting WordPress and other PHP websites on servers at DigitalOcean, Amazon, Google, or any other server provider. You can think of ServerPilot as a modern, centralized hosting control panel."
 msgstr ""
 
-#: inc/integrations/host-providers/class-wpengine-host-provider.php:175
+#: inc/integrations/host-providers/class-wpengine-host-provider.php:180
 msgid "WP Engine drives your business forward faster with the first and only WordPress Digital Experience Platform. We offer the best WordPress hosting and developer experience on a proven, reliable architecture that delivers unparalleled speed, scalability, and security for your sites."
 msgstr ""
 
-#: inc/integrations/host-providers/class-wpengine-host-provider.php:177
+#: inc/integrations/host-providers/class-wpengine-host-provider.php:182
 msgid "We recommend to enter in contact with WP Engine support to ask for a Wildcard domain if you are using a subdomain install."
 msgstr ""
 
+#: inc/integrations/host-providers/class-wpengine-host-provider.php:206
+msgid "Class WPE_API is not installed."
+msgstr ""
+
 #. translators: The %s placeholder will be replaced with the domain name.
-#: inc/integrations/host-providers/class-wpmudev-host-provider.php:160
+#: inc/integrations/host-providers/class-wpmudev-host-provider.php:161
 #, php-format
 msgid "An error occurred while trying to add the custom domain %s to WPMU Dev hosting."
 msgstr ""
 
 #. translators: The %1$s will be replaced with the domain name and %2$s is the error message.
-#: inc/integrations/host-providers/class-wpmudev-host-provider.php:168
+#: inc/integrations/host-providers/class-wpmudev-host-provider.php:169
 #, php-format
 msgid "An error occurred while trying to add the custom domain %1$s to WPMU Dev hosting: %2$s"
 msgstr ""
 
 #. translators: The %s placeholder will be replaced with the domain name.
-#: inc/integrations/host-providers/class-wpmudev-host-provider.php:172
+#: inc/integrations/host-providers/class-wpmudev-host-provider.php:173
 #, php-format
 msgid "Domain %s added to WPMU Dev hosting successfully."
 msgstr ""
 
-#: inc/integrations/host-providers/class-wpmudev-host-provider.php:256
+#: inc/integrations/host-providers/class-wpmudev-host-provider.php:257
 msgid "WPMU DEV is one of the largest companies in the WordPress space. Founded in 2004, it was one of the first companies to scale the Website as a Service model with products such as Edublogs and CampusPress."
 msgstr ""
 
@@ -16443,8 +16691,8 @@ msgstr ""
 #: inc/list-tables/class-base-list-table.php:175
 #: views/sites/edit-placeholders.php:49
 #: views/sites/edit-placeholders.php:177
-#: views/taxes/list.php:102
-#: views/taxes/list.php:309
+#: views/taxes/list.php:124
+#: views/taxes/list.php:331
 msgid "Select All"
 msgstr ""
 
@@ -17095,8 +17343,8 @@ msgstr ""
 #: inc/list-tables/class-membership-list-table-widget.php:176
 #: inc/list-tables/class-membership-list-table.php:139
 #: inc/list-tables/class-product-list-table.php:146
-#: inc/models/class-membership.php:844
-#: inc/models/class-product.php:788
+#: inc/models/class-membership.php:874
+#: inc/models/class-product.php:838
 #, php-format
 msgid "every %2$s"
 msgid_plural "every %1$s %2$s"
@@ -17107,8 +17355,8 @@ msgstr[1] ""
 #: inc/list-tables/class-membership-list-table-widget.php:184
 #: inc/list-tables/class-membership-list-table.php:147
 #: inc/list-tables/class-product-list-table.php:154
-#: inc/models/class-membership.php:896
-#: inc/models/class-product.php:745
+#: inc/models/class-membership.php:926
+#: inc/models/class-product.php:795
 #, php-format
 msgid "for %s cycle"
 msgid_plural "for %s cycles"
@@ -17340,252 +17588,252 @@ msgstr ""
 msgid "Invalid verification key."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:344
+#: inc/managers/class-domain-manager.php:345
 msgid "Domain Mapping Settings"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:345
+#: inc/managers/class-domain-manager.php:346
 msgid "Define the domain mapping settings for your network."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:354
+#: inc/managers/class-domain-manager.php:355
 msgid "Enable Domain Mapping?"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:355
+#: inc/managers/class-domain-manager.php:356
 msgid "Do you want to enable domain mapping?"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:365
+#: inc/managers/class-domain-manager.php:366
 msgid "Force Admin Redirect"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:366
+#: inc/managers/class-domain-manager.php:367
 msgid "Select how you want your users to access the admin panel if they have mapped domains."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:366
+#: inc/managers/class-domain-manager.php:367
 msgid "Force Redirect to Mapped Domain: your users with mapped domains will be redirected to theirdomain.com/wp-admin, even if they access using yournetworkdomain.com/wp-admin."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:366
+#: inc/managers/class-domain-manager.php:367
 msgid "Force Redirect to Network Domain: your users with mapped domains will be redirect to yournetworkdomain.com/wp-admin, even if they access using theirdomain.com/wp-admin."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:372
+#: inc/managers/class-domain-manager.php:373
 msgid "Allow access to the admin by both mapped domain and network domain"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:373
+#: inc/managers/class-domain-manager.php:374
 msgid "Force Redirect to Mapped Domain"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:374
+#: inc/managers/class-domain-manager.php:375
 msgid "Force Redirect to Network Domain"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:383
+#: inc/managers/class-domain-manager.php:384
 msgid "Enable Custom Domains?"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:384
+#: inc/managers/class-domain-manager.php:385
 msgid "Toggle this option if you wish to allow end-customers to add their own domains. This can be controlled on a plan per plan basis."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:397
+#: inc/managers/class-domain-manager.php:398
 msgid "Add New Domain Instructions"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:398
+#: inc/managers/class-domain-manager.php:399
 msgid "Display a customized message with instructions for the mapping and alerting the end-user of the risks of mapping a misconfigured domain."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:399
+#: inc/managers/class-domain-manager.php:400
 msgid "You can use the placeholder <code>%NETWORK_DOMAIN%</code> and <code>%NETWORK_IP%.</code> HTML is allowed."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:417
+#: inc/managers/class-domain-manager.php:418
 msgid "DNS Check Interval"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:418
+#: inc/managers/class-domain-manager.php:419
 msgid "Set the interval in seconds between DNS and SSL certificate checks for domains."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:419
+#: inc/managers/class-domain-manager.php:420
 msgid "Minimum: 10 seconds, Maximum: 300 seconds (5 minutes). Default: 300 seconds."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:437
+#: inc/managers/class-domain-manager.php:438
 msgid "Create www Subdomain Automatically?"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:438
+#: inc/managers/class-domain-manager.php:439
 msgid "Control when www subdomains should be automatically created for mapped domains."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:439
+#: inc/managers/class-domain-manager.php:440
 msgid "This setting applies to all hosting integrations and determines when a www version of the domain should be automatically created."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:443
+#: inc/managers/class-domain-manager.php:444
 msgid "Always - Create www subdomain for all domains"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:444
+#: inc/managers/class-domain-manager.php:445
 msgid "Only for main domains (e.g., example.com but not subdomain.example.com)"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:445
+#: inc/managers/class-domain-manager.php:446
 msgid "Never - Do not automatically create www subdomains"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:498
+#: inc/managers/class-domain-manager.php:499
 msgid "Single Sign-On Settings"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:499
+#: inc/managers/class-domain-manager.php:500
 msgid "Settings to configure the Single Sign-On functionality of Ultimate Multisite, responsible for keeping customers and admins logged in across all network domains."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:508
+#: inc/managers/class-domain-manager.php:509
 msgid "Enable Single Sign-On"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:509
+#: inc/managers/class-domain-manager.php:510
 msgid "Enables the Single Sign-on functionality."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:519
+#: inc/managers/class-domain-manager.php:520
 msgid "Restrict SSO Checks to Login Pages"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:520
+#: inc/managers/class-domain-manager.php:521
 msgid "The Single Sign-on feature adds one extra ajax calls to every page load on sites with custom domains active to check if it should perform an auth loopback. You can restrict these extra calls to the login pages of sub-sites using this option. If enabled, SSO will only work on login pages."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:533
+#: inc/managers/class-domain-manager.php:534
 msgid "Enable SSO Loading Overlay"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:534
+#: inc/managers/class-domain-manager.php:535
 msgid "When active, a loading overlay will be added on-top of the site currently being viewed while the SSO auth loopback is performed on the background."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:547
+#: inc/managers/class-domain-manager.php:548
 msgid "Enable Magic Links"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:548
+#: inc/managers/class-domain-manager.php:549
 msgid "Enables magic link authentication for custom domains. Magic links provide a fallback authentication method for browsers that don't support third-party cookies. When enabled, dashboard and site links will automatically log users in when accessing sites with custom domains. Tokens are cryptographically secure, one-time use, and expire after 10 minutes."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:564
+#: inc/managers/class-domain-manager.php:565
 msgid "Cool! You're about to make this site accessible using your own domain name!"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:566
+#: inc/managers/class-domain-manager.php:567
 msgid "For that to work, you'll need to create a new CNAME record pointing to <code>%NETWORK_DOMAIN%</code> on your DNS manager."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:568
+#: inc/managers/class-domain-manager.php:569
 msgid "After you finish that step, come back to this screen and click the button below."
 msgstr ""
 
 #. translators: %s is the domain name
-#: inc/managers/class-domain-manager.php:665
+#: inc/managers/class-domain-manager.php:666
 #, php-format
 msgid "Starting Check for %s"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:675
+#: inc/managers/class-domain-manager.php:676
 msgid "- DNS propagation finished, advancing domain to next step..."
 msgstr ""
 
 #. translators: %d is the number of minutes to try again.
-#: inc/managers/class-domain-manager.php:702
+#: inc/managers/class-domain-manager.php:703
 #, php-format
 msgid "- DNS propagation checks tried for the max amount of times (5 times, one every %d minutes). Marking as failed."
 msgstr ""
 
 #. translators: %d is the number of minutes before trying again.
-#: inc/managers/class-domain-manager.php:711
+#: inc/managers/class-domain-manager.php:712
 #, php-format
 msgid "- DNS propagation not finished, retrying in %d minutes..."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:736
+#: inc/managers/class-domain-manager.php:737
 msgid "- Valid SSL cert found. Marking domain as done."
 msgstr ""
 
 #. translators: %d is the number of minutes to try again.
-#: inc/managers/class-domain-manager.php:752
+#: inc/managers/class-domain-manager.php:754
 #, php-format
 msgid "- SSL checks tried for the max amount of times (5 times, one every %d minutes). Marking as ready without SSL."
 msgstr ""
 
 #. translators: %d is the number of minutes before trying again.
-#: inc/managers/class-domain-manager.php:761
+#: inc/managers/class-domain-manager.php:763
 #, php-format
 msgid "- SSL Cert not found, retrying in %d minute(s)..."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:850
+#: inc/managers/class-domain-manager.php:852
 msgid "A valid domain was not passed."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:863
-#: inc/managers/class-domain-manager.php:872
+#: inc/managers/class-domain-manager.php:865
+#: inc/managers/class-domain-manager.php:874
 msgid "Not able to fetch DNS entries."
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:923
+#: inc/managers/class-domain-manager.php:925
 msgid "Invalid Integration ID"
 msgstr ""
 
 #. translators: %s is the name of the missing constant
-#: inc/managers/class-domain-manager.php:936
+#: inc/managers/class-domain-manager.php:938
 #, php-format
 msgid "The necessary constants were not found on your wp-config.php file: %s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: URL being tested
-#: inc/managers/class-domain-manager.php:1053
+#: inc/managers/class-domain-manager.php:1060
 #, php-format
 msgid "Testing domain verification via Loopback using %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Error Message
-#: inc/managers/class-domain-manager.php:1076
+#: inc/managers/class-domain-manager.php:1083
 #, php-format
 msgid "Failed to connect via %1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: HTTP Response Code
-#: inc/managers/class-domain-manager.php:1094
+#: inc/managers/class-domain-manager.php:1101
 #, php-format
 msgid "Loopback request via %1$s returned HTTP %2$d"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Json error, %3$s part of the response
-#: inc/managers/class-domain-manager.php:1111
+#: inc/managers/class-domain-manager.php:1118
 #, php-format
 msgid "Loopback response via %1$s is not valid JSON: %2$s : %3$s"
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number
-#: inc/managers/class-domain-manager.php:1127
+#: inc/managers/class-domain-manager.php:1134
 #, php-format
 msgid "Domain verification successful via Loopback using %1$s. Domain ID %2$d confirmed."
 msgstr ""
 
 #. translators: %1$s: Protocol label (HTTPS with SSL verification, HTTPS without SSL verification, HTTP), %2$s: Domain ID number, %3$s Domain ID number
-#: inc/managers/class-domain-manager.php:1140
+#: inc/managers/class-domain-manager.php:1147
 #, php-format
 msgid "Loopback response via %1$s did not contain expected domain ID. Expected: %2$d, Got: %3$s"
 msgstr ""
 
-#: inc/managers/class-domain-manager.php:1151
+#: inc/managers/class-domain-manager.php:1158
 msgid "Domain verification failed via loopback on all protocols (HTTPS with SSL, HTTPS without SSL, HTTP)."
 msgstr ""
 
@@ -18066,17 +18314,17 @@ msgstr ""
 msgid "This is the number of sites the customer will be able to create under this membership."
 msgstr ""
 
-#: inc/managers/class-membership-manager.php:134
-#: inc/managers/class-membership-manager.php:157
-#: inc/managers/class-membership-manager.php:191
-#: inc/managers/class-membership-manager.php:198
-#: inc/managers/class-membership-manager.php:310
-#: inc/managers/class-membership-manager.php:381
+#: inc/managers/class-membership-manager.php:140
+#: inc/managers/class-membership-manager.php:163
+#: inc/managers/class-membership-manager.php:197
+#: inc/managers/class-membership-manager.php:204
+#: inc/managers/class-membership-manager.php:316
+#: inc/managers/class-membership-manager.php:387
 #: inc/managers/class-payment-manager.php:336
 #: inc/managers/class-payment-manager.php:381
 #: inc/ui/class-site-actions-element.php:594
-#: inc/ui/class-site-actions-element.php:936
-#: inc/ui/class-site-actions-element.php:1124
+#: inc/ui/class-site-actions-element.php:940
+#: inc/ui/class-site-actions-element.php:1132
 msgid "An unexpected error happened."
 msgstr ""
 
@@ -18161,6 +18409,16 @@ msgstr ""
 msgid "This invoice does not exist."
 msgstr ""
 
+#. translators: %1$s opening strong tag, %2$s closing strong tag, %3$s review link opening tag, %4$s link closing tag
+#: inc/managers/class-rating-notice-manager.php:102
+#, php-format
+msgid "Hello! You've been using %1$sUltimate Multisite%2$s for a while now. If it's been helpful for your network, we'd really appreciate a quick review on WordPress.org. Your feedback helps other users discover the plugin and motivates us to keep improving it. %3$sLeave a review%4$s"
+msgstr ""
+
+#: inc/managers/class-rating-notice-manager.php:111
+msgid "Leave a Review"
+msgstr ""
+
 #: inc/managers/class-site-manager.php:121
 msgid "Site names can only contain lowercase letters (a-z) and numbers."
 msgstr ""
@@ -18229,20 +18487,20 @@ msgstr ""
 msgid "You can only use numeric fields to generate hashes."
 msgstr ""
 
-#: inc/models/class-base-model.php:769
+#: inc/models/class-base-model.php:762
 msgid "This method expects an array as argument."
 msgstr ""
 
-#: inc/models/class-checkout-form.php:601
-#: inc/models/class-checkout-form.php:750
-#: inc/models/class-checkout-form.php:1211
-#: inc/models/class-checkout-form.php:1405
+#: inc/models/class-checkout-form.php:611
+#: inc/models/class-checkout-form.php:760
+#: inc/models/class-checkout-form.php:1221
+#: inc/models/class-checkout-form.php:1415
 msgid "Your Order"
 msgstr ""
 
-#: inc/models/class-checkout-form.php:615
-#: inc/models/class-checkout-form.php:764
-#: inc/models/class-checkout-form.php:1001
+#: inc/models/class-checkout-form.php:625
+#: inc/models/class-checkout-form.php:774
+#: inc/models/class-checkout-form.php:1011
 #: inc/ui/class-billing-info-element.php:171
 #: inc/ui/class-billing-info-element.php:224
 #: views/dashboard-widgets/thank-you.php:455
@@ -18251,77 +18509,77 @@ msgstr ""
 msgid "Billing Address"
 msgstr ""
 
-#: inc/models/class-checkout-form.php:667
+#: inc/models/class-checkout-form.php:677
 msgid "Site Info"
 msgstr ""
 
-#: inc/models/class-checkout-form.php:701
+#: inc/models/class-checkout-form.php:711
 msgid "User Info"
 msgstr ""
 
-#: inc/models/class-checkout-form.php:866
+#: inc/models/class-checkout-form.php:876
 msgid "Pricing Tables"
 msgstr ""
 
-#: inc/models/class-checkout-form.php:970
+#: inc/models/class-checkout-form.php:980
 msgid "Continue to the Next Step"
 msgstr ""
 
-#: inc/models/class-checkout-form.php:1014
+#: inc/models/class-checkout-form.php:1024
 #: inc/ui/class-payment-methods-element.php:68
 msgid "Payment Methods"
 msgstr ""
 
-#: inc/models/class-checkout-form.php:1021
+#: inc/models/class-checkout-form.php:1031
 msgid "Pay & Create Account"
 msgstr ""
 
-#: inc/models/class-checkout-form.php:1225
+#: inc/models/class-checkout-form.php:1235
 msgid "Finish Payment"
 msgstr ""
 
-#: inc/models/class-checkout-form.php:1419
+#: inc/models/class-checkout-form.php:1429
 msgid "Complete Checkout"
 msgstr ""
 
-#: inc/models/class-checkout-form.php:1542
-#: inc/models/class-checkout-form.php:1550
+#: inc/models/class-checkout-form.php:1552
+#: inc/models/class-checkout-form.php:1560
 msgid "Create Site"
 msgstr ""
 
-#: inc/models/class-customer.php:216
+#: inc/models/class-customer.php:236
 msgid "User Deleted"
 msgstr ""
 
-#: inc/models/class-customer.php:272
-#: inc/models/class-customer.php:289
+#: inc/models/class-customer.php:292
+#: inc/models/class-customer.php:309
 msgid "none"
 msgstr ""
 
-#: inc/models/class-discount-code.php:468
-#: inc/models/class-discount-code.php:490
-#: inc/models/class-discount-code.php:498
-#: inc/models/class-discount-code.php:516
+#: inc/models/class-discount-code.php:478
+#: inc/models/class-discount-code.php:500
+#: inc/models/class-discount-code.php:508
+#: inc/models/class-discount-code.php:526
 msgid "This coupon code is not valid."
 msgstr ""
 
-#: inc/models/class-discount-code.php:475
+#: inc/models/class-discount-code.php:485
 msgid "This discount code was already redeemed the maximum amount of times allowed."
 msgstr ""
 
 #. translators: placeholder is the value off. Can be wither $X.XX or X%
-#: inc/models/class-discount-code.php:641
+#: inc/models/class-discount-code.php:651
 #, php-format
 msgid "%1$s OFF on Subscriptions"
 msgstr ""
 
 #. translators: placeholder is the value off. Can be wither $X.XX or X%
-#: inc/models/class-discount-code.php:655
+#: inc/models/class-discount-code.php:665
 #, php-format
 msgid "%1$s OFF on Setup Fees"
 msgstr ""
 
-#: inc/models/class-domain.php:581
+#: inc/models/class-domain.php:597
 msgid "Domain deleted and logs cleared..."
 msgstr ""
 
@@ -18341,30 +18599,30 @@ msgstr ""
 msgid "No Message"
 msgstr ""
 
-#: inc/models/class-membership.php:683
-#: inc/models/class-membership.php:760
+#: inc/models/class-membership.php:713
+#: inc/models/class-membership.php:790
 msgid "Swap Cart is invalid."
 msgstr ""
 
-#: inc/models/class-membership.php:756
+#: inc/models/class-membership.php:786
 msgid "Schedule date is invalid."
 msgstr ""
 
 #. translators: times billed / subscription duration in cycles. e.g. 1/12 cycles
-#: inc/models/class-membership.php:860
+#: inc/models/class-membership.php:890
 #, php-format
 msgid "%1$s / %2$s cycles"
 msgstr ""
 
 #. translators: the place holder is the number of times the membership was billed.
-#: inc/models/class-membership.php:865
+#: inc/models/class-membership.php:895
 #, php-format
 msgid "%1$s / until cancelled"
 msgstr ""
 
 #. translators: %1$s is the formatted price, %2$s the duration, and %3$s the duration unit (day, week, month, etc)
-#: inc/models/class-membership.php:885
-#: inc/models/class-product.php:734
+#: inc/models/class-membership.php:915
+#: inc/models/class-product.php:784
 #, php-format
 msgid "%1$s every %3$s"
 msgid_plural "%1$s every %2$s %3$s"
@@ -18372,41 +18630,41 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %1$s is the formatted price of the product
-#: inc/models/class-membership.php:905
-#: inc/models/class-product.php:754
+#: inc/models/class-membership.php:935
+#: inc/models/class-product.php:804
 #, php-format
 msgid "%1$s one time payment"
 msgstr ""
 
-#: inc/models/class-payment.php:941
+#: inc/models/class-payment.php:961
 msgid "(provisional)"
 msgstr ""
 
-#: inc/models/class-payment.php:1061
+#: inc/models/class-payment.php:1081
 msgid "Full Refund"
 msgstr ""
 
-#: inc/models/class-payment.php:1065
+#: inc/models/class-payment.php:1085
 msgid "Partial Refund"
 msgstr ""
 
 #. translators: %s is the date of processing.
-#: inc/models/class-payment.php:1075
+#: inc/models/class-payment.php:1095
 #, php-format
 msgid "Processed on %s"
 msgstr ""
 
-#: inc/models/class-product.php:722
+#: inc/models/class-product.php:772
 msgid "Contact us"
 msgstr ""
 
 #. translators: %1$s is the formatted price of the setup fee
-#: inc/models/class-product.php:762
+#: inc/models/class-product.php:812
 #, php-format
 msgid "Setup Fee of %1$s"
 msgstr ""
 
-#: inc/models/class-product.php:783
+#: inc/models/class-product.php:833
 msgid "one-time payment"
 msgstr ""
 
@@ -18482,6 +18740,30 @@ msgstr ""
 msgid "Placeholders successfully updated!"
 msgstr ""
 
+#: inc/sso/class-nav-menu-subsite-links.php:77
+msgid "Subsites"
+msgstr ""
+
+#: inc/sso/class-nav-menu-subsite-links.php:133
+msgid "No subsites found."
+msgstr ""
+
+#: inc/sso/class-nav-menu-subsite-links.php:144
+msgid "Select all"
+msgstr ""
+
+#: inc/sso/class-nav-menu-subsite-links.php:148
+msgid "Add to menu"
+msgstr ""
+
+#: inc/sso/class-nav-menu-subsite-links.php:289
+msgid "Subsite (Deleted)"
+msgstr ""
+
+#: inc/sso/class-nav-menu-subsite-links.php:294
+msgid "Subsite"
+msgstr ""
+
 #: inc/sso/class-sso.php:962
 msgid "SSO secret creation failed."
 msgstr ""
@@ -18516,60 +18798,60 @@ msgstr ""
 msgid "Taxes Collected"
 msgstr ""
 
-#: inc/tax/class-tax.php:115
+#: inc/tax/class-tax.php:116
 msgid "Enable Taxes"
 msgstr ""
 
-#: inc/tax/class-tax.php:116
+#: inc/tax/class-tax.php:117
 msgid "Enable this option to be able to collect sales taxes on your network payments."
 msgstr ""
 
-#: inc/tax/class-tax.php:126
+#: inc/tax/class-tax.php:127
 msgid "Inclusive Tax"
 msgstr ""
 
-#: inc/tax/class-tax.php:127
+#: inc/tax/class-tax.php:128
 msgid "Enable this option if your prices include taxes. In that case, Ultimate Multisite will calculate the included tax instead of adding taxes to the price."
 msgstr ""
 
-#: inc/tax/class-tax.php:189
+#: inc/tax/class-tax.php:190
 msgid "Regular"
 msgstr ""
 
-#: inc/tax/class-tax.php:232
+#: inc/tax/class-tax.php:233
 #: inc/ui/class-site-actions-element.php:185
 #: views/limitations/plugin-selector.php:80
 msgid "Default"
 msgstr ""
 
-#: inc/tax/class-tax.php:295
+#: inc/tax/class-tax.php:296
 msgid "You don't have permission to alter tax rates"
 msgstr ""
 
-#: inc/tax/class-tax.php:314
+#: inc/tax/class-tax.php:315
 msgid "No tax rates present in the request"
 msgstr ""
 
-#: inc/tax/class-tax.php:346
+#: inc/tax/class-tax.php:347
 msgid "Tax Rates successfully updated!"
 msgstr ""
 
-#: inc/tax/class-tax.php:386
-#: inc/tax/class-tax.php:390
+#: inc/tax/class-tax.php:387
+#: inc/tax/class-tax.php:391
 msgid "Manage Tax Rates"
 msgstr ""
 
-#: inc/tax/class-tax.php:394
+#: inc/tax/class-tax.php:395
 msgid "Add different tax rates depending on the country of your customers."
 msgstr ""
 
-#: inc/tax/class-tax.php:400
+#: inc/tax/class-tax.php:401
 msgid "You need to activate tax support first."
 msgstr ""
 
-#: inc/tax/class-tax.php:408
-#: inc/tax/class-tax.php:414
-#: inc/tax/class-tax.php:418
+#: inc/tax/class-tax.php:409
+#: inc/tax/class-tax.php:415
+#: inc/tax/class-tax.php:419
 msgid "Manage Tax Rates &rarr;"
 msgstr ""
 
@@ -18632,7 +18914,7 @@ msgstr ""
 
 #: inc/traits/trait-wp-ultimo-settings-deprecated.php:79
 #: inc/traits/trait-wp-ultimo-settings-deprecated.php:80
-#: inc/ui/class-site-actions-element.php:1046
+#: inc/ui/class-site-actions-element.php:1050
 #: views/dashboard-statistics/widget-countries.php:95
 msgid "Other"
 msgstr ""
@@ -18646,7 +18928,7 @@ msgid "Account Summary"
 msgstr ""
 
 #: inc/ui/class-account-summary-element.php:124
-msgid "Adds a account summary block to the page."
+msgid "Displays a summary of the customer's account including membership and site overview."
 msgstr ""
 
 #: inc/ui/class-account-summary-element.php:157
@@ -18709,14 +18991,7 @@ msgid "Billing Information"
 msgstr ""
 
 #: inc/ui/class-billing-info-element.php:138
-#: inc/ui/class-checkout-element.php:128
-#: inc/ui/class-current-membership-element.php:146
-#: inc/ui/class-invoices-element.php:100
-#: inc/ui/class-limits-element.php:99
-#: inc/ui/class-payment-methods-element.php:84
-#: inc/ui/class-site-actions-element.php:123
-#: inc/ui/class-thank-you-element.php:175
-msgid "Adds a checkout form block to the page."
+msgid "Displays the customer's billing address and contact information."
 msgstr ""
 
 #: inc/ui/class-billing-info-element.php:333
@@ -18725,6 +19000,10 @@ msgstr ""
 
 #: inc/ui/class-billing-info-element.php:334
 msgid "Enter your billing address here. This info will be used on your invoices."
+msgstr ""
+
+#: inc/ui/class-checkout-element.php:128
+msgid "Adds a checkout form block to the page."
 msgstr ""
 
 #: inc/ui/class-checkout-element.php:160
@@ -18828,6 +19107,10 @@ msgstr ""
 msgid "Registration is closed for your location."
 msgstr ""
 
+#: inc/ui/class-current-membership-element.php:146
+msgid "Displays the current membership details including plan, status, and billing cycle."
+msgstr ""
+
 #: inc/ui/class-current-membership-element.php:179
 #: inc/ui/class-current-membership-element.php:250
 msgid "Your Membership"
@@ -18855,7 +19138,7 @@ msgstr ""
 
 #: inc/ui/class-current-membership-element.php:368
 #: inc/ui/class-site-actions-element.php:842
-#: inc/ui/class-site-actions-element.php:989
+#: inc/ui/class-site-actions-element.php:993
 msgid "Membership not selected."
 msgstr ""
 
@@ -18868,9 +19151,9 @@ msgstr ""
 #: inc/ui/class-site-actions-element.php:503
 #: inc/ui/class-site-actions-element.php:600
 #: inc/ui/class-site-actions-element.php:848
-#: inc/ui/class-site-actions-element.php:946
-#: inc/ui/class-site-actions-element.php:995
-#: inc/ui/class-site-actions-element.php:1134
+#: inc/ui/class-site-actions-element.php:950
+#: inc/ui/class-site-actions-element.php:999
+#: inc/ui/class-site-actions-element.php:1142
 msgid "You are not allowed to do this."
 msgstr ""
 
@@ -18898,7 +19181,7 @@ msgid "remove %1$s %2$s from membership"
 msgstr ""
 
 #: inc/ui/class-current-site-element.php:127
-msgid "Adds a block to display the current site being managed."
+msgid "Displays details about the currently selected site including title, URL, and quick actions."
 msgstr ""
 
 #: inc/ui/class-current-site-element.php:159
@@ -18984,7 +19267,7 @@ msgid "Site title can not be empty."
 msgstr ""
 
 #: inc/ui/class-domain-mapping-element.php:112
-msgid "Adds the site's domains block."
+msgid "Allows customers to manage custom domains mapped to their site."
 msgstr ""
 
 #: inc/ui/class-domain-mapping-element.php:294
@@ -19024,6 +19307,10 @@ msgstr ""
 #: inc/ui/class-field.php:222
 #, php-format
 msgid "The field type \"%1$s\" is no longer supported, use \"%2$s\" instead."
+msgstr ""
+
+#: inc/ui/class-invoices-element.php:100
+msgid "Displays a list of the customer's invoices and payment history."
 msgstr ""
 
 #: inc/ui/class-invoices-element.php:140
@@ -19135,6 +19422,10 @@ msgstr ""
 
 #: inc/ui/class-limits-element.php:83
 msgid "Limits & Quotas"
+msgstr ""
+
+#: inc/ui/class-limits-element.php:99
+msgid "Displays the site's usage limits and quotas such as disk space, posts, and users."
 msgstr ""
 
 #: inc/ui/class-limits-element.php:132
@@ -19262,7 +19553,7 @@ msgid "Remember Me Description"
 msgstr ""
 
 #: inc/ui/class-login-form-element.php:271
-#: inc/ui/class-login-form-element.php:370
+#: inc/ui/class-login-form-element.php:393
 msgid "Keep me logged in for two weeks."
 msgstr ""
 
@@ -19275,8 +19566,97 @@ msgstr ""
 msgid "Log In"
 msgstr ""
 
+#: inc/ui/class-magic-link-url-element.php:97
+msgid "Magic Link URL"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:113
+msgid "Generates a magic link URL for quick site access with automatic authentication."
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:146
+msgid "E.g. 2 or leave empty for current site"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:147
+msgid "The ID of the site to generate the magic link for. Leave empty to use the current site from the URL."
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:148
+msgid "You can find the site ID in the Sites list in the network admin."
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:153
+msgid "Redirect URL"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:154
+msgid "E.g. /wp-admin/"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:155
+msgid "Optional path to redirect to after authentication. Leave empty to go to the site home."
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:156
+msgid "This can be a relative path (e.g., /wp-admin/) or full URL on the target site."
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:160
+#: inc/ui/class-magic-link-url-element.php:161
+msgid "Display Options"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:167
+msgid "Display As"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:168
+msgid "Choose how to display the magic link."
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:170
+msgid "Clickable Link"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:171
+msgid "Button"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:172
+msgid "Plain URL Text"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:179
+msgid "Link Text"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:180
+msgid "E.g. Visit Site"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:181
+msgid "The text to display for the link or button."
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:190
+msgid "Open in New Tab?"
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:191
+msgid "Toggle to open the link in a new browser tab."
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:394
+msgid "Magic Link URL: No site ID specified or found."
+msgstr ""
+
+#: inc/ui/class-magic-link-url-element.php:405
+msgid "Magic Link URL: Site not found."
+msgstr ""
+
 #: inc/ui/class-my-sites-element.php:110
-msgid "Adds a block to display the sites owned by the current customer."
+msgid "Displays a list of all sites owned by the current customer with quick access links."
 msgstr ""
 
 #: inc/ui/class-my-sites-element.php:142
@@ -19319,6 +19699,10 @@ msgstr ""
 msgid "The page to redirect user after select a site."
 msgstr ""
 
+#: inc/ui/class-payment-methods-element.php:84
+msgid "Displays and manages the customer's saved payment methods."
+msgstr ""
+
 #: inc/ui/class-payment-methods-element.php:116
 msgid "Password Strength Meter"
 msgstr ""
@@ -19350,6 +19734,10 @@ msgstr ""
 #: inc/ui/class-site-actions-element.php:107
 #: views/dashboard-widgets/site-actions.php:20
 msgid "Actions"
+msgstr ""
+
+#: inc/ui/class-site-actions-element.php:123
+msgid "Displays action buttons for site management such as preview, publish, and delete."
 msgstr ""
 
 #: inc/ui/class-site-actions-element.php:155
@@ -19402,8 +19790,8 @@ msgid "Cancel Current Payment Method"
 msgstr ""
 
 #: inc/ui/class-site-actions-element.php:465
-#: inc/ui/class-site-actions-element.php:1081
-#: inc/ui/class-site-actions-element.php:1082
+#: inc/ui/class-site-actions-element.php:1089
+#: inc/ui/class-site-actions-element.php:1090
 msgid "Cancel Membership"
 msgstr ""
 
@@ -19465,68 +19853,68 @@ msgstr ""
 msgid "Confirm Payment Method Cancellation"
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:893
-#: inc/ui/class-site-actions-element.php:894
+#: inc/ui/class-site-actions-element.php:897
+#: inc/ui/class-site-actions-element.php:898
 msgid "Cancel Payment Method"
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1032
+#: inc/ui/class-site-actions-element.php:1036
 msgid "Please tell us why you are cancelling."
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1033
+#: inc/ui/class-site-actions-element.php:1037
 msgid "We would love your feedback."
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1039
+#: inc/ui/class-site-actions-element.php:1043
 msgid "Select a reason"
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1040
-#: inc/ui/class-site-actions-element.php:1142
+#: inc/ui/class-site-actions-element.php:1044
+#: inc/ui/class-site-actions-element.php:1150
 msgid "I no longer need it"
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1041
-#: inc/ui/class-site-actions-element.php:1143
+#: inc/ui/class-site-actions-element.php:1045
+#: inc/ui/class-site-actions-element.php:1151
 msgid "It's too expensive"
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1042
-#: inc/ui/class-site-actions-element.php:1144
+#: inc/ui/class-site-actions-element.php:1046
+#: inc/ui/class-site-actions-element.php:1152
 msgid "I need more features"
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1043
-#: inc/ui/class-site-actions-element.php:1145
+#: inc/ui/class-site-actions-element.php:1047
+#: inc/ui/class-site-actions-element.php:1153
 msgid "Switched to another service"
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1044
-#: inc/ui/class-site-actions-element.php:1146
+#: inc/ui/class-site-actions-element.php:1048
+#: inc/ui/class-site-actions-element.php:1154
 msgid "Customer support is less than expected"
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1045
-#: inc/ui/class-site-actions-element.php:1147
+#: inc/ui/class-site-actions-element.php:1049
+#: inc/ui/class-site-actions-element.php:1155
 msgid "Too complex"
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1051
+#: inc/ui/class-site-actions-element.php:1055
 msgid "Please provide additional details."
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1058
+#: inc/ui/class-site-actions-element.php:1066
 msgid "Type <code class=\"wu-text-red-600\">CANCEL</code> to confirm this membership cancellation."
 msgstr ""
 
 #. translators: %s: Next charge date.
-#: inc/ui/class-site-actions-element.php:1075
+#: inc/ui/class-site-actions-element.php:1083
 #, php-format
 msgid "Your sites will stay working until %s."
 msgstr ""
 
-#: inc/ui/class-site-actions-element.php:1087
+#: inc/ui/class-site-actions-element.php:1095
 msgid "CANCEL"
 msgstr ""
 
@@ -19535,7 +19923,7 @@ msgid "Site Maintenance"
 msgstr ""
 
 #: inc/ui/class-site-maintenance-element.php:107
-msgid "Adds the toggle control to turn maintenance mode on."
+msgid "Provides a toggle control for customers to enable or disable site maintenance mode."
 msgstr ""
 
 #: inc/ui/class-site-maintenance-element.php:140
@@ -19561,7 +19949,7 @@ msgid "Template Switching"
 msgstr ""
 
 #: inc/ui/class-template-switching-element.php:95
-msgid "Adds the template switching form to this page."
+msgid "Allows customers to switch their site to a different template design."
 msgstr ""
 
 #: inc/ui/class-template-switching-element.php:155
@@ -19572,28 +19960,32 @@ msgstr ""
 msgid "Want to add customized template selection templates?<br><a target=\"_blank\" class=\"wu-no-underline\" href=\"https://github.com/superdav42/wp-multisite-waas/wiki/Customize-Checkout-Flow\">See how you can do that here</a>."
 msgstr ""
 
-#: inc/ui/class-template-switching-element.php:277
-msgid "You are not allow to use this template."
+#: inc/ui/class-template-switching-element.php:279
+msgid "You are not allowed to use this template."
 msgstr ""
 
-#: inc/ui/class-template-switching-element.php:281
+#: inc/ui/class-template-switching-element.php:283
 msgid "You need to provide a valid template to duplicate."
 msgstr ""
 
-#: inc/ui/class-template-switching-element.php:385
+#: inc/ui/class-template-switching-element.php:387
 msgid "&larr; Back to Template Selection"
 msgstr ""
 
-#: inc/ui/class-template-switching-element.php:395
+#: inc/ui/class-template-switching-element.php:397
 msgid "Confirm template switch?"
 msgstr ""
 
-#: inc/ui/class-template-switching-element.php:396
+#: inc/ui/class-template-switching-element.php:398
 msgid "Switching your current template completely overwrites the content of your site with the contents of the newly chosen template. All customizations will be lost. This action cannot be undone."
 msgstr ""
 
-#: inc/ui/class-template-switching-element.php:410
+#: inc/ui/class-template-switching-element.php:412
 msgid "Process Switch"
+msgstr ""
+
+#: inc/ui/class-thank-you-element.php:175
+msgid "Displays a confirmation message after successful checkout or registration."
 msgstr ""
 
 #: inc/ui/class-thank-you-element.php:215
@@ -19674,6 +20066,12 @@ msgstr ""
 
 #: views/admin-pages/fields/field-image.php:107
 msgid "Upload Image"
+msgstr ""
+
+#: views/admin-pages/fields/field-password.php:41
+#: views/checkout/fields/field-password.php:37
+#: assets/js/wu-password-toggle.js:48
+msgid "Show password"
 msgstr ""
 
 #: views/admin-pages/fields/field-repeater.php:143
@@ -20089,12 +20487,8 @@ msgstr ""
 msgid "No Targets"
 msgstr ""
 
-#: views/checkout/fields/field-password.php:36
+#: views/checkout/fields/field-password.php:45
 msgid "Strength Meter"
-msgstr ""
-
-#: views/checkout/partials/inline-login-prompt.php:38
-msgid "Enter your password"
 msgstr ""
 
 #: views/checkout/partials/pricing-table-list.php:19
@@ -20123,6 +20517,7 @@ msgid "PayPal Status:"
 msgstr ""
 
 #: views/checkout/paypal/confirm.php:85
+#: views/wizards/host-integrations/rocket-instructions.php:39
 msgid "Email:"
 msgstr ""
 
@@ -20953,6 +21348,14 @@ msgstr ""
 msgid "Check / Uncheck All"
 msgstr ""
 
+#: views/settings/widget-settings-body.php:287
+msgid "Allow Ultimate Multisite to collect anonymous usage data and error reports to help us improve the plugin. We collect: PHP version, WordPress version, plugin version, network type, aggregate counts, active gateways, and error logs. We never collect personal data, customer information, or domain names."
+msgstr ""
+
+#: views/settings/widget-settings-body.php:288
+msgid "Learn more"
+msgstr ""
+
 #: views/shortcodes/shortcodes.php:47
 msgid "Parameter"
 msgstr ""
@@ -20966,7 +21369,7 @@ msgid "Template Placeholders"
 msgstr ""
 
 #: views/sites/edit-placeholders.php:31
-#: views/taxes/list.php:83
+#: views/taxes/list.php:105
 msgid "item(s)"
 msgstr ""
 
@@ -20975,27 +21378,27 @@ msgid "Loading Template Placeholders..."
 msgstr ""
 
 #: views/sites/edit-placeholders.php:91
-#: views/taxes/list.php:144
+#: views/taxes/list.php:166
 msgid "No items to display"
 msgstr ""
 
 #: views/sites/edit-placeholders.php:209
-#: views/taxes/list.php:342
+#: views/taxes/list.php:364
 msgid "Add new Row"
 msgstr ""
 
 #: views/sites/edit-placeholders.php:215
-#: views/taxes/list.php:348
+#: views/taxes/list.php:370
 msgid "Delete Selected Rows"
 msgstr ""
 
 #: views/sites/edit-placeholders.php:241
-#: views/taxes/list.php:374
+#: views/taxes/list.php:396
 msgid "Save your changes!"
 msgstr ""
 
 #: views/sites/edit-placeholders.php:245
-#: views/taxes/list.php:378
+#: views/taxes/list.php:400
 msgid "Saving..."
 msgstr ""
 
@@ -21015,41 +21418,51 @@ msgstr ""
 msgid "Download File"
 msgstr ""
 
-#: views/taxes/list.php:16
+#: views/taxes/list.php:18
 msgid "Go to the Tax Settings Page"
 msgstr ""
 
-#: views/taxes/list.php:31
+#. translators: %s is a link to the tax settings page
+#: views/taxes/list.php:32
+#, php-format
+msgid "Taxes are currently disabled. The tax rates below are not being applied to any transactions. To enable taxes, go to the %s."
+msgstr ""
+
+#: views/taxes/list.php:36
+msgid "Tax Settings page"
+msgstr ""
+
+#: views/taxes/list.php:53
 msgid "Tax Category Name"
 msgstr ""
 
-#: views/taxes/list.php:34
+#: views/taxes/list.php:56
 msgid "Create"
 msgstr ""
 
-#: views/taxes/list.php:38
-#: views/taxes/list.php:46
+#: views/taxes/list.php:60
+#: views/taxes/list.php:68
 msgid "&larr; Back"
 msgstr ""
 
-#: views/taxes/list.php:62
+#: views/taxes/list.php:84
 msgid "Switch"
 msgstr ""
 
-#: views/taxes/list.php:72
+#: views/taxes/list.php:94
 msgid "Add new Tax Category"
 msgstr ""
 
-#: views/taxes/list.php:130
+#: views/taxes/list.php:152
 msgid "Loading Tax Rates..."
 msgstr ""
 
-#: views/taxes/list.php:244
-#: views/taxes/list.php:259
+#: views/taxes/list.php:266
+#: views/taxes/list.php:281
 msgid "Leave blank to apply to all"
 msgstr ""
 
-#: views/taxes/list.php:388
+#: views/taxes/list.php:410
 msgid "Save Tax Rates"
 msgstr ""
 
@@ -21329,6 +21742,171 @@ msgstr ""
 msgid "Finish!"
 msgstr ""
 
+#: views/wizards/host-integrations/rocket-instructions.php:12
+msgid "You'll need to get your"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:12
+msgid "Rocket.net account credentials"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:12
+msgid "from your Rocket.net control panel."
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:16
+msgid "About the Rocket.net API"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:20
+msgid "Rocket.net is one of the few Managed WordPress platforms that is 100% API-driven. The same API that powers their control panel is available to you for managing domains, SSL certificates, and more."
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:25
+msgid "Note:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:26
+msgid "The Rocket.net API uses JWT authentication. Your credentials are only used to generate secure access tokens and are never stored by Ultimate Multisite."
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:31
+msgid "Step 1: Prepare Your Account Credentials"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:35
+msgid "You will need:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:39
+msgid "Your Rocket.net account email address"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:40
+msgid "Password:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:40
+#: views/wizards/host-integrations/rocket-instructions.php:76
+msgid "Your Rocket.net account password"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:41
+msgid "Site ID:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:41
+msgid "The numeric ID of your WordPress site on Rocket.net"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:46
+msgid "Security Tip:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:47
+msgid "Consider creating a dedicated Rocket.net user account specifically for API access with appropriate permissions. This follows security best practices for API integrations."
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:52
+msgid "Step 2: Finding Your Site ID"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:56
+msgid "To find your Site ID:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:60
+msgid "Log in to your Rocket.net control panel"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:61
+msgid "Navigate to your WordPress site"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:62
+msgid "Look at the URL in your browser - the Site ID is the numeric value in the URL path"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:63
+msgid "For example, if the URL is"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:63
+msgid "your Site ID is"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:67
+msgid "Step 3: Configure the Integration"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:71
+msgid "In the next step, you will enter:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:75
+msgid "WU_ROCKET_EMAIL:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:75
+msgid "Your Rocket.net account email"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:76
+msgid "WU_ROCKET_PASSWORD:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:77
+msgid "WU_ROCKET_SITE_ID:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:77
+msgid "The Site ID you found in the previous step"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:81
+msgid "These values will be added to your wp-config.php file as PHP constants for secure storage."
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:85
+msgid "What This Integration Does"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:89
+msgid "Once configured, this integration will:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:93
+msgid "Automatically add custom domains to your Rocket.net site when mapped in Ultimate Multisite"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:94
+msgid "Automatically remove domains from Rocket.net when unmapped"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:95
+msgid "Enable automatic SSL certificate provisioning for all mapped domains"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:96
+msgid "Keep your Rocket.net configuration in sync with your WordPress multisite network"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:100
+msgid "Additional Resources"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:104
+msgid "For more information about the Rocket.net API:"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:110
+msgid "Rocket.net API Guide"
+msgstr ""
+
+#: views/wizards/host-integrations/rocket-instructions.php:115
+msgid "Rocket.net API Documentation"
+msgstr ""
+
 #: views/wizards/host-integrations/runcloud-instructions.php:12
 #: views/wizards/host-integrations/runcloud-instructions.php:35
 msgid "API Token"
@@ -21336,6 +21914,10 @@ msgstr ""
 
 #: views/wizards/host-integrations/runcloud-instructions.php:12
 msgid "as well as find the"
+msgstr ""
+
+#: views/wizards/host-integrations/runcloud-instructions.php:12
+msgid "Server ID"
 msgstr ""
 
 #: views/wizards/host-integrations/runcloud-instructions.php:12
@@ -21577,4 +22159,8 @@ msgstr ""
 
 #: views/wizards/setup/support_terms.php:40
 msgid "Support for 3rd party plugins (i.e. plugins you install yourself later on)"
+msgstr ""
+
+#: assets/js/wu-password-toggle.js:41
+msgid "Hide password"
 msgstr ""

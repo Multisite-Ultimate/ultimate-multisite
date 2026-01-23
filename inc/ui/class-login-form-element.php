@@ -302,17 +302,11 @@ class Login_Form_Element extends Base_Element {
 
 		wp_enqueue_style('wu-admin');
 
-		// Enqueue dashicons for password toggle.
-		wp_enqueue_style('dashicons');
+		// Enqueue password styles (includes dashicons as dependency).
+		wp_enqueue_style('wu-password');
 
 		// Enqueue password toggle script.
-		wp_enqueue_script(
-			'wu-password-toggle',
-			wu_get_asset('wu-password-toggle.js', 'js'),
-			['wp-i18n'],
-			wu_get_version(),
-			true
-		);
+		wp_enqueue_script('wu-password-toggle');
 
 		wp_set_script_translations('wu-password-toggle', 'ultimate-multisite');
 
@@ -702,11 +696,11 @@ class Login_Form_Element extends Base_Element {
 				],
 				'rp_key'      => [
 					'type'  => 'hidden',
-					'value' => $rp_key,
+					'value' => $rp_key ?? '',
 				],
 				'user_login'  => [
 					'type'  => 'hidden',
-					'value' => $rp_login,
+					'value' => $rp_login ?? '',
 				],
 				'redirect_to' => [
 					'type'  => 'hidden',

@@ -92,7 +92,7 @@ class Template_Switching_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds the template switching form to this page.', 'ultimate-multisite');
+		return __('Allows customers to switch their site to a different template design.', 'ultimate-multisite');
 	}
 
 	/**
@@ -273,8 +273,10 @@ class Template_Switching_Element extends Base_Element {
 
 		$template_id = (int) wu_request('template_id', '');
 
-		if (! in_array($template_id, $this->site->get_limitations()->site_templates->get_available_site_templates(), true)) {
-			wp_send_json_error(new \WP_Error('not_authorized', __('You are not allow to use this template.', 'ultimate-multisite')));
+		$available_templates = array_map('intval', $this->site->get_limitations()->site_templates->get_available_site_templates());
+
+		if (! in_array($template_id, $available_templates, true)) {
+			wp_send_json_error(new \WP_Error('not_authorized', __('You are not allowed to use this template.', 'ultimate-multisite')));
 		}
 
 		if ( ! $template_id) {

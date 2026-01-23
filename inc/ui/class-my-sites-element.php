@@ -107,7 +107,7 @@ class My_Sites_Element extends Base_Element {
 	 */
 	public function get_description() {
 
-		return __('Adds a block to display the sites owned by the current customer.', 'ultimate-multisite');
+		return __('Displays a list of all sites owned by the current customer with quick access links.', 'ultimate-multisite');
 	}
 
 	/**

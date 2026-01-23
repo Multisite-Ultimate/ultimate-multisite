@@ -31,6 +31,26 @@ class Customer extends Base_Model implements Billable, Notable {
 	use Traits\Notable;
 
 	/**
+	 * Meta key for IP country.
+	 */
+	const META_IP_COUNTRY = 'ip_country';
+
+	/**
+	 * Meta key for has trialed status.
+	 */
+	const META_HAS_TRIALED = 'wu_has_trialed';
+
+	/**
+	 * Meta key for customer extra information.
+	 */
+	const META_EXTRA_INFORMATION = 'wu_customer_extra_information';
+
+	/**
+	 * Meta key for verification key.
+	 */
+	const META_VERIFICATION_KEY = 'wu_verification_key';
+
+	/**
 	 * User ID of the associated user.
 	 *
 	 * @since 2.0.0
@@ -234,7 +254,7 @@ class Customer extends Base_Model implements Billable, Notable {
 			[
 				'company_name'    => $this->get_display_name(),
 				'billing_email'   => $this->get_email_address(),
-				'billing_country' => $this->get_meta('ip_country'),
+				'billing_country' => $this->get_meta(self::META_IP_COUNTRY),
 			]
 		);
 	}
@@ -252,7 +272,7 @@ class Customer extends Base_Model implements Billable, Notable {
 		$country = $billing_address->billing_country;
 
 		if ( ! $country) {
-			return $this->get_meta('ip_country');
+			return $this->get_meta(self::META_IP_COUNTRY);
 		}
 
 		return $country;
@@ -375,7 +395,7 @@ class Customer extends Base_Model implements Billable, Notable {
 			return true;
 		}
 
-		$this->has_trialed = $this->get_meta('wu_has_trialed');
+		$this->has_trialed = $this->get_meta(self::META_HAS_TRIALED);
 
 		if ( ! $this->has_trialed) {
 			$trial = wu_get_memberships(
@@ -388,7 +408,7 @@ class Customer extends Base_Model implements Billable, Notable {
 			);
 
 			if ( ! empty($trial)) {
-				$this->update_meta('wu_has_trialed', true);
+				$this->update_meta(self::META_HAS_TRIALED, true);
 
 				$this->has_trialed = true;
 			}
@@ -406,7 +426,7 @@ class Customer extends Base_Model implements Billable, Notable {
 	 */
 	public function set_has_trialed($has_trialed): void {
 
-		$this->meta['wu_has_trialed'] = $has_trialed;
+		$this->meta[ self::META_HAS_TRIALED ] = $has_trialed;
 
 		$this->has_trialed = $has_trialed;
 	}
@@ -534,7 +554,7 @@ class Customer extends Base_Model implements Billable, Notable {
 		}
 
 		if ($update_country_and_state) {
-			$this->update_meta('ip_country', $geolocation['country']);
+			$this->update_meta(self::META_IP_COUNTRY, $geolocation['country']);
 			$this->update_meta('ip_state', $geolocation['state']);
 		}
 
@@ -550,7 +570,7 @@ class Customer extends Base_Model implements Billable, Notable {
 	public function get_extra_information() {
 
 		if (null === $this->extra_information) {
-			$extra_information = (array) $this->get_meta('wu_customer_extra_information');
+			$extra_information = (array) $this->get_meta(self::META_EXTRA_INFORMATION);
 
 			$this->extra_information = array_filter($extra_information);
 		}
@@ -569,8 +589,8 @@ class Customer extends Base_Model implements Billable, Notable {
 
 		$extra_information = array_filter((array) $extra_information);
 
-		$this->extra_information                     = $extra_information;
-		$this->meta['wu_customer_extra_information'] = $extra_information;
+		$this->extra_information                    = $extra_information;
+		$this->meta[ self::META_EXTRA_INFORMATION ] = $extra_information;
 	}
 
 	/**
@@ -796,7 +816,7 @@ class Customer extends Base_Model implements Billable, Notable {
 
 		$hash = \WP_Ultimo\Helpers\Hash::encode($seed, 'verification-key');
 
-		return $this->update_meta('wu_verification_key', $hash);
+		return $this->update_meta(self::META_VERIFICATION_KEY, $hash);
 	}
 
 	/**
@@ -807,7 +827,7 @@ class Customer extends Base_Model implements Billable, Notable {
 	 */
 	public function get_verification_key() {
 
-		return $this->get_meta('wu_verification_key', false);
+		return $this->get_meta(self::META_VERIFICATION_KEY, false);
 	}
 
 	/**
@@ -818,7 +838,7 @@ class Customer extends Base_Model implements Billable, Notable {
 	 */
 	public function disable_verification_key() {
 
-		return $this->update_meta('wu_verification_key', false);
+		return $this->update_meta(self::META_VERIFICATION_KEY, false);
 	}
 
 	/**

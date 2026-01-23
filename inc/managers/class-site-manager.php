@@ -67,7 +67,7 @@ class Site_Manager extends Base_Manager {
 
 		add_action('wu_async_take_screenshot', [$this, 'async_get_site_screenshot']);
 
-		add_action('init', [$this, 'lock_site']);
+		add_action('wp', [$this, 'lock_site']);
 
 		add_action('admin_init', [$this, 'add_no_index_warning']);
 
@@ -269,7 +269,7 @@ class Site_Manager extends Base_Manager {
 	 */
 	public function lock_site(): void {
 
-		if (is_main_site() || is_admin() || wu_is_login_page() || wp_doing_ajax() || wu_request('wu-ajax')) {
+		if (is_main_site() || is_admin() || wu_is_login_page() || wp_doing_ajax() || wu_request('wu-ajax') || wp_is_rest_endpoint()) {
 			return;
 		}
 

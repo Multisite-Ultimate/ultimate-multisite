@@ -69,7 +69,7 @@ class Debug {
 		?>
 
 			<a
-				href="<?php wu_network_admin_url('wp-ultimo-debug-pages'); ?>"
+				href="<?php echo esc_url(wu_network_admin_url('wp-ultimo-debug-pages')); ?>"
 				class="wu-ml-2 wu-no-underline wu-text-gray-600"
 				title="<?php esc_html_e('Pages', 'ultimate-multisite'); ?>"
 			>

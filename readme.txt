@@ -211,6 +211,18 @@ This plugin connects to several external services to provide its functionality. 
 
 All external service connections are clearly disclosed to users during setup, and most services are optional or can be configured based on your chosen hosting provider and payment methods.
 
+= Usage Tracking (Opt-In) =
+
+**Ultimate Multisite Anonymous Telemetry**
+- This feature is DISABLED by default and requires explicit opt-in
+- You can enable or disable this at any time in Settings > Other > Help Improve Ultimate Multisite
+- Service: Anonymous usage data collection to improve the plugin
+- Data sent: PHP version, WordPress version, MySQL version, server type, plugin version, active addon slugs, network type (subdomain/subdirectory), anonymized usage counts (ranges only, e.g., "11-50 sites"), active payment gateways, and sanitized error logs
+- Data NOT sent: Domain names, URLs, customer information, personal data, payment amounts, API keys, IP addresses, or exact counts
+- When: Weekly (if enabled) and when errors occur (if enabled)
+- Service URL: https://ultimatemultisite.com/wp-json/wu-telemetry/v1/track
+- Privacy Policy: https://ultimatemultisite.com/privacy-policy/
+
 == Screenshots ==
 
 1. One of many settings pages.
@@ -227,6 +239,16 @@ For support, please open an issue on the [GitHub repository](https://github.com/
 We recommend running this in a staging environment before updating your production environment.
 
 == Changelog ==
+
+Version [2.4.10] - Released on 2026-XX-XX
+- New: Configurable minimum password strength setting with Medium, Strong, and Super Strong options.
+- New: Super Strong password requirements include 12+ characters, uppercase, lowercase, numbers, and special characters - compatible with WPMU DEV Defender Pro rules.
+- New: Real-time password requirement hints during checkout with translatable strings.
+- New: Themed password field styling with visibility toggle and color fallbacks for page builders (Elementor, Kadence, Beaver Builder).
+- New: Opt-in anonymous usage tracking to help improve the plugin.
+- New: Rating reminder notice after 30 days of installation.
+- New: WooCommerce Subscriptions compatibility layer for site duplication.
+- Improved: JSON response handling for pending site creation in non-FastCGI environments.
 
 Version [2.4.9] - Released on 2025-12-23
 - New: Inline login prompt at checkout for existing users - returning customers can sign in directly without leaving the checkout flow.

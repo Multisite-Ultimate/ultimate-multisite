@@ -504,14 +504,6 @@ class Tracker implements \WP_Ultimo\Interfaces\Singleton {
 		}
 
 		if ($this->is_tracking_enabled() && str_contains($error_file, 'ultimate-multisite')) {
-			$error_message = sprintf(
-				'[PHP %s] %s in %s on line %d',
-				$this->get_error_type_name($error['type'] ?? 0),
-				$error['message'] ?? 'Unknown error',
-				$error['file'] ?? 'unknown',
-				$error['line'] ?? 0
-			);
-
 			$error_data = $this->prepare_error_data('fatal', $error_details['full'], \Psr\Log\LogLevel::CRITICAL);
 
 			// Send synchronously since we're about to die

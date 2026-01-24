@@ -1500,6 +1500,22 @@ class Settings implements \WP_Ultimo\Interfaces\Singleton {
 		do_action('wu_settings_domain_mapping');
 
 		/*
+		 * Email Accounts
+		 * This section holds the Email Accounts settings.
+		 */
+
+		$this->add_section(
+			'email-accounts',
+			[
+				'title' => __('Email Accounts', 'ultimate-multisite'),
+				'desc'  => __('Email Accounts', 'ultimate-multisite'),
+				'icon'  => 'dashicons-wu-mail',
+			]
+		);
+
+		do_action('wu_settings_email-accounts');
+
+		/*
 		 * Single Sign-on
 		 * This section includes settings related to the single sign-on functionality
 		 */

@@ -956,6 +956,11 @@ final class WP_Ultimo {
 		 * Loads views overrides
 		 */
 		WP_Ultimo\Views::get_instance();
+
+		/*
+		 * Loads the External Cron manager.
+		 */
+		WP_Ultimo\External_Cron\External_Cron_Manager::get_instance();
 	}
 
 	/**

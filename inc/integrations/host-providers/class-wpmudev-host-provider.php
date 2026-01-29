@@ -130,7 +130,7 @@ class WPMUDEV_Host_Provider extends Base_Host_Provider {
 	 */
 	public function on_add_domain($domain, $site_id): void {
 
-		$site_id = WPMUDEV_HOSTING_SITE_ID;
+		$site_id = $this->get_credential('WPMUDEV_HOSTING_SITE_ID');
 
 		$api_key = get_site_option('wpmudev_apikey');
 
@@ -225,7 +225,7 @@ class WPMUDEV_Host_Provider extends Base_Host_Provider {
 	 */
 	public function test_connection(): void {
 
-		$site_id = WPMUDEV_HOSTING_SITE_ID;
+		$site_id = $this->get_credential('WPMUDEV_HOSTING_SITE_ID');
 
 		$api_key = get_site_option('wpmudev_apikey');
 

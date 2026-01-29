@@ -80,7 +80,7 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 
 		$zone_ids = [];
 
-		$default_zone_id = defined('WU_CLOUDFLARE_ZONE_ID') && WU_CLOUDFLARE_ZONE_ID ? WU_CLOUDFLARE_ZONE_ID : false;
+		$default_zone_id = $this->get_credential('WU_CLOUDFLARE_ZONE_ID') ?: false;
 
 		if ($default_zone_id) {
 			$zone_ids[] = $default_zone_id;
@@ -235,7 +235,7 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 
 		global $current_site;
 
-		$zone_id = defined('WU_CLOUDFLARE_ZONE_ID') && WU_CLOUDFLARE_ZONE_ID ? WU_CLOUDFLARE_ZONE_ID : '';
+		$zone_id = $this->get_credential('WU_CLOUDFLARE_ZONE_ID');
 
 		if ( ! $zone_id) {
 			return;
@@ -312,7 +312,7 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 
 		global $current_site;
 
-		$zone_id = defined('WU_CLOUDFLARE_ZONE_ID') && WU_CLOUDFLARE_ZONE_ID ? WU_CLOUDFLARE_ZONE_ID : '';
+		$zone_id = $this->get_credential('WU_CLOUDFLARE_ZONE_ID');
 
 		if ( ! $zone_id) {
 			return;
@@ -390,7 +390,7 @@ class Cloudflare_Host_Provider extends Base_Host_Provider {
 				'body'        => 'GET' === $method ? $data : wp_json_encode($data),
 				'data_format' => 'body',
 				'headers'     => [
-					'Authorization' => sprintf('Bearer %s', defined('WU_CLOUDFLARE_API_KEY') ? WU_CLOUDFLARE_API_KEY : ''),
+					'Authorization' => sprintf('Bearer %s', $this->get_credential('WU_CLOUDFLARE_API_KEY')),
 					'Content-Type'  => 'application/json',
 				],
 			]

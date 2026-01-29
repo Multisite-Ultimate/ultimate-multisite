@@ -398,10 +398,10 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 
 		$domain_list = $this->get_all_mapped_domains();
 
-		$extra_domains = defined('WU_CLOUDWAYS_EXTRA_DOMAINS') && WU_CLOUDWAYS_EXTRA_DOMAINS;
+		$extra_domains = $this->get_credential('WU_CLOUDWAYS_EXTRA_DOMAINS');
 
 		if ($extra_domains) {
-			$extra_domains_list = array_filter(array_map('trim', explode(',', (string) WU_CLOUDWAYS_EXTRA_DOMAINS)));
+			$extra_domains_list = array_filter(array_map('trim', explode(',', $extra_domains)));
 
 			$domain_list = array_merge($domain_list, $extra_domains_list);
 		}
@@ -430,8 +430,8 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 						'content-type'  => 'application/x-www-form-urlencoded',
 					],
 					'body'     => [
-						'email'   => defined('WU_CLOUDWAYS_EMAIL') ? WU_CLOUDWAYS_EMAIL : '',
-						'api_key' => defined('WU_CLOUDWAYS_API_KEY') ? WU_CLOUDWAYS_API_KEY : '',
+						'email'   => $this->get_credential('WU_CLOUDWAYS_EMAIL'),
+						'api_key' => $this->get_credential('WU_CLOUDWAYS_API_KEY'),
 					],
 				]
 			);
@@ -473,15 +473,15 @@ class Cloudways_Host_Provider extends Base_Host_Provider {
 		if ('GET' === $method) {
 			$endpoint_url = add_query_arg(
 				[
-					'server_id' => defined('WU_CLOUDWAYS_SERVER_ID') ? WU_CLOUDWAYS_SERVER_ID : '',
-					'app_id'    => defined('WU_CLOUDWAYS_APP_ID') ? WU_CLOUDWAYS_APP_ID : '',
+					'server_id' => $this->get_credential('WU_CLOUDWAYS_SERVER_ID'),
+					'app_id'    => $this->get_credential('WU_CLOUDWAYS_APP_ID'),
 				],
 				$endpoint_url
 			);
 		} else {
-			$data['server_id'] = defined('WU_CLOUDWAYS_SERVER_ID') ? WU_CLOUDWAYS_SERVER_ID : '';
-			$data['app_id']    = defined('WU_CLOUDWAYS_APP_ID') ? WU_CLOUDWAYS_APP_ID : '';
-			$data['ssl_email'] = defined('WU_CLOUDWAYS_EMAIL') ? WU_CLOUDWAYS_EMAIL : '';
+			$data['server_id'] = $this->get_credential('WU_CLOUDWAYS_SERVER_ID');
+			$data['app_id']    = $this->get_credential('WU_CLOUDWAYS_APP_ID');
+			$data['ssl_email'] = $this->get_credential('WU_CLOUDWAYS_EMAIL');
 			$data['wild_card'] = false;
 		}
 

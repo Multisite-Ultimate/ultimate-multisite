@@ -9,6 +9,7 @@
 
 namespace WP_Ultimo\Integrations\Host_Providers;
 
+use WP_Ultimo\Helpers\Credential_Store;
 use WP_Ultimo\Helpers\WP_Config;
 
 // Exit if accessed directly
@@ -399,6 +400,66 @@ abstract class Base_Host_Provider {
 	abstract public function detect();
 
 	/**
+	 * Retrieves a credential value by constant name.
+	 *
+	 * Constants defined in wp-config.php take priority over stored network options.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $constant_name The constant name to look up.
+	 * @return string The credential value, or empty string if not found.
+	 */
+	public function get_credential(string $constant_name): string {
+
+		if (defined($constant_name) && constant($constant_name)) {
+			return (string) constant($constant_name);
+		}
+
+		$stored = get_network_option(null, 'wu_hosting_credential_' . $constant_name, '');
+
+		if ( ! empty($stored)) {
+			return Credential_Store::decrypt($stored);
+		}
+
+		return '';
+	}
+
+	/**
+	 * Saves credential values as encrypted network options.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param array $constant_values Key => Value pairs of credential constants.
+	 * @return void
+	 */
+	public function save_credentials(array $constant_values): void {
+
+		$allowed = array_flip($this->get_all_constants());
+		$values  = shortcode_atts($allowed, $constant_values);
+
+		foreach ($values as $constant_name => $value) {
+			if ( ! empty($value)) {
+				update_network_option(null, 'wu_hosting_credential_' . $constant_name, Credential_Store::encrypt($value));
+			} else {
+				delete_network_option(null, 'wu_hosting_credential_' . $constant_name);
+			}
+		}
+	}
+
+	/**
+	 * Deletes all stored credentials for this integration.
+	 *
+	 * @since 2.3.0
+	 * @return void
+	 */
+	public function delete_credentials(): void {
+
+		foreach ($this->get_all_constants() as $constant_name) {
+			delete_network_option(null, 'wu_hosting_credential_' . $constant_name);
+		}
+	}
+
+	/**
 	 * Checks if the integration is correctly setup after enabled.
 	 *
 	 * @since 2.0.0
@@ -414,7 +475,7 @@ abstract class Base_Host_Provider {
 			$current = false;
 
 			foreach ($constants as $constant) {
-				if (defined($constant) && constant($constant)) {
+				if ($this->get_credential($constant)) {
 					$current = true;
 
 					break;
@@ -450,7 +511,7 @@ abstract class Base_Host_Provider {
 			$current = false;
 
 			foreach ($constants as $constant) {
-				if (defined($constant) && constant($constant)) {
+				if ($this->get_credential($constant)) {
 					$current = true;
 
 					break;

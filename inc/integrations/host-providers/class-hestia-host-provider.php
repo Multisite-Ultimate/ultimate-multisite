@@ -142,9 +142,9 @@ class Hestia_Host_Provider extends Base_Host_Provider {
 	 */
 	public function on_add_domain($domain, $site_id): void {
 
-		$account     = defined('WU_HESTIA_ACCOUNT') ? WU_HESTIA_ACCOUNT : '';
-		$base_domain = defined('WU_HESTIA_WEB_DOMAIN') ? WU_HESTIA_WEB_DOMAIN : '';
-		$restart     = (defined('WU_HESTIA_RESTART') && WU_HESTIA_RESTART) ? WU_HESTIA_RESTART : 'yes';
+		$account     = $this->get_credential('WU_HESTIA_ACCOUNT');
+		$base_domain = $this->get_credential('WU_HESTIA_WEB_DOMAIN');
+		$restart     = $this->get_credential('WU_HESTIA_RESTART') ?: 'yes';
 
 		if (empty($account) || empty($base_domain)) {
 			wu_log_add('integration-hestia', __('Missing WU_HESTIA_ACCOUNT or WU_HESTIA_WEB_DOMAIN; cannot add alias.', 'ultimate-multisite'), LogLevel::ERROR);
@@ -169,9 +169,9 @@ class Hestia_Host_Provider extends Base_Host_Provider {
 	 */
 	public function on_remove_domain($domain, $site_id): void {
 
-		$account     = defined('WU_HESTIA_ACCOUNT') ? WU_HESTIA_ACCOUNT : '';
-		$base_domain = defined('WU_HESTIA_WEB_DOMAIN') ? WU_HESTIA_WEB_DOMAIN : '';
-		$restart     = (defined('WU_HESTIA_RESTART') && WU_HESTIA_RESTART) ? WU_HESTIA_RESTART : 'yes';
+		$account     = $this->get_credential('WU_HESTIA_ACCOUNT');
+		$base_domain = $this->get_credential('WU_HESTIA_WEB_DOMAIN');
+		$restart     = $this->get_credential('WU_HESTIA_RESTART') ?: 'yes';
 
 		if (empty($account) || empty($base_domain)) {
 			wu_log_add('integration-hestia', __('Missing WU_HESTIA_ACCOUNT or WU_HESTIA_WEB_DOMAIN; cannot remove alias.', 'ultimate-multisite'), LogLevel::ERROR);
@@ -209,7 +209,7 @@ class Hestia_Host_Provider extends Base_Host_Provider {
 	 */
 	public function test_connection(): void {
 
-		$account = defined('WU_HESTIA_ACCOUNT') ? WU_HESTIA_ACCOUNT : '';
+		$account = $this->get_credential('WU_HESTIA_ACCOUNT');
 
 		$response = $this->send_hestia_request('v-list-web-domains', [$account, 'json']);
 
@@ -266,7 +266,7 @@ class Hestia_Host_Provider extends Base_Host_Provider {
 	 */
 	protected function send_hestia_request($cmd, $args = []) {
 
-		$url = defined('WU_HESTIA_API_URL') ? WU_HESTIA_API_URL : '';
+		$url = $this->get_credential('WU_HESTIA_API_URL');
 
 		if (empty($url)) {
 			return new \WP_Error('wu_hestia_no_url', __('Missing WU_HESTIA_API_URL', 'ultimate-multisite'));
@@ -284,9 +284,9 @@ class Hestia_Host_Provider extends Base_Host_Provider {
 		];
 
 		// Auth: prefer hash if provided, otherwise username/password
-		$api_user = defined('WU_HESTIA_API_USER') ? WU_HESTIA_API_USER : '';
-		$api_hash = defined('WU_HESTIA_API_HASH') ? WU_HESTIA_API_HASH : '';
-		$api_pass = defined('WU_HESTIA_API_PASSWORD') ? WU_HESTIA_API_PASSWORD : '';
+		$api_user = $this->get_credential('WU_HESTIA_API_USER');
+		$api_hash = $this->get_credential('WU_HESTIA_API_HASH');
+		$api_pass = $this->get_credential('WU_HESTIA_API_PASSWORD');
 
 		$body['user'] = $api_user;
 		if (! empty($api_hash)) {

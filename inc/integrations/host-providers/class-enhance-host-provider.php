@@ -87,7 +87,7 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 	 */
 	public function detect(): bool {
 
-		return defined('WU_ENHANCE_API_TOKEN') && WU_ENHANCE_API_TOKEN;
+		return (bool) $this->get_credential('WU_ENHANCE_API_TOKEN');
 	}
 
 	/**
@@ -146,8 +146,8 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 
 		wu_log_add('integration-enhance', sprintf('Adding domain: %s for site ID: %d', $domain, $site_id));
 
-		$org_id     = defined('WU_ENHANCE_ORG_ID') ? WU_ENHANCE_ORG_ID : '';
-		$website_id = defined('WU_ENHANCE_WEBSITE_ID') ? WU_ENHANCE_WEBSITE_ID : '';
+		$org_id     = $this->get_credential('WU_ENHANCE_ORG_ID');
+		$website_id = $this->get_credential('WU_ENHANCE_WEBSITE_ID');
 
 		if (empty($org_id)) {
 			wu_log_add('integration-enhance', 'Organization ID not configured');
@@ -193,8 +193,8 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 
 		wu_log_add('integration-enhance', sprintf('Removing domain: %s for site ID: %d', $domain, $site_id));
 
-		$org_id     = defined('WU_ENHANCE_ORG_ID') ? WU_ENHANCE_ORG_ID : '';
-		$website_id = defined('WU_ENHANCE_WEBSITE_ID') ? WU_ENHANCE_WEBSITE_ID : '';
+		$org_id     = $this->get_credential('WU_ENHANCE_ORG_ID');
+		$website_id = $this->get_credential('WU_ENHANCE_WEBSITE_ID');
 
 		if (empty($org_id)) {
 			wu_log_add('integration-enhance', 'Organization ID not configured');
@@ -276,8 +276,8 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 	 */
 	public function test_connection(): void {
 
-		$org_id     = defined('WU_ENHANCE_ORG_ID') ? WU_ENHANCE_ORG_ID : '';
-		$website_id = defined('WU_ENHANCE_WEBSITE_ID') ? WU_ENHANCE_WEBSITE_ID : '';
+		$org_id     = $this->get_credential('WU_ENHANCE_ORG_ID');
+		$website_id = $this->get_credential('WU_ENHANCE_WEBSITE_ID');
 
 		if (empty($org_id)) {
 			$error = new \WP_Error('no-org-id', __('Organization ID is not configured', 'ultimate-multisite'));
@@ -321,7 +321,9 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 	 */
 	public function send_enhance_api_request($endpoint, $method = 'GET', $data = []) {
 
-		if (defined('WU_ENHANCE_API_TOKEN') === false || empty(WU_ENHANCE_API_TOKEN)) {
+		$api_token = $this->get_credential('WU_ENHANCE_API_TOKEN');
+
+		if (empty($api_token)) {
 			wu_log_add('integration-enhance', 'WU_ENHANCE_API_TOKEN constant not defined or empty');
 			return [
 				'success' => false,
@@ -329,7 +331,9 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 			];
 		}
 
-		if (defined('WU_ENHANCE_API_URL') === false || empty(WU_ENHANCE_API_URL)) {
+		$api_base_url = $this->get_credential('WU_ENHANCE_API_URL');
+
+		if (empty($api_base_url)) {
 			wu_log_add('integration-enhance', 'WU_ENHANCE_API_URL constant not defined or empty');
 			return [
 				'success' => false,
@@ -337,8 +341,7 @@ class Enhance_Host_Provider extends Base_Host_Provider {
 			];
 		}
 
-		$api_token = WU_ENHANCE_API_TOKEN;
-		$api_url   = rtrim(WU_ENHANCE_API_URL, '/') . $endpoint;
+		$api_url = rtrim($api_base_url, '/') . $endpoint;
 
 		$args = [
 			'method'  => $method,

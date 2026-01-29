@@ -173,6 +173,8 @@
       logging_in: false,
       login_error: '',
       inline_login_password: '',
+      custom_amounts: wu_checkout.custom_amounts || {},
+      pwyw_recurring: wu_checkout.pwyw_recurring || {},
     };
 
     hooks.applyFilters('wu_before_form_init', initial_data);
@@ -412,6 +414,30 @@
         has_product(product_id) {
 
           return this.products.indexOf(product_id) > -1 || this.products.indexOf(parseInt(product_id, 10)) > -1;
+
+        },
+        set_custom_amount(product_id, amount) {
+
+          Vue.set(this.custom_amounts, product_id, parseFloat(amount) || 0);
+
+          this.create_order();
+
+        },
+        get_custom_amount(product_id) {
+
+          return this.custom_amounts[product_id] || null;
+
+        },
+        set_pwyw_recurring(product_id, is_recurring) {
+
+          Vue.set(this.pwyw_recurring, product_id, Boolean(is_recurring));
+
+          this.create_order();
+
+        },
+        get_pwyw_recurring(product_id) {
+
+          return this.pwyw_recurring[product_id] || false;
 
         },
         wu_format_money(value) {

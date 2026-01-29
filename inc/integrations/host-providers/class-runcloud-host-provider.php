@@ -75,7 +75,7 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 */
 	public function init(): void {
 		parent::init();
-		if (! defined('WU_RUNCLOUD_API_SECRET') || defined('WU_RUNCLOUD_API_TOKEN')) {
+		if (! defined('WU_RUNCLOUD_API_SECRET') || $this->get_credential('WU_RUNCLOUD_API_TOKEN')) {
 			return;
 		}
 
@@ -243,8 +243,8 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 * @param string $path path of endpoint.
 	 */
 	public function get_runcloud_base_url($path = '') {
-		$serverid = defined('WU_RUNCLOUD_SERVER_ID') ? WU_RUNCLOUD_SERVER_ID : '';
-		$appid    = defined('WU_RUNCLOUD_APP_ID') ? WU_RUNCLOUD_APP_ID : '';
+		$serverid = $this->get_credential('WU_RUNCLOUD_SERVER_ID');
+		$appid    = $this->get_credential('WU_RUNCLOUD_APP_ID');
 
 		return "https://manage.runcloud.io/api/v3/servers/{$serverid}/webapps/{$appid}/{$path}";
 	}
@@ -257,7 +257,7 @@ class Runcloud_Host_Provider extends Base_Host_Provider {
 	 * @param string $method The HTTP method to use. Defaults to POST.
 	 */
 	public function send_runcloud_request($url, $data = array(), $method = 'POST') {
-		$token = defined('WU_RUNCLOUD_API_TOKEN') ? WU_RUNCLOUD_API_TOKEN : '';
+		$token = $this->get_credential('WU_RUNCLOUD_API_TOKEN');
 
 		$args = array(
 			'timeout'     => 100,

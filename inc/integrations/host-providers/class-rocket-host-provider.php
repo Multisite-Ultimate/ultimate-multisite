@@ -254,7 +254,7 @@ class Rocket_Host_Provider extends Base_Host_Provider {
 	 */
 	protected function get_rocket_base_url($path = ''): string {
 
-		$site_id = defined('WU_ROCKET_SITE_ID') ? WU_ROCKET_SITE_ID : '';
+		$site_id = $this->get_credential('WU_ROCKET_SITE_ID');
 
 		$base_url = "https://api.rocket.net/v1/sites/{$site_id}";
 
@@ -288,8 +288,8 @@ class Rocket_Host_Provider extends Base_Host_Provider {
 					],
 					'body'     => wp_json_encode(
 						[
-							'email'    => defined('WU_ROCKET_EMAIL') ? WU_ROCKET_EMAIL : '',
-							'password' => defined('WU_ROCKET_PASSWORD') ? WU_ROCKET_PASSWORD : '',
+							'email'    => $this->get_credential('WU_ROCKET_EMAIL'),
+							'password' => $this->get_credential('WU_ROCKET_PASSWORD'),
 						]
 					),
 				]

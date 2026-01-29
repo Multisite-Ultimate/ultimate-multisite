@@ -113,7 +113,7 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 			'method'   => $method,
 			'body'     => array_merge(
 				[
-					'api_token' => WU_GRIDPANE_API_KEY,
+					'api_token' => $this->get_credential('WU_GRIDPANE_API_KEY'),
 				],
 				$data
 			),
@@ -145,8 +145,8 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 		return $this->send_gridpane_api_request(
 			'application/add-domain',
 			[
-				'server_ip'  => WU_GRIDPANE_SERVER_ID,
-				'site_url'   => WU_GRIDPANE_APP_ID,
+				'server_ip'  => $this->get_credential('WU_GRIDPANE_SERVER_ID'),
+				'site_url'   => $this->get_credential('WU_GRIDPANE_APP_ID'),
 				'domain_url' => $domain,
 			]
 		);
@@ -165,8 +165,8 @@ class Gridpane_Host_Provider extends Base_Host_Provider {
 		return $this->send_gridpane_api_request(
 			'application/delete-domain',
 			[
-				'server_ip'  => WU_GRIDPANE_SERVER_ID,
-				'site_url'   => WU_GRIDPANE_APP_ID,
+				'server_ip'  => $this->get_credential('WU_GRIDPANE_SERVER_ID'),
+				'site_url'   => $this->get_credential('WU_GRIDPANE_APP_ID'),
 				'domain_url' => $domain,
 			]
 		);

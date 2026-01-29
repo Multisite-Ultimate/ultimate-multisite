@@ -219,7 +219,7 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 		$fields = $this->integration->get_fields();
 
 		foreach ($fields as $field_constant => &$field) {
-			$field['value'] = defined($field_constant) && constant($field_constant) ? constant($field_constant) : '';
+			$field['value'] = $this->integration->get_credential($field_constant);
 		}
 
 		$form = new \WP_Ultimo\UI\Form(
@@ -319,22 +319,7 @@ class Hosting_Integration_Wizard_Admin_Page extends Wizard_Admin_Page {
 			}
 		}
 
-		if ((int) wu_request('submit') === 0) {
-			$redirect_url = add_query_arg(
-				[
-					'manual' => '1',
-					'post'   => wp_json_encode($filtered_data),
-				]
-			);
-
-			wp_safe_redirect($redirect_url);
-
-			exit;
-		}
-
-		if ((int) wu_request('submit') === 1) {
-			$this->integration->setup_constants($filtered_data);
-		}
+		$this->integration->save_credentials($filtered_data);
 
 		$redirect_url = $this->get_next_section_link();
 

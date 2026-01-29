@@ -225,12 +225,12 @@ class ServerPilot_Host_Provider extends Base_Host_Provider {
 			'method'   => $method,
 			'body'     => $data ? wp_json_encode($data) : [],
 			'headers'  => [
-				'Authorization' => 'Basic ' . base64_encode(WU_SERVER_PILOT_CLIENT_ID . ':' . WU_SERVER_PILOT_API_KEY), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+				'Authorization' => 'Basic ' . base64_encode($this->get_credential('WU_SERVER_PILOT_CLIENT_ID') . ':' . $this->get_credential('WU_SERVER_PILOT_API_KEY')), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 				'Content-Type'  => 'application/json',
 			],
 		];
 
-		$response = wp_remote_request('https://api.serverpilot.io/v1/apps/' . WU_SERVER_PILOT_APP_ID . $endpoint, $post_fields);
+		$response = wp_remote_request('https://api.serverpilot.io/v1/apps/' . $this->get_credential('WU_SERVER_PILOT_APP_ID') . $endpoint, $post_fields);
 
 		if ( ! is_wp_error($response)) {
 			$body = json_decode(wp_remote_retrieve_body($response), true);

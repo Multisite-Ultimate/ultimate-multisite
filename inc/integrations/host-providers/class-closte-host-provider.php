@@ -115,7 +115,7 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	 */
 	public function detect() {
 
-		return defined('CLOSTE_CLIENT_API_KEY') && CLOSTE_CLIENT_API_KEY;
+		return (bool) $this->get_credential('CLOSTE_CLIENT_API_KEY');
 	}
 
 	/**
@@ -304,24 +304,15 @@ class Closte_Host_Provider extends Base_Host_Provider {
 	 */
 	public function send_closte_api_request($endpoint, $data) {
 
-		if (defined('CLOSTE_CLIENT_API_KEY') === false) {
-			wu_log_add('integration-closte', 'CLOSTE_CLIENT_API_KEY constant not defined');
+		$api_key = $this->get_credential('CLOSTE_CLIENT_API_KEY');
+
+		if (empty($api_key)) {
+			wu_log_add('integration-closte', 'CLOSTE_CLIENT_API_KEY constant not defined or empty');
 			return [
 				'success' => false,
 				'error'   => 'Closte API Key not found.',
 			];
 		}
-
-		if (empty(CLOSTE_CLIENT_API_KEY)) {
-			wu_log_add('integration-closte', 'CLOSTE_CLIENT_API_KEY is empty');
-			return [
-				'success' => false,
-				'error'   => 'Closte API Key is empty.',
-			];
-		}
-
-		// Try different authentication methods
-		$api_key = CLOSTE_CLIENT_API_KEY;
 
 		$post_fields = [
 			'blocking' => true,

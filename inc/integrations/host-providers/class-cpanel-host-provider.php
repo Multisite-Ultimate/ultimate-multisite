@@ -147,7 +147,7 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 	public function on_add_domain($domain, $site_id): void {
 
 		// Root Directory
-		$root_dir = defined('WU_CPANEL_ROOT_DIR') && WU_CPANEL_ROOT_DIR ? WU_CPANEL_ROOT_DIR : '/public_html';
+		$root_dir = $this->get_credential('WU_CPANEL_ROOT_DIR') ?: '/public_html';
 
 		// Send Request
 		$results = $this->load_api()->api2(
@@ -199,7 +199,7 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 	public function on_add_subdomain($subdomain, $site_id): void {
 
 		// Root Directory
-		$root_dir = defined('WU_CPANEL_ROOT_DIR') && WU_CPANEL_ROOT_DIR ? WU_CPANEL_ROOT_DIR : '/public_html';
+		$root_dir = $this->get_credential('WU_CPANEL_ROOT_DIR') ?: '/public_html';
 
 		$subdomain = $this->get_subdomain($subdomain, false);
 
@@ -241,10 +241,10 @@ class CPanel_Host_Provider extends Base_Host_Provider {
 	public function load_api() {
 
 		if (null === $this->api) {
-			$username = defined('WU_CPANEL_USERNAME') ? WU_CPANEL_USERNAME : '';
-			$password = defined('WU_CPANEL_PASSWORD') ? WU_CPANEL_PASSWORD : '';
-			$host     = defined('WU_CPANEL_HOST') ? WU_CPANEL_HOST : '';
-			$port     = defined('WU_CPANEL_PORT') && WU_CPANEL_PORT ? WU_CPANEL_PORT : 2083;
+			$username = $this->get_credential('WU_CPANEL_USERNAME');
+			$password = $this->get_credential('WU_CPANEL_PASSWORD');
+			$host     = $this->get_credential('WU_CPANEL_HOST');
+			$port     = $this->get_credential('WU_CPANEL_PORT') ?: 2083;
 
 			/*
 			 * Set up the API.

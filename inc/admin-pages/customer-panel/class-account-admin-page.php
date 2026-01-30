@@ -182,6 +182,8 @@ class Account_Admin_Page extends Base_Customer_Facing_Admin_Page {
 
 		\WP_Ultimo\UI\Domain_Mapping_Element::get_instance()->as_metabox(get_current_screen()->id, 'side');
 
+		\WP_Ultimo\UI\Email_Accounts_Element::get_instance()->as_metabox(get_current_screen()->id, 'side');
+
 		\WP_Ultimo\UI\Login_Form_Element::get_instance()->as_inline_content(get_current_screen()->id, 'wu_dash_before_metaboxes');
 
 		\WP_Ultimo\UI\Simple_Text_Element::get_instance()->as_inline_content(get_current_screen()->id, 'wu_dash_before_metaboxes');

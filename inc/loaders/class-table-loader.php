@@ -178,6 +178,14 @@ class Table_Loader {
 	public $checkout_formmeta_table;
 
 	/**
+	 * The Email Accounts Table
+	 *
+	 * @since 2.3.0
+	 * @var \WP_Ultimo\Database\Email_Accounts\Email_Accounts_Table
+	 */
+	public $email_account_table;
+
+	/**
 	 * Loads the table objects for our custom tables.
 	 *
 	 * @since 2.0.0
@@ -246,6 +254,11 @@ class Table_Loader {
 		 */
 		$this->checkout_form_table     = new \WP_Ultimo\Database\Checkout_Forms\Checkout_Forms_Table();
 		$this->checkout_formmeta_table = new \WP_Ultimo\Database\Checkout_Forms\Checkout_Forms_Meta_Table();
+
+		/**
+		 * Loads the Email Accounts Table
+		 */
+		$this->email_account_table = new \WP_Ultimo\Database\Email_Accounts\Email_Accounts_Table();
 	}
 
 	/**
